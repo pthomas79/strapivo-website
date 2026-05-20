@@ -51,7 +51,7 @@
   --n900:   #050C14;
 }
 
-body { background: var(--sky); color: var(--n700); }
+body { margin: 0; background: var(--sky); color: var(--n700); }
 
 /* Page wrapper */
 .pw { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
@@ -154,10 +154,16 @@ body { background: var(--sky); color: var(--n700); }
 
 /* ── Hero responsive grid ────────────────────────────────────── */
 .hero-grid { display:grid; grid-template-columns:1fr; gap:40px; align-items:center; }
-.hero-right { display:none; }
+/* Mobile-first: the Ovatar + live-output card stack under the copy.
+   The column is capped to the card width so the Ovatar anchors to the
+   card's top-right corner; extra top margin gives it room to peek above
+   the card without overlapping the copy. */
+.hero-right { position:relative; margin-top:48px; max-width:460px; }
+#hero-ovatar { position:absolute; width:130px; height:130px; top:-58px; right:6px; }
 @media (min-width:1024px) {
   .hero-grid { grid-template-columns:1.2fr 1fr; gap:64px; padding-top:112px !important; padding-bottom:144px !important; }
-  .hero-right { display:block; }
+  .hero-right { margin-top:0; max-width:none; }
+  #hero-ovatar { width:200px; height:200px; top:-96px; right:0; }
 }
 
 
@@ -668,7 +674,7 @@ body { background: var(--sky); color: var(--n700); }
       <svg id="hero-ovatar" viewBox="0 0 100 100" fill="none" role="img"
            aria-label="Strapivo Ovatar — the agentic intelligence, listening"
            xmlns="http://www.w3.org/2000/svg"
-           style="position:absolute; top:-96px; right:-4px; width:200px; height:200px; color:var(--p700); z-index:0; pointer-events:none;">
+           style="color:var(--p700); z-index:0; pointer-events:none;">
         <g data-ov-waves transform="translate(50 50)"></g>
       </svg>
 
