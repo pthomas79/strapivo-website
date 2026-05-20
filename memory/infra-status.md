@@ -14,24 +14,25 @@ All code is in `main` branch of `pthomas79/strapivo-website`.
 - `styles.css`, `session-ui.js`, `assets/`, `fonts/` from handoff ✅
 - `.vercelignore` (excludes `archive/`) ✅
 - **Vercel project created + deployed to production** — `VERCEL_TOKEN` secret is set, GitHub Actions deploy runs on push to `main` and succeeds (production READY) ✅
-- Live at https://strapivo-website.vercel.app ✅
+- `www.strapivo.com` + `strapivo-website.vercel.app` aliased to production ✅
 
 ## What's NOT done yet
 
+- ⚠️ Vercel **deployment protection is ON** — anonymous visitors get HTTP 403 on the prod URLs. Must be turned off (Vercel → Project → Settings → Deployment Protection) for the public marketing site to be reachable.
+- Apex `strapivo.com` not resolving yet (HTTP 000) — only `www.strapivo.com` reaches Vercel. Add the apex A/ALIAS DNS record.
 - No Vercel env vars set
 - Google OAuth client not created
 - GitHub fine-grained PAT not created (needed for GITHUB_TOKEN env var)
 - Telegram bot not created yet (user said "later")
 - GitHub webhook not registered (needs live Vercel URL first)
 - Telegram webhook not registered (needs live Vercel URL first)
-- Custom domain strapivo.com not configured on Vercel
 
 ## Key identifiers
 
 - GitHub repo: `pthomas79/strapivo-website`
 - Vercel project: `strapivo-website` (id `prj_BL14wJUjnAFhtsvnLdv2ZOfkg1OG`)
 - Vercel team: `Paris' projects` — slug `paris-projects-92a64a20`, id `team_6rWUuHi3o2UINILljihFvdRD`
-- Vercel production URL: `strapivo-website.vercel.app` (custom `strapivo.com` not yet attached)
+- Vercel production URL: `strapivo-website.vercel.app` (also aliased: `www.strapivo.com`; apex `strapivo.com` DNS pending)
 - Admin login domain: `strapivo.com`
 - Site domain: `strapivo.com`
 

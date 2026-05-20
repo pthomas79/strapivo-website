@@ -3,7 +3,8 @@
 ## Active
 
 - [ ] Responsive polish — remaining sections to review at tablet/mobile: access/CTA, footer, quote band (hero, session, problem, flywheel done)
-- [ ] Set `VERCEL_TOKEN` as GitHub Actions secret on `pthomas79/strapivo-website` → triggers first deploy + creates Vercel project
+- [ ] ⚠️ Disable Vercel deployment protection — prod URLs return 403 to anonymous visitors (Vercel → Settings → Deployment Protection)
+- [ ] Fix apex `strapivo.com` DNS (only `www.strapivo.com` resolves to Vercel today)
 - [ ] Set all Vercel env vars (see `memory/env-vars.md`)
 - [ ] Register GitHub webhook (Settings → Webhooks, Issues event only, secret = `GITHUB_WEBHOOK_SECRET`)
 - [ ] Register Telegram webhook via `setWebhook` curl (after first deploy)
@@ -11,7 +12,6 @@
 
 ## Waiting On
 
-- [ ] `VERCEL_TOKEN` — user needs to create at vercel.com/account/tokens and add as GitHub Actions secret on `pthomas79/strapivo-website`
 - [ ] Google OAuth client ID + secret (Google Cloud Console)
 - [ ] GitHub fine-grained PAT for `GITHUB_TOKEN` env var (Contents + Issues R/W on pthomas79/strapivo-website)
 - [ ] Anthropic API key (`CLAUDE_API_KEY`)
@@ -22,7 +22,7 @@
 - [ ] Set Vercel env vars (all variables listed in `memory/env-vars.md`)
 - [ ] Register GitHub webhook pointing to `https://strapivo.com/api/github-webhook`
 - [ ] Register Telegram webhook via `setWebhook` curl
-- [ ] Configure custom domain `strapivo.com` on Vercel
+- [ ] Verify apex `strapivo.com` once DNS propagates + deployment protection is off
 - [ ] End-to-end smoke test (login → edit → commit → comment → approve → revert)
 
 ## Done
@@ -44,3 +44,5 @@
 - [x] Session responsive: browser-frame URL truncates to one line (ellipsis) instead of wrapping
 - [x] Problem responsive: mode labels (DEFEND/EXPLOIT/…) sized to fit cards (were overflowing even on desktop); cards pin + stack on scroll on mobile via native position:sticky
 - [x] Flywheel responsive: mobile is now a connected vertical timeline (engine Ovatar + rail + loop cue); auto-cycling active step adds interactivity on desktop + mobile
+- [x] `VERCEL_TOKEN` set + Vercel project `strapivo-website` deployed to production via GitHub Actions (push to `main`); responsive build verified live
+- [x] `www.strapivo.com` aliased to the production deployment
