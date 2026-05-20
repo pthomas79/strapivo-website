@@ -9,7 +9,10 @@ All code is in `main` branch of `pthomas79/strapivo-website`.
 - `vercel.json` (cleanUrls: true) ✅
 - GitHub Actions deploy workflow (`.github/workflows/deploy.yml`) ✅
 - `cms-queue` label created on the GitHub repo ✅
-- Placeholder `index.html` with admin bootstrap snippet and stub `data-edit` attributes ✅
+- `index.html` — real Claude Design, 5 sections, 33 `data-edit` regions, admin bootstrap ✅
+- `imprint.html` — European legal page, 6 `data-edit` regions (placeholders to fill), admin bootstrap ✅
+- `styles.css`, `session-ui.js`, `assets/`, `fonts/` from handoff ✅
+- `.vercelignore` (excludes `archive/`) ✅
 
 ## What's NOT done yet
 

@@ -2,11 +2,14 @@
 
 ## Active
 
-- [ ] Receive Claude Design file from user → replace `index.html` with real HTML, add `data-edit` attributes to all editable regions, update `EDITABLE_FILES` in `api/_lib/editable-files.js` and `admin.js` to match actual pages
+- [ ] Set `VERCEL_TOKEN` as GitHub Actions secret on `pthomas79/strapivo-website` → triggers first deploy + creates Vercel project
+- [ ] Set all Vercel env vars (see `memory/env-vars.md`)
+- [ ] Register GitHub webhook (Settings → Webhooks, Issues event only, secret = `GITHUB_WEBHOOK_SECRET`)
+- [ ] Register Telegram webhook via `setWebhook` curl (after first deploy)
+- [ ] Fill in `[bracketed]` placeholders in `imprint.html` via Comment Mode
 
 ## Waiting On
 
-- [ ] Claude Design file (user is preparing it)
 - [ ] `VERCEL_TOKEN` — user needs to create at vercel.com/account/tokens and add as GitHub Actions secret on `pthomas79/strapivo-website`
 - [ ] Google OAuth client ID + secret (Google Cloud Console)
 - [ ] GitHub fine-grained PAT for `GITHUB_TOKEN` env var (Contents + Issues R/W on pthomas79/strapivo-website)
@@ -30,3 +33,9 @@
 - [x] Created `cms-queue` label on GitHub repo
 - [x] Pushed initial commit to `main`
 - [x] Confirmed Vercel scope: `paris-5285`
+- [x] Imported Claude Design handoff — replaced placeholder `index.html` with real 5-section design
+- [x] Added `imprint.html`, `styles.css`, `session-ui.js`, `assets/`, `fonts/` from handoff
+- [x] Added `data-edit` attributes to 33 regions in `index.html`, 6 regions in `imprint.html`
+- [x] Added admin bootstrap snippet + hidden Admin footer link to both pages
+- [x] Added `.vercelignore` (excludes `archive/`)
+- [x] Updated `EDITABLE_FILES` in `api/_lib/editable-files.js` and `admin.js` to include both pages

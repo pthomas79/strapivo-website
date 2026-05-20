@@ -1,45 +1,1149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-edit="meta.title">Strapivo</title>
-  <style>
-    /* Placeholder styles — replace with Canva design */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: system-ui, sans-serif; color: #1a1a2e; }
-    .hero { padding: 80px 40px; text-align: center; }
-    footer { padding: 24px 40px; text-align: center; font-size: 0.8rem; color: #888; }
-    footer a { color: #888; text-decoration: none; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo · Strategy has a home now.</title>
+<meta name="description" content="Bring your judgment. Strapivo brings the intelligence. The more you use it, the sharper your strategy gets. Built for the person accountable for the direction of a business.">
+<link rel="canonical" href="https://strapivo.com/">
+<meta name="theme-color" content="#EEF6FF">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Strapivo">
+<meta property="og:title" content="Strapivo · Strategy has a home now.">
+<meta property="og:description" content="Bring your judgment. Strapivo brings the intelligence. The more you use it, the sharper your strategy gets.">
+<meta property="og:url" content="https://strapivo.com/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
+<link rel="preload" href="fonts/Inter-Regular.otf" as="font" type="font/otf" crossorigin>
+<link rel="preload" href="fonts/Inter-Medium.otf" as="font" type="font/otf" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   STRAPIVO V1  ·  Delta-V1 surface additions
+   Sky-only surface · Ovatar soundwave · Highlight ingredient
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Tokens shorthand */
+:root {
+  --sky:    #EEF6FF;
+  --sky2:   #D4EBFF;
+  --white:  #F6F9FB;
+  --ink:    #141B24;
+  --p700:   #005DBD;
+  --p600:   #006FD1;
+  --p500:   #0082E6;
+  --p400:   #3FA0FA;
+  --p200:   #A9D6FF;
+  --n800:   #141B24;
+  --n700:   #2C343C;
+  --n600:   #495158;
+  --n500:   #6C727A;
+  --n400:   #999FA6;
+  --n200:   #E1E5EA;
+  --n100:   #EFF2F6;
+  --n50:    #F6F9FB;
+  --n900:   #050C14;
+}
+
+body { background: var(--sky); color: var(--n700); }
+
+/* Page wrapper */
+.pw { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+@media (min-width: 1024px) { .pw { padding: 0 48px; } }
+
+/* Nav header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(238,246,255,0.88);
+  border-bottom: 1px solid var(--n200);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Eyebrow */
+.ey {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--p700);
+  display: block;
+  margin-bottom: 18px;
+}
+.ey-light { color: var(--p200); }
+
+/* ── Highlight ingredient ─── locked May 2026 ──────────────────── */
+.hl {
+  position: relative;
+  display: inline-block;
+  padding: 0 0.16em;
+  isolation: isolate;
+}
+.hl::before {
+  content: '';
+  position: absolute;
+  inset: 0.12em -0.12em 0em -0.20em;
+  background: #DEA143;
+  opacity: 0.58;
+  transform: skewX(-7deg) rotate(-0.5deg);
+  z-index: -1;
+  border-radius: 2px 4px 3px 5px / 4px 3px 5px 2px;
+}
+.on-dark .hl::before { opacity: 0.65; }
+
+/* ── Ovatar soundwave wave paths ─── canonical Ovatar spec ─────── */
+.ov-wave {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ov-orbit var(--ov-dur, 14s) linear infinite;
+}
+.ov-wave:nth-of-type(2n) {
+  animation-direction: reverse;
+  animation-duration: var(--ov-alt, 18s);
+}
+@keyframes ov-orbit {
+  from { transform: rotate(0deg)   scale(0.99); }
+  50%  { transform: rotate(180deg) scale(1.03); }
+  to   { transform: rotate(360deg) scale(0.99); }
+}
+@media (prefers-reduced-motion: reduce) { .ov-wave { animation: none; } }
+
+/* ── Section backgrounds ──────────────────────────────────────── */
+.s-sky   { background: var(--sky);  }
+.s-white { background: var(--white); }
+.s-ink   { background: var(--n800); }
+.s-foot  { background: var(--n900); }
+.s-div   { border-bottom: 1px solid var(--n200); }
+.s-div-sky { border-bottom: 1px solid var(--sky2); }
+
+/* ── CTA button ───────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 150ms ease-out, color 150ms ease-out;
+}
+.btn-primary {
+  background: var(--p700);
+  color: #ffffff;
+  font-size: 15px;
+  padding: 12px 22px;
+}
+.btn-primary:hover { background: var(--p600); color: #ffffff; }
+.btn-primary.sm { font-size: 14px; padding: 9px 18px; }
+.btn-primary.lg { font-size: 16px; padding: 14px 28px; }
+.btn-primary.on-dark { background: var(--p500); }
+.btn-primary.on-dark:hover { background: var(--p600); }
+
+
+
+/* ── Hero responsive grid ────────────────────────────────────── */
+.hero-grid { display:grid; grid-template-columns:1fr; gap:40px; align-items:center; }
+.hero-right { display:none; }
+@media (min-width:1024px) {
+  .hero-grid { grid-template-columns:1.2fr 1fr; gap:64px; padding-top:112px !important; padding-bottom:144px !important; }
+  .hero-right { display:block; }
+}
+
+
+
+
+/* ── Section heading ──────────────────────────────────────────── */
+.sh { font-size: clamp(26px, 4.5vw, 52px); line-height: 1.08; letter-spacing: -0.022em; font-weight: 500; color: var(--n800); text-wrap: pretty; }
+.sh-lg { font-size: clamp(28px, 5vw, 56px); }
+
+/* ═══════════════════════════════════════════════════════════════
+   THE SESSION  ·  app UI recreation (matches real product)
+   ═══════════════════════════════════════════════════════════════ */
+
+
+/* ── Session frame ─────────────────────────────────────────────── */
+.sf-wrap { position: relative; max-width: 1240px; margin: 0 auto; }
+
+/* Browser frame */
+.sf-browser {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid var(--n200);
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(5,12,20,.04), 0 18px 40px rgba(5,12,20,.08);
+}
+.sf-browser .sf-chrome {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--n100);
+  background: var(--n50);
+}
+.sf-browser .sf-dots { display: flex; gap: 6px; }
+.sf-browser .sf-dot { width: 11px; height: 11px; border-radius: 50%; background: #DCDFE3; }
+.sf-browser .sf-url {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid var(--n200);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: var(--n500);
+  display: flex; align-items: center; gap: 8px;
+  max-width: 540px; margin: 0 auto;
+}
+.sf-browser .sf-url .lock { color: var(--n400); width: 11px; height: 11px; }
+
+/* Screenshot stage — real product screenshot with an animated Ovatar
+   overlayed on top of the static one (so it appears to talk). */
+.sf-screenshot {
+  position: relative;
+  width: 100%;
+  line-height: 0;
+  background: #ffffff;
+}
+.sf-screenshot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* Mask covers the static Ovatar in the screenshot. */
+.sf-screenshot .sf-ov-mask,
+.sf-screenshot .sf-ov-live {
+  position: absolute;
+  /* Ovatar center in image: ~88.56% × 39.26%, ~5.85% wide */
+  left: 84.6%;
+  top: 31.0%;
+  width: 8.0%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.sf-screenshot .sf-ov-mask {
+  background: #ffffff;
+}
+.sf-screenshot .sf-ov-live {
+  z-index: 2;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PULL QUOTE  ·  its own slim section
+   ═══════════════════════════════════════════════════════════════ */
+.quote-band {
+  background: #00285C;
+  border-top: none;
+  border-bottom: none;
+}
+.quote-band .quote-inner {
+  display: flex; align-items: center; gap: 32px;
+  padding: 56px 0;
+}
+.quote-band .quote-mark {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 96px; line-height: 0.8;
+  color: #3FA0FA;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+.quote-band .quote-text {
+  font-size: clamp(22px, 3.4vw, 38px);
+  line-height: 1.18;
+  letter-spacing: -0.018em;
+  font-weight: 500;
+  color: var(--n50);
+  text-wrap: pretty;
+  max-width: 26ch;
+  margin: 0;
+}
+@media (max-width: 640px) {
+  .quote-band .quote-inner { flex-direction: column; align-items: flex-start; gap: 4px; padding: 44px 0; }
+  .quote-band .quote-mark { font-size: 64px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROBLEM · page-stack scroll (each card slides up over the last)
+   The section pins to the viewport for the duration of the stack;
+   the user has to scroll through all 4 cards before the page
+   releases and continues.
+   ═══════════════════════════════════════════════════════════════ */
+.ps-scroll {
+  position: relative;
+  /* Outer height = (n_cards) × 100vh; populated by JS for accuracy. */
+}
+.ps-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.ps-stage-wrap {
+  width: 100%;
+  max-width: 1280px;
+  padding: 0 24px;
+  margin: 0 auto;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+}
+.ps-stage-title {
+  text-align: center;
+  max-width: 30ch;
+}
+.ps-stage-title .ey { margin-bottom: 10px; }
+.ps-stage-title h3 {
+  font-size: clamp(30px, 4.4vw, 48px);
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+  font-weight: 500;
+  color: var(--n800);
+  margin: 0;
+  text-wrap: pretty;
+}
+.ps-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1080px;
+  height: min(62vh, 460px);
+}
+.ps-card {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  border: 1px solid var(--n200);
+  border-radius: 18px;
+  padding: 36px 40px 36px 44px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto 1fr auto;
+  column-gap: 36px;
+  row-gap: 10px;
+  align-items: start;
+  box-shadow: 0 24px 60px rgba(5,12,20,0.10), 0 4px 12px rgba(5,12,20,0.04);
+  will-change: transform;
+  transform: translateY(110%);
+  overflow: hidden;
+}
+.ps-card .ps-eyebrow { grid-column: 1; grid-row: 1; }
+.ps-card h3          { grid-column: 1; grid-row: 2; }
+.ps-card p.body      { grid-column: 1; grid-row: 3; align-self: start; }
+.ps-card .ps-answer  {
+  grid-column: 1;
+  grid-row: 4;
+  align-self: end;
+  margin: 0;
+  padding: 14px 0 0;
+  border-top: 1px solid;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 60ch;
+}
+.ps-card .ps-answer .ans-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+.ps-card .ps-answer .ans-eyebrow .ans-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.ps-card .ps-answer .ans-eyebrow .ans-arrow svg { display: block; }
+.ps-card .ps-answer .ans-text {
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--n800);
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+.ps-card:nth-child(1) { z-index: 1; transform: translateY(0); }
+.ps-card:nth-child(2) { z-index: 2; }
+.ps-card:nth-child(3) { z-index: 3; }
+.ps-card:nth-child(4) { z-index: 4; }
+
+.ps-card .ps-eyebrow {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em;
+  font-weight: 500;
+  color: var(--p700); margin: 0;
+  padding: 2px 0.28em 3px;
+  justify-self: start;
+  align-self: start;
+}
+.ps-card .ps-eyebrow::before {
+  content: '';
+  position: absolute;
+  inset: 0.18em -0.18em 0.04em -0.22em;
+  background: currentColor;
+  opacity: 0.32;
+  transform: skewX(-7deg) rotate(-0.5deg);
+  z-index: -1;
+  border-radius: 2px 4px 3px 5px / 4px 3px 5px 2px;
+}
+.ps-card h3 {
+  font-size: clamp(26px, 3.6vw, 40px);
+  line-height: 1.1; letter-spacing: -0.02em;
+  font-weight: 500; color: var(--n800);
+  margin: 6px 0 4px;
+  text-wrap: pretty;
+}
+.ps-card p.body {
+  font-size: 17px; line-height: 1.55; color: var(--n600);
+  margin: 0; max-width: 56ch;
+}
+.ps-card .ps-mode {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  align-self: stretch;
+  justify-self: end;
+  margin: 0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(64px, 8.2vw, 112px);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 0;
+  position: relative;
+}
+.ps-card .ps-mode::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -18px;
+  width: 1px;
+  background: currentColor;
+  opacity: 0.18;
+}
+
+@media (max-width: 760px) {
+  /* Drop scroll-pinning on mobile — keep it readable */
+  .ps-scroll { height: auto !important; }
+  .ps-sticky { position: relative; height: auto; padding: 0; }
+  .ps-stage-wrap { padding: 0 16px; }
+  .ps-stage { height: auto; display: flex; flex-direction: column; gap: 14px; max-width: 100%; }
+  .ps-card {
+    position: relative; inset: auto; transform: none !important;
+    padding: 28px; border-radius: 14px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .ps-card .ps-mode {
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 44px;
+    line-height: 1;
+    justify-self: start;
+    align-self: start;
+    padding: 0;
+    margin-top: 8px;
+  }
+  .ps-card .ps-mode::after { display: none; }
+}
+
+.ps-card[data-tone] { border-width: 1px; }
+.ps-card[data-tone="defend"]  { background: #FBF1DD; border-color: #EFD9A6; }
+.ps-card[data-tone="defend"]  .ps-eyebrow,
+.ps-card[data-tone="defend"]  .ps-mode,
+.ps-card[data-tone="defend"]  .ans-eyebrow { color: #8A5B0E; }
+.ps-card[data-tone="defend"]  .ps-eyebrow::before { background: #C68920; opacity: 0.40; }
+.ps-card[data-tone="defend"]  .ps-answer { border-top-color: rgba(198,137,32,0.30); }
+.ps-card[data-tone="exploit"] { background: #E0F1ED; border-color: #B8DDD2; }
+.ps-card[data-tone="exploit"] .ps-eyebrow,
+.ps-card[data-tone="exploit"] .ps-mode,
+.ps-card[data-tone="exploit"] .ans-eyebrow { color: #006A66; }
+.ps-card[data-tone="exploit"] .ps-eyebrow::before { background: #008A88; opacity: 0.30; }
+.ps-card[data-tone="exploit"] .ps-answer { border-top-color: rgba(0,138,136,0.30); }
+.ps-card[data-tone="explore"] { background: #ECE4FB; border-color: #D2C2F4; }
+.ps-card[data-tone="explore"] .ps-eyebrow,
+.ps-card[data-tone="explore"] .ps-mode,
+.ps-card[data-tone="explore"] .ans-eyebrow { color: #4F2EBF; }
+.ps-card[data-tone="explore"] .ps-eyebrow::before { background: #6940D6; opacity: 0.28; }
+.ps-card[data-tone="explore"] .ps-answer { border-top-color: rgba(105,64,214,0.28); }
+.ps-card[data-tone="plan"]    { background: #DAEBFB; border-color: #B1D2F2; }
+.ps-card[data-tone="plan"]    .ps-eyebrow,
+.ps-card[data-tone="plan"]    .ps-mode,
+.ps-card[data-tone="plan"]    .ans-eyebrow { color: #005DBD; }
+.ps-card[data-tone="plan"]    .ps-eyebrow::before { background: #0082E6; opacity: 0.30; }
+.ps-card[data-tone="plan"]    .ps-answer { border-top-color: rgba(0,130,230,0.30); }
+
+/* Tonal accent stripe on the left */
+.ps-card[data-tone]::before {
+  content: "";
+  position: absolute;
+  top: 28px; bottom: 28px;
+  left: 0;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: currentColor;
+  opacity: 0;
+}
+.ps-card[data-tone="defend"]::before  { background: #C68920; opacity: 0.85; }
+.ps-card[data-tone="exploit"]::before { background: #008A88; opacity: 0.85; }
+.ps-card[data-tone="explore"]::before { background: #6940D6; opacity: 0.85; }
+.ps-card[data-tone="plan"]::before    { background: #0082E6; opacity: 0.85; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   HOW IT WORKS  ·  large flywheel
+   ═══════════════════════════════════════════════════════════════ */
+.hw-section { position: relative; overflow: hidden; }
+
+.hw-inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* Big flywheel */
+.fw2-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+.fw2-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+
+.fw2-node {
+  position: absolute;
+  width: 22%; min-width: 170px;
+  transform: translate(-50%, -50%);
+}
+/* 5 nodes, centered at (50%, 50%), r = 40% */
+.fw2-n1 { top: 10%;   left: 50%; }
+.fw2-n2 { top: 33.8%; left: 88%; }
+.fw2-n3 { top: 86%;   left: 70.5%; }
+.fw2-n4 { top: 86%;   left: 29.5%; }
+.fw2-n5 { top: 33.8%; left: 12%; }
+
+.fw2-card {
+  background: #ffffff;
+  border: 1px solid var(--p200);
+  border-radius: 12px;
+  padding: 16px 18px;
+  transition: background 350ms ease-out, border-color 350ms ease-out, box-shadow 350ms ease-out, transform 350ms ease-out;
+  cursor: default;
+}
+.fw2-card:hover {
+  background: var(--p700);
+  border-color: var(--p700);
+  box-shadow: 0 4px 16px rgba(0,93,189,0.28);
+  transform: translateY(-2px) scale(1.03);
+}
+.fw2-card:hover .fw2-num,
+.fw2-card:hover .fw2-title,
+.fw2-card:hover .fw2-body { color: #ffffff; }
+.fw2-card:hover .fw2-num { color: rgba(255,255,255,0.7); }
+.fw2-num { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--p700); display:block; margin-bottom:6px; transition: color 350ms ease-out; }
+.fw2-title { font-size:14.5px; font-weight:500; color:var(--n800); line-height:1.35; margin-bottom:4px; transition: color 350ms ease-out; }
+.fw2-body { font-size:12.5px; color:var(--n500); line-height:1.5; transition: color 350ms ease-out; }
+
+.fw2-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 26%; max-width: 220px;
+  text-align: center;
+  z-index: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.fw2-center .ov-shell {
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto;
+  position: relative;
+}
+.fw2-center svg { width: 100%; height: 100%; display: block; }
+.fw2-center .center-cap {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--p700);
+  margin-top: 10px;
+}
+
+/* Ring connecting the nodes */
+.fw2-ring {
+  stroke: var(--p200);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 9;
+  fill: none;
+}
+.fw2-arrow-arc {
+  stroke: var(--p500);
+  stroke-width: 2;
+  fill: none;
+}
+
+/* Mobile flywheel — strip layout */
+@media (max-width: 760px) {
+  .fw2-wrap { aspect-ratio: auto; max-width: 100%; }
+  .fw2-svg, .fw2-center { display: none; }
+  .fw2-node { position: static; transform: none; width: 100%; margin-bottom: 10px; min-width: 0; }
+  .fw2-card { padding: 18px; }
+}
+
+</style>
 </head>
+
 <body>
+<a href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" onfocus="this.style.cssText='position:fixed;top:12px;left:12px;z-index:9999;background:#141B24;color:#F6F9FB;padding:10px 16px;border-radius:6px;font-size:14px;text-decoration:none;'">Skip to content</a>
 
-  <!-- Replace this entire body content with the Canva design export -->
-  <section class="hero">
-    <h1 data-edit="hero.h1">Strapivo</h1>
-    <p data-edit="hero.tagline">Coming soon.</p>
-  </section>
+<!-- ═══════════════════════════════════════════════════════════
+     NAV  —  logo left · single CTA right · no other links
+     ═══════════════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="pw" style="display:flex; align-items:center; justify-content:space-between; padding-top:14px; padding-bottom:14px;">
+    <a href="/" aria-label="Strapivo home" style="display:flex; align-items:center; text-decoration:none;">
+      <img src="assets/logo/strategy-primary-azure.svg" alt="Strapivo" style="height:28px; width:auto; display:block;">
+    </a>
+    <a href="#access" class="btn btn-primary sm">Request early access</a>
+  </div>
+</header>
 
-  <footer>
-    <p data-edit="footer.copy">&copy; 2026 Strapivo</p>
-    <a href="/api/auth/login" style="opacity: 0.3; font-size: 0.75rem; margin-left: 16px;">Admin</a>
-  </footer>
+<main id="main">
 
-  <!-- Admin CMS bootstrap — only loads for authenticated admins -->
-  <script>
-    (function () {
-      function getCookie(name) {
-        return (document.cookie.split(';').map(function (c) { return c.trim(); }).find(function (c) { return c.startsWith(name + '='); }) || '').split('=')[1] || '';
+<!-- ═══════════════════════════════════════════════════════════
+     01 · HERO  ·  Sky variant
+     Ovatar (soundwave) replaces plain pulse ring.
+     H1 locked. Subtitle + self-selection line updated.
+     ═══════════════════════════════════════════════════════════ -->
+<section id="hero" class="s-sky s-div-sky" style="overflow:hidden;">
+  <div class="pw hero-grid" style="padding-top:80px; padding-bottom:96px;">
+
+    <!-- Left: copy -->
+    <div style="max-width:600px;">
+      <span class="ey" data-edit="hero.eyebrow">Strategic intelligence platform</span>
+      <h1 data-edit="hero.h1" style="font-size:clamp(42px,7.5vw,84px); line-height:1.02; letter-spacing:-0.025em; font-weight:500; color:var(--n800); margin:0 0 24px; text-wrap:pretty;">
+        Strategy has a home now.
+      </h1>
+      <p data-edit="hero.subtitle" style="font-size:clamp(16px,2vw,19px); line-height:1.6; color:var(--n600); max-width:52ch; margin:0 0 32px;">
+        Bring your judgment. Strapivo brings the intelligence. The more you use it, the <span class="hl">sharper your strategy gets</span>.
+      </p>
+      <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-bottom:20px;">
+        <a href="#access" class="btn btn-primary">Request early access</a>
+      </div>
+      <p data-edit="hero.tagline" style="font-size:13px; color:var(--n500); font-family:'JetBrains Mono',monospace; letter-spacing:0.04em; line-height:1.5;">
+        Built for the person accountable for the direction of a business.
+      </p>
+    </div>
+
+    <!-- Right: Ovatar (soundwave) + live-output card (desktop only) -->
+    <div class="hero-right" style="position:relative;">
+
+      <!-- Ovatar: the agentic persona of Strapivo — alive, listening -->
+      <svg id="hero-ovatar" viewBox="0 0 100 100" fill="none" role="img"
+           aria-label="Strapivo Ovatar — the agentic intelligence, listening"
+           xmlns="http://www.w3.org/2000/svg"
+           style="position:absolute; top:-96px; right:-4px; width:200px; height:200px; color:var(--p700); z-index:0; pointer-events:none;">
+        <g data-ov-waves transform="translate(50 50)"></g>
+      </svg>
+
+      <!-- Live output card -->
+      <aside style="position:relative; z-index:1; background:#ffffff; border:1px solid var(--p200); border-radius:12px; padding:24px; box-shadow:0 1px 2px rgba(5,12,20,.04),0 8px 24px rgba(5,12,20,.06);" aria-hidden="true">
+        <p style="font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--p700); margin-bottom:16px; display:flex; align-items:center; gap:8px;">
+          <svg viewBox="0 0 100 100" overflow="visible" aria-hidden="true" style="width:10px;height:10px;flex-shrink:0;color:var(--p500);">
+            <circle class="pulse-out" cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="6"/>
+            <circle cx="50" cy="50" r="22" fill="currentColor"/>
+          </svg>
+          First strategy session · live output
+        </p>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;">
+          <li style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--n100);padding:10px 0;font-size:13px;">
+            <span style="color:var(--n700);">Business Model Canvas</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--p700);">Drafted · 4 min</span>
+          </li>
+          <li style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--n100);padding:10px 0;font-size:13px;">
+            <span style="color:var(--n700);">Competitive landscape</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--p700);">Mapped · 5 players</span>
+          </li>
+          <li style="display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--n100);padding:10px 0;font-size:13px;">
+            <span style="color:var(--n700);">Environment signals</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--p700);display:inline-flex;align-items:center;gap:5px;">
+              <svg viewBox="0 0 100 100" overflow="visible" aria-hidden="true" style="width:9px;height:9px;flex-shrink:0;color:var(--p500);">
+                <circle class="pulse-out" cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="6"/>
+                <circle cx="50" cy="50" r="26" fill="currentColor"/>
+              </svg>
+              Live · 4,200 sources
+            </span>
+          </li>
+          <li style="display:flex;align-items:center;justify-content:space-between;padding:10px 0 0;font-size:13px;">
+            <span style="color:var(--n700);">Action plan</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--p700);">30/60/90 · 3 cards</span>
+          </li>
+        </ul>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--n400);margin-top:16px;">Aurelia Coffee Co. · strategy session #1</p>
+      </aside>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     02 · THE SESSION
+     Real product screenshot inside a browser frame, with an animated
+     Ovatar overlayed on top of the static one.
+     ═══════════════════════════════════════════════════════════ -->
+<section id="session" class="s-white s-div">
+  <div class="pw" style="padding-top:80px; padding-bottom:96px;">
+
+    <span class="ey" data-edit="session.eyebrow">The strategy session</span>
+    <h2 class="sh" data-edit="session.h2" style="max-width:34ch; margin-bottom:20px;">
+      Ask. It already knows your business. <span class="hl">Every session makes it sharper</span>.
+    </h2>
+    <p data-edit="session.body" style="font-size:17px;line-height:1.6;color:var(--n600);max-width:60ch;margin:0 0 48px;">Open a strategy session. The intelligence is already there: your business model, your strategic environment, your competitive landscape, every decision you've made before.</p>
+
+    <!-- Beat 1: The conversation — UI as you actually see it -->
+    <div>
+      <div id="session-beat1" class="sf-wrap">
+        <!-- screenshot injected by session-ui.js -->
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     02b · PULL QUOTE  ·  its own slim band, paper surface
+     ═══════════════════════════════════════════════════════════ -->
+<section id="quote" class="quote-band on-dark">
+  <div class="pw">
+    <div class="quote-inner">
+      <div class="quote-mark" aria-hidden="true">&ldquo;</div>
+      <p class="quote-text" data-edit="quote.text">You lose credibility not when you&rsquo;re wrong, but when you&rsquo;re uninformed.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     03 · THE PROBLEM
+     Page-stack scroll. The section pins to the viewport while
+     the user scrolls through 4 stacked cards.
+     ═══════════════════════════════════════════════════════════ -->
+<section id="problem" class="s-sky s-div">
+  <div class="pw" style="padding-top:96px; padding-bottom:32px;">
+    <div style="max-width:62ch; margin-bottom:8px;">
+      <span class="ey" data-edit="problem.eyebrow">The problem</span>
+      <h2 class="sh" data-edit="problem.h2" style="margin-bottom:20px;">
+        Every other solution <span class="hl">starts from scratch</span>.
+      </h2>
+      <p data-edit="problem.body" style="font-size:17px;line-height:1.6;color:var(--n600);max-width:56ch;margin:0 0 14px;">
+        Generic AI doesn&rsquo;t know your business model, your last board decision, or which competitor just moved. A consultant&rsquo;s report is out of date before it&rsquo;s delivered. A deck doesn&rsquo;t update itself. Every time you need an answer, you start over.
+      </p>
+      <p data-edit="problem.subtext" style="font-size:15px;line-height:1.55;color:var(--n500);max-width:56ch;margin:0;">
+        Four moments. Every one of them starts the same way: from nothing.
+      </p>
+    </div>
+  </div>
+
+  <!-- Page-stack scroll (default sticky layout) -->
+  <div id="problem-sticky" class="ps-scroll">
+    <div class="ps-sticky">
+      <div class="ps-stage-wrap">
+
+        <div class="ps-stage" data-ps-stage>
+          <article class="ps-card" data-idx="0" data-tone="defend">
+            <p class="ps-eyebrow">Something is under threat</p>
+            <h3 data-edit="problem.card1.h3">A competitor moves at the worst moment.</h3>
+            <p class="body" data-edit="problem.card1.body">You need an answer before the board meeting. You open a blank chat. The model doesn&rsquo;t know your market, your last decision, or what&rsquo;s actually at stake.</p>
+            <div class="ps-answer">
+              <p class="ans-eyebrow"><span class="ans-arrow" aria-hidden="true"><svg viewBox="0 0 100 100" style="width:14px;height:14px;display:block;"><circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="9"></circle></svg></span> With Strapivo</p>
+              <p class="ans-text" data-edit="problem.card1.answer">Your radar already saw the move. Open a strategy session and the response comes back board-ready, with your market and your last decision already in context.</p>
+            </div>
+            <p class="ps-mode" style="font-size: 90px">Defend</p>
+          </article>
+
+          <article class="ps-card" data-idx="1" data-tone="exploit">
+            <p class="ps-eyebrow">Something is working</p>
+            <h3 data-edit="problem.card2.h3">You have a winning product in one region.</h3>
+            <p class="body" data-edit="problem.card2.body">Scaling it means rebuilding the thinking from scratch &mdash; again. The reasoning that won the first market lives in a deck nobody reads anymore.</p>
+            <div class="ps-answer">
+              <p class="ans-eyebrow"><span class="ans-arrow" aria-hidden="true"><svg viewBox="0 0 100 100" style="width:14px;height:14px;display:block;"><circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="9"></circle></svg></span> With Strapivo</p>
+              <p class="ans-text" data-edit="problem.card2.answer">The reasoning that won the first market is already loaded. Strapivo maps it onto the next one, and tells you where the model bends.</p>
+            </div>
+            <p class="ps-mode" style="font-size: 90px">Exploit</p>
+          </article>
+
+          <article class="ps-card" data-idx="2" data-tone="explore">
+            <p class="ps-eyebrow">Something is new</p>
+            <h3 data-edit="problem.card3.h3">A new market is on the table.</h3>
+            <p class="body" data-edit="problem.card3.body">Two options. Neither has a home. The analysis starts from a blank page, with no memory of what you ruled out last quarter and why.</p>
+            <div class="ps-answer">
+              <p class="ans-eyebrow"><span class="ans-arrow" aria-hidden="true"><svg viewBox="0 0 100 100" style="width:14px;height:14px;display:block;"><circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="9"></circle></svg></span> With Strapivo</p>
+              <p class="ans-text" data-edit="problem.card3.answer">Your strategy room remembers what you ruled out last quarter, and why. New options inherit that judgment instead of re-litigating it.</p>
+            </div>
+            <p class="ps-mode" style="font-size: 90px">Explore</p>
+          </article>
+
+          <article class="ps-card" data-idx="3" data-tone="plan">
+            <p class="ps-eyebrow">The board wants a plan</p>
+            <h3 data-edit="problem.card4.h3">3-year growth plan. Six weeks.</h3>
+            <p class="body" data-edit="problem.card4.body">Every decision you&rsquo;ve made scattered across ten documents. Every assumption from the last cycle re-litigated. No system has been carrying any of this with you.</p>
+            <div class="ps-answer">
+              <p class="ans-eyebrow"><span class="ans-arrow" data-comment-anchor="0b9af342ab-span" aria-hidden="true"><svg viewBox="0 0 100 100" style="width:14px;height:14px;display:block;"><circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="9"></circle></svg></span> With Strapivo</p>
+              <p class="ans-text" data-edit="problem.card4.answer">Every decision you&rsquo;ve made is already carried forward. The plan compounds from there, instead of starting from a blank page.</p>
+            </div>
+            <p class="ps-mode" style="font-size: 90px">Plan</p>
+          </article>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div style="padding-bottom: 96px;"></div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     04 · HOW IT WORKS  ·  flywheel of five steps that compound over time.
+     ═══════════════════════════════════════════════════════════ -->
+<section id="how-it-works" class="hw-section s-white s-div">
+  <div class="pw hw-inner" style="padding-top:96px; padding-bottom:128px;">
+
+    <div style="max-width:52ch; margin: 0 auto 64px; text-align:center;">
+      <span class="ey" data-edit="hiw.eyebrow">How it works</span>
+      <h2 class="sh sh-lg" data-edit="hiw.h2" style="margin-bottom: 0;">It learns from every <span class="hl">strategy session</span>.</h2>
+    </div>
+
+    <!-- Big flywheel: 5 cards in a circle, optional centre pulse + Ovatar, dashed connecting ring -->
+    <div class="fw2-wrap">
+      <svg class="fw2-svg" viewBox="0 0 820 820" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <marker id="fw2-arr" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M 0 0.5 L 6 3 L 0 5.5 z" fill="var(--p500)"/>
+          </marker>
+        </defs>
+        <!-- Dashed ring at r=288 (cards orbit at r=328 ≈ 40% of 820) -->
+        <circle class="fw2-ring" cx="410" cy="410" r="288"/>
+        <!-- Direction arc (clockwise hint at top) -->
+        <path class="fw2-arrow-arc" d="M 340 138 A 288 288 0 0 1 470 138" marker-end="url(#fw2-arr)"/>
+      </svg>
+
+      <div class="fw2-center" aria-hidden="true">
+        <div class="ov-shell">
+          <svg id="fw2-center-ov" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="color:var(--p500);">
+            <g data-ov-waves transform="translate(50 50)"></g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Node 1: top -->
+      <div class="fw2-node fw2-n1">
+        <div class="fw2-card" data-fw-step="1">
+          <span class="fw2-num">Step 01</span>
+          <p class="fw2-title" data-edit="hiw.step1.title">You open a strategy session</p>
+          <p class="fw2-body" data-edit="hiw.step1.body">A question, a challenge, a decision to make.</p>
+        </div>
+      </div>
+
+      <!-- Node 2 -->
+      <div class="fw2-node fw2-n2">
+        <div class="fw2-card" data-fw-step="2">
+          <span class="fw2-num">Step 02</span>
+          <p class="fw2-title" data-edit="hiw.step2.title">Context already loaded</p>
+          <p class="fw2-body" data-edit="hiw.step2.body">Your model, environment, last decisions &mdash; present.</p>
+        </div>
+      </div>
+
+      <!-- Node 3 -->
+      <div class="fw2-node fw2-n3">
+        <div class="fw2-card" data-fw-step="3">
+          <span class="fw2-num">Step 03</span>
+          <p class="fw2-title" data-edit="hiw.step3.title">You bring your judgment</p>
+          <p class="fw2-body" data-edit="hiw.step3.body">Confirm, correct, add what the AI can&rsquo;t know.</p>
+        </div>
+      </div>
+
+      <!-- Node 4 -->
+      <div class="fw2-node fw2-n4">
+        <div class="fw2-card" data-fw-step="4">
+          <span class="fw2-num">Step 04</span>
+          <p class="fw2-title" data-edit="hiw.step4.title">The output gets sharper</p>
+          <p class="fw2-body" data-edit="hiw.step4.body">Strategy grounded in your specific business.</p>
+        </div>
+      </div>
+
+      <!-- Node 5 -->
+      <div class="fw2-node fw2-n5">
+        <div class="fw2-card" data-fw-step="5">
+          <span class="fw2-num">Step 05</span>
+          <p class="fw2-title" data-edit="hiw.step5.title">Next strategy session starts smarter</p>
+          <p class="fw2-body" data-edit="hiw.step5.body">Your judgment is now part of the system.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <p data-edit="hiw.caption" style="margin-top:64px;font-size:16px;line-height:1.65;color:var(--n500);max-width:60ch;text-align:center;margin-left:auto;margin-right:auto;">Strategy discipline comes built in. And when you're ready to explore what you might build next, that's coming too.</p>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     05 · ACCESS / CTA  ·  ink surface
+     Trust anchor → H2 → formula → button → sub-CTA
+     ═══════════════════════════════════════════════════════════ -->
+<section id="access" class="s-ink on-dark">
+  <div class="pw" style="padding-top:96px; padding-bottom:96px;">
+
+    <div style="max-width:56ch;">
+      <span class="ey ey-light" data-edit="access.eyebrow">Access</span>
+      <h2 class="sh sh-lg" data-edit="access.h2" style="color:var(--n50);margin-bottom:28px;">
+        Ready to give strategy a home?
+      </h2>
+
+      <!-- Paul's formula — verbatim, locked -->
+      <p data-edit="access.formula" style="font-size:clamp(16px,2vw,20px);line-height:1.65;color:#CCD2D7;margin:0 0 36px;max-width:50ch;">An LLM does not know your business like you do. The more you use Strapivo, the better your strategy gets.
+Your experience &amp; judgment + Strapivo = winning results.</p>
+
+      <a href="mailto:strategy@strapivo.com?subject=Early%20access" class="btn btn-primary lg on-dark" style="margin-bottom:16px;display:inline-flex;">
+        Request early access
+      </a>
+
+      <!-- Sub-CTA — honest, no timing promise -->
+      <p data-edit="access.subcta" style="font-size:13px;color:var(--n600);font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;margin-top:16px;">
+        Every application is reviewed personally. We'll be in touch.
+      </p>
+    </div>
+
+    <!-- Trust anchor — signed sign-off at the foot of the section -->
+    <div style="margin-top:96px;padding-top:32px;border-top:1px solid #1F2731;max-width:62ch;display:flex;flex-direction:column;gap:10px;">
+      <p data-edit="access.trust.label" style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--p400);margin:0;">Why we built it</p>
+      <p data-edit="access.trust.text" style="font-size:17px;line-height:1.55;color:var(--n50);margin:0;font-weight:500;letter-spacing:-0.005em;">We&rsquo;ve run strategy at board level. <span style="color:#8B919A;font-weight:400;">This is the system we wished we had.</span></p>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+     Two lines of copy. Legal links only. No logos.
+     ═══════════════════════════════════════════════════════════ -->
+<footer class="s-foot" style="color:var(--n500);">
+  <div class="pw" style="padding-top:64px; padding-bottom:64px;">
+    <div style="padding-bottom:40px;border-bottom:1px solid #141B24;margin-bottom:32px;">
+      <img src="assets/logo/strategy-mono-paper.svg" alt="Strapivo" style="height:26px;width:auto;display:block;margin-bottom:20px;">
+      <p data-edit="footer.tagline1" style="font-size:15px;line-height:1.65;color:var(--n500);max-width:48ch;margin:0 0 6px;">
+        Strapivo is a strategic intelligence platform built in Europe.
+      </p>
+      <p data-edit="footer.tagline2" style="font-size:15px;line-height:1.65;color:var(--n600);max-width:48ch;margin:0;">
+        Currently in use with selected strategy teams across Europe.
+      </p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between;">
+      <p data-edit="footer.copy" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n600);letter-spacing:0.06em;margin:0;">© 2026 Strapivo</p>
+      <nav style="display:flex;gap:20px;flex-wrap:wrap;" aria-label="Legal">
+        <a href="imprint.html" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n600);text-decoration:none;letter-spacing:0.06em;transition:color 150ms;" onmouseover="this.style.color='#999FA6'" onmouseout="this.style.color='var(--n600)'">Imprint</a>
+        <a href="/api/auth/login" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n600);text-decoration:none;letter-spacing:0.06em;opacity:0.3;">Admin</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     OVATAR RENDERER + interactive behaviour
+     - Renders soundwave paths into every [data-ov-waves] group
+     - Drives the sticky-scroll counter (Problem)
+     - Auto-cycles the flywheel step (How It Works)
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ─── Ovatar wave geometry ──────────────────────────────────── */
+  function wavePath(radius, wobble) {
+    var r = function(v) { return Number(v.toFixed(2)); };
+    return [
+      'M ' + r(-radius) + ' 0',
+      'C ' + r(-radius) + ' ' + r(-23 - wobble) + ', ' + r(-23 - wobble) + ' ' + r(-radius) + ', 0 ' + r(-radius - wobble * 0.35),
+      'C ' + r(23 + wobble) + ' ' + r(-radius) + ', ' + r(radius + wobble) + ' ' + r(-23 - wobble) + ', ' + r(radius) + ' 0',
+      'C ' + r(radius) + ' ' + r(23 + wobble) + ', ' + r(23 + wobble) + ' ' + r(radius) + ', 0 ' + r(radius + wobble * 0.35),
+      'C ' + r(-23 - wobble) + ' ' + r(radius) + ', ' + r(-radius - wobble) + ' ' + r(23 + wobble) + ', ' + r(-radius) + ' 0'
+    ].join(' ');
+  }
+
+  function renderOvatar(svg, cfg) {
+    var group = svg.querySelector('[data-ov-waves]');
+    if (!group) return;
+    var px = cfg.px;
+    var waveCount  = px >= 100 ? 52 : 28;
+    var radiusSteps = px >= 100 ? 26 : 14;
+
+    while (group.firstChild) group.removeChild(group.firstChild);
+
+    svg.style.setProperty('--ov-dur', cfg.dur + 's');
+    svg.style.setProperty('--ov-alt', cfg.alt + 's');
+
+    for (var i = 0; i < waveCount; i++) {
+      var radius = 34.5 + (i % radiusSteps) * 0.48;
+      radius += (i % 2 === 1) ? 0.9 : -0.55;
+      var wobble = 3.8 + (i % 7) * 0.64;
+      var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.classList.add('ov-wave');
+      path.style.strokeWidth = cfg.stroke;
+      path.style.opacity     = (i % 3 === 0) ? cfg.muted : cfg.opacity;
+      path.style.animationDelay = (-i * 0.2).toFixed(1) + 's';
+      path.setAttribute('d', wavePath(radius, wobble));
+      group.appendChild(path);
+    }
+  }
+
+  /* Size-tuned presets */
+  function presetFor(sizePx) {
+    if (sizePx >= 120) return { px: sizePx, stroke: 0.65, opacity: 0.34, muted: 0.22, dur: 14, alt: 18 };
+    if (sizePx >= 80)  return { px: sizePx, stroke: 0.70, opacity: 0.38, muted: 0.25, dur: 12, alt: 15 };
+    if (sizePx >= 40)  return { px: sizePx, stroke: 0.85, opacity: 0.44, muted: 0.30, dur:  9, alt: 12 };
+    return                    { px: sizePx, stroke: 0.95, opacity: 0.48, muted: 0.32, dur:  7, alt:  9 };
+  }
+
+  function renderAll() {
+    var svgs = document.querySelectorAll('svg [data-ov-waves]');
+    svgs.forEach(function (group) {
+      var svg = group.ownerSVGElement;
+      if (!svg) return;
+      /* Read actual rendered size, fall back to 80px */
+      var box = svg.getBoundingClientRect();
+      var sz = Math.max(box.width, box.height) || 80;
+      renderOvatar(svg, presetFor(sz));
+    });
+  }
+
+  window.StrapivoOvatar = { renderAll: renderAll, renderOne: renderOvatar };
+  renderAll();
+  /* Re-render after fonts/layout settle */
+  setTimeout(renderAll, 200);
+
+
+  /* ─── Page-stack scroll (Problem) ─────────────────────────────
+     Outer container is N × 100vh tall. Inside, a sticky panel
+     pins to the viewport. As the user scrolls, each card slides
+     up from below to cover the previous one. Mobile (≤760px)
+     falls back to a vertical stack via CSS.
+  */
+  (function pageStack() {
+    var scroll = document.getElementById('problem-sticky');
+    if (!scroll || !scroll.classList.contains('ps-scroll')) return;
+    var cards   = scroll.querySelectorAll('.ps-card');
+    var dots    = scroll.querySelectorAll('.ps-dot');
+    var n = cards.length;
+    if (n < 2) return;
+
+    /* Disable scroll-jacking on mobile (CSS already neutralised the layout) */
+    function isMobile() { return window.matchMedia('(max-width: 760px)').matches; }
+    function disabled() {
+      return isMobile() || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
+    function setHeight() {
+      if (disabled()) { scroll.style.height = ''; return; }
+      /* (n) × viewport — first card visible at entry, last card fully up at exit */
+      scroll.style.height = (n * 100) + 'vh';
+    }
+
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function update() {
+      if (disabled()) {
+        cards.forEach(function (c) { c.style.transform = ''; });
+        return;
       }
-      if (getCookie('admin_hint') === '1') {
-        var s = document.createElement('script');
-        s.src = '/admin.js';
-        s.defer = true;
-        document.head.appendChild(s);
+      var rect = scroll.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var total = scroll.offsetHeight - vh;
+      var passed = -rect.top;
+      if (passed < 0) passed = 0;
+      if (passed > total) passed = total;
+      var progress = total > 0 ? passed / total : 0; /* 0..1 across the whole stack */
+
+      var activeIdx = 0;
+      for (var i = 1; i < n; i++) {
+        var start = (i - 1) / (n - 1);
+        var end   = i / (n - 1);
+        var t = (progress - start) / (end - start);
+        t = Math.max(0, Math.min(1, t));
+        var eased = easeOutCubic(t);
+        cards[i].style.transform = 'translateY(' + ((1 - eased) * 110) + '%)';
+        if (eased > 0.5) activeIdx = i;
       }
-    })();
-  </script>
+
+      dots.forEach(function (d, i) { d.classList.toggle('active', i <= activeIdx); });
+    }
+
+    setHeight();
+    update();
+
+    var rafPending = false;
+    function onScroll() {
+      if (rafPending) return;
+      rafPending = true;
+      requestAnimationFrame(function () { update(); rafPending = false; });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', function () { setHeight(); update(); });
+  }());
+
+}());
+</script>
+
+<!-- Session-UI mock renderer -->
+<script src="session-ui.js"></script>
+
+<!-- Admin CMS bootstrap — only loads for authenticated admins -->
+<script>
+  (function () {
+    function getCookie(name) {
+      return (document.cookie.split(';').map(function (c) { return c.trim(); }).find(function (c) { return c.startsWith(name + '='); }) || '').split('=')[1] || '';
+    }
+    if (getCookie('admin_hint') === '1') {
+      var s = document.createElement('script');
+      s.src = '/admin.js';
+      s.defer = true;
+      document.head.appendChild(s);
+    }
+  })();
+</script>
 
 </body>
 </html>

@@ -5,7 +5,7 @@ Static marketing site for Strapivo with an AI-gated CMS — no database, GitHub 
 Standard session protocol applies. On `checkpoint`: update files, banana-hunt until two clean rounds. On `resume`: read this file + TASKS.md, report where we left off and what's next.
 
 ## Current focus
-CMS infrastructure is fully built and pushed to `pthomas79/strapivo-website`. Blocked on the Claude Design file (user is preparing it). Once received, replace `index.html` with real design and wire `data-edit` attributes. Then unblock Vercel deploy by setting `VERCEL_TOKEN` as a GitHub Actions secret.
+Real design is now in the repo (index.html + imprint.html, 33+6 data-edit regions, admin bootstrap wired). Next step: set `VERCEL_TOKEN` as a GitHub Actions secret to trigger the first deploy and create the Vercel project, then set all env vars.
 
 ## Tasks
 See [TASKS.md](TASKS.md) — Active section is the source of truth for what's next.

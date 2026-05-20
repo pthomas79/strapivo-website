@@ -1,5 +1,6 @@
 export const EDITABLE_FILES = new Set([
   'index.html',
+  'imprint.html',
 ]);
 
 export const DEFAULT_EDITABLE_FILE = 'index.html';

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Imprint · Strapivo</title>
+<meta name="description" content="Imprint, legal contact, and editorial responsibility for Strapivo.">
+<link rel="canonical" href="https://strapivo.com/imprint">
+<meta name="theme-color" content="#EEF6FF">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
+<link rel="preload" href="fonts/Inter-Regular.otf" as="font" type="font/otf" crossorigin>
+<link rel="preload" href="fonts/Inter-Medium.otf" as="font" type="font/otf" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+<style>
+/* Tokens (mirrors index.html) */
+:root {
+  --sky:    #EEF6FF;
+  --white:  #F6F9FB;
+  --ink:    #141B24;
+  --p500:   #0082E6;
+  --p600:   #006FD1;
+  --p700:   #005DBD;
+  --p200:   #A9D6FF;
+  --n800:   #141B24;
+  --n700:   #2C343C;
+  --n600:   #495158;
+  --n500:   #6C727A;
+  --n400:   #999FA6;
+  --n300:   #CCD2D7;
+  --n200:   #E1E5EA;
+  --n100:   #EFF2F6;
+  --n50:    #F6F9FB;
+  --n900:   #050C14;
+}
+* { box-sizing: border-box; }
+body { background: var(--sky); color: var(--n700); margin: 0; }
+
+.pw { max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+
+/* Eyebrow */
+.ey {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--p700);
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+/* Page heading */
+.imp-title {
+  font-size: clamp(40px, 6vw, 64px);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+  color: var(--n800);
+  margin: 0 0 16px;
+}
+.imp-sub {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--n600);
+  max-width: 56ch;
+  margin: 0 0 64px;
+}
+
+/* Sections */
+.imp-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 48px 64px;
+  align-items: start;
+  padding: 36px 0;
+  border-top: 1px solid var(--n200);
+}
+.imp-grid:last-of-type { border-bottom: 1px solid var(--n200); }
+.imp-grid h2 {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--p700);
+  margin: 4px 0 0;
+}
+.imp-grid .imp-body {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--n700);
+  max-width: 60ch;
+}
+.imp-grid .imp-body p { margin: 0 0 12px; }
+.imp-grid .imp-body p:last-child { margin-bottom: 0; }
+.imp-grid .imp-body a {
+  color: var(--p700);
+  text-decoration: none;
+  border-bottom: 1px solid var(--p200);
+  transition: color 150ms, border-color 150ms;
+}
+.imp-grid .imp-body a:hover { color: var(--p600); border-color: var(--p500); }
+
+.imp-kv {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 24px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--n700);
+}
+.imp-kv dt {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--n500);
+  align-self: center;
+}
+.imp-kv dd { margin: 0; }
+
+.imp-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--n500);
+  background: #ffffff;
+  border: 1px solid var(--n200);
+  border-radius: 4px;
+  padding: 3px 8px;
+}
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(238,246,255,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--n200);
+}
+
+/* Button */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 150ms ease-out, color 150ms ease-out;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.btn-primary {
+  background: var(--p700);
+  color: #ffffff;
+  padding: 10px 20px;
+  font-size: 14.5px;
+}
+.btn-primary:hover { background: var(--p600); }
+.btn-primary.sm { font-size: 14px; padding: 9px 18px; }
+
+/* Footer */
+.s-foot { background: var(--n900); color: var(--n500); }
+
+@media (max-width: 720px) {
+  .imp-grid { grid-template-columns: 1fr; gap: 12px; padding: 28px 0; }
+  .imp-grid h2 { margin: 0; }
+  .imp-sub { margin-bottom: 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ───────── NAV ───────── -->
+<header class="site-header">
+  <div class="pw" style="display:flex; align-items:center; justify-content:space-between; padding-top:14px; padding-bottom:14px;">
+    <a href="index.html" aria-label="Strapivo home" style="display:flex; align-items:center; text-decoration:none;">
+      <img src="assets/logo/strategy-primary-azure.svg" alt="Strapivo" style="height:28px; width:auto; display:block;">
+    </a>
+    <a href="index.html#access" class="btn btn-primary sm">Request early access</a>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="pw" style="padding-top:80px; padding-bottom:80px;">
+
+  <span class="ey">Legal</span>
+  <h1 class="imp-title">Imprint</h1>
+  <p class="imp-sub">
+    Information required under applicable European disclosure obligations.
+    <span class="imp-tag" style="margin-left:8px;">Placeholder</span>
+  </p>
+
+  <!-- Responsible entity -->
+  <div class="imp-grid">
+    <h2>Responsible entity</h2>
+    <div class="imp-body" data-edit="imprint.entity">
+      <p style="font-size:19px;color:var(--n800);font-weight:500;margin-bottom:8px;">[Strapivo Legal Name] [Entity Form, e.g. GmbH / SAS / Ltd.]</p>
+      <p>
+        [Street, Number]<br>
+        [Postal code] [City]<br>
+        [Country]
+      </p>
+    </div>
+  </div>
+
+  <!-- Contact -->
+  <div class="imp-grid">
+    <h2>Contact</h2>
+    <div class="imp-body" data-edit="imprint.contact">
+      <dl class="imp-kv">
+        <dt>Email</dt>
+        <dd><a href="mailto:hello@strapivo.com">hello@strapivo.com</a></dd>
+        <dt>Press</dt>
+        <dd><a href="mailto:press@strapivo.com">press@strapivo.com</a></dd>
+        <dt>Phone</dt>
+        <dd>[+00 0 00 00 00 00]</dd>
+      </dl>
+    </div>
+  </div>
+
+  <!-- Representation -->
+  <div class="imp-grid">
+    <h2>Represented by</h2>
+    <div class="imp-body" data-edit="imprint.representative">
+      <p>[Full name of managing director / authorised representative]</p>
+    </div>
+  </div>
+
+  <!-- Registration -->
+  <div class="imp-grid">
+    <h2>Registration</h2>
+    <div class="imp-body" data-edit="imprint.registration">
+      <dl class="imp-kv">
+        <dt>Commercial register</dt>
+        <dd>[Court / Registry name]</dd>
+        <dt>Register number</dt>
+        <dd>[HRB / RCS / Company No.]</dd>
+        <dt>VAT ID</dt>
+        <dd>[e.g. DE000000000]</dd>
+      </dl>
+    </div>
+  </div>
+
+  <!-- Editorial responsibility -->
+  <div class="imp-grid">
+    <h2>Editorial responsibility</h2>
+    <div class="imp-body" data-edit="imprint.editorial">
+      <p>[Full name and address of the person responsible for content under applicable press law.]</p>
+    </div>
+  </div>
+
+  <!-- EU dispute resolution -->
+  <div class="imp-grid">
+    <h2>Dispute resolution</h2>
+    <div class="imp-body">
+      <p>
+        The European Commission provides a platform for online dispute resolution:
+        <a href="https://ec.europa.eu/consumers/odr" rel="noopener">ec.europa.eu/consumers/odr</a>.
+      </p>
+      <p>We are not obliged or willing to participate in dispute resolution proceedings before a consumer arbitration board.</p>
+    </div>
+  </div>
+
+  <!-- Liability -->
+  <div class="imp-grid">
+    <h2>Liability</h2>
+    <div class="imp-body">
+      <p>
+        The content of this site has been prepared with care. We assume no liability for the accuracy, completeness, or timeliness of the information provided.
+      </p>
+      <p>
+        External links lead to third-party content over which we have no control. The respective providers are responsible for the content of linked pages.
+      </p>
+    </div>
+  </div>
+
+  <p data-edit="imprint.updated" style="margin-top:48px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--n500);letter-spacing:0.04em;">
+    Last updated: [Month YYYY]
+  </p>
+
+</section>
+
+</main>
+
+<!-- ───────── FOOTER ───────── -->
+<footer class="s-foot">
+  <div class="pw" style="padding-top:64px; padding-bottom:64px;">
+    <div style="padding-bottom:40px;border-bottom:1px solid #141B24;margin-bottom:32px;">
+      <img src="assets/logo/strategy-mono-paper.svg" alt="Strapivo" style="height:26px;width:auto;display:block;margin-bottom:20px;">
+      <p style="font-size:15px;line-height:1.65;color:var(--n500);max-width:48ch;margin:0 0 6px;">
+        Strapivo is a strategic intelligence platform built in Europe.
+      </p>
+      <p style="font-size:15px;line-height:1.65;color:var(--n600);max-width:48ch;margin:0;">
+        Currently in use with selected strategy teams across Europe.
+      </p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between;">
+      <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n600);letter-spacing:0.06em;margin:0;">© 2026 Strapivo</p>
+      <nav style="display:flex;gap:20px;flex-wrap:wrap;" aria-label="Legal">
+        <a href="imprint.html" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n400);text-decoration:none;letter-spacing:0.06em;">Imprint</a>
+        <a href="/api/auth/login" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n600);text-decoration:none;letter-spacing:0.06em;opacity:0.3;">Admin</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<!-- Admin CMS bootstrap — only loads for authenticated admins -->
+<script>
+  (function () {
+    function getCookie(name) {
+      return (document.cookie.split(';').map(function (c) { return c.trim(); }).find(function (c) { return c.startsWith(name + '='); }) || '').split('=')[1] || '';
+    }
+    if (getCookie('admin_hint') === '1') {
+      var s = document.createElement('script');
+      s.src = '/admin.js';
+      s.defer = true;
+      document.head.appendChild(s);
+    }
+  })();
+</script>
+
+</body>
+</html>
