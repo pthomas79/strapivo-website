@@ -30,5 +30,4 @@ jobs:
           --prod
           --yes
           --name strapivo-website
-          --scope paris-5285
           --token=${{ secrets.VERCEL_TOKEN }}
