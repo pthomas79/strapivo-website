@@ -31,7 +31,7 @@
           '<svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">' +
             '<rect x="5" y="11" width="14" height="10" rx="2"/>' +
             '<path d="M8 11V7a4 4 0 0 1 8 0v4"/>' +
-          '</svg> app.strapivo.com / apple / business-models / iphone' +
+          '</svg><span class="sf-url-text">app.strapivo.com / apple / business-models / iphone</span>' +
         '</div>' +
         '<div style="width:48px;"></div>' +
       '</div>' + inner +
