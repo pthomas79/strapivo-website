@@ -17,7 +17,6 @@ All code is in `main` branch of `pthomas79/strapivo-website`.
 ## What's NOT done yet
 
 - Vercel project does not exist yet — GitHub Actions deploy failed (VERCEL_TOKEN secret not set in repo)
-- index.html needs to be replaced with real Claude Design output
 - No Vercel env vars set
 - Google OAuth client not created
 - GitHub fine-grained PAT not created (needed for GITHUB_TOKEN env var)
@@ -36,7 +35,6 @@ All code is in `main` branch of `pthomas79/strapivo-website`.
 
 ## To unblock deploy (do this in order)
 
-1. **First:** receive Claude Design file and replace `index.html` with real design (Active task in TASKS.md)
-2. Add `VERCEL_TOKEN` as a GitHub Actions secret on `pthomas79/strapivo-website`
+1. Add `VERCEL_TOKEN` as a GitHub Actions secret on `pthomas79/strapivo-website`
    (get token from vercel.com/account/tokens, full account scope)
-3. The `git push` of the new index.html will trigger the workflow and auto-create the Vercel project
+2. The next `git push` will trigger the workflow and auto-create the Vercel project

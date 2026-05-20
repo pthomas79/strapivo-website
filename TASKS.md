@@ -2,6 +2,7 @@
 
 ## Active
 
+- [ ] Responsive polish — remaining sections to review at tablet/mobile: access/CTA, footer, quote band (hero, session, problem, flywheel done)
 - [ ] Set `VERCEL_TOKEN` as GitHub Actions secret on `pthomas79/strapivo-website` → triggers first deploy + creates Vercel project
 - [ ] Set all Vercel env vars (see `memory/env-vars.md`)
 - [ ] Register GitHub webhook (Settings → Webhooks, Issues event only, secret = `GITHUB_WEBHOOK_SECRET`)
@@ -39,3 +40,7 @@
 - [x] Added admin bootstrap snippet + hidden Admin footer link to both pages
 - [x] Added `.vercelignore` (excludes `archive/`)
 - [x] Updated `EDITABLE_FILES` in `api/_lib/editable-files.js` and `admin.js` to include both pages
+- [x] Hero responsive: show Ovatar + live-output card on all screen sizes (were hidden <1024px), anchored to card corner, no right-edge clip; reset default 8px body margin
+- [x] Session responsive: browser-frame URL truncates to one line (ellipsis) instead of wrapping
+- [x] Problem responsive: mode labels (DEFEND/EXPLOIT/…) sized to fit cards (were overflowing even on desktop); cards pin + stack on scroll on mobile via native position:sticky
+- [x] Flywheel responsive: mobile is now a connected vertical timeline (engine Ovatar + rail + loop cue); auto-cycling active step adds interactivity on desktop + mobile
