@@ -13,10 +13,11 @@ All code is in `main` branch of `pthomas79/strapivo-website`.
 - `imprint.html` — European legal page, 6 `data-edit` regions (placeholders to fill), admin bootstrap ✅
 - `styles.css`, `session-ui.js`, `assets/`, `fonts/` from handoff ✅
 - `.vercelignore` (excludes `archive/`) ✅
+- **Vercel project created + deployed to production** — `VERCEL_TOKEN` secret is set, GitHub Actions deploy runs on push to `main` and succeeds (production READY) ✅
+- Live at https://strapivo-website.vercel.app ✅
 
 ## What's NOT done yet
 
-- Vercel project does not exist yet — GitHub Actions deploy failed (VERCEL_TOKEN secret not set in repo)
 - No Vercel env vars set
 - Google OAuth client not created
 - GitHub fine-grained PAT not created (needed for GITHUB_TOKEN env var)
@@ -28,13 +29,13 @@ All code is in `main` branch of `pthomas79/strapivo-website`.
 ## Key identifiers
 
 - GitHub repo: `pthomas79/strapivo-website`
-- Vercel project name (to be created): `strapivo-website`
-- Vercel scope: `paris-5285`
+- Vercel project: `strapivo-website` (id `prj_BL14wJUjnAFhtsvnLdv2ZOfkg1OG`)
+- Vercel team: `Paris' projects` — slug `paris-projects-92a64a20`, id `team_6rWUuHi3o2UINILljihFvdRD`
+- Vercel production URL: `strapivo-website.vercel.app` (custom `strapivo.com` not yet attached)
 - Admin login domain: `strapivo.com`
 - Site domain: `strapivo.com`
 
-## To unblock deploy (do this in order)
+## Deploy
 
-1. Add `VERCEL_TOKEN` as a GitHub Actions secret on `pthomas79/strapivo-website`
-   (get token from vercel.com/account/tokens, full account scope)
-2. The next `git push` will trigger the workflow and auto-create the Vercel project
+- Push to `main` → GitHub Actions (`.github/workflows/deploy.yml`) deploys to production via Vercel CLI (`--prod --name strapivo-website`, git metadata stripped). `workflow_dispatch` also available.
+- `VERCEL_TOKEN` is configured as a repo Actions secret.

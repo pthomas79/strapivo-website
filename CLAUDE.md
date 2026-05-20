@@ -5,7 +5,7 @@ Static marketing site for Strapivo with an AI-gated CMS — no database, GitHub 
 Standard session protocol applies. On `checkpoint`: update files, banana-hunt until two clean rounds. On `resume`: read this file + TASKS.md, report where we left off and what's next.
 
 ## Current focus
-Real design is now in the repo (index.html + imprint.html, 33+6 data-edit regions, admin bootstrap wired). Next step: set `VERCEL_TOKEN` as a GitHub Actions secret to trigger the first deploy and create the Vercel project, then set all env vars.
+Site is live on Vercel (https://strapivo-website.vercel.app) — `VERCEL_TOKEN` is set and the GitHub Actions deploy runs on push to `main`. Responsive pass underway (hero, session, problem, flywheel done). Next steps: set Vercel env vars, register the GitHub + Telegram webhooks, attach the `strapivo.com` custom domain.
 
 ## Tasks
 See [TASKS.md](TASKS.md) — Active section is the source of truth for what's next.
