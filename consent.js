@@ -17,14 +17,16 @@
   function accept()  { set('accepted'); optIn();  removeBanner(); }
   function decline() { set('declined'); optOut(); removeBanner(); }
 
-  // Exposed so the early-access form can record consent on submit
+  // accept(): exposed so the early-access form can record consent on submit
   // (volunteering name + email is an explicit, unambiguous opt-in).
-  window.__strapivoConsent = { accept: accept, decline: decline };
+  // reopen(): lets a "Cookie settings" link re-show the banner so a visitor
+  // can change or withdraw consent at any time.
+  window.__strapivoConsent = { accept: accept, decline: decline, reopen: function () { render(); } };
 
-  // Re-apply a prior decision (PostHog defaults to opted-out via init config).
+  // Re-apply any prior decision (PostHog defaults to opted-out via init config).
   var prior = get();
-  if (prior === 'accepted') { optIn(); return; }
-  if (prior === 'declined') { optOut(); return; }
+  if (prior === 'accepted') optIn();
+  else if (prior === 'declined') optOut();
 
   function injectStyles() {
     if (document.getElementById('cookie-consent-styles')) return;
@@ -72,9 +74,24 @@
     bar.querySelector('[data-cc="decline"]').addEventListener('click', decline);
   }
 
+  function wireManageLinks() {
+    var links = document.querySelectorAll('[data-cookie-settings]');
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', function (e) {
+        e.preventDefault();
+        render();
+      });
+    }
+  }
+
+  function init() {
+    wireManageLinks();
+    if (!prior) render();
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', render);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    render();
+    init();
   }
 })();

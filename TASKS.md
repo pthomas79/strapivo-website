@@ -2,7 +2,6 @@
 
 ## Active
 
-- [ ] Legal pages — Terms & Conditions next (Imprint + Privacy Policy live; cookie-consent banner live)
 - [ ] Set all Vercel env vars (see `memory/env-vars.md`)
 - [ ] Register GitHub webhook (Settings → Webhooks, Issues event only, secret = `GITHUB_WEBHOOK_SECRET`)
 - [ ] Register Telegram webhook via `setWebhook` curl (after first deploy)
@@ -47,3 +46,6 @@
 - [x] Imprint page filled with Strapivo Ltd (Cyprus, HE 492139) and deployed live at strapivo.com/imprint
 - [x] Privacy Policy page (GDPR/Cyprus) added at strapivo.com/privacy + footer links wired
 - [x] Cookie-consent banner (`consent.js`): PostHog opted-out by default, gated behind Accept; form submit counts as consent
+- [x] Terms & Conditions page (website terms, Cyprus governing law) live at strapivo.com/terms + footer links
+- [x] Cookie handling decision: no separate cookie policy page needed (minimal footprint); instead enriched the Privacy cookie section with a cookie list + added a "Cookie settings" footer control to change/withdraw consent
+- [x] Legal pages COMPLETE (Imprint + Privacy + Terms all live)

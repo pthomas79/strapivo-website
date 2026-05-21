@@ -5,7 +5,7 @@ Static marketing site for Strapivo with an AI-gated CMS — no database, GitHub 
 Standard session protocol applies. On `checkpoint`: update files, banana-hunt until two clean rounds. On `resume`: read this file + TASKS.md, report where we left off and what's next.
 
 ## Current focus
-Site is live and public on Vercel (`strapivo-website`, prod READY) at https://strapivo.com — `VERCEL_TOKEN` is set and the GitHub Actions deploy runs on push to `main`. Responsive pass complete across all sections. Current work: legal pages — Imprint (in progress), then Privacy Policy + Terms & Conditions. Remaining infra: set Vercel env vars, register the GitHub + Telegram webhooks.
+Site is live and public on Vercel (`strapivo-website`, prod READY) at https://strapivo.com — `VERCEL_TOKEN` is set and the GitHub Actions deploy runs on push to `main`. Responsive pass complete across all sections. Legal pages COMPLETE and live: Imprint (`/imprint`), Privacy Policy (`/privacy`), Terms (`/terms`), plus a consent banner (`consent.js`) that gates PostHog (opted-out by default) with a "Cookie settings" control to withdraw consent. No separate cookie policy — covered in the Privacy Policy. Remaining infra (all gated on secrets only the user can provide): set Vercel env vars, register the GitHub + Telegram webhooks, end-to-end CMS smoke test.
 
 ## Tasks
 See [TASKS.md](TASKS.md) — Active section is the source of truth for what's next.

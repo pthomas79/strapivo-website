@@ -118,6 +118,16 @@ body { background: var(--sky); color: var(--n700); margin: 0; }
 .imp-grid .imp-body li { margin: 0 0 8px; }
 .imp-grid .imp-body li:last-child { margin-bottom: 0; }
 .imp-grid .imp-body strong { color: var(--n800); font-weight: 500; }
+.imp-grid .imp-body code {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.82em;
+  background: #ffffff;
+  border: 1px solid var(--n200);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: var(--n700);
+  word-break: break-word;
+}
 .imp-grid .imp-body a {
   color: var(--p700);
   text-decoration: none;
@@ -234,7 +244,14 @@ body { background: var(--sky); color: var(--n700); margin: 0; }
     <h2>Cookies &amp; similar tech</h2>
     <div class="imp-body" data-edit="privacy.cookies">
       <p>We use PostHog (see below) for product analytics, which stores cookies or similar identifiers in your browser to recognise returning visitors and measure usage.</p>
-      <p>These analytics cookies are only set after you accept them via the consent banner shown on your first visit. If you decline, no analytics cookies are placed. Submitting the early-access form also counts as consent, so we can record your request. You can block or delete cookies in your browser settings at any time, which will not affect access to the site.</p>
+      <p>These analytics cookies are only set after you accept them via the consent banner shown on your first visit. If you decline, no analytics cookies are placed. Submitting the early-access form also counts as consent, so we can record your request.</p>
+      <p>The cookies and similar storage we may use are:</p>
+      <ul>
+        <li><strong>PostHog analytics</strong> (e.g. <code>ph_…_posthog</code>) — set only after you accept; stores an anonymous visitor and session identifier to measure usage. Expires after up to 12 months.</li>
+        <li><strong>PostHog consent</strong> (e.g. <code>__ph_opt_in_out_…</code>) — records whether you accepted or declined analytics. Expires after up to 12 months.</li>
+        <li><strong>Cookie choice</strong> (<code>strapivo_cookie_consent_v1</code>) — stored in your browser's local storage (not strictly a cookie) so we remember your banner choice. Persists until you clear your site data.</li>
+      </ul>
+      <p>You can change or withdraw your choice at any time via the <strong>"Cookie settings"</strong> link in the footer, and you can block or delete cookies in your browser settings — neither will affect access to the site.</p>
     </div>
   </div>
 
@@ -310,6 +327,8 @@ body { background: var(--sky); color: var(--n700); margin: 0; }
       <nav style="display:flex;gap:20px;flex-wrap:wrap;" aria-label="Legal">
         <a href="imprint.html" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n400);text-decoration:none;letter-spacing:0.06em;">Imprint</a>
         <a href="privacy.html" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n400);text-decoration:none;letter-spacing:0.06em;">Privacy</a>
+        <a href="terms.html" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n400);text-decoration:none;letter-spacing:0.06em;">Terms</a>
+        <a href="#" data-cookie-settings style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n400);text-decoration:none;letter-spacing:0.06em;">Cookie settings</a>
         <a href="/api/auth/login" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n600);text-decoration:none;letter-spacing:0.06em;opacity:0.3;">Admin</a>
       </nav>
     </div>

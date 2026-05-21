@@ -2,7 +2,7 @@
   'use strict';
 
   const PENDING_KEY = 'strapivo_admin_pending_v1';
-  const EDITABLE_FILES = ['index.html', 'imprint.html', 'privacy.html'];
+  const EDITABLE_FILES = ['index.html', 'imprint.html', 'privacy.html', 'terms.html'];
   const BAR_ID = '__cms_bar';
   const OVERLAY_ID = '__cms_overlay';
 

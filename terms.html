@@ -15,9 +15,9 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Imprint · Strapivo</title>
-<meta name="description" content="Imprint and legal information for Strapivo Ltd.">
-<link rel="canonical" href="https://strapivo.com/imprint">
+<title>Terms &amp; Conditions · Strapivo</title>
+<meta name="description" content="Terms and conditions for using the Strapivo website, operated by Strapivo Ltd.">
+<link rel="canonical" href="https://strapivo.com/terms">
 <meta name="theme-color" content="#EEF6FF">
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg">
@@ -107,10 +107,17 @@ body { background: var(--sky); color: var(--n700); margin: 0; }
   font-size: 17px;
   line-height: 1.65;
   color: var(--n700);
-  max-width: 60ch;
+  max-width: 64ch;
 }
 .imp-grid .imp-body p { margin: 0 0 12px; }
 .imp-grid .imp-body p:last-child { margin-bottom: 0; }
+.imp-grid .imp-body ul {
+  margin: 0 0 12px;
+  padding-left: 20px;
+}
+.imp-grid .imp-body li { margin: 0 0 8px; }
+.imp-grid .imp-body li:last-child { margin-bottom: 0; }
+.imp-grid .imp-body strong { color: var(--n800); font-weight: 500; }
 .imp-grid .imp-body a {
   color: var(--p700);
   text-decoration: none;
@@ -118,37 +125,6 @@ body { background: var(--sky); color: var(--n700); margin: 0; }
   transition: color 150ms, border-color 150ms;
 }
 .imp-grid .imp-body a:hover { color: var(--p600); border-color: var(--p500); }
-
-.imp-kv {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: 6px 24px;
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--n700);
-}
-.imp-kv dt {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--n500);
-  align-self: center;
-}
-.imp-kv dd { margin: 0; }
-
-.imp-tag {
-  display: inline-block;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 10.5px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--n500);
-  background: #ffffff;
-  border: 1px solid var(--n200);
-  border-radius: 4px;
-  padding: 3px 8px;
-}
 
 /* Header */
 .site-header {
@@ -208,73 +184,119 @@ body { background: var(--sky); color: var(--n700); margin: 0; }
 <section class="pw" style="padding-top:80px; padding-bottom:80px;">
 
   <span class="ey">Legal</span>
-  <h1 class="imp-title">Imprint</h1>
-  <p class="imp-sub">
-    Information published in accordance with the EU e-Commerce Directive (2000/31/EC) and applicable Cyprus law.
+  <h1 class="imp-title">Terms &amp; Conditions</h1>
+  <p class="imp-sub" data-edit="terms.intro">
+    These terms govern your use of the Strapivo website at strapivo.com. By accessing or using the site,
+    you agree to them. If you do not agree, please do not use the site.
   </p>
 
-  <!-- Responsible entity -->
+  <!-- Operator -->
   <div class="imp-grid">
-    <h2>Company</h2>
-    <div class="imp-body" data-edit="imprint.entity">
-      <p style="font-size:19px;color:var(--n800);font-weight:500;margin-bottom:8px;">Strapivo Ltd</p>
-      <p>
-        Georgiou Kalogeropoulou 28, Flat/Office 101<br>
-        Mesa Geitonia<br>
-        4007 Limassol<br>
-        Cyprus
-      </p>
-      <p style="font-size:14px;color:var(--n500);margin-top:8px;">A private company limited by shares, incorporated in the Republic of Cyprus under the Companies Law, Cap. 113.</p>
+    <h2>Who we are</h2>
+    <div class="imp-body" data-edit="terms.operator">
+      <p>This website is operated by <strong>Strapivo Ltd</strong>, a company incorporated in the Republic of Cyprus (reg. no. HE 492139), Georgiou Kalogeropoulou 28, Flat/Office 101, Mesa Geitonia, 4007 Limassol, Cyprus. In these terms, "we", "us", and "our" refer to Strapivo Ltd.</p>
+    </div>
+  </div>
+
+  <!-- The website -->
+  <div class="imp-grid">
+    <h2>The website</h2>
+    <div class="imp-body" data-edit="terms.website">
+      <p>This site is an informational and marketing website that describes Strapivo and lets you register interest in early access. It is not the Strapivo product itself, and no product or service is sold or provided through it. Use of the Strapivo product, once available to you, will be governed by a separate agreement.</p>
+      <p>We may change, suspend, or withdraw all or part of the site at any time without notice.</p>
+    </div>
+  </div>
+
+  <!-- Early access -->
+  <div class="imp-grid">
+    <h2>Early access</h2>
+    <div class="imp-body" data-edit="terms.earlyaccess">
+      <p>Submitting the early-access form registers your interest only. It does not create any contract or entitlement. We do not guarantee that you will be granted access, when access might be offered, the features that will be available, or that the product will launch at all.</p>
+      <p>We may select participants at our sole discretion and may contact you about early access and related updates. You confirm that any information you provide is accurate and that you are entitled to provide it.</p>
+    </div>
+  </div>
+
+  <!-- Acceptable use -->
+  <div class="imp-grid">
+    <h2>Acceptable use</h2>
+    <div class="imp-body" data-edit="terms.use">
+      <p>You agree not to:</p>
+      <ul>
+        <li>use the site in any unlawful, fraudulent, or harmful way, or in breach of these terms;</li>
+        <li>attempt to gain unauthorised access to, interfere with, or disrupt the site, its servers, or connected systems;</li>
+        <li>introduce malware or any other harmful or malicious code;</li>
+        <li>scrape, harvest, or systematically extract data from the site without our prior written consent; or</li>
+        <li>misuse, copy, or exploit the site or its content other than as permitted by these terms.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Intellectual property -->
+  <div class="imp-grid">
+    <h2>Intellectual property</h2>
+    <div class="imp-body" data-edit="terms.ip">
+      <p>All content on the site — including text, graphics, logos, the Strapivo name and brand, design, and code — is owned by or licensed to Strapivo Ltd and is protected by intellectual-property laws. You may view and use the site for your own information only. You may not copy, reproduce, distribute, or create derivative works from it without our prior written permission.</p>
+    </div>
+  </div>
+
+  <!-- Third-party links -->
+  <div class="imp-grid">
+    <h2>Third-party links</h2>
+    <div class="imp-body" data-edit="terms.links">
+      <p>The site may link to third-party websites or services that we do not control. We provide those links for convenience only and are not responsible for their content, products, or practices. Accessing them is at your own risk and subject to their own terms.</p>
+    </div>
+  </div>
+
+  <!-- Disclaimers -->
+  <div class="imp-grid">
+    <h2>Disclaimers</h2>
+    <div class="imp-body" data-edit="terms.disclaimer">
+      <p>The site and its content are provided "as is" and "as available", without warranties of any kind, whether express or implied, to the fullest extent permitted by law. We do not warrant that the site will be uninterrupted, error-free, or secure, or that the information on it is complete, accurate, or current.</p>
+    </div>
+  </div>
+
+  <!-- Liability -->
+  <div class="imp-grid">
+    <h2>Limitation of liability</h2>
+    <div class="imp-body" data-edit="terms.liability">
+      <p>To the fullest extent permitted by law, we will not be liable for any indirect, incidental, or consequential loss, or for any loss of profits, data, or goodwill, arising from your use of (or inability to use) the site.</p>
+      <p>Nothing in these terms excludes or limits our liability where it would be unlawful to do so, including liability for death or personal injury caused by negligence or for fraud. If you are a consumer, your mandatory statutory rights are not affected.</p>
+    </div>
+  </div>
+
+  <!-- Privacy -->
+  <div class="imp-grid">
+    <h2>Privacy</h2>
+    <div class="imp-body" data-edit="terms.privacy">
+      <p>Our handling of personal data is described in our <a href="privacy.html">Privacy Policy</a>, which forms part of your use of the site.</p>
+    </div>
+  </div>
+
+  <!-- Changes -->
+  <div class="imp-grid">
+    <h2>Changes to these terms</h2>
+    <div class="imp-body" data-edit="terms.changes">
+      <p>We may update these terms from time to time. The current version is the one published on this page, with the "last updated" date below. By continuing to use the site after a change, you accept the updated terms.</p>
+    </div>
+  </div>
+
+  <!-- Governing law -->
+  <div class="imp-grid">
+    <h2>Governing law</h2>
+    <div class="imp-body" data-edit="terms.law">
+      <p>These terms and any dispute arising from them are governed by the laws of the Republic of Cyprus, and the courts of Cyprus have jurisdiction. If you are a consumer, you may also benefit from any mandatory protections of the country in which you live.</p>
     </div>
   </div>
 
   <!-- Contact -->
   <div class="imp-grid">
     <h2>Contact</h2>
-    <div class="imp-body" data-edit="imprint.contact">
-      <dl class="imp-kv">
-        <dt>Email</dt>
-        <dd><a href="mailto:hello@strapivo.com">hello@strapivo.com</a></dd>
-      </dl>
+    <div class="imp-body" data-edit="terms.contact">
+      <p>Questions about these terms: <a href="mailto:hello@strapivo.com">hello@strapivo.com</a></p>
     </div>
   </div>
 
-  <!-- Registration -->
-  <div class="imp-grid">
-    <h2>Registration</h2>
-    <div class="imp-body" data-edit="imprint.registration">
-      <dl class="imp-kv">
-        <dt>Registry</dt>
-        <dd>Department of Registrar of Companies and Intellectual Property, Nicosia, Cyprus</dd>
-        <dt>Registration no.</dt>
-        <dd>HE 492139</dd>
-      </dl>
-      <!-- VAT ID: add once the company is VAT-registered, e.g. <dt>VAT ID</dt><dd>CY00000000X</dd> -->
-    </div>
-  </div>
-
-  <!-- Consumer disputes -->
-  <div class="imp-grid">
-    <h2>Consumer disputes</h2>
-    <div class="imp-body">
-      <p>We are not obliged, and are not willing, to participate in dispute resolution proceedings before a consumer arbitration board.</p>
-    </div>
-  </div>
-
-  <!-- Liability -->
-  <div class="imp-grid">
-    <h2>Liability</h2>
-    <div class="imp-body">
-      <p>
-        The content of this site has been prepared with care. We assume no liability for the accuracy, completeness, or timeliness of the information provided.
-      </p>
-      <p>
-        External links lead to third-party content over which we have no control. The respective providers are responsible for the content of linked pages.
-      </p>
-    </div>
-  </div>
-
-  <p data-edit="imprint.updated" style="margin-top:48px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--n500);letter-spacing:0.04em;">
+  <p data-edit="terms.updated" style="margin-top:48px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--n500);letter-spacing:0.04em;">
     Last updated: May 2026
   </p>
 
