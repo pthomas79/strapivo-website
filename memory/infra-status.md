@@ -10,7 +10,11 @@ All code is in `main` branch of `pthomas79/strapivo-website`.
 - GitHub Actions deploy workflow (`.github/workflows/deploy.yml`) ✅
 - `cms-queue` label created on the GitHub repo ✅
 - `index.html` — real Claude Design, 5 sections, 33 `data-edit` regions, admin bootstrap ✅
-- `imprint.html` — European legal page, 6 `data-edit` regions (placeholders to fill), admin bootstrap ✅
+- `imprint.html` — legal imprint, filled with Strapivo Ltd (Cyprus, HE 492139), live at `/imprint` ✅
+- `privacy.html` — GDPR/Cyprus privacy policy (+ cookie list), live at `/privacy` ✅
+- `terms.html` — website terms (Cyprus governing law), live at `/terms` ✅
+- `consent.js` — cookie-consent banner gating PostHog (opted-out by default) + "Cookie settings" withdrawal control, on every page ✅
+- All 4 public pages registered in `EDITABLE_FILES` (`api/_lib/editable-files.js` + `admin.js`) ✅
 - `styles.css`, `session-ui.js`, `assets/`, `fonts/` from handoff ✅
 - `.vercelignore` (excludes `archive/`) ✅
 - **Vercel project created + deployed to production** — `VERCEL_TOKEN` secret is set, GitHub Actions deploy runs on push to `main` and succeeds (production READY) ✅

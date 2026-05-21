@@ -17,7 +17,7 @@ The `VERCEL_TOKEN` goes in GitHub Actions secrets (not Vercel).
 | `GITHUB_WEBHOOK_SECRET` | `openssl rand -hex 32` | ⏳ not generated |
 | `CLAUDE_API_KEY` | console.anthropic.com | ⏳ not provided |
 | `SITE_BRAND_DESCRIPTION` | `Sky blue surface #EEF6FF, ink #141B24, primary blue #005DBD. Inter + JetBrains Mono. Highlight ingredient is amber #DEA143 skewed pseudo-element — never remove. Surgical changes only.` | ✅ known |
-| `VERCEL_TOKEN` | vercel.com/account/tokens (full account scope) → GitHub Actions secret | ⏳ not created |
+| `VERCEL_TOKEN` | vercel.com/account/tokens (full account scope) → GitHub Actions secret | ✅ set (deploys working) |
 
 ## Google OAuth redirect URIs to add
 

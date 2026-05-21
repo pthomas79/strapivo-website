@@ -50,10 +50,24 @@ api/
   telegram-webhook.js   ← Phase B: receives Approve/Decline, executes or declines
   recent-edits.js       ← returns last 10 commits to a file
   rollback.js           ← reverts a file to pre-commit state
+index.html              ← marketing site (33 data-edit regions)
+imprint.html            ← legal: imprint (Cyprus, HE 492139)
+privacy.html            ← legal: GDPR privacy policy (+ cookie list)
+terms.html              ← legal: website terms (Cyprus governing law)
+consent.js              ← cookie-consent banner (loaded on every public page)
 admin.js                ← client-side admin overlay (loaded only for authenticated admins)
 vercel.json             ← cleanUrls: true
 .github/workflows/deploy.yml  ← strips .git then runs vercel deploy --prod
 ```
+
+## Cookie consent (`consent.js`)
+
+- PostHog is initialised with `opt_out_capturing_by_default: true` on every page — no analytics until consent
+- Banner shows once; choice persisted in localStorage (`strapivo_cookie_consent_v1`)
+- Exposes `window.__strapivoConsent = { accept, decline, reopen }`
+  - the early-access form calls `accept()` on submit (volunteering email = explicit consent), so signups are never lost even if analytics was declined
+  - footer "Cookie settings" links (`[data-cookie-settings]`) call `reopen()` so consent can be changed/withdrawn — a GDPR requirement
+- No separate cookie policy page; cookies are documented in `privacy.html`
 
 ## Claude models used
 
