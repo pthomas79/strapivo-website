@@ -2,7 +2,7 @@
 
 ## Active
 
-- [ ] Legal pages — Imprint (in progress), then Privacy Policy + Terms & Conditions
+- [ ] Legal pages — Terms & Conditions next (Imprint live; Privacy Policy drafted, pending deploy)
 - [ ] Set all Vercel env vars (see `memory/env-vars.md`)
 - [ ] Register GitHub webhook (Settings → Webhooks, Issues event only, secret = `GITHUB_WEBHOOK_SECRET`)
 - [ ] Register Telegram webhook via `setWebhook` curl (after first deploy)
@@ -44,3 +44,4 @@
 - [x] `www.strapivo.com` aliased to the production deployment
 - [x] Responsive pass complete across all sections (hero, session, problem, flywheel, access/CTA, footer, quote band) — confirmed OK on device
 - [x] Site made public (Vercel deployment protection disabled) and `strapivo.com` domain resolving
+- [x] Imprint page filled with Strapivo Ltd (Cyprus, HE 492139) and deployed live at strapivo.com/imprint
