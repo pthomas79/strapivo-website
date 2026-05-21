@@ -2,12 +2,10 @@
 
 ## Active
 
-- [ ] ⚠️ Disable Vercel deployment protection — prod URLs return 403 to anonymous visitors (Vercel → Settings → Deployment Protection)
-- [ ] Fix apex `strapivo.com` DNS (only `www.strapivo.com` resolves to Vercel today)
+- [ ] Legal pages — Imprint (in progress), then Privacy Policy + Terms & Conditions
 - [ ] Set all Vercel env vars (see `memory/env-vars.md`)
 - [ ] Register GitHub webhook (Settings → Webhooks, Issues event only, secret = `GITHUB_WEBHOOK_SECRET`)
 - [ ] Register Telegram webhook via `setWebhook` curl (after first deploy)
-- [ ] Fill in `[bracketed]` placeholders in `imprint.html` via Comment Mode
 
 ## Waiting On
 
@@ -21,7 +19,6 @@
 - [ ] Set Vercel env vars (all variables listed in `memory/env-vars.md`)
 - [ ] Register GitHub webhook pointing to `https://strapivo.com/api/github-webhook`
 - [ ] Register Telegram webhook via `setWebhook` curl
-- [ ] Verify apex `strapivo.com` once DNS propagates + deployment protection is off
 - [ ] End-to-end smoke test (login → edit → commit → comment → approve → revert)
 
 ## Done
@@ -46,3 +43,4 @@
 - [x] `VERCEL_TOKEN` set + Vercel project `strapivo-website` deployed to production via GitHub Actions (push to `main`); responsive build verified live
 - [x] `www.strapivo.com` aliased to the production deployment
 - [x] Responsive pass complete across all sections (hero, session, problem, flywheel, access/CTA, footer, quote band) — confirmed OK on device
+- [x] Site made public (Vercel deployment protection disabled) and `strapivo.com` domain resolving
