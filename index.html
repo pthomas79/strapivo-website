@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Mi Ri init Vi Gi Rr Wi Ji Bi capture calculateEventProperties tn register register_once register_for_session unregister unregister_for_session an getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync un identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty nn Xi createPersonProfile setInternalOrTestUser sn Hi cn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ki debug Lr rn getPageViewId captureTraceFeedback captureTraceMetric Di".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+
+  posthog.init('phc_uzH9QSc7oWjHc9Rs9ux4TkkAorTKXWj9iKzQG5vMCVmQ', {
+    api_host: 'https://m.strapivo.app',
+    ui_host: 'https://eu.posthog.com',
+    defaults: '2026-01-30',
+    person_profiles: 'identified_only',
+    opt_in_site_apps: true
+  })
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Strapivo · Strategy has a home now.</title>
@@ -150,7 +161,48 @@ body { margin: 0; background: var(--sky); color: var(--n700); }
 .btn-primary.on-dark { background: var(--p500); }
 .btn-primary.on-dark:hover { background: var(--p600); }
 
-
+.ea-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 520px;
+  margin-bottom: 16px;
+}
+.ea-input {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #2F3945;
+  border-radius: 8px;
+  background: #0D141D;
+  color: var(--n50);
+  font: inherit;
+  font-size: 16px;
+  padding: 15px 16px;
+  outline: none;
+  transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
+}
+.ea-input::placeholder { color: #8B919A; }
+.ea-input:focus {
+  border-color: var(--p400);
+  box-shadow: 0 0 0 3px rgba(63, 160, 250, 0.18);
+}
+.ea-submit {
+  border: 0;
+  cursor: pointer;
+  justify-content: center;
+}
+.ea-confirmation {
+  margin: 0 0 16px;
+  color: var(--n50);
+  font-size: 18px;
+  font-weight: 500;
+}
+@media (min-width:640px) {
+  .ea-form { display: grid; grid-template-columns: 1fr 1fr; }
+  .ea-input { min-width: 0; }
+  .ea-org { grid-column: 1 / -1; }
+  .ea-submit { grid-column: 1 / -1; justify-self: start; white-space: nowrap; }
+}
 
 /* ── Hero responsive grid ────────────────────────────────────── */
 .hero-grid { display:grid; grid-template-columns:1fr; gap:40px; align-items:center; }
@@ -995,9 +1047,41 @@ body { margin: 0; background: var(--sky); color: var(--n700); }
       <p data-edit="access.formula" style="font-size:clamp(16px,2vw,20px);line-height:1.65;color:#CCD2D7;margin:0 0 36px;max-width:50ch;">An LLM does not know your business like you do. The more you use Strapivo, the better your strategy gets.
 Your experience &amp; judgment + Strapivo = winning results.</p>
 
-      <a href="mailto:strategy@strapivo.com?subject=Early%20access" class="btn btn-primary lg on-dark" style="margin-bottom:16px;display:inline-flex;">
-        Request early access
-      </a>
+      <form id="early-access-form" class="ea-form">
+        <input type="text" id="ea-name" class="ea-input" placeholder="Your name" required />
+        <input type="email" id="ea-email" class="ea-input" placeholder="Your email" required />
+        <input type="text" id="ea-org" class="ea-input ea-org" placeholder="Organization (optional)" />
+        <button type="submit" class="btn btn-primary lg on-dark ea-submit">Get early access</button>
+      </form>
+      <p id="ea-confirmation" class="ea-confirmation" style="display:none;">You're on the list! 🎉</p>
+
+      <script>
+        document.getElementById('early-access-form').addEventListener('submit', function(e) {
+          e.preventDefault();
+
+          var name = document.getElementById('ea-name').value;
+          var email = document.getElementById('ea-email').value;
+          var org = document.getElementById('ea-org').value;
+
+          // Build person properties – only include organization if the user filled it in
+          var personProperties = { name: name, email: email };
+          if (org) personProperties.organization = org;
+
+          // 1. Identify the user – must happen before enrollment because
+          //    PostHog is configured with person_profiles: 'identified_only'
+          posthog.identify(email, personProperties);
+
+          // 2. Enroll the user in the early access feature
+          posthog.updateEarlyAccessFeatureEnrollment('early-access-waitlist', true);
+
+          // 3. Track the signup as a named event
+          posthog.capture('early_access_signup', personProperties);
+
+          // 4. Show confirmation, hide form
+          e.target.style.display = 'none';
+          document.getElementById('ea-confirmation').style.display = 'block';
+        });
+      </script>
 
       <!-- Sub-CTA — honest, no timing promise -->
       <p data-edit="access.subcta" style="font-size:13px;color:var(--n600);font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;margin-top:16px;">
