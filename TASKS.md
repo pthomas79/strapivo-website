@@ -2,7 +2,6 @@
 
 ## Active
 
-- [ ] Responsive polish — remaining sections to review at tablet/mobile: access/CTA, footer, quote band (hero, session, problem, flywheel done)
 - [ ] ⚠️ Disable Vercel deployment protection — prod URLs return 403 to anonymous visitors (Vercel → Settings → Deployment Protection)
 - [ ] Fix apex `strapivo.com` DNS (only `www.strapivo.com` resolves to Vercel today)
 - [ ] Set all Vercel env vars (see `memory/env-vars.md`)
@@ -46,3 +45,4 @@
 - [x] Flywheel responsive: mobile is now a connected vertical timeline (engine Ovatar + rail + loop cue); auto-cycling active step adds interactivity on desktop + mobile
 - [x] `VERCEL_TOKEN` set + Vercel project `strapivo-website` deployed to production via GitHub Actions (push to `main`); responsive build verified live
 - [x] `www.strapivo.com` aliased to the production deployment
+- [x] Responsive pass complete across all sections (hero, session, problem, flywheel, access/CTA, footer, quote band) — confirmed OK on device
