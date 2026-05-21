@@ -9,7 +9,8 @@
     ui_host: 'https://eu.posthog.com',
     defaults: '2026-01-30',
     person_profiles: 'identified_only',
-    opt_in_site_apps: true
+    opt_in_site_apps: true,
+    opt_out_capturing_by_default: true
   })
 </script>
 <meta charset="UTF-8">
@@ -221,7 +222,7 @@ body { background: var(--sky); color: var(--n700); margin: 0; }
     <div class="imp-body" data-edit="privacy.legalbasis">
       <ul>
         <li><strong>To process early-access requests</strong> and contact you about access — performance of pre-contractual steps at your request and our legitimate interest in building a waitlist (Art. 6(1)(b) and (f) GDPR).</li>
-        <li><strong>To understand and improve the site</strong> through analytics — our legitimate interest in measuring and improving our service, or your consent where required (Art. 6(1)(f) / 6(1)(a) GDPR).</li>
+        <li><strong>To understand and improve the site</strong> through analytics — your consent, which you give or decline via our cookie banner and may withdraw at any time (Art. 6(1)(a) GDPR).</li>
         <li><strong>To keep the site secure and operational</strong> — our legitimate interest in protecting our infrastructure (Art. 6(1)(f) GDPR).</li>
       </ul>
       <p>Where we rely on consent, you may withdraw it at any time without affecting prior processing.</p>
@@ -232,8 +233,8 @@ body { background: var(--sky); color: var(--n700); margin: 0; }
   <div class="imp-grid">
     <h2>Cookies &amp; similar tech</h2>
     <div class="imp-body" data-edit="privacy.cookies">
-      <p>We use PostHog (see below) for product analytics, which stores cookies or similar identifiers in your browser to recognise returning visitors and measure usage. Anonymous visitors are tracked without a personal profile until they identify themselves (for example, by submitting the early-access form).</p>
-      <p>You can block or delete cookies in your browser settings. Doing so will not affect access to the site.</p>
+      <p>We use PostHog (see below) for product analytics, which stores cookies or similar identifiers in your browser to recognise returning visitors and measure usage.</p>
+      <p>These analytics cookies are only set after you accept them via the consent banner shown on your first visit. If you decline, no analytics cookies are placed. Submitting the early-access form also counts as consent, so we can record your request. You can block or delete cookies in your browser settings at any time, which will not affect access to the site.</p>
     </div>
   </div>
 
@@ -329,6 +330,9 @@ body { background: var(--sky); color: var(--n700); margin: 0; }
     }
   })();
 </script>
+
+
+<script defer src="consent.js"></script>
 
 </body>
 </html>

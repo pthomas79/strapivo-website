@@ -9,7 +9,8 @@
     ui_host: 'https://eu.posthog.com',
     defaults: '2026-01-30',
     person_profiles: 'identified_only',
-    opt_in_site_apps: true
+    opt_in_site_apps: true,
+    opt_out_capturing_by_default: true
   })
 </script>
 <meta charset="UTF-8">
@@ -318,6 +319,9 @@ body { background: var(--sky); color: var(--n700); margin: 0; }
     }
   })();
 </script>
+
+
+<script defer src="consent.js"></script>
 
 </body>
 </html>

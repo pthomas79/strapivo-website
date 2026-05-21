@@ -9,7 +9,8 @@
     ui_host: 'https://eu.posthog.com',
     defaults: '2026-01-30',
     person_profiles: 'identified_only',
-    opt_in_site_apps: true
+    opt_in_site_apps: true,
+    opt_out_capturing_by_default: true
   })
 </script>
 <meta charset="UTF-8">
@@ -1067,6 +1068,11 @@ Your experience &amp; judgment + Strapivo = winning results.</p>
           var personProperties = { name: name, email: email };
           if (org) personProperties.organization = org;
 
+          // Submitting name + email is explicit consent for this processing, so
+          // opt in to capturing — the signup is recorded even if the visitor
+          // declined analytics cookies in the consent banner.
+          if (window.__strapivoConsent) window.__strapivoConsent.accept();
+
           // 1. Identify the user – must happen before enrollment because
           //    PostHog is configured with person_profiles: 'identified_only'
           posthog.identify(email, personProperties);
@@ -1330,6 +1336,9 @@ Your experience &amp; judgment + Strapivo = winning results.</p>
     }
   })();
 </script>
+
+
+<script defer src="consent.js"></script>
 
 </body>
 </html>
