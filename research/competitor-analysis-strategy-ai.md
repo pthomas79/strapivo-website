@@ -108,7 +108,20 @@ Classic enterprise sales-led: request-a-demo, contact-sales, downloadable pricin
 6. **Add strategy.ai to a competitor watch list** (pricing page, resources PDF, release notes) — their pricing guidebook updates will telegraph their strategy shifts.
 7. **Don't chase their enterprise integration surface now** — our launch exclusions (no deep integrations, no permissions) remain correct for the wedge; revisit after BMST validation.
 
-## 9. Caveats
+## 9. Addendum: further pricing-guidebook details (extracted 2026-07-03)
+
+Additional mechanics surfaced from deeper extraction of their pricing guidebook:
+
+- **Pilot extension:** one 30-day extension only, at $6,000 (prorated from the $20K base); hard stop at 120 days — framed as "if you still can't decide, your internal governance isn't ready," which gracefully disqualifies bad-fit accounts.
+- **Pilot fee is non-refundable** ("it covers the cost of delivering a real implementation") but explicitly no lock-in; they normalize clients returning 12–18 months later.
+- **"You keep everything":** approved claim set, governance console export, strategy data schema, formal readout stay with the client — removes pilot risk perception without discounting.
+- **No-negotiation policy, stated in writing:** "We do not negotiate the per-connection price or the platform fee as a matter of policy… our pricing is calibrated to what it actually costs to deliver the outcome we describe." Flex is confined to payment terms, instalments, year-2+ multi-year discounts (three-year rate lock = 5% off the per-connection fee), and onboarding scope.
+- **Custom ROI model** per client based on AI usage volume and governance baseline; claims quantifiable value within 60 days of live operation.
+- Post-pilot narrative: a live pilot outcome shifts procurement from "does this work?" to "how much should we spend scaling it?"
+
+**Extra lessons for us:** the written no-negotiation policy + narrow named flex zones is a strong pattern for a two-person GTM (prevents every deal becoming a negotiation); the paid-pilot-with-dignified-exit ("keep everything," return later) removes the exact objection our consulting ICP would raise; and the 120-day hard stop is a qualification filter disguised as a policy.
+
+## 10. Caveats
 
 - Direct fetches of strategy.ai were blocked by this session's network policy (proxy CONNECT denied); all site/pricing details come from search-engine-indexed copies of their pages and their public PDFs. Figures ($20K/$52K/$75K+$9K/$2K-day) should be re-verified against the live pricing guidebook before quoting externally.
 - No third-party coverage (funding, reviews, press) of strategy.ai was found — team size, traction, and funding are unknown; treat their enterprise polish as claims, not evidence.
