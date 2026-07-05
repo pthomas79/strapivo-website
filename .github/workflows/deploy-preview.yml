@@ -1,0 +1,31 @@
+name: Deploy preview to Vercel
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-preview
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Strip git metadata
+        # Vercel Hobby plan blocks deploys whose git author email isn't a verified
+        # Vercel account. Removing .git makes Vercel treat this as a plain CLI deploy.
+        run: rm -rf .git
+
+      - name: Deploy preview
+        # No --prod: creates a preview deployment on a unique *.vercel.app URL.
+        run: |
+          URL=$(vercel deploy --yes --name strapivo-website --token=${{ secrets.VERCEL_TOKEN }})
+          echo "PREVIEW_URL=$URL"
+          echo "### Preview deployment" >> "$GITHUB_STEP_SUMMARY"
+          echo "$URL" >> "$GITHUB_STEP_SUMMARY"
