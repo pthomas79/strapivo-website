@@ -161,6 +161,20 @@ body { margin: 0; background: var(--sky); color: var(--n700); }
 .btn-primary.lg { font-size: 16px; padding: 14px 28px; }
 .btn-primary.on-dark { background: var(--p500); }
 .btn-primary.on-dark:hover { background: var(--p600); }
+.btn-secondary {
+  border: 1px solid var(--p200);
+  background: rgba(255,255,255,0.42);
+  color: var(--p700);
+  font-size: 14px;
+  padding: 8px 17px;
+}
+.btn-secondary:hover { background: #ffffff; color: var(--p700); }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
+@media (max-width: 520px) {
+  .nav-actions { gap: 6px; }
+  .site-header .btn-primary.sm { font-size: 12px; padding: 8px 10px; }
+  .site-header .btn-secondary { font-size: 12px; padding: 7px 9px; }
+}
 
 .ea-form {
   display: flex;
@@ -728,14 +742,17 @@ body { margin: 0; background: var(--sky); color: var(--n700); }
 <a href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" onfocus="this.style.cssText='position:fixed;top:12px;left:12px;z-index:9999;background:#141B24;color:#F6F9FB;padding:10px 16px;border-radius:6px;font-size:14px;text-decoration:none;'">Skip to content</a>
 
 <!-- ═══════════════════════════════════════════════════════════
-     NAV  —  logo left · single CTA right · no other links
+     NAV  —  logo left · primary CTA and sign-in right
      ═══════════════════════════════════════════════════════════ -->
 <header class="site-header">
   <div class="pw" style="display:flex; align-items:center; justify-content:space-between; padding-top:14px; padding-bottom:14px;">
     <a href="/" aria-label="Strapivo home" style="display:flex; align-items:center; text-decoration:none;">
       <img src="assets/logo/strategy-primary-azure.svg" alt="Strapivo" style="height:28px; width:auto; display:block;">
     </a>
-    <a href="#access" class="btn btn-primary sm">Request early access</a>
+    <nav class="nav-actions" aria-label="Account and access">
+      <a href="#access" class="btn btn-primary sm">Request early access</a>
+      <a href="https://strapivo.app" class="btn btn-secondary">Sign in</a>
+    </nav>
   </div>
 </header>
 
@@ -1108,7 +1125,7 @@ Your experience &amp; judgment + Strapivo = winning results.</p>
 
 <!-- ═══════════════════════════════════════════════════════════
      FOOTER
-     Two lines of copy. Legal links only. No logos.
+     Two lines of copy. Legal, sign-in, and admin links.
      ═══════════════════════════════════════════════════════════ -->
 <footer class="s-foot" style="color:var(--n500);">
   <div class="pw" style="padding-top:64px; padding-bottom:64px;">
@@ -1123,11 +1140,12 @@ Your experience &amp; judgment + Strapivo = winning results.</p>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between;">
       <p data-edit="footer.copy" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n600);letter-spacing:0.06em;margin:0;">© 2026 Strapivo</p>
-      <nav style="display:flex;gap:20px;flex-wrap:wrap;" aria-label="Legal">
+      <nav style="display:flex;gap:20px;flex-wrap:wrap;" aria-label="Footer">
         <a href="imprint.html" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n600);text-decoration:none;letter-spacing:0.06em;transition:color 150ms;" onmouseover="this.style.color='#999FA6'" onmouseout="this.style.color='var(--n600)'">Imprint</a>
         <a href="privacy.html" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n600);text-decoration:none;letter-spacing:0.06em;transition:color 150ms;" onmouseover="this.style.color='#999FA6'" onmouseout="this.style.color='var(--n600)'">Privacy</a>
         <a href="terms.html" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n600);text-decoration:none;letter-spacing:0.06em;transition:color 150ms;" onmouseover="this.style.color='#999FA6'" onmouseout="this.style.color='var(--n600)'">Terms</a>
         <a href="#" data-cookie-settings style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n600);text-decoration:none;letter-spacing:0.06em;transition:color 150ms;" onmouseover="this.style.color='#999FA6'" onmouseout="this.style.color='var(--n600)'">Cookie settings</a>
+        <a href="https://strapivo.app" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n600);text-decoration:none;letter-spacing:0.06em;transition:color 150ms;" onmouseover="this.style.color='#999FA6'" onmouseout="this.style.color='var(--n600)'">Sign in</a>
         <a href="/api/auth/login" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n600);text-decoration:none;letter-spacing:0.06em;opacity:0.3;">Admin</a>
       </nav>
     </div>
