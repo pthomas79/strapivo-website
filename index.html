@@ -25,7 +25,16 @@
 <meta property="og:title" content="Strapivo · Strategy has a home now.">
 <meta property="og:description" content="Bring your judgment. Strapivo brings the intelligence. The more you use it, the sharper your strategy gets.">
 <meta property="og:url" content="https://strapivo.com/">
+<meta property="og:image" content="https://strapivo.com/assets/strapivo-social.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Strapivo — Strategy has a home now. Bring your judgment. Strapivo brings the intelligence.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Strapivo · Strategy has a home now.">
+<meta name="twitter:description" content="Bring your judgment. Strapivo brings the intelligence. The more you use it, the sharper your strategy gets.">
+<meta name="twitter:image" content="https://strapivo.com/assets/strapivo-social.jpg">
+<meta name="twitter:image:alt" content="Strapivo — Strategy has a home now. Bring your judgment. Strapivo brings the intelligence.">
 <link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
 <link rel="preload" href="fonts/Inter-Regular.otf" as="font" type="font/otf" crossorigin>
@@ -34,11 +43,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="orb.css">
+<script defer src="orb.js"></script>
 
 <style>
 /* ═══════════════════════════════════════════════════════════════
    STRAPIVO V1  ·  Delta-V1 surface additions
-   Sky-only surface · Ovatar soundwave · Highlight ingredient
+   Sky-only surface · App orb · Highlight ingredient
    ═══════════════════════════════════════════════════════════════ */
 
 /* Tokens shorthand */
@@ -112,25 +123,6 @@ body { margin: 0; background: var(--sky); color: var(--n700); }
 }
 .on-dark .hl::before { opacity: 0.65; }
 
-/* ── Ovatar soundwave wave paths ─── canonical Ovatar spec ─────── */
-.ov-wave {
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: ov-orbit var(--ov-dur, 14s) linear infinite;
-}
-.ov-wave:nth-of-type(2n) {
-  animation-direction: reverse;
-  animation-duration: var(--ov-alt, 18s);
-}
-@keyframes ov-orbit {
-  from { transform: rotate(0deg)   scale(0.99); }
-  50%  { transform: rotate(180deg) scale(1.03); }
-  to   { transform: rotate(360deg) scale(0.99); }
-}
-@media (prefers-reduced-motion: reduce) { .ov-wave { animation: none; } }
 
 /* ── Section backgrounds ──────────────────────────────────────── */
 .s-sky   { background: var(--sky);  }
@@ -1154,8 +1146,7 @@ Your experience &amp; judgment + Strapivo = winning results.</p>
 
 
 <!-- ═══════════════════════════════════════════════════════════
-     OVATAR RENDERER + interactive behaviour
-     - Renders soundwave paths into every [data-ov-waves] group
+     Interactive behaviour (shared orb renderer lives in orb.js)
      - Drives the sticky-scroll counter (Problem)
      - Auto-cycles the flywheel step (How It Works)
      ═══════════════════════════════════════════════════════════ -->
@@ -1163,68 +1154,6 @@ Your experience &amp; judgment + Strapivo = winning results.</p>
 (function () {
   'use strict';
 
-  /* ─── Ovatar wave geometry ──────────────────────────────────── */
-  function wavePath(radius, wobble) {
-    var r = function(v) { return Number(v.toFixed(2)); };
-    return [
-      'M ' + r(-radius) + ' 0',
-      'C ' + r(-radius) + ' ' + r(-23 - wobble) + ', ' + r(-23 - wobble) + ' ' + r(-radius) + ', 0 ' + r(-radius - wobble * 0.35),
-      'C ' + r(23 + wobble) + ' ' + r(-radius) + ', ' + r(radius + wobble) + ' ' + r(-23 - wobble) + ', ' + r(radius) + ' 0',
-      'C ' + r(radius) + ' ' + r(23 + wobble) + ', ' + r(23 + wobble) + ' ' + r(radius) + ', 0 ' + r(radius + wobble * 0.35),
-      'C ' + r(-23 - wobble) + ' ' + r(radius) + ', ' + r(-radius - wobble) + ' ' + r(23 + wobble) + ', ' + r(-radius) + ' 0'
-    ].join(' ');
-  }
-
-  function renderOvatar(svg, cfg) {
-    var group = svg.querySelector('[data-ov-waves]');
-    if (!group) return;
-    var px = cfg.px;
-    var waveCount  = px >= 100 ? 52 : 28;
-    var radiusSteps = px >= 100 ? 26 : 14;
-
-    while (group.firstChild) group.removeChild(group.firstChild);
-
-    svg.style.setProperty('--ov-dur', cfg.dur + 's');
-    svg.style.setProperty('--ov-alt', cfg.alt + 's');
-
-    for (var i = 0; i < waveCount; i++) {
-      var radius = 34.5 + (i % radiusSteps) * 0.48;
-      radius += (i % 2 === 1) ? 0.9 : -0.55;
-      var wobble = 3.8 + (i % 7) * 0.64;
-      var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.classList.add('ov-wave');
-      path.style.strokeWidth = cfg.stroke;
-      path.style.opacity     = (i % 3 === 0) ? cfg.muted : cfg.opacity;
-      path.style.animationDelay = (-i * 0.2).toFixed(1) + 's';
-      path.setAttribute('d', wavePath(radius, wobble));
-      group.appendChild(path);
-    }
-  }
-
-  /* Size-tuned presets */
-  function presetFor(sizePx) {
-    if (sizePx >= 120) return { px: sizePx, stroke: 0.65, opacity: 0.34, muted: 0.22, dur: 14, alt: 18 };
-    if (sizePx >= 80)  return { px: sizePx, stroke: 0.70, opacity: 0.38, muted: 0.25, dur: 12, alt: 15 };
-    if (sizePx >= 40)  return { px: sizePx, stroke: 0.85, opacity: 0.44, muted: 0.30, dur:  9, alt: 12 };
-    return                    { px: sizePx, stroke: 0.95, opacity: 0.48, muted: 0.32, dur:  7, alt:  9 };
-  }
-
-  function renderAll() {
-    var svgs = document.querySelectorAll('svg [data-ov-waves]');
-    svgs.forEach(function (group) {
-      var svg = group.ownerSVGElement;
-      if (!svg) return;
-      /* Read actual rendered size, fall back to 80px */
-      var box = svg.getBoundingClientRect();
-      var sz = Math.max(box.width, box.height) || 80;
-      renderOvatar(svg, presetFor(sz));
-    });
-  }
-
-  window.StrapivoOvatar = { renderAll: renderAll, renderOne: renderOvatar };
-  renderAll();
-  /* Re-render after fonts/layout settle */
-  setTimeout(renderAll, 200);
 
 
   /* ─── Page-stack scroll (Problem) ─────────────────────────────
