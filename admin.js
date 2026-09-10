@@ -100,7 +100,7 @@
         exitEditMode();
         toast(`Saved ${res.applied?.length || edits.length} edit(s). Redeploying (~45s)…`, 'success');
       } else {
-        toast(res.error === 'conflict' ? 'Conflict — reload and try again.' : `Error: ${res.error}`, 'error');
+        toast(res.error === 'conflict' ? 'Conflict. Reload and try again.' : `Error: ${res.error}`, 'error');
       }
     } catch (err) {
       toast('Network error. Try again.', 'error');

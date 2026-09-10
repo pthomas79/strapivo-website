@@ -11,7 +11,7 @@
   function screenshotHTML() {
     return '' +
       '<div class="sf-screenshot">' +
-        '<img src="assets/session-screen.jpg" alt="Strapivo session — Apple iPhone business model canvas" />' +
+        '<img src="assets/session-screen.jpg" alt="Strapivo session: Apple iPhone business model canvas" />' +
         '<div class="sf-ov-mask" aria-hidden="true"></div>' +
         '<div class="sf-ov-live" aria-hidden="true">' +
           '<svg id="au-ov-live" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" ' +
