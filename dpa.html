@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Mi Ri init Vi Gi Rr Wi Ji Bi capture calculateEventProperties tn register register_once register_for_session unregister unregister_for_session an getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync un identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty nn Xi createPersonProfile setInternalOrTestUser sn Hi cn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Ki debug Lr rn getPageViewId captureTraceFeedback captureTraceMetric Di".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+
+  posthog.init('phc_uzH9QSc7oWjHc9Rs9ux4TkkAorTKXWj9iKzQG5vMCVmQ', {
+    api_host: 'https://m.strapivo.app',
+    ui_host: 'https://eu.posthog.com',
+    defaults: '2026-01-30',
+    person_profiles: 'identified_only',
+    opt_in_site_apps: true,
+    opt_out_capturing_by_default: true
+  })
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Processing Addendum (Draft) · Strapivo</title>
+<meta name="description" content="Draft data processing terms for Strapivo business customers, including processing details, security measures and subprocessors.">
+<link rel="canonical" href="https://www.strapivo.com/dpa">
+<meta name="theme-color" content="#EEF6FF">
+<meta name="robots" content="noindex, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Strapivo">
+<meta property="og:title" content="Data Processing Addendum (Draft) · Strapivo">
+<meta property="og:description" content="Draft data processing terms for Strapivo business customers, including processing details, security measures and subprocessors.">
+<meta property="og:url" content="https://www.strapivo.com/dpa">
+<meta property="og:image" content="https://strapivo.com/assets/strapivo-social.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Strapivo: Strategy has a home now. Bring your judgment. Strapivo brings the intelligence.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Data Processing Addendum (Draft) · Strapivo">
+<meta name="twitter:description" content="Draft data processing terms for Strapivo business customers, including processing details, security measures and subprocessors.">
+<meta name="twitter:image" content="https://strapivo.com/assets/strapivo-social.jpg">
+<meta name="twitter:image:alt" content="Strapivo: Strategy has a home now. Bring your judgment. Strapivo brings the intelligence.">
+<link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
+<link rel="preload" href="fonts/Inter-Regular.otf" as="font" type="font/otf" crossorigin>
+<link rel="preload" href="fonts/Inter-Medium.otf" as="font" type="font/otf" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+<style>
+/* Tokens (mirrors index.html) */
+:root {
+  --sky:    #EEF6FF;
+  --white:  #F6F9FB;
+  --ink:    #141B24;
+  --p500:   #0082E6;
+  --p600:   #006FD1;
+  --p700:   #005DBD;
+  --p200:   #A9D6FF;
+  --n800:   #141B24;
+  --n700:   #2C343C;
+  --n600:   #495158;
+  --n500:   #6C727A;
+  --n400:   #999FA6;
+  --n300:   #CCD2D7;
+  --n200:   #E1E5EA;
+  --n100:   #EFF2F6;
+  --n50:    #F6F9FB;
+  --n900:   #050C14;
+}
+* { box-sizing: border-box; }
+body { background: var(--sky); color: var(--n700); margin: 0; }
+
+.pw { max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+
+/* Eyebrow */
+.ey {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--p700);
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+/* Page heading */
+.imp-title {
+  font-size: clamp(40px, 6vw, 64px);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+  color: var(--n800);
+  margin: 0 0 16px;
+}
+.imp-sub {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--n600);
+  max-width: 56ch;
+  margin: 0 0 64px;
+}
+
+/* Sections */
+.imp-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 48px 64px;
+  align-items: start;
+  padding: 36px 0;
+  border-top: 1px solid var(--n200);
+}
+.imp-grid:last-of-type { border-bottom: 1px solid var(--n200); }
+.imp-grid h2 {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--p700);
+  margin: 4px 0 0;
+}
+.imp-grid .imp-body {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--n700);
+  max-width: 64ch;
+}
+.imp-grid .imp-body p { margin: 0 0 12px; }
+.imp-grid .imp-body p:last-child { margin-bottom: 0; }
+.imp-grid .imp-body ul {
+  margin: 0 0 12px;
+  padding-left: 20px;
+}
+.imp-grid .imp-body li { margin: 0 0 8px; }
+.imp-grid .imp-body li:last-child { margin-bottom: 0; }
+.imp-grid .imp-body strong { color: var(--n800); font-weight: 500; }
+.imp-grid .imp-body code {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.82em;
+  background: #ffffff;
+  border: 1px solid var(--n200);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: var(--n700);
+  word-break: break-word;
+}
+.imp-grid .imp-body a {
+  color: var(--p700);
+  text-decoration: none;
+  border-bottom: 1px solid var(--p200);
+  transition: color 150ms, border-color 150ms;
+}
+.imp-grid .imp-body a:hover { color: var(--p600); border-color: var(--p500); }
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(238,246,255,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--n200);
+}
+
+/* Button */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 150ms ease-out, color 150ms ease-out;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.btn-primary {
+  background: var(--p700);
+  color: #ffffff;
+  padding: 10px 20px;
+  font-size: 14.5px;
+}
+.btn-primary:hover { background: var(--p600); }
+.btn-primary.sm { font-size: 14px; padding: 9px 18px; }
+
+/* Footer */
+.s-foot { background: var(--n900); color: var(--n500); }
+
+@media (max-width: 720px) {
+  .imp-grid { grid-template-columns: 1fr; gap: 12px; padding: 28px 0; }
+  .imp-grid h2 { margin: 0; }
+  .imp-sub { margin-bottom: 40px; }
+}
+
+.draft-notice { border-left: 4px solid var(--p700); background: #fff; padding: 20px 24px; margin: 28px 0; max-width: 80ch; font-size: 16px; line-height: 1.6; }
+.draft-notice p { margin: 0 0 12px; }
+.draft-notice p:last-child { margin: 0; }
+.dpa-toc { margin: 0 0 40px; font-size: 15px; line-height: 1.6; }
+.dpa-toc h2 { font-size: 18px; font-weight: 500; }
+.dpa-toc ol { columns: 2; padding-left: 0; list-style: none; }
+.dpa-toc li { break-inside: avoid; margin-bottom: 8px; padding-right: 24px; }
+.dpa-toc a { color: var(--p700); text-underline-offset: 3px; }
+.dpa-paragraph { margin-bottom: 20px; overflow-wrap: anywhere; }
+.dpa-paragraph:last-child { margin-bottom: 0; }
+.confirmation { border-left: 2px solid var(--p200); padding-left: 16px; }
+.imp-grid { scroll-margin-top: 90px; }
+.imp-grid > * { min-width: 0; }
+.dpa-end { margin-top: 40px; color: var(--n600); font-size: 14px; }
+@media (max-width: 720px) { .dpa-toc ol { columns: 1; } .draft-notice { padding: 16px; } }
+@media print { .site-header, .s-foot, .dpa-toc, #__cms_bar { display: none !important; } body { background: white; } .pw { padding: 0; } .imp-grid { display: block; } .imp-grid h2 { margin-bottom: 12px; } .imp-body { max-width: none !important; } }
+
+</style>
+</head>
+<body>
+
+<!-- ───────── NAV ───────── -->
+<header class="site-header">
+  <div class="pw" style="display:flex; align-items:center; justify-content:space-between; padding-top:14px; padding-bottom:14px;">
+    <a href="index.html" aria-label="Strapivo home" style="display:flex; align-items:center; text-decoration:none;">
+      <img src="assets/logo/strategy-primary-azure.svg" alt="Strapivo" style="height:28px; width:auto; display:block;">
+    </a>
+    <a href="index.html#access" class="btn btn-primary sm">Request early access</a>
+  </div>
+</header>
+
+<main id="main">
+<section class="pw" style="padding-top:80px; padding-bottom:80px;">
+<span class="ey">Legal · Draft for review</span>
+<h1 class="imp-title">Data Processing Addendum</h1>
+<div class="draft-notice" data-edit="dpa.status">
+<p><strong>Draft for review — not yet effective</strong></p>
+<p>This proposed DPA is published for review. Provider details, security measures and retention periods still require confirmation. It is not an operative agreement and is not ready for contractual incorporation. Publication alone does not amend any customer agreement.</p>
+<p>Version 0.1 · Published for review: 5 October 2026 · Effective date: not yet assigned.</p>
+</div>
+<p class="imp-sub" data-edit="dpa.intro">The proposed terms below address how STRAPIVO LTD processes personal data on behalf of business customers during strategic setup, onboarding and use of the Platform. The schedules form part of the proposed DPA and must be completed before it is adopted.</p>
+<nav class="dpa-toc" aria-label="DPA contents"><h2>Contents</h2><ol><li><a href="#section-1">1. Parties, Scope And Incorporation</a></li><li><a href="#section-2">2. Client Instructions And Responsibilities</a></li><li><a href="#section-3">3. People And Confidentiality</a></li><li><a href="#section-4">4. Security</a></li><li><a href="#section-5">5. Subprocessors</a></li><li><a href="#section-6">6. Locations And International Transfers</a></li><li><a href="#section-7">7. Data Subject Requests And Other Assistance</a></li><li><a href="#section-8">8. Personal Data Breaches</a></li><li><a href="#section-9">9. Information And Audits</a></li><li><a href="#section-10">10. Return, Export And Deletion</a></li><li><a href="#section-11">11. Liability, Suspension And General Terms</a></li><li><a href="#schedule-1">Schedule 1 — Processing Details And Contacts</a></li><li><a href="#schedule-2">Schedule 2 — Technical And Organisational Measures</a></li><li><a href="#schedule-3">Schedule 3 — Subprocessor And Transfer Register</a></li></ol></nav>
+<section class="imp-grid" id="section-1" aria-labelledby="section-1-title">
+<h2 id="section-1-title">1. Parties, Scope And Incorporation</h2>
+<div class="imp-body">
+<div class="dpa-paragraph " data-edit="dpa.section-1.1"><p><strong>1.1 </strong>This Data Processing Addendum (DPA) is between STRAPIVO LTD, a Cyprus limited liability company, registration number HE 492139, with registered office at 28 Georgiou Kalogeropoulou, Flat/Office 101, Mesa Geitonia, 4007 Limassol, Cyprus (STRAPIVO), and the business customer identified as the client in the written services agreement incorporating this DPA (Client). That agreement, including its order or engagement documents, is the Agreement. The services supplied under it, including bespoke setup, onboarding, the strategic intelligence platform and support, are the Services.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-1.2"><p><strong>1.2 </strong>This DPA governs personal data in Client Data that STRAPIVO processes on the Client&#x27;s behalf in providing the Services (Client Personal Data). Client Data includes materials supplied for the engagement, workspace content, conversations, stored strategic memory and outputs generated specifically for the Client, as defined more fully in the Agreement. Information derived from Client Personal Data remains within this DPA when it is personal data.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-1.3"><p><strong>1.3 </strong>The Client is controller and STRAPIVO is processor for Client Personal Data. The Client determines the purposes and essential means of processing. STRAPIVO may determine practical technical means within the Client&#x27;s documented instructions and this DPA. This DPA does not authorise STRAPIVO or an AI provider to use Client Personal Data for independent purposes. A different role is not created merely by describing a supplier as a processor; any genuinely separate controller processing must have its own lawful basis and transparency arrangements and must respect the Agreement&#x27;s restrictions on Client Data.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-1.4"><p><strong>1.4 </strong>Data Protection Law means Regulation (EU) 2016/679 (GDPR) and applicable Cyprus and other applicable EU or EEA Member State laws governing the processing covered by this DPA. Personal data, processing, controller, processor, supervisory authority and personal data breach have the meanings given in the GDPR. A Subprocessor is another processor engaged by STRAPIVO, directly or through another Subprocessor, to process Client Personal Data on the Client&#x27;s behalf.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-1.5"><p><strong>1.5 </strong>This DPA and its completed schedules form part of the Agreement when expressly incorporated into an agreement binding on both parties. The applicable version is the version identified in that Agreement or, if no version is specified, the version supplied to the Client and available at the identified DPA address on the date the Agreement is concluded. STRAPIVO will retain that version and make it available to the Client. A later website posting does not replace the agreed version or retroactively supply missing terms. If no DPA was available when an existing agreement was concluded, the parties must expressly agree the DPA in accordance with that agreement&#x27;s amendment requirements before relying on it.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-1.6"><p><strong>1.6 </strong>This DPA prevails over inconsistent provisions of the Agreement concerning the processing of personal data. Mandatory provisions of applicable transfer instruments prevail over both to the extent of a conflict. Other provisions of the Agreement remain applicable. Changes to this DPA require the amendment procedure in the Agreement; operational updates expressly permitted by clauses 4.3 and 5 do not permit new processing purposes or a reduction of the agreed protection.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-1.7"><p><strong>1.7 </strong>This DPA applies for the duration of the relevant processing, including the export, return, deletion and restricted retention periods after the Services end. Duties intended to protect data or establish accountability continue for as long as relevant data or required compliance records are retained.</p></div>
+</div>
+</section>
+<section class="imp-grid" id="section-2" aria-labelledby="section-2-title">
+<h2 id="section-2-title">2. Client Instructions And Responsibilities</h2>
+<div class="imp-body">
+<div class="dpa-paragraph " data-edit="dpa.section-2.1"><p><strong>2.1 </strong>The Agreement, this DPA, the completed schedules, and the Client&#x27;s authorised use and configuration of the Services are the Client&#x27;s initial documented instructions. These instruct STRAPIVO to carry out the processing described in Schedule 1 solely to provide the Services. Additional instructions may be given in writing, including by email, by the Client&#x27;s designated contacts. STRAPIVO will keep a record of material instructions. An instruction that changes the agreed service scope may require a written variation of scope or charges, but this does not excuse compliance with Data Protection Law.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-2.2"><p><strong>2.2 </strong>STRAPIVO will process Client Personal Data only on those documented instructions, including as to international transfers, unless Union or Member State law to which STRAPIVO is subject requires otherwise. In that case STRAPIVO will inform the Client of the legal requirement before processing unless that law prohibits notification on important grounds of public interest. A third-country demand is not, merely by its existence, an exception to the Client&#x27;s instructions; clause 6 applies.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-2.3"><p><strong>2.3 </strong>STRAPIVO will immediately inform the Client if, in its opinion, an instruction infringes the GDPR or other Union or Member State data protection provisions. It will suspend the affected processing while the parties clarify or correct the instruction where necessary to avoid unlawful processing. STRAPIVO will promptly notify the Client if it cannot comply with this DPA. The parties will cooperate on a lawful alternative; neither is required to carry out unlawful processing.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-2.4"><p><strong>2.4 </strong>The Client is responsible for the lawfulness, fairness and transparency of its collection and use of Client Personal Data, including an appropriate legal basis, required notices, accuracy, relevance, retention instructions and lawful disclosure to STRAPIVO. The Client will limit personal data supplied to what is necessary for its use of the Services, manage its authorised users and credentials, and identify any processing requiring additional safeguards. These responsibilities do not displace STRAPIVO&#x27;s own obligations under this DPA or Data Protection Law.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-2.5"><p><strong>2.5 </strong>The Services are intended for business strategy work, not as a repository for special-category data, criminal-conviction or offence data, or children&#x27;s data. The Client will not intentionally submit such data unless the parties first document the need, lawful instructions and suitable additional safeguards in Schedule 1. If STRAPIVO becomes aware of such data outside the agreed scope, it will notify the Client and assist with restriction, removal or a lawful agreed arrangement. Incidental submission does not remove that data from the protections of this DPA.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-2.6"><p><strong>2.6 </strong>STRAPIVO will not use Client Data to train, retrain or fine-tune AI models shared with other customers, or authorise a third-party AI provider to do so. STRAPIVO will use third-party AI services only under contractual terms prohibiting that use and will maintain the settings needed to give effect to the restriction. It will exercise reasonable skill and care in selecting and configuring those services. Maintaining the Client&#x27;s strategic memory and generating responses for the Client are permitted within the agreed instructions. If STRAPIVO becomes aware of a provider&#x27;s failure to honour these restrictions, it will promptly take reasonable steps to stop the affected processing, mitigate the consequences and notify the Client, without limiting its other obligations under this DPA.</p></div>
+</div>
+</section>
+<section class="imp-grid" id="section-3" aria-labelledby="section-3-title">
+<h2 id="section-3-title">3. People And Confidentiality</h2>
+<div class="imp-body">
+<div class="dpa-paragraph " data-edit="dpa.section-3.1"><p><strong>3.1 </strong>STRAPIVO will restrict access to Client Personal Data to persons who need access for the instructed processing. It will ensure that authorised persons are bound by contractual confidentiality commitments or an appropriate statutory duty of confidentiality, receive instructions relevant to their role, and process the data only as authorised.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-3.2"><p><strong>3.2 </strong>Confidentiality duties covering Client Personal Data continue after a person&#x27;s access or engagement ends and for as long as the data remains personal data. The Agreement&#x27;s general confidentiality expiry does not shorten these duties. STRAPIVO will apply access revocation procedures when access is no longer required.</p></div>
+</div>
+</section>
+<section class="imp-grid" id="section-4" aria-labelledby="section-4-title">
+<h2 id="section-4-title">4. Security</h2>
+<div class="imp-body">
+<div class="dpa-paragraph " data-edit="dpa.section-4.1"><p><strong>4.1 </strong>STRAPIVO will implement and maintain appropriate technical and organisational measures as required by Article 32 GDPR, taking account of the state of the art, implementation costs, the nature, scope, context and purposes of processing, and the likelihood and severity of risks to individuals. This includes considering confidentiality, integrity, availability, resilience, recovery and evaluation of effectiveness, and encryption and pseudonymisation where appropriate.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-4.2"><p><strong>4.2 </strong>The agreed measures and their implementation details are set out in Schedule 2. STRAPIVO will maintain a documented security responsibility structure and assess material changes to the Services for their impact on Client Personal Data. It will use the results of security reviews, incidents and identified vulnerabilities to prioritise corrective action.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-4.3"><p><strong>4.3 </strong>STRAPIVO may update the technical implementation of the measures to address evolving risks or technology, provided the updates do not materially reduce the protection of Client Personal Data or depart from an express contractual commitment. It will document material changes and provide the Client with updated relevant information. Any change requiring a new Subprocessor, new transfer or materially different processing remains subject to the relevant provisions of this DPA.</p></div>
+</div>
+</section>
+<section class="imp-grid" id="section-5" aria-labelledby="section-5-title">
+<h2 id="section-5-title">5. Subprocessors</h2>
+<div class="imp-body">
+<div class="dpa-paragraph " data-edit="dpa.section-5.1"><p><strong>5.1 </strong>By agreeing this DPA with a completed Schedule 3, the Client gives general written authorisation for the Subprocessors identified there to perform the specified activities, and for additions or replacements made under this clause. This is not authorisation to use unidentified providers. STRAPIVO will make an accurate register available to the Client, identifying the relevant legal entities throughout the processing chain, their addresses and data protection contacts, services, data access, locations and transfer arrangements. It will identify which providers may receive that Client&#x27;s data, including alternative AI providers that can be selected or used in fallback routing.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-5.2"><p><strong>5.2 </strong>STRAPIVO will specifically notify the Client&#x27;s designated contact in writing at least 30 calendar days before an intended addition or replacement begins processing Client Personal Data. The notice will contain the relevant Schedule 3 information and sufficient information about safeguards to assess the proposal. A website change alone is insufficient notice. The Client may object on reasonable data protection grounds within 15 calendar days after receipt of a complete notice, identifying its concerns. An incomplete notice does not start the objection period.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-5.3"><p><strong>5.3 </strong>The parties will work in good faith to resolve an objection, for example through further safeguards, a different provider or disabling the affected feature. STRAPIVO will not send the Client&#x27;s data to the proposed provider while a timely objection remains unresolved. If no lawful and reasonably practicable solution is available, either party may terminate the affected Services on written notice before the proposed provider is used; where the affected Services cannot reasonably be separated, the relevant engagement may be terminated. Return and deletion follow clause 10; financial consequences remain governed by the Agreement and applicable law. Silence after a complete notice and the objection period permits the change under the existing general authorisation, but does not excuse any other obligation in this DPA. An urgent change requires specific written authorisation if the notice timetable cannot be met; otherwise the affected processing must be paused or handled by an already authorised provider.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-5.4"><p><strong>5.4 </strong>Before a Subprocessor receives Client Personal Data, STRAPIVO will assess whether it provides sufficient guarantees and enter into a binding written contract imposing the same data protection obligations as this DPA insofar as applicable to the delegated processing. These include appropriate security, purpose and training restrictions, confidentiality, incident and rights assistance, deletion, audit information, restrictions on further delegation and lawful transfers. STRAPIVO will ensure equivalent requirements are passed through the processing chain and maintain evidence of its assessment and contracts.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-5.5"><p><strong>5.5 </strong>STRAPIVO remains fully liable to the Client for the performance of its Subprocessors&#x27; data protection obligations under Article 28(4) GDPR. Client authorisation does not transfer that responsibility to the Client or restrict the Client to pursuing the provider. STRAPIVO will provide information necessary for the Client to assess the chain&#x27;s guarantees and, where necessary to demonstrate compliance, relevant contractual terms, subject to proportionate protection of unrelated confidential information.</p></div>
+</div>
+</section>
+<section class="imp-grid" id="section-6" aria-labelledby="section-6-title">
+<h2 id="section-6-title">6. Locations And International Transfers</h2>
+<div class="imp-body">
+<div class="dpa-paragraph " data-edit="dpa.section-6.1"><p><strong>6.1 </strong>The parties will record storage, backup and processing locations, including locations from which personnel or providers may access data, in Schedules 1 and 3. Any EU hosting commitment in the Agreement remains binding according to its terms. This DPA does not authorise processing contrary to a stricter location commitment in the Agreement; any needed clarification or change must be expressly agreed before the affected processing.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-6.2"><p><strong>6.2 </strong>STRAPIVO will transfer Client Personal Data outside the EEA, including by making it available to a separate recipient there, only within the Client&#x27;s documented instructions, the agreed location restrictions and Chapter V GDPR. The same requirements apply to onward transfers. STRAPIVO will identify the actual recipient, destination and applicable transfer mechanism before the transfer and provide relevant supporting information to the Client.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-6.3"><p><strong>6.3 </strong>A transfer may rely on an applicable European Commission adequacy decision only while the recipient and processing fall within its scope. Otherwise STRAPIVO will establish valid Article 46 safeguards before the transfer, such as the applicable European Commission standard contractual clauses (SCCs), complete the relevant annexes and options, assess the destination&#x27;s laws and practices where required, and implement necessary supplementary measures. Where STRAPIVO is exporter to a Subprocessor, it will enter into the instrument with that recipient and complete the required assessment before the transfer.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-6.4"><p><strong>6.4 </strong>STRAPIVO will monitor material changes affecting the transfer safeguards, inform the Client if it can no longer comply, and suspend affected transfers unless and until lawful safeguards are restored. It will provide relevant transfer documentation to enable the Client to fulfil its accountability obligations, with proportionate confidentiality protections. Any SCCs actually entered into retain their own mandatory rights, liability, suspension and termination provisions.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-6.5"><p><strong>6.5 </strong>STRAPIVO will assess governmental requests for Client Personal Data, notify the Client where legally permitted, and disclose only what is lawfully required. It will comply with Article 48 GDPR and applicable transfer safeguards, including duties to assess and, where required, challenge requests, seek permission to notify, and document its response. Nothing here provides blanket consent to foreign-government access.</p></div>
+</div>
+</section>
+<section class="imp-grid" id="section-7" aria-labelledby="section-7-title">
+<h2 id="section-7-title">7. Data Subject Requests And Other Assistance</h2>
+<div class="imp-body">
+<div class="dpa-paragraph " data-edit="dpa.section-7.1"><p><strong>7.1 </strong>Taking account of the nature of processing, STRAPIVO will assist the Client through appropriate technical and organisational measures, insofar as possible, with requests to exercise rights under Chapter III GDPR. This includes locating relevant data, providing accessible copies, and implementing the Client&#x27;s lawful instructions to correct, restrict, export or erase data, including relevant stored memory and derived records where personal data persists.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-7.2"><p><strong>7.2 </strong>STRAPIVO will promptly forward a request received directly from a data subject that concerns Client Personal Data to the Client&#x27;s designated contact. It will not substantively decide the request without the Client&#x27;s instruction unless legally required. It may acknowledge receipt and direct the individual to the Client. The Client is responsible for verifying identity and determining the response. STRAPIVO will provide its assistance sufficiently promptly to enable the Client to meet applicable deadlines, and will tell the Client promptly of any impediment.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-7.3"><p><strong>7.3 </strong>Taking account of the nature of processing and the information available to it, STRAPIVO will assist the Client with compliance with Articles 32–36 GDPR. This includes relevant information about security, processing and transfers for risk assessments and data protection impact assessments; support for prior consultation with a supervisory authority where necessary; and the breach assistance in clause 8. STRAPIVO will maintain the processing records required of it by Article 30 and cooperate with competent supervisory authorities as required by law.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-7.4"><p><strong>7.4 </strong>Ordinary assistance under this DPA is included in the Services. The parties may agree in advance reasonable charges for exceptional, clearly defined assistance beyond ordinary support, excluding work needed to remedy STRAPIVO&#x27;s or its Subprocessors&#x27; failure to meet their obligations. A fee discussion or dispute will not delay legally required assistance or prevent the Client from exercising its rights under this DPA.</p></div>
+</div>
+</section>
+<section class="imp-grid" id="section-8" aria-labelledby="section-8-title">
+<h2 id="section-8-title">8. Personal Data Breaches</h2>
+<div class="imp-body">
+<div class="dpa-paragraph " data-edit="dpa.section-8.1"><p><strong>8.1 </strong>STRAPIVO will notify the Client without undue delay after becoming aware of a personal data breach affecting Client Personal Data. Notification is not conditional on STRAPIVO deciding that the breach creates a reportable risk to individuals. STRAPIVO will not wait for a complete investigation before notifying.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-8.2"><p><strong>8.2 </strong>STRAPIVO will send the information then available to the Client&#x27;s designated incident contact. This will describe the incident, affected systems and data, categories and approximate numbers of affected individuals and records where possible, likely consequences, measures taken or proposed to contain and remedy it, and a contact for further information. It will provide missing information in phases without undue further delay and keep the Client informed of material developments.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-8.3"><p><strong>8.3 </strong>STRAPIVO will investigate, take appropriate containment and remedial measures, preserve relevant evidence and incident records, and cooperate with the Client in assessing consequences and making any required notifications. The Client determines notifications to authorities and individuals concerning its controller processing; STRAPIVO will not make them on the Client&#x27;s behalf without instruction unless legally required, in which case it will inform the Client where permitted. Each party remains responsible for its own statutory obligations. Notification under this clause is not by itself an admission of liability.</p></div>
+</div>
+</section>
+<section class="imp-grid" id="section-9" aria-labelledby="section-9-title">
+<h2 id="section-9-title">9. Information And Audits</h2>
+<div class="imp-body">
+<div class="dpa-paragraph " data-edit="dpa.section-9.1"><p><strong>9.1 </strong>STRAPIVO will make available all information necessary to demonstrate compliance with Article 28 GDPR and this DPA and will allow for and contribute to audits, including inspections, by the Client or an independent auditor mandated by it. STRAPIVO may first provide relevant documentation, answers and available independent assurance reports; these do not replace an audit where further verification is reasonably necessary.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-9.2"><p><strong>9.2 </strong>Routine audits will be arranged on reasonable advance notice, with scope, timing and security arrangements proportionate to the processing and concern. The parties will seek to avoid unnecessary disruption and protect other customers&#x27; data and confidential information. Auditors may be required to undertake appropriate confidentiality commitments. These arrangements must not frustrate effective verification, urgent investigation following a breach, justified concerns about non-compliance, or supervisory authority requirements. There is no absolute annual audit limit.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-9.3"><p><strong>9.3 </strong>STRAPIVO will provide relevant findings and a reasonable remediation plan for identified deficiencies. Access to a Subprocessor&#x27;s information or premises will be coordinated through STRAPIVO and its contractual rights without diminishing STRAPIVO&#x27;s obligations to demonstrate compliance and ensure sufficient guarantees. No confidentiality or cost arrangement may prevent disclosure to a competent supervisory authority or render the Client&#x27;s audit right ineffective. Each party bears its ordinary internal cooperation costs; the Client ordinarily bears its external auditor&#x27;s fees, without prejudice to remedies under the Agreement and law.</p></div>
+</div>
+</section>
+<section class="imp-grid" id="section-10" aria-labelledby="section-10-title">
+<h2 id="section-10-title">10. Return, Export And Deletion</h2>
+<div class="imp-body">
+<div class="dpa-paragraph " data-edit="dpa.section-10.1"><p><strong>10.1 </strong>During the Services STRAPIVO will implement the Client&#x27;s lawful return, restriction and deletion instructions, subject to any retention required by Union or Member State law. The Client may use available service controls or request assistance through the designated contact. Retention and erasure must cover relevant source materials, conversations, outputs, strategic memory, indexes, logs and provider-held copies to the extent they contain Client Personal Data.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-10.2"><p><strong>10.2 </strong>On expiry or termination, the Client may export Client Data in a commonly usable format for up to 30 calendar days, as provided by the Agreement. During that period STRAPIVO will retain Client Personal Data only as needed for secure export, return, deletion and required protection, and will stop ordinary service processing. An earlier express deletion instruction takes precedence for the data identified; STRAPIVO will explain any resulting loss of export availability before implementing it where practicable.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-10.3"><p><strong>10.3 </strong>The Client may choose return or deletion by written instruction during that period. At the Client&#x27;s choice STRAPIVO will return all Client Personal Data within scope and then delete existing copies, or delete it without return. The standard return method is a secure export in the commonly usable format identified in Schedule 1, with assistance where service controls cannot return data within scope. If the Client gives no alternative instruction, it instructs STRAPIVO to begin deletion after the 30-day export window. Return does not permit indefinite retention of STRAPIVO&#x27;s copies.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-10.4"><p><strong>10.4 </strong>STRAPIVO will complete deletion from active systems and require deletion from Subprocessors without undue delay, within the confirmed deadlines in Schedule 1. Backups that cannot practicably be selectively erased will be isolated from ordinary use, remain subject to this DPA, and expire under the fixed maximum backup cycle stated in Schedule 1. If a backup is restored for recovery before expiry, applicable deletion instructions will be reapplied before data returns to ordinary use. Backup retention must not be used as a general exception to deletion.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-10.5"><p><strong>10.5 </strong>If Union or Member State law requires retention, STRAPIVO will identify the legal requirement, affected categories and duration to the Client unless legally prohibited; retain only the required data, restrict its processing to that legal purpose and necessary protection, and delete it when the requirement ends. STRAPIVO will confirm completion of return/deletion on request and identify any limited retained copies, their basis and scheduled destruction. All continuing copies remain protected by this DPA.</p></div>
+</div>
+</section>
+<section class="imp-grid" id="section-11" aria-labelledby="section-11-title">
+<h2 id="section-11-title">11. Liability, Suspension And General Terms</h2>
+<div class="imp-body">
+<div class="dpa-paragraph " data-edit="dpa.section-11.1"><p><strong>11.1 </strong>To the extent legally permitted, the Agreement&#x27;s exclusions and aggregate limitation of liability apply to claims between the parties under this DPA as part of the same aggregate limit, not as a separate additional cap. No new indemnity is created by this DPA.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-11.2"><p><strong>11.2 </strong>Nothing in the Agreement or this DPA limits STRAPIVO&#x27;s responsibility under Article 28(4) for the performance of its Subprocessors&#x27; obligations, a data subject&#x27;s rights or compensation under Article 82, supervisory authority powers or administrative sanctions, mandatory rights under applicable transfer instruments, or any liability or statutory recourse that cannot lawfully be limited. Commercial allocation between the parties does not excuse performance of statutory processing obligations.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-11.3"><p><strong>11.3 </strong>The Client may require suspension of processing that infringes this DPA until compliance is restored. The parties will cooperate to limit suspension to affected processing where practicable. Termination and remedies otherwise follow the Agreement, subject to clause 5.3, mandatory law and applicable transfer instruments. The Agreement&#x27;s cure period does not authorise continued unlawful processing while a breach is being remedied. Export, return and deletion remain governed by clause 10 where the relevant Services end.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-11.4"><p><strong>11.4 </strong>Notices use the contacts in Schedule 1 and the Agreement. Incident notices and time-sensitive rights communications must be sent promptly to the designated operational contacts; a contractual deemed-receipt rule does not extend a statutory deadline or justify delayed delivery. Each party will maintain current contacts and notify changes.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.section-11.5"><p><strong>11.5 </strong>The Agreement&#x27;s governing law and dispute provisions apply to this DPA, without limiting mandatory supervisory authority jurisdiction, data subject remedies or the law and forum provisions of any applicable SCCs.</p></div>
+</div>
+</section>
+<section class="imp-grid" id="schedule-1" aria-labelledby="schedule-1-title">
+<h2 id="schedule-1-title">Schedule 1 — Processing Details And Contacts</h2>
+<div class="imp-body">
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-1.1"><p>A. Parties and contacts<br>
+Controller: the Client legal entity, address and authorised representative identified in the Agreement.<br>
+Client instruction and incident contacts: [To be confirmed in the Agreement/order or a recorded written designation: name or role, monitored email, backup escalation contact].<br>
+Processor: STRAPIVO LTD, HE 492139, address in clause 1.1.<br>
+STRAPIVO privacy/instruction contact: [To be confirmed monitored email and responsible role].<br>
+STRAPIVO urgent incident contact: [To be confirmed monitored route and escalation arrangement].<br>
+DPO details, if applicable: [To be confirmed whether a DPO has been appointed or is legally required; do not imply appointment].<br>
+Agreed DPA version and date: [To be confirmed release identifier and incorporation date].</p></div>
+<div class="dpa-paragraph " data-edit="dpa.schedule-1.2"><p>B. Subject matter and purpose<br>
+Processing necessary to deliver the Client&#x27;s bespoke strategic setup, onboarding, Strategic Design System workspace, strategy-room conversations, strategic memory, market-signal monitoring and related support under the Agreement. The purpose is the Client&#x27;s business strategy work and provision, operation and security of those Services on its behalf. This is not an instruction to train shared AI models, advertise using Client Personal Data, sell it, or build unrelated cross-client profiles.</p></div>
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-1.3"><p>C. Nature and operations<br>
+Collection from the Client and authorised users; receipt, organisation and storage of supplied company/strategy materials; authorised personnel review during setup and support; retrieval of relevant stored context; submission of selected context and queries to authorised AI services; analysis and generation of Client-specific responses and strategic material; updating and retrieving stored strategic memory; access by the Client&#x27;s users; service troubleshooting and security processing limited to what is necessary; export, restriction and deletion. Public-source material collected specifically on the Client&#x27;s instructions for its workspace or monitoring is covered where personal data is processed on its behalf. General public-information sourcing for STRAPIVO&#x27;s own purposes is not authorised by this schedule.<br>
+[To be confirmed actual integrations and whether embeddings/vector indexes, transcription or session recording, external search, file extraction or other additional processing occurs; add accurate operations and suppliers before use. No recording or transcription is authorised merely because online onboarding sessions are included.]</p></div>
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-1.4"><p>D. Individuals<br>
+The Client&#x27;s authorised users, directors, executives, employees and contractors; people representing its customers, prospects, suppliers, partners and competitors; and other business contacts referred to in materials, conversations or Client-directed market information, to the extent submitted or collected within the agreed scope.<br>
+[To be confirmed whether any additional classes are intentionally processed; no blanket instruction covering arbitrary individuals.]</p></div>
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-1.5"><p>E. Personal data categories<br>
+Business names of individuals, business contact details, job titles, affiliations, professional responsibilities, statements and opinions, professional background and relationships, and information relating to identifiable individuals contained in uploaded materials, conversations, strategy documents, stored context and Client-specific outputs. Workspace membership, user identifiers, timestamps and usage/security metadata are covered to the extent processed on the Client&#x27;s behalf. AI-derived opinions or inferences about identifiable people remain personal data where applicable.<br>
+Special categories under Article 9, Article 10 data, and children&#x27;s data: not intentionally included without the written arrangement required by clause 2.5.<br>
+[To be confirmed actual metadata fields, sources, expected volumes, and whether customer use creates heightened risks.]</p></div>
+<div class="dpa-paragraph " data-edit="dpa.schedule-1.6"><p>F. Frequency and duration<br>
+Processing is recurring throughout the engagement as the Client and users interact with the Services and as agreed monitoring operates. Storage continues for the service term subject to earlier Client instructions, followed by the 30-day export period and restricted deletion/retention periods in clause 10. No automatic extension of the service term results.</p></div>
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-1.7"><p>G. Locations and transfers<br>
+Application/database/file storage: EU hosting. [To be confirmed provider legal entity and exact EU country/region; EU hosting is user-confirmed and Agreement section 9.1 promises it, but no configuration evidence has been reviewed].<br>
+Backups/disaster recovery: [To be confirmed provider, countries and access locations].<br>
+STRAPIVO personnel/support access: [To be confirmed countries and safeguards].<br>
+AI and other downstream processing: the completed Schedule 3, including access and retention locations, must identify each route. [To be confirmed exact provider deployment types and processing boundaries behind the user-reported EU endpoints, including the Sweden/Azure example; regional endpoint routing alone is insufficient evidence of EU-only downstream processing].</p></div>
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-1.8"><p>H. Retention and return implementation<br>
+Standard export: commonly usable format; [To be confirmed format(s), delivery route, coverage of files, conversations, outputs and strategic memory, and assistance for any records not available through the export control].<br>
+Active-system deletion after instruction or export-window closure: [To be confirmed maximum calendar-day deadline and coverage of replicas, indexes, cached context and support copies].<br>
+Provider-held copies: [To be confirmed per-provider retention and deletion deadlines in Schedule 3, including abuse-monitoring logs and exceptions; ensure consistency with clauses 2, 5 and 10].<br>
+Backup expiry: [To be confirmed fixed maximum calendar-day period after active deletion and enforceable isolation/restoration procedure].<br>
+Operational logs containing Client Personal Data: [To be confirmed fields, purpose, maximum retention and deletion process].<br>
+Legal retention: only as permitted by clause 10.5; [To be confirmed any presently identified legal requirements, otherwise record none identified].<br>
+The periods above must be completed with justified, achievable limits before this schedule is adopted; absence of a value is not permission for indefinite retention.</p></div>
+</div>
+</section>
+<section class="imp-grid" id="schedule-2" aria-labelledby="schedule-2-title">
+<h2 id="schedule-2-title">Schedule 2 — Technical And Organisational Measures</h2>
+<div class="imp-body">
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-2.1"><p>Pending confirmation. These are proposed security commitments. Their implementation and the details below must be verified before this DPA becomes effective.</p></div>
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-2.2"><p>1. Access and workspace separation. STRAPIVO will use individual personnel accounts, restrict privileged access by role and need, review access on role changes and departure, and protect privileged authentication with appropriate additional controls. It will enforce workspace access checks to prevent users from accessing another client&#x27;s content and test material changes to those controls.<br>
+[To be confirmed actual authentication and privileged MFA coverage, review frequency, authorisation boundaries and separation test process.]</p></div>
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-2.3"><p>2. Transmission and storage protection. STRAPIVO will use encrypted network connections for Client Personal Data transmitted between users, the platform and authorised providers, and apply risk-appropriate encryption and access protection to stored data and backups. Access to credentials and keys will be restricted; secrets will be kept out of ordinary user content and logs.<br>
+[To be confirmed protocols/endpoints, at-rest encryption coverage, key custody and rotation arrangements, and any unprotected path. Do not describe data as end-to-end encrypted unless verified.]</p></div>
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-2.4"><p>3. Personnel and devices. STRAPIVO will provide personnel with role-appropriate privacy and security instructions, apply confidentiality undertakings, limit local copies, and protect devices used to access Client Personal Data through access controls and supported security updates.<br>
+[To be confirmed device management, remote working rules, staff training process and local-copy handling.]</p></div>
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-2.5"><p>4. System and change management. STRAPIVO will manage production access and changes, review security-relevant changes, maintain supported components, and assess and remediate vulnerabilities in proportion to risk. Production Client Personal Data will not be copied into development or test environments without an instructed need and equivalent appropriate protection.<br>
+[To be confirmed patching, vulnerability triage, deployment review and testing practices; do not imply penetration tests or certifications not held.]</p></div>
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-2.6"><p>5. Detection and incident response. STRAPIVO will maintain appropriate security event records and a procedure to identify, investigate, contain and escalate suspected personal data breaches, including incidents reported by providers. Logs will be access-controlled and limited in content and retention to their justified purpose. The incident process will support the notifications in clause 8.<br>
+[To be confirmed monitoring coverage, responsible personnel, alert review, escalation availability, and log retention.]</p></div>
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-2.7"><p>6. Availability and recovery. STRAPIVO will maintain risk-appropriate backup and recovery arrangements, control access to backups, and periodically verify that relevant data can be restored. Restored data will be subject to current access and deletion instructions.<br>
+[To be confirmed backup frequency, isolation, restore verification frequency, actual retention, recovery dependencies and internal recovery targets. No contractual recovery-time or recovery-point guarantee is implied by this paragraph.]</p></div>
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-2.8"><p>7. AI and vendor controls. STRAPIVO will document approved provider services and routing, assess their guarantees, restrict data sent to what is necessary for the requested function, and maintain the contractual and configuration restrictions in clause 2.6. It will review material provider changes affecting processing, retention, locations or training restrictions before adopting them. Support, debugging and observability tools receiving Client Personal Data will be included in the assessment and register.<br>
+[To be confirmed each provider product/account setting, human-review/abuse-monitoring exposure, fallback route and evidence owner. No assumption is made that any provider has zero retention.]</p></div>
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-2.9"><p>8. Minimisation, retention and rights. STRAPIVO will maintain a data inventory sufficient to locate Client Personal Data, implement retention and deletion schedules covering relevant copies and derived stores, and provide a process for controlled export and assistance with rights requests. It will avoid unnecessary content in operational logs and limit access to unavoidable content.<br>
+[To be confirmed data-store inventory, export coverage, deletion jobs/manual procedures, backup purge evidence and rights-request workflow.]</p></div>
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-2.10"><p>9. Governance and verification. STRAPIVO will assign ownership for security and data protection operations, periodically review the effectiveness of relevant measures and risks, and document material findings and remediation. It will assess hosting providers&#x27; physical and environmental safeguards through appropriate provider documentation rather than representing that STRAPIVO operates its own secured data centres.<br>
+[To be confirmed responsible role, review frequency, assessment evidence and provider assurance actually available.]</p></div>
+</div>
+</section>
+<section class="imp-grid" id="schedule-3" aria-labelledby="schedule-3-title">
+<h2 id="schedule-3-title">Schedule 3 — Subprocessor And Transfer Register</h2>
+<div class="imp-body">
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-3.1"><p>Pending confirmation. This schedule is a register to be completed, not an approved list of providers. The actual legal entities, locations and processing arrangements must be entered before this DPA becomes effective.</p></div>
+<div class="dpa-paragraph " data-edit="dpa.schedule-3.2"><p>Required fields for EVERY actual entity:<br>
+• Legal name, registered/business address and data protection contact (name/role and contact details).<br>
+• Direct or downstream engagement; identity of the engaging provider.<br>
+• Product/service, specific processing purpose and responsibilities.<br>
+• Categories of Client Personal Data and affected users/features; optional, default or fallback use.<br>
+• Storage, processing, backup and personnel-access countries/regions.<br>
+• Retention, deletion timing, human review and any restricted-purpose logs.<br>
+• Written Article 28 terms and evidence of sufficient security guarantees.<br>
+• For AI services, contractual shared-training prohibition and required account/settings evidence.<br>
+• Transfer destination and mechanism; relevant adequacy scope or executed safeguard, module/annex completion, assessment and supplementary measures where required.<br>
+• Date first authorised, date notified, effective date, and version of the entry.</p></div>
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-3.3"><p>Functions requiring confirmation and one row per actual entity:<br>
+SP-01 Application hosting, database, file/object storage and backups: [To be confirmed].<br>
+SP-02 Each AI inference/model provider, including fallback routes: [To be confirmed multiple providers individually].<br>
+SP-03 Embeddings, vector/search storage, retrieval, extraction or transcription if used: [To be confirmed applicability and entities].<br>
+SP-04 Monitoring, error reporting, AI observability, analytics and support tools receiving Client Personal Data: [To be confirmed applicability and entities].<br>
+SP-05 Email/notifications, onboarding meeting or file-sharing tools, and external personnel processing engagement materials: [To be confirmed applicability, role and entities].<br>
+SP-06 Any other relevant downstream processors: [To be confirmed].</p></div>
+<div class="dpa-paragraph confirmation" data-edit="dpa.schedule-3.4"><p>Approved register version/date: [To be confirmed].<br>
+Register delivery/location: [To be confirmed; supply with DPA and maintain an accessible current copy].<br>
+Change-notice destination: Client contact in Schedule 1; subscription to an optional website feed must not be the sole notice mechanism.</p></div>
+</div>
+</section>
+<p class="dpa-end">End of draft 0.1. This document remains subject to completion and review.</p>
+</section>
+</main>
+
+<!-- ───────── FOOTER ───────── -->
+<footer class="s-foot">
+  <div class="pw" style="padding-top:64px; padding-bottom:64px;">
+    <div style="padding-bottom:40px;border-bottom:1px solid #141B24;margin-bottom:32px;">
+      <img src="assets/logo/strategy-mono-paper.svg" alt="Strapivo" style="height:26px;width:auto;display:block;margin-bottom:20px;">
+      <p style="font-size:15px;line-height:1.65;color:var(--n500);max-width:48ch;margin:0 0 6px;">
+        Strapivo is a strategic intelligence platform built in Europe.
+      </p>
+      <p style="font-size:15px;line-height:1.65;color:var(--n600);max-width:48ch;margin:0;">
+        Currently in use with selected strategy teams across Europe.
+      </p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between;">
+      <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n600);letter-spacing:0.06em;margin:0;">© 2026 Strapivo</p>
+      <nav style="display:flex;gap:20px;flex-wrap:wrap;" aria-label="Legal">
+        <a href="imprint.html" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n400);text-decoration:none;letter-spacing:0.06em;">Imprint</a>
+        <a href="privacy.html" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n400);text-decoration:none;letter-spacing:0.06em;">Privacy</a>
+        <a href="terms.html" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n400);text-decoration:none;letter-spacing:0.06em;">Terms</a>
+        <a href="/dpa" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n400);text-decoration:none;letter-spacing:0.06em;">DPA (draft)</a>
+        <a href="#" data-cookie-settings style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n400);text-decoration:none;letter-spacing:0.06em;">Cookie settings</a>
+        <a href="/api/auth/login" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--n600);text-decoration:none;letter-spacing:0.06em;opacity:0.3;">Admin</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<!-- Admin CMS bootstrap: only loads for authenticated admins -->
+<script>
+  (function () {
+    function getCookie(name) {
+      return (document.cookie.split(';').map(function (c) { return c.trim(); }).find(function (c) { return c.startsWith(name + '='); }) || '').split('=')[1] || '';
+    }
+    if (getCookie('admin_hint') === '1') {
+      var s = document.createElement('script');
+      s.src = '/admin.js';
+      s.defer = true;
+      document.head.appendChild(s);
+    }
+  })();
+</script>
+
+
+<script defer src="consent.js"></script>
+
+</body>
+</html>
