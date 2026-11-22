@@ -1,0 +1,26 @@
+# 22 · The lexicon
+
+Range: Confident (concept 22 of 40, ordered from conservative to a bit nuts)
+Audience: Strategy professionals who care about words
+Colours: Paper, ink, Azure. One additional colour: deep red #9B2C2C for the 'never say' entries.
+
+## The task
+
+Build a complete landing page for Strapivo as a single `index.html` in this folder (`landings/22-lexicon/`). It is one of 40 deliberately different concepts, so commit fully to this one and do not drift toward a generic software landing page.
+
+Read `../BRIEF.md` first. It holds the facts about Strapivo and Dynamic Strategy, the truth rules, the brand (fonts, colour tokens, logo), the build rules and the finishing steps. The brief decides what is true and what the brand allows. This prompt decides everything else.
+
+## The concept
+
+A dictionary of Dynamic Strategy. The page explains the product entirely through its vocabulary, on the argument that a team sharing precise words makes better decisions.
+
+About 26 entries in alphabetical order, each set like a dictionary entry: headword large, a mono part-of-speech style tag (noun, state, role, rule), a one or two sentence definition taken from the brief, a short usage line, and cross-references that link to other entries on the page. Include: Activity, Adapt, Agenda, Ambition, Back from parking, Contributor, Dissent, First take, Focus area, Ghost, Hold, Let go, Light, Mission Control, Not yet, Objective, Owner, Parked, Pivot, Radar, Record of Decisions, Signal, Take advantage, Time held, Trail, Vivo. Add a short closing section, 'Words we do not use', for KPI, OKR and key result, with the reason.
+
+Signature element: a typographic reference work. A two-column layout with an A to Z rail that highlights letters in use, generous headwords, hanging definitions, small-capital style cross-references in mono, and a filter field that narrows entries as you type. An introduction of four sentences at the top and the call to action after Z. No illustrations except one small radar figure beside 'Radar' and a row of twelve circles beside 'Focus area'.
+
+## Standards
+
+- Strapivo sells to SMEs and corporates. The result must be something a CEO would forward to their board: confident, well made, never playful for its own sake.
+- Fonts and base colours are those of the current site (Inter 400 and 500, JetBrains Mono, Paper, Navy, Azure). The additional colours above are yours to use with a clear role.
+- Craft matters more than volume. Spend your effort on the signature element and on the copy.
+- Finish with the two steps in section 9 of the brief: screenshot and fix, then the unslop pass using `/home/hiasinho/Work/prot-strapivo-dynamic-strategy/.claude/skills/unslop/SKILL.md`.

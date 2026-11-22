@@ -1,0 +1,981 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo product tour: Mission Control, Radar, signal triage, Session room and Record of Decisions</title>
+<meta name="description" content="Six Strapivo screens shown with one fictional company. Follow a supplier risk through the Radar, signal triage and a strategy session until it becomes decision SDS-2026-014.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --g:#1E9E6A;--y:#D9A300;--r:#D64545;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --wrap:1200px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";color:var(--ink);background:var(--paper);font-size:17px;line-height:1.55}
+img,svg{display:block;max-width:100%}
+a{color:var(--p700)}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:3px}
+h1,h2,h3{font-weight:500;margin:0;letter-spacing:-0.025em;line-height:1.12}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--n600)}
+.eyebrow b{font-weight:500;color:var(--p700)}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:#fff;padding:8px 12px;z-index:10}
+.skip:focus{left:8px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;font:500 15px/1 'Inter',sans-serif;padding:13px 18px;border-radius:6px;text-decoration:none;border:1px solid transparent;transition:background .2s,border-color .2s}
+.btn-primary{background:var(--p600);color:#fff}
+.btn-primary:hover{background:var(--p700)}
+.btn-ghost{color:var(--ink);border-color:var(--n200);background:#fff}
+.btn-ghost:hover{border-color:var(--n400)}
+
+/* header */
+.site-head{position:sticky;top:0;z-index:5;background:rgba(246,249,251,.94);border-bottom:1px solid var(--n200);backdrop-filter:saturate(1.2)}
+.site-head .wrap{display:flex;align-items:center;gap:28px;height:64px}
+.site-head .logo img{height:24px;width:auto}
+.site-head nav{display:flex;gap:22px;margin-left:auto}
+.site-head nav a{color:var(--n700);text-decoration:none;font-size:15px}
+.site-head nav a:hover{color:var(--p700)}
+.head-actions{display:flex;gap:10px;align-items:center}
+.head-actions .signin{font-size:15px;color:var(--n700);text-decoration:none;padding:8px 6px}
+.head-actions .btn{padding:10px 14px;font-size:14px}
+
+/* hero */
+.hero{padding:72px 0 40px}
+.hero-top{display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:end;margin-bottom:44px}
+.hero h1{font-size:clamp(38px,5.2vw,64px);letter-spacing:-0.03em;margin-top:18px}
+.hero h1 span{color:var(--p600)}
+.hero .lede{font-size:19px;color:var(--n700);max-width:34em}
+.hero .actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.example-tag{white-space:nowrap;flex:none;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n700);background:#fff;border:1px dashed var(--n400);border-radius:4px;padding:5px 9px}
+.example-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--p500)}
+
+/* ---------- mock app shell ---------- */
+.app{background:#fff;border:1px solid var(--n200);border-radius:8px;box-shadow:0 1px 2px rgba(20,27,36,.04),0 12px 32px -16px rgba(20,27,36,.16);overflow:hidden;font-size:13px;line-height:1.45;color:var(--ink)}
+.app-bar{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--n200);background:var(--paper)}
+.app-bar .dots{display:flex;gap:6px}
+.app-bar .dots i{width:9px;height:9px;border-radius:50%;background:var(--n200);display:block}
+.app-bar .crumb{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--n600);text-transform:uppercase}
+.app-bar .crumb b{font-weight:500;color:var(--ink)}
+.app-bar .who{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--n600)}
+.av{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--sky2);color:var(--p700);font:500 10px/1 var(--mono);flex:none}
+.av.alt{background:var(--n100);color:var(--n700)}
+.app-body{display:grid;grid-template-columns:176px 1fr}
+.side{border-right:1px solid var(--n200);padding:14px 10px;background:#FBFCFD}
+.side .org{font-weight:500;font-size:13px;padding:4px 8px 12px}
+.side .org small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--n500);font-weight:400;text-transform:uppercase;margin-top:2px}
+.side ul{list-style:none;margin:0;padding:0}
+.side li{padding:7px 8px;border-radius:4px;color:var(--n600);display:flex;justify-content:space-between}
+.side li.on{background:var(--sky);color:var(--p700);font-weight:500}
+.side li em{font-style:normal;font-family:var(--mono);font-size:10px;background:var(--n100);color:var(--n700);padding:1px 6px;border-radius:8px}
+.main{padding:18px;min-width:0}
+.card{border:1px solid var(--n200);border-radius:6px;background:#fff;min-width:0}
+.card-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid var(--n100)}
+.card-h .lbl,.lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--n600)}
+.card-b{padding:10px 12px}
+.mono{font-family:var(--mono)}
+.muted{color:var(--n600)}
+.light{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none}
+.light.g{background:var(--g)}.light.y{background:var(--y)}.light.r{background:var(--r)}
+.chip{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:3px;border:1px solid var(--n200);color:var(--n700);white-space:nowrap;background:#fff}
+.chip.az{border-color:var(--p200);background:var(--sky);color:var(--p700)}
+.chip.ink{background:var(--ink);border-color:var(--ink);color:#fff}
+.fake-btn{display:inline-block;font-size:12px;font-weight:500;padding:5px 10px;border-radius:4px;border:1px solid var(--n200);background:#fff;color:var(--ink)}
+.fake-btn.pri{background:var(--p600);border-color:var(--p600);color:#fff}
+.vivo{border:1px solid var(--p200);background:var(--sky);border-radius:6px;padding:10px 12px}
+.vivo .who{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--p700);margin-bottom:4px}
+.vivo .who::before{content:"";width:9px;height:9px;border:2px solid var(--p500);border-radius:50%}
+.thread{outline:2px solid var(--p400);outline-offset:-1px;border-radius:4px}
+
+/* mission control */
+.mc-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:14px}
+.mc-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;gap:12px}
+.mc-head h3{font-size:18px;letter-spacing:-0.015em}
+.ambition{font-size:12px;color:var(--n600)}
+.ambition b{font-weight:500;color:var(--ink)}
+.next{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.count{font-family:var(--mono);font-size:26px;letter-spacing:-0.02em;color:var(--p700);line-height:1}
+.count small{font-size:11px;color:var(--n600);letter-spacing:.06em;display:block;margin-top:6px;text-transform:uppercase}
+.next ul{margin:0;padding:0;list-style:none;font-size:12px;color:var(--n700)}
+.next li{display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--n100)}
+.needs li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start;padding:8px 0;border-bottom:1px solid var(--n100)}
+.needs li:last-child{border-bottom:0}
+.needs ul,.crit ul,.recent ul{list-style:none;margin:0;padding:0}
+.needs .n{font-family:var(--mono);font-size:10px;color:var(--p700);background:var(--sky);border-radius:3px;padding:2px 5px;margin-top:1px}
+.crit li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--n100)}
+.crit li:last-child{border-bottom:0}
+.crit .f{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--p700);border:1px solid var(--p200);padding:1px 5px;border-radius:3px}
+.crit .f.no{visibility:hidden}
+.recent li{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:8px 0;border-bottom:1px solid var(--n100)}
+.recent li:last-child{border-bottom:0}
+.recent .id{font-family:var(--mono);font-size:11px;color:var(--p700)}
+.recent .d{grid-column:2;font-size:12px;color:var(--n600)}
+.mc-col{display:grid;gap:14px;align-content:start}
+.hero figcaption{display:flex;justify-content:space-between;gap:24px;margin-top:16px;font-size:14px;color:var(--n600)}
+.hero figcaption b{font-weight:500;color:var(--ink)}
+
+/* argument */
+.argue{padding:88px 0 72px}
+.argue-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+.argue h2{font-size:clamp(28px,3.4vw,42px)}
+.argue p{color:var(--n700);margin-top:18px}
+.argue p strong{font-weight:500;color:var(--p700)}
+.voices{list-style:none;margin:0;padding:0;border-top:1px solid var(--n200)}
+.voices li{padding:16px 0;border-bottom:1px solid var(--n200);font-size:18px;letter-spacing:-0.01em}
+.voices .eyebrow{display:block;margin-bottom:6px}
+
+/* tour */
+.tour{background:#fff;border-top:1px solid var(--n200);border-bottom:1px solid var(--n200);padding:88px 0}
+.tour-intro{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:36px}
+.tour-intro h2{font-size:clamp(28px,3.4vw,42px);margin-top:14px}
+.tour-intro p{color:var(--n700)}
+.tablist{display:none}
+.js .tablist{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--n200);border-radius:8px;overflow:hidden;margin-bottom:28px;background:var(--paper)}
+.tab{appearance:none;background:transparent;border:0;border-right:1px solid var(--n200);padding:14px 16px;text-align:left;cursor:pointer;font:inherit;color:var(--n700);position:relative}
+.tab:last-child{border-right:0}
+.tab .k{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n500);margin-bottom:4px}
+.tab .t{font-size:15px;font-weight:500;letter-spacing:-0.01em}
+.tab:hover{background:#fff}
+.tab[aria-selected="true"]{background:#fff;color:var(--ink)}
+.tab[aria-selected="true"] .k{color:var(--p700)}
+.tab[aria-selected="true"]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--p500)}
+.tab:focus-visible{outline-offset:-3px}
+.stop{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:44px;align-items:start;padding:0 0 64px}
+.js .stop{padding-bottom:0}
+.stop[hidden]{display:none}
+.stop:focus-visible{outline-offset:10px}
+.stop .copy{position:sticky;top:96px}
+.stop .copy .eyebrow{margin-bottom:12px}
+.stop h3{font-size:clamp(24px,2.4vw,30px);margin-bottom:16px}
+.stop .copy p{color:var(--n700);margin-bottom:12px}
+.roles{border-top:1px solid var(--n200);margin-top:20px;padding-top:4px}
+.roles div{display:grid;grid-template-columns:72px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--n200);font-size:15px;color:var(--n700)}
+.roles dt,.roles .r{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n600);padding-top:3px}
+.roles .r.v{color:var(--p700)}
+.roles dd{margin:0}
+.next-stop{margin-top:20px;font:500 15px/1 'Inter',sans-serif;background:none;border:0;padding:6px 0;color:var(--p700);cursor:pointer;display:none}
+.js .next-stop{display:inline-block}
+.next-stop:hover{text-decoration:underline}
+.thread-note{display:flex;gap:10px;align-items:center;margin-top:12px;font-size:13px;color:var(--n600)}
+.thread-note i{width:14px;height:14px;border:2px solid var(--p400);border-radius:3px;flex:none}
+
+/* structure stop */
+.tree{display:grid;gap:10px}
+.amb{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;border:1px solid var(--n200);border-radius:6px;background:var(--paper)}
+.amb .big{font-size:15px;font-weight:500;letter-spacing:-0.01em}
+.targets{display:flex;gap:6px;flex-wrap:wrap}
+.crit-row{display:grid;grid-template-columns:auto 1fr auto auto;gap:10px;align-items:center;padding:9px 12px;border:1px solid var(--n200);border-radius:6px}
+.crit-row.open{border-color:var(--p400);background:#fff}
+.crit-row .sub{font-size:11.5px;color:var(--n600)}
+.obj{margin:0 0 0 22px;border-left:1px solid var(--n200);padding-left:14px;display:grid;gap:8px}
+.obj-h{display:flex;gap:8px;align-items:center;font-weight:500}
+.obj-h .lbl{font-weight:400}
+.act{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:7px 10px;border:1px solid var(--n100);border-radius:4px;background:#FBFCFD;font-size:12.5px}
+.act .res{display:block;color:var(--n600);font-size:11.5px}
+.status{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--n700);white-space:nowrap}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--g)}
+.status.risk::before{background:var(--y)}
+.status.off::before{background:var(--r)}
+.status.done::before{background:var(--n400)}
+.collapsed{display:grid;gap:6px}
+.vivo-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+
+/* radar stop */
+.radar-wrap{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:14px}
+.seg{display:inline-flex;border:1px solid var(--n200);border-radius:4px;overflow:hidden}
+.seg span{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;color:var(--n600)}
+.seg span.on{background:var(--ink);color:#fff}
+.radar svg text{font-family:'Inter',sans-serif}
+.risk-list{list-style:none;margin:0;padding:0}
+.risk-list li{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:7px 0;border-bottom:1px solid var(--n100);font-size:12.5px}
+.risk-list li:last-child{border-bottom:0}
+.risk-list .meta{grid-column:1/-1;font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--n600)}
+.trend{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--n700)}
+.trend.w{color:#A33232}
+.proposal dl{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;margin:8px 0;font-size:12px}
+.proposal dt{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--n600);padding-top:2px}
+.proposal dd{margin:0}
+.btns{display:flex;gap:6px;margin-top:8px}
+.rule-ok{font-size:11.5px;color:var(--n700);display:flex;gap:6px;align-items:center;margin-top:6px}
+.rule-ok::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--g)}
+.radar-list-m{display:none}
+
+/* signals stop */
+.sig-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px}
+.sig-tabs span{font-size:12px;padding:5px 10px;border-radius:4px;color:var(--n600);border:1px solid transparent}
+.sig-tabs span.on{border-color:var(--n200);background:#fff;color:var(--ink);font-weight:500}
+.sig-tabs b{font-family:var(--mono);font-weight:400;font-size:10.5px;color:var(--n500);margin-left:4px}
+.sig{display:grid;grid-template-columns:62px minmax(0,1fr) 170px;gap:14px;padding:12px;border:1px solid var(--n200);border-radius:6px;margin-bottom:8px;align-items:start}
+.sig .date{font-family:var(--mono);font-size:10.5px;color:var(--n600);line-height:1.6}
+.sig .hl{font-weight:500;font-size:13.5px;letter-spacing:-0.005em}
+.sig .src{font-size:11.5px;color:var(--n600);margin-top:2px}
+.sig .why{margin-top:8px;font-size:12px;color:var(--n700);display:flex;gap:6px}
+.sig .why b{font-family:var(--mono);font-weight:500;font-size:10px;letter-spacing:.08em;color:var(--p700);text-transform:uppercase;padding-top:2px;white-space:nowrap}
+.sig .state{display:grid;gap:6px;justify-items:start}
+.marks{display:inline-flex;border:1px solid var(--n200);border-radius:4px;overflow:hidden}
+.marks span{font-size:11px;padding:3px 7px;color:var(--n600);border-right:1px solid var(--n200)}
+.marks span:last-child{border-right:0}
+.marks span.on{background:var(--sky);color:var(--p700);font-weight:500}
+.sig.dim{opacity:.62}
+.newrisk{font-size:11.5px;color:var(--p700);font-weight:500}
+
+/* session stop */
+.sess{display:grid;grid-template-columns:180px minmax(0,1fr);gap:14px}
+.agenda ol{list-style:none;margin:0;padding:0;counter-reset:a}
+.agenda li{counter-increment:a;display:grid;grid-template-columns:18px 1fr;gap:6px;padding:7px 6px;border-radius:4px;font-size:12px;color:var(--n700)}
+.agenda li::before{content:counter(a);font-family:var(--mono);font-size:10.5px;color:var(--n500);padding-top:1px}
+.agenda li.on{background:var(--sky);color:var(--ink)}
+.agenda li.done{color:var(--n500)}
+.agenda li small{display:block;color:var(--n600);font-size:11px}
+.agenda .grp{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--n500);padding:10px 6px 4px}
+.item-h{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}
+.item-h h4{margin:0;font-size:15px;font-weight:500;letter-spacing:-0.01em}
+.steps{display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap}
+.steps span{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:var(--n100);color:var(--n600)}
+.steps span.done{background:#fff;border:1px solid var(--n200)}
+.steps span.on{background:var(--ink);color:#fff}
+.takes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:8px 0 12px}
+.take{border:1px solid var(--n200);border-radius:4px;padding:7px;font-size:11.5px}
+.take .nm{display:flex;gap:6px;align-items:center;color:var(--n600);font-size:11px;margin-bottom:5px}
+.take b{display:block;font-weight:500;font-size:12px}
+.decide{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:8px}
+.decide span{border:1px solid var(--n200);border-radius:4px;padding:7px 6px;text-align:center;font-size:12px;color:var(--n700)}
+.decide span.on{border-color:var(--p500);background:var(--sky);color:var(--p700);font-weight:500;box-shadow:inset 0 0 0 1px var(--p500)}
+.evidence{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border:1px solid var(--n100);border-radius:4px;background:#FBFCFD;font-size:12px;margin-bottom:6px}
+
+/* record stop */
+.rec-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--n200);margin-bottom:12px}
+.rec-id{font-family:var(--mono);font-size:20px;color:var(--p700);letter-spacing:-0.01em}
+.rec dl{display:grid;grid-template-columns:130px 1fr;gap:0;margin:0}
+.rec dt,.rec dd{padding:9px 0;border-bottom:1px solid var(--n100);margin:0}
+.rec dt{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);padding-top:11px}
+.rec dd ul{margin:4px 0 0;padding-left:16px}
+.rec dd li{margin:2px 0}
+.rec dd .trail{list-style:none;margin:0;padding:0}
+.trail li{display:grid;grid-template-columns:64px 1fr;gap:10px;font-size:12px;padding:2px 0}
+.trail li span:first-child{font-family:var(--mono);font-size:10.5px;color:var(--n600);padding-top:1px}
+.rec-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+
+/* five decisions */
+.decisions{padding:88px 0 40px}
+.decisions h2,.trust h2{font-size:clamp(28px,3.4vw,42px)}
+.dec-table{margin-top:32px;border-top:1px solid var(--ink)}
+.dec-row{display:grid;grid-template-columns:200px 1fr 1fr;gap:32px;padding:18px 0;border-bottom:1px solid var(--n200);align-items:baseline}
+.dec-row .nm{font-size:20px;font-weight:500;letter-spacing:-0.015em}
+.dec-row p{color:var(--n700);font-size:16px}
+.dec-row .v{font-size:15px;color:var(--n600)}
+.dec-row .v::before{content:"Vivo";font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--p700);margin-right:10px}
+.dec-row.head{padding:10px 0;border-bottom:1px solid var(--n200)}
+.dec-row.head span{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n600)}
+
+/* trust */
+.trust{padding:72px 0 88px}
+.trust-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start}
+.trust-intro p{color:var(--n700);margin-top:18px}
+.trust-intro p strong{font-weight:500;color:var(--ink)}
+.rules{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--n200)}
+.rules li{padding:18px 20px 18px 0;border-bottom:1px solid var(--n200)}
+.rules li:nth-child(odd){padding-right:28px;border-right:1px solid var(--n200)}
+.rules li:nth-child(even){padding-left:28px}
+.rules h3{font-size:17px;letter-spacing:-0.01em;margin-bottom:6px}
+.rules p{font-size:15px;color:var(--n700)}
+
+/* close */
+.close{background:var(--ink);color:#fff;padding:96px 0}
+.close .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:end}
+.close h2{font-size:clamp(32px,4.2vw,54px);letter-spacing:-0.03em}
+.close p{color:#C9D0D8;font-size:18px;margin-top:18px;max-width:30em}
+.close .eyebrow{color:var(--p200)}
+.close .btn-primary{background:var(--p500);color:#fff;font-size:16px;padding:15px 22px}
+.close .btn-primary:hover{background:var(--p400);color:var(--ink)}
+.close .meta{margin-top:18px;font-size:14px;color:#AEB6BF}
+.close .meta a{color:#fff}
+.close :focus-visible{outline-color:var(--p200)}
+
+/* footer */
+.site-foot{background:var(--n900);color:#AEB6BF;padding:36px 0;font-size:14px}
+.site-foot .wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.site-foot img{height:20px;width:auto}
+.site-foot nav{display:flex;gap:18px;margin-left:auto}
+.site-foot a{color:#DCE2E8;text-decoration:none}
+.site-foot a:hover{text-decoration:underline}
+.site-foot :focus-visible{outline-color:var(--p200)}
+.credit{width:100%;font-size:12px;color:#8B939C}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){
+  .app-body{grid-template-columns:1fr}
+  .side{display:none}
+  .stop{grid-template-columns:1fr;gap:28px}
+  .stop .copy{position:static;order:-1;max-width:40em}
+  .roles{display:none}
+}
+@media (max-width:900px){
+  .wrap{padding:0 22px}
+  .site-head nav{display:none}
+  .hero{padding-top:44px}
+  .hero-top,.argue-grid,.tour-intro,.trust-grid,.close .wrap{grid-template-columns:1fr;gap:28px}
+  .mc-grid{grid-template-columns:1fr}
+  .js .tablist{grid-template-columns:repeat(5,minmax(132px,1fr));overflow-x:auto;scrollbar-width:thin}
+  .dec-row{grid-template-columns:1fr;gap:6px}
+  .dec-row.head{display:none}
+  .rules{grid-template-columns:1fr}
+  .rules li:nth-child(odd){border-right:0;padding-right:0}
+  .rules li:nth-child(even){padding-left:0}
+  .sess{grid-template-columns:1fr}
+  .agenda{display:none}
+  .hero figcaption{flex-direction:column;gap:6px}
+  .example-tag{white-space:normal}
+}
+@media (max-width:700px){
+  body{font-size:16px}
+  .head-actions .signin{display:none}
+  .main{padding:12px}
+  .app-bar .who span{display:none}
+  .app-bar .crumb .hide-s{display:none}
+  .radar-wrap{grid-template-columns:1fr}
+  .radar svg .lab{display:none}
+  .radar-list-m{display:block}
+  .sig{grid-template-columns:1fr;gap:8px}
+  .sig .date{display:flex;gap:8px}
+  .sig .state{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .sig.dim{display:none}
+  .takes{grid-template-columns:repeat(2,1fr)}
+  .take:nth-child(n+5){grid-column:1/-1}
+  .decide{grid-template-columns:repeat(3,1fr)}
+  .rec dl{grid-template-columns:1fr}
+  .rec dt{border-bottom:0;padding-bottom:0}
+  .act{grid-template-columns:1fr auto}
+  .act .who-col{display:none}
+  .crit-row{grid-template-columns:auto 1fr auto}
+  .crit-row .chip.f{display:none}
+  .crit.s li:nth-child(n+6){display:none}
+  .more-m{display:block!important}
+  .next{grid-template-columns:1fr}
+  .mc-head{flex-direction:column;gap:4px}
+  .needs li{grid-template-columns:auto 1fr}
+  .needs li .go{display:none}
+  .amb{flex-direction:column;align-items:flex-start}
+}
+@media (max-width:420px){
+  .wrap{padding:0 16px}
+  .head-actions .btn{padding:9px 11px;font-size:13px}
+  .site-head .wrap{gap:12px}
+  .site-head .logo img{height:20px}
+}
+.more-m{display:none;font-size:12px;color:var(--n600);padding-top:8px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Strapivo, back to top"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="95" height="24"></a>
+    <nav aria-label="Page sections">
+      <a href="#tour">The tour</a>
+      <a href="#decisions">Five decisions</a>
+      <a href="#trust">Trust</a>
+    </nav>
+    <div class="head-actions">
+      <a class="signin" href="https://strapivo.app">Sign in</a>
+      <a class="btn btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO: Mission Control ============ -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="wrap">
+    <div class="hero-top">
+      <div>
+        <p class="eyebrow"><b>Product tour</b> · Six screens · One fortnight</p>
+        <h1 id="hero-title">Strategy finally has a home. <span>Here is what it looks like.</span></h1>
+      </div>
+      <div>
+        <p class="lede">Strapivo is the Strategic Design System. This page shows the screens a leadership team uses to run Dynamic Strategy, filled in for one fictional company over two weeks.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+          <a class="btn btn-ghost" href="#tour">Take the tour</a>
+        </div>
+      </div>
+    </div>
+
+    <figure style="margin:0">
+      <div class="app" role="group" aria-label="Mission Control screen, illustrative example for Lindqvist Pumps">
+        <div class="app-bar">
+          <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+          <span class="crumb"><span class="hide-s">Lindqvist Pumps / </span><b>Mission Control</b></span>
+          <span class="who"><span>Anna Lindqvist · Session lead</span><i class="av" aria-hidden="true">AL</i></span>
+        </div>
+        <div class="app-body">
+          <div class="side" aria-hidden="true">
+            <div class="org">Lindqvist Pumps<small>Illustrative example</small></div>
+            <ul>
+              <li class="on">Mission Control</li>
+              <li>Strategy</li>
+              <li>Radar</li>
+              <li>Signals <em>3</em></li>
+              <li>Sessions</li>
+              <li>Record</li>
+            </ul>
+          </div>
+          <div class="main">
+            <div class="mc-head">
+              <h3>Good morning, Anna</h3>
+              <p class="ambition">Ambition: <b>€240m turnover at 11% EBIT margin by 2029</b></p>
+            </div>
+            <div class="mc-grid">
+              <div class="mc-col">
+                <div class="card">
+                  <div class="card-h"><span class="lbl">Next session</span><span class="chip">Fortnightly · 60 min</span></div>
+                  <div class="card-b next">
+                    <div class="count"><span id="countdown">5d 20h 41m</span><small>Thu 26 Nov · 09:00</small></div>
+                    <ul>
+                      <li><span>Agenda draft from Vivo</span><span class="mono muted">Wed 09:00</span></li>
+                      <li><span>Contributor updates</span><span class="mono muted">9 of 12</span></li>
+                      <li><span>Parked questions returning</span><span class="mono muted">1</span></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="card needs">
+                  <div class="card-h"><span class="lbl">Needs you</span><span class="chip az">3 open</span></div>
+                  <div class="card-b">
+                    <ul>
+                      <li class="thread"><span class="n">Radar</span><span><b style="font-weight:500">Confirm or reject a proposed move</b><br><span class="muted">Housing supplier capacity. Vivo proposes the top right.</span></span><span class="fake-btn go">Review</span></li>
+                      <li><span class="n">Plan</span><span><b style="font-weight:500">2 activities off track</b><br><span class="muted">Under "Remote monitoring offer live in three markets"</span></span><span class="fake-btn go">Open</span></li>
+                      <li><span class="n">Team</span><span><b style="font-weight:500">3 contributor updates missing</b><br><span class="muted">Due before Thursday's session</span></span><span class="fake-btn go">Remind</span></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-h"><span class="lbl">Market intelligence</span><span class="lbl">Mon · Thu</span></div>
+                  <div class="card-b next">
+                    <div class="count" style="font-size:22px">3<small>New signals</small></div>
+                    <ul>
+                      <li><span>Last report</span><span class="mono muted">Thu 19 Nov</span></li>
+                      <li><span>Next report</span><span class="mono muted">Mon 23 Nov</span></li>
+                      <li><span>Risks moved since last session</span><span class="mono muted">1 proposed</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="mc-col">
+                <div class="card crit s">
+                  <div class="card-h"><span class="lbl">Success criteria</span><span class="lbl">8 · 4 in focus</span></div>
+                  <div class="card-b">
+                    <ul>
+                      <li><span class="light g" role="img" aria-label="green"></span><span>Service revenue outgrows equipment sales</span><span class="f">Focus</span></li>
+                      <li><span class="light y" role="img" aria-label="yellow"></span><span>Two new OEM partners in water utilities</span><span class="f">Focus</span></li>
+                      <li class="thread"><span class="light g" role="img" aria-label="green"></span><span>Supply base survives any single-source failure</span><span class="f">Focus</span></li>
+                      <li><span class="light r" role="img" aria-label="red"></span><span>Remote monitoring offer live in three markets</span><span class="f">Focus</span></li>
+                      <li><span class="light g" role="img" aria-label="green"></span><span>Gross margin on standard pumps at 34% or above</span><span class="f no">Focus</span></li>
+                      <li><span class="light y" role="img" aria-label="yellow"></span><span>Energy cost per unit down year on year</span><span class="f no">Focus</span></li>
+                      <li><span class="light g" role="img" aria-label="green"></span><span>Engineering roles filled within 60 days</span><span class="f no">Focus</span></li>
+                      <li><span class="light g" role="img" aria-label="green"></span><span>Net working capital under 18% of turnover</span><span class="f no">Focus</span></li>
+                    </ul>
+                    <p class="more-m">Plus 3 more criteria outside focus</p>
+                  </div>
+                </div>
+                <div class="card recent">
+                  <div class="card-h"><span class="lbl">Recent decisions</span><span class="lbl">Record</span></div>
+                  <div class="card-b">
+                    <ul>
+                      <li><span class="id">SDS-2026-013</span><span>Hold · Service revenue outgrows equipment sales</span><span class="d">12 Nov · reviewed, no change</span></li>
+                      <li><span class="id">SDS-2026-012</span><span>Not yet · Two new OEM partners</span><span class="d">12 Nov · parked until Q1 pricing data arrives</span></li>
+                      <li><span class="id">SDS-2026-011</span><span>Take advantage · Remote monitoring offer</span><span class="d">29 Oct · two detour activities added</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <figcaption>
+        <span><b>Mission Control, the home screen.</b> The next session, what needs you, every success criterion with today's light, and recent decisions. Everything that matters is on one screen.</span>
+        <span class="example-tag">Illustrative example · Lindqvist Pumps is fictional</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ ARGUMENT ============ -->
+<section class="argue" aria-labelledby="argue-title">
+  <div class="wrap argue-grid">
+    <div>
+      <p class="eyebrow">Why the screens exist</p>
+      <h2 id="argue-title" style="margin-top:14px">Every other function got software. Strategy never did.</h2>
+      <p>A leadership team agrees a strategy at an offsite. Then nobody opens it again. The market keeps moving, and nobody notices until the annual review, when a correction has become expensive.</p>
+      <p>Strapivo keeps the agreed strategy in one place and checks it against the outside world every week. Leadership teams use it for <strong>Dynamic Strategy</strong>: small, early corrections, and occasionally a change of course. The tactics change often. The strategy changes when the evidence supports a change.</p>
+    </div>
+    <ul class="voices">
+      <li><span class="eyebrow">What leadership teams tell us</span>"We finish the strategy, and then we forget it."</li>
+      <li>"We restart the same argument every time a new analysis lands."</li>
+      <li>"I know there's a threat coming. I don't know what it costs us to wait."</li>
+      <li>"I can't show the board that strategy actually moved between meetings."</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ TOUR ============ -->
+<section class="tour" id="tour" aria-labelledby="tour-title">
+  <div class="wrap">
+    <div class="tour-intro">
+      <div>
+        <p class="eyebrow">The tour · Five stops</p>
+        <h2 id="tour-title">Follow one risk through the fortnight</h2>
+      </div>
+      <div>
+        <p>On 18 November the only foundry that casts Lindqvist's pump housings announces a capacity cut. The five screens below follow that news until it becomes decision SDS-2026-014.</p>
+        <p class="thread-note"><i aria-hidden="true"></i>The blue outline marks the same risk on every screen.</p>
+      </div>
+    </div>
+
+    <div class="tablist" role="tablist" aria-label="Product tour stops">
+      <button class="tab" role="tab" id="tab-1" aria-controls="stop-1" aria-selected="true"><span class="k">01 · Setup</span><span class="t">Strategy structure</span></button>
+      <button class="tab" role="tab" id="tab-2" aria-controls="stop-2" aria-selected="false" tabindex="-1"><span class="k">02 · Watch, move</span><span class="t">Radar</span></button>
+      <button class="tab" role="tab" id="tab-3" aria-controls="stop-3" aria-selected="false" tabindex="-1"><span class="k">03 · Triage</span><span class="t">Signal triage</span></button>
+      <button class="tab" role="tab" id="tab-4" aria-controls="stop-4" aria-selected="false" tabindex="-1"><span class="k">04 · Agenda, decide</span><span class="t">Session room</span></button>
+      <button class="tab" role="tab" id="tab-5" aria-controls="stop-5" aria-selected="false" tabindex="-1"><span class="k">05 · Record</span><span class="t">Record of Decisions</span></button>
+    </div>
+
+    <!-- STOP 1: Structure -->
+    <div class="stop" id="stop-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
+      <div class="app" role="group" aria-label="Strategy structure screen, illustrative example">
+        <div class="app-bar">
+          <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+          <span class="crumb"><span class="hide-s">Lindqvist Pumps / </span><b>Strategy</b></span>
+          <span class="who"><span>Owner view</span><i class="av alt" aria-hidden="true">JW</i></span>
+        </div>
+        <div class="main tree">
+          <div class="amb">
+            <div><span class="lbl">Ambition</span><div class="big">€240m turnover at 11% EBIT margin by 2029</div></div>
+            <div class="targets"><span class="chip">Turnover €240m</span><span class="chip">Margin 11%</span><span class="chip">2029</span></div>
+          </div>
+          <div class="collapsed">
+            <div class="crit-row"><span class="light g" role="img" aria-label="green"></span><span>Service revenue outgrows equipment sales</span><span class="chip az f">Focus</span><span class="lbl">3 obj</span></div>
+            <div class="crit-row"><span class="light y" role="img" aria-label="yellow"></span><span>Two new OEM partners in water utilities</span><span class="chip az f">Focus</span><span class="lbl">2 obj</span></div>
+          </div>
+          <div class="crit-row open thread"><span class="light g" role="img" aria-label="green"></span><span>Supply base survives any single-source failure<span class="sub" style="display:block">Owner: Jonas Weber, COO</span></span><span class="chip az f">Focus</span><span class="lbl">2 obj</span></div>
+          <div class="obj">
+            <div class="obj-h"><span class="lbl">Objective</span>No critical part with a single supplier by end of 2027</div>
+            <div class="act"><span>Map every part with one qualified source<span class="res">Result: list of single-source parts with annual volume</span></span><span class="who-col muted mono" style="font-size:11px">JW · Q4</span><span class="status done">Done</span></div>
+            <div class="act"><span>Audit the housing foundry's capacity plan<span class="res">Result: written capacity commitment for 2027</span></span><span class="who-col muted mono" style="font-size:11px">LH · Q1</span><span class="status risk">At risk</span></div>
+            <div class="obj-h" style="margin-top:4px"><span class="lbl">Objective</span>Eight weeks of buffer stock on critical parts</div>
+            <div class="act"><span>Agree consignment stock with motor supplier<span class="res">Result: signed agreement</span></span><span class="who-col muted mono" style="font-size:11px">LH · Q1</span><span class="status">On track</span></div>
+          </div>
+          <div class="vivo">
+            <div class="who">Vivo · from the offsite report</div>
+            <div class="vivo-row"><span>"Call three alternative foundries" reads like an activity, not an objective. Move it down?</span><span class="btns" style="margin:0"><span class="fake-btn pri">Move it</span><span class="fake-btn">Keep</span></span></div>
+          </div>
+          <div class="collapsed">
+            <div class="crit-row"><span class="light r" role="img" aria-label="red"></span><span>Remote monitoring offer live in three markets</span><span class="chip az f">Focus</span><span class="lbl">3 obj</span></div>
+            <div class="crit-row" style="color:var(--n600)"><span class="light g" role="img" aria-label="green"></span><span>4 more criteria outside focus</span><span></span><span class="lbl">Show</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <p class="eyebrow"><b>Stop 01</b> · Strategy structure</p>
+        <h3>Write down what must succeed</h3>
+        <p>Owners set one Ambition and between 7 and 12 success criteria. Up to four become focus areas. Add a fifth and Vivo asks whether you want to dilute focus.</p>
+        <p>Each criterion holds objectives, and each objective holds activities with an action, a result, a timeframe and a person responsible.</p>
+        <p>Paste a workshop report, a document or an email. Vivo proposes where each item belongs and an Owner accepts or moves it.</p>
+        <dl class="roles">
+          <div><dt>You</dt><dd>Set the criteria and the lights.</dd></div>
+          <div><dt class="r v">Vivo</dt><dd>Sorts your input into the structure.</dd></div>
+        </dl>
+        <button class="next-stop" type="button" data-go="2">Next stop: Radar</button>
+      </div>
+    </div>
+
+    <!-- STOP 2: Radar -->
+    <div class="stop" id="stop-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
+      <div class="app" role="group" aria-label="Radar screen, illustrative example">
+        <div class="app-bar">
+          <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+          <span class="crumb"><span class="hide-s">Lindqvist Pumps / </span><b>Radar</b></span>
+          <span class="who"><span>19 Nov 2026</span><i class="av alt" aria-hidden="true">JW</i></span>
+        </div>
+        <div class="main radar-wrap">
+          <div class="card radar">
+            <div class="card-h"><span class="lbl">Risk radar · whole portfolio</span><span class="seg"><span class="on">Now</span><span>Tracking</span></span></div>
+            <div class="card-b">
+              <svg viewBox="0 0 400 380" role="img" aria-labelledby="radar-t">
+                <title id="radar-t">Risk radar plotting impact against likelihood. Vivo proposes moving Housing supplier capacity from the centre into the top right danger zone.</title>
+                <rect x="40" y="10" width="350" height="320" fill="#FBFCFD" stroke="#E1E5EA"/>
+                <rect x="273.3" y="10" width="116.7" height="106.7" fill="#D64545" fill-opacity=".08"/>
+                <g stroke="#E1E5EA">
+                  <line x1="156.7" y1="10" x2="156.7" y2="330"/><line x1="273.3" y1="10" x2="273.3" y2="330"/>
+                  <line x1="40" y1="116.7" x2="390" y2="116.7"/><line x1="40" y1="223.3" x2="390" y2="223.3"/>
+                </g>
+                <text x="384" y="28" text-anchor="end" font-size="10" fill="#A33232" font-family="JetBrains Mono, monospace" letter-spacing=".5">DANGER ZONE</text>
+                <text x="215" y="356" text-anchor="middle" font-size="10" fill="#495158" font-family="JetBrains Mono, monospace" letter-spacing="1">LIKELIHOOD</text>
+                <text x="16" y="170" text-anchor="middle" font-size="10" fill="#495158" font-family="JetBrains Mono, monospace" letter-spacing="1" transform="rotate(-90 16 170)">IMPACT</text>
+                <!-- steel, in top right -->
+                <circle cx="300" cy="96" r="7" fill="#D64545"/>
+                <text class="lab" x="312" y="100" font-size="12" fill="#2C343C">Steel price</text>
+                <!-- tender delays -->
+                <circle cx="120" cy="140" r="7" fill="#141B24"/>
+                <text class="lab" x="131" y="144" font-size="12" fill="#2C343C">Utility tender delays</text>
+                <!-- competitor -->
+                <circle cx="215" cy="74" r="7" fill="#141B24"/>
+                <text class="lab" x="203" y="78" font-size="12" fill="#2C343C" text-anchor="end">Competitor bundle</text>
+                <!-- attrition -->
+                <circle cx="110" cy="276" r="7" fill="#141B24"/>
+                <text class="lab" x="121" y="280" font-size="12" fill="#2C343C">Key engineer attrition</text>
+                <!-- housing current -->
+                <path d="M206 186 L 318 66" stroke="#0082E6" stroke-width="1.5" stroke-dasharray="4 4" fill="none" marker-end="url(#ah)"/>
+                <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#0082E6"/></marker></defs>
+                <circle cx="200" cy="192" r="8" fill="#0082E6"/>
+                <circle cx="200" cy="192" r="13" fill="none" stroke="#3FA0FA" stroke-width="2"/>
+                <text class="lab" x="200" y="224" font-size="12" fill="#005DBD" text-anchor="middle">Housing supplier capacity</text>
+                <!-- ghost -->
+                <circle cx="330" cy="52" r="9" fill="#fff" stroke="#0082E6" stroke-width="1.5" stroke-dasharray="3 3"/>
+                <text class="lab" x="344" y="56" font-size="10" fill="#005DBD" font-family="JetBrains Mono, monospace">GHOST</text>
+              </svg>
+              <ul class="risk-list radar-list-m">
+                <li class="thread" style="padding-left:6px"><span><span class="light" style="background:var(--p500)"></span> Housing supplier capacity</span><span class="trend w">Worsening</span><span class="meta">Centre · ghost proposed in the top right</span></li>
+                <li><span>Steel price</span><span class="trend">Stable</span><span class="meta">Top right · 9 days</span></li>
+                <li><span>Competitor bundle</span><span class="trend w">Worsening</span><span class="meta">High impact · medium likelihood</span></li>
+              </ul>
+            </div>
+          </div>
+          <div style="display:grid;gap:14px;align-content:start">
+            <div class="vivo proposal thread">
+              <div class="who">Vivo · proposed move</div>
+              <b style="font-weight:500">Housing supplier capacity</b>
+              <dl>
+                <dt>Move</dt><dd>Centre to top right</dd>
+                <dt>Reason</dt><dd>Our only housing foundry confirmed a one-third capacity cut from February.</dd>
+                <dt>Signal</dt><dd>Supplier press release · 18 Nov</dd>
+              </dl>
+              <span class="rule-ok">Primary source present, so this move may enter the danger zone</span>
+              <div class="btns"><span class="fake-btn pri">Confirm</span><span class="fake-btn">Reject</span></div>
+            </div>
+            <div class="card">
+              <div class="card-h"><span class="lbl">Risks</span><span class="lbl">Trend</span></div>
+              <div class="card-b">
+                <ul class="risk-list">
+                  <li><span>Housing supplier capacity</span><span class="trend w">Worsening</span><span class="meta">Scope: Industrial pumps</span></li>
+                  <li><span>Steel price</span><span class="trend">Stable</span><span class="meta">Top right · 9 days</span></li>
+                  <li><span>Competitor bundle</span><span class="trend w">Worsening</span><span class="meta">Scope: Service</span></li>
+                  <li><span>Utility tender delays</span><span class="trend">Easing</span><span class="meta">Scope: whole portfolio</span></li>
+                  <li><span>Key engineer attrition</span><span class="trend">Stable</span><span class="meta">Scope: whole portfolio</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <p class="eyebrow"><b>Stop 02</b> · Radar</p>
+        <h3>See a risk move before the review</h3>
+        <p>Every risk sits on a radar of impact against likelihood. When a signal changes the picture, Vivo places a ghost where it thinks the risk belongs now, with one line of reason. A person confirms or rejects it.</p>
+        <p>A move into the top right needs at least one primary source, so a single blog post can't put a risk there. The Tracking view shows how each risk moved since the last session.</p>
+        <dl class="roles">
+          <div><dt>You</dt><dd>Confirm or reject each move.</dd></div>
+          <div><dt class="r v">Vivo</dt><dd>Proposes the move and cites the signal.</dd></div>
+        </dl>
+        <button class="next-stop" type="button" data-go="3">Next stop: Signal triage</button>
+      </div>
+    </div>
+
+    <!-- STOP 3: Signals -->
+    <div class="stop" id="stop-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0">
+      <div class="app" role="group" aria-label="Signal triage screen, illustrative example">
+        <div class="app-bar">
+          <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+          <span class="crumb"><span class="hide-s">Lindqvist Pumps / </span><b>Signals</b></span>
+          <span class="who"><span>Thursday report · 19 Nov</span><i class="av alt" aria-hidden="true">LH</i></span>
+        </div>
+        <div class="main">
+          <div class="sig-tabs" aria-hidden="true"><span class="on">New<b>3</b></span><span>Relevant<b>4</b></span><span>Watching<b>2</b></span><span>Dismissed<b>11</b></span></div>
+          <div class="sig thread">
+            <div class="date">18 Nov<br><span class="chip ink">Primary</span></div>
+            <div>
+              <div class="hl">Foundry partner to cut cast housing line by a third from February</div>
+              <div class="src">Supplier press release · Criterion: Supply base survives any single-source failure</div>
+              <div class="why"><b>Vivo</b><span>Relevant. This foundry is our only source for cast housings. Matches the risk "Housing supplier capacity".</span></div>
+            </div>
+            <div class="state"><span class="marks"><span class="on">Relevant</span><span>Irrelevant</span><span>Unsure</span></span><span class="muted" style="font-size:11px">Marked by Lena Hoffmann</span></div>
+          </div>
+          <div class="sig">
+            <div class="date">18 Nov<br><span class="chip">Secondary</span></div>
+            <div>
+              <div class="hl">Cast iron shortages expected across Central Europe in 2027</div>
+              <div class="src">Trade blog · Criterion: Supply base survives any single-source failure</div>
+              <div class="why"><b>Vivo</b><span>Relevant but secondary. Supports the same risk. Not enough alone to move it.</span></div>
+            </div>
+            <div class="state"><span class="marks"><span>Relevant</span><span>Irrelevant</span><span class="on">Unsure</span></span><span class="chip">Watching</span></div>
+          </div>
+          <div class="sig">
+            <div class="date">16 Nov<br><span class="chip">Secondary</span></div>
+            <div>
+              <div class="hl">Competitor adds free remote monitoring to new pump contracts</div>
+              <div class="src">Industry newsletter · Criterion: Remote monitoring offer live in three markets</div>
+              <div class="why"><b>Vivo</b><span>Relevant. Matches no known risk.</span></div>
+            </div>
+            <div class="state"><span class="newrisk">Possible new risk?</span><span class="marks"><span>Relevant</span><span>Irrelevant</span><span>Unsure</span></span></div>
+          </div>
+          <div class="sig dim">
+            <div class="date">15 Nov<br><span class="chip">Secondary</span></div>
+            <div>
+              <div class="hl">Trade fair organiser announces 2027 dates</div>
+              <div class="src">Event listing · No criterion</div>
+              <div class="why"><b>Vivo</b><span>Not relevant. Similar items were dismissed four times.</span></div>
+            </div>
+            <div class="state"><span class="chip">Dismissed</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <p class="eyebrow"><b>Stop 03</b> · Signal triage</p>
+        <h3>Sort the news against your criteria</h3>
+        <p>Market intelligence reads over 4,000 sources a day and reports on Monday and Thursday. Its search brief for each focus area is the criterion, its objectives and its risks.</p>
+        <p>Vivo makes the first pass on every signal: which criterion, relevant or not, and one line of reason. A delegated person marks it relevant, irrelevant or unsure. Each dismissed signal teaches Vivo what counts as noise for your company.</p>
+        <dl class="roles">
+          <div><dt>You</dt><dd>Mark each signal. Spot a new risk.</dd></div>
+          <div><dt class="r v">Vivo</dt><dd>Assigns, filters and gives a reason.</dd></div>
+        </dl>
+        <button class="next-stop" type="button" data-go="4">Next stop: Session room</button>
+      </div>
+    </div>
+
+    <!-- STOP 4: Session -->
+    <div class="stop" id="stop-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0">
+      <div class="app" role="group" aria-label="Session room screen, illustrative example">
+        <div class="app-bar">
+          <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+          <span class="crumb"><span class="hide-s">Lindqvist Pumps / </span><b>Session · 26 Nov</b></span>
+          <span class="who"><span class="mono">Item 3 of 6 · 31 min left</span><i class="av" aria-hidden="true">AL</i></span>
+        </div>
+        <div class="main sess">
+          <div class="agenda">
+            <div class="lbl" style="padding:0 6px 6px">Agenda · approved 09:02</div>
+            <div class="grp">Old business</div>
+            <ol>
+              <li class="done"><span>Carried forward: consignment stock<small>Done</small></span></li>
+              <li class="done"><span>Parked question returns: OEM pricing<small>Trigger: Q1 data</small></span></li>
+              <li class="on thread"><span>Housing supplier capacity entered the top right<small>New business · risk move</small></span></li>
+              <li><span>Remote monitoring: 2 activities off track<small>Ask from Mara Koch</small></span></li>
+              <li><span>Possible new risk: free monitoring bundles</span></li>
+              <li><span>Announce what changed</span></li>
+            </ol>
+          </div>
+          <div>
+            <div class="item-h">
+              <div>
+                <span class="lbl">Item 3 · Supply base survives any single-source failure</span>
+                <h4>Housing supplier capacity entered the top right</h4>
+              </div>
+              <span style="display:flex;gap:6px;align-items:center;font-size:12px;white-space:nowrap"><span class="light y" role="img" aria-label="yellow"></span>Light set to yellow</span>
+            </div>
+            <div class="steps" aria-hidden="true"><span class="done">Evidence</span><span class="done">First takes</span><span class="done">Conversation</span><span class="on">Decision</span></div>
+            <div class="evidence"><span class="chip ink">Primary</span><span>Foundry partner to cut cast housing line by a third from February. Move confirmed by Jonas Weber, 19 Nov.</span></div>
+            <div class="lbl" style="margin-top:12px">First takes · sealed, revealed together</div>
+            <div class="takes">
+              <div class="take"><span class="nm"><i class="av">AL</i>Anna</span><b>Adapt</b>Second source now.</div>
+              <div class="take"><span class="nm"><i class="av alt">JW</i>Jonas</span><b>Adapt</b>Qualify by March.</div>
+              <div class="take"><span class="nm"><i class="av alt">IB</i>Ines</span><b>Hold</b>Buffer stock first.</div>
+              <div class="take"><span class="nm"><i class="av alt">MK</i>Mara</span><b>Adapt</b>Service parts too.</div>
+              <div class="take"><span class="nm"><i class="av alt">TB</i>Tomas</span><b>Take advantage</b>Offer supply guarantees.</div>
+            </div>
+            <div class="vivo">
+              <div class="who">Vivo · cost of doing nothing</div>
+              Holding means eight weeks of buffer stock covers February and March. From April, housing supply falls short of the order book for industrial pumps.
+            </div>
+            <div class="lbl" style="margin-top:14px">Decision</div>
+            <div class="decide"><span>Hold</span><span class="on">Adapt</span><span>Pivot</span><span>Take advantage</span><span>Not yet</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <p class="eyebrow"><b>Stop 04</b> · Session room</p>
+        <h3>Spend the hour on what changed</h3>
+        <p>Vivo drafts the agenda 24 hours ahead from what changed, old business first. The session lead edits it and the room approves it as step one.</p>
+        <p>For each item the room sees the evidence. Then everyone seals a first take before anyone speaks, so the loudest voice doesn't anchor the room. Vivo can work out what waiting costs or argue the other side.</p>
+        <dl class="roles">
+          <div><dt>You</dt><dd>Debate and choose one of five decisions.</dd></div>
+          <div><dt class="r v">Vivo</dt><dd>Drafts the agenda and challenges the room.</dd></div>
+        </dl>
+        <button class="next-stop" type="button" data-go="5">Next stop: Record of Decisions</button>
+      </div>
+    </div>
+
+    <!-- STOP 5: Record -->
+    <div class="stop" id="stop-5" role="tabpanel" aria-labelledby="tab-5" tabindex="0">
+      <div class="app" role="group" aria-label="Record of Decisions screen, illustrative example">
+        <div class="app-bar">
+          <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+          <span class="crumb"><span class="hide-s">Lindqvist Pumps / </span><b>Record of Decisions</b></span>
+          <span class="who"><span>Confirmed</span><i class="av" aria-hidden="true">AL</i></span>
+        </div>
+        <div class="main rec">
+          <div class="rec-h thread" style="padding:10px">
+            <div><div class="rec-id">SDS-2026-014</div><div class="muted" style="margin-top:4px">Housing supplier capacity · session of 26 Nov 2026</div></div>
+            <span class="chip az">Adapt</span>
+          </div>
+          <dl>
+            <dt>Criterion</dt><dd>Supply base survives any single-source failure · light yellow since 24 Nov</dd>
+            <dt>Decision</dt><dd>Adapt. Qualify a second foundry for cast housings before the cut takes effect.
+              <ul><li>New objective: second housing source qualified by 31 Mar 2027</li><li>Activity: request samples from three foundries. Lena Hoffmann, by 15 Dec</li><li>Activity: raise buffer stock to twelve weeks. Jonas Weber, by 31 Jan</li></ul></dd>
+            <dt>Dissent</dt><dd>Ines Bauer, CFO: Hold. "Qualification costs more than three months of extra buffer stock."</dd>
+            <dt>Trail</dt><dd><ul class="trail">
+              <li><span>18 Nov</span><span>Signal: supplier press release, primary</span></li>
+              <li><span>19 Nov</span><span>Risk move confirmed by Jonas Weber</span></li>
+              <li><span>24 Nov</span><span>Light set to yellow by Jonas Weber</span></li>
+              <li><span>26 Nov</span><span>Decided in session. Read back by Vivo, confirmed by Anna Lindqvist</span></li></ul></dd>
+            <dt>Escalation</dt><dd>Tooling budget is above the team's authority. Sent to the supervisory board as a memo.</dd>
+          </dl>
+          <div class="rec-foot"><span class="muted" style="font-size:12px">Announcement drafted for the leadership group</span><span class="btns" style="margin:0"><span class="fake-btn">Export Markdown</span><span class="fake-btn pri">Send memo</span></span></div>
+        </div>
+      </div>
+      <div class="copy">
+        <p class="eyebrow"><b>Stop 05</b> · Record of Decisions</p>
+        <h3>Find what was decided, and why</h3>
+        <p>Vivo reads back each entry before it is saved, with dissent recorded by name and reason. The session lead confirms it and the decision gets a permanent number.</p>
+        <p>Anything beyond the team's authority goes to an approver in the app, as an exported memo or into the board pack. Next quarter, anyone can open SDS-2026-014 and see the signal behind it and who disagreed.</p>
+        <dl class="roles">
+          <div><dt>You</dt><dd>Confirm the entry and announce it.</dd></div>
+          <div><dt class="r v">Vivo</dt><dd>Reads it back and drafts the memo.</dd></div>
+        </dl>
+        <button class="next-stop" type="button" data-go="1">Back to the start</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FIVE DECISIONS ============ -->
+<section class="decisions" id="decisions" aria-labelledby="dec-title">
+  <div class="wrap">
+    <p class="eyebrow">Stop 04, in detail</p>
+    <h2 id="dec-title" style="margin-top:14px;max-width:18em">Every agenda item ends in one of five decisions</h2>
+    <div class="dec-table">
+      <div class="dec-row head" aria-hidden="true"><span>Decision</span><span>What it means</span><span>What happens next</span></div>
+      <div class="dec-row"><span class="nm">Hold</span><p>The criterion stays as it is.</p><p class="v">Marks it reviewed on that date.</p></div>
+      <div class="dec-row"><span class="nm">Adapt</span><p>The criterion stays. The plan under it changes.</p><p class="v">Drafts changes to objectives and activities.</p></div>
+      <div class="dec-row"><span class="nm">Pivot</span><p>The criterion itself changes.</p><p class="v">Drafts new wording. It takes effect only when someone with authority confirms it.</p></div>
+      <div class="dec-row"><span class="nm">Take advantage</span><p>The room sees an opening worth a detour.</p><p class="v">Adds detour activities and leaves the criterion unchanged.</p></div>
+      <div class="dec-row"><span class="nm">Not yet</span><p>Something is missing. The room names it.</p><p class="v">Parks it with a trigger that brings it back, or lets it go with a rationale.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST ============ -->
+<section class="trust" id="trust" aria-labelledby="trust-title">
+  <div class="wrap trust-grid">
+    <div class="trust-intro">
+      <p class="eyebrow">Trust</p>
+      <h2 id="trust-title" style="margin-top:14px">The human stays in the chair</h2>
+      <p>Vivo proposes. People decide. Every recommendation traces back to the strategic memory your team approved.</p>
+      <p><strong>Hardwired to the business model.</strong> The Business Model Canvas holds the structure underneath, so Vivo reads your strategy and doesn't treat it as a PDF attached to a generic prompt.</p>
+    </div>
+    <ul class="rules">
+      <li><h3>Vivo never sets a light</h3><p>When two focus activities go off track, Vivo asks "Light still green?" A person answers.</p></li>
+      <li><h3>A blog post alone moves nothing</h3><p>A risk enters the top right only with at least one primary source.</p></li>
+      <li><h3>Nothing stays dangerous and undiscussed</h3><p>A risk in the top right for 14 days without a decision lands in the session lead's Needs you list.</p></li>
+      <li><h3>Accepted truth waits for an Owner</h3><p>Changes to the agreed strategy, including a Pivot, take effect only after a person with authority confirms them.</p></li>
+      <li><h3>EU-only infrastructure</h3><p>GDPR by design. Your strategy is hosted in the EU.</p></li>
+      <li><h3>Export everything</h3><p>Export the plan and the board pack as Markdown, the plan as CSV, and memos as Markdown or text.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CLOSE ============ -->
+<section class="close" aria-labelledby="close-title">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Getting started</p>
+      <h2 id="close-title" style="margin-top:14px">We do the reading first.</h2>
+      <p>Send us your strategy papers and board decks. We build the structure with your team in four to five hours. Then you run it.</p>
+    </div>
+    <div>
+      <a class="btn btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      <p class="meta">strategy@strapivo.com · Existing customers <a href="https://strapivo.app">sign in here</a>.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="80" height="20">
+    <span>© 2026 Strapivo</span>
+    <nav aria-label="Legal">
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+    <p class="credit">Lindqvist Pumps and every person named in the screens are fictional. The screens are drawn for this page.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var tabs=[].slice.call(document.querySelectorAll('[role="tab"]'));
+  var panels=tabs.map(function(t){return document.getElementById(t.getAttribute('aria-controls'));});
+  function select(i,focus){
+    tabs.forEach(function(t,j){
+      var on=i===j;
+      t.setAttribute('aria-selected',on?'true':'false');
+      t.tabIndex=on?0:-1;
+      panels[j].hidden=!on;
+    });
+    if(focus)tabs[i].focus();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){select(i,false);});
+    t.addEventListener('keydown',function(e){
+      var n=null;
+      if(e.key==='ArrowRight')n=(i+1)%tabs.length;
+      else if(e.key==='ArrowLeft')n=(i-1+tabs.length)%tabs.length;
+      else if(e.key==='Home')n=0;
+      else if(e.key==='End')n=tabs.length-1;
+      if(n!==null){e.preventDefault();select(n,true);}
+    });
+  });
+  [].forEach.call(document.querySelectorAll('.next-stop'),function(b){
+    b.addEventListener('click',function(){
+      var i=parseInt(b.getAttribute('data-go'),10)-1;
+      select(i,true);
+      var list=document.querySelector('.tablist');
+      if(list.getBoundingClientRect().top<0)list.scrollIntoView({block:'start'});
+    });
+  });
+  var h=location.hash.match(/^#stop-([1-5])$/);
+  select(h?+h[1]-1:0,false);
+  if(h)document.getElementById('tour').scrollIntoView();
+
+  /* Countdown: illustrative, ticks down once a minute from the value in the page */
+  var el=document.getElementById('countdown');
+  if(el){
+    var m=el.textContent.match(/(\d+)d (\d+)h (\d+)m/);
+    var mins=(+m[1])*1440+(+m[2])*60+(+m[3]);
+    setInterval(function(){
+      if(mins>0)mins--;
+      el.textContent=Math.floor(mins/1440)+'d '+Math.floor(mins%1440/60)+'h '+(mins%60)+'m';
+    },60000);
+  }
+})();
+</script>
+</body>
+</html>

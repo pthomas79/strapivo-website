@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo · Over 4,000 sources a day, narrowed to one decision</title>
+<meta name="description" content="Strapivo reads over 4,000 sources a day against your success criteria. One day of sources, drawn as dots, narrows to one risk, one agenda item and one numbered decision.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --red:#D2452F;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --pad:clamp(20px,5vw,72px);
+  --head:60px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:var(--head)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:17px;line-height:1.55}
+h1,h2,h3{font-weight:500;margin:0;letter-spacing:-0.025em;line-height:1.08}
+p{margin:0}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--p600);outline-offset:3px;border-radius:2px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--n600);font-weight:400}
+.eyebrow b{font-weight:500;color:var(--p600)}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--paper);padding:8px 12px;z-index:50;border-radius:4px}
+.skip:focus{left:8px}
+
+/* header */
+.site-head{position:fixed;inset:0 0 auto 0;height:var(--head);z-index:20;display:flex;align-items:center;justify-content:space-between;padding:0 var(--pad);background:var(--paper);border-bottom:1px solid var(--n200)}
+.site-head .logo{display:block;line-height:0}
+.site-head .logo img{height:22px;width:auto}
+.site-head nav{display:flex;align-items:center;gap:clamp(12px,2.4vw,28px)}
+.site-head nav a{font-size:15px;text-decoration:none}
+.site-head nav a:hover{color:var(--p600)}
+.btn{display:inline-block;background:var(--p600);color:#fff!important;text-decoration:none;font-weight:500;padding:10px 16px;border-radius:4px;font-size:15px;line-height:1.2;transition:background .2s}
+.btn:hover{background:var(--p700)}
+.btn.big{padding:15px 22px;font-size:17px}
+.link-quiet{text-decoration:none;border-bottom:1px solid var(--n400);padding-bottom:1px}
+
+/* story: fallback layout (no JS, reduced motion) */
+.story{position:relative;padding-top:var(--head)}
+.stage{display:none}
+.steps{list-style:none;margin:0;padding:0}
+.step{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,64px);align-items:center;padding:clamp(40px,7vw,96px) var(--pad);border-bottom:1px solid var(--n200)}
+.step .cap{grid-column:1;max-width:460px}
+.step .frame{grid-column:2;margin:0}
+.frame svg{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--n200);border-radius:4px}
+.cap .eyebrow{margin-bottom:18px}
+.cap h1{font-size:clamp(34px,4.2vw,58px);letter-spacing:-0.03em;line-height:1.04}
+.cap h1 em{font-style:normal;color:var(--p600)}
+.cap h2{font-size:clamp(26px,2.6vw,36px)}
+.cap p:not(.eyebrow){margin-top:16px;color:var(--n700);max-width:40ch}
+.cap .lede{font-size:clamp(17px,1.4vw,19px)}
+.cue{display:none;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--n600)!important;margin-top:28px!important}
+
+/* story: canvas mode */
+.canvas-on .story{padding-top:0}
+.canvas-on .stage{display:block;position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.canvas-on .stage canvas{display:block;width:100%;height:100%}
+.canvas-on .steps{margin-top:-100vh;margin-top:-100svh;position:relative;z-index:2}
+.canvas-on .step{display:flex;align-items:center;min-height:100vh;min-height:100svh;padding:calc(var(--head) + 24px) var(--pad) 40px;border:0;pointer-events:none}
+.canvas-on .step:last-child{min-height:150vh;align-items:flex-start;padding-top:calc(50vh - 90px)}
+.canvas-on .frame{display:none}
+.canvas-on .cap{pointer-events:auto;background:rgba(246,249,251,.94);padding:28px 30px 30px;border-radius:4px;max-width:min(440px,36vw);border:1px solid rgba(225,229,234,.9)}
+.canvas-on .step-hero .cap{max-width:min(560px,40vw)}
+.canvas-on .cue{display:block}
+.canvas-on .cue::after{content:"";display:block;width:1px;height:36px;background:var(--n400);margin-top:12px}
+
+/* voice */
+.voice{padding:clamp(72px,11vw,160px) var(--pad);border-top:1px solid var(--n200)}
+.voice blockquote{margin:0;max-width:1080px}
+.voice blockquote p{font-size:clamp(28px,3.8vw,52px);letter-spacing:-0.025em;line-height:1.12}
+.voice blockquote p span{color:var(--p600)}
+.voice .eyebrow{margin-top:28px}
+
+/* mechanism */
+.mech{padding:clamp(64px,9vw,128px) var(--pad);background:#fff;border-top:1px solid var(--n200);border-bottom:1px solid var(--n200)}
+.mech-head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,64px);margin-bottom:clamp(40px,6vw,72px)}
+.mech-head h2{font-size:clamp(30px,3.4vw,46px)}
+.mech-head p{color:var(--n700);max-width:58ch}
+.mech-head .eyebrow{margin-bottom:18px}
+.ledger{margin:0;padding:0;list-style:none;counter-reset:l}
+.ledger li{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,64px);padding:26px 0;border-top:1px solid var(--n200)}
+.ledger li:last-child{border-bottom:1px solid var(--n200)}
+.ledger h3{font-family:var(--mono);font-weight:500;font-size:14px;letter-spacing:.1em;text-transform:uppercase;display:flex;gap:18px;align-items:baseline;line-height:1.4}
+.ledger h3 span{color:var(--n500);font-weight:400}
+.ledger h3 svg{flex:none;align-self:center}
+.ledger p{color:var(--n700);max-width:62ch}
+.ledger p q{quotes:none}
+
+/* trust */
+.trust{background:var(--ink);color:var(--paper);padding:clamp(64px,9vw,128px) var(--pad)}
+.trust-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,64px)}
+.trust h2{font-size:clamp(30px,3.4vw,46px)}
+.trust h2 span{color:var(--p200)}
+.trust .eyebrow{color:var(--n400);margin-bottom:18px}
+.trust ul{list-style:none;margin:0;padding:0}
+.trust li{padding:16px 0 16px 28px;border-top:1px solid rgba(225,229,234,.16);position:relative;color:var(--n200)}
+.trust li::before{content:"";position:absolute;left:2px;top:25px;width:7px;height:7px;border-radius:50%;background:var(--p400)}
+
+/* cta */
+.cta{padding:clamp(80px,12vw,176px) var(--pad);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,64px);align-items:end}
+.cta h2{font-size:clamp(34px,4.4vw,62px);letter-spacing:-0.03em}
+.cta .eyebrow{margin-bottom:18px}
+.cta p{color:var(--n700);max-width:52ch}
+.cta .actions{margin-top:28px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.cta .ring{display:block;width:72px;height:72px;margin-bottom:28px}
+
+/* footer */
+.site-foot{border-top:1px solid var(--n200);padding:28px var(--pad);display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between;font-size:14px;color:var(--n600)}
+.site-foot img{height:20px;width:auto;display:block}
+.site-foot nav{display:flex;gap:24px}
+.site-foot a{text-decoration:none}
+.site-foot a:hover{color:var(--p600)}
+
+@media (max-width:899px){
+  .step,.mech-head,.ledger li,.trust-in,.cta{grid-template-columns:minmax(0,1fr)}
+  .step .cap,.step .frame{grid-column:1}
+  .canvas-on .step{align-items:flex-end;padding-bottom:28px}
+  .canvas-on .step:last-child{min-height:150vh;align-items:flex-start;padding-top:calc(100vh - 290px)}
+  .canvas-on .cap,.canvas-on .step-hero .cap{max-width:100%;padding:22px 22px 24px}
+  .canvas-on .step-hero{align-items:flex-end}
+  .ledger li{gap:10px}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  .site-head nav .signin{display:none}
+  .site-head .btn{padding:9px 12px;font-size:14px}
+  .site-head .logo img{height:19px}
+  .canvas-on .cue{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><path id="fieldpath" d="M129 148h0M238 213h0M155 137h0M48 8h0M277 100h0M5 267h0M562 363h0M284 354h0M531 211h0M325 244h0M429 53h0M133 190h0M218 111h0M129 28h0M583 247h0M273 137h0M79 73h0M497 176h0M322 301h0M93 190h0M288 176h0M234 199h0M445 38h0M40 55h0M29 237h0M171 183h0M502 368h0M165 5h0M289 142h0M513 351h0M216 170h0M50 282h0M15 9h0M21 365h0M293 162h0M399 39h0M75 345h0M165 180h0M56 35h0M289 313h0M502 287h0M480 250h0M107 335h0M466 322h0M29 254h0M157 116h0M545 47h0M142 339h0M435 114h0M64 118h0M506 301h0M593 227h0M297 15h0M163 89h0M398 372h0M463 216h0M223 218h0M79 233h0M324 298h0M579 204h0M354 352h0M163 204h0M163 201h0M413 291h0M263 86h0M152 197h0M63 346h0M294 289h0M525 128h0M544 19h0M537 306h0M188 97h0M483 86h0M324 275h0M427 366h0M5 45h0M390 261h0M140 296h0M518 141h0M444 174h0M191 265h0M43 183h0M514 110h0M561 130h0M556 321h0M163 203h0M325 118h0M534 276h0M251 135h0M253 356h0M373 237h0M58 373h0M89 123h0M156 228h0M437 144h0M181 174h0M206 201h0M162 247h0M447 56h0M263 291h0M134 363h0M341 198h0M84 42h0M148 152h0M295 96h0M501 327h0M445 22h0M64 345h0M409 107h0M8 45h0M135 316h0M277 235h0M22 20h0M364 50h0M490 335h0M261 241h0M383 177h0M189 347h0M119 232h0M388 295h0M392 67h0M209 202h0M483 308h0M355 88h0M51 308h0M185 297h0M71 77h0M573 273h0M572 373h0M235 194h0M85 107h0M400 139h0M145 81h0M497 164h0M100 34h0M421 329h0M8 315h0M381 103h0M369 276h0M180 138h0M355 307h0M68 21h0M509 30h0M222 139h0M336 266h0M551 235h0M36 140h0M314 329h0M103 305h0M70 298h0M353 38h0M520 116h0M320 373h0M116 16h0M95 111h0M483 179h0M591 195h0M547 5h0M232 320h0M507 16h0M378 295h0M499 94h0M310 289h0M492 185h0M92 182h0M216 138h0M78 173h0M224 300h0M35 109h0M592 164h0M296 144h0M339 304h0M420 13h0M260 181h0M552 274h0M533 253h0M431 30h0M189 314h0M308 139h0M10 16h0M372 329h0M558 332h0M576 66h0M446 132h0M64 80h0M60 61h0M566 246h0M304 279h0M197 211h0M91 195h0M515 242h0M194 128h0M64 196h0M428 316h0M246 191h0M142 280h0M235 229h0M19 104h0M191 170h0M173 241h0M443 234h0M22 12h0M81 19h0M404 310h0M427 18h0M215 143h0M270 193h0M36 75h0M455 333h0M418 89h0M67 123h0M179 235h0M134 300h0M83 347h0M186 104h0M415 103h0M398 362h0M5 48h0M464 374h0M73 325h0M543 132h0M351 93h0M351 58h0M491 313h0M498 189h0M279 267h0M488 371h0M525 30h0M160 163h0M192 118h0M261 209h0M545 323h0M351 37h0M152 247h0M385 83h0M346 159h0M80 274h0M523 347h0M353 112h0M131 287h0M340 9h0M537 46h0M164 244h0M375 116h0M580 330h0M463 346h0M148 125h0M300 269h0M463 359h0M81 91h0M498 299h0M294 277h0M294 195h0M322 193h0M60 123h0M39 374h0M275 10h0M504 48h0M379 6h0M207 8h0M423 125h0M371 295h0M271 177h0M361 328h0M137 259h0M313 175h0M232 181h0M413 154h0M525 159h0M451 94h0M474 61h0M567 319h0M7 57h0M51 72h0M467 365h0M283 103h0M479 41h0M515 286h0M347 34h0M291 138h0M320 226h0M60 76h0M157 69h0M83 88h0M494 235h0M84 271h0M44 319h0M241 188h0M314 146h0M163 187h0M328 109h0M186 213h0M306 268h0M362 52h0M232 202h0M507 176h0M27 252h0M178 36h0M545 30h0M263 263h0M289 243h0M409 350h0M314 43h0M529 264h0M308 302h0M503 48h0M129 371h0M26 244h0M318 163h0M422 118h0M236 65h0M208 240h0M451 171h0M236 136h0M330 24h0M119 257h0M550 8h0M109 152h0M500 321h0M512 44h0M350 88h0M150 370h0M191 316h0M507 42h0M504 41h0M427 101h0M407 158h0M196 22h0M467 297h0M206 262h0M156 162h0M398 329h0M557 38h0M75 31h0M53 294h0M102 362h0M284 173h0M87 141h0M38 94h0M293 190h0M530 46h0M436 211h0M358 269h0M48 363h0M551 185h0M555 233h0M509 11h0M368 142h0M88 66h0M125 222h0M321 229h0M299 6h0M40 282h0M360 92h0M328 203h0M472 370h0M524 200h0M213 30h0M427 70h0M356 82h0M360 295h0M569 282h0M539 169h0M19 87h0M416 126h0M510 169h0M174 195h0M284 258h0M357 204h0M100 367h0M470 21h0M364 11h0M348 34h0M66 102h0M28 86h0M138 268h0M428 8h0M94 34h0M371 213h0M270 96h0M103 265h0M399 228h0M201 254h0M121 374h0M111 111h0M499 28h0M525 22h0M65 243h0M514 118h0M6 80h0M120 357h0M501 51h0M167 316h0M428 69h0M59 225h0M427 100h0M518 28h0M256 186h0M121 67h0M454 97h0M235 23h0M317 104h0M383 26h0M69 293h0M529 282h0M450 36h0M413 123h0M544 280h0M573 342h0M56 334h0M460 51h0M378 18h0M526 24h0M422 336h0M450 287h0M385 245h0M131 230h0M82 169h0M232 138h0M475 304h0M260 195h0M339 192h0M499 78h0M14 74h0M13 5h0M10 229h0M391 329h0M258 365h0M167 236h0M75 351h0M171 134h0M433 70h0M390 307h0M142 135h0M523 300h0M303 14h0M109 277h0M434 21h0M127 148h0M508 62h0M519 125h0M564 86h0M492 17h0M584 208h0M435 32h0M210 319h0M255 374h0M256 177h0M165 167h0M263 175h0M7 345h0M194 296h0M333 326h0M179 34h0M420 357h0M281 184h0M52 168h0M72 12h0M313 195h0M572 211h0M207 138h0M503 64h0M53 324h0M433 126h0M268 270h0M28 47h0M593 278h0M287 279h0M391 335h0M200 349h0M92 255h0M20 277h0M539 375h0M246 275h0M131 363h0M192 88h0M453 85h0M78 244h0M201 196h0M270 250h0M472 19h0M507 169h0M445 142h0M472 90h0M198 173h0M415 48h0M183 158h0M338 256h0M101 66h0M46 89h0M39 87h0M110 300h0M27 318h0M259 176h0M438 271h0M185 151h0M32 231h0M546 354h0M354 242h0M349 14h0M243 347h0M66 259h0M429 363h0M369 281h0M245 240h0M17 342h0M387 110h0M85 338h0M180 10h0M115 343h0M158 229h0M553 199h0M77 371h0M48 310h0M290 20h0M114 17h0M115 156h0M346 347h0M188 215h0M160 67h0M514 331h0M311 338h0M88 206h0M560 208h0M169 218h0M160 200h0M556 211h0M79 351h0M207 56h0M157 199h0M272 311h0M381 331h0M88 241h0M32 63h0M88 199h0M398 330h0M319 222h0M20 324h0M320 179h0M350 206h0M361 230h0M66 362h0M378 28h0M319 260h0M119 347h0M420 268h0M273 277h0M244 152h0M160 240h0M130 76h0M115 237h0M140 199h0M99 55h0M303 284h0M294 309h0M15 310h0M397 141h0M39 129h0M341 306h0M28 123h0M104 285h0M310 283h0M574 144h0M458 81h0M423 266h0M508 160h0M591 198h0M415 78h0M251 333h0M453 74h0M240 167h0M42 307h0M524 305h0M362 204h0M590 115h0M271 189h0M368 61h0M46 55h0M462 359h0M219 47h0M352 340h0M307 249h0M250 231h0M90 41h0M304 65h0M224 298h0M101 60h0M485 314h0M48 11h0M501 42h0M382 315h0M175 181h0M97 193h0M496 28h0M67 287h0M486 328h0M264 259h0M462 29h0M339 324h0M215 301h0M260 278h0M64 88h0M341 35h0M364 250h0M445 293h0M499 96h0M535 144h0M474 343h0M557 128h0M475 345h0M303 81h0M175 135h0M275 201h0M168 201h0M250 152h0M459 347h0M583 273h0M99 23h0M110 187h0M32 342h0M457 368h0M104 227h0M206 212h0M408 354h0M128 154h0M65 327h0M405 68h0M434 16h0M19 46h0M145 286h0M191 210h0M367 283h0M368 159h0M261 192h0M89 309h0M316 319h0M555 250h0M66 55h0M181 264h0M130 267h0M156 67h0M446 58h0M67 88h0M201 246h0M17 165h0M451 301h0M149 120h0M227 369h0M426 67h0M153 225h0M507 134h0M299 81h0M342 58h0M180 237h0M360 76h0M27 298h0M513 238h0M537 213h0M6 6h0M214 117h0M571 352h0M586 93h0M122 189h0M560 347h0M377 337h0M537 255h0M505 353h0M351 266h0M502 34h0M471 86h0M387 350h0M24 21h0M153 253h0M130 361h0M28 114h0M72 147h0M265 320h0M189 174h0M144 202h0M382 303h0M318 206h0M402 111h0M228 117h0M552 150h0M540 88h0M31 126h0M238 122h0M208 154h0M47 288h0M304 185h0M326 309h0M186 130h0M396 35h0M550 296h0M569 86h0M312 218h0M223 169h0M10 357h0M98 83h0M283 248h0M406 360h0M251 269h0M433 261h0M390 374h0M254 264h0M389 313h0M369 196h0M301 345h0M185 293h0M282 253h0M81 319h0M113 314h0M489 7h0M106 279h0M499 373h0M437 293h0M497 74h0M285 140h0M509 105h0M275 338h0M64 238h0M469 199h0M182 216h0M97 282h0M30 220h0M251 205h0M513 245h0M538 199h0M355 143h0M362 112h0M397 320h0M36 89h0M531 231h0M317 355h0M563 166h0M432 238h0M433 310h0M300 301h0M477 340h0M242 159h0M523 122h0M313 59h0M262 221h0M5 348h0M418 312h0M19 38h0M386 112h0M253 124h0M378 13h0M548 254h0M345 265h0M435 332h0M69 168h0M265 147h0M40 184h0M218 259h0M354 271h0M28 125h0M28 322h0M492 363h0M449 91h0M11 339h0M296 103h0M377 364h0M569 232h0M147 64h0M450 250h0M371 356h0M344 24h0M189 272h0M34 260h0M230 177h0M48 247h0M308 366h0M350 54h0M483 355h0M423 11h0M218 109h0M317 266h0M524 199h0M235 200h0M247 275h0M542 52h0M116 77h0M401 375h0M49 109h0M548 266h0M214 212h0M494 210h0M380 118h0M257 338h0M175 90h0M370 263h0M592 230h0M508 218h0M559 263h0M549 55h0M8 368h0M210 129h0M445 305h0M532 277h0M387 21h0M186 313h0M504 365h0M239 123h0M235 308h0M124 122h0M276 254h0M163 200h0M180 362h0M285 133h0M312 257h0M167 222h0M205 52h0M516 97h0M100 111h0M325 173h0M460 291h0M308 50h0M388 343h0M295 290h0M353 222h0M481 9h0M289 242h0M21 255h0M549 292h0M259 265h0M198 187h0M349 323h0M507 137h0M503 304h0M75 10h0M195 136h0M336 318h0M461 43h0M105 85h0M113 163h0M481 103h0M485 341h0M182 370h0M101 319h0M570 64h0M72 341h0M563 203h0M239 92h0M478 25h0M191 266h0M127 97h0M231 132h0M121 23h0M525 334h0M522 111h0M138 159h0M444 75h0M89 61h0M312 359h0M132 244h0M99 103h0M385 38h0M35 318h0M544 294h0M472 130h0M419 145h0M304 347h0M339 164h0M33 302h0M329 75h0M460 146h0M276 80h0M414 308h0M437 300h0M426 185h0M261 297h0M273 203h0M93 68h0M371 255h0M389 26h0M416 111h0M25 29h0M316 148h0M112 53h0M205 103h0M558 109h0M196 197h0M362 75h0M563 187h0M150 194h0M129 183h0M90 243h0M269 177h0M170 170h0M396 93h0M19 64h0M473 71h0M460 219h0M324 123h0M575 11h0M488 154h0M340 162h0M159 244h0M552 260h0M178 150h0M497 363h0M372 61h0M84 92h0M11 32h0M579 295h0M106 354h0M133 365h0M414 275h0M431 143h0M416 24h0M390 74h0M368 243h0M50 169h0M18 280h0M430 216h0M275 163h0M51 59h0M51 345h0M175 115h0M373 182h0M298 174h0M33 70h0M154 13h0M137 34h0M397 135h0M344 293h0M579 258h0M11 323h0M216 212h0M170 350h0M418 360h0M324 96h0M401 88h0M315 54h0M522 135h0M176 357h0M303 214h0M488 216h0M139 12h0M103 74h0M561 274h0M277 296h0M538 293h0M24 75h0M124 174h0M556 242h0M176 62h0M485 279h0M265 240h0M83 283h0M418 141h0M79 348h0M76 136h0M530 230h0M289 188h0M384 27h0M419 304h0M118 309h0M388 19h0M60 24h0M91 292h0M60 27h0M115 320h0M377 277h0M286 162h0M525 131h0M404 21h0M357 345h0M216 239h0M43 8h0M253 170h0M479 344h0M479 18h0M247 155h0M498 258h0M486 348h0M343 270h0M527 195h0M536 246h0M337 341h0M455 117h0M15 357h0M549 64h0M449 159h0M66 104h0M328 216h0M135 353h0M93 349h0M591 230h0M416 18h0M436 105h0M183 204h0M60 324h0M507 338h0M438 61h0M7 367h0M319 177h0M424 104h0M91 352h0M327 331h0M416 266h0M269 341h0M275 223h0M150 347h0M81 318h0M78 58h0M563 257h0M503 21h0M19 282h0M199 322h0M511 271h0M584 312h0M187 260h0M505 374h0M393 78h0M379 179h0M124 142h0M36 180h0M587 259h0M257 194h0M350 132h0M131 235h0M53 141h0M291 324h0M65 75h0M9 25h0M361 107h0M487 331h0M118 343h0M313 351h0M136 234h0M61 16h0M68 318h0M420 78h0M396 164h0M450 149h0M533 28h0M154 310h0M539 141h0M528 77h0M36 82h0M102 140h0M382 167h0M309 151h0M150 340h0M191 144h0M446 180h0M364 141h0M245 190h0M229 79h0M116 312h0M294 259h0M416 322h0M146 237h0M431 59h0M156 89h0M391 68h0M100 65h0M173 24h0M46 151h0M444 57h0M560 203h0M464 330h0M517 342h0M292 361h0M113 36h0M481 138h0M269 260h0M213 315h0M297 124h0M90 135h0M420 359h0M520 198h0M397 62h0M41 87h0M356 197h0M35 137h0M245 228h0M103 172h0M465 258h0M76 92h0M97 357h0M125 12h0M310 153h0M469 76h0M14 363h0M445 127h0M344 39h0M190 310h0M524 97h0M410 308h0M538 216h0M139 270h0M436 123h0M272 78h0M465 132h0M300 102h0M480 357h0M564 295h0M24 289h0M303 321h0M96 271h0M422 131h0M482 306h0M117 114h0M24 345h0M251 335h0M56 39h0M198 134h0M290 196h0M289 238h0M72 168h0M552 228h0M426 258h0M323 234h0M272 354h0M29 66h0M126 131h0M229 56h0M110 213h0M306 55h0M245 133h0M33 29h0M78 6h0M441 330h0M68 309h0M486 298h0M69 370h0M322 155h0M303 129h0M502 43h0M149 215h0M383 133h0M352 76h0M329 333h0M541 147h0M382 70h0M246 166h0M68 68h0M515 312h0M295 310h0M81 5h0M434 69h0M561 178h0M417 281h0M410 58h0M438 43h0M151 166h0M528 40h0M269 216h0M406 357h0M138 330h0M23 220h0M16 358h0M12 313h0M146 73h0M320 317h0M190 321h0M128 93h0M493 57h0M390 77h0M22 106h0M166 206h0M282 130h0M296 296h0M338 227h0M351 367h0M232 252h0M566 266h0M578 267h0M240 196h0M131 185h0M241 81h0M487 314h0M377 131h0M572 72h0M191 135h0M273 299h0M262 166h0M436 65h0M571 234h0M477 50h0M542 200h0M19 347h0M384 72h0M315 274h0M83 198h0M332 320h0M10 76h0M48 49h0M119 180h0M477 63h0M562 366h0M227 130h0M36 33h0M330 292h0M201 236h0M71 58h0M530 77h0M293 262h0M343 273h0M549 57h0M375 355h0M501 58h0M451 218h0M217 228h0M360 303h0M528 359h0M393 21h0M441 266h0M89 11h0M507 270h0M235 205h0M272 88h0M75 316h0M490 333h0M457 302h0M425 310h0M485 174h0M57 343h0M179 170h0M499 313h0M88 351h0M245 235h0M555 164h0M340 373h0M359 44h0M149 320h0M550 61h0M227 38h0M476 366h0M413 277h0M7 21h0M534 31h0M80 107h0M8 297h0M434 345h0M383 345h0M157 15h0M231 211h0M55 102h0M377 357h0M267 353h0M150 37h0M491 355h0M421 76h0M238 297h0M480 20h0M260 302h0M247 5h0M286 140h0M163 75h0M516 110h0M208 208h0M24 368h0M266 98h0M314 358h0M470 114h0M501 5h0M134 201h0M310 296h0M95 248h0M321 111h0M8 63h0M280 241h0M526 117h0M261 134h0M76 63h0M73 99h0M44 74h0M74 170h0M144 184h0M364 100h0M9 318h0M389 86h0M87 289h0M374 373h0M308 35h0M590 163h0M397 52h0M377 62h0M270 132h0M219 133h0M135 153h0M220 169h0M286 165h0M455 67h0M577 364h0M419 36h0M479 62h0M182 156h0M143 148h0M448 216h0M254 193h0M70 96h0M172 223h0M456 113h0M54 225h0M536 79h0M6 291h0M354 175h0M342 65h0M528 10h0M588 312h0M203 116h0M171 185h0M379 363h0M567 232h0M315 79h0M22 138h0M435 260h0M50 305h0M441 28h0M585 145h0M279 78h0M57 283h0M91 111h0M186 244h0M83 45h0M233 34h0M460 51h0M333 105h0M41 366h0M155 111h0M272 314h0M171 158h0M436 144h0M14 129h0M48 73h0M384 346h0M178 274h0M417 112h0M106 198h0M404 11h0M68 347h0M497 284h0M347 91h0M500 152h0M588 128h0M498 189h0M109 143h0M334 327h0M293 148h0M192 272h0M45 92h0M10 264h0M121 217h0M490 64h0M174 209h0M84 78h0M523 150h0M213 237h0M473 319h0M462 307h0M434 82h0M406 276h0M50 289h0M185 169h0M322 171h0M579 63h0M447 79h0M134 146h0M308 108h0M182 268h0M108 38h0M165 374h0M10 29h0M326 244h0M479 291h0M584 90h0M385 323h0M235 112h0M85 109h0M369 365h0M234 158h0M561 216h0M319 251h0M546 60h0M98 310h0M232 44h0M344 265h0M446 299h0M136 263h0M317 36h0M540 68h0M256 146h0M122 325h0M123 244h0M273 235h0M375 92h0M410 28h0M14 347h0M229 29h0M87 309h0M525 68h0M322 338h0M565 274h0M384 143h0"/></defs></svg>
+
+<header class="site-head">
+  <a class="logo" href="/" aria-label="Strapivo home"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="87" height="22"></a>
+  <nav aria-label="Primary">
+    <a class="signin" href="https://strapivo.app">Sign in</a>
+    <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="story" id="story" aria-label="One day of sources, narrowed to one decision">
+    <div class="stage" aria-hidden="true"><canvas id="field"></canvas></div>
+    <ol class="steps">
+      <li class="step step-hero">
+        <div class="cap">
+          <p class="eyebrow"><b>01</b> / 07 · One day of sources</p>
+          <h1>Over 4,000 sources a day. One of them belongs on <em>Thursday's agenda.</em></h1>
+          <p class="lede">Strapivo's market intelligence reads them against what your leadership team said must succeed. Scroll to watch one day of sources narrow to one decision.</p>
+          <p class="cue">Scroll</p>
+        </div>
+        <figure class="frame"><svg viewBox="0 0 600 380" role="img" aria-label="Frame 1 of 5. Over a thousand small ink dots fill the frame. They stand for one day of sources."><use href="#fieldpath" stroke="#141B24" stroke-opacity="0.6" stroke-width="2.4" stroke-linecap="round" fill="none"/></svg></figure>
+      </li>
+      <li class="step">
+        <div class="cap">
+          <p class="eyebrow"><b>02</b> / 07 · Illustrative · 3,936 set aside</p>
+          <h2>Most of it has nothing to do with what you said must succeed.</h2>
+          <p>It touches none of your success criteria, objectives or risks. Strapivo sets it aside.</p>
+        </div>
+      </li>
+      <li class="step">
+        <div class="cap">
+          <p class="eyebrow"><b>03</b> / 07 · Illustrative · 64 signals</p>
+          <h2>Strapivo reads a few dozen against your four focus areas.</h2>
+          <p>Each focus area has its own search brief: the success criterion, its objectives and its risks.</p>
+        </div>
+        <figure class="frame"><svg viewBox="0 0 600 380" role="img" aria-label="Frame 2 of 5. Most dots have faded to grey. Sixty-four blue dots gather in four clusters, one per focus area."><use href="#fieldpath" stroke="#141B24" stroke-opacity="0.1" stroke-width="2.4" stroke-linecap="round" fill="none"/><circle cx="150" cy="100" r="46" fill="none" stroke="#495158" stroke-opacity="0.5" stroke-dasharray="2 4"/><text x="150" y="162" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#495158" fill-opacity="1">SERVICE REVENUE</text><circle cx="455" cy="92" r="46" fill="none" stroke="#495158" stroke-opacity="0.5" stroke-dasharray="2 4"/><text x="455" y="154" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#495158" fill-opacity="1">GROSS MARGIN</text><circle cx="165" cy="290" r="46" fill="none" stroke="#495158" stroke-opacity="0.5" stroke-dasharray="2 4"/><text x="165" y="352" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#495158" fill-opacity="1">MID-MARKET SHARE</text><circle cx="445" cy="275" r="46" fill="none" stroke="#495158" stroke-opacity="0.5" stroke-dasharray="2 4"/><text x="445" y="337" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#495158" fill-opacity="1">SUPPLY SECURITY</text><circle cx="147.5" cy="88.1" r="2.6" fill="#0082E6"/><circle cx="144.2" cy="103.0" r="2.6" fill="#0082E6"/><circle cx="147.2" cy="95.5" r="2.6" fill="#0082E6"/><circle cx="152.2" cy="88.4" r="2.6" fill="#0082E6"/><circle cx="173.5" cy="98.9" r="2.6" fill="#0082E6"/><circle cx="140.1" cy="114.2" r="2.6" fill="#0082E6"/><circle cx="150.6" cy="117.7" r="2.6" fill="#0082E6"/><circle cx="139.4" cy="96.7" r="2.6" fill="#0082E6"/><circle cx="168.8" cy="76.5" r="2.6" fill="#0082E6"/><circle cx="145.9" cy="118.8" r="2.6" fill="#0082E6"/><circle cx="141.6" cy="76.5" r="2.6" fill="#0082E6"/><circle cx="124.0" cy="102.2" r="2.6" fill="#0082E6"/><circle cx="120.2" cy="87.4" r="2.6" fill="#0082E6"/><circle cx="164.5" cy="84.1" r="2.6" fill="#0082E6"/><circle cx="157.7" cy="124.7" r="2.6" fill="#0082E6"/><circle cx="150.4" cy="128.1" r="2.6" fill="#0082E6"/><circle cx="463.7" cy="89.1" r="2.6" fill="#0082E6"/><circle cx="452.2" cy="98.4" r="2.6" fill="#0082E6"/><circle cx="451.7" cy="105.0" r="2.6" fill="#0082E6"/><circle cx="440.6" cy="105.6" r="2.6" fill="#0082E6"/><circle cx="453.5" cy="79.9" r="2.6" fill="#0082E6"/><circle cx="462.1" cy="80.1" r="2.6" fill="#0082E6"/><circle cx="429.2" cy="103.5" r="2.6" fill="#0082E6"/><circle cx="474.5" cy="99.0" r="2.6" fill="#0082E6"/><circle cx="485.0" cy="80.0" r="2.6" fill="#0082E6"/><circle cx="429.7" cy="82.8" r="2.6" fill="#0082E6"/><circle cx="436.8" cy="104.1" r="2.6" fill="#0082E6"/><circle cx="464.9" cy="110.0" r="2.6" fill="#0082E6"/><circle cx="476.9" cy="104.3" r="2.6" fill="#0082E6"/><circle cx="439.9" cy="106.7" r="2.6" fill="#0082E6"/><circle cx="423.9" cy="86.0" r="2.6" fill="#0082E6"/><circle cx="465.6" cy="79.1" r="2.6" fill="#0082E6"/><circle cx="169.8" cy="291.0" r="2.6" fill="#0082E6"/><circle cx="162.2" cy="286.6" r="2.6" fill="#0082E6"/><circle cx="166.7" cy="293.6" r="2.6" fill="#0082E6"/><circle cx="182.0" cy="270.5" r="2.6" fill="#0082E6"/><circle cx="174.2" cy="296.1" r="2.6" fill="#0082E6"/><circle cx="197.8" cy="288.8" r="2.6" fill="#0082E6"/><circle cx="161.6" cy="273.9" r="2.6" fill="#0082E6"/><circle cx="166.8" cy="311.5" r="2.6" fill="#0082E6"/><circle cx="154.7" cy="258.8" r="2.6" fill="#0082E6"/><circle cx="160.4" cy="274.5" r="2.6" fill="#0082E6"/><circle cx="164.5" cy="280.5" r="2.6" fill="#0082E6"/><circle cx="172.9" cy="267.9" r="2.6" fill="#0082E6"/><circle cx="183.5" cy="275.8" r="2.6" fill="#0082E6"/><circle cx="166.5" cy="273.7" r="2.6" fill="#0082E6"/><circle cx="174.3" cy="290.5" r="2.6" fill="#0082E6"/><circle cx="173.8" cy="276.1" r="2.6" fill="#0082E6"/><circle cx="444.4" cy="284.8" r="2.6" fill="#0082E6"/><circle cx="428.5" cy="246.1" r="2.6" fill="#0082E6"/><circle cx="475.3" cy="268.2" r="2.6" fill="#0082E6"/><circle cx="419.7" cy="283.3" r="2.6" fill="#0082E6"/><circle cx="445.6" cy="295.7" r="2.6" fill="#0082E6"/><circle cx="448.5" cy="258.1" r="2.6" fill="#0082E6"/><circle cx="451.3" cy="281.4" r="2.6" fill="#0082E6"/><circle cx="462.6" cy="302.0" r="2.6" fill="#0082E6"/><circle cx="443.8" cy="300.2" r="2.6" fill="#0082E6"/><circle cx="445.5" cy="276.7" r="2.6" fill="#0082E6"/><circle cx="471.2" cy="255.5" r="2.6" fill="#0082E6"/><circle cx="468.0" cy="276.1" r="2.6" fill="#0082E6"/><circle cx="469.8" cy="284.8" r="2.6" fill="#0082E6"/><circle cx="432.7" cy="298.5" r="2.6" fill="#0082E6"/><circle cx="453.4" cy="306.5" r="2.6" fill="#0082E6"/><circle cx="447.1" cy="260.5" r="2.6" fill="#0082E6"/></svg></figure>
+      </li>
+      <li class="step">
+        <div class="cap">
+          <p class="eyebrow"><b>04</b> / 07 · Illustrative · 9 relevant</p>
+          <h2>After triage, a handful remain.</h2>
+          <p>Vivo makes a first pass and gives one line of reason for each signal. A person you delegate marks each one relevant, irrelevant or unsure.</p>
+        </div>
+        <figure class="frame"><svg viewBox="0 0 600 380" role="img" aria-label="Frame 3 of 5. In each cluster a few dots stay strong blue after triage. The rest turn pale."><use href="#fieldpath" stroke="#141B24" stroke-opacity="0.1" stroke-width="2.4" stroke-linecap="round" fill="none"/><circle cx="150" cy="100" r="46" fill="none" stroke="#495158" stroke-opacity="0.5" stroke-dasharray="2 4"/><text x="150" y="162" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#495158" fill-opacity="1">SERVICE REVENUE</text><circle cx="455" cy="92" r="46" fill="none" stroke="#495158" stroke-opacity="0.5" stroke-dasharray="2 4"/><text x="455" y="154" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#495158" fill-opacity="1">GROSS MARGIN</text><circle cx="165" cy="290" r="46" fill="none" stroke="#495158" stroke-opacity="0.5" stroke-dasharray="2 4"/><text x="165" y="352" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#495158" fill-opacity="1">MID-MARKET SHARE</text><circle cx="445" cy="275" r="46" fill="none" stroke="#495158" stroke-opacity="0.5" stroke-dasharray="2 4"/><text x="445" y="337" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#495158" fill-opacity="1">SUPPLY SECURITY</text><circle cx="147.5" cy="88.1" r="3.4" fill="#0082E6"/><circle cx="144.2" cy="103.0" r="3.4" fill="#0082E6"/><circle cx="147.2" cy="95.5" r="3.4" fill="#0082E6"/><circle cx="152.2" cy="88.4" r="2.1" fill="#A9D6FF"/><circle cx="173.5" cy="98.9" r="2.1" fill="#A9D6FF"/><circle cx="140.1" cy="114.2" r="2.1" fill="#A9D6FF"/><circle cx="150.6" cy="117.7" r="2.1" fill="#A9D6FF"/><circle cx="139.4" cy="96.7" r="2.1" fill="#A9D6FF"/><circle cx="168.8" cy="76.5" r="2.1" fill="#A9D6FF"/><circle cx="145.9" cy="118.8" r="2.1" fill="#A9D6FF"/><circle cx="141.6" cy="76.5" r="2.1" fill="#A9D6FF"/><circle cx="124.0" cy="102.2" r="2.1" fill="#A9D6FF"/><circle cx="120.2" cy="87.4" r="2.1" fill="#A9D6FF"/><circle cx="164.5" cy="84.1" r="2.1" fill="#A9D6FF"/><circle cx="157.7" cy="124.7" r="2.1" fill="#A9D6FF"/><circle cx="150.4" cy="128.1" r="2.1" fill="#A9D6FF"/><circle cx="463.7" cy="89.1" r="3.4" fill="#0082E6"/><circle cx="452.2" cy="98.4" r="3.4" fill="#0082E6"/><circle cx="451.7" cy="105.0" r="3.4" fill="#0082E6"/><circle cx="440.6" cy="105.6" r="2.1" fill="#A9D6FF"/><circle cx="453.5" cy="79.9" r="2.1" fill="#A9D6FF"/><circle cx="462.1" cy="80.1" r="2.1" fill="#A9D6FF"/><circle cx="429.2" cy="103.5" r="2.1" fill="#A9D6FF"/><circle cx="474.5" cy="99.0" r="2.1" fill="#A9D6FF"/><circle cx="485.0" cy="80.0" r="2.1" fill="#A9D6FF"/><circle cx="429.7" cy="82.8" r="2.1" fill="#A9D6FF"/><circle cx="436.8" cy="104.1" r="2.1" fill="#A9D6FF"/><circle cx="464.9" cy="110.0" r="2.1" fill="#A9D6FF"/><circle cx="476.9" cy="104.3" r="2.1" fill="#A9D6FF"/><circle cx="439.9" cy="106.7" r="2.1" fill="#A9D6FF"/><circle cx="423.9" cy="86.0" r="2.1" fill="#A9D6FF"/><circle cx="465.6" cy="79.1" r="2.1" fill="#A9D6FF"/><circle cx="169.8" cy="291.0" r="3.4" fill="#0082E6"/><circle cx="162.2" cy="286.6" r="3.4" fill="#0082E6"/><circle cx="166.7" cy="293.6" r="2.1" fill="#A9D6FF"/><circle cx="182.0" cy="270.5" r="2.1" fill="#A9D6FF"/><circle cx="174.2" cy="296.1" r="2.1" fill="#A9D6FF"/><circle cx="197.8" cy="288.8" r="2.1" fill="#A9D6FF"/><circle cx="161.6" cy="273.9" r="2.1" fill="#A9D6FF"/><circle cx="166.8" cy="311.5" r="2.1" fill="#A9D6FF"/><circle cx="154.7" cy="258.8" r="2.1" fill="#A9D6FF"/><circle cx="160.4" cy="274.5" r="2.1" fill="#A9D6FF"/><circle cx="164.5" cy="280.5" r="2.1" fill="#A9D6FF"/><circle cx="172.9" cy="267.9" r="2.1" fill="#A9D6FF"/><circle cx="183.5" cy="275.8" r="2.1" fill="#A9D6FF"/><circle cx="166.5" cy="273.7" r="2.1" fill="#A9D6FF"/><circle cx="174.3" cy="290.5" r="2.1" fill="#A9D6FF"/><circle cx="173.8" cy="276.1" r="2.1" fill="#A9D6FF"/><circle cx="444.4" cy="284.8" r="3.4" fill="#0082E6"/><circle cx="428.5" cy="246.1" r="2.1" fill="#A9D6FF"/><circle cx="475.3" cy="268.2" r="2.1" fill="#A9D6FF"/><circle cx="419.7" cy="283.3" r="2.1" fill="#A9D6FF"/><circle cx="445.6" cy="295.7" r="2.1" fill="#A9D6FF"/><circle cx="448.5" cy="258.1" r="2.1" fill="#A9D6FF"/><circle cx="451.3" cy="281.4" r="2.1" fill="#A9D6FF"/><circle cx="462.6" cy="302.0" r="2.1" fill="#A9D6FF"/><circle cx="443.8" cy="300.2" r="2.1" fill="#A9D6FF"/><circle cx="445.5" cy="276.7" r="2.1" fill="#A9D6FF"/><circle cx="471.2" cy="255.5" r="2.1" fill="#A9D6FF"/><circle cx="468.0" cy="276.1" r="2.1" fill="#A9D6FF"/><circle cx="469.8" cy="284.8" r="2.1" fill="#A9D6FF"/><circle cx="432.7" cy="298.5" r="2.1" fill="#A9D6FF"/><circle cx="453.4" cy="306.5" r="2.1" fill="#A9D6FF"/><circle cx="447.1" cy="260.5" r="2.1" fill="#A9D6FF"/></svg></figure>
+      </li>
+      <li class="step">
+        <div class="cap">
+          <p class="eyebrow"><b>05</b> / 07 · Illustrative · 1 risk</p>
+          <h2>One signal moves a risk into the top right.</h2>
+          <p>Vivo proposes the move. A person confirms it. A move into the top right needs at least one primary source, so that a single blog post cannot move a risk there.</p>
+        </div>
+        <figure class="frame"><svg viewBox="0 0 600 380" role="img" aria-label="Frame 4 of 5. A radar of impact against likelihood. One dot has turned red and moved into the top right corner, backed by a primary source."><use href="#fieldpath" stroke="#141B24" stroke-opacity="0.07" stroke-width="2.4" stroke-linecap="round" fill="none"/><rect x="300" y="30" width="270" height="160" fill="#D2452F" fill-opacity=".07"/><rect x="30.5" y="30.5" width="540" height="320" fill="none" stroke="#999FA6"/><path d="M300.5 30V350M30 190.5H570" stroke="#999FA6"/><text x="30" y="22" font-family="JetBrains Mono, monospace" font-size="10" fill="#495158">IMPACT</text><text x="570" y="368" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="10" fill="#495158">LIKELIHOOD</text><text x="562" y="46" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="10" fill="#495158">TOP RIGHT</text><circle cx="147.5" cy="88.1" r="3.4" fill="#0082E6" opacity=".4"/><circle cx="144.2" cy="103.0" r="3.4" fill="#0082E6" opacity=".4"/><circle cx="147.2" cy="95.5" r="3.4" fill="#0082E6" opacity=".4"/><circle cx="152.2" cy="88.4" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="173.5" cy="98.9" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="140.1" cy="114.2" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="150.6" cy="117.7" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="139.4" cy="96.7" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="168.8" cy="76.5" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="145.9" cy="118.8" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="141.6" cy="76.5" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="124.0" cy="102.2" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="120.2" cy="87.4" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="164.5" cy="84.1" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="157.7" cy="124.7" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="150.4" cy="128.1" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="452.2" cy="98.4" r="3.4" fill="#0082E6" opacity=".4"/><circle cx="451.7" cy="105.0" r="3.4" fill="#0082E6" opacity=".4"/><circle cx="440.6" cy="105.6" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="453.5" cy="79.9" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="462.1" cy="80.1" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="429.2" cy="103.5" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="474.5" cy="99.0" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="485.0" cy="80.0" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="429.7" cy="82.8" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="436.8" cy="104.1" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="464.9" cy="110.0" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="476.9" cy="104.3" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="439.9" cy="106.7" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="423.9" cy="86.0" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="465.6" cy="79.1" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="169.8" cy="291.0" r="3.4" fill="#0082E6" opacity=".4"/><circle cx="162.2" cy="286.6" r="3.4" fill="#0082E6" opacity=".4"/><circle cx="166.7" cy="293.6" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="182.0" cy="270.5" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="174.2" cy="296.1" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="197.8" cy="288.8" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="161.6" cy="273.9" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="166.8" cy="311.5" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="154.7" cy="258.8" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="160.4" cy="274.5" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="164.5" cy="280.5" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="172.9" cy="267.9" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="183.5" cy="275.8" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="166.5" cy="273.7" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="174.3" cy="290.5" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="173.8" cy="276.1" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="444.4" cy="284.8" r="3.4" fill="#0082E6" opacity=".4"/><circle cx="428.5" cy="246.1" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="475.3" cy="268.2" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="419.7" cy="283.3" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="445.6" cy="295.7" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="448.5" cy="258.1" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="451.3" cy="281.4" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="462.6" cy="302.0" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="443.8" cy="300.2" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="445.5" cy="276.7" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="471.2" cy="255.5" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="468.0" cy="276.1" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="469.8" cy="284.8" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="432.7" cy="298.5" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="453.4" cy="306.5" r="2.1" fill="#A9D6FF" opacity=".4"/><circle cx="447.1" cy="260.5" r="2.1" fill="#A9D6FF" opacity=".4"/><path d="M463.7 89.1L520 70" stroke="#D2452F" stroke-opacity=".6" stroke-dasharray="3 4"/><circle cx="520" cy="70" r="6.5" fill="#D2452F"/><text x="504" y="74" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="10" fill="#495158">PRIMARY SOURCE</text></svg></figure>
+      </li>
+      <li class="step">
+        <div class="cap">
+          <p class="eyebrow"><b>06</b> / 07 · 24 hours before the session</p>
+          <h2>It goes on Thursday's agenda.</h2>
+          <p>Vivo drafts the agenda from what changed and gives each item a one-line reason. The session lead edits it. The room approves it before anything else.</p>
+        </div>
+      </li>
+      <li class="step">
+        <div class="cap">
+          <p class="eyebrow"><b>07</b> / 07 · Illustrative · Record of Decisions</p>
+          <h2>The room decides. The decision gets a number.</h2>
+          <p>Adapt, recorded as SDS-2026-014. The record names each dissenter and keeps their reason. Next year, anyone can find what was decided and why.</p>
+        </div>
+        <figure class="frame"><svg viewBox="0 0 600 380" role="img" aria-label="Frame 5 of 5. The field is faint. In the centre, one line of text reads SDS-2026-014, the decision number."><use href="#fieldpath" stroke="#141B24" stroke-opacity="0.07" stroke-width="2.4" stroke-linecap="round" fill="none"/><text x="300" y="140" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#495158">RECORD OF DECISIONS</text><text x="300" y="200" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="44" font-weight="500" fill="#006FD1">SDS-2026-014</text><path d="M126 218H474" stroke="#0082E6" stroke-width="2"/><text x="300" y="246" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#495158">ADAPT · DISSENT RECORDED BY NAME</text></svg></figure>
+      </li>
+    </ol>
+  </section>
+
+  <section class="voice" aria-label="What leadership teams tell us">
+    <blockquote>
+      <p>"I know there's a threat coming. <span>I don't know what it costs us to wait.</span>"</p>
+    </blockquote>
+    <p class="eyebrow">What leadership teams tell us</p>
+  </section>
+
+  <section class="mech" id="how" aria-labelledby="how-h">
+    <div class="mech-head">
+      <div>
+        <p class="eyebrow">Dynamic Strategy · the mechanism</p>
+        <h2 id="how-h">How the field narrows</h2>
+      </div>
+      <div>
+        <p>Your leadership team agrees one ambition and the success criteria that must hold for it. The team flags up to four criteria as focus. The Radar watches the outside world for each of the four. The team then meets for 60 minutes, weekly, fortnightly or monthly, and decides.</p>
+      </div>
+    </div>
+    <ol class="ledger">
+      <li>
+        <h3><span>01</span> Search brief</h3>
+        <p>The Radar's search brief for each focus area is the success criterion, its objectives and its risks.</p>
+      </li>
+      <li>
+        <h3><span>02</span> Source classes</h3>
+        <p>Each signal is a dated observation with a source. Strapivo classes the source as primary or secondary. Market intelligence reads over 4,000 sources a day and reports on Monday and Thursday. A red-line exception interrupts that schedule.</p>
+      </li>
+      <li>
+        <h3><span>03</span> Triage</h3>
+        <p>Vivo assigns each signal to a criterion, calls it relevant or not and gives one line of reason. A person you delegate confirms or overrules it. Dismissed signals teach Vivo what counts as noise. A relevant signal that matches no known risk comes up as "Possible new risk?"</p>
+      </li>
+      <li>
+        <h3><span>04</span> Primary-source rule</h3>
+        <p>Vivo shows a proposed risk move as a ghost on the radar, with a one-line reason. A person confirms or rejects it. A move into the top right needs at least one primary source. Every confirmed move joins the trail with its signal, date and confirmer.</p>
+      </li>
+      <li>
+        <h3><span>05</span> Agenda</h3>
+        <p>Vivo drafts the agenda 24 hours before the session. Old business comes first, then new. A risk that sits in the top right for 14 days without a decision lands in the session lead's Needs you list.</p>
+      </li>
+      <li>
+        <h3><span>06</span> Record</h3>
+        <p>Each item ends in Hold, Adapt, Pivot, Take advantage or Not yet. Vivo reads back each entry, including dissent by name with its reason. The session lead confirms it, and the decision gets a permanent number.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="trust" aria-labelledby="trust-h">
+    <div class="trust-in">
+      <div>
+        <p class="eyebrow">Who decides</p>
+        <h2 id="trust-h">Vivo proposes. <span>People decide.</span></h2>
+      </div>
+      <ul>
+        <li>A risk moves on the radar only when a person confirms the move.</li>
+        <li>Vivo never changes a success criterion's light. It asks "Light still green?" and a person answers.</li>
+        <li>A Pivot takes effect only when someone with authority confirms the new wording.</li>
+        <li>Every recommendation traces back to the strategic memory you approved.</li>
+        <li>EU-only infrastructure. GDPR by design.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="cta" aria-labelledby="cta-h">
+    <div>
+      <svg class="ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="42" fill="none" stroke="#0082E6" stroke-width="9"/></svg>
+      <p class="eyebrow">Getting started</p>
+      <h2 id="cta-h">We do the reading first.</h2>
+    </div>
+    <div>
+      <p>Send us your last workshop report, a strategy document or a plain email. Vivo proposes where each item belongs, and your Owners accept it. Four to five hours, and then you run it.</p>
+      <div class="actions">
+        <a class="btn big" href="mailto:strategy@strapivo.com">Start the conversation</a>
+        <a class="link-quiet" href="https://strapivo.app">Sign in</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="79" height="20">
+  <span>© 2026 Strapivo</span>
+  <nav aria-label="Legal">
+    <a href="/imprint">Imprint</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+  </nav>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  if (mq && mq.matches) return;
+  var canvas = document.getElementById('field');
+  var story = document.getElementById('story');
+  if (!canvas || !canvas.getContext || !story) return;
+  var ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  document.documentElement.classList.add('canvas-on');
+
+  /* seeded generator: the field is the same on every visit */
+  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+  var rnd = mulberry32(4000);
+
+  var N = 4000;
+  var hx = new Float32Array(N), hy = new Float32Array(N), hr = new Float32Array(N), hd = new Float32Array(N);
+  var i = 0;
+  while (i < N) {
+    var x = rnd(), y = rnd();
+    var d = 0.6 + 0.4 * Math.sin(x * 9.1 + 1.3) * Math.cos(y * 7.3 - 0.7);
+    if (rnd() < d) { hx[i] = x; hy[i] = y; hr[i] = 0.9 + rnd() * 0.75; hd[i] = rnd() * 0.5; i++; }
+  }
+
+  /* 64 candidates in four clusters; 9 survive triage; one becomes the risk */
+  var PER = 16, CL = 4, M = PER * CL, REL = [3, 3, 2, 1];
+  var isCand = new Uint8Array(N);
+  var cand = [];
+  while (cand.length < M) {
+    var k = Math.floor(rnd() * N);
+    if (isCand[k]) continue;
+    var cx = hx[k], cy = hy[k];
+    if (cx < 0.08 || cx > 0.92 || cy < 0.1 || cy > 0.9) continue;
+    isCand[k] = 1;
+    var c = cand.length % CL, n = Math.floor(cand.length / CL);
+    var ang = rnd() * Math.PI * 2, rad = Math.sqrt(rnd()) * (n < REL[c] ? 0.45 : 1);
+    cand.push({ i: k, c: c, ox: Math.cos(ang) * rad, oy: Math.sin(ang) * rad, rel: n < REL[c], d: rnd() * 0.45, bend: rnd() < 0.5 ? -1 : 1, risk: false });
+  }
+  var risk = null;
+  for (var q = 0; q < cand.length; q++) { if (cand[q].c === 1 && cand[q].rel) { risk = cand[q]; break; } }
+  risk.risk = true;
+
+  var CLUSTER = [[0.22, 0.26], [0.76, 0.24], [0.27, 0.76], [0.74, 0.72]];
+  var LABELS = ['Service revenue', 'Gross margin', 'Mid-market share', 'Supply security'];
+  var INK = [20, 27, 36], AZ = [0, 130, 230], PALE = [169, 214, 255], RED = [210, 69, 47];
+
+  var W = 0, H = 0, dpr = 1, F = null, top0 = 0, vh = 1, lastS = -1, wide = true;
+  var BUCKETS = 48, bk = new Uint8Array(N);
+
+  function clamp(v, a, b){ return v < a ? a : v > b ? b : v; }
+  function ease(t){ return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function lerp(a, b, t){ return a + (b - a) * t; }
+  function mix(c1, c2, t){ return [lerp(c1[0], c2[0], t), lerp(c1[1], c2[1], t), lerp(c1[2], c2[2], t)]; }
+  function rgba(c, a){ return 'rgba(' + (c[0] | 0) + ',' + (c[1] | 0) + ',' + (c[2] | 0) + ',' + a.toFixed(3) + ')'; }
+
+  function layout(){
+    W = canvas.clientWidth; H = canvas.clientHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+    wide = W >= 900;
+    if (wide) F = { x: W * 0.46, y: H * 0.16, w: W * 0.48, h: H * 0.72 };
+    else F = { x: W * 0.08, y: 100, w: W * 0.84, h: Math.max(160, H * 0.6 - 130) };
+    vh = window.innerHeight || H;
+    top0 = story.getBoundingClientRect().top + (window.pageYOffset || 0);
+  }
+
+  function stageT(s, k){ return ease(clamp((s - k - 0.1) / 0.62, 0, 1)); }
+
+  function draw(s){
+    var t1 = stageT(s, 0), t2 = stageT(s, 1), t3 = stageT(s, 2), t4 = stageT(s, 3), t5 = stageT(s, 4), t6 = stageT(s, 5);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    var fr = Math.min(F.w, F.h);
+    var cr = fr * (wide ? 0.13 : 0.15);
+    var C = { x: F.x + F.w / 2, y: F.y + F.h / 2 };
+    var dotScale = W < 600 ? 0.85 : 1;
+
+    /* 1. the noise: 4,000 ink dots, most fading to faint grey */
+    var used = [];
+    for (var j = 0; j < N; j++) {
+      if (isCand[j]) { bk[j] = 255; continue; }
+      var f = clamp(t1 * 1.5 - hd[j], 0, 1);
+      var a = lerp(0.55, 0.1, f) * (1 - 0.35 * t5);
+      var b = Math.round(a * BUCKETS);
+      bk[j] = b; used[b] = 1;
+    }
+    ctx.fillStyle = rgba(INK, 1);
+    for (var bb = 0; bb <= BUCKETS; bb++) {
+      if (!used[bb]) continue;
+      ctx.globalAlpha = bb / BUCKETS;
+      ctx.beginPath();
+      for (var m = 0; m < N; m++) {
+        if (bk[m] !== bb) continue;
+        var px = hx[m] * W, py = hy[m] * H, r = hr[m] * dotScale;
+        ctx.moveTo(px + r, py);
+        ctx.arc(px, py, r, 0, 6.2832);
+      }
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    /* 2. cluster guides and labels */
+    var ga = t2 * (1 - 0.8 * t4) * (1 - t5);
+    if (ga > 0.005) {
+      ctx.setLineDash([2, 4]);
+      ctx.lineWidth = 1;
+      ctx.font = '400 ' + (wide ? 11 : 10) + 'px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      for (var g = 0; g < CL; g++) {
+        var gx = F.x + CLUSTER[g][0] * F.w, gy = F.y + CLUSTER[g][1] * F.h;
+        ctx.strokeStyle = rgba([73, 81, 88], 0.5 * ga);
+        ctx.beginPath(); ctx.arc(gx, gy, cr * 1.3, 0, 6.2832); ctx.stroke();
+        ctx.fillStyle = rgba([73, 81, 88], ga);
+        ctx.fillText(LABELS[g].toUpperCase(), gx, gy + cr * 1.3 + 8);
+      }
+      ctx.setLineDash([]);
+    }
+
+    /* 5. radar: impact against likelihood, top right shaded */
+    var ra = t4 * (1 - t5);
+    if (ra > 0.005) {
+      ctx.fillStyle = rgba(RED, 0.07 * ra);
+      ctx.fillRect(C.x, F.y, F.w / 2, F.h / 2);
+      ctx.strokeStyle = rgba([153, 159, 166], ra);
+      ctx.lineWidth = 1;
+      ctx.strokeRect(F.x + 0.5, F.y + 0.5, F.w, F.h);
+      ctx.beginPath();
+      ctx.moveTo(C.x + 0.5, F.y); ctx.lineTo(C.x + 0.5, F.y + F.h);
+      ctx.moveTo(F.x, C.y + 0.5); ctx.lineTo(F.x + F.w, C.y + 0.5);
+      ctx.stroke();
+      ctx.fillStyle = rgba([73, 81, 88], ra);
+      ctx.font = '400 11px "JetBrains Mono", monospace';
+      ctx.textBaseline = 'top'; ctx.textAlign = 'right';
+      ctx.fillText('LIKELIHOOD', F.x + F.w - 8, F.y + F.h + 8);
+      ctx.fillText('TOP RIGHT', F.x + F.w - 10, F.y + 10);
+      ctx.textAlign = 'left';
+      ctx.fillText('IMPACT', F.x, F.y - 20);
+    }
+
+    /* 3 and 4. candidates: gather, triage */
+    var riskPos = null;
+    for (var p = 0; p < cand.length; p++) {
+      var cd = cand[p], idx = cd.i;
+      var x0 = hx[idx] * W, y0 = hy[idx] * H;
+      var gxx = F.x + CLUSTER[cd.c][0] * F.w, gyy = F.y + CLUSTER[cd.c][1] * F.h;
+      var spread = 1 + (cd.rel ? -0.1 : 0.55) * t3;
+      var tx = gxx + cd.ox * cr * spread, ty = gyy + cd.oy * cr * spread;
+      var u = ease(clamp(t2 * 1.45 - cd.d, 0, 1));
+      var dx = tx - x0, dy = ty - y0, len = Math.sqrt(dx * dx + dy * dy) || 1;
+      var bend = Math.sin(Math.PI * u) * len * 0.18 * cd.bend;
+      var x = lerp(x0, tx, u) - dy / len * bend, y = lerp(y0, ty, u) + dx / len * bend;
+      var col = mix(INK, AZ, u);
+      var alpha = lerp(0.55, 1, u);
+      var rr = lerp(hr[idx] * dotScale, 2.2, u);
+      if (!cd.rel) { col = mix(col, PALE, t3); rr = lerp(rr, 1.8, t3); }
+      else { rr = lerp(rr, 3, t3); }
+      if (cd.risk) { riskPos = [x, y]; continue; }
+      alpha *= (1 - 0.6 * t4) * (1 - 0.92 * t5);
+      ctx.fillStyle = rgba(col, alpha);
+      ctx.beginPath(); ctx.arc(x, y, rr, 0, 6.2832); ctx.fill();
+    }
+
+    /* 5 to 7. the risk dot: top right, centre, ring, decision number */
+    var T = { x: F.x + F.w * 0.84, y: F.y + F.h * 0.17 };
+    var m4 = t4, rx = lerp(riskPos[0], T.x, m4), ry = lerp(riskPos[1], T.y, m4);
+    var ur = ease(clamp(t2 * 1.45 - risk.d, 0, 1));
+    var rcol = mix(mix(INK, AZ, ur), RED, t4);
+    var rdot = lerp(lerp(lerp(hr[risk.i] * dotScale, 2.2, ur), 3, t3), 6, t4);
+    var ralpha = lerp(0.55, 1, ur);
+
+    if (t4 > 0.005 && t5 < 0.999) {
+      /* the trail: where the risk came from */
+      ctx.setLineDash([3, 4]); ctx.lineWidth = 1;
+      ctx.strokeStyle = rgba(RED, 0.55 * t4 * (1 - t5));
+      ctx.beginPath(); ctx.moveTo(riskPos[0], riskPos[1]); ctx.lineTo(rx, ry); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = rgba([73, 81, 88], t4 * (1 - t5));
+      ctx.font = '400 11px "JetBrains Mono", monospace';
+      ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+      if (t5 < 0.05) ctx.fillText('PRIMARY SOURCE', rx - 16, ry);
+    }
+
+    var mv = ease(clamp(t5 / 0.5, 0, 1)), gr = ease(clamp((t5 - 0.42) / 0.58, 0, 1));
+    var R = fr * (wide ? 0.2 : 0.24);
+    var fs = clamp(F.w / 8.2, 24, 66);
+    ctx.font = '500 ' + fs.toFixed(1) + 'px "JetBrains Mono", monospace';
+    var label = 'SDS-2026-014';
+    var tw = ctx.measureText(label).width;
+    var fl = ease(clamp(t6 / 0.6, 0, 1)), ta = ease(clamp((t6 - 0.4) / 0.6, 0, 1));
+    var X = lerp(rx, C.x, mv), Y = lerp(ry, C.y, mv);
+    Y = lerp(Y, C.y + fs * 0.42, fl);
+    if (gr <= 0) {
+      ctx.fillStyle = rgba(rcol, ralpha);
+      ctx.beginPath(); ctx.arc(X, Y, rdot, 0, 6.2832); ctx.fill();
+    } else {
+      var lwRing = R * 9 / 42;
+      var lw = lerp(rdot, lwRing, gr);
+      var rad = lerp(rdot / 2, R, gr);
+      lw = lerp(lw, 2, fl);
+      var ex = lerp(rad, tw / 2 + 6, fl), ey = Math.max(lerp(rad, 0, fl), 0.01);
+      ctx.strokeStyle = rgba(mix(RED, AZ, gr), 1);
+      ctx.lineWidth = lw;
+      ctx.beginPath(); ctx.ellipse(X, Y, ex, ey, 0, 0, 6.2832); ctx.stroke();
+    }
+    if (ta > 0.005) {
+      ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+      ctx.fillStyle = rgba([0, 111, 209], ta);
+      ctx.fillText(label, C.x, C.y + fs * 0.12);
+      ctx.font = '400 11px "JetBrains Mono", monospace';
+      ctx.fillStyle = rgba([73, 81, 88], ta);
+      ctx.fillText('RECORD OF DECISIONS', C.x, C.y - fs * 0.95);
+      ctx.fillText('ADAPT · DISSENT RECORDED BY NAME', C.x, C.y + fs * 0.42 + 28);
+    }
+  }
+
+  function current(){
+    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+    return Math.max(0, (y - top0) / vh);
+  }
+  var queued = false;
+  function frame(force){
+    queued = false;
+    var s = current();
+    if (!force && Math.abs(s - lastS) < 0.0005) return;
+    lastS = s;
+    draw(s);
+  }
+  function request(){ if (!queued) { queued = true; requestAnimationFrame(function(){ frame(false); }); } }
+  window.addEventListener('scroll', request, { passive: true });
+  var rt = null;
+  window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ layout(); frame(true); }, 80); });
+  if (mq && mq.addEventListener) mq.addEventListener('change', function(e){ if (e.matches) location.reload(); });
+  layout(); frame(true);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ frame(true); });
+})();
+</script>
+</body>
+</html>

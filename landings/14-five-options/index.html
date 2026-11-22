@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hold, Adapt, Pivot, Take advantage, Not yet · Strapivo</title>
+<meta name="description" content="In a Strapivo Dynamic Strategy session, every strategic question ends in one of five answers. Vivo drafts what follows. A person with authority confirms it. The decision gets a number.">
+<meta name="robots" content="noindex">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --hold:#5B6B7A;--hold-t:#55636F;--hold-tint:#EDF0F3;
+  --adapt:#0082E6;--adapt-t:#006FD1;--adapt-tint:#EAF4FE;
+  --pivot:#B5553C;--pivot-t:#A54B34;--pivot-tint:#F8EDE9;
+  --take:#2E7D5B;--take-t:#2A7254;--take-tint:#E8F2ED;
+  --notyet:#B88A2A;--notyet-t:#86621A;--notyet-tint:#F7F0E0;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --wrap:1320px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:17px;line-height:1.55}
+h1,h2,h3,h4{font-weight:500;margin:0;letter-spacing:-.02em;line-height:1.1}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--p500);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:400}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:#fff;padding:8px 12px;z-index:10}
+.skip:focus{left:8px}
+
+/* header */
+header.site{border-bottom:1px solid var(--n200)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+header.site img{height:24px;width:auto;display:block}
+header.site nav{display:flex;align-items:center;gap:22px}
+header.site nav a{white-space:nowrap;font-size:15px;text-decoration:none;color:var(--n700)}
+header.site nav a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff!important;text-decoration:none!important;font-weight:500;font-size:15px;padding:11px 18px;border-radius:4px;transition:background .2s}
+.btn:hover{background:var(--p700)}
+.btn-sm{padding:8px 14px;font-size:14px}
+@media (max-width:640px){header.site nav .hide-sm{display:none}}
+@media (max-width:480px){header.site nav .btn{display:none}}
+
+/* hero */
+.hero{padding:clamp(48px,8vw,104px) 0 clamp(40px,6vw,72px)}
+.hero .eyebrow{color:var(--n600);margin-bottom:28px}
+.five{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:auto auto auto auto auto;justify-content:space-between;gap:clamp(16px,2.2vw,36px);border-top:1px solid var(--ink)}
+.five li{padding-top:18px;position:relative}
+.five li::before{content:"";position:absolute;top:-1px;left:0;right:0;height:6px;background:var(--c)}
+.five a{display:block;text-decoration:none}
+.five .n{display:block;color:var(--n500);margin-bottom:10px}
+.five .w{display:block;font-size:clamp(40px,4.35vw,64px);letter-spacing:-.035em;line-height:1;color:var(--ct);white-space:nowrap;font-weight:500}
+.five a:hover .w{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:8px}
+.hero-body{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(24px,5vw,80px);margin-top:clamp(48px,6vw,80px);align-items:start}
+.hero h1{font-size:clamp(34px,4.2vw,58px);letter-spacing:-.028em;line-height:1.04;max-width:16ch}
+.hero .lede{color:var(--n700);font-size:18px;max-width:52ch}
+.hero .lede + .lede{margin-top:14px}
+.hero .actions{margin-top:28px;display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+.hero .actions .link{font-size:15px;color:var(--n700);text-underline-offset:4px}
+@media (max-width:980px){
+  .five{grid-template-columns:1fr;gap:0;border-top:0}
+  .five li{padding:14px 0 14px 22px;border-top:1px solid var(--n200)}
+  .five li:last-child{border-bottom:1px solid var(--n200)}
+  .five li::before{top:14px;bottom:14px;right:auto;width:6px;height:auto}
+  .five a{display:flex;align-items:baseline;gap:16px}
+  .five .n{margin:0;min-width:2ch}
+  .five .w{font-size:clamp(30px,9vw,72px);white-space:normal}
+  .hero-body{grid-template-columns:1fr}
+}
+
+/* selector */
+.trial{padding:clamp(56px,7vw,96px) 0;background:#fff;border-top:1px solid var(--n200);border-bottom:1px solid var(--n200)}
+.trial-head{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);align-items:start}
+.trial-head h2{font-size:clamp(28px,3vw,40px)}
+.trial-head .ctx{font-size:16px;color:var(--n700)}
+.tag{display:inline-block;color:var(--n600);border:1px solid var(--n200);border-radius:3px;padding:4px 8px;margin-bottom:18px;font-size:11px}
+.ctx dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 18px}
+.ctx dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n500);padding-top:4px}
+.ctx dd{margin:0}
+.question{margin-top:clamp(36px,4vw,56px);padding:28px 0 26px;border-top:1px solid var(--ink)}
+.question .mono{color:var(--n600);margin-bottom:12px;display:block}
+.question p{font-size:clamp(24px,2.8vw,38px);letter-spacing:-.02em;line-height:1.18;max-width:28ch}
+.picker{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:8px}
+.picker button{font:inherit;text-align:left;background:var(--paper);color:var(--ink);border:1px solid var(--n200);border-top:6px solid var(--c);border-radius:4px;padding:16px 16px 18px;cursor:pointer;display:flex;flex-direction:column;gap:6px;min-height:132px;transition:background .25s,color .25s,border-color .25s,transform .25s}
+.picker button .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--n500)}
+.picker button .w{font-size:clamp(22px,2.1vw,30px);letter-spacing:-.025em;line-height:1.05;font-weight:500;color:var(--ct)}
+.picker button .h{font-size:14px;color:var(--n600);margin-top:auto;line-height:1.35}
+.picker button:hover{background:var(--tint);border-color:var(--c)}
+.picker button[aria-pressed="true"]{background:var(--c);border-color:var(--c);color:var(--on)}
+.picker button[aria-pressed="true"] .w,.picker button[aria-pressed="true"] .h,.picker button[aria-pressed="true"] .k{color:var(--on)}
+.picker .hint{grid-column:1/-1;font-size:14px;color:var(--n600);margin-top:6px}
+html:not(.js) .picker{display:none}
+@media (max-width:860px){.picker{grid-template-columns:1fr 1fr}.picker button{min-height:0}.picker button:last-of-type{grid-column:1/-1}.trial-head{grid-template-columns:1fr}}
+
+.panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.2,.7,.2,1);margin-top:14px}
+.panel.open{grid-template-rows:1fr}
+.panel > .inner{overflow:hidden;min-height:0}
+html:not(.js) .panel{grid-template-rows:1fr}
+.outcome{--c:var(--n500);background:var(--tint);border-left:6px solid var(--c);border-radius:4px;padding:clamp(22px,3vw,36px);display:grid;grid-template-columns:minmax(180px,.42fr) 1fr;gap:clamp(20px,4vw,56px)}
+html:not(.js) .outcome + .outcome{margin-top:12px}
+.js .outcome[hidden]{display:none}
+.outcome .ttl .mono{color:var(--n600);display:block;margin-bottom:10px}
+.outcome h3{font-size:clamp(30px,3.4vw,48px);letter-spacing:-.03em;color:var(--ct)}
+.outcome .ttl p{margin-top:12px;color:var(--n700);font-size:16px}
+.outcome ol{list-style:none;margin:0;padding:0;counter-reset:s}
+.outcome li{counter-increment:s;display:grid;grid-template-columns:44px 1fr;gap:4px;padding:14px 0;border-top:1px solid rgba(20,27,36,.12)}
+.outcome li:first-child{border-top:0;padding-top:4px}
+.outcome li::before{content:counter(s,decimal-leading-zero);font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--ct);padding-top:4px}
+.outcome li q,.outcome li .draft{display:block;margin-top:8px;background:rgba(255,255,255,.7);border:1px dashed var(--c);border-radius:3px;padding:10px 12px;font-size:15px;quotes:none}
+.outcome li .draft .mono{display:block;font-size:10px;color:var(--n600);margin-bottom:4px}
+.outcome li .num{font-family:var(--mono);font-size:14px;color:var(--ink);background:#fff;border:1px solid var(--n200);padding:1px 6px;border-radius:3px;white-space:nowrap}
+.js .panel.open .outcome:not([hidden]) li{animation:step .5s both}
+.js .panel.open .outcome li:nth-child(2){animation-delay:.08s}
+.js .panel.open .outcome li:nth-child(3){animation-delay:.16s}
+.js .panel.open .outcome li:nth-child(4){animation-delay:.24s}
+.js .panel.open .outcome li:nth-child(5){animation-delay:.32s}
+@keyframes step{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (max-width:760px){.outcome{grid-template-columns:1fr}}
+
+/* option tokens */
+.o-hold{--c:var(--hold);--ct:var(--hold-t);--tint:var(--hold-tint);--on:#fff}
+.o-adapt{--c:var(--p600);--ct:var(--adapt-t);--tint:var(--adapt-tint);--on:#fff}
+.o-pivot{--c:var(--pivot);--ct:var(--pivot-t);--tint:var(--pivot-tint);--on:#fff}
+.o-take{--c:var(--take);--ct:var(--take-t);--tint:var(--take-tint);--on:#fff}
+.o-notyet{--c:var(--notyet);--ct:var(--notyet-t);--tint:var(--notyet-tint);--on:var(--ink)}
+
+/* drift passage */
+.drift{padding:clamp(72px,9vw,128px) 0}
+.drift .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,6vw,96px)}
+.drift h2{font-size:clamp(30px,3.6vw,50px);letter-spacing:-.028em;max-width:18ch}
+.drift .body p{font-size:18px;color:var(--n700)}
+.drift .body p + p{margin-top:16px}
+.drift .body p.turn{color:var(--ink);font-size:21px;letter-spacing:-.01em;line-height:1.4;margin-top:28px}
+.voices{margin-top:clamp(40px,5vw,64px);border-top:1px solid var(--n200);padding-top:20px}
+.voices .mono{color:var(--n500)}
+.voices ul{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.voices li{font-size:17px;line-height:1.4;color:var(--n700);border-left:2px solid var(--n200);padding-left:14px}
+@media (max-width:860px){.drift .grid{grid-template-columns:1fr}.voices ul{grid-template-columns:1fr}}
+@media (max-width:520px){.voices ul{grid-template-columns:1fr}}
+
+/* option bands */
+.bands-intro{padding:0 0 28px}
+.bands-intro h2{font-size:clamp(28px,3vw,40px);max-width:24ch}
+.band{background:var(--tint);border-top:1px solid rgba(20,27,36,.1);position:relative}
+.band::before{content:"";position:absolute;left:0;top:0;bottom:0;width:clamp(8px,1vw,14px);background:var(--c)}
+.band .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,5vw,80px);padding-top:clamp(44px,5vw,72px);padding-bottom:clamp(44px,5vw,72px)}
+.band.o-take h3{font-size:clamp(48px,5.4vw,84px)}
+.band .word .mono{color:var(--n600);display:block;margin-bottom:10px}
+.band h3{font-size:clamp(52px,8vw,124px);overflow-wrap:break-word;letter-spacing:-.045em;line-height:.95;color:var(--ct)}
+.band .def{font-size:clamp(20px,1.9vw,26px);letter-spacing:-.015em;line-height:1.3}
+.band dl{margin:28px 0 0;display:grid;grid-template-columns:150px 1fr;border-top:1px solid rgba(20,27,36,.14)}
+.band dt,.band dd{padding:14px 0;border-bottom:1px solid rgba(20,27,36,.14);margin:0}
+.band dt{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--n600);padding-top:17px;padding-right:14px}
+.band dd{font-size:16px;color:var(--n700)}
+.band dd.ex{color:var(--ink)}
+@media (max-width:820px){.band .wrap{grid-template-columns:1fr}.band dl{grid-template-columns:1fr}.band dt{border-bottom:0;padding-bottom:0}}
+
+.band.o-notyet .wrap{grid-template-columns:1fr}
+.ny-top{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,5vw,80px)}
+.ny-ask{margin-top:24px;font-size:clamp(28px,3vw,42px);letter-spacing:-.025em;line-height:1.1}
+.ny-ask span{color:var(--notyet-t);display:block}
+.ny-split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+.ny-card{background:#fff;border:1px solid rgba(20,27,36,.12);border-radius:6px;padding:clamp(20px,2.4vw,32px)}
+.ny-card .mono{color:var(--notyet-t)}
+.ny-card h4{font-size:clamp(26px,2.6vw,36px);letter-spacing:-.025em;margin:8px 0 12px}
+.ny-card p{color:var(--n700);font-size:16px}
+.triggers{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.triggers li{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--notyet);color:var(--notyet-t);border-radius:3px;padding:6px 10px;background:var(--notyet-tint)}
+.ny-quote{margin:clamp(28px,4vw,48px) 0 0;font-size:clamp(24px,2.6vw,36px);letter-spacing:-.02em;line-height:1.2;max-width:30ch}
+.ny-quote span{color:var(--notyet-t)}
+.ny-foot{display:grid;grid-template-columns:150px 1fr;margin-top:28px;border-top:1px solid rgba(20,27,36,.14)}
+.ny-foot dt,.ny-foot dd{padding:14px 0;border-bottom:1px solid rgba(20,27,36,.14);margin:0}
+.ny-foot dt{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--n600);padding-top:17px}
+.ny-foot dd{font-size:16px}
+@media (max-width:820px){.ny-top,.ny-split{grid-template-columns:1fr}.ny-foot{grid-template-columns:1fr}.ny-foot dt{border-bottom:0;padding-bottom:0}}
+
+/* table section */
+.table{padding:clamp(72px,9vw,128px) 0 clamp(40px,5vw,64px)}
+.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);margin-bottom:clamp(36px,5vw,64px)}
+.sec-head .mono{color:var(--n600);display:block;margin-bottom:14px}
+.sec-head h2{font-size:clamp(30px,3.6vw,50px);letter-spacing:-.028em;max-width:18ch}
+.sec-head p{font-size:18px;color:var(--n700);align-self:end}
+.route{display:grid;gap:0}
+.stop{display:grid;grid-template-columns:72px minmax(0,1fr) minmax(0,1.1fr);gap:clamp(18px,4vw,56px);padding:clamp(28px,4vw,48px) 0;border-top:1px solid var(--n200);align-items:start}
+.stop .idx{font-family:var(--mono);font-size:13px;color:var(--p600);letter-spacing:.08em;padding-top:6px}
+.stop h3{font-size:clamp(24px,2.4vw,32px);margin-bottom:14px}
+.stop p{color:var(--n700);font-size:16.5px}
+.stop p + p{margin-top:12px}
+.frag{background:#fff;border:1px solid var(--n200);border-radius:6px;padding:20px;box-shadow:0 1px 2px rgba(20,27,36,.04)}
+.frag .fh{display:flex;justify-content:space-between;gap:12px;color:var(--n500);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+.frag svg{display:block;width:100%;height:auto}
+.agenda{list-style:none;margin:0;padding:0}
+.agenda li{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--n100);font-size:15px}
+.agenda li:first-child{border-top:0}
+.agenda .t{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 0;color:var(--n600)}
+.agenda .t.new{color:var(--p600)}
+.agenda .r{display:block;color:var(--n500);font-size:13.5px;margin-top:2px}
+.takes{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.take{border:1px solid var(--n200);border-radius:4px;padding:10px 8px 12px;text-align:center;background:var(--paper)}
+.take .who{font-family:var(--mono);font-size:11px;color:var(--n500);letter-spacing:.08em}
+.take .pos{display:block;margin-top:10px;font-size:13px;line-height:1.2;font-weight:500;color:var(--ct);border-top:3px solid var(--c);padding-top:8px}
+.stop .frag p.takes-note{margin-top:14px;font-size:11px;color:var(--n500);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase}
+@media (max-width:900px){.stop{grid-template-columns:1fr}.stop .idx{padding:0}.sec-head{grid-template-columns:1fr}}
+@media (max-width:420px){.takes{grid-template-columns:repeat(3,1fr)}}
+
+/* record */
+.record{background:var(--ink);color:#fff;padding:clamp(72px,9vw,120px) 0}
+.record .sec-head .mono{color:var(--p200)}
+.record .sec-head p{color:#C9CFD6}
+.entry{background:#fff;color:var(--ink);border-radius:6px;max-width:880px;margin:0 auto;overflow:hidden}
+.entry-top{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;align-items:baseline;padding:20px 24px;border-bottom:1px solid var(--n200)}
+.entry-top .id{font-family:var(--mono);font-size:20px;letter-spacing:.02em;color:var(--p600)}
+.entry-top .meta{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n500)}
+.entry dl{margin:0;display:grid;grid-template-columns:170px 1fr}
+.entry dt,.entry dd{margin:0;padding:13px 24px;border-bottom:1px solid var(--n100)}
+.entry dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n500);padding-top:16px}
+.entry dd{font-size:15.5px}
+.entry dd:last-of-type,.entry dt:last-of-type{border-bottom:0}
+.pill{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:var(--tint);color:var(--ct);border:1px solid var(--c);margin-right:6px}
+.entry-note{max-width:880px;margin:14px auto 0;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n400)}
+.after{max-width:880px;margin:clamp(40px,5vw,64px) auto 0;display:grid;grid-template-columns:1fr 1fr;gap:24px 48px}
+.after h3{font-size:20px;margin-bottom:8px}
+.after p{color:#C9CFD6;font-size:16px}
+@media (max-width:700px){.entry dl{grid-template-columns:1fr}.entry dt{border-bottom:0;padding-bottom:0}.after{grid-template-columns:1fr}}
+
+/* chair */
+.chair{padding:clamp(72px,9vw,128px) 0}
+.chair .grid{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(28px,6vw,96px)}
+.chair h2{font-size:clamp(30px,3.6vw,50px);letter-spacing:-.028em}
+.chair h2 span{color:var(--p600)}
+.rules{list-style:none;margin:0;padding:0}
+.rules li{padding:16px 0;border-top:1px solid var(--n200);font-size:17px;color:var(--n700)}
+.rules li strong{font-weight:500;color:var(--ink)}
+.rules li:last-child{border-bottom:1px solid var(--n200)}
+@media (max-width:860px){.chair .grid{grid-template-columns:1fr}}
+
+/* close */
+.close{padding:0 0 clamp(72px,9vw,128px)}
+.close .box{border-top:1px solid var(--ink);padding-top:clamp(40px,5vw,64px);display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(24px,5vw,80px);align-items:end}
+.close h2{font-size:clamp(34px,4.6vw,66px);letter-spacing:-.032em;line-height:1.02;max-width:17ch}
+.close p{font-size:18px;color:var(--n700);margin-bottom:24px}
+.close .strip{display:flex;height:6px;margin-top:clamp(40px,5vw,64px)}
+.close .strip span{flex:1;background:var(--c)}
+@media (max-width:860px){.close .box{grid-template-columns:1fr}}
+
+footer{border-top:1px solid var(--n200);padding:32px 0 40px;font-size:14px;color:var(--n600)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between}
+footer img{height:20px;width:auto;display:block}
+footer nav{display:flex;gap:22px}
+footer a{color:var(--n700);text-underline-offset:3px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a href="#main" aria-label="Strapivo, top of page"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="99" height="24"></a>
+    <nav aria-label="Primary">
+      <a class="hide-sm" href="#try">Try a question</a>
+      <a class="hide-sm" href="#options">The five answers</a>
+      <a href="https://strapivo.app">Sign in</a>
+      <a class="btn btn-sm" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="h1">
+    <div class="wrap">
+      <p class="mono eyebrow">Dynamic Strategy · the decision</p>
+      <ol class="five" aria-label="The five answers">
+        <li class="o-hold"><a href="#hold"><span class="mono n">01</span><span class="w">Hold</span></a></li>
+        <li class="o-adapt"><a href="#adapt"><span class="mono n">02</span><span class="w">Adapt</span></a></li>
+        <li class="o-pivot"><a href="#pivot"><span class="mono n">03</span><span class="w">Pivot</span></a></li>
+        <li class="o-take"><a href="#take"><span class="mono n">04</span><span class="w">Take advantage</span></a></li>
+        <li class="o-notyet"><a href="#notyet"><span class="mono n">05</span><span class="w">Not yet</span></a></li>
+      </ol>
+      <div class="hero-body">
+        <h1 id="h1">Every strategic question ends in one of five answers.</h1>
+        <div>
+          <p class="lede">Strapivo is the Strategic Design System. In a Dynamic Strategy session, each question on the agenda closes on one of these five words.</p>
+          <p class="lede">Vivo, Strapivo's AI, drafts what follows. A person with authority confirms it.</p>
+          <div class="actions">
+            <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+            <a class="link" href="#try">Try it on a question</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trial" id="try" aria-labelledby="try-h">
+    <div class="wrap">
+      <div class="trial-head">
+        <div>
+          <span class="mono tag">Illustrative example</span>
+          <h2 id="try-h">Pick an answer. See what happens next.</h2>
+        </div>
+        <div class="ctx">
+          <dl>
+            <dt>Company</dt><dd>Brekka Cold Chain, a fictional logistics firm</dd>
+            <dt>Criterion</dt><dd>Lead the mid-market cold chain in the Nordics</dd>
+            <dt>Signal</dt><dd>A new entrant opened two depots in our core region. A person confirmed the risk's move into the top right. The primary source is the entrant's press release.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="question">
+        <span class="mono">Item 3 on Thursday's agenda</span>
+        <p>A new competitor is operating in our core region. What do we do?</p>
+      </div>
+
+      <div class="picker" role="group" aria-label="Choose an answer">
+        <button type="button" class="o-hold" data-opt="hold" aria-pressed="false" aria-controls="panel"><span class="k">01</span><span class="w">Hold</span><span class="h">Keep the plan as it is</span></button>
+        <button type="button" class="o-adapt" data-opt="adapt" aria-pressed="false" aria-controls="panel"><span class="k">02</span><span class="w">Adapt</span><span class="h">Change the activities, keep the criterion</span></button>
+        <button type="button" class="o-pivot" data-opt="pivot" aria-pressed="false" aria-controls="panel"><span class="k">03</span><span class="w">Pivot</span><span class="h">Rewrite the criterion</span></button>
+        <button type="button" class="o-take" data-opt="take" aria-pressed="false" aria-controls="panel"><span class="k">04</span><span class="w">Take advantage</span><span class="h">Add detour activities</span></button>
+        <button type="button" class="o-notyet" data-opt="notyet" aria-pressed="false" aria-controls="panel"><span class="k">05</span><span class="w">Not yet</span><span class="h">Name what is missing</span></button>
+        <p class="hint" id="pick-status" aria-live="polite">Choose one of the five. Arrow keys move between them.</p>
+      </div>
+
+      <div class="panel" id="panel">
+        <div class="inner">
+          <article class="outcome o-hold" data-out="hold" aria-label="What happens after Hold">
+            <div class="ttl"><span class="mono">If the room chooses</span><h3>Hold</h3><p>The criterion still stands. The plan stays as written.</p></div>
+            <ol>
+              <li><div>Strapivo marks the criterion reviewed, with today's date.</div></li>
+              <li><div>The Radar keeps watching the entrant until the next session.</div></li>
+              <li><div>Vivo reads back the entry, with any dissent by name. The session lead confirms it as <span class="num">SDS-2026-031</span>.</div></li>
+            </ol>
+          </article>
+          <article class="outcome o-adapt" data-out="adapt" aria-label="What happens after Adapt">
+            <div class="ttl"><span class="mono">If the room chooses</span><h3>Adapt</h3><p>The criterion stands. The objectives and activities under it change.</p></div>
+            <ol>
+              <li><div>Vivo drafts changes to objectives and activities.<span class="draft"><span class="mono">Draft activity</span>Renew the three largest Gothenburg contracts early. Result: signed renewals. Six weeks. Responsible: Head of Sales Sweden.</span></div></li>
+              <li><div>Owners accept, edit or reject each draft.</div></li>
+              <li><div>The session lead confirms the entry as <span class="num">SDS-2026-031</span>.</div></li>
+              <li><div>Before the next session, the Head of Sales Sweden reports a status.</div></li>
+            </ol>
+          </article>
+          <article class="outcome o-pivot" data-out="pivot" aria-label="What happens after Pivot">
+            <div class="ttl"><span class="mono">If the room chooses</span><h3>Pivot</h3><p>The criterion itself no longer fits.</p></div>
+            <ol>
+              <li><div>Vivo drafts revised wording for the criterion.<span class="draft"><span class="mono">Draft criterion</span>Lead the mid-market cold chain in Norway and Denmark. Defend Sweden for margin.</span></div></li>
+              <li><div>The old wording stays in force until someone with authority confirms the new one.</div></li>
+              <li><div>This change is beyond the team's authority, so it goes to an approver in the app, as an exported memo or into the board pack.</div></li>
+              <li><div>Once confirmed as <span class="num">SDS-2026-031</span>, the session lead is prompted to announce what changed and why.</div></li>
+            </ol>
+          </article>
+          <article class="outcome o-take" data-out="take" aria-label="What happens after Take advantage">
+            <div class="ttl"><span class="mono">If the room chooses</span><h3>Take advantage</h3><p>The entrant cannot serve all its new customers yet. Act on that without changing the criterion.</p></div>
+            <ol>
+              <li><div>Vivo drafts detour activities.<span class="draft"><span class="mono">Draft activity</span>Offer overflow capacity to the entrant's customers while its new depots ramp up. Four weeks. Responsible: Head of Partnerships.</span></div></li>
+                            <li><div>Owners accept the activities. The session lead confirms the entry as <span class="num">SDS-2026-031</span>.</div></li>
+            </ol>
+          </article>
+          <article class="outcome o-notyet" data-out="notyet" aria-label="What happens after Not yet">
+            <div class="ttl"><span class="mono">If the room chooses</span><h3>Not yet</h3><p>Nobody has seen the entrant's prices. The room says so.</p></div>
+            <ol>
+              <li><div>Vivo asks the room one question: "What's missing?"</div></li>
+              <li><div>The room parks the question with a trigger that brings it back.<span class="draft"><span class="mono">Trigger</span>A signed quote from the entrant, or the session on 3 December, whichever comes first.</span></div></li>
+              <li><div>Or the room lets the question go and records why.</div></li>
+              <li><div>The session lead confirms the entry as <span class="num">SDS-2026-031</span>. A parked question returns to the agenda as old business when its trigger fires.</div></li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="drift" aria-labelledby="drift-h">
+    <div class="wrap">
+      <div class="grid">
+        <h2 id="drift-h">Most strategy meetings end with "let's keep an eye on it".</h2>
+        <div class="body">
+          <p>Nobody decided to wait, so nobody owns the waiting. The risk returns at the quarterly review, larger. The argument starts again, because nobody wrote down who disagreed.</p>
+          <p class="turn">A meeting produces a decision when everyone knows the possible answers before it starts. Strapivo names five, and every item on the agenda ends on one of them.</p>
+        </div>
+      </div>
+      <div class="voices">
+        <p class="mono">What leadership teams tell us</p>
+        <ul>
+          <li>"We restart the same argument every time a new analysis lands."</li>
+          <li>"I know there's a threat coming. I don't know what it costs us to wait."</li>
+          <li>"Between offsites, nothing moves."</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div id="options" class="bands-intro"><div class="wrap">
+    <h2>The five answers, and what happens after each one.</h2>
+  </div></div>
+
+  <section class="band o-hold" id="hold" aria-labelledby="hold-h">
+    <div class="wrap">
+      <div class="word"><span class="mono">01</span><h3 id="hold-h">Hold</h3></div>
+      <div>
+        <p class="def">The criterion still holds. Keep the plan. Holding is a decision, and it goes on the record like any other.</p>
+        <dl>
+          <dt>Vivo drafts</dt><dd>Nothing to change. Strapivo marks the criterion reviewed on that date.</dd>
+          <dt>Who confirms</dt><dd>The session lead confirms the record entry.</dd>
+          <dt>Example</dt><dd class="ex">Freight costs rose for a third month, but margin is still on target. Hold.</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="band o-adapt" id="adapt" aria-labelledby="adapt-h">
+    <div class="wrap">
+      <div class="word"><span class="mono">02</span><h3 id="adapt-h">Adapt</h3></div>
+      <div>
+        <p class="def">The criterion stands. The objectives or activities under it change.</p>
+        <dl>
+          <dt>Vivo drafts</dt><dd>Changes to objectives and activities.</dd>
+          <dt>Who confirms</dt><dd>Owners accept, edit or reject each change.</dd>
+          <dt>Example</dt><dd class="ex">A key supplier missed two deliveries. Add an activity to qualify a second supplier.</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="band o-pivot" id="pivot" aria-labelledby="pivot-h">
+    <div class="wrap">
+      <div class="word"><span class="mono">03</span><h3 id="pivot-h">Pivot</h3></div>
+      <div>
+        <p class="def">The criterion itself changes. Strapivo asks for the most authority on this answer.</p>
+        <dl>
+          <dt>Vivo drafts</dt><dd>Revised wording for the criterion.</dd>
+          <dt>Who confirms</dt><dd>Someone with authority. Until then, the old wording stays in force.</dd>
+          <dt>Example</dt><dd class="ex">New regulation closes one market. Rewrite the growth criterion around the two that remain.</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="band o-take" id="take" aria-labelledby="take-h">
+    <div class="wrap">
+      <div class="word"><span class="mono">04</span><h3 id="take-h">Take advantage</h3></div>
+      <div>
+        <p class="def">Something moved in your favour. Act on it without changing the criterion.</p>
+        <dl>
+          <dt>Vivo drafts</dt><dd>Detour activities, added beside the existing plan.</dd>
+          <dt>Who confirms</dt><dd>Owners accept the activities. The criterion stays as written.</dd>
+          <dt>Example</dt><dd class="ex">A rival leaves a region. Add an activity to approach its customers this quarter.</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="band o-notyet" id="notyet" aria-labelledby="notyet-h">
+    <div class="wrap">
+      <div class="ny-top">
+        <div class="word"><span class="mono">05</span><h3 id="notyet-h">Not yet</h3></div>
+        <div>
+          <p class="def">The room cannot decide today and records why. Not yet always ends in Parked or Let go, so every question gets an outcome.</p>
+          <p class="ny-ask">Vivo asks one question: <span>"What's missing?"</span></p>
+        </div>
+      </div>
+      <div class="ny-split">
+        <div class="ny-card">
+          <span class="mono">Ending one</span>
+          <h4>Parked</h4>
+          <p>The question waits with at least one trigger. When a trigger fires, the question returns to the agenda as old business.</p>
+          <ul class="triggers" aria-label="Trigger types">
+            <li>New evidence</li><li>A person's view</li><li>A date</li><li>The next session</li>
+          </ul>
+        </div>
+        <div class="ny-card">
+          <span class="mono">Ending two</span>
+          <h4>Let go</h4>
+          <p>The room drops the question and records why. Anyone who raises it again reads that rationale first.</p>
+        </div>
+      </div>
+      <p class="ny-quote">The two endings exist <span>"so that it feels like parking, not losing."</span></p>
+      <dl class="ny-foot">
+        <dt>Who confirms</dt><dd>The session lead confirms the entry, with its trigger or its rationale.</dd>
+        <dt>Example</dt><dd>An offer to buy a small competitor. Parked until the due diligence summary arrives.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="table" aria-labelledby="table-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="mono">Before the answer</span><h2 id="table-h">How a question gets onto the agenda.</h2></div>
+        <p>The five answers only help if the right questions arrive, in the right order.</p>
+      </div>
+      <div class="route">
+        <div class="stop">
+          <span class="idx">A</span>
+          <div>
+            <h3>The Radar</h3>
+            <p>The Radar watches the outside world for each focus area. Vivo sorts each signal first. A delegated person marks it relevant, irrelevant or unsure.</p>
+            <p>Vivo proposes risk moves with a one-line reason, and a person confirms them. A move into the top right needs at least one primary source, so one blog post cannot raise an alarm.</p>
+          </div>
+          <div class="frag" aria-hidden="true">
+            <div class="fh"><span>Risk radar · Now</span><span>Focus · Nordic mid-market</span></div>
+            <svg viewBox="0 0 400 260" role="presentation">
+              <rect x="40" y="10" width="350" height="210" fill="#F6F9FB" stroke="#E1E5EA"/>
+              <rect x="215" y="10" width="175" height="105" fill="#EFF2F6"/>
+              <line x1="215" y1="10" x2="215" y2="220" stroke="#E1E5EA"/>
+              <line x1="40" y1="115" x2="390" y2="115" stroke="#E1E5EA"/>
+              <text x="382" y="28" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1" fill="#6C727A">TOP RIGHT</text>
+              <text x="215" y="240" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1" fill="#6C727A">LIKELIHOOD</text>
+              <text x="20" y="115" text-anchor="middle" transform="rotate(-90 20 115)" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1" fill="#6C727A">IMPACT</text>
+              <circle cx="96" cy="176" r="6" fill="#999FA6"/>
+              <circle cx="150" cy="70" r="6" fill="#999FA6"/>
+              <circle cx="262" cy="182" r="6" fill="#999FA6"/>
+              <circle cx="190" cy="140" r="7" fill="#141B24"/>
+              <path d="M198 133 L 300 62" stroke="#0082E6" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+              <circle cx="310" cy="55" r="11" fill="none" stroke="#0082E6" stroke-width="2" stroke-dasharray="3 3"/>
+              <rect x="212" y="72" width="178" height="34" rx="3" fill="#fff" stroke="#A9D6FF"/>
+              <text x="220" y="86" font-family="Inter, sans-serif" font-size="10" fill="#141B24">New entrant opened two depots.</text>
+              <text x="220" y="99" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing=".5" fill="#006FD1">PRIMARY SOURCE · CONFIRM?</text>
+            </svg>
+          </div>
+        </div>
+        <div class="stop">
+          <span class="idx">B</span>
+          <div>
+            <h3>The agenda</h3>
+            <p>Vivo drafts the agenda 24 hours before the session from what changed since the last one.</p>
+            <p>Old business comes first, and every item carries a one-line reason. The session lead edits the draft. The room approves it as step one.</p>
+          </div>
+          <div class="frag" aria-hidden="true">
+            <div class="fh"><span>Draft agenda · Thursday 09:00</span><span>60 min</span></div>
+            <ol class="agenda">
+              <li><span class="t">Old</span><div>Warehouse automation question<span class="r">Parked trigger fired. The vendor quote arrived on Monday.</span></div></li>
+              <li><span class="t">Old</span><div>Driver retention activity<span class="r">Off track for two reports in a row.</span></div></li>
+              <li><span class="t new">New</span><div>New entrant in the core region<span class="r">Risk entered the top right, with a primary source.</span></div></li>
+              <li><span class="t new">New</span><div>Ask from Head of Sales Sweden<span class="r">Needs a pricing mandate before renewals open.</span></div></li>
+            </ol>
+          </div>
+        </div>
+        <div class="stop">
+          <span class="idx">C</span>
+          <div>
+            <h3>Sealed first takes</h3>
+            <p>Each person records a first take before discussion. Strapivo reveals them together, so nobody adjusts their view to the loudest voice.</p>
+            <p>Then the room reviews the evidence, talks it through with Vivo and picks one of the five answers. Vivo can raise the cost of doing nothing, a scenario or a challenge.</p>
+          </div>
+          <div class="frag" aria-hidden="true">
+            <div class="fh"><span>First takes · revealed</span><span>Item 3</span></div>
+            <div class="takes">
+              <div class="take o-adapt"><span class="who">AK</span><span class="pos">Adapt</span></div>
+              <div class="take o-notyet"><span class="who">LB</span><span class="pos">Not yet</span></div>
+              <div class="take o-adapt"><span class="who">MS</span><span class="pos">Adapt</span></div>
+              <div class="take o-hold"><span class="who">JN</span><span class="pos">Hold</span></div>
+              <div class="take o-take"><span class="who">RT</span><span class="pos">Take advantage</span></div>
+            </div>
+            <p class="takes-note">5 of 5 sealed before discussion. Revealed together.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="record" aria-labelledby="record-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="mono">After the answer</span><h2 id="record-h">Where the answer goes.</h2></div>
+        <p>Vivo reads back each entry for the Record of Decisions, including dissent by name. The session lead confirms, and the decision gets a permanent number. A year later, anyone can find what was decided and why.</p>
+      </div>
+      <article class="entry" aria-label="Illustrative Record of Decisions entry">
+        <div class="entry-top"><span class="id">SDS-2026-031</span><span class="meta">Record of Decisions · Brekka Cold Chain</span></div>
+        <dl>
+          <dt>Answer</dt><dd><span class="pill o-notyet">Not yet</span> <span class="pill o-notyet">Parked</span></dd>
+          <dt>Question</dt><dd>A new competitor is operating in our core region. What do we do?</dd>
+          <dt>Missing</dt><dd>The entrant's pricing. Nobody in the room has seen it.</dd>
+          <dt>Trigger</dt><dd>A signed quote from the entrant, or the session on 3 December.</dd>
+          <dt>Dissent</dt><dd>L. Berg, Head of Sales Sweden: "Waiting puts the January renewals at risk."</dd>
+          <dt>Confirmed by</dt><dd>Session lead</dd>
+        </dl>
+      </article>
+      <p class="entry-note">Illustrative example. Fictional company and people.</p>
+    </div>
+  </section>
+
+  <section class="chair" aria-labelledby="chair-h">
+    <div class="wrap grid">
+      <h2 id="chair-h">Vivo proposes. <span>People decide.</span></h2>
+      <ul class="rules">
+        <li><strong>Vivo never picks the answer.</strong> The room picks one of the five. Vivo drafts what follows.</li>
+        <li><strong>Vivo never changes a light.</strong> It asks "Light still green?" and a person decides.</li>
+        <li><strong>Every recommendation traces back to the strategic memory you approved.</strong> Vivo reads every question against your business model.</li>
+        <li><strong>Data stays on EU-only infrastructure.</strong> The product is built for GDPR from the start.</li>
+        <li><strong>We do the reading first.</strong> Setup takes four to five hours with us, and then your team runs it.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="close" aria-labelledby="close-h">
+    <div class="wrap">
+      <div class="box">
+        <h2 id="close-h">Bring us the question your team keeps postponing.</h2>
+        <div>
+          <p>We will run it through the five answers with you and show what Vivo would draft for each.</p>
+          <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+        </div>
+      </div>
+      <div class="strip" aria-hidden="true"><span class="o-hold"></span><span class="o-adapt"></span><span class="o-pivot"></span><span class="o-take"></span><span class="o-notyet"></span></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="82" height="20">
+    <span>© 2026 Strapivo</span>
+    <nav aria-label="Legal"><a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('.picker button'));
+  var panel = document.getElementById('panel');
+  var outs = Array.prototype.slice.call(document.querySelectorAll('.outcome'));
+  var status = document.getElementById('pick-status');
+  if(!buttons.length || !panel) return;
+  outs.forEach(function(o){ o.hidden = true; });
+  function choose(btn){
+    var opt = btn.getAttribute('data-opt');
+    buttons.forEach(function(b){ b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+    outs.forEach(function(o){ o.hidden = o.getAttribute('data-out') !== opt; });
+    panel.classList.add('open');
+    status.textContent = 'Showing what happens after ' + btn.querySelector('.w').textContent + '.';
+  }
+  buttons.forEach(function(b, i){
+    b.addEventListener('click', function(){ choose(b); });
+    b.addEventListener('keydown', function(e){
+      var d = 0;
+      if(e.key === 'ArrowRight' || e.key === 'ArrowDown') d = 1;
+      if(e.key === 'ArrowLeft' || e.key === 'ArrowUp') d = -1;
+      if(e.key === 'Home'){ e.preventDefault(); buttons[0].focus(); return; }
+      if(e.key === 'End'){ e.preventDefault(); buttons[buttons.length-1].focus(); return; }
+      if(!d) return;
+      e.preventDefault();
+      buttons[(i + d + buttons.length) % buttons.length].focus();
+    });
+  });
+})();
+</script>
+</body>
+</html>

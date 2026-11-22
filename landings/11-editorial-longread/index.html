@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where strategies go after the offsite · Strapivo</title>
+<meta name="description" content="A long read on why annual strategy fails quietly, and how Strapivo's Dynamic Strategy replaces it with a radar, a regular session and a numbered record of decisions.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --ground:#F7F4EE;--ground2:#EFEAE0;--sienna:#B4532A;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --measure:680px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:19px;line-height:1.62;font-weight:400}
+a{color:var(--p700);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--p500)}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--ground);padding:8px 12px;font-family:var(--mono);font-size:13px;z-index:20}
+.skip:focus{left:12px;top:12px}
+.mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:400}
+
+/* progress */
+.progress{position:fixed;top:0;left:0;height:2px;width:100%;background:var(--p500);transform-origin:0 50%;transform:scaleX(0);z-index:10}
+
+/* masthead */
+.mast{max-width:1200px;margin:0 auto;padding:22px 28px 0}
+.mast-row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-bottom:16px}
+.mast-row img{display:block;height:26px;width:auto}
+.mast-mid{color:var(--n600);text-align:center;flex:1}
+.mast a.signin{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);text-decoration:none;border:1px solid var(--ink);padding:7px 12px;border-radius:2px}
+.mast a.signin:hover{background:var(--ink);color:var(--ground)}
+.rule-double{border:0;height:5px;border-top:2px solid var(--sienna);border-bottom:1px solid var(--sienna);margin:0}
+
+/* headline block */
+.head{max-width:1200px;margin:0 auto;padding:clamp(48px,8vw,104px) 28px 0}
+.kicker{color:var(--sienna);font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;margin:0 0 28px;display:flex;gap:14px;align-items:center}
+.kicker::before{content:"";width:36px;height:2px;background:var(--sienna)}
+h1{font-weight:500;font-size:clamp(46px,9.4vw,148px);line-height:.94;letter-spacing:-.035em;margin:0;max-width:11.5em}
+h1 .az{color:var(--p500)}
+.standfirst{font-size:clamp(21px,2.2vw,28px);line-height:1.38;letter-spacing:-.012em;color:var(--n700);max-width:34em;margin:clamp(28px,4vw,48px) 0 0}
+.byline{display:flex;flex-wrap:wrap;gap:8px 26px;margin:32px 0 0;padding:14px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--n200);color:var(--n600)}
+.byline span b{font-weight:500;color:var(--ink)}
+
+/* opening in columns */
+.opening{max-width:1200px;margin:0 auto;padding:clamp(40px,5vw,64px) 28px 0}
+.opening .cols{max-width:var(--measure);margin:0 auto}
+.opening p{margin:0 0 1em;hyphens:auto}
+.opening p:first-child::first-letter{float:left;font-weight:500;font-size:5.1em;line-height:.82;margin:.06em .1em 0 -.04em;color:var(--ink);letter-spacing:-.04em}
+@media (min-width:960px){
+  .opening .cols{max-width:none;columns:3;column-gap:44px;column-rule:1px solid rgba(180,83,42,.45);font-size:18px}
+  .opening p{break-inside:avoid-column}
+}
+
+/* article body */
+.body{max-width:var(--measure);margin:0 auto;padding:0 20px 40px}
+@media (min-width:720px){.body{padding:0 0 40px}}
+.body p{margin:0 0 1.1em;hyphens:auto}
+.body h2{font-weight:500;font-size:clamp(26px,3vw,34px);line-height:1.15;letter-spacing:-.022em;margin:2.2em 0 .7em;padding-top:18px;border-top:1px solid var(--sienna);position:relative}
+.body h2 .num{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--sienna);margin-bottom:10px;font-weight:400}
+
+/* pull quotes */
+.pull{margin:1.8em 0;padding:22px 0 0;border-top:3px solid var(--sienna);clear:both}
+.pull p{font-weight:500;font-size:clamp(28px,4vw,44px);line-height:1.12;letter-spacing:-.025em;margin:0;color:var(--ink);hyphens:none}
+.pull p::before{content:'"';color:var(--sienna)}
+.pull p::after{content:'"';color:var(--sienna)}
+.pull figcaption{margin-top:14px;color:var(--n600)}
+@media (min-width:1180px){
+  .pull.left{margin-left:-150px;margin-right:120px}
+  .pull.right{margin-right:-150px;margin-left:120px}
+}
+
+/* figures */
+.fig{clear:both;margin:2.4em calc(50% - min(470px, 50vw - 20px));padding:22px 0 0;border-top:1px solid var(--ink)}
+.fig-inner{display:grid;gap:18px}
+.fig svg{display:block;width:100%;height:auto;max-width:520px}
+.fig figcaption{font-size:15px;line-height:1.5;color:var(--n700)}
+.fig figcaption .mono{display:block;color:var(--sienna);margin-bottom:8px}
+.fig figcaption .illus{display:inline-block;margin-top:10px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--n600);border:1px solid var(--n400);padding:3px 7px;border-radius:2px}
+@media (min-width:860px){
+  .fig-inner{grid-template-columns:minmax(0,560px) 1fr;gap:40px;align-items:start}
+  .fig figcaption{padding-top:6px;border-left:1px solid var(--sienna);padding-left:20px}
+}
+
+/* sidebar box */
+.box{background:var(--ground2);border-top:3px solid var(--sienna);padding:22px 24px 10px;margin:1.6em 0 1.8em;border-radius:0 0 4px 4px}
+.box h3{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--sienna);margin:0 0 14px}
+.box dl{margin:0}
+.box dt{font-weight:500;font-size:19px;letter-spacing:-.012em;margin:0;padding-top:12px;border-top:1px solid rgba(20,27,36,.14)}
+.box dt:first-of-type{border-top:0;padding-top:0}
+.box dt span{font-family:var(--mono);font-size:11px;color:var(--p700);letter-spacing:.1em;margin-right:10px;font-weight:400;vertical-align:2px}
+.box dd{margin:2px 0 12px;font-size:15.5px;line-height:1.5;color:var(--n700)}
+@media (min-width:1240px){
+  .box{float:right;width:270px;margin:.3em -310px 1em 40px}
+}
+
+/* ending + editor's note */
+.end{font-size:20px}
+.end::after{content:"";display:inline-block;width:.55em;height:.55em;border:2px solid var(--p500);border-radius:50%;margin-left:.35em;vertical-align:.05em}
+.note{clear:both;margin:3.2em 0 0;padding:20px 0 0;border-top:1px solid var(--ink)}
+.note .mono{color:var(--sienna);margin:0 0 10px}
+.note p.mono{font-size:12px}
+.note p{font-size:17px;line-height:1.6;color:var(--n700);margin:0 0 .8em}
+.note a.cta{font-weight:500;color:var(--p700)}
+
+/* footer */
+footer{margin-top:72px;border-top:1px solid var(--sienna)}
+.foot{max-width:1200px;margin:0 auto;padding:28px 28px 40px;display:flex;flex-wrap:wrap;gap:18px 32px;align-items:center;justify-content:space-between;color:var(--n600);font-size:14px}
+.foot img{height:22px;width:auto;display:block}
+.foot nav{display:flex;gap:22px;flex-wrap:wrap}
+.foot nav a{color:var(--n700);font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+.foot nav a:hover{color:var(--p700);text-decoration:underline}
+
+/* svg text */
+.svg-mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.svg-sans{font-family:'Inter',system-ui,sans-serif}
+
+@media (max-width:640px){
+  body{font-size:18px}
+  .foot{padding-left:20px;padding-right:20px}
+  .mast{padding:16px 20px 0}
+  .mast-mid{display:none}
+  .head,.opening{padding-left:20px;padding-right:20px}
+  .mast-row img{height:22px}
+  .box{padding:20px 18px 8px}
+}
+@media (prefers-reduced-motion:reduce){
+  .progress{display:none}
+  .ghost-anim{animation:none!important}
+}
+.ghost-anim{animation:breathe 4.5s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.45}}
+</style>
+</head>
+<body>
+<a class="skip" href="#article">Skip to the article</a>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="mast">
+  <div class="mast-row">
+    <a href="#top" aria-label="Strapivo, top of page"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="104" height="26"></a>
+    <div class="mast-mid mono">The long read · Dynamic Strategy</div>
+    <a class="signin" href="https://strapivo.app">Sign in</a>
+  </div>
+  <hr class="rule-double">
+</header>
+
+<main id="top">
+<article id="article">
+  <div class="head">
+    <p class="kicker">Management</p>
+    <h1>Where strategies go after the <span class="az">offsite</span></h1>
+    <p class="standfirst">Most companies agree a strategy once a year and check it once a year. In between, the market moves and nobody writes it down. Strapivo argues the fix is a standing session, a radar on the outside world and a numbered record of every decision.</p>
+    <div class="byline mono">
+      <span><b>Strapivo</b></span>
+      <span>November 2026</span>
+      <span>7 minute read</span>
+    </div>
+  </div>
+
+  <div class="opening">
+    <div class="cols">
+      <p>The offsite ends on a Thursday afternoon. The leadership team has spent two days on it. There is a slide with an ambition, a dozen goals and a short list of priorities, and everyone in the room has agreed to it. On Monday the slide goes into a shared folder. In most companies, nobody reads it closely again until the next offsite.</p>
+      <p>Nobody decides to abandon the plan. It fails quietly. A competitor cuts prices in March. A regulator publishes a draft in May. A key supplier changes hands in July. Someone notices each event and someone raises it in a meeting. Nobody connects it to the plan.</p>
+      <p>By the time the annual review comes round, the plan describes a market that no longer exists. Changing course has become expensive, because the cheap moment to change it was months ago.</p>
+    </div>
+  </div>
+
+  <div class="body">
+    <figure class="pull left">
+      <p>We finish the strategy, and then we forget it.</p>
+      <figcaption class="mono">What leadership teams tell us</figcaption>
+    </figure>
+
+    <h2><span class="num">I</span>The news is not the problem</h2>
+    <p>Executives do not lack information. They get more of it than they can read. What they lack is a link between the news and the goals they said must succeed. An article about interest rates is noise until someone asks which goal it touches and whether it changes the odds.</p>
+    <p>Without that question, every new report starts the same debate from the beginning. The loudest person in the room sets the frame, and the meeting ends with a set of slides that nobody opens again.</p>
+
+    <figure class="pull right">
+      <p>We restart the same argument every time a new analysis lands.</p>
+      <figcaption class="mono">What leadership teams tell us</figcaption>
+    </figure>
+
+    <h2><span class="num">II</span>Two ways to get it wrong</h2>
+    <p>Companies that try to stay current fail in one of two directions. The first is inertia. The plan stays fixed because reopening it feels like admitting a mistake. The second is thrash. Every headline triggers a meeting, every meeting adds a priority, and the team stops believing in any of them.</p>
+    <p>The workable middle is closer to steering a ship. The team makes small corrections early and changes course once in a while. One leadership team put the distinction to us this way. "We're not changing strategy every week, but we are revising our tactics."</p>
+
+    <h2><span class="num">III</span>A routine with a fixed shape</h2>
+    <p>Strapivo builds what it calls a Strategic Design System, one place where a company's strategy is kept and used. Its routine for keeping that strategy current is called Dynamic Strategy, and the structure is small on purpose. There is one ambition per portfolio. Under it sit seven to twelve success criteria, each with a light that is green, yellow or red today. Up to four of those criteria are flagged as focus areas. When a team tries to flag a fifth, the software asks: "You're diluting focus and creating noise. Do you really want to?"</p>
+    <p>For each focus area, a radar watches the outside world. Its search brief is the criterion, its objectives and its risks. Each signal it finds is a dated observation with a source, marked as primary or secondary. Vivo, Strapivo's AI, sorts the signals first and gives a one-line reason for each. A named person then marks each signal relevant, irrelevant or unsure. The signals that person dismisses teach Vivo what counts as noise for this company.</p>
+
+    <figure class="fig" aria-labelledby="fig1cap">
+      <div class="fig-inner">
+        <svg viewBox="0 0 420 400" role="img" aria-labelledby="fig1t fig1d">
+          <title id="fig1t">Risk radar, impact against likelihood</title>
+          <desc id="fig1d">A square chart with likelihood on the horizontal axis and impact on the vertical axis. The top right quarter is hatched and labelled danger zone. Three risks are plotted as solid dots. A faint trail behind one risk shows its movement over 30 days. A dashed ring beside it marks a position Vivo has proposed, awaiting a person's confirmation.</desc>
+          <defs>
+            <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="7" stroke="#B4532A" stroke-width="1" opacity=".28"/>
+            </pattern>
+          </defs>
+          <g transform="translate(48,20)">
+            <rect x="170" y="0" width="170" height="170" fill="url(#hatch)"/>
+            <rect x="0" y="0" width="340" height="340" fill="none" stroke="#141B24" stroke-width="1"/>
+            <g stroke="#141B24" stroke-width=".5" opacity=".25">
+              <line x1="85" y1="0" x2="85" y2="340"/><line x1="255" y1="0" x2="255" y2="340"/>
+              <line x1="0" y1="85" x2="340" y2="85"/><line x1="0" y1="255" x2="340" y2="255"/>
+            </g>
+            <line x1="170" y1="0" x2="170" y2="340" stroke="#141B24" stroke-width=".8"/>
+            <line x1="0" y1="170" x2="340" y2="170" stroke="#141B24" stroke-width=".8"/>
+            <text x="178" y="18" class="svg-mono" font-size="11.5" letter-spacing="1.2" fill="#B4532A">DANGER ZONE</text>
+
+            <!-- tracking trail -->
+            <g fill="#0082E6">
+              <circle cx="128" cy="212" r="3" opacity=".18"/>
+              <circle cx="150" cy="196" r="3.5" opacity=".28"/>
+              <circle cx="168" cy="186" r="4" opacity=".4"/>
+            </g>
+            <!-- risk A current -->
+            <circle cx="186" cy="178" r="7" fill="#0082E6"/>
+            <text x="176" y="203" class="svg-mono" font-size="11.5" fill="#141B24">R1 INPUT COSTS</text>
+            <!-- ghost -->
+            <line x1="192" y1="172" x2="232" y2="128" stroke="#0082E6" stroke-width="1" stroke-dasharray="2 3"/>
+            <circle class="ghost-anim" cx="238" cy="121" r="9" fill="none" stroke="#0082E6" stroke-width="1.6" stroke-dasharray="3 3"/>
+            <text x="252" y="112" class="svg-mono" font-size="11" fill="#005DBD">PROPOSED</text>
+            <text x="252" y="125" class="svg-mono" font-size="11" fill="#005DBD">2 PRIMARY</text>
+            <text x="252" y="138" class="svg-mono" font-size="11" fill="#005DBD">SOURCES</text>
+
+            <!-- risk B -->
+            <circle cx="316" cy="52" r="7" fill="#0082E6"/>
+            <text x="302" y="49" text-anchor="end" class="svg-mono" font-size="11.5" fill="#141B24">R2 KEY SUPPLIER</text>
+            <text x="302" y="63" text-anchor="end" class="svg-mono" font-size="11" fill="#495158">TOP RIGHT · 27 DAYS</text>
+            <!-- risk C -->
+            <circle cx="44" cy="262" r="7" fill="#0082E6"/>
+            <text x="58" y="266" class="svg-mono" font-size="11.5" fill="#141B24">R3 REGULATION</text>
+            <text x="58" y="280" class="svg-mono" font-size="11" fill="#495158">EASING</text>
+
+            <text x="170" y="362" text-anchor="middle" class="svg-mono" font-size="11.5" letter-spacing="1.2" fill="#495158">LIKELIHOOD</text>
+            <text transform="translate(-16,170) rotate(-90)" text-anchor="middle" class="svg-mono" font-size="11.5" letter-spacing="1.2" fill="#495158">IMPACT</text>
+          </g>
+        </svg>
+        <figcaption id="fig1cap"><span class="mono">Figure 1 · The radar</span>Risks for one focus area, plotted by impact and likelihood. The faint trail shows where one risk has moved over 30 days. The dashed ring is a move Vivo has proposed. It stays a ghost until a person confirms it, and a move into the top right needs at least one primary source.<br><span class="illus">Illustrative example</span></figcaption>
+      </div>
+    </figure>
+
+    <p>When a signal changes the picture, Vivo proposes a new position for a risk, drawn as a ghost on the radar with a one-line reason. A person confirms or rejects it. Strapivo sets a strict rule for the danger zone. A move into the top right needs at least one primary source, "so that one blog post can't raise an alarm." A risk that sits there for fourteen days without a decision goes onto the session lead's "Needs you" list.</p>
+
+    <h2><span class="num">IV</span>The hour</h2>
+    <p>All of this feeds one session. By default it runs for sixty minutes, weekly, fortnightly or monthly. Twenty-four hours before it starts, Vivo drafts the agenda from what changed: new signals, risks that entered the top right, parked questions that are due back, and activities at risk or off track. Old business comes first. Every item carries a one-line reason. The session lead edits the draft, and the room approves it as its first act.</p>
+
+    <figure class="fig" aria-labelledby="fig2cap">
+      <div class="fig-inner">
+        <svg viewBox="0 0 420 372" role="img" aria-labelledby="fig2t fig2d">
+          <title id="fig2t">A draft session agenda</title>
+          <desc id="fig2d">A draft agenda for a 60 minute session for a fictional company, Halden Fittings, on Tuesday 12 May. Two items of old business: a parked question about the Nordic market whose trigger has been met, and an off-track activity whose owner asks for a decision. Two items of new business: a risk that entered the top right with two primary sources, and a signal that matches no known risk.</desc>
+          <rect x=".5" y=".5" width="419" height="371" rx="3" fill="#FFFFFF" stroke="#141B24"/>
+          <text x="20" y="30" class="svg-mono" font-size="11.5" letter-spacing="1" fill="#495158">HALDEN FITTINGS · STRATEGY ROOM</text>
+          <text x="20" y="56" class="svg-sans" font-size="18" font-weight="500" letter-spacing="-.3" fill="#141B24">Session, Tue 12 May, 10:00</text>
+          <text x="400" y="56" text-anchor="end" class="svg-mono" font-size="11.5" fill="#495158">60 MINUTES</text>
+          <rect x="20" y="68" width="196" height="20" rx="2" fill="#EEF6FF"/>
+          <text x="28" y="82" class="svg-mono" font-size="10.5" letter-spacing=".8" fill="#005DBD">DRAFTED BY VIVO A DAY AHEAD</text>
+          <line x1="20" y1="102" x2="400" y2="102" stroke="#141B24" stroke-width=".6"/>
+
+          <text x="20" y="124" class="svg-mono" font-size="10.5" letter-spacing="1.2" fill="#B4532A">OLD BUSINESS</text>
+          <text x="20" y="150" class="svg-mono" font-size="12" fill="#0082E6">01</text>
+          <text x="46" y="150" class="svg-sans" font-size="14.5" fill="#141B24">Parked: entry to the Nordic market</text>
+          <text x="46" y="168" class="svg-mono" font-size="11" fill="#495158">Trigger met. Distributor prices published.</text>
+          <text x="20" y="198" class="svg-mono" font-size="12" fill="#0082E6">02</text>
+          <text x="46" y="198" class="svg-sans" font-size="14.5" fill="#141B24">Activity off track: service desk rollout</text>
+          <text x="46" y="216" class="svg-mono" font-size="11" fill="#495158">Owner asks leadership to cut scope.</text>
+
+          <line x1="20" y1="236" x2="400" y2="236" stroke="#141B24" stroke-width=".3"/>
+          <text x="20" y="258" class="svg-mono" font-size="10.5" letter-spacing="1.2" fill="#B4532A">NEW BUSINESS</text>
+          <text x="20" y="284" class="svg-mono" font-size="12" fill="#0082E6">03</text>
+          <text x="46" y="284" class="svg-sans" font-size="14.5" fill="#141B24">Risk entered top right: input costs</text>
+          <text x="46" y="302" class="svg-mono" font-size="11" fill="#495158">Two primary sources. Light still green?</text>
+          <text x="20" y="332" class="svg-mono" font-size="12" fill="#0082E6">04</text>
+          <text x="46" y="332" class="svg-sans" font-size="14.5" fill="#141B24">Possible new risk: rival service centre</text>
+          <text x="46" y="350" class="svg-mono" font-size="11" fill="#495158">Relevant signal. Matches no known risk.</text>
+        </svg>
+        <figcaption id="fig2cap"><span class="mono">Figure 2 · The agenda</span>A draft agenda written by Vivo a day before the session. Old business comes before new, and every item states why it is there. The session lead edits it. Approving it is the first item of the hour.<br><span class="illus">Illustrative example</span></figcaption>
+      </div>
+    </figure>
+
+    <p>Each item follows the same order. The evidence goes up first. Then everyone records a first take, an individual position given before the discussion and revealed together, "without the loudest voice anchoring us." Only then does the conversation start. The team can ask Vivo what doing nothing would cost, to sketch scenarios, to argue the other side or to imagine a black swan.</p>
+
+    <figure class="pull left">
+      <p>I know there's a threat coming. I don't know what it costs us to wait.</p>
+      <figcaption class="mono">What leadership teams tell us</figcaption>
+    </figure>
+
+    <aside class="box" aria-labelledby="fiveopts">
+      <h3 id="fiveopts">The five options</h3>
+      <dl>
+        <dt><span>1</span>Hold</dt>
+        <dd>The criterion is marked as reviewed on that date.</dd>
+        <dt><span>2</span>Adapt</dt>
+        <dd>Vivo drafts changes to the objectives and activities.</dd>
+        <dt><span>3</span>Pivot</dt>
+        <dd>Vivo drafts new wording for the criterion. It takes effect only when someone with authority confirms it.</dd>
+        <dt><span>4</span>Take advantage</dt>
+        <dd>The team adds detour activities and leaves the criterion as it is.</dd>
+        <dt><span>5</span>Not yet</dt>
+        <dd>The team asks what is missing. It parks the question with a trigger that brings it back, or lets it go with a reason.</dd>
+      </dl>
+    </aside>
+
+    <p>Every item ends in one of five options. The last, Not yet, is the one most meetings lack. A parked question needs at least one trigger to bring it back: new evidence, a named person's view, a date or the next session. Strapivo designed Not yet "so that it feels like parking, not losing."</p>
+
+    <h2><span class="num">V</span>The record</h2>
+    <p>At the end of each item, Vivo reads back the decision for the Record of Decisions. The entry names anyone who disagreed and gives their reason. The session lead confirms it, and it gets a permanent number. Decisions beyond the team's authority go to an approver, as a memo or into the board pack.</p>
+    <p>Months later, a board member asks why the company held its prices in a falling market. One search finds the decision, the evidence behind it, the dissent and what happened next.</p>
+
+    <figure class="fig" aria-labelledby="fig3cap">
+      <div class="fig-inner">
+        <svg viewBox="0 0 420 348" role="img" aria-labelledby="fig3t fig3d">
+          <title id="fig3t">An entry in the Record of Decisions</title>
+          <desc id="fig3d">Decision SDS-2026-014 for a fictional company, dated 12 May 2026. Decision: Adapt, on the input costs risk. Evidence: two primary sources and one secondary. Dissent from J. Brandt, who wanted to wait for first-quarter figures. Confirmed by the session lead, A. Keller. Next: two activities added with named owners.</desc>
+          <rect x=".5" y=".5" width="419" height="347" rx="3" fill="#FFFFFF" stroke="#141B24"/>
+          <rect x="0" y="0" width="4" height="348" fill="#0082E6"/>
+          <text x="24" y="34" class="svg-mono" font-size="11" letter-spacing="1.2" fill="#495158">RECORD OF DECISIONS</text>
+          <text x="24" y="70" class="svg-mono" font-size="28" font-weight="500" fill="#0082E6">SDS-2026-014</text>
+          <text x="400" y="34" text-anchor="end" class="svg-mono" font-size="11" fill="#495158">12 MAY 2026</text>
+          <line x1="24" y1="88" x2="400" y2="88" stroke="#141B24" stroke-width=".6"/>
+          <g class="svg-mono" font-size="10.5" letter-spacing="1" fill="#495158">
+            <text x="24" y="114">DECISION</text>
+            <text x="24" y="146">ON</text>
+            <text x="24" y="178">EVIDENCE</text>
+            <text x="24" y="210">DISSENT</text>
+            <text x="24" y="284">CONFIRMED</text>
+            <text x="24" y="316">NEXT</text>
+          </g>
+          <g class="svg-sans" font-size="14.5" fill="#141B24">
+            <text x="116" y="114" font-weight="500">Adapt</text>
+            <text x="116" y="146">Risk R1, input costs</text>
+            <text x="116" y="178">2 primary sources, 1 secondary</text>
+            <text x="116" y="210">J. Brandt. Wait for the first-</text>
+            <text x="116" y="228">quarter figures before changing</text>
+            <text x="116" y="246" fill="#141B24">the supplier mix.</text>
+            <text x="116" y="284">A. Keller, session lead</text>
+            <text x="116" y="316">Two activities added, owners named</text>
+          </g>
+          <line x1="24" y1="192" x2="400" y2="192" stroke="#141B24" stroke-width=".3"/>
+          <line x1="24" y1="262" x2="400" y2="262" stroke="#141B24" stroke-width=".3"/>
+        </svg>
+        <figcaption id="fig3cap"><span class="mono">Figure 3 · The record</span>One entry in the Record of Decisions. The number never changes. The record keeps dissent by name, with its reason, so the next argument starts from what people already said.<br><span class="illus">Illustrative example</span></figcaption>
+      </div>
+    </figure>
+
+    <figure class="pull right">
+      <p>I can't show the board that strategy actually moved between meetings.</p>
+      <figcaption class="mono">What leadership teams tell us</figcaption>
+    </figure>
+
+    <h2><span class="num">VI</span>What the machine may not do</h2>
+    <p>Leadership teams are right to be wary of software that writes strategy. Most of them want "help, not a co-author with the pen." Strapivo draws that line in specific places. Vivo proposes and people decide. It can ask "Light still green?" when two focus activities fall off track, but it never changes the light itself. A pivot it drafts stays a draft until someone with authority confirms it. Changes to what the company has accepted as true wait for an Owner. The company's phrase for this is "The human stays in the chair."</p>
+    <p>Vivo also works from the company's own material. It reasons from the business model, mapped on the Business Model Canvas, and from the strategic memory the team has approved. Every recommendation traces back to that memory. Strapivo runs its infrastructure in the EU and designs the product for GDPR.</p>
+    <p>Setup asks for four to five hours of the leadership team's time. Strapivo does the reading first: the workshop report, the board deck, a pasted email. Vivo proposes where each item belongs. A typical prompt reads "This reads like an activity, not an objective. Move it down?" An Owner accepts or declines it.</p>
+
+    <h2><span class="num">VII</span>Thursday, again</h2>
+    <p class="end">Go back to that Thursday afternoon. A year on, the slide still sits in its folder. The difference is a Tuesday in May, at ten o'clock. There are four items on the agenda, and the regulator's draft is item three. Everyone in the room has already written down a first take. Before lunch, the decision has a number.</p>
+
+    <aside class="note" aria-labelledby="ednote">
+      <p class="mono" id="ednote">Editor's note</p>
+      <p>Strapivo works with leadership teams in SMEs and corporates. If your strategy spends most of the year in a folder, write to <a href="mailto:strategy@strapivo.com">strategy@strapivo.com</a>.</p>
+      <p><a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a></p>
+    </aside>
+  </div>
+</article>
+</main>
+
+<footer>
+  <div class="foot">
+    <img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="88" height="22">
+    <span>© 2026 Strapivo</span>
+    <nav aria-label="Legal">
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var bar=document.querySelector('.progress');
+  if(!bar||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var art=document.getElementById('article');
+  var ticking=false;
+  function update(){
+    var r=art.getBoundingClientRect();
+    var total=r.height-window.innerHeight;
+    var p=total>0?Math.min(1,Math.max(0,-r.top/total)):1;
+    bar.style.transform='scaleX('+p.toFixed(4)+')';
+    ticking=false;
+  }
+  window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(update);}},{passive:true});
+  window.addEventListener('resize',update);
+  update();
+})();
+</script>
+</body>
+</html>

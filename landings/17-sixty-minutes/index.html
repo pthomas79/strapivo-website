@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sixty minutes that end in decisions · Strapivo Strategy Room</title>
+<meta name="description" content="One strategy session in Strapivo's Strategy Room, minute by minute. The agenda Vivo drafts the day before, sealed first takes, five decisions and a record that keeps dissent by name.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --warm:#FFF3D6;
+  --panel:#1A222C;--line:#2C343C;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --side:232px;--head:64px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:17px;line-height:1.6}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--warm);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--warm);color:var(--ink);padding:8px 12px;z-index:100}
+.skip:focus{left:8px}
+.mono{font-family:var(--mono)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--n400);margin:0 0 18px}
+h1,h2,h3{font-weight:500;margin:0;letter-spacing:-.025em;line-height:1.08}
+h1{font-size:clamp(44px,7vw,96px);letter-spacing:-.035em;line-height:1}
+h2{font-size:clamp(30px,3.6vw,46px)}
+h3{font-size:20px;letter-spacing:-.015em;line-height:1.3}
+p{margin:0 0 16px;max-width:36em}
+.muted{color:#B4BAC1}
+.az{color:var(--p400)}
+
+/* header */
+.site-head{position:fixed;top:0;left:0;right:0;height:var(--head);z-index:50;display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:rgba(20,27,36,.94);border-bottom:1px solid var(--line);backdrop-filter:none}
+.site-head .logo img{height:24px;width:auto;display:block}
+.site-head nav{display:flex;gap:8px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:11px 16px;border-radius:4px;border:1px solid var(--n600);color:var(--paper);transition:background .2s,border-color .2s}
+.btn:hover{border-color:var(--paper)}
+.btn-primary{background:var(--p500);border-color:var(--p500);color:#fff}
+.btn-primary:hover{background:var(--p600);border-color:var(--p600)}
+.btn-ghost{border-color:transparent}
+.btn-ghost:hover{border-color:var(--n600)}
+
+/* side clock + rail */
+.clock{position:fixed;top:calc(var(--head) + 24px);bottom:24px;left:28px;width:168px;z-index:40;display:flex;flex-direction:column}
+.dial{position:relative;width:132px;height:132px}
+.dial svg{width:100%;height:100%;display:block}
+.dial .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--mono)}
+.dial .mm{font-size:30px;font-weight:500;letter-spacing:-.02em;color:var(--warm);line-height:1}
+.dial .of{font-size:10px;letter-spacing:.14em;color:var(--n400);margin-top:6px;text-transform:uppercase}
+.c-meta{margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n400)}
+.c-station{font-family:'Inter',sans-serif;font-size:14px;letter-spacing:0;text-transform:none;color:var(--paper);margin:6px 0 12px;line-height:1.35;min-height:38px}
+.guide-bar{height:3px;background:var(--n700);border-radius:2px;overflow:hidden}
+.guide-bar i{display:block;height:100%;width:0;background:var(--p400);transition:background .4s}
+.guide-bar.over i{background:var(--warm)}
+.guide-txt{margin-top:8px;font-size:11px;letter-spacing:.06em;text-transform:none;color:var(--n400);min-height:30px;line-height:1.4}
+.guide-txt.over{color:var(--warm)}
+.rail{position:relative;flex:1;margin-top:22px;min-height:180px}
+.rail .track{position:absolute;left:6px;top:0;bottom:0;width:1px;background:var(--n600)}
+.rail .tick{position:absolute;left:6px;width:5px;height:1px;background:var(--n600)}
+.rail .tick.t5{width:10px;background:var(--n500)}
+.rail .lbl{position:absolute;left:22px;transform:translateY(-50%);font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--n500)}
+.rail a.stop{position:absolute;left:1px;width:11px;height:11px;margin-top:-5px;border-radius:50%;background:var(--ink);border:1px solid var(--p400);display:block}
+.rail a.stop:hover,.rail a.stop.done{background:var(--p500);border-color:var(--p500)}
+.rail a.stop .tip{position:absolute;left:22px;top:50%;transform:translateY(-50%);white-space:nowrap;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--paper);background:var(--n900);padding:3px 6px;border-radius:2px;opacity:0;pointer-events:none;transition:opacity .2s}
+.rail a.stop:hover .tip,.rail a.stop:focus-visible .tip{opacity:1}
+.rail .now{position:absolute;left:-6px;right:0;height:0;top:0;z-index:2;pointer-events:none}
+.rail .now::before{content:"";position:absolute;left:0;top:-1px;width:26px;height:2px;background:var(--warm)}
+.rail .now span{position:absolute;left:34px;top:-9px;font-family:var(--mono);font-size:11px;color:var(--warm);background:var(--ink);padding:1px 4px;z-index:3}
+.rail .lbl{left:24px}
+
+/* mobile clock */
+.mclock{display:none}
+
+/* layout */
+main{padding-left:calc(var(--side) + 40px);padding-right:48px}
+.wrap{max-width:1160px}
+section{position:relative}
+.hero{padding:calc(var(--head) + 96px) 0 96px;border-bottom:1px solid var(--line)}
+.hero h1 .az{display:block}
+.hero .lede{font-size:21px;line-height:1.55;color:#C9CFD5;margin-top:32px;max-width:32em}
+.hero .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.hero .note{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--n400);margin-top:28px}
+.hour-strip{display:grid;grid-template-columns:repeat(60,1fr);gap:2px;margin-top:64px;max-width:820px}
+.hour-strip span{height:22px;background:var(--n700);border-radius:1px}
+.hour-strip span.s{background:var(--p500)}
+.strip-lbl{display:flex;justify-content:space-between;max-width:820px;font-family:var(--mono);font-size:11px;color:var(--n500);margin-top:8px;letter-spacing:.08em}
+
+.station{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:56px;padding:88px 0;border-bottom:1px solid var(--line)}
+.station .when{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--n400);margin:0 0 20px;display:flex;align-items:center;gap:12px;transition:color .4s}
+.station .when b{font-weight:500;color:var(--p400);transition:color .4s}
+.station .when::before{content:"";width:28px;height:2px;background:var(--n600);transition:background .4s}
+.station.is-now .when{color:var(--warm)}
+.station.is-now .when b{color:var(--warm)}
+.station.is-now .when::before{background:var(--warm)}
+.station h2{margin-bottom:24px}
+.station .txt p{color:#C9CFD5}
+.voice{border-left:2px solid var(--n600);padding:4px 0 4px 18px;margin:24px 0;color:var(--paper);font-size:19px;line-height:1.45;max-width:30em}
+.voice small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n400);margin-top:8px}
+
+/* interface fragments */
+.ui{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px;align-self:start;font-size:15px;line-height:1.5}
+.ui .ui-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n400);padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--warm);border:1px solid rgba(255,243,214,.35);border-radius:2px;padding:2px 6px;white-space:nowrap}
+.ui ol,.ui ul{list-style:none;margin:0;padding:0}
+.ag li{display:grid;grid-template-columns:28px 1fr;gap:4px 10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.ag li:last-child{border-bottom:0}
+.ag .n{font-family:var(--mono);font-size:12px;color:var(--n400);padding-top:2px}
+.ag .t{color:var(--paper)}
+.ag .r{grid-column:2;font-size:13px;color:var(--n400)}
+.ag .grp{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--p400);padding:10px 0 2px;display:block;border:0}
+.approve{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:18px;padding:14px 16px;border-radius:4px;background:rgba(255,243,214,.07);border:1px solid rgba(255,243,214,.3)}
+.approve span{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--warm)}
+.kv{display:grid;grid-template-columns:120px 1fr;gap:10px 16px;margin:0}
+.kv dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n400);padding-top:3px}
+.kv dd{margin:0;color:var(--paper)}
+.kv dd.new{color:var(--warm)}
+.sig li{display:grid;grid-template-columns:70px 1fr auto;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:14px;align-items:baseline}
+.sig .d{font-family:var(--mono);font-size:11px;color:var(--n400)}
+.sig .c{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border-radius:2px;border:1px solid var(--n600);color:var(--n400)}
+.sig .c.p{border-color:var(--p400);color:var(--p400)}
+.radar{display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:center;margin-bottom:12px}
+.radar svg{width:100%;height:auto;display:block}
+.radar .lg{font-size:13px;color:var(--n400)}
+.radar .lg p{margin:0 0 8px}
+.radar .lg b{font-weight:500;color:var(--paper)}
+
+.takes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.take{border:1px solid var(--line);border-radius:4px;padding:12px 10px;min-height:150px;display:flex;flex-direction:column;background:var(--ink);transition:border-color .5s,background .5s}
+.take .who{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--n400);margin-bottom:10px}
+.take .pos{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--p400);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
+.take .why{font-size:13px;line-height:1.4;color:#C9CFD5}
+.take .seal{display:none;margin:auto 0;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--n500);text-align:center}
+.takes.sealed .take{background:repeating-linear-gradient(135deg,#18202A 0 6px,#1C2530 6px 12px)}
+.takes.sealed .pos,.takes.sealed .why{display:none}
+.takes.sealed .seal{display:block}
+.takes-ctl{display:none;margin-top:16px;align-items:center;gap:14px;flex-wrap:wrap}
+.js .takes-ctl{display:flex}
+.takes-ctl .s{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--n400)}
+button.btn{background:transparent;cursor:pointer;font:inherit;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+
+.chat .m{padding:12px 14px;border-radius:4px;margin-bottom:10px;max-width:92%}
+.chat .m .w{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--n400);margin-bottom:4px}
+.chat .u{background:var(--n700);margin-left:auto}
+.chat .v{border:1px solid var(--line);background:var(--ink)}
+.chat .v .w{color:var(--p400)}
+.chat .src{display:block;font-family:var(--mono);font-size:11px;color:var(--n400);margin-top:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.chips span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border-radius:2px;border:1px solid var(--n600);color:var(--n400)}
+.chips span.on{border-color:var(--p500);background:rgba(0,130,230,.16);color:var(--p200)}
+
+.five li{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:13px 12px;border-top:1px solid var(--line);font-size:14px;color:#C9CFD5}
+.five li:first-child{border-top:0}
+.five .o{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--paper)}
+.five li.sel{background:rgba(255,243,214,.07);border:1px solid rgba(255,243,214,.35);border-radius:4px}
+.five li.sel .o{color:var(--warm)}
+.five li.sel + li{border-top:0}
+
+.light{display:flex;gap:16px;align-items:center;padding:12px 0}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block;flex:none}
+.dot.g{background:#4FA36B}.dot.y{background:#E2B93B}.dot.r{background:#D0584B}
+.act li{display:grid;grid-template-columns:1fr auto;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.st{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border-radius:2px;border:1px solid var(--n600);color:var(--n400);white-space:nowrap}
+.st.off{border-color:#D0584B;color:#F09A8F}
+.st.ok{border-color:#4FA36B;color:#8FD3A4}
+
+.rec{font-size:14px}
+.rec .id{font-family:var(--mono);font-size:22px;letter-spacing:.02em;color:var(--warm);margin-bottom:14px}
+.rec .kv{grid-template-columns:110px 1fr}
+.rec .kv dd{color:#D9DEE3}
+
+.after{padding:104px 0;border-bottom:1px solid var(--line)}
+.after-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;margin-top:48px}
+.list-rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.list-rows li{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--line)}
+.list-rows .k{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--p400);padding-top:3px}
+.list-rows p{margin:0;color:#C9CFD5}
+.list-rows p b{font-weight:500;color:var(--paper)}
+
+.mc .row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-top:1px solid var(--line);font-size:14px;gap:12px}
+.mc .big{font-family:var(--mono);font-size:30px;color:var(--warm);letter-spacing:-.01em}
+
+.close{padding:128px 0 120px}
+.close h2{font-size:clamp(38px,5.4vw,72px);letter-spacing:-.03em;max-width:13em}
+.close p{font-size:19px;color:#C9CFD5;margin-top:28px}
+.close .acts{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap}
+
+footer{padding:40px 0 48px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--n400)}
+footer img{height:22px;width:auto;display:block}
+footer nav{display:flex;gap:20px}
+footer a{text-decoration:none;color:#B4BAC1}
+footer a:hover{color:var(--paper);text-decoration:underline}
+
+@media (max-width:1180px){
+  .station{grid-template-columns:1fr;gap:40px}
+  .after-grid{grid-template-columns:1fr}
+}
+@media (max-width:980px){
+  .clock{display:none}
+  main{padding:0 22px}
+  .site-head{padding:0 18px}
+  .mclock{display:flex;position:fixed;left:0;right:0;bottom:0;height:60px;z-index:45;align-items:center;gap:12px;padding:0 16px;background:rgba(5,12,20,.96);border-top:1px solid var(--line)}
+  .mclock .hr{position:absolute;left:0;right:0;top:-1px;height:2px;background:transparent}
+  .mclock .hr i{display:block;height:100%;width:0;background:var(--warm)}
+  .mclock svg{width:36px;height:36px;flex:none}
+  .mclock .mm{font-family:var(--mono);font-size:22px;color:var(--warm);min-width:66px}
+  .mclock .st2{font-size:13px;line-height:1.3;color:var(--paper);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mclock .gd{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--n400);white-space:nowrap}
+  .mclock .gd.over{color:var(--warm)}
+  body{padding-bottom:60px}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .site-head .btn-primary{display:none}
+  .hero{padding:calc(var(--head) + 56px) 0 64px}
+  .hero .lede{font-size:18px}
+  .station{padding:64px 0}
+  .takes{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .takes{grid-template-columns:1fr}
+  .take{min-height:0}
+  .takes.sealed .take{min-height:64px}
+  .radar{grid-template-columns:1fr}
+  .radar svg{max-width:240px}
+  .five li{grid-template-columns:1fr;gap:4px}
+  .kv,.rec .kv{grid-template-columns:1fr;gap:2px}
+  .kv dd{margin-bottom:10px}
+  .list-rows li{grid-template-columns:1fr;gap:6px}
+  .sig li{grid-template-columns:1fr auto}
+  .sig .d{grid-column:1/-1}
+  .mclock .gd{display:none}
+  .ui{padding:16px}
+  .hour-strip{gap:1px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none !important;animation:none !important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <a class="logo" href="#top" aria-label="Strapivo, back to top"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo"></a>
+  <nav aria-label="Primary">
+    <a class="btn btn-ghost" href="https://strapivo.app">Sign in</a>
+    <a class="btn btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+  </nav>
+</header>
+
+<aside class="clock" aria-label="Session clock">
+  <div class="dial" aria-hidden="true">
+    <svg viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="42" fill="none" stroke="#2C343C" stroke-width="9"/>
+      <circle id="arc" cx="50" cy="50" r="42" fill="none" stroke="#0082E6" stroke-width="9" stroke-dasharray="263.89" stroke-dashoffset="263.89" transform="rotate(-90 50 50)"/>
+      <circle id="head" cx="50" cy="8" r="4.5" fill="#FFF3D6"/>
+    </svg>
+    <div class="num"><span class="mm" id="mm">00:00</span><span class="of">of 60 min</span></div>
+  </div>
+  <div class="c-meta" aria-live="off">A typical hour
+    <div class="c-station" id="cstation">24 hours before</div>
+    <div class="guide-bar" id="gbar"><i></i></div>
+    <div class="guide-txt" id="gtxt">Vivo is drafting the agenda.</div>
+  </div>
+  <nav class="rail" id="rail" aria-label="Session timeline">
+    <div class="track"></div>
+    <div class="now" id="now"><span id="nowlbl">00</span></div>
+  </nav>
+</aside>
+
+<div class="mclock" aria-hidden="true">
+  <div class="hr"><i id="mhr"></i></div>
+  <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#2C343C" stroke-width="12"/><circle id="marc" cx="50" cy="50" r="42" fill="none" stroke="#0082E6" stroke-width="12" stroke-dasharray="263.89" stroke-dashoffset="263.89" transform="rotate(-90 50 50)"/></svg>
+  <span class="mm" id="mmm">00:00</span>
+  <span class="st2" id="mst">24 hours before</span>
+  <span class="gd" id="mgd"></span>
+</div>
+
+<main id="main">
+<div class="wrap">
+
+<section class="hero" id="top" aria-labelledby="h1">
+  <p class="eyebrow">The Strategy Room · one session, minute by minute</p>
+  <h1 id="h1">Sixty minutes <span class="az">that end in decisions.</span></h1>
+  <p class="lede">Most strategy meetings have an agenda and no shape. A session in Strapivo's Strategy Room has both. Scroll, and the clock runs through one session of Dynamic Strategy in the order it happens.</p>
+  <div class="acts">
+    <a class="btn btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    <a class="btn" href="#before">Start 24 hours early</a>
+  </div>
+  <div class="hour-strip" aria-hidden="true">
+    <span class="s"></span><span></span><span></span><span class="s"></span><span></span><span></span><span></span><span></span><span></span><span class="s"></span><span></span><span></span><span></span><span></span><span class="s"></span><span></span><span></span><span class="s"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="s"></span><span></span><span></span><span></span><span class="s"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="s"></span><span></span><span></span><span class="s"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="s"></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="strip-lbl" aria-hidden="true"><span>00</span><span>15</span><span>30</span><span>45</span><span>60</span></div>
+  <p class="note">Timings show a typical hour. The session lead sets them for each session.</p>
+</section>
+
+<section class="station" id="before" data-phase="before" aria-labelledby="h-before">
+  <div class="txt">
+    <p class="when"><b>24 hours</b> before the session</p>
+    <h2 id="h-before">Vivo drafts the agenda the day before.</h2>
+    <p>Vivo is Strapivo's AI. A day before the session it reads what changed since the last one. That covers new signals, risks that entered the top right, parked questions whose trigger fired, carried-forward items, activities at risk or off track, and asks from the people responsible.</p>
+    <p>Old business goes first. Every item carries a one-line reason. The session lead edits the draft.</p>
+    <p>Contributors report as well. Each person responsible for an activity gives a status, one line on the result and, if needed, an ask of leadership.</p>
+  </div>
+  <div class="ui">
+    <div class="ui-head"><span>Agenda draft · Thursday 09:00</span><span class="tag">Illustrative example</span></div>
+    <ol class="ag">
+      <li class="grp">Old business</li>
+      <li><span class="n">01</span><span class="t">Parked question returns. Open a service hub in Poland?</span><span class="r">Its trigger fired. The site survey arrived on Tuesday.</span></li>
+      <li class="grp">New business</li>
+      <li><span class="n">02</span><span class="t">Risk moved. Low-cost service entrants</span><span class="r">Entered the top right on Monday, backed by two primary sources.</span></li>
+      <li><span class="n">03</span><span class="t">Light still green? Recurring service revenue</span><span class="r">Two focus activities are off track.</span></li>
+      <li><span class="n">04</span><span class="t">Ask from Lena Fischer, service operations</span><span class="r">Approve a second field technician for the north region.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="station" id="m00" data-from="0" data-to="3" data-guide="3" data-name="Agenda approved" aria-labelledby="h-00">
+  <div class="txt">
+    <p class="when"><b>00 to 03</b> min</p>
+    <h2 id="h-00">The room approves the agenda first.</h2>
+    <p>Approval is step one. Once the room agrees what the hour is for, nobody reopens that question at minute 40.</p>
+    <p>The example in this page is a fictional pump manufacturer, Norrvik Pumps. One of its success criteria is recurring service revenue, and it is a focus area.</p>
+  </div>
+  <div class="ui">
+    <div class="ui-head"><span>Session · Norrvik Pumps leadership</span><span class="tag">Illustrative example</span></div>
+    <dl class="kv">
+      <dt>Lead</dt><dd>Anna Lind, CEO</dd>
+      <dt>Items</dt><dd>4 on the agenda, 1 old, 3 new</dd>
+      <dt>Edits</dt><dd>Lead moved item 03 above item 04</dd>
+    </dl>
+    <div class="approve"><span>Agenda approved by the room</span><span class="mono">00:02</span></div>
+  </div>
+</section>
+
+<section class="station" id="m03" data-from="3" data-to="9" data-guide="6" data-name="Old business" aria-labelledby="h-03">
+  <div class="txt">
+    <p class="when"><b>03 to 09</b> min</p>
+    <h2 id="h-03">A parked question comes back with what is new.</h2>
+    <p>In September the team chose Not yet on the Poland hub. They parked it with a trigger, the site survey. The survey has arrived, so the question returns. It opens with the new evidence. Nobody has to recap the old argument.</p>
+    <blockquote class="voice">"We restart the same argument every time a new analysis lands."<small>What leadership teams tell us</small></blockquote>
+  </div>
+  <div class="ui">
+    <div class="ui-head"><span>Parked question · returning</span><span class="tag">Illustrative example</span></div>
+    <dl class="kv">
+      <dt>Question</dt><dd>Open a service hub in Poland?</dd>
+      <dt>Parked</dt><dd>11 Sep 2026, decision Not yet</dd>
+      <dt>Missing then</dt><dd>A site survey of three candidate locations</dd>
+      <dt>Trigger</dt><dd>Evidence: site survey received</dd>
+      <dt>New since</dt><dd class="new">Survey arrived 17 Nov. Two of three sites meet the access requirements.</dd>
+      <dt>Decided</dt><dd>Adapt. Survey the two sites, report at the next session.</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="station" id="m09" data-from="9" data-to="14" data-guide="5" data-name="First new item: evidence" aria-labelledby="h-09">
+  <div class="txt">
+    <p class="when"><b>09 to 14</b> min</p>
+    <h2 id="h-09">The first new item opens with its evidence.</h2>
+    <p>The Radar watches the outside world for each focus area. On Monday it logged signals against recurring service revenue. Vivo proposed moving one risk into the top right, the danger zone. A person confirmed the move.</p>
+    <p>A move into the top right needs at least one primary source, so that one blog post can't raise an alarm. The room sees each signal with its date and source before anyone gives an opinion.</p>
+  </div>
+  <div class="ui">
+    <div class="ui-head"><span>Risk · Low-cost service entrants</span><span class="tag">Illustrative example</span></div>
+    <div class="radar">
+      <svg viewBox="0 0 200 200" role="img" aria-label="Risk radar of impact against likelihood. The risk moved from the middle into the top right quadrant.">
+        <rect x="100" y="0" width="100" height="100" fill="rgba(255,243,214,.06)"/>
+        <line x1="0" y1="100" x2="200" y2="100" stroke="#2C343C"/>
+        <line x1="100" y1="0" x2="100" y2="200" stroke="#2C343C"/>
+        <rect x=".5" y=".5" width="199" height="199" fill="none" stroke="#2C343C"/>
+        <path d="M78 122 L142 52" stroke="#6C727A" stroke-dasharray="3 4" fill="none"/>
+        <circle cx="78" cy="122" r="7" fill="none" stroke="#6C727A" stroke-dasharray="2 2"/>
+        <circle cx="146" cy="48" r="8" fill="#0082E6"/>
+        <text x="194" y="14" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" fill="#FFF3D6">DANGER ZONE</text>
+        <text x="6" y="194" font-family="JetBrains Mono, monospace" font-size="8" fill="#999FA6">LIKELIHOOD</text>
+        <text x="10" y="8" font-family="JetBrains Mono, monospace" font-size="8" fill="#999FA6" transform="rotate(90 10 8)">IMPACT</text>
+      </svg>
+      <div class="lg">
+        <p><b>Top right · 3 days</b></p>
+        <p>Trend: Worsening</p>
+        <p>Confirmed by Jonas Berg, 16 Nov</p>
+        <p>The dashed ring is the position at the last session.</p>
+      </div>
+    </div>
+    <ul class="sig">
+      <li><span class="d">16 Nov</span><span>Competitor files for a service subsidiary in Gothenburg</span><span class="c p">Primary</span></li>
+      <li><span class="d">16 Nov</span><span>Tender notice lists a fixed-price service contract for third-party pumps</span><span class="c p">Primary</span></li>
+      <li><span class="d">14 Nov</span><span>Trade blog reports price cuts on maintenance plans</span><span class="c">Secondary</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="station" id="m14" data-from="14" data-to="17" data-guide="3" data-name="Sealed first takes" aria-labelledby="h-14">
+  <div class="txt">
+    <p class="when"><b>14 to 17</b> min</p>
+    <h2 id="h-14">Everyone commits before anyone speaks.</h2>
+    <p>Each person gives a first take alone, as a position and one line of reason. The takes stay sealed until all of them are in. Then the room sees them together.</p>
+    <p>Disagreement shows up while it can still change the outcome. Nobody can sway a position that was written before they spoke.</p>
+  </div>
+  <div class="ui">
+    <div class="ui-head"><span>First takes · item 02</span><span class="tag">Illustrative example</span></div>
+    <div class="takes" id="takes">
+      <div class="take"><span class="who">Anna Lind</span><span class="seal">Sealed</span><span class="pos">Adapt</span><span class="why">Bring the bundled service offer forward.</span></div>
+      <div class="take"><span class="who">Jonas Berg</span><span class="seal">Sealed</span><span class="pos">Hold</span><span class="why">One filing is not a market entry yet.</span></div>
+      <div class="take"><span class="who">Lena Fischer</span><span class="seal">Sealed</span><span class="pos">Adapt</span><span class="why">Lock in renewals in the top accounts now.</span></div>
+      <div class="take"><span class="who">Omar Haddad</span><span class="seal">Sealed</span><span class="pos">Not yet</span><span class="why">We lack their price list.</span></div>
+      <div class="take"><span class="who">Sara Holm</span><span class="seal">Sealed</span><span class="pos">Adapt</span><span class="why">Our contracts renew after theirs start.</span></div>
+    </div>
+    <div class="takes-ctl"><button class="btn" type="button" id="reveal" aria-controls="takes">Reveal together</button><span class="s" id="takes-s">5 of 5 takes in</span></div>
+  </div>
+</section>
+
+<section class="station" id="m17" data-from="17" data-to="28" data-guide="10" data-name="Conversation" aria-labelledby="h-17">
+  <div class="txt">
+    <p class="when"><b>17 to 28</b> min</p>
+    <h2 id="h-17">Then the room asks what waiting costs.</h2>
+    <p>The conversation happens between the people in the room, and with Vivo when they ask. Here the lead asks Vivo for the cost of doing nothing. Vivo answers from the strategic memory the team approved and the signals on file, and names each source it used.</p>
+    <p>This item ran one minute past its time guide. The clock turned warm to tell the lead. The time guide stops nobody, and the lead let the room finish the point.</p>
+    <blockquote class="voice">"I know there's a threat coming. I don't know what it costs us to wait."<small>What leadership teams tell us</small></blockquote>
+  </div>
+  <div class="ui chat">
+    <div class="ui-head"><span>Conversation · item 02</span><span class="tag">Illustrative example</span></div>
+    <div class="m u"><span class="w">Anna Lind</span>Vivo, what does it cost us to wait one quarter?</div>
+    <div class="m v"><span class="w">Vivo</span>Six of your top twenty service contracts renew before the end of March. If the entrant opens in January, those six renewals are the first ones exposed. Your ambition counts on service growing every year to 2029, so each lost renewal is a gap to close in later years.<span class="src">Sources: contract register, ambition 2029, signals of 16 Nov</span></div>
+    <div class="chips" aria-label="Prompts Vivo offers"><span class="on">Cost of doing nothing</span><span>Scenarios</span><span>Challenge</span><span>Alternatives</span><span>Black swan</span></div>
+  </div>
+</section>
+
+<section class="station" id="m28" data-from="28" data-to="32" data-guide="4" data-name="Decision" aria-labelledby="h-28">
+  <div class="txt">
+    <p class="when"><b>28 to 32</b> min</p>
+    <h2 id="h-28">The item ends in one of five decisions.</h2>
+    <p>The room picks one of five options. It cannot leave with "let's discuss it again". If the answer is Not yet, the room names what is missing.</p>
+    <p>Here the room chose Adapt. Vivo drafts changes to the objectives and activities under recurring service revenue. The room edits the draft before it stands.</p>
+  </div>
+  <div class="ui">
+    <div class="ui-head"><span>Decision · item 02</span><span class="tag">Illustrative example</span></div>
+    <ol class="five">
+      <li><span class="o">Hold</span><span>The criterion is marked reviewed on today's date.</span></li>
+      <li class="sel"><span class="o">Adapt</span><span>Vivo drafts changes to objectives and activities.</span></li>
+      <li><span class="o">Pivot</span><span>Vivo drafts new wording for the criterion. It takes effect when someone with authority confirms it.</span></li>
+      <li><span class="o">Take advantage</span><span>Detour activities are added. The criterion stays as it is.</span></li>
+      <li><span class="o">Not yet</span><span>The room names what is missing. The question is parked with a trigger, or let go with a reason.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="station" id="m32" data-from="32" data-to="43" data-guide="12" data-name="Second item" aria-labelledby="h-32">
+  <div class="txt">
+    <p class="when"><b>32 to 43</b> min</p>
+    <h2 id="h-32">The second item takes half the time.</h2>
+    <p>Vivo asks "Light still green?" when two or more focus activities on a criterion are off track. Two are. Vivo never changes the light itself.</p>
+    <p>The room reads the contributors' reports, gives first takes and sets the light to yellow. The decision is Not yet. The missing piece is Lena's hiring plan. The room parks the question with that plan as its trigger, and it returns when the plan arrives.</p>
+  </div>
+  <div class="ui">
+    <div class="ui-head"><span>Recurring service revenue · focus</span><span class="tag">Illustrative example</span></div>
+    <div class="light"><span class="dot g" aria-hidden="true"></span><span class="mono" style="font-size:12px;letter-spacing:.08em;color:#999FA6">GREEN</span><span aria-hidden="true" class="mono" style="color:#6C727A">to</span><span class="dot y" aria-hidden="true"></span><span class="mono" style="font-size:12px;letter-spacing:.08em;color:#FFF3D6">YELLOW, SET BY THE ROOM</span></div>
+    <ul class="act">
+      <li><span>Field service app in all regions by March</span><span class="st off">Off track</span></li>
+      <li><span>Service contract offer for third-party pumps</span><span class="st off">Off track</span></li>
+      <li><span>Renewal calls with the top twenty accounts</span><span class="st ok">On track</span></li>
+    </ul>
+    <dl class="kv" style="margin-top:16px">
+      <dt>Decision</dt><dd>Not yet, parked</dd>
+      <dt>Trigger</dt><dd class="new">Hiring plan from Lena Fischer, due 1 Dec</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="station" id="m43" data-from="43" data-to="46" data-guide="3" data-name="Carry forward" aria-labelledby="h-43">
+  <div class="txt">
+    <p class="when"><b>43 to 46</b> min</p>
+    <h2 id="h-43">What the room did not reach moves forward.</h2>
+    <p>Lena's ask for a second field technician did not get its turn. It moves to the next agenda as old business, with its reason attached. The session lead decides this here, in the room.</p>
+    <p>A risk can also wait too long. If one sits in the top right for 14 days with no decision, it lands in the session lead's Needs you list. Nothing stays dangerous and undiscussed.</p>
+  </div>
+  <div class="ui">
+    <div class="ui-head"><span>Carried forward</span><span class="tag">Illustrative example</span></div>
+    <ol class="ag">
+      <li><span class="n">04</span><span class="t">Ask from Lena Fischer, second field technician</span><span class="r">Moves to the next session as old business, item 01.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="station" id="m46" data-from="46" data-to="55" data-guide="9" data-name="Read-back of the record" aria-labelledby="h-46">
+  <div class="txt">
+    <p class="when"><b>46 to 55</b> min</p>
+    <h2 id="h-46">Vivo reads the record back, dissent included.</h2>
+    <p>Vivo reads back each entry for the Record of Decisions. Each entry says what was decided and why. It names who disagreed and gives their reason. The session lead confirms the entry and it gets a permanent number.</p>
+    <p>A year from now, someone will ask why the team chose this. The answer will be in the record, with its number.</p>
+  </div>
+  <div class="ui rec">
+    <div class="ui-head"><span>Record of Decisions</span><span class="tag">Illustrative example</span></div>
+    <div class="id">SDS-2026-014</div>
+    <dl class="kv">
+      <dt>Decision</dt><dd>Adapt. Bring the bundled service offer forward to January.</dd>
+      <dt>Criterion</dt><dd>Recurring service revenue</dd>
+      <dt>Evidence</dt><dd>Two primary signals of 16 Nov. Risk in the top right since 16 Nov.</dd>
+      <dt>Dissent</dt><dd>Jonas Berg. One filing is not a market entry. He wants the decision reviewed once the competitor publishes prices.</dd>
+      <dt>Confirmed</dt><dd>Anna Lind, session lead, 19 Nov 2026</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="station" id="m55" data-from="55" data-to="60" data-guide="5" data-name="Close" aria-labelledby="h-55">
+  <div class="txt">
+    <p class="when"><b>55 to 60</b> min</p>
+    <h2 id="h-55">The hour ends on time.</h2>
+    <p>The room leaves with three numbered decisions. One of them is a parked question with its trigger. One more item moves to the next session.</p>
+    <p>Some decisions go beyond the team's authority. Those go to an approver in the app, as an exported memo, or into the board pack. Changes to accepted truth wait for an Owner. Strapivo then prompts the lead to announce what changed and why.</p>
+  </div>
+  <div class="ui">
+    <div class="ui-head"><span>Session closed · 60:00</span><span class="tag">Illustrative example</span></div>
+    <ol class="ag">
+      <li><span class="n">01</span><span class="t">Poland hub</span><span class="r">Adapt · SDS-2026-013</span></li>
+      <li><span class="n">02</span><span class="t">Low-cost service entrants</span><span class="r">Adapt · SDS-2026-014</span></li>
+      <li><span class="n">03</span><span class="t">Light still green?</span><span class="r">Not yet · SDS-2026-015 · parked until 1 Dec</span></li>
+      <li><span class="n">04</span><span class="t">Second field technician</span><span class="r">Carried forward</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="after" id="after" data-phase="after" aria-labelledby="h-after">
+  <p class="eyebrow">After minute 60</p>
+  <h2 id="h-after">Between sessions, the Radar keeps watching.</h2>
+  <div class="after-grid">
+    <ul class="list-rows">
+      <li><span class="k">Radar</span><p>Market intelligence reads over 4,000 sources a day and reports on Monday and Thursday. A red-line exception interrupts that schedule.</p></li>
+      <li><span class="k">Triage</span><p>Vivo makes a first pass on each signal. A delegated person marks it relevant, irrelevant or unsure. Vivo uses dismissed signals to learn what counts as noise.</p></li>
+      <li><span class="k">Trail</span><p>Every confirmed risk move joins the trail with its signal, its date and the person who confirmed it. <b>The board can see the strategy move between meetings.</b></p></li>
+      <li><span class="k">Next agenda</span><p>Vivo starts the next draft from what changed. The cycle runs weekly, fortnightly or monthly, and extra sessions run on demand.</p></li>
+    </ul>
+    <div class="ui mc">
+      <div class="ui-head"><span>Mission Control</span><span class="tag">Illustrative example</span></div>
+      <div class="row"><span>Next session</span><span class="big">6d 23h</span></div>
+      <div class="row"><span>Needs you</span><span class="mono" style="font-size:13px">Hiring plan due 1 Dec</span></div>
+      <div class="row"><span>Success criteria</span><span aria-label="7 green, 2 yellow, 1 red"><span class="dot g"></span> <span class="dot g"></span> <span class="dot g"></span> <span class="dot g"></span> <span class="dot g"></span> <span class="dot g"></span> <span class="dot g"></span> <span class="dot y"></span> <span class="dot y"></span> <span class="dot r"></span></span></div>
+      <div class="row"><span>Recent decisions</span><span class="mono" style="font-size:13px">SDS-2026-014</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="after" id="trust" aria-labelledby="h-trust">
+  <p class="eyebrow">Who holds the pen</p>
+  <h2 id="h-trust">Vivo proposes. People decide.</h2>
+  <div class="after-grid">
+    <ul class="list-rows">
+      <li><span class="k">Moves</span><p>Vivo proposes a new risk position as a ghost on the radar, with a one-line reason. A person confirms or rejects it.</p></li>
+      <li><span class="k">Lights</span><p>Vivo asks whether a light is still green. Only the room changes it.</p></li>
+      <li><span class="k">Criteria</span><p>A Pivot takes effect only when someone with authority confirms it.</p></li>
+      <li><span class="k">Data</span><p>Every recommendation traces back to the strategic memory you approved. EU-only infrastructure. GDPR by design.</p></li>
+    </ul>
+    <div>
+      <h3>Setup takes an afternoon.</h3>
+      <p class="muted" style="margin-top:14px">We do the reading first. Bring a workshop report, a strategy document or a pasted email. Vivo proposes where each item belongs: ambition, success criterion, objective, activity or risk. Owners accept or move each proposal.</p>
+      <p class="muted">"This reads like an activity, not an objective. Move it down?"</p>
+      <p class="muted">Four to five hours, and then you run it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="close" aria-labelledby="h-close">
+  <p class="eyebrow">Your next session</p>
+  <h2 id="h-close">Your next strategy meeting can end in decisions.</h2>
+  <p>Tell us how your leadership team meets today and where the decisions go afterwards. We will show you what your next session looks like in the Strategy Room.</p>
+  <div class="acts"><a class="btn btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a><a class="btn" href="https://strapivo.app">Sign in</a></div>
+</section>
+
+<footer>
+  <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo">
+  <span>© 2026 Strapivo</span>
+  <nav aria-label="Legal"><a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav>
+</footer>
+
+</div>
+</main>
+
+<script>
+(function(){
+  document.documentElement.classList.add('js');
+  var C=263.89;
+  var stations=[].slice.call(document.querySelectorAll('[data-from]'));
+  var before=document.getElementById('before'), after=document.getElementById('after');
+  var $=function(id){return document.getElementById(id)};
+  var arc=$('arc'),head=$('head'),mm=$('mm'),cst=$('cstation'),gbar=$('gbar'),gtxt=$('gtxt'),now=$('now'),nowlbl=$('nowlbl'),rail=$('rail');
+  var marc=$('marc'),mmm=$('mmm'),mst=$('mst'),mgd=$('mgd'),mhr=$('mhr');
+
+  // build rail ticks and stops
+  for(var m=0;m<=60;m++){
+    var t=document.createElement('div');
+    t.className='tick'+(m%5===0?' t5':'');t.style.top=(m/60*100)+'%';t.setAttribute('aria-hidden','true');rail.appendChild(t);
+    if(m%15===0){var l=document.createElement('div');l.className='lbl';l.textContent=(m<10?'0':'')+m;l.style.top=(m/60*100)+'%';l.setAttribute('aria-hidden','true');rail.appendChild(l);}
+  }
+  var stops=stations.map(function(s){
+    var a=document.createElement('a');a.className='stop';a.href='#'+s.id;
+    var f=+s.dataset.from;a.style.top=(f/60*100)+'%';
+    a.innerHTML='<span class="tip">'+(f<10?'0':'')+f+' '+s.dataset.name+'</span>';
+    a.setAttribute('aria-label','Minute '+f+', '+s.dataset.name);
+    rail.appendChild(a);return a;
+  });
+
+  function pad(n){return (n<10?'0':'')+n}
+  function fmt(t){var mi=Math.floor(t),se=Math.floor((t-mi)*60);if(t>=60){mi=60;se=0}return pad(mi)+':'+pad(se)}
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var ref=window.innerHeight*0.45, t=0, cur=null, name='', guideTxt='', frac=0, over=false;
+    var first=stations[0].getBoundingClientRect(), last=stations[stations.length-1].getBoundingClientRect();
+    if(first.top>ref){t=0;name='24 hours before';guideTxt=before.getBoundingClientRect().top<ref?'Vivo is drafting the agenda.':'The session has not started.';}
+    else if(last.bottom<=ref){t=60;name='After minute 60';guideTxt='Session closed on time.';frac=1;}
+    else{
+      for(var i=0;i<stations.length;i++){
+        var r=stations[i].getBoundingClientRect();
+        if(r.top<=ref&&r.bottom>ref){
+          var s=stations[i],f=+s.dataset.from,to=+s.dataset.to,g=+s.dataset.guide;
+          var p=(ref-r.top)/r.height;t=f+p*(to-f);cur=s;name=s.dataset.name;
+          var el=t-f;frac=Math.min(el/g,1);
+          if(el>g){over=true;guideTxt='Over the '+g+'-minute guide. Nothing cuts off.';}
+          else{var left=Math.max(0,Math.ceil(g-el));guideTxt=left<=1?'Guide nearly reached. The lead decides.':left+' of '+g+' minutes left on the guide';}
+          break;
+        }
+      }
+    }
+    var off=C*(1-t/60);
+    arc.setAttribute('stroke-dashoffset',off);marc.setAttribute('stroke-dashoffset',off);
+    var a=t/60*2*Math.PI-Math.PI/2;head.setAttribute('cx',50+42*Math.cos(a));head.setAttribute('cy',50+42*Math.sin(a));
+    var txt=fmt(t);mm.textContent=txt;mmm.textContent=txt;
+    cst.textContent=name;mst.textContent=name;
+    gtxt.textContent=guideTxt;mgd.textContent=cur?guideTxt.replace(' left on the guide',' left'):'';
+    gtxt.classList.toggle('over',over);mgd.classList.toggle('over',over);gbar.classList.toggle('over',over);
+    gbar.firstElementChild.style.width=(frac*100)+'%';
+    now.style.top=(t/60*100)+'%';nowlbl.textContent=pad(Math.min(60,Math.floor(t)));
+    mhr.style.width=(t/60*100)+'%';
+    stations.forEach(function(s,i){s.classList.toggle('is-now',s===cur);stops[i].classList.toggle('done',+s.dataset.from<=t&&(cur||t>=60));});
+  }
+  function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(update)}}
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  update();
+
+  // sealed first takes
+  var takes=$('takes'),btn=$('reveal'),ts=$('takes-s');
+  takes.classList.add('sealed');
+  btn.addEventListener('click',function(){
+    var sealed=takes.classList.toggle('sealed');
+    btn.textContent=sealed?'Reveal together':'Seal again';
+    ts.textContent=sealed?'5 of 5 takes in':'Revealed together at 16:40';
+  });
+})();
+</script>
+</body>
+</html>

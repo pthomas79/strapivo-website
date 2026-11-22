@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Strapivo Signal: strategy news, read against your strategy</title>
+<meta name="description" content="A front page of business news, most of which does not concern your company. Switch on the triage filter and see what Strapivo marks as relevant to your strategy, and why.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --news:#F4F1EA;--news2:#ECE7DC;--rule:#CBC4B5;--red:#B3261E;
+  --green:#2F6B3E;--amber:#94690A;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --fade:.6s ease;
+}
+*{box-sizing:border-box}
+html{background:var(--news)}
+body{margin:0;font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";color:var(--ink);background:var(--news);font-size:15px;line-height:1.5}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--paper);padding:8px 12px;z-index:50}
+.skip:focus{left:12px;top:12px}
+.sheet{max-width:1360px;margin:0 auto;padding:0 28px}
+.mono,.kicker,.dateline,.caption,.label{font-family:var(--mono)}
+
+/* top strip */
+.strip{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0 12px;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase}
+.strip img{height:22px;width:auto;display:block}
+.strip nav{display:flex;gap:20px;align-items:center}
+.strip nav a{text-decoration:none}
+.strip nav a:hover{text-decoration:underline}
+.strip .cta-small{border:1px solid var(--ink);padding:6px 10px;border-radius:2px}
+.strip .cta-small:hover{background:var(--ink);color:var(--news);text-decoration:none}
+
+/* masthead */
+.masthead{display:grid;grid-template-columns:220px 1fr 220px;align-items:center;gap:24px;padding:22px 0 16px}
+.ear{font-size:12.5px;line-height:1.45;border:1px solid var(--ink);padding:10px 12px;border-radius:2px;background:var(--news)}
+.ear .label{display:block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;color:var(--n600)}
+.ear-left p{margin:0}
+.ear-left strong{font-weight:500;display:block;font-size:15px;line-height:1.25;margin-bottom:4px;letter-spacing:-.01em}
+.title{text-align:center;margin:0}
+.title .name{display:block;font-weight:500;font-size:clamp(40px,7.4vw,108px);line-height:.95;letter-spacing:-.035em}
+.title .tag{display:block;margin-top:10px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--n600);font-weight:400}
+.lights ul{list-style:none;margin:0;padding:0}
+.lights li{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:center;padding:3px 0;border-top:1px dotted var(--rule)}
+.lights li:first-child{border-top:0}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.dot.g{background:var(--green)}.dot.y{background:#D19A12}.dot.r{background:var(--red)}
+.lights .word{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--n600)}
+.lights .foot{margin:7px 0 0;font-size:11px;color:var(--n600);line-height:1.35}
+.rules{border-top:3px solid var(--red);border-bottom:1px solid var(--ink);height:6px;position:relative}
+.rules::after{content:"";position:absolute;left:0;right:0;bottom:2px;border-bottom:1px solid var(--ink)}
+.edition{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid var(--ink);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+
+/* triage bar */
+.triage{position:sticky;top:0;z-index:20;background:var(--ink);color:var(--paper);margin:14px 0 0;border-radius:2px}
+.triage-in{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:10px 14px}
+.switch{display:inline-flex;align-items:center;gap:12px;cursor:pointer;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.switch input{position:absolute;opacity:0;width:1px;height:1px}
+.track{width:44px;height:24px;border-radius:12px;background:var(--n600);position:relative;transition:background var(--fade);flex:none}
+.track::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--paper);transition:transform var(--fade)}
+.switch input:checked + .track{background:var(--p500)}
+.switch input:checked + .track::after{transform:translateX(20px)}
+.switch input:focus-visible + .track{outline:2px solid var(--p200);outline-offset:3px}
+.triage .explain{font-size:13px;color:var(--n200);flex:1;min-width:240px;margin:0}
+.triage .explain .on{display:none}
+.triage .tally{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--p200);display:none}
+.triage .jump{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--paper);display:none}
+
+/* front page grid */
+main{padding:0 0 32px}
+.front{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));margin-top:18px}
+.cell{padding:4px 18px 22px;border-left:1px solid var(--rule)}
+.cell.first{border-left:0;padding-left:0}
+.cell.last{padding-right:0}
+.row-break{grid-column:1/-1;border-top:1px solid var(--ink);height:0;margin:0 0 18px}
+.lead{grid-column:1/9}
+.rail{grid-column:9/13}
+.risk{grid-column:1/5}
+.session{grid-column:5/10}
+.briefs{grid-column:10/13;grid-row:span 2}
+.r3{border-top:1px solid var(--ink);padding-top:18px}
+.r3.letters{margin-right:0}
+.column{grid-column:1/4}
+.record{grid-column:4/7}
+.letters{grid-column:7/10}
+
+.kicker{display:inline-block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--n600);margin:0 0 8px;font-weight:500}
+.kicker::before{content:"";display:inline-block;width:8px;height:8px;background:var(--ink);margin-right:8px;vertical-align:0}
+h1,h2,h3{font-weight:500;margin:0;text-wrap:balance}
+.lead h1{font-size:clamp(40px,5.6vw,80px);line-height:.98;letter-spacing:-.032em;margin-bottom:14px}
+.deck{font-size:clamp(17px,1.6vw,21px);line-height:1.35;letter-spacing:-.01em;color:var(--n700);margin:0 0 18px;max-width:46em}
+.deck em{font-style:normal;color:var(--p600)}
+h2{font-size:clamp(22px,2vw,29px);line-height:1.08;letter-spacing:-.025em;margin-bottom:10px}
+h2.small{font-size:19px;letter-spacing:-.018em}
+h3{font-size:15px;line-height:1.2;letter-spacing:-.012em;margin-bottom:4px}
+.body p{margin:0 0 .7em;text-align:justify;hyphens:auto;-webkit-hyphens:auto;text-wrap:pretty}
+.body p:last-child{margin-bottom:0}
+.cols-3{columns:3 13em;column-gap:26px;column-rule:1px solid var(--rule)}
+.cols-2{columns:2 13em;column-gap:24px;column-rule:1px solid var(--rule)}
+.dateline{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;margin-right:4px}
+.byline{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);margin:0 0 10px;padding-bottom:8px;border-bottom:1px dotted var(--rule)}
+.mark-az{color:var(--p700);background:linear-gradient(transparent 62%,var(--sky2) 62%)}
+
+.pull{break-inside:avoid;margin:6px 0 14px;padding:10px 0;border-top:2px solid var(--ink);border-bottom:1px solid var(--ink)}
+.pull p{font-size:21px;line-height:1.2;letter-spacing:-.02em;margin:0 0 6px;text-align:left;font-weight:500}
+.pull .label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--n600)}
+
+figure{margin:0}
+.caption{display:block;font-size:10.5px;letter-spacing:.04em;color:var(--n600);margin-top:8px;line-height:1.45}
+.caption b{font-weight:500;color:var(--ink)}
+.illus{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--n500);color:var(--n600);padding:1px 5px;border-radius:2px;vertical-align:1px}
+
+/* mission control drawing */
+.mc{margin:4px 0 20px}
+.mc-frame{background:var(--paper);border:1px solid var(--ink);border-radius:4px;overflow:hidden;font-size:12px}
+.mc-top{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+.mc-top i{font-style:normal;color:var(--p200)}
+.mc-grid{display:grid;grid-template-columns:1fr 1.3fr 1.2fr 1.2fr}
+.mc-p{padding:12px;border-left:1px solid var(--n200)}
+.mc-p:first-child{border-left:0}
+.mc-p .label{display:block;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--n500);margin-bottom:8px}
+.mc-big{font-size:26px;letter-spacing:-.03em;line-height:1;font-weight:500}
+.mc-sub{font-family:var(--mono);font-size:10.5px;color:var(--p600);margin-top:6px}
+.mc-list{list-style:none;margin:0;padding:0}
+.mc-list li{padding:5px 0;border-top:1px solid var(--n200);line-height:1.3}
+.mc-list li:first-child{border-top:0;padding-top:0}
+.mc-list .mono{font-size:10px;color:var(--n500);display:block;letter-spacing:.03em}
+.mc-list .need{color:var(--red)}
+.mc-crit li{display:flex;align-items:center;gap:8px}
+.mc-dec .num{font-family:var(--mono);font-size:10.5px;color:var(--p600)}
+
+/* formula box */
+.formula{break-inside:avoid;column-span:all;margin:18px 0 0;border:1px solid var(--ink);padding:12px 14px;display:grid;grid-template-columns:repeat(7,auto);align-items:start;gap:10px;justify-content:space-between}
+.formula .label{grid-column:1/-1;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--n600)}
+.formula .term b{display:block;font-weight:500;font-size:15px;letter-spacing:-.01em}
+.formula .term span{display:block;font-size:12px;color:var(--n600);line-height:1.35;max-width:15em}
+.formula .op{font-family:var(--mono);font-size:20px;color:var(--n500);line-height:1}
+.formula .term.result b{color:var(--p600)}
+
+/* rail */
+.inside{border:1px solid var(--ink);padding:10px 12px 8px;margin-bottom:18px}
+.inside .label{display:block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;font-weight:500}
+.inside ol{list-style:none;margin:0;padding:0;counter-reset:s}
+.inside li{counter-increment:s;display:grid;grid-template-columns:22px 1fr;gap:6px;padding:4px 0;border-top:1px dotted var(--rule);font-size:13px}
+.inside li::before{content:counter(s);font-family:var(--mono);font-size:11px;color:var(--p600);padding-top:1px}
+.inside li:first-child{border-top:0}
+.inside a{text-decoration:none}
+.inside a:hover{text-decoration:underline}
+
+.radar{margin:12px 0 4px}
+.radar svg{width:100%;height:auto;display:block;max-width:340px}
+
+/* options table */
+.options{width:100%;border-collapse:collapse;margin:14px 0 0;font-size:13px;break-inside:avoid}
+.options caption{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:0 0 6px;border-bottom:2px solid var(--ink);font-weight:500}
+.options th{font-weight:500;text-align:left;vertical-align:top;padding:7px 12px 7px 0;white-space:nowrap;letter-spacing:-.01em}
+.options td{padding:7px 0;color:var(--n700);line-height:1.4}
+.options tr{border-bottom:1px solid var(--rule)}
+.options th .n{font-family:var(--mono);font-size:10px;color:var(--n500);margin-right:8px}
+
+/* record clipping */
+.clip{margin:14px 0 0;background:var(--paper);border:1px solid var(--ink);padding:12px 14px;border-radius:2px;font-size:13px}
+.clip .num{font-family:var(--mono);font-size:12px;color:var(--p600);letter-spacing:.04em;font-weight:500}
+.clip dl{margin:8px 0 0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px}
+.clip dt{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500);padding-top:2px}
+.clip dd{margin:0}
+
+/* letters */
+.letters blockquote{margin:0;padding:10px 0;border-top:1px dotted var(--rule)}
+.letters blockquote:first-of-type{border-top:0;padding-top:2px}
+.letters blockquote p{margin:0;font-size:15px;line-height:1.35;letter-spacing:-.01em}
+.letters .note{font-size:12.5px;color:var(--n600);margin:10px 0 0;padding-top:10px;border-top:1px solid var(--rule)}
+
+/* briefs */
+.briefs > h2{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:6px;border-bottom:2px solid var(--ink);margin-bottom:4px}
+.brief{padding:10px 0;border-bottom:1px solid var(--rule)}
+.brief h3{font-size:15px}
+.brief p{margin:0;font-size:13.5px;line-height:1.45;text-align:justify;hyphens:auto;-webkit-hyphens:auto;color:var(--n700)}
+.brief .dateline{font-size:10px}
+
+/* notice / CTA */
+.notice{grid-column:1/-1;margin-top:6px;border:3px double var(--ink);padding:22px 26px;display:grid;grid-template-columns:1.2fr 1fr auto;gap:28px;align-items:center;background:var(--news)}
+.notice .label{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);font-weight:500}
+.notice h2{font-size:clamp(26px,3vw,40px);letter-spacing:-.03em;margin:6px 0 0;line-height:1.02}
+.notice p{margin:0;font-size:14.5px;color:var(--n700)}
+.btn{display:inline-block;background:var(--p500);color:#fff;text-decoration:none;font-weight:500;padding:13px 20px;border-radius:3px;font-size:15px;letter-spacing:-.005em;white-space:nowrap}
+.btn:hover{background:var(--p700)}
+.notice .addr{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--n600);margin-top:8px;text-align:center}
+
+/* triage marks */
+.tmark{display:none;margin:10px 0 0;padding:9px 11px;border-left:3px solid var(--p500);background:var(--sky);font-size:12.5px;line-height:1.4;color:var(--ink);text-align:left}
+.tmark .stamp{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:var(--red);border:1px solid var(--red);padding:1px 6px;border-radius:2px;margin-right:6px;transform:rotate(-1.5deg)}
+.tmark .crit{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--p700);margin-top:4px}
+.brief .tmark{text-align:left;hyphens:manual;color:var(--ink)}
+.tmark.newrisk{border-left-color:var(--red);background:#F8E9E6}
+
+.item{transition:opacity var(--fade),filter var(--fade)}
+
+/* ON STATE (CSS only, works without JS) */
+html:has(#triage:checked) .item:not(.hit){opacity:.26;filter:grayscale(1)}
+html:has(#triage:checked) .hit .tmark{display:block}
+html:has(#triage:checked) .hit{background:var(--paper);box-shadow:0 0 0 1px var(--p500);padding-left:10px;padding-right:10px;border-radius:2px}
+html:has(#triage:checked) .hit.newrisk-item{box-shadow:0 0 0 1px var(--red),0 0 0 4px rgba(179,38,30,.12)}
+html:has(#triage:checked) .hit h3{color:var(--p700)}
+html:has(#triage:checked) .hit.newrisk-item h3{color:var(--red)}
+html:has(#triage:checked) .triage .explain .off{display:none}
+html:has(#triage:checked) .triage .explain .on{display:inline}
+html:has(#triage:checked) .triage .tally,
+html:has(#triage:checked) .triage .jump{display:inline}
+
+/* footer */
+footer{border-top:3px solid var(--red);margin-top:10px}
+.foot-in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:18px 0 34px;border-top:1px solid var(--ink);margin-top:3px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.foot-in img{height:20px;width:auto;display:block}
+.foot-in nav{display:flex;gap:18px}
+.foot-in .colophon{text-transform:none;letter-spacing:.02em;color:var(--n600);flex-basis:100%;order:3;font-size:11px}
+
+/* tablet */
+@media (max-width:1100px){
+  .masthead{grid-template-columns:1fr 1fr}
+  .title{grid-column:1/-1;order:-1}
+  .front{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .lead{grid-column:1/-1}
+  .lead.cell{padding-right:0}
+  .rail{grid-column:1/-1;border-left:0;padding-left:0;padding-right:0;display:grid;grid-template-columns:1fr 1.4fr;gap:0 24px;border-top:1px solid var(--ink);padding-top:18px}
+  .risk{grid-column:1/4}
+  .session{grid-column:4/7;padding-right:0}
+  .briefs{grid-column:1/-1;grid-row:auto;border-left:0;padding:0;columns:2 16em;column-gap:28px;column-rule:1px solid var(--rule)}
+  .briefs > h2{column-span:all}
+  .brief{break-inside:avoid}
+  .column{grid-column:1/4;border-left:0;padding-left:0}
+  .record{grid-column:4/7;padding-right:0}
+  .letters{grid-column:1/-1;border-left:0;padding:0 0 22px}
+  .mc-grid{grid-template-columns:1fr 1fr}
+  .mc-p:nth-child(3){border-left:0}
+  .mc-p:nth-child(n+3){border-top:1px solid var(--n200)}
+  .notice{grid-template-columns:1fr}
+}
+/* mobile */
+@media (max-width:700px){
+  .sheet{padding:0 16px}
+  .strip{font-size:10.5px}
+  .strip nav{gap:12px}
+  .strip .hide-s{display:none}
+  .masthead{grid-template-columns:1fr;gap:14px;padding-top:18px}
+  .ear-left{display:none}
+  .title .name{font-size:clamp(36px,12vw,60px)}
+  .edition{font-size:10px;justify-content:center;text-align:center}
+  .edition .hide-s{display:none}
+  .triage-in{gap:8px 14px;padding:10px 12px}
+  .triage .explain{min-width:0;flex-basis:100%;font-size:12.5px}
+  .front{display:block}
+  .cell,.cell.first,.rail,.briefs,.letters,.column,.record,.session,.risk{border-left:0;padding:0 0 22px}
+  .row-break{margin:0 0 16px}
+  .rail{display:block}
+  .briefs{columns:1}
+  .cols-3,.cols-2{columns:1}
+  .mc-grid{grid-template-columns:1fr}
+  .mc-p{border-left:0;border-top:1px solid var(--n200)}
+  .mc-p:first-child{border-top:0}
+  .formula{grid-template-columns:1fr;gap:6px}
+  .formula .op{font-size:16px}
+  .options th{white-space:normal;width:34%}
+  .notice{padding:18px 16px;gap:16px}
+  .notice .btn{display:block;text-align:center}
+  html:has(#triage:checked) .triage .explain{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#front">Skip to the front page</a>
+<div class="sheet">
+
+<header>
+  <div class="strip">
+    <a href="./" aria-label="Strapivo home"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo"></a>
+    <nav aria-label="Account">
+      <a href="https://strapivo.app">Sign in</a>
+      <a class="cta-small" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </nav>
+  </div>
+
+  <div class="masthead">
+    <div class="ear ear-left">
+      <span class="label">Today's slogan</span>
+      <p><strong>Any AI can answer a question. Only Strapivo answers it as you.</strong></p>
+    </div>
+    <p class="title"><span class="name">The Strapivo Signal</span><span class="tag">News arrives as noise. Read it against your strategy.</span></p>
+    <aside class="ear lights" aria-labelledby="lights-h">
+      <span class="label" id="lights-h">Today's lights <span class="illus">Illustrative</span></span>
+      <ul>
+        <li><span class="dot g" aria-hidden="true"></span><span>Win municipal water contracts</span><span class="word">Green</span></li>
+        <li><span class="dot g" aria-hidden="true"></span><span>Grow service revenue</span><span class="word">Green</span></li>
+        <li><span class="dot y" aria-hidden="true"></span><span>Secure component supply</span><span class="word">Yellow</span></li>
+        <li><span class="dot r" aria-hidden="true"></span><span>Hold gross margin</span><span class="word">Red</span></li>
+      </ul>
+      <p class="foot">Focus areas of Halvard Pumps, a fictional maker of industrial pumps.</p>
+    </aside>
+  </div>
+
+  <div class="rules" aria-hidden="true"></div>
+  <div class="edition">
+    <span id="today">Today's edition</span>
+    <span class="hide-s">Edition for leadership teams</span>
+    <span>Most of this page does not concern your company</span>
+  </div>
+</header>
+
+<div class="triage" role="region" aria-label="Triage filter">
+  <div class="triage-in">
+    <label class="switch">
+      <input type="checkbox" role="switch" id="triage" aria-describedby="triage-explain">
+      <span class="track" aria-hidden="true"></span>
+      Read against your strategy
+    </label>
+    <p class="explain" id="triage-explain">
+      <span class="off">Switch on to read this front page against the four focus areas of Halvard Pumps.</span>
+      <span class="on">Vivo, the Strapivo AI, made the first pass. A person on the team confirms each mark before it counts.</span>
+    </p>
+    <span class="tally" id="tally" aria-live="polite">17 items read · 2 relevant · 1 possible new risk · 14 set aside</span>
+    <a class="jump" href="#brief-water">Go to the marks</a>
+  </div>
+</div>
+
+<main id="front">
+<div class="front">
+
+  <!-- LEAD -->
+  <article class="cell first lead item" aria-labelledby="lead-h">
+    <span class="kicker">Strategy</span>
+    <h1 id="lead-h">Strategy finally has a home</h1>
+    <p class="deck">Every other function got software. Strategy never did. Strapivo keeps an agreed strategy <em>current between offsites</em>, and puts every decision on the record.</p>
+
+    <figure class="mc">
+      <div class="mc-frame" role="img" aria-label="Drawing of Mission Control, the Strapivo home screen, for the fictional company Halvard Pumps. It shows the next session in two days, two items under Needs you, four success criteria with their lights, and two recent decisions.">
+        <div class="mc-top" aria-hidden="true"><span>Mission Control</span><i>Halvard Pumps</i></div>
+        <div class="mc-grid" aria-hidden="true">
+          <div class="mc-p">
+            <span class="label">Next session</span>
+            <div class="mc-big">Thu 09:00</div>
+            <div class="mc-sub">in 2 days 14 h</div>
+          </div>
+          <div class="mc-p">
+            <span class="label">Needs you · 2</span>
+            <ul class="mc-list">
+              <li><span class="need">Energy cost risk</span><span class="mono">Top right · 15 days · no decision</span></li>
+              <li>Draft agenda ready to edit<span class="mono">7 items · old business first</span></li>
+            </ul>
+          </div>
+          <div class="mc-p">
+            <span class="label">Success criteria</span>
+            <ul class="mc-list mc-crit">
+              <li><span class="dot g"></span>Municipal contracts</li>
+              <li><span class="dot g"></span>Service revenue</li>
+              <li><span class="dot y"></span>Component supply</li>
+              <li><span class="dot r"></span>Gross margin</li>
+            </ul>
+          </div>
+          <div class="mc-p mc-dec">
+            <span class="label">Recent decisions</span>
+            <ul class="mc-list">
+              <li><span class="num">SDS-2026-014</span> Adapt<span class="mono">Component supply</span></li>
+              <li><span class="num">SDS-2026-013</span> Hold<span class="mono">Service revenue</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <figcaption class="caption"><b>Mission Control.</b> The home screen shows the next session, what needs you, the criteria at a glance and recent decisions. <span class="illus">Illustrative example</span></figcaption>
+    </figure>
+
+    <div class="body cols-3">
+      <p><span class="dateline">The Strategy Room.</span> A leadership team agrees its strategy in a workshop. Then the strategy goes into a drawer. The world keeps moving, and nobody notices until the quarterly review, when a correction has become expensive.</p>
+      <p>Strapivo is the Strategic Design System. A brand design system gives a company one logo, one type scale and one palette for everything to plug into. Strapivo does the same for strategy. It holds the business model and its environment, the principles and guardrails for every call, and where the company plays and where it does not.</p>
+      <p>The working method is called Dynamic Strategy. Its makers compare it to steering a ship: small, early corrections, and occasionally a change of course. The team sets one Ambition, seven to twelve success criteria and up to four focus areas.</p>
+      <div class="pull">
+        <p>"Fill a few glasses to the brim instead of all twelve a little."</p>
+        <span class="label">On choosing focus areas</span>
+      </div>
+      <p>Objectives sit under each criterion. Activities sit under objectives, each with an action, a result, a timeframe and a person responsible. Try to flag a fifth focus area and Vivo, the Strapivo AI, asks: "You're diluting focus and creating noise. Do you really want to?"</p>
+      <p>The backbone is the Business Model Canvas. Vivo works from the strategic memory the team approved, so it is hardwired to the business model. It is not a generic prompt with a PDF attached.</p>
+      <div class="formula" role="group" aria-label="The formula">
+        <span class="label">The formula</span>
+        <div class="term"><b>Strategic memory</b><span>What is true inside your company.</span></div>
+        <span class="op" aria-label="plus">+</span>
+        <div class="term"><b>Market intelligence</b><span>Live signals from outside it.</span></div>
+        <span class="op" aria-label="plus">+</span>
+        <div class="term"><b>Strategic session</b><span>The conversation where the two meet.</span></div>
+        <span class="op" aria-label="equals">=</span>
+        <div class="term result"><b>Lasting advantage</b><span>Read against one Ambition.</span></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- RAIL -->
+  <div class="cell last rail">
+    <nav class="inside" aria-labelledby="inside-h">
+      <span class="label" id="inside-h">Inside: the loop</span>
+      <ol>
+        <li><a href="#watch-h">Watch. The Radar reads outside sources</a></li>
+        <li><a href="#watch-h">Triage. Relevant or noise</a></li>
+        <li><a href="#risk-h">Move. A ghost on the radar</a></li>
+        <li><a href="#session-h">Agenda. Drafted 24 hours ahead</a></li>
+        <li><a href="#session-h">Session. Sealed first takes</a></li>
+        <li><a href="#options-cap">Decide. Five options</a></li>
+        <li><a href="#record-h">Record. A permanent number</a></li>
+        <li><a href="#record-h">Escalate and announce</a></li>
+      </ol>
+    </nav>
+
+    <article class="item" aria-labelledby="watch-h">
+      <span class="kicker">Watch</span>
+      <h2 id="watch-h">Radar reads the outside world against each focus area</h2>
+      <div class="body">
+        <p><span class="dateline">Monday and Thursday.</span> For each focus area, the Radar's search brief is the criterion, its objectives and its risks. Market intelligence reads over 4,000 sources a day and reports twice a week. A red-line exception interrupts that schedule.</p>
+        <p>Each signal is a dated observation with a source, classed primary or secondary. Vivo makes the first pass: which criterion, relevant or not, and one line of reason. A delegated person marks it relevant, irrelevant or unsure. Dismissed signals teach Vivo what counts as noise.</p>
+        <p>A relevant signal that matches no known risk arrives with a question: "Possible new risk?" The switch at the top of this page runs that pass on this front page.</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="row-break" aria-hidden="true"></div>
+
+  <!-- RISK -->
+  <article class="cell first risk item" aria-labelledby="risk-h">
+    <span class="kicker">Risk</span>
+    <h2 id="risk-h">One blog post cannot raise an alarm</h2>
+    <figure class="radar">
+      <svg viewBox="0 0 320 250" role="img" aria-labelledby="radar-t">
+        <title id="radar-t">Risk radar of impact against likelihood. A dashed ghost marks a proposed move of the casting supply risk into the top right danger zone, waiting for a person to confirm it.</title>
+        <rect x="40" y="10" width="260" height="200" fill="#F6F9FB" stroke="#141B24"/>
+        <rect x="170" y="10" width="130" height="100" fill="#B3261E" fill-opacity=".09"/>
+        <line x1="170" y1="10" x2="170" y2="210" stroke="#CBC4B5"/>
+        <line x1="40" y1="110" x2="300" y2="110" stroke="#CBC4B5"/>
+        <text x="292" y="26" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1" fill="#B3261E">DANGER ZONE</text>
+        <text x="170" y="232" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1" fill="#495158">LIKELIHOOD</text>
+        <text x="22" y="110" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1" fill="#495158" transform="rotate(-90 22 110)">IMPACT</text>
+        <circle cx="262" cy="48" r="7" fill="#B3261E"/>
+        <text x="262" y="68" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#141B24">Energy cost</text><text x="262" y="80" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#B3261E">15 DAYS</text>
+        <circle cx="120" cy="80" r="7" fill="#141B24"/>
+        <text x="96" y="66" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#141B24">Casting supply</text>
+        <line x1="128" y1="76" x2="196" y2="46" stroke="#0082E6" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <circle cx="204" cy="42" r="8" fill="none" stroke="#0082E6" stroke-width="1.5" stroke-dasharray="3 2"/>
+        <text x="186" y="96" font-family="JetBrains Mono, monospace" font-size="9" fill="#005DBD">GHOST · NEEDS A</text>
+        <text x="186" y="106" font-family="JetBrains Mono, monospace" font-size="9" fill="#005DBD">PRIMARY SOURCE</text>
+        <circle cx="90" cy="170" r="6" fill="#6C727A"/>
+        <text x="102" y="174" font-family="Inter, sans-serif" font-size="10.5" fill="#495158">Rate rise · Stable</text>
+        <circle cx="230" cy="160" r="6" fill="#6C727A"/>
+        <text x="222" y="186" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" fill="#495158">Tender delay · Easing</text>
+      </svg>
+      <figcaption class="caption"><b>Now view.</b> The dashed ring is Vivo's proposed move. It waits for a person. <span class="illus">Illustrative example</span></figcaption>
+    </figure>
+    <div class="body">
+      <p><span class="dateline">The danger zone.</span> Each risk sits on a radar of impact against likelihood. When a signal suggests a risk has moved, Vivo draws a ghost at the new position with a one-line reason. A person confirms or rejects it.</p>
+      <p>A move into the top right needs at least one primary source. Every confirmed move joins the trail with its signal, its date and the person who confirmed it.</p>
+      <p>Each risk carries a trend word, Easing, Stable or Worsening, and a time held, such as "top right · 27 days". A risk that stays in the top right for 14 days without a decision goes onto the session lead's Needs you list.</p>
+    </div>
+  </article>
+
+  <!-- SESSION -->
+  <article class="cell session item" aria-labelledby="session-h">
+    <span class="kicker">Session</span>
+    <h2 id="session-h">Leadership meets for an hour and leaves with decisions</h2>
+    <div class="body cols-2">
+      <p><span class="dateline">24 hours before.</span> Vivo drafts the agenda from what changed. That means new signals, risks entering the top right, parked questions coming back, carried-forward items, activities at risk or off track, and asks from the people responsible. Old business comes first. Every item carries a one-line reason.</p>
+      <p>The session lead edits the draft. The room approves it as step one.</p>
+      <p>Sessions run 60 minutes by default, weekly, fortnightly or monthly, with extra sessions on demand. For each item the room sees the evidence first. Then everyone gives a sealed first take, a position stated before discussion. The takes are revealed together, so the loudest voice cannot anchor the room.</p>
+      <p>Then the room works the item with Vivo. It can lay out the cost of doing nothing, scenarios, a challenge, alternatives or a black swan.</p>
+    </div>
+    <table class="options">
+      <caption id="options-cap">Five options on the table</caption>
+      <tbody>
+        <tr><th scope="row"><span class="n">01</span>Hold</th><td>The criterion is marked reviewed on that date.</td></tr>
+        <tr><th scope="row"><span class="n">02</span>Adapt</th><td>Vivo drafts changes to objectives and activities.</td></tr>
+        <tr><th scope="row"><span class="n">03</span>Pivot</th><td>Vivo drafts new wording for the criterion. It takes effect when someone with authority confirms it.</td></tr>
+        <tr><th scope="row"><span class="n">04</span>Take advantage</th><td>Detour activities are added. The criterion stays as it is.</td></tr>
+        <tr><th scope="row"><span class="n">05</span>Not yet</th><td>The room asks what is missing. The item is parked with a trigger that brings it back, or let go with a rationale.</td></tr>
+      </tbody>
+    </table>
+  </article>
+
+  <!-- BRIEFS -->
+  <section class="cell last briefs" aria-labelledby="briefs-h">
+    <h2 id="briefs-h">In brief</h2>
+
+    <div class="brief item">
+      <h3>Central bank holds rates and signals patience</h3>
+      <p><span class="dateline">Markets.</span> Policymakers left borrowing costs unchanged and said they would wait for more data before moving.</p>
+    </div>
+
+    <div class="brief item hit" id="brief-copper">
+      <h3>Copper climbs for a third week on smelter outages</h3>
+      <p><span class="dateline">Commodities.</span> Prices rose again as two smelters stayed shut for repairs. Traders expect tight supply into the new year.</p>
+      <p class="tmark" role="note"><span class="stamp">Relevant</span>Copper windings are a large share of motor cost, so margin pressure grows. Secondary source.<span class="crit">Success criterion: Hold gross margin</span></p>
+    </div>
+
+    <div class="brief item">
+      <h3>Software firm unveils an AI assistant for every task</h3>
+      <p><span class="dateline">Technology.</span> The company said the assistant would write, plan and decide. It did not say who would check.</p>
+    </div>
+
+    <div class="brief item hit" id="brief-water">
+      <h3>Water utilities bring pipe renewal tenders forward</h3>
+      <p><span class="dateline">Infrastructure.</span> Several regional utilities will publish renewal tenders a quarter earlier than planned, according to a notice in the official journal.</p>
+      <p class="tmark" role="note"><span class="stamp">Relevant</span>Earlier tenders move the bid calendar forward by a quarter. The source is the published tender notice, a primary source.<span class="crit">Success criterion: Win municipal water contracts</span></p>
+    </div>
+
+    <div class="brief item">
+      <h3>Retail footfall softens in regional towns</h3>
+      <p><span class="dateline">Consumer.</span> Visits to high streets outside the big cities fell for a second month, a trade body said.</p>
+    </div>
+
+    <div class="brief item hit newrisk-item" id="brief-port">
+      <h3>Port talks stall at two northern terminals</h3>
+      <p><span class="dateline">Logistics.</span> Union and operators failed to agree terms. Both sides said a strike vote could follow within weeks.</p>
+      <p class="tmark newrisk" role="note"><span class="stamp">Possible new risk?</span>No known risk matches. Imported castings land through the northern ports. A person decides whether to add it to the radar.<span class="crit">Nearest criterion: Secure component supply</span></p>
+    </div>
+
+    <div class="brief item">
+      <h3>Office vacancies edge up in city centres</h3>
+      <p><span class="dateline">Property.</span> Landlords report longer letting times as tenants take less space on renewal.</p>
+    </div>
+
+    <div class="brief item">
+      <h3>Consumer goods group names a new chair</h3>
+      <p><span class="dateline">Boardroom.</span> The appointment follows a year-long search. The outgoing chair will stay on until the spring.</p>
+    </div>
+
+    <div class="brief item">
+      <h3>Airline adds winter routes to the south</h3>
+      <p><span class="dateline">Travel.</span> The carrier will fly to four more sun destinations from December, citing strong bookings.</p>
+    </div>
+
+    <div class="brief item">
+      <h3>Streaming services raise subscription prices</h3>
+      <p><span class="dateline">Media.</span> Viewers will pay more from next month. Analysts expect some to cancel and return later.</p>
+    </div>
+  </section>
+
+  <!-- COLUMN -->
+  <article class="cell first r3 column item" aria-labelledby="column-h">
+    <span class="kicker">Column</span>
+    <h2 id="column-h" class="small">Help, not a co-author with the pen</h2>
+    <p class="byline">The human stays in the chair</p>
+    <div class="body">
+      <p>Leadership teams will not hand their strategy to a tool that rewrites it. In Strapivo, Vivo proposes and people decide.</p>
+      <p>Vivo never changes a light. When two or more focus activities are off track, or a risk on that criterion enters the top right, it asks: "Light still green?" A Pivot takes effect only when someone with authority confirms it. Every recommendation traces back to the strategic memory the team approved.</p>
+      <p>Vivo takes five roles. The Auditor asks where a number came from. The Advisor asks whether a move fits the principles. The Scout asks what moved against the plan. The Colleague thinks a question through with you. The Researcher goes and finds out.</p>
+      <p>The infrastructure runs in the EU only. GDPR is part of the design.</p>
+    </div>
+  </article>
+
+  <!-- RECORD -->
+  <article class="cell r3 record item" aria-labelledby="record-h">
+    <span class="kicker">Record</span>
+    <h2 id="record-h" class="small">Every decision gets a number</h2>
+    <div class="body">
+      <p><span class="dateline">After the session.</span> Vivo reads back each entry for the Record of Decisions, including any dissent, by name and with its reason. The session lead confirms. The entry gets a permanent number.</p>
+      <p>Decisions beyond the team's authority go to an approver in the app, as an exported memo, or into the board pack. Changes to accepted truth wait for an Owner. The lead is then prompted to announce what changed and why.</p>
+    </div>
+    <div class="clip">
+      <span class="num">SDS-2026-014</span> <span class="illus">Illustrative example</span>
+      <dl>
+        <dt>Decision</dt><dd>Adapt</dd>
+        <dt>Criterion</dt><dd>Secure component supply</dd>
+        <dt>Change</dt><dd>Add a second casting supplier for the northern plants.</dd>
+        <dt>Dissent</dt><dd>Head of Finance, on the cost of dual sourcing.</dd>
+        <dt>Confirmed</dt><dd>Session lead</dd>
+      </dl>
+    </div>
+  </article>
+
+  <!-- LETTERS -->
+  <section class="cell r3 letters item" aria-labelledby="letters-h">
+    <span class="kicker">Letters</span>
+    <h2 id="letters-h" class="small">What leadership teams tell us</h2>
+    <blockquote><p>"We restart the same argument every time a new analysis lands."</p></blockquote>
+    <blockquote><p>"I can't show the board that strategy actually moved between meetings."</p></blockquote>
+    <blockquote><p>"I know there's a threat coming. I don't know what it costs us to wait."</p></blockquote>
+    <blockquote><p>"We finish the strategy, and then we forget it."</p></blockquote>
+    <p class="note">Dynamic Strategy guards against two failure modes: inertia, which is doing nothing, and thrash, which is reacting to everything.</p>
+  </section>
+
+  <!-- NOTICE / CTA -->
+  <aside class="notice" aria-labelledby="notice-h">
+    <div>
+      <span class="label">Notice to leadership teams</span>
+      <h2 id="notice-h">Four to five hours, and then you run it</h2>
+    </div>
+    <p>We do the reading first. Send the workshop report, the strategy document, an email thread or a plain prompt. Vivo proposes where each item belongs, for example: "This reads like an activity, not an objective. Move it down?" Your Owners accept or change it.</p>
+    <div>
+      <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      <span class="addr">strategy@strapivo.com</span>
+    </div>
+  </aside>
+
+</div>
+</main>
+
+<footer>
+  <div class="foot-in">
+    <img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo">
+    <span>© 2026 Strapivo</span>
+    <nav aria-label="Legal">
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+    <p class="colophon">Halvard Pumps is a fictional company. The briefs are invented and name no real company. Every Strapivo screen on this page is a drawing.</p>
+  </div>
+</footer>
+
+</div>
+<script>
+(function(){
+  var d=document.getElementById('today');
+  if(d){
+    try{d.textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}catch(e){}
+  }
+  var items=document.querySelectorAll('.item');
+  var rel=document.querySelectorAll('.item.hit:not(.newrisk-item)').length;
+  var nr=document.querySelectorAll('.item.newrisk-item').length;
+  var t=document.getElementById('tally');
+  if(t){t.textContent=items.length+' items read · '+rel+' relevant · '+nr+' possible new risk · '+(items.length-rel-nr)+' set aside';}
+})();
+</script>
+</body>
+</html>

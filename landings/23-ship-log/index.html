@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo · The ship's log of a strategy</title>
+<meta name="description" content="Strapivo logs market signals against your agreed strategy. Your leadership team decides each correction in a regular session, and every decision gets a permanent number.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n600:#495158;--n200:#E1E5EA;--paper:#F6F9FB;
+  --p200:#A9D6FF;--p500:#0082E6;--p700:#005DBD;
+  --cream:#F3EEE2;--cream2:#E9E1CD;--navy:#0F2238;--muted:#4A5566;
+  --red:#C8442E;--red-ink:#A93A26;
+  --rule:rgba(15,34,56,.22);
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--cream);color:var(--navy);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:17px;line-height:1.55;overflow-x:hidden}
+h1,h2,h3{font-weight:500;margin:0;letter-spacing:-.022em;line-height:1.12}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1320px;margin:0 auto;padding:0 40px}
+.mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.09em;font-size:12px}
+.eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--navy)}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--navy);color:var(--cream);padding:8px 12px;z-index:10}
+.skip:focus{left:8px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font:500 15px/1 'Inter',sans-serif;text-decoration:none;padding:14px 20px;border-radius:3px;border:1px solid var(--navy);transition:background .3s,color .3s}
+.btn-solid{background:var(--navy);color:var(--cream)}
+.btn-solid:hover{background:#1c3657}
+.btn-line{color:var(--navy)}
+.btn-line:hover{background:rgba(15,34,56,.06)}
+
+/* header */
+.top{border-bottom:1px solid var(--navy)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
+.top img{height:24px;width:auto;display:block}
+.top nav{display:flex;align-items:center;gap:28px}
+.top nav a{text-decoration:none;font-size:14px;color:var(--navy)}
+.top nav a.nav-sec{font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.top nav a.nav-sec:hover{color:var(--navy)}
+.top .btn{padding:10px 16px;font-size:14px}
+.top nav a.btn-solid{color:var(--cream)}
+
+/* hero */
+.hero{padding:44px 0 72px}
+.frame{position:relative;border:1px solid var(--navy);padding:10px}
+.frame-in{border:3px double var(--navy);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);min-height:560px}
+.corner{position:absolute;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;background:var(--cream);padding:0 8px;color:var(--muted)}
+.c-tl{top:-8px;left:28px}.c-tr{top:-8px;right:28px}.c-bl{bottom:-8px;left:28px}
+.hero-copy{padding:64px 56px 48px;display:flex;flex-direction:column;justify-content:space-between;gap:40px;border-right:1px solid var(--rule)}
+.hero h1{font-size:clamp(40px,5.1vw,76px);letter-spacing:-.03em;line-height:1.02;margin:22px 0 28px;max-width:12ch}
+.hero h1 em{font-style:normal;color:var(--p700)}
+.lede{font-size:19px;max-width:34em;color:#24364d}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.datum{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--rule);padding-top:16px}
+.datum dt{color:var(--navy)}
+.datum dd{margin:0}
+.hero-fig{margin:0;position:relative;display:flex;align-items:center;justify-content:center;padding:28px;background:
+  repeating-linear-gradient(to right,transparent 0 79px,rgba(15,34,56,.06) 79px 80px),
+  repeating-linear-gradient(to bottom,transparent 0 79px,rgba(15,34,56,.06) 79px 80px)}
+.hero-fig svg{width:100%;max-width:440px;height:auto;display:block}
+.hero-fig figcaption{position:absolute;left:24px;bottom:18px;right:24px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* rose */
+.r-line{fill:none;stroke:var(--navy);stroke-width:.8}
+.r-faint{stroke-opacity:.4}
+.r-tick{stroke:var(--navy);stroke-width:.7}
+.r-lab{font-family:var(--mono);fill:var(--navy);text-anchor:middle;dominant-baseline:central}
+.r-fill{fill:var(--navy)}
+.r-open{fill:var(--cream);stroke:var(--navy);stroke-width:.7}
+
+/* drift */
+section{scroll-margin-top:24px}
+.drift{padding:40px 0 96px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:start}
+.drift h2,.sec-h{font-size:clamp(32px,3.6vw,52px);letter-spacing:-.028em;margin:18px 0 22px;max-width:16ch}
+.drift .body p+p{margin-top:14px}
+.body{color:#24364d;max-width:36em}
+.voices{list-style:none;margin:0;padding:0;border-top:1px solid var(--navy)}
+.voices-h{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.voices li{display:grid;grid-template-columns:52px 1fr;gap:12px;border-bottom:1px solid var(--rule);padding:14px 0;font-size:18px;line-height:1.4}
+.voices li span{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.08em;padding-top:4px}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:48px;border:1px solid var(--navy)}
+.modes div{padding:20px 22px}
+.modes div+div{border-left:1px solid var(--navy)}
+.modes h3{font-size:20px;margin-bottom:8px}
+.modes p{font-size:15.5px;color:#24364d}
+.modes .mono{color:var(--red-ink);display:block;margin-bottom:8px;font-size:11px}
+
+/* voyage */
+.voyage{border-top:1px solid var(--navy);padding-top:72px}
+.voyage-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:end;padding-bottom:40px}
+.legend{list-style:none;margin:0;padding:0;font-size:15px;color:#24364d}
+.legend li{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:center;padding:9px 0;border-bottom:1px solid var(--rule)}
+.legend svg{width:56px;height:14px;display:block}
+.voyage-body{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,540px);border-top:1px solid var(--navy);border-bottom:1px solid var(--navy);max-width:1320px;margin:0 auto}
+.chart{grid-column:1;grid-row:1;position:relative;min-height:400px;background:
+  repeating-linear-gradient(to right,transparent 0 119px,rgba(15,34,56,.05) 119px 120px),
+  repeating-linear-gradient(to bottom,transparent 0 119px,rgba(15,34,56,.05) 119px 120px)}
+.chart.drawn{background:none}
+.chart svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:hidden}
+.log{grid-column:2;grid-row:1;list-style:none;margin:0;padding:64px 40px 80px 0;position:relative;z-index:1}
+.entry{position:relative;background:var(--cream);border:1px solid var(--rule);border-radius:3px;margin-bottom:150px}
+.entry:last-child{margin-bottom:0}
+.log-part{padding:16px 22px 18px;font-family:var(--mono);font-size:13px;line-height:24px}
+.stamp{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 14px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--navy);padding-bottom:6px;margin-bottom:12px}
+.stamp b{font-weight:500;color:var(--navy);display:inline-flex;align-items:center;gap:8px}
+.stamp b::before{content:"";width:9px;height:9px;border:1.5px solid var(--navy);border-radius:50%;background:var(--cream);transition:background .5s,border-color .5s}
+.entry.on .stamp b::before{background:var(--p500);border-color:var(--p500)}
+.entry h3{font-family:'Inter',sans-serif;font-size:25px;letter-spacing:-.02em;line-height:1.15;margin:0 0 10px;color:var(--navy)}
+.logtext{color:#2a3b52;background-image:repeating-linear-gradient(to bottom,transparent 0 23px,rgba(15,34,56,.1) 23px 24px)}
+.dec{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--navy);border-radius:2px;padding:2px 8px;line-height:18px;display:inline-flex;align-items:center;gap:7px}
+.tag.num{color:var(--p700);border-color:var(--p700)}
+.tag.corr{color:var(--red-ink);border-color:var(--red)}
+.tag svg{width:14px;height:10px}
+.plain{border-top:1px dashed var(--rule);padding:16px 22px 20px;font-size:16px;line-height:1.55;color:var(--navy);background:rgba(255,255,255,.35)}
+.plain-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--p700);margin-bottom:6px}
+.entry.dest{border:3px double var(--navy)}
+.entry.dest h3{font-size:28px}
+
+/* svg chart */
+.g-grid line{stroke:var(--navy);stroke-opacity:.07;stroke-width:1}
+.g-grid text,.g-scale text{font-family:var(--mono);font-size:9px;letter-spacing:.12em;fill:var(--muted)}
+.land{fill:var(--cream2);stroke:var(--navy);stroke-width:1}
+.land-hatch{stroke:var(--navy);stroke-opacity:.12;stroke-width:.6}
+.contour{fill:none;stroke:var(--navy);stroke-opacity:.32;stroke-width:.7}
+.contour.dot{stroke-dasharray:1.5 3.5}
+.sound{font-family:var(--mono);font-size:9px;fill:var(--navy);fill-opacity:.45}
+.haz-line{fill:none;stroke:var(--red);stroke-width:1;stroke-dasharray:2 3}
+.haz-fill{fill:var(--red);fill-opacity:.07}
+.haz-rock{stroke:var(--red);stroke-width:1.4}
+.haz-lab{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;fill:var(--red-ink)}
+.annual{fill:none;stroke:var(--navy);stroke-width:1.3;stroke-dasharray:7 6;stroke-opacity:.75}
+.annual-lab{font-family:var(--mono);font-size:10px;letter-spacing:.1em;fill:var(--navy)}
+.course{fill:none;stroke:var(--p500);stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+.course-plan{fill:none;stroke:var(--p500);stroke-opacity:.18;stroke-width:1;stroke-dasharray:2 4}
+.brg{font-family:var(--mono);font-size:10px;letter-spacing:.08em;fill:var(--p700)}
+.wp circle.ring{fill:var(--cream);stroke:var(--navy);stroke-width:1.4;transition:stroke .5s}
+.wp circle.dot{fill:var(--navy);transition:fill .5s}
+.wp.on circle.ring{stroke:var(--p500)}
+.wp.on circle.dot{fill:var(--p500)}
+.wp text{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;fill:var(--navy)}
+.leader{stroke:var(--navy);stroke-opacity:.35;stroke-width:1;stroke-dasharray:1 3}
+.corr-mark{opacity:0;transition:opacity .8s}
+.corr-mark.on{opacity:1}
+.corr-mark path{fill:none;stroke:var(--red);stroke-width:1.3}
+.corr-mark .ghost{stroke-dasharray:3 3;stroke-opacity:.8}
+.corr-mark text{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;fill:var(--red-ink)}
+.park circle{fill:var(--cream);stroke:var(--navy);stroke-width:1}
+.park line{stroke:var(--navy);stroke-width:.8;stroke-dasharray:2 3}
+.park text{font-family:var(--mono);font-size:9px;letter-spacing:.1em;fill:var(--navy)}
+.amb circle{fill:none;stroke:var(--p500)}
+.amb text{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;fill:var(--p700)}
+.miss line{stroke:var(--red);stroke-width:1}
+.miss text{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;fill:var(--red-ink)}
+.ship{fill:var(--navy)}
+.scale-a{fill:var(--navy)}
+.scale-b{fill:var(--cream)}
+.scale-frame{fill:none;stroke:var(--navy);stroke-width:1}
+
+/* orders */
+.orders{padding:110px 0 40px}
+.orders-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:72px}
+.order-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--navy);counter-reset:o}
+.order-list li{display:grid;grid-template-columns:64px 130px 1fr;gap:4px 14px;padding:16px 0;border-bottom:1px solid var(--rule);font-size:16px;color:#24364d}
+.order-list li::before{counter-increment:o;content:"0" counter(o);font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:3px}
+.order-list strong{font-weight:500;color:var(--navy);font-size:17px}
+.key{padding:72px 0 100px}
+.key-h{display:flex;justify-content:space-between;align-items:end;gap:32px;flex-wrap:wrap;margin-bottom:28px}
+.key-table{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border:1px solid var(--navy)}
+.key-cell{padding:20px 18px 22px;border-left:1px solid var(--navy)}
+.key-cell:first-child{border-left:0}
+.key-cell svg{width:100%;height:72px;display:block;margin-bottom:14px;border-bottom:1px solid var(--rule)}
+.key-cell h3{font-size:20px;margin-bottom:6px}
+.key-cell .mono{color:var(--muted);font-size:10.5px;display:block;margin-bottom:10px}
+.key-cell p{font-size:15px;color:#24364d;line-height:1.5}
+
+/* trust */
+.trust{background:var(--navy);color:var(--cream);padding:100px 0}
+.trust .eyebrow{color:#B9C3D1}
+.trust .eyebrow::before{background:var(--cream)}
+.trust h2{font-size:clamp(32px,3.6vw,52px);letter-spacing:-.028em;margin:18px 0 18px;max-width:14ch}
+.trust .body{color:#D6DCE4}
+.trust .body p+p{margin-top:12px}
+.watch{width:100%;border-collapse:collapse;font-size:15.5px}
+.watch caption{text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#B9C3D1;padding-bottom:12px}
+.watch th{font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-align:left;padding:10px 14px 10px 0;border-bottom:1px solid var(--cream);color:#fff}
+.watch th:first-child{color:var(--p200)}
+.watch td{padding:13px 14px 13px 0;border-bottom:1px solid rgba(243,238,226,.2);vertical-align:top;color:#E4E8EE}
+.watch td:first-child{width:46%}
+.trust-foot{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px}
+.trust-foot span{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(243,238,226,.45);padding:5px 10px;border-radius:2px}
+
+/* close */
+.close{padding:110px 0 120px;text-align:left}
+.close-in{border-top:1px solid var(--navy);padding-top:56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:end}
+.close h2{font-size:clamp(36px,4.4vw,64px);letter-spacing:-.03em;max-width:13ch}
+.close p{color:#24364d;max-width:32em;margin-bottom:28px}
+.close .mono{display:block;margin-top:18px;color:var(--muted);text-transform:none;letter-spacing:.04em;font-size:13px}
+
+/* footer */
+footer{background:var(--navy);color:#D6DCE4;padding:44px 0}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+footer img{height:22px;width:auto;display:block}
+footer ul{list-style:none;display:flex;gap:22px;margin:0;padding:0;font-size:14px}
+footer a{color:#D6DCE4;text-decoration:none}
+footer a:hover{color:#fff;text-decoration:underline}
+footer small{font-family:var(--mono);font-size:11px;letter-spacing:.08em}
+
+@media (max-width:1100px){
+  .frame-in{grid-template-columns:1fr}
+  .hero-copy{border-right:0;border-bottom:1px solid var(--rule)}
+  .hero-fig{min-height:420px}
+  .key-table{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .key-cell{border-left:0;border-top:1px solid var(--navy)}
+  .key-cell:nth-child(even){border-left:1px solid var(--navy)}
+  .key-cell:nth-child(-n+2){border-top:0}
+}
+@media (max-width:959px){
+  .wrap{padding:0 24px}
+  .two,.voyage-head,.orders-grid,.close-in{grid-template-columns:1fr;gap:40px}
+  .voyage-body{grid-template-columns:1fr}
+  .chart{grid-column:1;grid-row:1}
+  .log{grid-column:1;grid-row:1;padding:120px 20px 150px 44px}
+  .entry{background:rgba(243,238,226,.95);margin-bottom:130px}
+  .top nav a.nav-sec{display:none}
+}
+@media (max-width:600px){
+  body{font-size:16px}
+  .wrap{padding:0 16px}
+  .top .wrap{height:64px}
+  .top img{height:20px}
+  .top nav{gap:14px}
+  .top .btn{display:none}
+  .hero{padding:28px 0 56px}
+  .frame{padding:6px}
+  .hero-copy{padding:40px 22px 32px}
+  .lede{font-size:17px}
+  .hero-fig{min-height:0;padding:28px 18px 56px}
+  .corner{font-size:9.5px}
+  .c-tr{display:none}
+  .modes{grid-template-columns:1fr}
+  .modes div+div{border-left:0;border-top:1px solid var(--navy)}
+  .log{padding:110px 12px 140px 30px}
+  .log-part{padding:14px 16px 16px}
+  .plain{padding:14px 16px 18px;font-size:15.5px}
+  .entry h3{font-size:22px}
+  .order-list li{grid-template-columns:40px 1fr}
+  .order-list li span{grid-column:2}
+  .key-table{grid-template-columns:1fr}
+  .key-cell,.key-cell:nth-child(even){border-left:0;border-top:1px solid var(--navy)}
+  .key-cell:first-child{border-top:0}
+  .key-cell:nth-child(2){border-top:1px solid var(--navy)}
+  .watch td:first-child{width:auto}
+  .watch th,.watch td{font-size:14.5px}
+  .close{padding:80px 0}
+  footer ul{flex-wrap:wrap}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a href="#top" aria-label="Strapivo, back to top"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="96" height="24"></a>
+    <nav aria-label="Main">
+      <a class="nav-sec" href="#voyage">The log</a>
+      <a class="nav-sec" href="#orders">Routine</a>
+      <a class="nav-sec" href="#trust">Who decides</a>
+      <a href="https://strapivo.app">Sign in</a>
+      <a class="btn btn-solid" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="frame">
+      <span class="corner c-tl" aria-hidden="true">Chart 01</span>
+      <span class="corner c-tr" aria-hidden="true">Dynamic Strategy</span>
+      <span class="corner c-bl" aria-hidden="true">Strapivo · Strategic Design System</span>
+      <div class="frame-in">
+        <div class="hero-copy">
+          <div>
+            <p class="eyebrow">Dynamic Strategy</p>
+            <h1 id="h1">Small, early corrections. <em>Occasionally a change of course.</em></h1>
+            <p class="lede">Most strategies are agreed at an offsite and left in a drawer until the annual review. Strapivo keeps yours on the chart. Vivo, Strapivo's AI, logs market signals against the goals you set. Your leadership team decides each correction in a regular 60-minute session.</p>
+            <div class="hero-cta">
+              <a class="btn btn-solid" href="mailto:strategy@strapivo.com">Start the conversation</a>
+              <a class="btn btn-line" href="#voyage">Read a year of the log</a>
+            </div>
+          </div>
+          <dl class="datum">
+            <dt>Chart datum</dt><dd>The strategy you agreed</dd>
+            <dt>Corrected to</dt><dd>Your last session</dd>
+            <dt>Kept by</dt><dd>Your leadership team, with Vivo</dd>
+          </dl>
+        </div>
+        <figure class="hero-fig">
+          <svg viewBox="0 0 400 400" role="img" aria-labelledby="hero-fig-t">
+            <title id="hero-fig-t">A compass rose with a plotted course that makes one small correction</title>
+            <g id="hero-rose"></g>
+            <path d="M262 268 L350 185" fill="none" stroke="#0F2238" stroke-width="1.2" stroke-dasharray="6 5" stroke-opacity=".7"/>
+            <path d="M126 396 L262 268 L366 182" fill="none" stroke="#0082E6" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M313 220 A70 70 0 0 1 316 223.4" fill="none" stroke="#C8442E" stroke-width="1.4"/>
+            <circle cx="262" cy="268" r="5" fill="#F3EEE2" stroke="#0082E6" stroke-width="1.5"/>
+            <circle cx="262" cy="268" r="1.6" fill="#0082E6"/>
+            <rect x="272" y="270" width="88" height="14" fill="#F3EEE2"/>
+            <text x="276" y="280" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1" fill="#A93A26">ADAPT 2° STBD</text>
+          </svg>
+          <figcaption>Blue: corrected course · Dashed: course left unchanged</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="drift" aria-labelledby="drift-h">
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow">The drawer</p>
+      <h2 id="drift-h">Between offsites, nothing moves.</h2>
+      <div class="body">
+        <p>The team agrees a strategy in a workshop and files it. The market keeps moving. Nobody checks the course until the quarterly or annual review, when a correction costs the most.</p>
+        <p>News arrives unconnected to the goals the team set. Meetings anchor on the loudest voice. Decisions end up in slides nobody reads, and a year later nobody can say what was decided, why, or who disagreed.</p>
+      </div>
+      <div class="modes">
+        <div><span class="mono">Failure mode 1</span><h3>Inertia</h3><p>The team holds the January heading whatever the water does.</p></div>
+        <div><span class="mono">Failure mode 2</span><h3>Thrash</h3><p>The team changes course at every headline and gets nowhere.</p></div>
+      </div>
+    </div>
+    <div>
+      <p class="voices-h">What leadership teams tell us</p>
+      <ul class="voices">
+        <li><span>01</span>"We finish the strategy, and then we forget it."</li>
+        <li><span>02</span>"We restart the same argument every time a new analysis lands."</li>
+        <li><span>03</span>"I know there's a threat coming. I don't know what it costs us to wait."</li>
+        <li><span>04</span>"I can't show the board that strategy actually moved between meetings."</li>
+        <li><span>05</span>"We're not changing strategy every week, but we are revising our tactics."</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="voyage" id="voyage" aria-labelledby="voyage-h">
+  <div class="wrap voyage-head">
+    <div>
+      <p class="eyebrow">Illustrative example · fictional company</p>
+      <h2 class="sec-h" id="voyage-h">One year in the log of Aldenmoor Pumps</h2>
+      <p class="body">Aldenmoor Pumps is an invented mid-sized maker of industrial pumps. In January its leadership team agrees a strategy and enters it into Strapivo. Scroll down to plot its year. Each log entry is followed by what Strapivo did, in plain words.</p>
+    </div>
+    <ul class="legend" aria-label="Chart legend">
+      <li><svg viewBox="0 0 56 14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" stroke="#0082E6" stroke-width="2.6" stroke-linecap="round"/></svg>Course kept in Strapivo, corrected at each session</li>
+      <li><svg viewBox="0 0 56 14" aria-hidden="true"><line x1="2" y1="7" x2="54" y2="7" stroke="#0F2238" stroke-width="1.3" stroke-dasharray="7 6"/></svg>Same strategy, checked once a year at the annual review</li>
+      <li><svg viewBox="0 0 56 14" aria-hidden="true"><path d="M8 12 A20 20 0 0 1 30 3" fill="none" stroke="#C8442E" stroke-width="1.3"/></svg>Correction mark, or danger area</li>
+    </ul>
+  </div>
+
+  <div class="voyage-body">
+    <div class="chart" aria-hidden="true"><svg id="chart-svg" xmlns="http://www.w3.org/2000/svg"></svg></div>
+    <ol class="log">
+      <li class="entry" data-date="2026-01-12">
+        <div class="log-part">
+          <p class="stamp"><b>WP 0 · Departure</b><span>12.01.2026</span><span>Heading 173°</span></p>
+          <h3>Course laid</h3>
+          <p class="logtext">Offsite closed. Ambition set: €180m turnover at 14% margin by 2029. Nine success criteria, three flagged as focus.</p>
+        </div>
+        <div class="plain">
+          <p class="plain-label">What Strapivo did</p>
+          <p>The workshop report went in as it was. Vivo proposed where each item belongs: "This reads like an activity, not an objective. Move it down?" The Owners accepted or changed each proposal.</p>
+        </div>
+      </li>
+      <li class="entry" data-date="2026-03-02">
+        <div class="log-part">
+          <p class="stamp"><b>WP 1 · Sighting</b><span>02.03.2026</span><span>Radar, Monday</span></p>
+          <h3>Signal sighted</h3>
+          <p class="logtext">EU tender rules for water utilities revised. Primary source. Filed against "Win municipal tenders". Vivo marked it relevant because bid timelines change.</p>
+        </div>
+        <div class="plain">
+          <p class="plain-label">What Strapivo did</p>
+          <p>The Radar searches outside sources for each focus area, using that criterion, its objectives and its risks as the brief. Vivo made a first pass with a one-line reason. The delegated reviewer marked the signal relevant.</p>
+        </div>
+      </li>
+      <li class="entry" data-date="2026-03-16">
+        <div class="log-part">
+          <p class="stamp"><b>WP 2 · Hazard</b><span>16.03.2026</span><span>Trend: worsening</span></p>
+          <h3>A risk closes on the danger area</h3>
+          <p class="logtext">Risk: low-cost entrant in Southern Europe. Proposed move: likelihood up. Two sources, one primary. Confirmed. Now top right.</p>
+        </div>
+        <div class="plain">
+          <p class="plain-label">What Strapivo did</p>
+          <p>Vivo showed the proposed position as a ghost on the risk radar, with a reason. A person confirmed it. A move into the top right needs at least one primary source, so one blog post can't raise an alarm.</p>
+        </div>
+      </li>
+      <li class="entry" data-date="2026-03-26">
+        <div class="log-part">
+          <p class="stamp"><b>WP 3 · Session</b><span>26.03.2026</span><span>60 min</span></p>
+          <p class="dec"><span class="tag">Hold · course maintained</span><span class="tag num">SDS-2026-011</span></p>
+          <h3>Session held</h3>
+          <p class="logtext">Agenda: two signals, one risk in the top right, one activity off track. First takes sealed, then revealed. "Grow aftermarket service": hold.</p>
+        </div>
+        <div class="plain">
+          <p class="plain-label">What Strapivo did</p>
+          <p>Vivo drafted the agenda 24 hours ahead from what had changed. Each person gave a first take before discussion, and the takes were revealed together, so the loudest voice did not set the terms. Hold marked the criterion reviewed on that date.</p>
+        </div>
+      </li>
+      <li class="entry" data-date="2026-04-09">
+        <div class="log-part">
+          <p class="stamp"><b>WP 4 · Correction</b><span>09.04.2026</span><span>Heading 175°</span></p>
+          <p class="dec"><span class="tag corr"><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M2 9 A9 9 0 0 1 12 2" fill="none" stroke="#C8442E" stroke-width="1.4"/></svg>Adapt</span><span class="tag num">SDS-2026-014</span></p>
+          <h3>Two degrees to starboard</h3>
+          <p class="logtext">Adapt on "Win municipal tenders". Two objectives redrafted. Activity added: bid team trained on the new rules by 30 June. Responsible: head of sales.</p>
+        </div>
+        <div class="plain">
+          <p class="plain-label">What Strapivo did</p>
+          <p>Vivo drafted the changes to objectives and activities. The team edited them and accepted them in the room. The success criterion stayed as written.</p>
+        </div>
+      </li>
+      <li class="entry" data-date="2026-05-07">
+        <div class="log-part">
+          <p class="stamp"><b>WP 5 · Question</b><span>07.05.2026</span><span>Heading 175°</span></p>
+          <p class="dec"><span class="tag">Not yet · parked</span><span class="tag num">SDS-2026-016</span></p>
+          <h3>Parked until the next sighting</h3>
+          <p class="logtext">Open a service hub in Poland? Missing: cost data from operations. Triggers: the cost data arrives, or the session on 4 June.</p>
+        </div>
+        <div class="plain">
+          <p class="plain-label">What Strapivo did</p>
+          <p>Not yet asks what is missing. The question was parked with two triggers. When either fires, the question returns to the agenda. A parked question comes back on its trigger, so nobody loses it.</p>
+        </div>
+      </li>
+      <li class="entry" data-date="2026-06-18">
+        <div class="log-part">
+          <p class="stamp"><b>WP 6 · New heading</b><span>18.06.2026</span><span>Heading 198°</span></p>
+          <p class="dec"><span class="tag corr"><svg viewBox="0 0 14 10" aria-hidden="true"><path d="M2 9 A9 9 0 0 1 12 2" fill="none" stroke="#C8442E" stroke-width="1.4"/></svg>Pivot</span><span class="tag num">SDS-2026-021</span></p>
+          <h3>New heading, confirmed by the Owner</h3>
+          <p class="logtext">"Lead on price in Southern Europe" becomes "Lead on total cost of ownership in Southern Europe". Dissent: CFO, margin risk in year one. Owner confirmed 19.06.</p>
+        </div>
+        <div class="plain">
+          <p class="plain-label">What Strapivo did</p>
+          <p>Vivo drafted the new wording. It took effect only when the Owner confirmed it. The Record of Decisions keeps the dissent by name, with its reason. The session lead was prompted to announce what changed and why.</p>
+        </div>
+      </li>
+      <li class="entry dest" data-date="2026-12-31">
+        <div class="log-part">
+          <p class="stamp"><b>Position check</b><span>31.12.2026</span><span>Ambition 2029</span></p>
+          <h3>Two courses, one year</h3>
+          <p class="logtext">Blue course: on a line for the Ambition. Dashed course: unchanged since January, standing into danger.</p>
+        </div>
+        <div class="plain">
+          <p class="plain-label">The annual review</p>
+          <p>The dashed line is the same strategy with one review a year. It held its January heading for twelve months and passes wide of the Ambition. The blue course made one small correction and one change of heading. Each has a number, a date and the names of the people who decided.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="orders" id="orders" aria-labelledby="orders-h">
+  <div class="wrap orders-grid">
+    <div>
+      <p class="eyebrow">Standing orders</p>
+      <h2 class="sec-h" id="orders-h">The routine behind every entry</h2>
+      <p class="body">Your strategy goes in as an Ambition, success criteria, objectives, activities and risks, all tied to your Business Model Canvas. Then the same routine runs each week, fortnight or month.</p>
+    </div>
+    <ol class="order-list">
+      <li><strong>Watch</strong><span>Market intelligence reads over 4,000 sources a day and reports on Monday and Thursday. A red-line exception interrupts that schedule.</span></li>
+      <li><strong>Triage</strong><span>Vivo sorts each signal to a criterion. A delegated person marks it relevant, irrelevant or unsure. Vivo uses dismissed signals to learn what counts as noise.</span></li>
+      <li><strong>Move</strong><span>Vivo proposes new risk positions. A person confirms. A risk left in the top right for 14 days lands in the session lead's "Needs you" list.</span></li>
+      <li><strong>Agenda</strong><span>Vivo drafts it 24 hours before the session, old business first. The room approves it as step one.</span></li>
+      <li><strong>Session</strong><span>60 minutes by default. Per item: evidence, sealed first takes, conversation with Vivo, decision.</span></li>
+      <li><strong>Record</strong><span>Vivo reads back each decision with any dissent. The session lead confirms it and it gets a permanent number.</span></li>
+      <li><strong>Escalate</strong><span>Decisions beyond the team's authority go to an approver, as a memo or in the board pack.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="key" aria-labelledby="key-h">
+  <div class="wrap">
+    <div class="key-h">
+      <div>
+        <p class="eyebrow">Chart key</p>
+        <h2 class="sec-h" id="key-h" style="margin-bottom:0">Five answers to a signal</h2>
+      </div>
+    </div>
+    <div class="key-table">
+      <div class="key-cell">
+        <svg viewBox="0 0 200 72" aria-hidden="true"><line x1="20" y1="36" x2="180" y2="36" stroke="#0082E6" stroke-width="2.4" stroke-linecap="round"/><circle cx="100" cy="36" r="5" fill="#F3EEE2" stroke="#0F2238" stroke-width="1.4"/><circle cx="100" cy="36" r="1.6" fill="#0F2238"/></svg>
+        <span class="mono">Course maintained</span><h3>Hold</h3>
+        <p>The criterion is marked reviewed on that date.</p>
+      </div>
+      <div class="key-cell">
+        <svg viewBox="0 0 200 72" aria-hidden="true"><line x1="100" y1="36" x2="180" y2="36" stroke="#C8442E" stroke-width="1" stroke-dasharray="3 3"/><path d="M20 36 L100 36 L180 50" fill="none" stroke="#0082E6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M146 36 A46 46 0 0 1 145 44" fill="none" stroke="#C8442E" stroke-width="1.3"/></svg>
+        <span class="mono">A few degrees</span><h3>Adapt</h3>
+        <p>Vivo drafts changes to objectives and activities. The criterion stays.</p>
+      </div>
+      <div class="key-cell">
+        <svg viewBox="0 0 200 72" aria-hidden="true"><line x1="96" y1="36" x2="176" y2="36" stroke="#C8442E" stroke-width="1" stroke-dasharray="3 3"/><path d="M20 36 L96 36 L150 66" fill="none" stroke="#0082E6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M128 36 A32 32 0 0 1 124 51" fill="none" stroke="#C8442E" stroke-width="1.3"/></svg>
+        <span class="mono">New heading</span><h3>Pivot</h3>
+        <p>Vivo drafts new wording for the criterion. It takes effect when someone with authority confirms it.</p>
+      </div>
+      <div class="key-cell">
+        <svg viewBox="0 0 200 72" aria-hidden="true"><path d="M20 36 L70 36 L100 12 L130 36 L180 36" fill="none" stroke="#0082E6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><line x1="70" y1="36" x2="130" y2="36" stroke="#0082E6" stroke-opacity=".35" stroke-width="1" stroke-dasharray="2 3"/></svg>
+        <span class="mono">A detour</span><h3>Take advantage</h3>
+        <p>Detour activities are added. The criterion does not change.</p>
+      </div>
+      <div class="key-cell">
+        <svg viewBox="0 0 200 72" aria-hidden="true"><line x1="20" y1="36" x2="180" y2="36" stroke="#0082E6" stroke-width="2.4" stroke-linecap="round"/><line x1="100" y1="36" x2="100" y2="14" stroke="#0F2238" stroke-width=".8" stroke-dasharray="2 3"/><circle cx="100" cy="12" r="6" fill="#F3EEE2" stroke="#0F2238"/><text x="110" y="15" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1" fill="#0F2238">PARKED</text></svg>
+        <span class="mono">Parked or let go</span><h3>Not yet</h3>
+        <p>The question is "what's missing?" It is parked with a trigger that brings it back, or let go with a rationale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust" id="trust" aria-labelledby="trust-h">
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow">Who decides</p>
+      <h2 id="trust-h">The human stays in the chair.</h2>
+      <div class="body">
+        <p>Vivo proposes; people decide. Every recommendation traces back to the strategic memory your team approved.</p>
+        <p>Vivo works from your business model, your criteria and your decision record. It is not a generic prompt with your PDF attached.</p>
+      </div>
+      <div class="trust-foot"><span>EU-only infrastructure</span><span>GDPR by design</span></div>
+    </div>
+    <table class="watch">
+      <caption>Who holds the pen</caption>
+      <thead><tr><th scope="col">Vivo proposes</th><th scope="col">A person decides</th></tr></thead>
+      <tbody>
+        <tr><td>Which criterion a signal belongs to</td><td>Whether the signal is relevant</td></tr>
+        <tr><td>A new position for a risk</td><td>Whether it moves. The top right needs a primary source.</td></tr>
+        <tr><td>The session agenda</td><td>The session lead edits it. The room approves it.</td></tr>
+        <tr><td>Changes to objectives and activities</td><td>The team accepts or rejects them</td></tr>
+        <tr><td>New wording for a criterion</td><td>Someone with authority confirms it</td></tr>
+        <tr><td>"Light still green?"</td><td>The light itself. Vivo never changes it.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="close" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="close-in">
+      <h2 id="close-h">Take the strategy out of the drawer.</h2>
+      <div>
+        <p>We do the reading first: your workshop reports, strategy documents and board papers. Setup takes four to five hours with your team, and then you run it.</p>
+        <a class="btn btn-solid" href="mailto:strategy@strapivo.com">Start the conversation</a>
+        <span class="mono">strategy@strapivo.com</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="88" height="22">
+    <ul>
+      <li><a href="/imprint">Imprint</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+      <li><a href="/terms">Terms</a></li>
+    </ul>
+    <small>© 2026 Strapivo</small>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function rose(cx,cy,r,labels){
+    var s='',d,a,c,sn,r2,i;
+    s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" class="r-line"/>';
+    s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+(r*0.86)+'" class="r-line"/>';
+    s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+(r*0.6)+'" class="r-line r-faint"/>';
+    for(d=0;d<360;d+=5){
+      a=(d-90)*Math.PI/180;c=Math.cos(a);sn=Math.sin(a);
+      r2=d%30===0?r*0.8:(d%10===0?r*0.86-r*0.0:r*0.9);
+      if(d%10!==0) r2=r*0.93;
+      s+='<line class="r-tick" x1="'+(cx+c*r).toFixed(1)+'" y1="'+(cy+sn*r).toFixed(1)+'" x2="'+(cx+c*r2).toFixed(1)+'" y2="'+(cy+sn*r2).toFixed(1)+'"/>';
+      if(labels&&d%30===0){
+        var lr=r*1.09;
+        s+='<text class="r-lab" font-size="'+Math.max(7,r*0.065).toFixed(1)+'" x="'+(cx+c*lr).toFixed(1)+'" y="'+(cy+sn*lr).toFixed(1)+'">'+('00'+d).slice(-3)+'</text>';
+      }
+    }
+    // minor arms
+    for(i=0;i<4;i++){
+      a=(45+i*90-90)*Math.PI/180;
+      var tip=[cx+Math.cos(a)*r*0.42,cy+Math.sin(a)*r*0.42];
+      var l=[cx+Math.cos(a-Math.PI/2)*r*0.05,cy+Math.sin(a-Math.PI/2)*r*0.05];
+      var rr=[cx+Math.cos(a+Math.PI/2)*r*0.05,cy+Math.sin(a+Math.PI/2)*r*0.05];
+      s+='<polygon class="r-open" points="'+tip+' '+l+' '+cx+','+cy+'"/>';
+      s+='<polygon class="r-fill" points="'+tip+' '+rr+' '+cx+','+cy+'" fill-opacity=".55"/>';
+    }
+    // main arms
+    for(i=0;i<4;i++){
+      a=(i*90-90)*Math.PI/180;
+      var t=[cx+Math.cos(a)*r*0.78,cy+Math.sin(a)*r*0.78];
+      var p1=[cx+Math.cos(a-Math.PI/2)*r*0.08,cy+Math.sin(a-Math.PI/2)*r*0.08];
+      var p2=[cx+Math.cos(a+Math.PI/2)*r*0.08,cy+Math.sin(a+Math.PI/2)*r*0.08];
+      s+='<polygon class="r-open" points="'+t+' '+p1+' '+cx+','+cy+'"/>';
+      s+='<polygon class="r-fill" points="'+t+' '+p2+' '+cx+','+cy+'"/>';
+    }
+    s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+(r*0.03)+'" class="r-fill"/>';
+    return s;
+  }
+
+  var heroRose=document.getElementById('hero-rose');
+  if(heroRose) heroRose.innerHTML=rose(200,200,150,true);
+
+  /* ---------- the chart ---------- */
+  var body=document.querySelector('.voyage-body');
+  if(!body) return;
+  var chart=body.querySelector('.chart');
+  var svg=document.getElementById('chart-svg');
+  var entries=[].slice.call(body.querySelectorAll('.entry'));
+  var state=null;
+
+  function rnd(seed){return function(){seed=(seed*16807)%2147483647;return (seed-1)/2147483646;};}
+  function noise(seed){
+    var r=rnd(seed),w=[];
+    for(var i=0;i<4;i++) w.push({f:(0.002+r()*0.012)*(i+1),p:r()*6.28,a:1/(i+1.3)});
+    return function(t){var v=0;for(var i=0;i<w.length;i++) v+=w[i].a*Math.sin(t*w[i].f+w[i].p);return v/1.6;};
+  }
+  function dayOf(s){var p=s.split('-');return Date.UTC(+p[0],+p[1]-1,+p[2])/864e5;}
+  function f1(n){return n.toFixed(1);}
+
+  function build(){
+    var W=chart.clientWidth,H=chart.clientHeight;
+    if(!W||!H) return;
+    var desk=window.matchMedia('(min-width: 960px)').matches;
+    var cTop=chart.getBoundingClientRect().top;
+    var ys=entries.map(function(e){
+      var r=e.getBoundingClientRect();
+      if(desk){var st=e.querySelector('.stamp').getBoundingClientRect();return st.top+st.height/2-cTop;}
+      return r.top-cTop-(e===entries[0]?52:62);
+    });
+    var n=ys.length,y0=ys[0],yE=ys[n-1];
+    var x0=W*(desk?0.2:0.16),xEndA=W*0.9;
+    var s0=(xEndA-x0)/(yE-y0),s1=s0*0.6;
+    var pts=[[x0,y0]],i;
+    for(i=1;i<=4;i++) pts.push([x0+s0*(ys[i]-y0),ys[i]]);
+    for(i=5;i<=6;i++) pts.push([pts[i-1][0]+s1*(ys[i]-ys[i-1]),ys[i]]);
+    var amb=[W*(desk?0.4:0.3),yE];
+    pts.push(amb);
+
+    var h='';
+    var nz=noise(7),nz2=noise(19),nz3=noise(31);
+    var coast=function(y){return W*0.055+W*0.035*nz(y)+(y<y0+200?W*0.02:0);};
+    var yb=function(x){return yE+96+16*nz2(x*3)-34*Math.exp(-Math.pow((x-amb[0])/(W*0.05),2));};
+
+    // time grid: months as latitude
+    var days=entries.map(function(e){return dayOf(e.getAttribute('data-date'));});
+    function yForDay(d){
+      if(d<=days[0]) return null;
+      for(var k=1;k<n;k++) if(d<=days[k]) return ys[k-1]+(ys[k]-ys[k-1])*(d-days[k-1])/(days[k]-days[k-1]);
+      return null;
+    }
+    var months=['Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    h+='<g class="g-grid">';
+    for(i=1;i<5;i++) h+='<line x1="'+f1(W*i/5)+'" y1="0" x2="'+f1(W*i/5)+'" y2="'+H+'"/>';
+    var lastY=-99,mlab='';
+    months.forEach(function(m,k){
+      var y=yForDay(dayOf('2026-'+('0'+(k+2)).slice(-2)+'-01'));
+      if(y==null) return;
+      h+='<line x1="10" y1="'+f1(y)+'" x2="'+W+'" y2="'+f1(y)+'"/>';
+      if(y-lastY>20){mlab+='<text x="'+(desk?16:14)+'" y="'+f1(y-4)+'">'+m.toUpperCase()+'</text>';lastY=y;}
+    });
+    h+='</g>';
+
+    // contours off the west coast
+    var off=[W*0.06,W*0.12];
+    off.forEach(function(o,k){
+      var d='';
+      for(var y=0;y<=H;y+=12){d+=(y?'L':'M')+f1(coast(y)+o+W*0.02*nz3(y+k*400))+' '+y;}
+      h+='<path class="contour'+(k?' dot':'')+'" d="'+d+'"/>';
+    });
+    // bottom contours
+    [26,52].forEach(function(o,k){
+      var d='';
+      for(var x=0;x<=W;x+=10){d+=(x?'L':'M')+x+' '+f1(yb(x)-o-6*nz3(x*2+k*90))+' ';}
+      h+='<path class="contour'+(k?' dot':'')+'" d="'+d+'"/>';
+    });
+    // hazard rings drawn before land
+    var hy=ys[n-2]+(yE-ys[n-2])*0.55,hx=x0+s0*(hy-y0);
+    var crs=function(y){for(var k=0;k<pts.length-1;k++){if(y<=pts[k+1][1]){var t=(y-pts[k][1])/(pts[k+1][1]-pts[k][1]);return pts[k][0]+t*(pts[k+1][0]-pts[k][0]);}}return amb[0];};
+    var hr=Math.min(W*0.07,52);
+    if(hx-hr*1.55<crs(hy)+20) hx=crs(hy)+20+hr*1.55;
+    if(hx+hr*1.55>W-6) hr=Math.max(14,(W-6-hx)/1.55);
+    var hz=noise(43);
+    [1,1.55].forEach(function(m,k){
+      var d='';
+      for(var a=0;a<=360;a+=8){var t=a*Math.PI/180,rr=hr*m*(1+0.14*hz(a*6+k*50));d+=(a?'L':'M')+f1(hx+Math.cos(t)*rr)+' '+f1(hy+Math.sin(t)*rr*1.45);}
+      h+='<path class="'+(k?'haz-line':'haz-fill')+'" d="'+d+'Z"/>';
+      if(!k) h+='<path class="haz-line" d="'+d+'Z"/>';
+    });
+    h+='<g class="haz-rock">';
+    [[0,0],[-0.35,-0.5],[0.3,0.45]].forEach(function(o){var cx=hx+o[0]*hr,cy=hy+o[1]*hr;h+='<line x1="'+f1(cx-4)+'" y1="'+f1(cy)+'" x2="'+f1(cx+4)+'" y2="'+f1(cy)+'"/><line x1="'+f1(cx)+'" y1="'+f1(cy-4)+'" x2="'+f1(cx)+'" y2="'+f1(cy+4)+'"/>';});
+    h+='</g>';
+    var hly=hy+hr*1.55*1.45;
+    h+='<text class="haz-lab" text-anchor="end" x="'+f1(W-10)+'" y="'+f1(hly+16)+'">DANGER AREA</text>';
+    h+='<text class="haz-lab" text-anchor="end" x="'+f1(W-10)+'" y="'+f1(hly+28)+'">LOW-COST ENTRANT</text>';
+
+    // land: west coast
+    var d='M0 0 ';
+    for(var y=0;y<=H;y+=12) d+='L'+f1(coast(y))+' '+y+' ';
+    d+='L0 '+H+'Z';
+    h+='<path class="land" d="'+d+'"/>';
+    // land: south coast
+    d='M0 '+H+' ';
+    for(var x=0;x<=W;x+=8) d+='L'+x+' '+f1(yb(x))+' ';
+    d+='L'+W+' '+H+'Z';
+    h+='<path class="land" d="'+d+'"/>';
+    h+='<g class="g-grid">'+mlab+'</g>';
+
+    // soundings
+    var r=rnd(101),count=Math.min(420,Math.floor(W*H/7000));
+    function nearCourse(x,y){
+      var c=crs(y),a=x0+s0*(y-y0);
+      if(Math.abs(x-c)<30||Math.abs(x-a)<22) return true;
+      for(var k=0;k<pts.length;k++) if(Math.abs(y-pts[k][1])<40&&Math.abs(x-pts[k][0])<110) return true;
+      return false;
+    }
+    var rcx=W*0.74,rcy=y0+(ys[1]-y0)*0.55+ (ys[2]-ys[1])*0.2,rr=Math.min(W*0.16,120);
+    for(i=0;i<count;i++){
+      var sx=r()*W,sy=r()*H;
+      if(sy<yb(sx)-16 && sx>coast(sy)+14 && sx<W-14 && sy>14 && !nearCourse(sx,sy)
+         && Math.hypot(sx-rcx,sy-rcy)>rr*1.25 && Math.hypot((sx-hx)/1.0,(sy-hy)/1.45)>hr*1.7){
+        var depth=Math.round(6+(sx-coast(sy))/W*70+Math.min(40,(yb(sx)-sy)/30)+r()*5);
+        h+='<text class="sound" x="'+f1(sx)+'" y="'+f1(sy)+'">'+depth+'</text>';
+      }
+    }
+    // compass rose
+    h+='<g opacity=".9">'+rose(rcx,rcy,rr,true)+'</g>';
+
+    // annual review line
+    var aEnd=[xEndA,yE];
+    h+='<path class="annual" d="M'+f1(x0)+' '+f1(y0)+' L'+f1(aEnd[0])+' '+f1(aEnd[1])+'"/>';
+    h+='<circle cx="'+f1(aEnd[0])+'" cy="'+f1(aEnd[1])+'" r="4.5" fill="#F3EEE2" stroke="#0F2238" stroke-width="1.2"/>';
+    h+='<text class="annual-lab" text-anchor="end" x="'+f1(Math.min(aEnd[0]+4,W-8))+'" y="'+f1(aEnd[1]-14)+'">ANNUAL REVIEW</text>';
+    // miss distance
+    var my=yE+38;
+    h+='<g class="miss"><line x1="'+f1(amb[0]+12)+'" y1="'+my+'" x2="'+f1(aEnd[0])+'" y2="'+my+'"/>'+
+       '<line x1="'+f1(amb[0]+12)+'" y1="'+(my-5)+'" x2="'+f1(amb[0]+12)+'" y2="'+(my+5)+'"/>'+
+       '<line x1="'+f1(aEnd[0])+'" y1="'+(my-5)+'" x2="'+f1(aEnd[0])+'" y2="'+(my+5)+'"/>'+
+       '<text text-anchor="middle" x="'+f1((amb[0]+12+aEnd[0])/2)+'" y="'+(my-7)+'">WIDE OF THE MARK</text></g>';
+
+    // planned (faint) and drawn course
+    var cd='M'+pts.map(function(p){return f1(p[0])+' '+f1(p[1]);}).join(' L');
+    h+='<path class="course-plan" d="'+cd+'"/>';
+    h+='<path class="course" id="course" d="'+cd+'"/>';
+
+    // bearings
+    function brg(a,b,label,side){
+      var mx=(a[0]+b[0])/2,my2=(a[1]+b[1])/2;
+      h+='<text class="brg" text-anchor="'+(side<0?'end':'start')+'" x="'+f1(mx+side*12)+'" y="'+f1(my2)+'">'+label+'</text>';
+    }
+    brg(pts[0],pts[1],'C 173°',1);
+    brg(pts[4],pts[5],'C 175°',-1);
+    brg(pts[6],pts[7],'C 198°',1);
+
+    // correction marks
+    function corr(k,label,rad){
+      var p=pts[k],prev=pts[k-1],next=pts[k+1];
+      var a0=Math.atan2(p[1]-prev[1],p[0]-prev[0]),a1=Math.atan2(next[1]-p[1],next[0]-p[0]);
+      var ex=[p[0]+Math.cos(a0)*rad*1.8,p[1]+Math.sin(a0)*rad*1.8];
+      var s=[p[0]+Math.cos(a0)*rad,p[1]+Math.sin(a0)*rad],e=[p[0]+Math.cos(a1)*rad,p[1]+Math.sin(a1)*rad];
+      return '<g class="corr-mark" data-k="'+k+'"><path class="ghost" d="M'+f1(p[0])+' '+f1(p[1])+' L'+f1(ex[0])+' '+f1(ex[1])+'"/>'+
+        '<path d="M'+f1(s[0])+' '+f1(s[1])+' A'+rad+' '+rad+' 0 0 1 '+f1(e[0])+' '+f1(e[1])+'"/>'+
+        '<text x="'+f1(p[0]+rad*0.9+6)+'" y="'+f1(p[1]+rad*0.7)+'">'+label+'</text></g>';
+    }
+    h+=corr(4,'2° STBD',Math.min(60,W*0.09));
+    h+=corr(6,'PIVOT',Math.min(46,W*0.08));
+
+    // parked buoy
+    var pk=pts[5],px=pk[0]+Math.min(70,W*0.14);
+    h+='<g class="park"><line x1="'+f1(pk[0])+'" y1="'+f1(pk[1])+'" x2="'+f1(px)+'" y2="'+f1(pk[1]-26)+'"/><circle cx="'+f1(px)+'" cy="'+f1(pk[1]-26)+'" r="6"/><text x="'+f1(px+10)+'" y="'+f1(pk[1]-23)+'">PARKED</text></g>';
+
+    // leaders (desktop)
+    if(desk) for(i=0;i<n;i++) h+='<line class="leader" x1="'+f1(pts[i][0]+10)+'" y1="'+f1(ys[i])+'" x2="'+W+'" y2="'+f1(ys[i])+'"/>';
+
+    // waypoints
+    for(i=0;i<n-1;i++){
+      h+='<g class="wp" data-k="'+i+'"><circle class="ring" cx="'+f1(pts[i][0])+'" cy="'+f1(pts[i][1])+'" r="6"/><circle class="dot" cx="'+f1(pts[i][0])+'" cy="'+f1(pts[i][1])+'" r="1.8"/>'+
+        '<text x="'+f1(pts[i][0]-12)+'" y="'+f1(pts[i][1]+3.5)+'" text-anchor="end">WP'+i+'</text></g>';
+    }
+    // departure label
+    h+='<text class="wp" style="font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;fill:#0F2238" x="'+f1(x0+12)+'" y="'+f1(y0-12)+'">DEPARTURE · OFFSITE</text>';
+    // ambition
+    h+='<g class="amb"><circle cx="'+f1(amb[0])+'" cy="'+f1(amb[1])+'" r="11" stroke-width="3"/><circle cx="'+f1(amb[0])+'" cy="'+f1(amb[1])+'" r="19" stroke-width=".8" stroke-dasharray="2 3"/>'+
+       '<text text-anchor="middle" x="'+f1(amb[0])+'" y="'+f1(amb[1]-28)+'">AMBITION</text></g>';
+
+    // ship
+    h+='<path class="ship" id="ship" d="M9 0 L-6 -4.5 L-3.5 0 L-6 4.5 Z"/>';
+
+    // neat line and scale bars
+    h+='<g class="g-scale">';
+    for(var yy=0,k2=0;yy<H;yy+=36,k2++) h+='<rect class="'+(k2%2?'scale-b':'scale-a')+'" x="0" y="'+yy+'" width="6" height="36"/>';
+    for(var xx=0,k3=0;xx<W;xx+=36,k3++) h+='<rect class="'+(k3%2?'scale-b':'scale-a')+'" x="'+xx+'" y="0" width="36" height="6"/>';
+    h+='<path class="scale-frame" d="M6.5 '+H+' V6.5 H'+W+'"/></g>';
+
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    svg.innerHTML=h;
+    chart.classList.add('drawn');
+
+    var legs=[],cum=[0],tot=0;
+    for(i=0;i<pts.length-1;i++){var L=Math.hypot(pts[i+1][0]-pts[i][0],pts[i+1][1]-pts[i][1]);legs.push(L);tot+=L;cum.push(tot);}
+    var course=document.getElementById('course');
+    course.style.strokeDasharray=tot+' '+tot;
+    state={pts:pts,cum:cum,tot:tot,legs:legs,course:course,ship:document.getElementById('ship'),
+      wps:[].slice.call(svg.querySelectorAll('.wp[data-k]')),corrs:[].slice.call(svg.querySelectorAll('.corr-mark'))};
+    update();
+  }
+
+  function at(len){
+    var p=state.pts,c=state.cum;
+    for(var i=0;i<p.length-1;i++){
+      if(len<=c[i+1]||i===p.length-2){
+        var t=state.legs[i]?Math.max(0,Math.min(1,(len-c[i])/state.legs[i])):0;
+        return {x:p[i][0]+t*(p[i+1][0]-p[i][0]),y:p[i][1]+t*(p[i+1][1]-p[i][1]),a:Math.atan2(p[i+1][1]-p[i][1],p[i+1][0]-p[i][0])};
+      }
+    }
+  }
+  function lenAtY(y){
+    var p=state.pts,c=state.cum;
+    if(y<=p[0][1]) return 0;
+    for(var i=0;i<p.length-1;i++) if(y<=p[i+1][1]) return c[i]+state.legs[i]*(y-p[i][1])/(p[i+1][1]-p[i][1]);
+    return state.tot;
+  }
+  function update(){
+    if(!state) return;
+    var top=chart.getBoundingClientRect().top;
+    var target=window.innerHeight*0.6-top;
+    var len=reduce?state.tot:lenAtY(target);
+    state.course.style.strokeDashoffset=(state.tot-len).toFixed(1);
+    var p=at(len);
+    state.ship.setAttribute('transform','translate('+p.x.toFixed(1)+' '+p.y.toFixed(1)+') rotate('+(p.a*180/Math.PI).toFixed(1)+')');
+    var tipY=reduce?Infinity:target;
+    state.wps.forEach(function(g){var k=+g.getAttribute('data-k');var on=state.pts[k][1]<=tipY+0.5;g.classList.toggle('on',on);entries[k].classList.toggle('on',on);});
+    entries[entries.length-1].classList.toggle('on',state.pts[state.pts.length-1][1]<=tipY+0.5);
+    state.corrs.forEach(function(g){var k=+g.getAttribute('data-k');g.classList.toggle('on',state.pts[k][1]+20<=tipY);});
+  }
+
+  var raf=0;
+  window.addEventListener('scroll',function(){if(raf) return;raf=requestAnimationFrame(function(){raf=0;update();});},{passive:true});
+  var rt=0;
+  window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(build,150);});
+  build();
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(build);
+  window.addEventListener('load',build);
+})();
+</script>
+</body>
+</html>

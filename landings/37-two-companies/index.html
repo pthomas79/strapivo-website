@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two companies, one consultation paper, 120 days · Strapivo</title>
+<meta name="description" content="An illustrative story. Two fictional packaging companies get the same regulator's paper on the same day. One runs an annual strategy cycle and finds out on day 97. One runs Dynamic Strategy in Strapivo and decides on day 4.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+--ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+--paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;--p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+--g1:#E9ECEF;--g2:#6C727A;--red:#B8483A;
+--mono:'JetBrains Mono',ui-monospace,monospace;
+--mid:128px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";color:var(--ink);background:var(--paper);font-size:16px;line-height:1.55}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+h1,h2,h3{font-weight:500;margin:0;letter-spacing:-0.025em;line-height:1.08}
+p{margin:0}
+.mono,.k,.eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;font-weight:500}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:#fff;padding:8px 12px;z-index:50}
+.skip:focus{left:8px}
+
+/* header */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px clamp(16px,4vw,48px);background:linear-gradient(to right,var(--g1) 50%,var(--paper) 50%)}
+.top .logo img{height:24px;width:auto;display:block}
+.top nav{display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;text-decoration:none;padding:10px 16px;border-radius:4px;line-height:1.2;white-space:nowrap}
+.btn.solid{background:var(--p700);color:#fff}
+.btn.solid:hover{background:var(--n900)}
+.btn.line{color:var(--ink);border:1px solid var(--n200);background:#fff}
+.btn.line:hover{border-color:var(--n400)}
+
+/* hero */
+.hero{position:relative;background:linear-gradient(to right,var(--g1) 50%,var(--paper) 50%)}
+.hero-in{max-width:1200px;margin:0 auto;padding:clamp(48px,8vw,104px) clamp(16px,4vw,48px) 0;text-align:center}
+.eyebrow{font-size:11.5px;color:var(--n600);display:inline-block;background:#fff;border:1px solid var(--n200);padding:6px 10px;border-radius:2px}
+h1{font-size:clamp(36px,5.6vw,76px);max-width:15ch;margin:28px auto 0;letter-spacing:-0.03em}
+.lede{font-size:clamp(17px,1.6vw,20px);color:var(--n700);max-width:36em;margin:24px auto 0}
+.lede strong{font-weight:500;color:var(--p700)}
+.lede .r{color:var(--red);font-weight:500}
+.prof{display:grid;grid-template-columns:1fr var(--mid) 1fr;margin-top:clamp(48px,6vw,80px);text-align:left}
+.prof>div{padding:0 0 8px}
+.prof .pa{justify-self:end;max-width:440px;width:100%;padding-right:28px}
+.prof .pb{justify-self:start;max-width:440px;width:100%;padding-left:28px}
+.prof .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+.prof .pa .tag{color:var(--n600)}
+.prof .pb .tag{color:var(--p700)}
+.prof h2{font-size:clamp(22px,2.2vw,28px);margin:10px 0 10px;letter-spacing:-0.02em}
+.prof p{color:var(--n700);font-size:15.5px}
+.prof .pa h2{color:var(--n700)}
+.fair{max-width:640px;margin:40px auto 0;padding-bottom:56px!important;padding:0 clamp(16px,4vw,48px);text-align:center;color:var(--n700);font-size:15.5px}
+
+.signal{position:relative;z-index:2;max-width:620px;margin:48px auto 0;background:var(--ink);color:#fff;padding:26px 28px;border-radius:4px;text-align:left}
+.signal .k{font-size:11.5px;color:var(--p200)}
+.signal p.t{font-size:clamp(18px,1.8vw,22px);line-height:1.4;margin-top:10px;letter-spacing:-0.01em}
+.signal p.s{font-size:14px;color:#C9D0D8;margin-top:12px}
+
+/* split */
+.split{position:relative;background:linear-gradient(to right,var(--g1) 50%,var(--paper) 50%);padding-bottom:72px}
+.split h2.vh,.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.sh{position:sticky;top:0;z-index:10;display:grid;grid-template-columns:1fr var(--mid) 1fr;align-items:center;background:linear-gradient(to right,rgba(233,236,239,.96) 50%,rgba(246,249,251,.96) 50%);border-bottom:1px solid var(--n200);padding:10px clamp(16px,3vw,40px)}
+.sh .la,.sh .lb{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+.sh .la{justify-self:end;padding-right:28px;color:var(--n600);text-align:right}
+.sh .lb{justify-self:start;padding-left:28px;color:var(--p700)}
+.sh .la b,.sh .lb b{font-weight:500;color:var(--ink)}
+.ctr{justify-self:center;background:var(--ink);color:#fff;border-radius:4px;padding:7px 10px 6px;min-width:108px;text-align:center;font-family:var(--mono);transition:background .4s}
+.ctr .cd{display:block;font-size:22px;line-height:1.1;letter-spacing:.02em;font-weight:500;font-variant-numeric:tabular-nums}
+.ctr .cd small{font-size:10px;letter-spacing:.1em;margin-right:5px;color:var(--p200);vertical-align:3px}
+.ctr .cl{display:block;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:#C9D0D8;margin-top:3px}
+.ctr.found{background:var(--red)}
+.ctr.found .cd small,.ctr.found .cl{color:#fff}
+
+.days{list-style:none;margin:0;padding:24px clamp(16px,3vw,40px) 0;position:relative}
+.days::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--n400);transform:translateX(-.5px)}
+.d{display:grid;grid-template-columns:1fr var(--mid) 1fr;align-items:start;position:relative}
+.d .a{justify-self:end;width:100%;max-width:460px;padding-right:28px;display:flex;justify-content:flex-end}
+.d .b{justify-self:start;width:100%;max-width:460px;padding-left:28px}
+.d .n{display:flex;justify-content:center;position:relative;z-index:1}
+.d .n>span{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--n600);line-height:18px;background:linear-gradient(to right,var(--g1) 50%,var(--paper) 50%);padding:0 6px;font-variant-numeric:tabular-nums}
+.d .w{display:none}
+.d.q{min-height:19px}
+.d.q .n>span{color:var(--n500)}
+.d.q.on .n>span{color:var(--ink)}
+.qn{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--n500);line-height:18px;padding-left:14px;position:relative}
+.qn::before{content:"";position:absolute;left:0;top:6px;width:6px;height:6px;border-radius:50%;background:var(--p200)}
+.qn.s{color:var(--p700)}
+.qn.s::before{background:var(--p500)}
+
+.d.ev{padding:22px 0}
+.d.ev .n>span{font-size:12px;color:var(--ink);background:#fff;border:1px solid var(--n200);border-radius:2px;padding:4px 8px;line-height:1.2;margin-top:14px}
+.d.ev .w{display:inline}
+.d.ev.on .n>span{border-color:var(--ink)}
+.d.found .n>span{color:var(--red);border-color:var(--red)}
+.d.close .n>span{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+.card{position:relative;border-radius:4px;padding:16px 18px 18px;font-size:14.5px;line-height:1.55;width:100%}
+.card p+p,.card p+div,.card div+p,.card svg+p,.card ul+p,.card ol+p,.card div+div{margin-top:10px}
+.card .k{font-size:10.5px;margin-bottom:8px}
+.ca{background:#F4F5F7;border:1px solid #D3D8DE;color:var(--n700)}
+.ca .k{color:var(--n600)}
+.cb{background:#fff;border:1px solid var(--n200);color:var(--ink);box-shadow:0 1px 2px rgba(20,27,36,.04)}
+.cb .k{color:var(--p700)}
+.who{display:none}
+.ca.red{border-color:var(--red);border-left-width:4px;background:#F7F1F0}
+.ca.red .k{color:var(--red)}
+.ca.red .rn{color:var(--red)}
+
+.mail{background:#fff;border:1px solid #D3D8DE;border-radius:2px;padding:10px 12px}
+.mail .mh{font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--n700);border-bottom:1px dashed #D3D8DE;padding-bottom:8px}
+.mail .mh span{color:var(--n500);display:inline-block;width:62px;text-transform:uppercase;letter-spacing:.06em;font-size:10px}
+.mail .mb{margin-top:8px}
+
+.chip{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:2px;border:1px solid var(--n200);color:var(--n600);background:var(--n100)}
+.chip.on{background:var(--sky);border-color:var(--p200);color:var(--p700)}
+.chip.off{text-decoration:line-through;color:var(--n500)}
+.states{display:flex;align-items:center;gap:8px}
+.arr{color:var(--n500)}
+.sig{border:1px solid var(--n200);border-radius:4px;padding:10px 12px;display:grid;gap:6px;justify-items:start;background:var(--paper)}
+.sig-t{font-weight:500;line-height:1.35}
+.src{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--n600)}
+.vivo .vv,.agenda .ob,.agenda .nb,.dis span{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--p700);margin-bottom:2px}
+.vivo{border-left:2px solid var(--p500);padding-left:10px}
+.radar{display:block;width:100%;max-width:260px;height:auto}
+.radar .rt{font-family:var(--mono);font-size:7.5px;letter-spacing:.08em;fill:#495158}
+@media (prefers-reduced-motion:no-preference){.radar .ghost{animation:pulse 3.2s ease-in-out infinite}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.agenda{margin:0;padding:0;list-style:none;counter-reset:ag;border:1px solid var(--n200);border-radius:4px}
+.agenda li{padding:10px 12px 10px 40px;position:relative;counter-increment:ag}
+.agenda li+li{border-top:1px solid var(--n200)}
+.agenda li::before{content:counter(ag);position:absolute;left:12px;top:10px;font-family:var(--mono);font-size:12px;color:var(--n500)}
+.agenda .ob{color:var(--n600)}
+.takes{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.takes li{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:8px 10px;border:1px solid var(--p200);background:var(--sky);color:var(--p700);border-radius:2px}
+.takes li.ny{background:#fff;border-color:var(--n400);color:var(--n700)}
+.rec,.park{border-top:1px solid var(--n200);padding-top:10px}
+.rec p+p,.park p+p{margin-top:6px}
+.rn{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--p700);font-weight:500}
+.dis{background:var(--n100);padding:8px 10px;border-radius:2px}
+.dis span{color:var(--n600)}
+.park .rn{color:var(--n600)}
+.trig{font-size:13.5px;color:var(--n600)}
+.was{text-decoration:line-through;color:var(--n500);text-decoration-color:var(--n400)}
+.now{background:var(--sky);border-left:2px solid var(--p500);padding:8px 10px;color:var(--ink);font-weight:500}
+.mcd{margin:0;display:grid;gap:0;border:1px solid var(--n200);border-radius:4px}
+.mcd div{display:grid;grid-template-columns:120px 1fr;gap:10px;padding:8px 12px}
+.mcd div+div{border-top:1px solid var(--n200)}
+.mcd dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--n600);padding-top:2px}
+.mcd dd{margin:0}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:0}
+.dot.y{background:#C99A1E}
+
+.endmark{text-align:center;margin-top:28px;position:relative;z-index:1}
+.endmark span{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);background:#fff;border:1px solid var(--n200);padding:6px 10px;border-radius:2px}
+
+/* tally */
+.tally{background:var(--paper);padding:clamp(72px,9vw,120px) clamp(16px,4vw,48px)}
+.wrap{max-width:1080px;margin:0 auto}
+.tally h2,.diff h2,.cta h2{font-size:clamp(30px,3.6vw,48px)}
+.tally .sub{color:var(--n700);margin-top:14px;max-width:40em;font-size:17px}
+table{width:100%;border-collapse:collapse;margin-top:40px;font-size:15px}
+th,td{text-align:left;vertical-align:top;padding:14px 16px;border-top:1px solid var(--n200)}
+thead th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;border-top:0;padding-bottom:10px}
+thead th.ta{color:var(--n600);background:var(--g1)}
+thead th.tb{color:var(--p700);background:var(--sky)}
+tbody th{font-weight:500;width:26%;color:var(--ink)}
+td.ta{background:var(--g1);color:var(--n700);width:37%}
+td.tb{background:#fff;width:37%}
+td .m{font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;display:block;margin-bottom:2px}
+td.ta .m{color:var(--n600)}
+td.tb .m{color:var(--p700)}
+td.ta .m.r{color:var(--red)}
+
+/* difference */
+.diff{background:var(--ink);color:#fff;padding:clamp(72px,9vw,128px) clamp(16px,4vw,48px)}
+.diff .eyebrow{background:transparent;border-color:#3A434D;color:var(--p200)}
+.diff h2{margin-top:22px;max-width:18ch}
+.diff .sub{font-size:clamp(17px,1.6vw,20px);color:#C9D0D8;max-width:36em;margin-top:20px}
+.mech{list-style:none;margin:56px 0 0;padding:0;border-top:1px solid #2C343C}
+.mech li{display:grid;grid-template-columns:140px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid #2C343C}
+.mech .md{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--p200);padding-top:3px}
+.mech h3{font-size:19px;letter-spacing:-0.015em;line-height:1.3}
+.mech p{color:#C9D0D8;margin-top:6px;font-size:15.5px;max-width:44em}
+.chair{margin-top:72px;display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:start}
+.chair h3{font-size:clamp(24px,2.6vw,34px);letter-spacing:-0.02em}
+.chair .q{font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--p200);margin-top:14px}
+.chair ul{list-style:none;margin:0;padding:0}
+.chair li{padding:12px 0 12px 22px;border-bottom:1px solid #2C343C;color:#DDE2E8;position:relative;font-size:15.5px}
+.chair li::before{content:"";position:absolute;left:0;top:20px;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--p400)}
+
+/* cta */
+.cta{background:linear-gradient(to right,var(--g1) 50%,var(--paper) 50%);padding:clamp(80px,10vw,140px) clamp(16px,4vw,48px);text-align:center}
+.cta .box{max-width:640px;margin:0 auto;background:#fff;border:1px solid var(--n200);border-radius:4px;padding:clamp(32px,5vw,56px)}
+.cta .ctrb{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--p700);border:1px solid var(--p200);background:var(--sky);padding:5px 10px;border-radius:2px}
+.cta h2{margin-top:20px}
+.cta p{color:var(--n700);margin:18px auto 0;max-width:30em;font-size:17px}
+.cta .btn{margin-top:30px;font-size:16px;padding:14px 22px}
+.cta .home{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);margin-top:22px}
+
+footer{background:var(--n900);color:#C9D0D8;padding:40px clamp(16px,4vw,48px);font-size:14px}
+footer .fi{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between}
+footer img{height:22px;width:auto;display:block}
+footer nav{display:flex;gap:20px;flex-wrap:wrap}
+footer a{color:#C9D0D8;text-decoration:none}
+footer a:hover{color:#fff;text-decoration:underline}
+
+/* mid widths */
+@media (max-width:1100px){:root{--mid:150px}}
+
+/* mobile: interleave by day */
+@media (max-width:760px){
+ .top{background:var(--paper)}
+ .top .btn.solid{display:none}
+ .hero{background:var(--paper)}
+ .hero-in{text-align:left}
+ h1{margin-left:0}
+ .lede{margin-left:0}
+ .prof{display:block}
+ .prof .pa,.prof .pb{max-width:none;padding:18px 18px 20px;border-radius:4px}
+ .prof .pa{background:var(--g1)}
+ .prof .pb{background:#fff;border:1px solid var(--n200);margin-top:12px}
+ .prof .gap{display:none}
+ .fair{text-align:left;padding:0 16px;margin-left:0}
+ .signal{margin-top:32px}
+ .split{background:var(--paper);padding-bottom:56px}
+ .sh{grid-template-columns:1fr auto 1fr;background:rgba(246,249,251,.97);padding:8px 12px}
+ .sh .la,.sh .lb{padding:0;font-size:10.5px}
+ .sh .la{justify-self:start;text-align:left}
+ .sh .lb{justify-self:end;text-align:right}
+ .sh .long{display:none}
+ .sh .la b,.sh .lb b{display:block;font-size:13px}
+ .sh .la .dt,.sh .lb .dt{display:none}
+ .ctr{width:auto;padding:6px 10px}
+ .ctr .cl{white-space:nowrap}
+ .days{padding:16px 16px 0}
+ .days::before{display:none}
+ .d{display:block}
+ .d.ev{display:flex;flex-direction:column;align-items:stretch}
+ .d.ev .n{order:-1}
+ .d .a,.d .b{max-width:none;padding:0;display:block}
+ .d .n{justify-content:flex-start}
+ .d.ev{padding:20px 0 8px;border-top:1px solid var(--n200);margin-top:16px}
+ .d.ev .n>span{margin-top:0;background:#fff}
+ .d.ev .a:not(:empty),.d.ev .b:not(:empty){margin-top:10px}
+ .d.ev .a:empty,.d.ev .b:empty{display:none}
+ .d.q{display:inline-block;min-height:0;margin:6px 2px 0 0;vertical-align:top}
+ .d.q .a,.d.q .b .qn{display:none}
+ .d.q .n>span{background:none;padding:0 4px;font-size:10.5px}
+ .d.q.qr .n>span,.d.q.qs .n>span{border-bottom:2px solid var(--p200)}
+ .d.q.qs .n>span{border-bottom-color:var(--p500)}
+ .who{display:inline-flex;position:absolute;top:-1px;right:-1px;width:24px;height:24px;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:500;border-radius:0 4px 0 4px}
+ .ca .who{background:var(--n600);color:#fff}
+ .cb .who{background:var(--p700);color:#fff}
+ .ca.red .who{background:var(--red)}
+ .ca{background:var(--g1)}
+ .card{padding-right:36px}
+ .legend-m{display:block}
+ table,thead,tbody,tr,th,td{display:block;width:auto!important}
+ thead{display:none}
+ tbody tr{border-top:1px solid var(--n200);padding:16px 0}
+ tbody th{border:0;padding:0 0 8px}
+ td{border:0;padding:10px 12px;border-radius:2px}
+ td+td{margin-top:6px}
+ td::before{content:attr(data-l);display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+ td.ta::before{color:var(--n600)}
+ td.tb::before{color:var(--p700)}
+ td.tb{border:1px solid var(--n200)}
+ .mech li{grid-template-columns:1fr;gap:6px}
+ .chair{grid-template-columns:1fr}
+ .cta{background:var(--paper);text-align:left}
+}
+.legend-m{display:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--n600);padding:14px 16px 0;line-height:1.7}
+.legend-m i{font-style:normal;display:inline-block;width:14px;border-bottom:2px solid var(--p200);margin:0 6px 3px 0;vertical-align:middle}
+.legend-m i.s{border-bottom-color:var(--p500)}
+</style>
+</head>
+<body>
+<a class="skip" href="#story">Skip to the story</a>
+<header class="top">
+  <a class="logo" href="#"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="96" height="24"></a>
+  <nav aria-label="Account">
+    <a class="btn line" href="https://strapivo.app">Sign in</a>
+    <a class="btn solid" href="mailto:strategy@strapivo.com">Start the conversation</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="h1">
+  <div class="hero-in">
+    <p class="eyebrow">Illustrative example &middot; two fictional companies</p>
+    <h1 id="h1">Two companies got the same news on the same morning.</h1>
+    <p class="lede">One made its first decision about it on <strong>day 4</strong>. The other found out what it meant on <span class="r">day 97</span>. Follow both for 120 days, side by side.</p>
+  </div>
+  <div class="prof">
+    <div class="pa">
+      <p class="tag">A &middot; Annual cycle</p>
+      <h2>Aldmoor Packaging</h2>
+      <p>Makes food trays and lids. Agrees its strategy at an offsite each January and reviews it every quarter.</p>
+    </div>
+    <div class="gap" aria-hidden="true"></div>
+    <div class="pb">
+      <p class="tag">B &middot; Dynamic Strategy</p>
+      <h2>Brenfield Packaging</h2>
+      <p>Makes the same trays for the same customers. Runs Dynamic Strategy in Strapivo, with a 60-minute session every fortnight.</p>
+    </div>
+  </div>
+  <div class="signal" role="note" aria-label="The signal">
+    <p class="k">Day 0 &middot; the signal</p>
+    <p class="t">The regulator publishes a consultation paper. Food-contact trays must contain a minimum share of recycled plastic from 2028.</p>
+    <p class="s">Responses close on day 90. Both companies use virgin resin today.</p>
+  </div>
+  <p class="fair">Aldmoor's people are good at their jobs. Petra in regulatory affairs spots the paper on the first morning. Aldmoor has no place for the news to go between reviews. Brenfield has one.</p>
+</section>
+
+<section class="split" id="story" aria-labelledby="story-h">
+  <h2 class="vh" id="story-h">The 120 days, day by day</h2>
+  <div class="sh">
+    <p class="la"><b>A</b><span class="dt"> &middot; </span><span class="long">Aldmoor &middot; </span>annual cycle</p>
+    <div class="ctr" id="ctr" aria-hidden="true"><span class="cd" id="cd"><small>DAY</small>000</span><span class="cl" id="cl">90 days to close</span></div>
+    <p class="lb"><b>B</b><span class="dt"> &middot; </span><span class="long">Brenfield &middot; </span>Dynamic Strategy</p>
+  </div>
+  <p class="legend-m">Quiet days pass as numbers. <i></i>Radar report <i class="s"></i>Brenfield session</p>
+  <ol class="days">
+<li class="d ev" data-day="0"><div class="a"><div class="card ca"><span class="who" aria-hidden="true">A</span><p class="k">Regulatory affairs</p><p>Petra reads the paper on the morning it comes out. She knows it matters and puts it at the top of her weekly note.</p></div></div><div class="n"><span><span class="w">Day </span>000</span></div><div class="b"><div class="card cb"><span class="who" aria-hidden="true">B</span><p class="k">Radar &middot; morning report</p><div class="sig"><span class="chip">New</span><span class="sig-t">Consultation paper on recycled content in food-contact trays</span><span class="src">Regulator &middot; primary source</span></div><p class="vivo"><span class="vv">Vivo, first pass</span> Relevant to the focus criterion "Our core tray range stays first choice for our retail customers". Our trays use virgin resin.</p></div></div></li>
+<li class="d ev" data-day="1"><div class="a"><div class="card ca"><span class="who" aria-hidden="true">A</span><p class="k">Email</p><div class="mail"><p class="mh"><span>From</span> Petra, regulatory affairs<br><span>To</span> Jonas, COO<br><span>Subject</span> Fwd: Consultation on recycled content</p><p class="mb">Worth a look before the quarterly review?</p></div></div></div><div class="n"><span><span class="w">Day </span>001</span></div><div class="b"><div class="card cb"><span class="who" aria-hidden="true">B</span><p class="k">Triage</p><p>Ines, head of procurement, triages signals for this focus area. She reads Vivo's line and marks the signal Relevant.</p><p class="states"><span class="chip off">New</span><span class="arr" aria-hidden="true">&rarr;</span><span class="chip on">Relevant</span></p></div></div></li>
+<li class="d ev" data-day="2"><div class="a"></div><div class="n"><span><span class="w">Day </span>002</span></div><div class="b"><div class="card cb"><span class="who" aria-hidden="true">B</span><p class="k">Ghost move</p><svg class="radar" viewBox="0 0 220 160" role="img" aria-label="Risk radar. The risk sits in the middle. A dashed ghost marks Vivo's proposed new position in the top right corner.">
+<rect x="34" y="10" width="176" height="120" fill="#fff" stroke="#E1E5EA"/>
+<rect x="122" y="10" width="88" height="60" fill="#D4EBFF"/>
+<line x1="122" y1="10" x2="122" y2="130" stroke="#E1E5EA"/>
+<line x1="34" y1="70" x2="210" y2="70" stroke="#E1E5EA"/>
+<text x="204" y="63" text-anchor="end" class="rt">TOP RIGHT</text>
+<circle cx="98" cy="92" r="6" fill="#6C727A"/>
+<line x1="104" y1="87" x2="174" y2="40" stroke="#0082E6" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle class="ghost" cx="182" cy="34" r="8" fill="none" stroke="#0082E6" stroke-width="1.6" stroke-dasharray="3 2"/>
+<text x="122" y="148" text-anchor="middle" class="rt">LIKELIHOOD</text>
+<text x="20" y="70" text-anchor="middle" class="rt" transform="rotate(-90 20 70)">IMPACT</text>
+</svg><p>Vivo proposes moving the risk "Recycled-content rules outpace our resin supply" into the top right. Vivo's one-line reason is that the regulator has named a year.</p><p>A move into the top right needs a primary source. The consultation paper is one. Ines confirms. The move joins the trail with the paper, the date and her name.</p></div></div></li>
+<li class="d ev" data-day="3"><div class="a"></div><div class="n"><span><span class="w">Day </span>003</span></div><div class="b"><div class="card cb"><span class="who" aria-hidden="true">B</span><p class="k">Agenda, drafted 24 hours ahead</p><ol class="agenda"><li><span class="ob">Old business</span> Retailer audit pack is at risk. The owner has an ask.</li><li><span class="nb">New business</span> Resin risk entered the top right on day 2. Reason: primary source, focus criterion.</li></ol><p>Ruth, the session lead, gives item 2 twenty minutes. The room approves the agenda as step one.</p></div></div></li>
+<li class="d ev big" data-day="4"><div class="a"></div><div class="n"><span><span class="w">Day </span>004</span></div><div class="b"><div class="card cb"><span class="who" aria-hidden="true">B</span><p class="k">Session &middot; 60 minutes</p><p>Five first takes, sealed until everyone has given one, then revealed together.</p><ul class="takes" aria-label="First takes"><li>Adapt</li><li>Adapt</li><li>Adapt</li><li>Adapt</li><li class="ny">Not yet</li></ul><p>Vivo asks what waiting for the final text would cost in supplier options. The team decides to adapt.</p><div class="rec"><p class="rn">SDS-2026-031 &middot; Adapt</p><p>Ines opens talks with two recycled-resin suppliers by day 30.</p><p>R&amp;D trials recycled content on the top-selling tray by day 45.</p><p class="dis"><span>Dissent</span> Lukas, CFO. "Consultation drafts change. Wait for the final text."</p></div><div class="park"><p class="rn">Parked</p><p>Do we redesign the range around a single material?</p><p class="trig">Returns when a customer states a material requirement, or at the session on day 60.</p></div></div></div></li>
+<li class="d ev" data-day="5"><div class="a"></div><div class="n"><span><span class="w">Day </span>005</span></div><div class="b"><div class="card cb"><span class="who" aria-hidden="true">B</span><p class="k">Announce</p><p>Ruth tells the company what changed and why, with the decision number.</p></div></div></li>
+<li class="d q" data-day="6"><div class="a"></div><div class="n"><span><span class="w">Day </span>006</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="7"><div class="a"></div><div class="n"><span><span class="w">Day </span>007</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="8"><div class="a"></div><div class="n"><span><span class="w">Day </span>008</span></div><div class="b"></div></li>
+<li class="d ev" data-day="9"><div class="a"><div class="card ca"><span class="who" aria-hidden="true">A</span><p class="k">Email</p><div class="mail"><p class="mh"><span>From</span> Jonas, COO<br><span>To</span> Malik, strategy lead<br><span>Subject</span> Fwd: Fwd: Consultation on recycled content</p><p class="mb">Can this go in the quarterly pack?</p></div></div></div><div class="n"><span><span class="w">Day </span>009</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="10"><div class="a"></div><div class="n"><span><span class="w">Day </span>010</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="11"><div class="a"></div><div class="n"><span><span class="w">Day </span>011</span></div><div class="b"></div></li>
+<li class="d q" data-day="12"><div class="a"></div><div class="n"><span><span class="w">Day </span>012</span></div><div class="b"></div></li>
+<li class="d q" data-day="13"><div class="a"></div><div class="n"><span><span class="w">Day </span>013</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="14"><div class="a"></div><div class="n"><span><span class="w">Day </span>014</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="15"><div class="a"></div><div class="n"><span><span class="w">Day </span>015</span></div><div class="b"></div></li>
+<li class="d q" data-day="16"><div class="a"></div><div class="n"><span><span class="w">Day </span>016</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="17"><div class="a"></div><div class="n"><span><span class="w">Day </span>017</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q qs" data-day="18"><div class="a"></div><div class="n"><span><span class="w">Day </span>018</span></div><div class="b"><span class="qn s">Session &middot; activities on track &middot; Hold</span></div></li>
+<li class="d q" data-day="19"><div class="a"></div><div class="n"><span><span class="w">Day </span>019</span></div><div class="b"></div></li>
+<li class="d q" data-day="20"><div class="a"></div><div class="n"><span><span class="w">Day </span>020</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="21"><div class="a"></div><div class="n"><span><span class="w">Day </span>021</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="22"><div class="a"></div><div class="n"><span><span class="w">Day </span>022</span></div><div class="b"></div></li>
+<li class="d ev" data-day="23"><div class="a"><div class="card ca"><span class="who" aria-hidden="true">A</span><p class="k">Corridor</p><p>After a sales meeting, someone mentions "the recycled-content thing". Everyone agrees somebody should look at it.</p></div></div><div class="n"><span><span class="w">Day </span>023</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="24"><div class="a"></div><div class="n"><span><span class="w">Day </span>024</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="25"><div class="a"></div><div class="n"><span><span class="w">Day </span>025</span></div><div class="b"></div></li>
+<li class="d q" data-day="26"><div class="a"></div><div class="n"><span><span class="w">Day </span>026</span></div><div class="b"></div></li>
+<li class="d q" data-day="27"><div class="a"></div><div class="n"><span><span class="w">Day </span>027</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="28"><div class="a"></div><div class="n"><span><span class="w">Day </span>028</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="29"><div class="a"></div><div class="n"><span><span class="w">Day </span>029</span></div><div class="b"></div></li>
+<li class="d ev" data-day="30"><div class="a"></div><div class="n"><span><span class="w">Day </span>030</span></div><div class="b"><div class="card cb"><span class="who" aria-hidden="true">B</span><p class="k">Contributor report</p><p>Ines reports her activity on track. Talks are open with two suppliers.</p></div></div></li>
+<li class="d q qr" data-day="31"><div class="a"></div><div class="n"><span><span class="w">Day </span>031</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q qs" data-day="32"><div class="a"></div><div class="n"><span><span class="w">Day </span>032</span></div><div class="b"><span class="qn s">Session &middot; supplier talks reported &middot; Hold</span></div></li>
+<li class="d q" data-day="33"><div class="a"></div><div class="n"><span><span class="w">Day </span>033</span></div><div class="b"></div></li>
+<li class="d q" data-day="34"><div class="a"></div><div class="n"><span><span class="w">Day </span>034</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="35"><div class="a"></div><div class="n"><span><span class="w">Day </span>035</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="36"><div class="a"></div><div class="n"><span><span class="w">Day </span>036</span></div><div class="b"></div></li>
+<li class="d q" data-day="37"><div class="a"></div><div class="n"><span><span class="w">Day </span>037</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="38"><div class="a"></div><div class="n"><span><span class="w">Day </span>038</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="39"><div class="a"></div><div class="n"><span><span class="w">Day </span>039</span></div><div class="b"></div></li>
+<li class="d q" data-day="40"><div class="a"></div><div class="n"><span><span class="w">Day </span>040</span></div><div class="b"></div></li>
+<li class="d q" data-day="41"><div class="a"></div><div class="n"><span><span class="w">Day </span>041</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="42"><div class="a"></div><div class="n"><span><span class="w">Day </span>042</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="43"><div class="a"></div><div class="n"><span><span class="w">Day </span>043</span></div><div class="b"></div></li>
+<li class="d q" data-day="44"><div class="a"></div><div class="n"><span><span class="w">Day </span>044</span></div><div class="b"></div></li>
+<li class="d ev" data-day="45"><div class="a"></div><div class="n"><span><span class="w">Day </span>045</span></div><div class="b"><div class="card cb"><span class="who" aria-hidden="true">B</span><p class="k">Contributor report</p><p>R&amp;D marks the trial done. The seal holds on the top line. One lid size needs work.</p></div></div></li>
+<li class="d q qs" data-day="46"><div class="a"></div><div class="n"><span><span class="w">Day </span>046</span></div><div class="b"><span class="qn s">Session &middot; trial result reviewed &middot; Hold</span></div></li>
+<li class="d q" data-day="47"><div class="a"></div><div class="n"><span><span class="w">Day </span>047</span></div><div class="b"></div></li>
+<li class="d q" data-day="48"><div class="a"></div><div class="n"><span><span class="w">Day </span>048</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="49"><div class="a"></div><div class="n"><span><span class="w">Day </span>049</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="50"><div class="a"></div><div class="n"><span><span class="w">Day </span>050</span></div><div class="b"></div></li>
+<li class="d q" data-day="51"><div class="a"></div><div class="n"><span><span class="w">Day </span>051</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="52"><div class="a"></div><div class="n"><span><span class="w">Day </span>052</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="53"><div class="a"></div><div class="n"><span><span class="w">Day </span>053</span></div><div class="b"></div></li>
+<li class="d q" data-day="54"><div class="a"></div><div class="n"><span><span class="w">Day </span>054</span></div><div class="b"></div></li>
+<li class="d q" data-day="55"><div class="a"></div><div class="n"><span><span class="w">Day </span>055</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="56"><div class="a"></div><div class="n"><span><span class="w">Day </span>056</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="57"><div class="a"></div><div class="n"><span><span class="w">Day </span>057</span></div><div class="b"></div></li>
+<li class="d ev" data-day="58"><div class="a"><div class="card ca"><span class="who" aria-hidden="true">A</span><p class="k">Key accounts</p><p>The largest retail customer writes to its suppliers. It will prefer single-material trays from 2027. The key-account manager files the letter with the account plan.</p></div></div><div class="n"><span><span class="w">Day </span>058</span></div><div class="b"><div class="card cb"><span class="who" aria-hidden="true">B</span><p class="k">Signal</p><p>The same letter arrives. The key-account manager adds it as a signal, primary source. It meets the trigger on the parked question.</p></div></div></li>
+<li class="d ev" data-day="59"><div class="a"></div><div class="n"><span><span class="w">Day </span>059</span></div><div class="b"><div class="card cb"><span class="who" aria-hidden="true">B</span><p class="k">Agenda</p><ol class="agenda"><li><span class="nb">Returning</span> Do we redesign the range around a single material? Reason: trigger met on day 58.</li></ol></div></div></li>
+<li class="d ev big" data-day="60"><div class="a"></div><div class="n"><span><span class="w">Day </span>060</span></div><div class="b"><div class="card cb"><span class="who" aria-hidden="true">B</span><p class="k">Session &middot; Pivot</p><p>Vivo drafts new wording for the success criterion.</p><p class="was">Our core tray range stays first choice for our retail customers.</p><p class="now">Our core tray range is single-material and first choice for our retail customers by 2027.</p><p>A pivot takes effect only when someone with authority confirms it. Hanne, the CEO and Owner, confirms.</p><p class="rn">SDS-2026-047 &middot; Pivot</p></div></div></li>
+<li class="d q" data-day="61"><div class="a"></div><div class="n"><span><span class="w">Day </span>061</span></div><div class="b"></div></li>
+<li class="d q" data-day="62"><div class="a"></div><div class="n"><span><span class="w">Day </span>062</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="63"><div class="a"></div><div class="n"><span><span class="w">Day </span>063</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="64"><div class="a"></div><div class="n"><span><span class="w">Day </span>064</span></div><div class="b"></div></li>
+<li class="d q" data-day="65"><div class="a"></div><div class="n"><span><span class="w">Day </span>065</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="66"><div class="a"></div><div class="n"><span><span class="w">Day </span>066</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="67"><div class="a"></div><div class="n"><span><span class="w">Day </span>067</span></div><div class="b"></div></li>
+<li class="d q" data-day="68"><div class="a"></div><div class="n"><span><span class="w">Day </span>068</span></div><div class="b"></div></li>
+<li class="d q" data-day="69"><div class="a"></div><div class="n"><span><span class="w">Day </span>069</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="70"><div class="a"></div><div class="n"><span><span class="w">Day </span>070</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="71"><div class="a"></div><div class="n"><span><span class="w">Day </span>071</span></div><div class="b"></div></li>
+<li class="d q" data-day="72"><div class="a"></div><div class="n"><span><span class="w">Day </span>072</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="73"><div class="a"></div><div class="n"><span><span class="w">Day </span>073</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d ev" data-day="74"><div class="a"></div><div class="n"><span><span class="w">Day </span>074</span></div><div class="b"><div class="card cb"><span class="who" aria-hidden="true">B</span><p class="k">Session &middot; Adapt</p><p>Ines brings an ask of leadership. Sign next year's recycled-resin supply now. Agreed.</p><p class="rn">SDS-2026-052 &middot; Adapt</p></div></div></li>
+<li class="d q" data-day="75"><div class="a"></div><div class="n"><span><span class="w">Day </span>075</span></div><div class="b"></div></li>
+<li class="d q" data-day="76"><div class="a"></div><div class="n"><span><span class="w">Day </span>076</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="77"><div class="a"></div><div class="n"><span><span class="w">Day </span>077</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="78"><div class="a"></div><div class="n"><span><span class="w">Day </span>078</span></div><div class="b"></div></li>
+<li class="d q" data-day="79"><div class="a"></div><div class="n"><span><span class="w">Day </span>079</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="80"><div class="a"></div><div class="n"><span><span class="w">Day </span>080</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="81"><div class="a"></div><div class="n"><span><span class="w">Day </span>081</span></div><div class="b"></div></li>
+<li class="d q" data-day="82"><div class="a"></div><div class="n"><span><span class="w">Day </span>082</span></div><div class="b"></div></li>
+<li class="d q" data-day="83"><div class="a"></div><div class="n"><span><span class="w">Day </span>083</span></div><div class="b"></div></li>
+<li class="d ev" data-day="84"><div class="a"><div class="card ca"><span class="who" aria-hidden="true">A</span><p class="k">Quarterly pack</p><p>Malik builds the quarterly pack. The paper becomes slide 31, "Regulatory outlook", item 11 of 14.</p></div></div><div class="n"><span><span class="w">Day </span>084</span></div><div class="b"></div></li>
+<li class="d q" data-day="85"><div class="a"></div><div class="n"><span><span class="w">Day </span>085</span></div><div class="b"></div></li>
+<li class="d q" data-day="86"><div class="a"></div><div class="n"><span><span class="w">Day </span>086</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="87"><div class="a"></div><div class="n"><span><span class="w">Day </span>087</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d ev" data-day="88"><div class="a"></div><div class="n"><span><span class="w">Day </span>088</span></div><div class="b"><div class="card cb"><span class="who" aria-hidden="true">B</span><p class="k">Consultation response</p><p>Brenfield sends its response to the regulator, with the day 45 trial results attached.</p></div></div></li>
+<li class="d q" data-day="89"><div class="a"></div><div class="n"><span><span class="w">Day </span>089</span></div><div class="b"></div></li>
+<li class="d ev close" data-day="90"><div class="a"><div class="card ca"><span class="who" aria-hidden="true">A</span><p class="k">Consultation closes</p><p>Aldmoor has not responded. Nobody was asked to.</p></div></div><div class="n"><span><span class="w">Day </span>090</span></div><div class="b"><div class="card cb"><span class="who" aria-hidden="true">B</span><p class="k">Consultation closes</p><p>Brenfield's response has been on file since day 88.</p></div></div></li>
+<li class="d q qr" data-day="91"><div class="a"></div><div class="n"><span><span class="w">Day </span>091</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="92"><div class="a"></div><div class="n"><span><span class="w">Day </span>092</span></div><div class="b"></div></li>
+<li class="d q" data-day="93"><div class="a"></div><div class="n"><span><span class="w">Day </span>093</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="94"><div class="a"></div><div class="n"><span><span class="w">Day </span>094</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="95"><div class="a"></div><div class="n"><span><span class="w">Day </span>095</span></div><div class="b"></div></li>
+<li class="d q" data-day="96"><div class="a"></div><div class="n"><span><span class="w">Day </span>096</span></div><div class="b"></div></li>
+<li class="d ev big found" data-day="97"><div class="a"><div class="card ca red"><span class="who" aria-hidden="true">A</span><p class="k">Quarterly review &middot; the day Aldmoor finds out</p><p>Item 11 gets its ten minutes. The room learns that the consultation closed a week ago. The customer letter has sat in sales for 39 days. Most recycled-resin supply for next year is already contracted.</p><p>Aldmoor can still comply on the regulator's timetable. It can redesign the range in a hurry, with resin from whoever still has some. Both options cost more time than they did on day 4.</p><p class="rn">Decision &middot; form a working group</p></div></div><div class="n"><span><span class="w">Day </span>097</span></div><div class="b"><div class="card cb"><span class="who" aria-hidden="true">B</span><p class="k">Supply</p><p>The supply agreement is signed. Vivo proposes moving the risk out of the top right. Ines confirms. Its trend word changes to Easing.</p></div></div></li>
+<li class="d q qr" data-day="98"><div class="a"></div><div class="n"><span><span class="w">Day </span>098</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="99"><div class="a"></div><div class="n"><span><span class="w">Day </span>099</span></div><div class="b"></div></li>
+<li class="d q" data-day="100"><div class="a"></div><div class="n"><span><span class="w">Day </span>100</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="101"><div class="a"></div><div class="n"><span><span class="w">Day </span>101</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q qs" data-day="102"><div class="a"></div><div class="n"><span><span class="w">Day </span>102</span></div><div class="b"><span class="qn s">Session &middot; Hold</span></div></li>
+<li class="d q" data-day="103"><div class="a"></div><div class="n"><span><span class="w">Day </span>103</span></div><div class="b"></div></li>
+<li class="d q" data-day="104"><div class="a"></div><div class="n"><span><span class="w">Day </span>104</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="105"><div class="a"></div><div class="n"><span><span class="w">Day </span>105</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="106"><div class="a"></div><div class="n"><span><span class="w">Day </span>106</span></div><div class="b"></div></li>
+<li class="d q" data-day="107"><div class="a"></div><div class="n"><span><span class="w">Day </span>107</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="108"><div class="a"></div><div class="n"><span><span class="w">Day </span>108</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="109"><div class="a"></div><div class="n"><span><span class="w">Day </span>109</span></div><div class="b"></div></li>
+<li class="d q" data-day="110"><div class="a"></div><div class="n"><span><span class="w">Day </span>110</span></div><div class="b"></div></li>
+<li class="d q" data-day="111"><div class="a"></div><div class="n"><span><span class="w">Day </span>111</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="112"><div class="a"></div><div class="n"><span><span class="w">Day </span>112</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q" data-day="113"><div class="a"></div><div class="n"><span><span class="w">Day </span>113</span></div><div class="b"></div></li>
+<li class="d q" data-day="114"><div class="a"></div><div class="n"><span><span class="w">Day </span>114</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="115"><div class="a"></div><div class="n"><span><span class="w">Day </span>115</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d q qs" data-day="116"><div class="a"></div><div class="n"><span><span class="w">Day </span>116</span></div><div class="b"><span class="qn s">Session &middot; Hold</span></div></li>
+<li class="d q" data-day="117"><div class="a"></div><div class="n"><span><span class="w">Day </span>117</span></div><div class="b"></div></li>
+<li class="d q" data-day="118"><div class="a"></div><div class="n"><span><span class="w">Day </span>118</span></div><div class="b"></div></li>
+<li class="d q qr" data-day="119"><div class="a"></div><div class="n"><span><span class="w">Day </span>119</span></div><div class="b"><span class="qn">Radar report</span></div></li>
+<li class="d ev" data-day="120"><div class="a"><div class="card ca"><span class="who" aria-hidden="true">A</span><p class="k">Working group</p><p>The working group has met twice. Its findings are due at the next quarterly review, on day 188.</p></div></div><div class="n"><span><span class="w">Day </span>120</span></div><div class="b"><div class="card cb mc"><span class="who" aria-hidden="true">B</span><p class="k">Mission Control</p><dl class="mcd"><div><dt>Criterion</dt><dd>Core range is single-material and first choice by 2027</dd></div><div><dt>Light</dt><dd><span class="dot y" aria-hidden="true"></span>Yellow</dd></div><div><dt>Resin risk</dt><dd>Easing</dd></div><div><dt>Next session</dt><dd>Day 130</dd></div><div><dt>Recent decisions</dt><dd>SDS-2026-031, 047, 052</dd></div></dl></div></div></li>
+  </ol>
+  <p class="endmark"><span>Day 120</span></p>
+</section>
+
+<section class="tally" aria-labelledby="tally-h">
+  <div class="wrap">
+    <h2 id="tally-h">Day 120, side by side</h2>
+    <p class="sub">Both companies have capable people and the same 120 days. The difference is in what each can still choose, and when.</p>
+    <table>
+      <thead><tr><td></td><th scope="col" class="ta">A &middot; Aldmoor</th><th scope="col" class="tb">B &middot; Brenfield</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">First decision on the paper</th><td class="ta" data-l="A &middot; Aldmoor"><span class="m r">Day 97</span>Form a working group.</td><td class="tb" data-l="B &middot; Brenfield"><span class="m">Day 4</span>Adapt. Two activities changed, one dissent on record.</td></tr>
+        <tr><th scope="row">Consultation response</th><td class="ta" data-l="A &middot; Aldmoor"><span class="m">None</span>The consultation closed on day 90.</td><td class="tb" data-l="B &middot; Brenfield"><span class="m">Day 88</span>Sent, with trial results attached.</td></tr>
+        <tr><th scope="row">The customer's letter</th><td class="ta" data-l="A &middot; Aldmoor"><span class="m">Day 58</span>Filed with the account plan.</td><td class="tb" data-l="B &middot; Brenfield"><span class="m">Day 60</span>Brought back a parked question. Pivot confirmed by the Owner.</td></tr>
+        <tr><th scope="row">Recycled-resin supply for next year</th><td class="ta" data-l="A &middot; Aldmoor"><span class="m">Open</span>Buying from what is left.</td><td class="tb" data-l="B &middot; Brenfield"><span class="m">Day 97</span>Agreement signed.</td></tr>
+        <tr><th scope="row">What anyone can look up later</th><td class="ta" data-l="A &middot; Aldmoor"><span class="m">Minutes</span>Two forwarded emails and the quarterly review minutes.</td><td class="tb" data-l="B &middot; Brenfield"><span class="m">3 decisions</span>SDS-2026-031, 047 and 052, each with its evidence, date and dissent.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="diff" aria-labelledby="diff-h">
+  <div class="wrap">
+    <p class="eyebrow">What made the difference</p>
+    <h2 id="diff-h">Brenfield had a practice for news that arrives between reviews.</h2>
+    <p class="sub">Every other function got software. Strategy never did. Dynamic Strategy is how a leadership team makes small, early corrections to an agreed strategy, and occasionally changes course. These are the steps Brenfield took, in Strapivo.</p>
+    <ol class="mech">
+      <li><span class="md">Day 0 to 1</span><div><h3>The Radar searches outside sources for each focus criterion.</h3><p>Its search brief is each focus criterion, with its objectives and risks. Vivo makes a first pass on every signal. A named person marks it Relevant, Irrelevant or Unsure. Dismissed signals teach Vivo what counts as noise.</p></div></li>
+      <li><span class="md">Day 2</span><div><h3>Risks move on a radar, and a person confirms each move.</h3><p>Vivo proposes the new position as a ghost, with a one-line reason. A move into the top right needs at least one primary source, so that one blog post can't raise an alarm.</p></div></li>
+      <li><span class="md">Day 3</span><div><h3>The agenda comes from what changed.</h3><p>Vivo drafts it 24 hours before the session. Old business first, then new. The session lead edits it and the room approves it.</p></div></li>
+      <li><span class="md">Day 4</span><div><h3>First takes are sealed, then revealed together.</h3><p>Each person commits before discussion starts. Nobody hears the loudest voice before giving their own view. The decision goes on the Record of Decisions with a permanent number, and dissent goes on it by name.</p></div></li>
+      <li><span class="md">Day 4 to 60</span><div><h3>Not yet means parked, with a trigger.</h3><p>A question that isn't ready is parked with at least one trigger to bring it back: evidence, a person's view, a date or the next session. The other ending is Let go, with a written rationale.</p></div></li>
+      <li><span class="md">Day 60</span><div><h3>A pivot waits for someone with authority.</h3><p>Vivo drafts the new wording. It takes effect only when an Owner confirms it.</p></div></li>
+    </ol>
+    <div class="chair">
+      <div>
+        <h3>The human stays in the chair.</h3>
+        <p class="q">Vivo proposes. People decide.</p>
+      </div>
+      <ul>
+        <li>Vivo never changes a light. When two focus activities go off track, it asks the team, "Light still green?"</li>
+        <li>Every recommendation traces back to the strategic memory your team approved.</li>
+        <li>A risk that sits in the top right for 14 days without a decision goes on the session lead's "Needs you" list.</li>
+        <li>EU-only infrastructure. GDPR by design.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="cta" aria-labelledby="cta-h">
+  <div class="box">
+    <p class="ctrb">Day 4, not day 97</p>
+    <h2 id="cta-h">Decide while the options are still open.</h2>
+    <p>Tell us how your strategy is reviewed today. We do the reading first. Setup takes four to five hours, and then your team runs it.</p>
+    <a class="btn solid" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    <p class="home">Strategy finally has a home.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="fi">
+    <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="88" height="22">
+    <nav aria-label="Legal">
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+    <p>&copy; 2026 Strapivo</p>
+  </div>
+</footer>
+<script>
+(function(){
+  var rows=[].slice.call(document.querySelectorAll('.days > li'));
+  var ctr=document.getElementById('ctr'), cd=document.getElementById('cd'), cl=document.getElementById('cl');
+  if(!ctr||!('IntersectionObserver' in window))return;
+  var current=null;
+  function setDay(li){
+    if(current===li)return;
+    if(current)current.classList.remove('on');
+    current=li;li.classList.add('on');
+    var d=+li.getAttribute('data-day');
+    cd.innerHTML='<small>DAY</small>'+('00'+d).slice(-3);
+    cl.textContent=d<90?(90-d)+' days to close':(d===90?'Closes today':'Consultation closed');
+    ctr.classList.toggle('found',d===97);
+  }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting)setDay(e.target);});
+  },{rootMargin:'-38% 0px -61% 0px'});
+  rows.forEach(function(r){io.observe(r);});
+})();
+</script>
+</body>
+</html>

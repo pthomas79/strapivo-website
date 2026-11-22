@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en-GB" class="no-js" data-view="changes">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo · A strategy page with its changes on record</title>
+<meta name="description" content="Strapivo keeps a company's strategy current. This page shows its own tracked changes: every edit has a decision number and a reason, and Vivo's proposals wait for an Owner.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --red:#C0392B;--red-bg:#FBEDEB;--green:#23805A;--green-bg:#E9F4EE;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --gut:64px;--notew:272px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:18px;line-height:1.6}
+a{color:var(--p700)}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:var(--paper);padding:8px 12px;font-family:var(--mono);font-size:12px;z-index:50;border-radius:4px}
+.skip:focus{top:12px}
+
+/* ---------- header ---------- */
+.site{position:sticky;top:0;z-index:20;background:rgba(246,249,251,.96);border-bottom:1px solid var(--n200)}
+.site .in{max-width:1240px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;gap:24px}
+.site .logo{display:block;line-height:0;margin-right:auto}
+.site .logo img{height:24px;width:auto}
+.switch{display:flex;border:1px solid var(--n200);border-radius:6px;background:#fff;padding:3px;gap:2px}
+.switch button{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--n600);background:none;border:0;border-radius:4px;padding:9px 14px;cursor:pointer}
+.switch button:hover{color:var(--ink);background:var(--n100)}
+.switch button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.signin{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding:10px 0}
+.signin:hover{color:var(--p700)}
+.no-js .switch,.no-js .actions{display:none}
+
+/* ---------- document bar ---------- */
+.docbar{border-bottom:1px solid var(--n200);background:#fff}
+.docbar .in{max-width:1240px;margin:0 auto;padding:12px 32px;display:flex;flex-wrap:wrap;gap:6px 22px;align-items:center;color:var(--n600)}
+.docbar .in span b{font-weight:500;color:var(--ink)}
+.docbar .k-red{color:var(--red)}.docbar .k-green{color:var(--green)}
+.docbar .status{margin-left:auto;color:var(--p700)}
+
+/* ---------- document ---------- */
+.doc{max-width:1240px;margin:0 auto;padding:0 32px 0 calc(32px + 40px)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) var(--notew);column-gap:var(--gut);align-items:start;position:relative}
+.row+.row{margin-top:22px}
+.txt{max-width:720px;position:relative}
+.txt p{margin:0 0 18px}
+.txt p:last-child{margin-bottom:0}
+section{padding-top:120px}
+section:first-of-type{padding-top:72px}
+.eyebrow{color:var(--n500);margin:0 0 22px;display:flex;gap:14px;align-items:center}
+.eyebrow::after{content:"";height:1px;background:var(--n200);flex:0 0 64px}
+h1,h2,h3{font-weight:500;margin:0}
+h1{font-size:clamp(44px,7.2vw,100px);line-height:1;letter-spacing:-.035em}
+h2{font-size:clamp(30px,3.7vw,46px);line-height:1.08;letter-spacing:-.025em}
+h3{font-size:20px;letter-spacing:-.015em;line-height:1.3}
+.lede{font-size:clamp(22px,2.4vw,30px);line-height:1.3;letter-spacing:-.015em;color:var(--ink)}
+.body-l{font-size:19px;color:var(--n700)}
+
+/* revision marks */
+del,ins{text-decoration-thickness:1.5px}
+del{color:var(--red);text-decoration:line-through;text-decoration-color:var(--red)}
+ins{color:inherit;text-decoration:underline;text-decoration-color:var(--p500);text-underline-offset:.18em;text-decoration-thickness:2px}
+h1 del,h2 del{display:block;font-size:.42em;letter-spacing:-.01em;line-height:1.25;margin-bottom:.35em;text-decoration-thickness:1.5px}
+h1 ins{text-decoration-thickness:4px;text-underline-offset:.12em}
+h2 ins{text-decoration-thickness:3px}
+.mk{font:500 10px/1 var(--mono);letter-spacing:.04em;color:var(--p700);vertical-align:super;margin-left:3px;text-decoration:none}
+h1 .mk{font-size:13px}
+h2 .mk{font-size:11px}
+ins.pending{color:var(--green);text-decoration:underline dashed var(--green);text-decoration-thickness:1.5px;text-underline-offset:.2em}
+del.pending{color:var(--n600);text-decoration:line-through dotted var(--green);text-decoration-thickness:2px}
+ins.just{color:var(--p600);transition:none}
+ins.settle{color:var(--ink);transition:color 1.8s ease}
+
+/* change bars in the left gutter */
+.row.changed>.txt::before,.row.pending>.txt::before,.row.parked>.txt::before{content:"";position:absolute;left:-36px;top:6px;bottom:6px;width:2px;background:var(--red)}
+.row.pending>.txt::before{background:var(--green)}
+.row.parked>.txt::before{background:var(--n400)}
+.row.accepted>.txt::before{background:var(--p500)}
+
+/* margin notes */
+.note{position:relative;font-size:14px;line-height:1.5;color:var(--n700);border-left:2px solid var(--red);padding:2px 0 2px 14px;margin-top:6px}
+.note::before{content:"";position:absolute;left:calc(-1 * var(--gut) + 6px);top:14px;width:calc(var(--gut) - 14px);border-top:1px dashed var(--n400)}
+.note .h{display:block;font:500 11px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.note p{margin:0 0 6px}
+.note p:last-child{margin:0}
+.note .meta{font:400 11px/1.5 var(--mono);letter-spacing:.04em;color:var(--n500);text-transform:uppercase}
+.note.green{border-color:var(--green)}.note.green .h{color:var(--green)}
+.note.grey{border-color:var(--n400)}.note.grey .h{color:var(--n600)}
+.note.azure{border-color:var(--p500)}.note.azure .h{color:var(--p700)}
+.row:hover .note::before{border-top-color:var(--ink)}
+.actions{display:flex;gap:8px;margin-top:10px}
+.actions button{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:9px 12px;border-radius:4px;cursor:pointer;background:#fff;border:1px solid}
+.actions .acc{color:#fff;background:var(--green);border-color:var(--green)}
+.actions .acc:hover{background:#1B6A4A}
+.actions .rej{color:var(--red);border-color:var(--red)}
+.actions .rej:hover{background:var(--red-bg)}
+
+/* hero */
+.hero h1{margin-top:4px}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;margin-top:36px}
+.btn{display:inline-block;font:500 16px/1 'Inter',sans-serif;letter-spacing:-.005em;text-decoration:none;color:#fff;background:var(--p600);padding:16px 22px;border-radius:6px}
+.btn:hover{background:var(--p700)}
+.cta-row .mono{color:var(--n500)}
+.btn ins{text-decoration:none}
+.btn-was{font-size:16px}
+.cta-row .mk{margin-left:-18px;align-self:flex-start}
+
+/* quotes */
+.voices{margin:30px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.voices li{border-top:1px solid var(--ink);padding-top:14px;font-size:20px;line-height:1.35;letter-spacing:-.01em}
+.voices-cap{margin-top:12px;color:var(--n500)}
+
+/* loop */
+.loop{list-style:none;margin:30px 0 0;padding:0;counter-reset:s}
+.loop[start="3"]{counter-reset:s 2}
+.loop[start="4"]{counter-reset:s 3}
+.loop.cont{margin:0}
+.row+.row .loop.cont{margin-top:-22px}
+.loop.cont li:first-child{border-top:1px solid var(--n200)}
+.loop li{counter-increment:s;display:grid;grid-template-columns:44px 1fr;gap:0 16px;padding:16px 0;border-top:1px solid var(--n200);font-size:17px;color:var(--n700)}
+.loop li::before{content:counter(s,decimal-leading-zero);font:500 12px/1.9 var(--mono);color:var(--n500)}
+.loop li b{font-weight:500;color:var(--ink)}
+.radar{margin:30px 0 0;display:grid;grid-template-columns:240px 1fr;gap:28px;align-items:center;background:#fff;border:1px solid var(--n200);border-radius:6px;padding:22px}
+.radar svg{width:100%;height:auto;display:block}
+.radar figcaption{font-size:14px;color:var(--n600)}
+.radar figcaption .mono{display:block;color:var(--green);margin-bottom:8px}
+
+/* decisions */
+.opts{margin:28px 0 0;display:grid;grid-template-columns:150px 1fr;border-top:1px solid var(--ink)}
+.opts dt,.opts dd{margin:0;padding:13px 0;border-bottom:1px solid var(--n200);font-size:16px}
+.opts dt{font:500 12px/1.9 var(--mono);text-transform:uppercase;letter-spacing:.08em}
+.opts dd{color:var(--n700)}
+.parkq{background:#fff;border:1px dashed var(--n400);border-radius:6px;padding:18px 20px}
+.parkq .mono{color:var(--n600);display:block;margin-bottom:8px}
+.parkq p{margin:0;font-size:17px}
+
+/* illustrative record card */
+.card{background:#fff;border:1px solid var(--n200);border-radius:6px;overflow:hidden;margin-top:6px}
+.card .top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 18px;background:var(--ink);color:var(--paper)}
+.card .top .mono{font-size:11px}
+.card .top .num{color:var(--p200)}
+.card dl{margin:0;display:grid;grid-template-columns:150px 1fr}
+.card dt,.card dd{margin:0;padding:11px 18px;border-top:1px solid var(--n100);font-size:15px}
+.card dt{font:500 11px/1.9 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--n500);padding-right:0}
+.card dd{color:var(--ink)}
+.light{display:inline-block;width:9px;height:9px;border-radius:50%;background:#C9A227;margin-right:8px;vertical-align:1px}
+.card .foot{padding:10px 18px;background:var(--n100);color:var(--n600);font-size:11px}
+
+/* trust */
+.facts{margin:26px 0 0;padding:0;list-style:none;border-top:1px solid var(--ink)}
+.facts li{padding:13px 0;border-bottom:1px solid var(--n200);font-size:17px;color:var(--n700)}
+.facts li b{font-weight:500;color:var(--ink)}
+.tryit{margin-top:22px;padding:14px 16px;background:var(--green-bg);border-radius:4px;font-size:15px;color:#1B5E43}
+
+/* close */
+.close h2{font-size:clamp(36px,5vw,64px)}
+
+/* record of decisions */
+.record{padding-bottom:40px}
+.log{list-style:none;margin:28px 0 0;padding:0;border-top:1px solid var(--ink)}
+.log li{display:grid;grid-template-columns:150px 110px 1fr;gap:4px 18px;padding:14px 0;border-bottom:1px solid var(--n200);font-size:15px;color:var(--n700)}
+.log .num{font:500 12px/1.7 var(--mono);color:var(--ink);letter-spacing:.04em}
+.log .typ{font:500 11px/1.9 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--red)}
+.log .typ.t-green{color:var(--green)}.log .typ.t-grey{color:var(--n600)}.log .typ.t-azure{color:var(--p700)}
+.log .what{min-width:0}
+.log .what p{margin:0}
+.log .when{display:block;font:400 11px/1.6 var(--mono);color:var(--n500);letter-spacing:.04em;text-transform:uppercase;margin-top:4px}
+.log .wasnow{display:none;margin-top:8px;font-size:14px}
+.log .wasnow del,.log .wasnow ins{display:block}
+.log li.fresh{background:var(--sky);animation:fade 3s ease forwards}
+@keyframes fade{to{background:transparent}}
+
+/* ---------- views ---------- */
+[data-view="clean"] .docbar,
+[data-view="clean"] del,
+[data-view="clean"] .mk,
+[data-view="clean"] .note,
+[data-view="clean"] .row.parked,
+[data-view="clean"] .changes-only,
+[data-view="clean"] .record{display:none}
+[data-view="clean"] ins{text-decoration:none;color:inherit}
+[data-view="clean"] ins.pending{display:none}
+[data-view="clean"] del.pending{display:inline;color:inherit;text-decoration:none}
+[data-view="clean"] .row>.txt::before{display:none}
+[data-view="clean"] .row{display:block}
+[data-view="clean"] .doc{max-width:860px;padding-left:32px}
+[data-view="clean"] .txt{max-width:none}
+[data-view="history"] .doc>section:not(.record){display:none}
+[data-view="history"] .record{padding-top:72px}
+[data-view="history"] .log .wasnow{display:block}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--n200);margin-top:100px}
+footer .in{max-width:1240px;margin:0 auto;padding:32px;display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;color:var(--n600)}
+footer img{height:20px;width:auto;display:block}
+footer nav{display:flex;gap:20px;margin-left:auto}
+footer a{color:var(--n600);text-decoration:none;font-size:14px}
+footer a:hover{color:var(--ink);text-decoration:underline}
+footer .c{font-size:14px}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){:root{--notew:236px;--gut:44px}}
+@media (max-width:900px){
+  .doc{padding:0 22px 0 34px}
+  .row{display:block}
+  .note{margin:14px 0 0;background:#fff;padding:10px 12px 10px 14px;border-radius:0 4px 4px 0}
+  .note::before{display:none}
+  .row.changed>.txt::before,.row.pending>.txt::before,.row.parked>.txt::before{left:-18px}
+  section{padding-top:84px}
+  section:first-of-type{padding-top:44px}
+  .site .in{flex-wrap:wrap;padding:12px 22px;gap:12px}
+  .switch{order:3;width:100%}
+  .switch button{flex:1}
+  .docbar .in{padding:10px 22px}
+  .docbar .status{margin-left:0}
+  .voices{grid-template-columns:1fr}
+  .radar{grid-template-columns:1fr}
+  .radar svg{max-width:260px}
+  [data-view="clean"] .doc{padding-left:22px}
+}
+@media (max-width:560px){
+  body{font-size:17px}
+  .opts,.card dl{grid-template-columns:1fr}
+  .opts dt{border-bottom:0;padding-bottom:0}
+  .card dt{border-top:1px solid var(--n100);padding-bottom:0}
+  .card dd{border-top:0;padding-top:2px}
+  .log li{grid-template-columns:1fr 1fr}
+  .log .what{grid-column:1/-1}
+  .loop li{grid-template-columns:30px 1fr;gap:0 10px}
+  footer nav{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  ins.settle{transition:none}
+  .log li.fresh{animation:none;background:transparent}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#doc">Skip to the page</a>
+
+<header class="site">
+  <div class="in">
+    <a class="logo" href="#top" aria-label="Strapivo, top of page"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="95" height="24"></a>
+    <div class="switch" role="group" aria-label="Page view">
+      <button type="button" data-set="clean" aria-pressed="false">Clean</button>
+      <button type="button" data-set="changes" aria-pressed="true">Changes</button>
+      <button type="button" data-set="history" aria-pressed="false">History</button>
+    </div>
+    <a class="signin" href="https://strapivo.app">Sign in</a>
+  </div>
+</header>
+
+<div class="docbar" id="top">
+  <div class="in mono">
+    <span>strapivo.com <b>· Accepted version 14</b></span>
+    <span class="k-red"><span id="dec-count">8</span> decisions on record</span>
+    <span class="k-green"><span id="pending-count">2 proposals</span> awaiting Owner</span>
+    <span>1 parked</span>
+    <span class="status" role="status" aria-live="polite" id="status">Default view shows every tracked change</span>
+  </div>
+</div>
+
+<main class="doc" id="doc">
+
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="h1">
+    <div class="row changes-only">
+      <div class="txt"><p class="eyebrow mono">This page is kept the way Strapivo keeps a strategy</p></div>
+    </div>
+    <div class="row changed">
+      <div class="txt">
+        <h1 id="h1"><del>The AI platform for strategic management.</del> <ins>Strategy finally has a home.</ins><span class="mk" aria-hidden="true">009</span></h1>
+      </div>
+      <aside class="note" aria-label="Decision SDS-2026-009">
+        <span class="h">SDS-2026-009 · Adapt</span>
+        <p>The headline said what we are, not what you get.</p>
+        <p>Dissent: one member preferred the old line because it put AI first.</p>
+        <p class="meta">14 July 2026 · Confirmed by Owner</p>
+      </aside>
+    </div>
+    <div class="row changed">
+      <div class="txt">
+        <p class="lede"><del>Empower your leadership team to unlock strategic agility in a fast-changing world.</del> <ins>Every other function got software. Strategy never did.</ins><span class="mk" aria-hidden="true">003</span></p>
+      </div>
+      <aside class="note" aria-label="Decision SDS-2026-003">
+        <span class="h">SDS-2026-003 · Adapt</span>
+        <p>"Unlock" and "agility" could sit on any company's site. The new line names the gap.</p>
+        <p class="meta">17 March 2026 · Confirmed by Owner</p>
+      </aside>
+    </div>
+    <div class="row">
+      <div class="txt">
+        <p class="body-l">Strapivo is the Strategic Design System. Your leadership team agrees its strategy once and keeps it in one place. Vivo, our AI, reads the market against that strategy and drafts each session's agenda from what changed. Your team decides. Every decision goes on record with its reason, like every line on this page.</p>
+        <div class="cta-row">
+          <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+          <span class="mono">strategy@strapivo.com</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1 THE DRAWER -->
+  <section aria-labelledby="s1">
+    <div class="row"><div class="txt"><p class="eyebrow mono">§ 1 · The problem</p></div></div>
+    <div class="row changed">
+      <div class="txt">
+        <h2 id="s1"><del>Strategy moves fast. Is your team keeping up?</del> <ins>A strategy is agreed in a workshop. Then it goes into a drawer.</ins><span class="mk" aria-hidden="true">005</span></h2>
+      </div>
+      <aside class="note" aria-label="Decision SDS-2026-005">
+        <span class="h">SDS-2026-005 · Pivot</span>
+        <p>The old line blamed the team. The problem is the drawer.</p>
+        <p class="meta">2 April 2026 · Wording drafted by Vivo · Confirmed by Owner</p>
+      </aside>
+    </div>
+    <div class="row">
+      <div class="txt">
+        <p>The market keeps moving after the offsite. Nobody notices until the quarterly review, when a change of course is expensive.</p>
+        <p>News arrives as noise, with no link to what the team said must succeed. Meetings anchor on the loudest voice. Decisions end up in slides and minutes that nobody reads. A year later, nobody can find what was decided, who disagreed, or what happened next.</p>
+        <ul class="voices">
+          <li>"We finish the strategy, and then we forget it."</li>
+          <li>"We restart the same argument every time a new analysis lands."</li>
+        </ul>
+        <p class="voices-cap mono">What leadership teams tell us</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 DYNAMIC STRATEGY -->
+  <section aria-labelledby="s2">
+    <div class="row"><div class="txt"><p class="eyebrow mono">§ 2 · Dynamic Strategy</p></div></div>
+    <div class="row">
+      <div class="txt">
+        <h2 id="s2">Small corrections, made early.</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="txt">
+        <p>Dynamic Strategy is how a leadership team keeps an agreed strategy honest between offsites. It avoids two failures. Inertia is doing nothing. Thrash is reacting to everything.</p>
+      </div>
+    </div>
+    <div class="row pending" data-proposal="light">
+      <div class="txt">
+        <p><del class="pending">Strapivo tracks your goals and flags anything that goes off course.</del> <ins class="pending">Each success criterion is measured against one Ambition and carries today's light: green, yellow or red. Vivo can ask "Light still green?" when focus activities slip. Vivo never changes the light itself.</ins></p>
+      </div>
+      <aside class="note green" aria-label="Pending proposal from Vivo">
+        <span class="h">Proposed by Vivo. Awaiting Owner.</span>
+        <p>"Goals" and "flags" are vague. Name the structure and say who sets the light.</p>
+        <div class="actions">
+          <button type="button" class="acc" data-act="accept">Accept</button>
+          <button type="button" class="rej" data-act="reject">Reject</button>
+        </div>
+      </aside>
+    </div>
+    <div class="row changed">
+      <div class="txt">
+        <p><del>See every goal at a glance in one powerful dashboard.</del> <ins>Flag up to four success criteria as focus areas. Fill a few glasses to the brim instead of all twelve a little. Try to add a fifth and Strapivo asks: "You're diluting focus and creating noise. Do you really want to?"</ins><span class="mk" aria-hidden="true">007</span></p>
+      </div>
+      <aside class="note" aria-label="Decision SDS-2026-007">
+        <span class="h">SDS-2026-007 · Adapt</span>
+        <p>Strapivo is not a KPI dashboard. Every goal on one screen is the noise we remove.</p>
+        <p class="meta">29 May 2026 · Confirmed by Owner</p>
+      </aside>
+    </div>
+    <div class="row">
+      <div class="txt">
+        <p>Under each criterion sit two to four objectives. Under each objective sit activities, each with an action, a result, a timeframe and a person responsible. Risks sit on a radar of impact against likelihood.</p>
+        <p>Bring a workshop report, a document or a pasted email. Vivo proposes where each item belongs: "This reads like an activity, not an objective. Move it down?" An Owner accepts or rejects it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 THE LOOP -->
+  <section aria-labelledby="s3">
+    <div class="row"><div class="txt"><p class="eyebrow mono">§ 3 · How it works</p></div></div>
+    <div class="row">
+      <div class="txt">
+        <h2 id="s3">Between sessions, Vivo watches. In the session, people decide.</h2>
+        <ol class="loop">
+          <li><span><b>Watch.</b> The Radar reads over 4,000 sources a day for each focus area. Its search brief is the criterion, its objectives and its risks. Reports arrive on Monday and Thursday.</span></li>
+          <li><span><b>Triage.</b> Vivo assigns each signal to a criterion with a one-line reason. A named person marks it relevant, irrelevant or unsure. Dismissed signals teach Vivo what counts as noise.</span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="row changed">
+      <div class="txt">
+        <ol class="loop cont" start="3">
+          <li class="move-step"><span><b>Move.</b> <del>AI automatically updates your risk map as news breaks.</del> <ins>Vivo proposes a new position for a risk as a ghost on the radar, with a one-line reason. A person confirms or rejects it. A move into the top right needs at least one primary source, so that one blog post can't raise an alarm.</ins><span class="mk" aria-hidden="true">011</span></span></li>
+        </ol>
+        <figure class="radar">
+          <svg viewBox="0 0 260 260" aria-hidden="true" focusable="false">
+            <rect x="130" y="10" width="120" height="120" fill="#FBEDEB"/>
+            <rect x="10" y="10" width="240" height="240" fill="none" stroke="#999FA6"/>
+            <line x1="130" y1="10" x2="130" y2="250" stroke="#E1E5EA"/>
+            <line x1="10" y1="130" x2="250" y2="130" stroke="#E1E5EA"/>
+            <circle cx="70" cy="190" r="4" fill="#999FA6" opacity=".45"/>
+            <circle cx="92" cy="168" r="4" fill="#999FA6" opacity=".7"/>
+            <path d="M70 190 L92 168 L112 154" stroke="#999FA6" fill="none" stroke-dasharray="2 4"/>
+            <circle cx="112" cy="154" r="7" fill="#141B24"/>
+            <path d="M120 146 L176 90" stroke="#23805A" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+            <path d="M168 90 L176 90 L176 98" stroke="#23805A" stroke-width="1.5" fill="none"/>
+            <circle cx="188" cy="78" r="9" fill="none" stroke="#23805A" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <text x="244" y="26" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" fill="#C0392B" letter-spacing=".8">DANGER ZONE</text>
+            <text x="130" y="246" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#6C727A" letter-spacing=".8" dy="-4">LIKELIHOOD</text>
+            <text x="20" y="134" font-family="JetBrains Mono, monospace" font-size="9" fill="#6C727A" letter-spacing=".8" transform="rotate(-90 20 134)" text-anchor="middle" dx="0" dy="4">IMPACT</text>
+          </svg>
+          <figcaption>
+            <span class="mono">Illustrative example · Ghost proposed by Vivo</span>
+            A supplier risk has drifted for 30 days, shown as its radar shadow. Vivo now proposes the top right. The move waits for a primary source and a person's confirmation. Until then, the solid dot stays where it is.
+          </figcaption>
+        </figure>
+      </div>
+      <aside class="note" aria-label="Decision SDS-2026-011">
+        <span class="h">SDS-2026-011 · Adapt</span>
+        <p>Step 03 said "automatically". That was wrong. Nothing moves on the radar until a person confirms it.</p>
+        <p class="meta">8 September 2026 · Confirmed by Owner</p>
+      </aside>
+    </div>
+    <div class="row">
+      <div class="txt">
+        <ol class="loop cont" start="4">
+          <li><span><b>Agenda.</b> Vivo drafts the agenda 24 hours before the session from what changed. Old business comes first. The session lead edits it, and the room approves it as the first item.</span></li>
+          <li><span><b>Session.</b> Sixty minutes, weekly, fortnightly or monthly. For each item the room sees the evidence, gives first takes, talks it through with Vivo and decides.</span></li>
+          <li><span><b>Record.</b> Vivo reads back each decision, with dissent by name and its reason. The session lead confirms. The decision gets a permanent number.</span></li>
+          <li><span><b>Announce.</b> Decisions beyond the team's authority go to an approver. The lead is prompted to announce what changed and why.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 THE SESSION -->
+  <section aria-labelledby="s4">
+    <div class="row"><div class="txt"><p class="eyebrow mono">§ 4 · The session</p></div></div>
+    <div class="row">
+      <div class="txt">
+        <h2 id="s4">Every item ends in a decision. Waiting counts, if it has a trigger.</h2>
+      </div>
+    </div>
+    <div class="row pending" data-proposal="takes">
+      <div class="txt">
+        <p><del class="pending">Everyone gets a say in the session.</del> <ins class="pending">Before discussion, each person records a first take. The takes are revealed together, so the loudest voice does not anchor the room.</ins></p>
+      </div>
+      <aside class="note green" aria-label="Pending proposal from Vivo">
+        <span class="h">Proposed by Vivo. Awaiting Owner.</span>
+        <p>"Everyone gets a say" is a promise. Sealed first takes are the mechanism.</p>
+        <div class="actions">
+          <button type="button" class="acc" data-act="accept">Accept</button>
+          <button type="button" class="rej" data-act="reject">Reject</button>
+        </div>
+      </aside>
+    </div>
+    <div class="row">
+      <div class="txt">
+        <p>Vivo can raise the cost of doing nothing, a scenario, a challenge or an alternative. Then the room picks one of five decisions.</p>
+        <dl class="opts">
+          <dt>Hold</dt><dd>The criterion is marked reviewed on that date.</dd>
+          <dt>Adapt</dt><dd>Vivo drafts changes to objectives and activities.</dd>
+          <dt>Pivot</dt><dd>Vivo drafts new wording for the criterion. It takes effect when someone with authority confirms it.</dd>
+          <dt>Take advantage</dt><dd>Detour activities join the plan. The criterion stays as it is.</dd>
+          <dt>Not yet</dt><dd>The room asks what's missing. The question is parked with at least one trigger that brings it back, or let go with a reason. Parking it should not feel like losing it.</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="row parked">
+      <div class="txt">
+        <div class="parkq">
+          <span class="mono">Parked until 15 January 2027</span>
+          <p>Should this page explain the five roles Vivo can take in a conversation, such as Auditor and Scout?</p>
+        </div>
+      </div>
+      <aside class="note grey" aria-label="Decision SDS-2026-014">
+        <span class="h">SDS-2026-014 · Not yet · Parked</span>
+        <p>Missing: evidence that readers want the detail here rather than in the first conversation.</p>
+        <p>Trigger: 15 January 2027, or the first reader who asks which role answers what.</p>
+        <p class="meta">3 November 2026 · Confirmed by session lead</p>
+      </aside>
+    </div>
+    <div class="row">
+      <div class="txt">
+        <div class="card" role="group" aria-label="Illustrative example of a Record of Decisions entry">
+          <div class="top"><span class="mono">Illustrative example · Harrow Cold Chain, a fictional company</span><span class="mono num">SDS-2026-031</span></div>
+          <dl>
+            <dt>Criterion</dt><dd><span class="light" aria-hidden="true"></span>Win reliability-led contracts in regional cold chain · light yellow</dd>
+            <dt>Evidence</dt><dd>A competitor cut prices in a published tender award. Primary source.</dd>
+            <dt>Decision</dt><dd>Not yet. Missing: our own win and loss data from the last tender round.</dd>
+            <dt>Trigger</dt><dd>Tender results, or 12 February 2027, whichever comes first.</dd>
+            <dt>Dissent</dt><dd>Lena Ruiz, Sales. Wanted to Adapt now, because two bids were already lost on price.</dd>
+          </dl>
+          <div class="foot mono">Read back by Vivo · Confirmed by the session lead</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 TRUST -->
+  <section aria-labelledby="s5">
+    <div class="row"><div class="txt"><p class="eyebrow mono">§ 5 · Trust</p></div></div>
+    <div class="row changed">
+      <div class="txt">
+        <h2 id="s5"><del>Our AI rewrites your strategy for you.</del> <ins>Vivo proposes. People decide.</ins><span class="mk" aria-hidden="true">012</span></h2>
+      </div>
+      <aside class="note" aria-label="Decision SDS-2026-012">
+        <span class="h">SDS-2026-012 · Pivot</span>
+        <p>Leadership teams want help, not a co-author with the pen. No dissent.</p>
+        <p class="meta">8 September 2026 · Confirmed by Owner</p>
+      </aside>
+    </div>
+    <div class="row">
+      <div class="txt">
+        <p class="lede">Any AI can answer a question. Only Strapivo answers it as you.</p>
+        <p>Vivo works from your strategic memory: the business model, its environment, your principles and guardrails, and the decisions your Owners approved. Every recommendation traces back to that memory.</p>
+        <ul class="facts">
+          <li><b>Hardwired to the business model.</b> Strapivo is built on the Business Model Canvas. It is not a generic prompt with your PDF attached.</li>
+          <li><b>The human stays in the chair.</b> Changes to accepted truth wait for an Owner. Vivo never sets a light, rewrites a criterion or moves a risk by itself.</li>
+          <li><b>EU-only infrastructure.</b> GDPR by design.</li>
+        </ul>
+        <p class="tryit changes-only">The two green passages on this page wait for an Owner in the same way. Accept or reject them, and the decision is added to the record at the foot of the page.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 CLOSE -->
+  <section class="close" aria-labelledby="s6">
+    <div class="row"><div class="txt"><p class="eyebrow mono">§ 6 · Getting started</p></div></div>
+    <div class="row">
+      <div class="txt">
+        <h2 id="s6">We do the reading first.</h2>
+        <p class="body-l" style="margin-top:22px">Send us your current strategy, a workshop report or last year's board pack. We read it and draft your Ambition, success criteria and risks. Four to five hours, and then you run it.</p>
+      </div>
+    </div>
+    <div class="row changed">
+      <div class="txt">
+        <div class="cta-row" style="margin-top:8px">
+          <del class="btn-was">Book a demo</del>
+          <a class="btn" href="mailto:strategy@strapivo.com"><ins>Start the conversation</ins></a><span class="mk" aria-hidden="true">013</span>
+          <span class="mono">strategy@strapivo.com</span>
+        </div>
+      </div>
+      <aside class="note" aria-label="Decision SDS-2026-013">
+        <span class="h">SDS-2026-013 · Adapt</span>
+        <p>A demo shows our software. The first conversation should be about your strategy.</p>
+        <p class="meta">6 October 2026 · Confirmed by Owner</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- RECORD -->
+  <section class="record" id="record" aria-labelledby="s7">
+    <div class="row"><div class="txt"><p class="eyebrow mono">Record of Decisions · this page</p></div></div>
+    <div class="row">
+      <div class="txt" style="max-width:none">
+        <h2 id="s7">Every change to this page, with its reason.</h2>
+        <ol class="log" id="log" reversed>
+          <li><span class="num">SDS-2026-014</span><span class="typ t-grey">Not yet</span><div class="what"><p>Parked: a section on Vivo's five roles. Returns on 15 January 2027 or when a reader asks.</p><span class="when">3 November 2026 · Session lead</span></div></li>
+          <li><span class="num">SDS-2026-013</span><span class="typ">Adapt</span><div class="what"><p>Closing button. The first conversation is about the reader's strategy.</p><div class="wasnow"><del>Book a demo</del><ins>Start the conversation</ins></div><span class="when">6 October 2026 · Owner</span></div></li>
+          <li><span class="num">SDS-2026-012</span><span class="typ">Pivot</span><div class="what"><p>Trust heading. Teams want help, not a co-author with the pen.</p><div class="wasnow"><del>Our AI rewrites your strategy for you.</del><ins>Vivo proposes. People decide.</ins></div><span class="when">8 September 2026 · Owner</span></div></li>
+          <li><span class="num">SDS-2026-011</span><span class="typ">Adapt</span><div class="what"><p>Loop step 03. Nothing moves on the radar without a person.</p><div class="wasnow"><del>AI automatically updates your risk map as news breaks.</del><ins>Vivo proposes a new position for a risk as a ghost on the radar. A person confirms or rejects it.</ins></div><span class="when">8 September 2026 · Owner</span></div></li>
+          <li><span class="num">SDS-2026-009</span><span class="typ">Adapt</span><div class="what"><p>Headline. Say what the reader gets. Dissent: one member preferred the old line.</p><div class="wasnow"><del>The AI platform for strategic management.</del><ins>Strategy finally has a home.</ins></div><span class="when">14 July 2026 · Owner</span></div></li>
+          <li><span class="num">SDS-2026-007</span><span class="typ">Adapt</span><div class="what"><p>Focus areas. Strapivo is not a KPI dashboard.</p><div class="wasnow"><del>See every goal at a glance in one powerful dashboard.</del><ins>Flag up to four success criteria as focus areas.</ins></div><span class="when">29 May 2026 · Owner</span></div></li>
+          <li><span class="num">SDS-2026-005</span><span class="typ">Pivot</span><div class="what"><p>Problem heading. The old line blamed the team.</p><div class="wasnow"><del>Strategy moves fast. Is your team keeping up?</del><ins>A strategy is agreed in a workshop. Then it goes into a drawer.</ins></div><span class="when">2 April 2026 · Owner</span></div></li>
+          <li><span class="num">SDS-2026-003</span><span class="typ">Adapt</span><div class="what"><p>Opening line. Name the gap. Drop the borrowed verbs.</p><div class="wasnow"><del>Empower your leadership team to unlock strategic agility in a fast-changing world.</del><ins>Every other function got software. Strategy never did.</ins></div><span class="when">17 March 2026 · Owner</span></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="in">
+    <img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="80" height="20">
+    <span class="c">© 2026 Strapivo</span>
+    <nav aria-label="Legal">
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  root.classList.remove('no-js');root.classList.add('js');
+  var status=document.getElementById('status');
+  var labels={clean:'Clean view: the accepted page, no marks',changes:'Changes view: every tracked change and proposal',history:'History view: the Record of Decisions for this page'};
+
+  // view switch
+  var btns=document.querySelectorAll('.switch button');
+  function setView(v){
+    root.setAttribute('data-view',v);
+    btns.forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-set')===v?'true':'false')});
+    status.textContent=labels[v];
+    if(v==='history'){window.scrollTo(0,0)}
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){setView(b.getAttribute('data-set'))})});
+
+  // proposals
+  var next=15;
+  var year=new Date().getFullYear();
+  var today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  var reasons={
+    light:{where:'Success criteria paragraph',why:'Name the structure and say who sets the light.'},
+    takes:{where:'Session paragraph',why:'Sealed first takes are the mechanism behind "everyone gets a say".'}
+  };
+  var log=document.getElementById('log');
+  var countEl=document.getElementById('pending-count');
+  function pendingLeft(){
+    var n=document.querySelectorAll('.row.pending').length;
+    var dc=document.getElementById('dec-count');dc.textContent=String(+dc.textContent+1);
+    if(n===0){var t=document.querySelector('.tryit');if(t)t.textContent='Both of Vivo\'s proposals on this page now have a decision. You will find them at the top of the record below.'}
+    countEl.textContent=(n===0?'No proposals':n===1?'1 proposal':n+' proposals');
+  }
+  function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+  function addLog(num,typ,typCls,text,was,now,who){
+    var li=el('li','fresh');
+    li.appendChild(el('span','num',num));
+    li.appendChild(el('span','typ '+typCls,typ));
+    var w=el('div','what');
+    w.appendChild(el('p',null,text));
+    var wn=el('div','wasnow');
+    wn.appendChild(el('del',null,was));
+    if(now)wn.appendChild(el('ins',null,now));
+    w.appendChild(wn);
+    w.appendChild(el('span','when',today+' · '+who));
+    li.appendChild(w);
+    log.insertBefore(li,log.firstChild);
+  }
+  function noteHTML(note,cls,head,lines,meta){
+    note.className='note '+cls;
+    note.textContent='';
+    note.appendChild(el('span','h',head));
+    lines.forEach(function(l){note.appendChild(el('p',null,l))});
+    note.appendChild(el('p','meta',meta));
+  }
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll('[data-proposal]').forEach(function(row){
+    var key=row.getAttribute('data-proposal');
+    var d=row.querySelector('del.pending'), i=row.querySelector('ins.pending');
+    var note=row.querySelector('.note');
+    var was=d.textContent, now=i.textContent;
+    row.querySelector('[data-act="accept"]').addEventListener('click',function(){
+      var num='SDS-'+year+'-'+String(next++).padStart(3,'0');
+      d.classList.remove('pending');
+      i.classList.remove('pending');
+      i.classList.add('just');
+      var mk=el('span','mk',num.slice(-3));mk.setAttribute('aria-hidden','true');
+      i.after(mk);
+      if(!reduce){setTimeout(function(){i.classList.add('settle');i.classList.remove('just')},900)}
+      else{i.classList.remove('just')}
+      row.classList.remove('pending');row.classList.add('changed','accepted');
+      noteHTML(note,'azure',num+' · Adapt',['Vivo\'s proposal, accepted by the Owner. '+reasons[key].why,'The lead is now prompted to tell the team what changed and why.'],today+' · Confirmed by Owner');
+      note.setAttribute('aria-label','Decision '+num);
+      addLog(num,'Adapt','t-azure',reasons[key].where+'. Vivo\'s wording accepted. '+reasons[key].why,was,now,'Owner');
+      pendingLeft();
+      status.textContent='Accepted and recorded as '+num+'. Added to the Record of Decisions.';
+    });
+    row.querySelector('[data-act="reject"]').addEventListener('click',function(){
+      var num='SDS-'+year+'-'+String(next++).padStart(3,'0');
+      d.replaceWith(document.createTextNode(was));
+      var sp=i.previousSibling; if(sp&&sp.nodeType===3&&!sp.textContent.trim())sp.remove();
+      i.remove();
+      row.classList.remove('pending');
+      noteHTML(note,'grey',num+' · Hold',['Vivo\'s proposal, rejected by the Owner. The original wording stands.'],today+' · Owner');
+      note.setAttribute('aria-label','Decision '+num);
+      addLog(num,'Hold','t-grey',reasons[key].where+'. Vivo\'s wording rejected. The original stands.','Proposed: '+now,null,'Owner');
+      pendingLeft();
+      status.textContent='Rejected and recorded as '+num+'. The original wording stands.';
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+# 21 · The strategy self-check
+
+Range: Confident (concept 21 of 40, ordered from conservative to a bit nuts)
+Audience: Leadership teams unsure whether they have a problem
+Colours: Paper, ink, Azure. One additional colour: violet-grey #6B6480 for the result panel.
+
+## The task
+
+Build a complete landing page for Strapivo as a single `index.html` in this folder (`landings/21-self-check/`). It is one of 40 deliberately different concepts, so commit fully to this one and do not drift toward a generic software landing page.
+
+Read `../BRIEF.md` first. It holds the facts about Strapivo and Dynamic Strategy, the truth rules, the brand (fonts, colour tokens, logo), the build rules and the finishing steps. The brief decides what is true and what the brand allows. This prompt decides everything else.
+
+## The concept
+
+An interactive self-assessment. Ten yes or no questions about how the visitor's company runs its strategy today, then a plain reading of the answers with the part of Dynamic Strategy that addresses each gap. Everything runs in the page. Nothing is sent anywhere, and the page says so.
+
+Questions are factual, not leading: "Can you name the last strategic decision your leadership team made and the date?" "Is there one place where that decision and its reasons are written down?" "If a named risk got worse this month, would it reach the next agenda without someone lobbying for it?" "Do people state their position before the discussion starts?" "Is disagreement recorded?" "When you postpone a question, is there a trigger that brings it back?" Write ten of this quality.
+
+The result is qualitative. No score out of 100, no invented benchmarks, no "companies like yours". Group the answers into three or four practices (watching, deciding, remembering, following through) and say for each, in two sentences, what the answers suggest and what Strapivo does about it. Offer a 'copy my result' button that copies plain text.
+
+Signature element: the questionnaire. One question at a time at display size, large Yes and No controls, keyboard shortcuts Y and N, a ten-segment progress ring based on the O-mark. With JavaScript off, show the ten questions as a list followed by the explanation of each practice. Below the tool, a compact explanation of Dynamic Strategy for those who skip it.
+
+## Standards
+
+- Strapivo sells to SMEs and corporates. The result must be something a CEO would forward to their board: confident, well made, never playful for its own sake.
+- Fonts and base colours are those of the current site (Inter 400 and 500, JetBrains Mono, Paper, Navy, Azure). The additional colours above are yours to use with a clear role.
+- Craft matters more than volume. Spend your effort on the signature element and on the copy.
+- Finish with the two steps in section 9 of the brief: screenshot and fix, then the unslop pass using `/home/hiasinho/Work/prot-strapivo-dynamic-strategy/.claude/skills/unslop/SKILL.md`.

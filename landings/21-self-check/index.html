@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en-GB" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strategy self-check: ten questions for your leadership team · Strapivo</title>
+<meta name="description" content="Ten yes or no questions on how your leadership team watches, decides, remembers and follows through on strategy. The reading runs in your browser and nothing is sent.">
+<meta name="robots" content="noindex">
+<script>document.documentElement.className='js';</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --vg:#6B6480;--vg-dark:#5A546D;--vg-line:rgba(246,249,251,.22);
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --wrap:1180px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:17px;line-height:1.55}
+a{color:var(--p700)}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--p500);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
+.mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.09em;font-size:12px;font-weight:500}
+h1,h2,h3{font-weight:500;margin:0}
+p{margin:0}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--paper);padding:8px 12px;border-radius:4px;z-index:10}
+.skip:focus{left:8px}
+
+/* Header */
+.site-head{border-bottom:1px solid var(--n200)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.site-head img{height:24px;width:auto;display:block}
+.site-head nav{display:flex;gap:24px;align-items:center}
+.site-head nav a{font-size:15px;text-decoration:none;color:var(--n700)}
+.site-head nav a:hover{color:var(--p700)}
+.site-head .signin{border:1px solid var(--n200);padding:7px 14px;border-radius:6px;background:#fff}
+
+/* Intro */
+.intro{padding:64px 0 32px}
+.intro .wrap{display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:end}
+.eyebrow{color:var(--p700);margin-bottom:20px}
+h1{font-size:clamp(34px,4.6vw,56px);line-height:1.06;letter-spacing:-.03em;max-width:13em}
+.intro-side p{color:var(--n600);font-size:17px}
+.intro-side p+p{margin-top:12px}
+.private{display:flex;gap:10px;align-items:flex-start;margin-top:20px;padding-top:16px;border-top:1px solid var(--n200);color:var(--n700);font-size:15px}
+.private svg{flex:none;margin-top:3px}
+
+/* The check */
+.check{padding:8px 0 40px}
+.stage{background:#fff;border:1px solid var(--n200);border-radius:8px;padding:48px 56px 36px;position:relative;min-height:520px;display:flex;flex-direction:column}
+.stage-top{display:flex;align-items:center;gap:28px}
+.ring{width:132px;height:132px;flex:none;position:relative}
+.ring svg{width:100%;height:100%;display:block;overflow:visible}
+.ring .seg{fill:none;stroke-width:9;stroke-linecap:butt;stroke:var(--n200);transition:stroke .5s ease}
+.ring .seg.cur{stroke:var(--n500)}
+.ring .seg.done{stroke:var(--p500)}
+.ring .ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--mono);line-height:1}
+.ring .ctr b{font-weight:500;font-size:30px;letter-spacing:-.02em;color:var(--ink)}
+.ring .ctr span{font-size:11px;letter-spacing:.08em;color:var(--n500);margin-top:6px}
+.stage-meta{display:flex;flex-direction:column;gap:8px}
+.stage-meta .practice{color:var(--p700)}
+.stage-meta .count{color:var(--n500)}
+.qwrap{flex:1;display:flex;align-items:center;padding:36px 0 40px}
+.question{font-size:clamp(28px,4.1vw,54px);line-height:1.12;letter-spacing:-.025em;max-width:20em;transition:opacity .28s ease,transform .28s ease}
+.question.out{opacity:0;transform:translateY(-10px)}
+.question.in{opacity:0;transform:translateY(10px);transition:none}
+.question:focus{outline:none}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:640px}
+.ans{appearance:none;border:1px solid var(--n200);background:var(--paper);color:var(--ink);font:inherit;font-size:26px;letter-spacing:-.02em;font-weight:500;height:96px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:0 26px;transition:background .2s,border-color .2s,color .2s}
+.ans kbd{font-family:var(--mono);font-size:13px;font-weight:500;border:1px solid var(--n400);border-radius:4px;padding:3px 8px;color:var(--n600);background:#fff}
+.ans:hover{border-color:var(--p500);background:var(--sky)}
+.ans.picked{background:var(--p500);border-color:var(--p500);color:#fff}
+.ans.picked kbd{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+.stage-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:28px;padding-top:18px;border-top:1px solid var(--n100);color:var(--n500);font-size:14px}
+.linkbtn{appearance:none;background:none;border:0;padding:4px 0;font:inherit;font-size:14px;color:var(--n700);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.linkbtn:disabled{color:var(--n400);cursor:default;text-decoration:none}
+.keys kbd{font-family:var(--mono);font-size:12px;border:1px solid var(--n200);border-radius:3px;padding:1px 6px;color:var(--n600)}
+
+/* Result */
+.result{background:var(--vg);color:var(--paper);border-radius:8px;padding:48px 56px 44px}
+.result[hidden]{display:none}
+.result-head{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center;padding-bottom:28px;border-bottom:1px solid var(--vg-line)}
+.result-head .ring{width:104px;height:104px}
+.result .ring .seg{stroke:rgba(246,249,251,.28)}
+.result .ring .seg.yes{stroke:var(--paper)}
+.result .ring .ctr b{color:var(--paper);font-size:15px;letter-spacing:.06em}
+.result .eyebrow{color:#E4E0EE;margin-bottom:10px}
+.result h2{font-size:clamp(28px,3.4vw,42px);letter-spacing:-.025em;line-height:1.1}
+.result h2:focus{outline:none}
+.summary{margin-top:12px;color:#EEEBF4;font-size:16px}
+.legend{display:flex;gap:18px;margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#E4E0EE}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.legend .y{background:var(--paper)}
+.legend .n{border:1.5px solid var(--paper)}
+.practices{display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+.pr{padding:28px 0;border-bottom:1px solid var(--vg-line)}
+.pr-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px}
+.pr h3{font-size:24px;letter-spacing:-.02em}
+.state{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;padding:4px 8px;border-radius:3px;border:1px solid rgba(246,249,251,.5);white-space:nowrap}
+.state.s-in{background:var(--paper);color:var(--vg-dark);border-color:var(--paper)}
+.marks{list-style:none;margin:0 0 14px;padding:0;display:flex;flex-direction:column;gap:6px}
+.marks li{display:flex;gap:10px;align-items:center;font-size:14px;color:#EEEBF4}
+.marks .dot{width:10px;height:10px;border-radius:50%;flex:none;border:1.5px solid var(--paper)}
+.marks .yes .dot{background:var(--paper)}
+.marks .qn{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:#E4E0EE;width:26px}
+.pr p{font-size:16px;line-height:1.55}
+.pr p.does{margin-top:10px;color:#F1EFF6}
+.pr p.does b{font-weight:500}
+.result-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:32px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 22px;border-radius:6px;font:inherit;font-size:16px;font-weight:500;text-decoration:none;cursor:pointer;border:1px solid transparent}
+.btn-paper{background:var(--paper);color:var(--ink)}
+.btn-paper:hover{background:#fff}
+.btn-ghost{background:transparent;color:var(--paper);border-color:rgba(246,249,251,.6)}
+.btn-ghost:hover{border-color:var(--paper)}
+.btn-azure{background:var(--p600);color:#fff}
+.btn-azure:hover{background:var(--p700)}
+.result a:focus-visible,.result button:focus-visible{outline-color:var(--paper)}
+.copied{font-size:14px;color:#F1EFF6;min-height:1.4em}
+.honest{margin-top:22px;font-size:14px;color:#E4E0EE}
+
+/* No-JS fallback */
+.js .nojs-only{display:none}
+.no-js .js-only{display:none}
+.static{background:#fff;border:1px solid var(--n200);border-radius:8px;padding:40px 48px}
+.static h2{font-size:28px;letter-spacing:-.02em;margin-bottom:8px}
+.static .lead{color:var(--n600);margin-bottom:20px}
+.static ol{margin:0 0 32px;padding-left:28px;font-size:19px;line-height:1.4}
+.static ol li{padding:8px 0;border-bottom:1px solid var(--n100)}
+.static ol li::marker{font-family:var(--mono);font-size:13px;color:var(--n500)}
+.static dl{display:grid;grid-template-columns:200px 1fr;gap:16px 32px;margin:0}
+.static dt{font-weight:500}
+.static dd{margin:0;color:var(--n700)}
+
+/* Dynamic Strategy */
+.section{padding:88px 0}
+.section h2{font-size:clamp(28px,3.4vw,42px);letter-spacing:-.025em;line-height:1.1;max-width:20em}
+.section .lede{font-size:18px;color:var(--n600);max-width:40em;margin-top:18px}
+.ds{border-top:1px solid var(--n200)}
+.ds-grid{display:grid;grid-template-columns:360px 1fr;gap:56px;margin-top:48px}
+.col-label{color:var(--n500);margin-bottom:16px}
+.tree{list-style:none;margin:0;padding:0;font-size:15px}
+.tree li{position:relative;padding:12px 0 12px 0;border-bottom:1px solid var(--n200)}
+.tree .lvl{display:block;font-weight:500}
+.tree .sub{display:block;color:var(--n600);font-size:14px;margin-top:2px}
+.tree .i1{padding-left:18px}.tree .i2{padding-left:36px}.tree .i3{padding-left:54px}
+.tree .i1::before,.tree .i2::before,.tree .i3::before{content:"";position:absolute;top:22px;width:10px;height:1px;background:var(--n400)}
+.tree .i1::before{left:2px}.tree .i2::before{left:20px}.tree .i3::before{left:38px}
+.lights{display:inline-flex;gap:4px;margin-left:8px;vertical-align:1px}
+.lights i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.qref{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--p700);background:var(--sky);border:1px solid var(--sky2);border-radius:3px;padding:1px 6px;margin:0 4px 4px 0;white-space:nowrap}
+.loop{list-style:none;margin:0;padding:0;counter-reset:s}
+.loop li{display:grid;grid-template-columns:44px 140px 1fr 110px;gap:16px;padding:14px 0;border-bottom:1px solid var(--n200);align-items:baseline}
+.loop li:first-child{border-top:1px solid var(--n200)}
+.loop .n{font-family:var(--mono);font-size:12px;color:var(--n500)}
+.loop .s{font-weight:500}
+.loop .d{color:var(--n700);font-size:15px}
+.loop .r{text-align:right}
+
+.record{margin-top:56px;display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start}
+.record h3{font-size:24px;letter-spacing:-.02em;line-height:1.2}
+.record p{color:var(--n600);margin-top:12px}
+.entry{background:#fff;border:1px solid var(--n200);border-radius:6px;font-size:14px}
+.entry-tag{display:flex;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--n200);color:var(--n500);background:var(--n100);border-radius:6px 6px 0 0}
+.entry-body{padding:18px 18px 8px}
+.entry-num{font-family:var(--mono);font-size:13px;color:var(--p700);letter-spacing:.04em}
+.entry-title{font-size:17px;font-weight:500;margin:6px 0 14px;letter-spacing:-.01em}
+.entry dl{display:grid;grid-template-columns:110px 1fr;gap:0;margin:0}
+.entry dt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500);padding:9px 0;border-top:1px solid var(--n100)}
+.entry dd{margin:0;padding:8px 0;border-top:1px solid var(--n100);color:var(--n700)}
+.pill{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:var(--sky);color:var(--p700);border:1px solid var(--sky2)}
+
+/* Voices */
+.voices{background:var(--ink);color:var(--paper)}
+.voices .col-label{color:var(--n400)}
+.voices h2{color:var(--paper)}
+.vlist{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:0 56px}
+.vlist li{padding:22px 0;border-top:1px solid #2C343C;font-size:clamp(19px,1.8vw,23px);letter-spacing:-.015em;line-height:1.35}
+.vlist .qn{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--p200);margin-bottom:8px;text-transform:uppercase}
+.voices .after{margin-top:32px;color:#C9CED4;max-width:44em}
+
+/* Trust */
+.trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;margin-top:40px}
+.trust-grid div{padding:22px 0;border-top:1px solid var(--n200)}
+.trust-grid h3{font-size:19px;letter-spacing:-.015em}
+.trust-grid p{color:var(--n600);margin-top:6px;font-size:16px}
+.trust h2 em{font-style:normal;color:var(--p600)}
+
+/* CTA */
+.cta{padding:0 0 96px}
+.cta-box{border:1px solid var(--n200);background:#fff;border-radius:8px;padding:56px;display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center}
+.cta-box svg{width:72px;height:72px}
+.cta-box h2{font-size:clamp(26px,3vw,36px);letter-spacing:-.025em;line-height:1.12}
+.cta-box p{color:var(--n600);margin-top:10px;max-width:34em}
+.cta-box .btn{height:54px;padding:0 26px;font-size:17px}
+
+/* Footer */
+.site-foot{background:var(--ink);color:#C9CED4;padding:40px 0;font-size:14px}
+.site-foot .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.site-foot img{height:22px;width:auto;display:block}
+.site-foot nav{display:flex;gap:22px;flex-wrap:wrap}
+.site-foot a{color:#E1E5EA;text-decoration:none}
+.site-foot a:hover{text-decoration:underline}
+.site-foot a:focus-visible{outline-color:var(--p400)}
+
+@media (max-width:980px){
+  .intro .wrap{grid-template-columns:1fr;gap:24px}
+  .ds-grid{grid-template-columns:1fr;gap:40px}
+  .record{grid-template-columns:1fr;gap:28px}
+  .cta-box{grid-template-columns:1fr;gap:24px;padding:40px}
+}
+@media (max-width:760px){
+  body{font-size:16px}
+  .wrap{padding:0 20px}
+  .site-head .wrap{height:60px}
+  .site-head img{height:20px}
+  .site-head nav{gap:14px}
+  .site-head .hide-sm{display:none}
+  .intro{padding:40px 0 24px}
+  .stage{padding:24px 20px 20px;min-height:0}
+  .stage-top{gap:16px}
+  .ring{width:76px;height:76px}
+  .ring .ctr b{font-size:19px}
+  .ring .ctr span{font-size:9px;margin-top:3px}
+  .qwrap{padding:28px 0 28px;min-height:230px;align-items:flex-start}
+  .answers{gap:10px}
+  .ans{height:76px;font-size:22px;padding:0 18px}
+  .keys,.ans kbd{display:none}
+  .result{padding:32px 20px 28px}
+  .result-head{grid-template-columns:1fr;gap:20px}
+  .result-head .ring{width:76px;height:76px}
+  .result .ring .ctr b{font-size:12px}
+  .practices{grid-template-columns:1fr}
+  .result-actions .btn{width:100%}
+  .static{padding:28px 20px}
+  .static dl{grid-template-columns:1fr;gap:4px}
+  .static dd{margin-bottom:14px}
+  .section{padding:64px 0}
+  .loop li{grid-template-columns:30px 1fr;gap:4px 12px}
+  .loop .d,.loop .r{grid-column:2}
+  .loop .r{text-align:left}
+  .vlist,.trust-grid{grid-template-columns:1fr}
+  .cta-box{padding:28px 20px}
+  .entry dl{grid-template-columns:1fr}
+  .entry dt{padding-bottom:0}
+  .entry dd{border-top:0;padding-top:2px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#check">Skip to the self-check</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a href="./" aria-label="Strapivo home"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo"></a>
+    <nav aria-label="Main">
+      <a class="hide-sm" href="#dynamic-strategy">Dynamic Strategy</a>
+      <a class="hide-sm" href="mailto:strategy@strapivo.com">Contact</a>
+      <a class="signin" href="https://strapivo.app">Sign in</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="intro" aria-labelledby="h1">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow mono">Self-check · 10 questions · yes or no</p>
+        <h1 id="h1">Ten questions on how your leadership team runs strategy.</h1>
+      </div>
+      <div class="intro-side">
+        <p>Answer for your company as it runs today, not as the process document says it should run.</p>
+        <p>At the end you get a plain reading of four practices: watching, deciding, remembering and following through. Each one comes with the part of Dynamic Strategy that addresses it.</p>
+        <p class="private">
+          <svg width="16" height="16" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="#0082E6" stroke-width="12"/></svg>
+          <span>Your answers stay in this browser tab. The page sends nothing and stores nothing, and closing the tab clears them.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="check" id="check" aria-label="The self-check">
+    <div class="wrap">
+
+      <!-- Interactive questionnaire (JavaScript) -->
+      <div class="stage js-only" id="stage">
+        <div class="stage-top">
+          <div class="ring" aria-hidden="true">
+            <svg viewBox="0 0 100 100" id="ring"></svg>
+            <div class="ctr"><b id="ringNum">01</b><span>of 10</span></div>
+          </div>
+          <div class="stage-meta">
+            <span class="mono practice" id="practice">Remembering</span>
+            <span class="mono count" id="count">Question 1 of 10</span>
+          </div>
+        </div>
+        <div class="qwrap">
+          <h2 class="question" id="question" tabindex="-1" aria-live="polite">Can you name the last strategic decision your leadership team made, and the date it was made?</h2>
+        </div>
+        <div class="answers" role="group" aria-label="Your answer">
+          <button class="ans" type="button" data-a="yes" aria-keyshortcuts="Y">Yes <kbd aria-hidden="true">Y</kbd></button>
+          <button class="ans" type="button" data-a="no" aria-keyshortcuts="N">No <kbd aria-hidden="true">N</kbd></button>
+        </div>
+        <div class="stage-foot">
+          <button class="linkbtn" type="button" id="back" disabled>Previous question</button>
+          <span class="keys">Press <kbd>Y</kbd> or <kbd>N</kbd> to answer, <kbd>Backspace</kbd> to go back.</span>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="result js-only" id="result" hidden>
+        <div class="result-head">
+          <div class="ring" aria-hidden="true">
+            <svg viewBox="0 0 100 100" id="ring2"></svg>
+            <div class="ctr"><b>10/10</b></div>
+          </div>
+          <div>
+            <p class="eyebrow mono">Your reading</p>
+            <h2 id="resultTitle" tabindex="-1">What your ten answers suggest</h2>
+            <p class="summary" id="summary"></p>
+            <div class="legend" aria-hidden="true"><span><i class="y"></i>Yes</span><span><i class="n"></i>No</span></div>
+          </div>
+        </div>
+        <div class="practices" id="practices"></div>
+        <div class="result-actions">
+          <button class="btn btn-paper" type="button" id="copy">Copy my result</button>
+          <a class="btn btn-ghost" href="mailto:strategy@strapivo.com">Start the conversation</a>
+          <button class="linkbtn" type="button" id="restart" style="color:var(--paper)">Start again</button>
+          <span class="copied" id="copied" role="status" aria-live="polite"></span>
+        </div>
+        <p class="honest">This reading comes from your ten answers and nothing else. It does not compare you with other companies, and it has no score.</p>
+      </div>
+
+      <!-- Without JavaScript -->
+      <div class="static nojs-only">
+        <h2>The ten questions</h2>
+        <p class="lead">Answer each one yes or no for your company as it runs today.</p>
+        <ol>
+          <li>Can you name the last strategic decision your leadership team made, and the date it was made?</li>
+          <li>Is there one place where that decision and its reasons are written down?</li>
+          <li>If a named risk got worse this month, would it reach the next agenda without someone lobbying for it?</li>
+          <li>When outside news arrives, does someone check it against the goals your strategy says must succeed?</li>
+          <li>Do people state their position before the discussion starts?</li>
+          <li>When someone disagrees with a decision, is their disagreement recorded with its reason?</li>
+          <li>When you postpone a question, is there a trigger that brings it back?</li>
+          <li>Does every strategic activity have one named person responsible and a timeframe?</li>
+          <li>Do those people report a status to leadership before each strategy meeting?</li>
+          <li>Could you show your board what changed in the strategy since its last meeting, and why?</li>
+        </ol>
+        <h2>What the answers point to</h2>
+        <p class="lead">Each question belongs to one of four practices. A no points to a gap in that practice.</p>
+        <dl>
+          <dt>Watching <span class="qref">Q3</span><span class="qref">Q4</span></dt>
+          <dd>Whether changes outside the company reach the leadership team before the next annual review. In Strapivo the Radar watches each focus area, and a person confirms every risk move that Vivo proposes.</dd>
+          <dt>Deciding <span class="qref">Q5</span><span class="qref">Q6</span><span class="qref">Q7</span></dt>
+          <dd>Whether the room hears every view before the loudest one sets the direction. In a Strapivo session each person gives a sealed first take, Vivo records dissent by name, and a parked question returns on a set trigger.</dd>
+          <dt>Remembering <span class="qref">Q1</span><span class="qref">Q2</span><span class="qref">Q10</span></dt>
+          <dd>Whether anyone can find what was decided, when and why. Strapivo gives each decision a permanent number in the Record of Decisions and exports a board pack as Markdown.</dd>
+          <dt>Following through <span class="qref">Q8</span><span class="qref">Q9</span></dt>
+          <dd>Whether the work behind a decision has an owner who reports back. In Strapivo every activity has one person responsible, who reports a status and an optional ask before each session.</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ds" id="dynamic-strategy" aria-labelledby="ds-h">
+    <div class="wrap">
+      <p class="eyebrow mono">If you skipped the check</p>
+      <h2 id="ds-h">Dynamic Strategy keeps an agreed strategy current between reviews.</h2>
+      <p class="lede">Most strategies are agreed at an offsite and checked again at the annual review. The market moves in between. With Dynamic Strategy, a leadership team makes small corrections early, from evidence, and changes course when the evidence is strong enough. Strapivo is the software that runs it, and Vivo is its AI.</p>
+
+      <div class="ds-grid">
+        <div>
+          <p class="col-label mono">What the strategy holds</p>
+          <ul class="tree">
+            <li><span class="lvl">Ambition</span><span class="sub">One per portfolio, with optional targets such as turnover, margin and a year.</span></li>
+            <li class="i1"><span class="lvl">Success criteria <span class="lights" aria-hidden="true"><i style="background:#3E8E5E"></i><i style="background:#D9A520"></i><i style="background:#C2453B"></i></span></span><span class="sub">Usually 7 to 12. Each carries today's light, green, yellow or red.</span></li>
+            <li class="i1"><span class="lvl">Focus areas</span><span class="sub">Up to 4 criteria. Vivo questions a fifth.</span></li>
+            <li class="i2"><span class="lvl">Objectives</span><span class="sub">Usually 2 to 4 under each criterion.</span></li>
+            <li class="i3"><span class="lvl">Activities <span class="qref">Q8</span></span><span class="sub">An action, a result, a timeframe and one person responsible.</span></li>
+            <li><span class="lvl">Risks</span><span class="sub">Placed on a radar of impact against likelihood.</span></li>
+          </ul>
+        </div>
+        <div>
+          <p class="col-label mono">The loop, and the questions it answers</p>
+          <ol class="loop">
+            <li><span class="n">01</span><span class="s">Watch</span><span class="d">The Radar reads the outside world for each focus area, against its criterion, objectives and risks.</span><span class="r"><span class="qref">Q4</span></span></li>
+            <li><span class="n">02</span><span class="s">Triage</span><span class="d">Vivo suggests which criterion a signal touches. A person marks it relevant, irrelevant or unsure.</span><span class="r"><span class="qref">Q4</span></span></li>
+            <li><span class="n">03</span><span class="s">Move</span><span class="d">Vivo proposes a new position for a risk. A person confirms it. A move into the danger zone needs a primary source.</span><span class="r"><span class="qref">Q3</span></span></li>
+            <li><span class="n">04</span><span class="s">Agenda</span><span class="d">Vivo drafts the agenda 24 hours ahead from what changed. The room approves it as step one.</span><span class="r"><span class="qref">Q3</span><span class="qref">Q9</span></span></li>
+            <li><span class="n">05</span><span class="s">Session</span><span class="d">For each item the room sees the evidence, gives sealed first takes, talks it through with Vivo and decides.</span><span class="r"><span class="qref">Q5</span></span></li>
+            <li><span class="n">06</span><span class="s">Decide</span><span class="d">Hold, Adapt, Pivot, Take advantage or Not yet. Not yet ends as Parked with a trigger, or as Let go with a reason.</span><span class="r"><span class="qref">Q7</span></span></li>
+            <li><span class="n">07</span><span class="s">Record</span><span class="d">Vivo reads back each entry, dissent included, by name. The session lead confirms it.</span><span class="r"><span class="qref">Q1</span><span class="qref">Q2</span><span class="qref">Q6</span></span></li>
+            <li><span class="n">08</span><span class="s">Escalate</span><span class="d">Decisions beyond the team's authority go to an approver, as a memo or in the board pack.</span><span class="r"><span class="qref">Q10</span></span></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="record">
+        <div>
+          <h3>Each decision gets one entry and one number.</h3>
+          <p>An entry in the Record of Decisions shows the decision, its date, the evidence behind it and who disagreed. It keeps its number for good, so you can cite it in a board pack a year later.</p>
+        </div>
+        <figure class="entry" style="margin:0" aria-label="Illustrative example of a Record of Decisions entry">
+          <div class="entry-tag mono"><span>Illustrative example</span><span>Record of Decisions</span></div>
+          <div class="entry-body">
+            <span class="entry-num">SDS-2026-014</span>
+            <p class="entry-title">Park the entry into rental equipment until a second distributor confirms demand.</p>
+            <dl>
+              <dt>Company</dt><dd>Fernholt Pumps, a fictional mid-sized manufacturer</dd>
+              <dt>Decision</dt><dd><span class="pill">Not yet</span> Parked</dd>
+              <dt>Trigger</dt><dd>A primary source on rental demand, or the session on 12 January</dd>
+              <dt>Dissent</dt><dd>Head of Sales. Waiting a quarter gives a competitor the first contracts.</dd>
+              <dt>Confirmed</dt><dd>Session lead, 18 November 2026</dd>
+            </dl>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section voices" aria-labelledby="v-h">
+    <div class="wrap">
+      <p class="col-label mono">What leadership teams tell us</p>
+      <h2 id="v-h">Leadership teams describe these gaps in their own words.</h2>
+      <ul class="vlist">
+        <li><span class="qn">Behind Q1 and Q2</span>"We restart the same argument every time a new analysis lands."</li>
+        <li><span class="qn">Behind Q10</span>"I can't show the board that strategy actually moved between meetings."</li>
+        <li><span class="qn">Behind Q3</span>"I know there's a threat coming. I don't know what it costs us to wait."</li>
+        <li><span class="qn">Behind Q8 and Q9</span>"We finish the strategy, and then we forget it."</li>
+      </ul>
+      <p class="after">Dynamic Strategy guards against two failure modes. One is inertia, where nothing changes until the annual review. The other is thrash, where every headline changes the plan. The aim is tactics that change often and a strategy that changes when the evidence calls for it.</p>
+    </div>
+  </section>
+
+  <section class="section trust" aria-labelledby="t-h">
+    <div class="wrap">
+      <p class="eyebrow mono">Who decides</p>
+      <h2 id="t-h">Vivo proposes. <em>People decide.</em></h2>
+      <div class="trust-grid">
+        <div><h3>A person confirms every change</h3><p>Vivo never changes a light, a risk position or a criterion by itself. A person confirms every move, and a Pivot takes effect only when someone with authority confirms it.</p></div>
+        <div><h3>Every recommendation has a source</h3><p>Each recommendation traces back to the strategic memory your team approved. Strapivo is built on your business model, not a generic prompt with your PDF attached.</p></div>
+        <div><h3>EU-only infrastructure</h3><p>Strapivo runs on EU-only infrastructure, with GDPR built into the design. This page has no analytics and sets no cookies.</p></div>
+        <div><h3>We do the reading first</h3><p>We read your existing strategy documents before setup. Setup takes four to five hours of your team's time, and then you run it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" aria-labelledby="c-h">
+    <div class="wrap">
+      <div class="cta-box">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="#0082E6" stroke-width="9"/></svg>
+        <div>
+          <h2 id="c-h">Bring your reading to the first conversation.</h2>
+          <p>Copy your result, paste it into an email and send it to us. We will read it before we reply.</p>
+        </div>
+        <a class="btn btn-azure" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo">
+    <nav aria-label="Legal">
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+    <span>© 2026 Strapivo</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var Q=[
+    {p:'remembering',s:'Last decision and its date',t:'Can you name the last strategic decision your leadership team made, and the date it was made?'},
+    {p:'remembering',s:'One written record with reasons',t:'Is there one place where that decision and its reasons are written down?'},
+    {p:'watching',s:'A worsening risk reaches the agenda',t:'If a named risk got worse this month, would it reach the next agenda without someone lobbying for it?'},
+    {p:'watching',s:'Outside news checked against your goals',t:'When outside news arrives, does someone check it against the goals your strategy says must succeed?'},
+    {p:'deciding',s:'Positions stated before discussion',t:'Do people state their position before the discussion starts?'},
+    {p:'deciding',s:'Disagreement recorded with its reason',t:'When someone disagrees with a decision, is their disagreement recorded with its reason?'},
+    {p:'deciding',s:'Postponed questions have a trigger',t:'When you postpone a question, is there a trigger that brings it back?'},
+    {p:'following',s:'One person and a timeframe per activity',t:'Does every strategic activity have one named person responsible and a timeframe?'},
+    {p:'following',s:'Status reported before each meeting',t:'Do those people report a status to leadership before each strategy meeting?'},
+    {p:'remembering',s:'The board sees what changed and why',t:'Could you show your board what changed in the strategy since its last meeting, and why?'}
+  ];
+  var P={
+    watching:{name:'Watching',
+      in:['Your answers suggest outside changes reach the leadership team on their merits, not through whoever pushes hardest.','Strapivo keeps that working as the list of risks grows, with a Radar for each focus area and a person who confirms every risk move Vivo proposes.'],
+      part:['Your answers suggest some outside changes reach the leadership team, depending on who notices them and who pushes.','In Strapivo the Radar searches for each focus area against its criterion, objectives and risks, and Vivo drafts the next agenda from what changed.'],
+      out:['Your answers suggest the outside world reaches your agenda late, or through whoever lobbies hardest.','In Strapivo a named person sorts each Radar signal, and a risk that moves into the danger zone goes on the next agenda with its primary source.']},
+    deciding:{name:'Deciding',
+      in:['Your answers suggest your meetings separate individual views from group discussion and keep a record of dissent.','Strapivo builds that routine into every session, with sealed first takes, five decision options and parked questions that return on a set trigger.'],
+      part:['Your answers suggest parts of this discipline exist, and other parts depend on who chairs the meeting.','In a Strapivo session everyone gives a sealed first take before the discussion, and every Not yet ends as Parked with a trigger or as Let go with a reason.'],
+      out:['Your answers suggest the first or loudest voice sets the direction, and postponed questions are forgotten.','In a Strapivo session first takes are sealed and revealed together, dissent is read back by name, and a parked question returns when its trigger fires.']},
+    remembering:{name:'Remembering',
+      in:['Your answers suggest your decisions can be found, dated and explained.','Strapivo gives each one a permanent number such as SDS-2026-014 and keeps it in the Record of Decisions with its evidence, its date and any dissent.'],
+      part:['Your answers suggest some decisions can be found again, while others sit in slides and minutes.','Strapivo writes every decision into one Record of Decisions with a permanent number, and exports a board pack that shows what moved and why.'],
+      out:['Your answers suggest decisions live in memories, slides and minutes, so the board sees outcomes without the reasons.','Strapivo records each decision with a permanent number, its evidence and named dissent, and the session lead confirms each entry when Vivo reads it back.']},
+    following:{name:'Following through',
+      in:['Your answers suggest activities have owners, and those owners report back.','Strapivo links those reports to the agenda, so an activity at risk or off track goes onto the next agenda Vivo drafts.'],
+      part:['Your answers suggest follow-through depends on individual habits more than on a set routine.','Strapivo gives every activity an action, a result, a timeframe and one person responsible, who reports a status and an optional ask before each session.'],
+      out:['Your answers suggest that after a decision, nobody owns the work or reports on it.','In Strapivo every activity has one person responsible, who reports a status, one line on the result and an optional ask of leadership before each session.']}
+  };
+  var ORDER=['watching','deciding','remembering','following'];
+  var STATE={in:'In place',part:'Partly in place',out:'Not in place'};
+
+  var answers=new Array(Q.length).fill(null), i=0, busy=false, done=false;
+  var $=function(id){return document.getElementById(id)};
+  var stage=$('stage'), result=$('result'), qEl=$('question'), back=$('back');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function pad(n){return (n<10?'0':'')+n}
+  function buildRing(svg){
+    var ns='http://www.w3.org/2000/svg', r=42, gap=5, segs=[];
+    for(var k=0;k<10;k++){
+      var a0=(k*36+gap/2-90)*Math.PI/180, a1=((k+1)*36-gap/2-90)*Math.PI/180;
+      var p=document.createElementNS(ns,'path');
+      p.setAttribute('d','M'+(50+r*Math.cos(a0)).toFixed(2)+' '+(50+r*Math.sin(a0)).toFixed(2)+' A'+r+' '+r+' 0 0 1 '+(50+r*Math.cos(a1)).toFixed(2)+' '+(50+r*Math.sin(a1)).toFixed(2));
+      p.setAttribute('class','seg');
+      svg.appendChild(p); segs.push(p);
+    }
+    return segs;
+  }
+  var segs=buildRing($('ring')), segs2=buildRing($('ring2'));
+
+  function paint(){
+    segs.forEach(function(s,k){
+      s.setAttribute('class','seg'+(answers[k]!==null?' done':'')+(k===i?' cur':''));
+    });
+    $('ringNum').textContent=pad(i+1);
+    $('practice').textContent=P[Q[i].p].name;
+    $('count').textContent='Question '+(i+1)+' of 10';
+    back.disabled=i===0;
+    document.querySelectorAll('.ans').forEach(function(b){
+      b.classList.toggle('picked',answers[i]===b.dataset.a);
+      b.setAttribute('aria-pressed',answers[i]===b.dataset.a?'true':'false');
+    });
+  }
+  function swap(next,cb){
+    if(reduce){i=next;qEl.textContent=Q[i].t;paint();cb&&cb();return}
+    busy=true;
+    qEl.classList.add('out');
+    setTimeout(function(){
+      i=next;qEl.textContent=Q[i].t;paint();
+      qEl.classList.remove('out');qEl.classList.add('in');
+      void qEl.offsetWidth;
+      qEl.classList.remove('in');
+      busy=false;cb&&cb();
+    },280);
+  }
+  function answer(a){
+    if(busy||done)return;
+    answers[i]=a;paint();
+    if(i<Q.length-1){setTimeout(function(){swap(i+1)},reduce?0:220)}
+    else{setTimeout(showResult,reduce?0:320)}
+  }
+  function goBack(){if(busy||done||i===0)return;swap(i-1)}
+
+  function practiceState(p){
+    var idx=[];Q.forEach(function(q,k){if(q.p===p)idx.push(k)});
+    var y=idx.filter(function(k){return answers[k]==='yes'}).length;
+    return {idx:idx,state:y===idx.length?'in':(y===0?'out':'part')};
+  }
+  function showResult(){
+    done=true;
+    var groups={in:[],part:[],out:[]}, html='';
+    ORDER.forEach(function(p){
+      var r=practiceState(p), d=P[p];
+      groups[r.state].push(d.name);
+      html+='<article class="pr"><div class="pr-top"><h3>'+d.name+'</h3><span class="state s-'+r.state+'">'+STATE[r.state]+'</span></div><ul class="marks">';
+      r.idx.forEach(function(k){
+        var y=answers[k]==='yes';
+        html+='<li class="'+(y?'yes':'no')+'"><span class="dot" aria-hidden="true"></span><span class="qn">Q'+(k+1)+'</span><span>'+Q[k].s+'<span class="vh" style="position:absolute;left:-9999px">: '+(y?'yes':'no')+'</span></span></li>';
+      });
+      html+='</ul><p>'+d[r.state][0]+'</p><p class="does">'+d[r.state][1]+'</p></article>';
+    });
+    $('practices').innerHTML=html;
+    var parts=[];
+    if(groups.in.length)parts.push('In place: '+groups.in.join(', ')+'.');
+    if(groups.part.length)parts.push('Partly in place: '+groups.part.join(', ')+'.');
+    if(groups.out.length)parts.push('Not in place: '+groups.out.join(', ')+'.');
+    $('summary').textContent=parts.join(' ');
+    segs2.forEach(function(s,k){s.setAttribute('class','seg'+(answers[k]==='yes'?' yes':''))});
+    stage.hidden=true;stage.style.display='none';
+    result.hidden=false;
+    $('resultTitle').focus({preventScroll:true});
+    var top=result.getBoundingClientRect().top+window.pageYOffset-24;
+    window.scrollTo({top:top,behavior:reduce?'auto':'smooth'});
+  }
+  function plainText(){
+    var d=new Date(), L=[];
+    L.push('Strategy self-check, '+d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}));
+    L.push('Answered on strapivo.com. The page sent nothing anywhere.');
+    L.push('');
+    L.push('ANSWERS');
+    Q.forEach(function(q,k){L.push((k+1)+'. '+q.t+' '+(answers[k]==='yes'?'Yes':'No'))});
+    L.push('');
+    L.push('READING');
+    ORDER.forEach(function(p){
+      var r=practiceState(p);
+      L.push('');
+      L.push(P[p].name+': '+STATE[r.state]);
+      L.push(P[p][r.state][0]+' '+P[p][r.state][1]);
+    });
+    L.push('');
+    L.push('This reading comes from the ten answers above and nothing else. It has no score and no comparison with other companies.');
+    L.push('Contact: strategy@strapivo.com');
+    return L.join('\n');
+  }
+  function copy(){
+    var t=plainText(), msg=$('copied');
+    function ok(){msg.textContent='Copied as plain text.'}
+    function fallback(){
+      var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');
+      ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy');ok()}catch(e){msg.textContent='Copy failed. Select the text on screen instead.'}
+      document.body.removeChild(ta);
+    }
+    if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,fallback)}else{fallback()}
+  }
+  function restart(){
+    answers=answers.map(function(){return null});done=false;i=0;
+    qEl.textContent=Q[0].t;paint();
+    result.hidden=true;stage.hidden=false;stage.style.display='';
+    $('copied').textContent='';
+    var top=stage.getBoundingClientRect().top+window.pageYOffset-24;
+    window.scrollTo({top:top,behavior:reduce?'auto':'smooth'});
+    document.querySelector('.ans').focus({preventScroll:true});
+  }
+
+  document.querySelectorAll('.ans').forEach(function(b){b.addEventListener('click',function(){answer(b.dataset.a)})});
+  back.addEventListener('click',goBack);
+  $('copy').addEventListener('click',copy);
+  $('restart').addEventListener('click',restart);
+
+  var inView=true;
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(e){inView=e[0].isIntersecting},{threshold:.35}).observe(stage);
+  }
+  document.addEventListener('keydown',function(e){
+    if(done||!inView||e.ctrlKey||e.metaKey||e.altKey)return;
+    var tag=(e.target.tagName||'').toLowerCase();
+    if(tag==='input'||tag==='textarea'||e.target.isContentEditable)return;
+    var k=e.key.toLowerCase();
+    if(k==='y'){e.preventDefault();answer('yes')}
+    else if(k==='n'){e.preventDefault();answer('no')}
+    else if(k==='backspace'&&i>0){e.preventDefault();goBack()}
+  });
+  paint();
+})();
+</script>
+</body>
+</html>

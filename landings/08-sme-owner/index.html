@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo for owner-managed companies: your plan, checked every month</title>
+<meta name="description" content="For managing directors without a strategy department. Strapivo checks the news against the plan you agreed and records what your team decided and why.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --ochre:#C8963E;--ochre-text:#7E5A1C;--ochre-wash:#F7EEDD;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --col:46rem;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:1.1875rem;line-height:1.6;font-weight:400}
+h1,h2,h3{font-weight:500;margin:0;letter-spacing:-0.025em;line-height:1.12}
+p{margin:0 0 1.1em;max-width:36rem}
+a{color:var(--p700)}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:.6rem 1rem;z-index:10}
+.skip:focus{left:1rem;top:1rem}
+.wrap{max-width:var(--col);margin:0 auto;padding:0 1.5rem}
+.wide{max-width:66rem;margin:0 auto;padding:0 1.5rem}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--n600);margin:0 0 1.25rem}
+
+/* header */
+header.site{padding:1.5rem 0}
+header.site .bar{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.logo img{display:block;height:26px;width:auto}
+.signin{font-family:var(--mono);font-size:.8125rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding:.5rem .75rem;border:1px solid var(--n200);border-radius:4px}
+.signin:hover{border-color:var(--n400)}
+
+/* hand-drawn marks */
+.mark{position:relative;white-space:nowrap;display:inline-block}
+.mark svg{position:absolute;overflow:visible;pointer-events:none}
+.mark .under{left:-3%;width:106%;bottom:-.16em;height:.32em}
+.mark .ring{left:-.45em;top:-.32em;width:calc(100% + .75em);height:calc(100% + .62em)}
+.mark .strike{left:-2%;width:104%;top:42%;height:.3em}
+.hand{fill:none;stroke:var(--ochre);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.js .draw .hand{stroke-dasharray:1 2;stroke-dashoffset:1;opacity:0}
+.js .draw.in .hand{stroke-dashoffset:0;opacity:1;transition:stroke-dashoffset 1.2s cubic-bezier(.45,.05,.3,1) .25s,opacity .1s linear .25s}
+
+/* hero */
+.hero{padding:4.5rem 0 5rem}
+.hero h1{font-size:clamp(2.4rem,6.4vw,5.25rem);letter-spacing:-0.03em;line-height:1.06;max-width:15ch}
+.hero .lead{font-size:clamp(1.1875rem,2vw,1.375rem);color:var(--n700);margin-top:2rem;max-width:34ch}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.75rem;margin-top:2.25rem}
+.btn{display:inline-block;background:var(--p500);color:#fff;text-decoration:none;font-weight:500;font-size:1.0625rem;padding:.95rem 1.4rem;border-radius:4px;transition:background .2s}
+.btn:hover{background:var(--p700)}
+.quiet{color:var(--n700);font-size:1rem;text-decoration:underline;text-decoration-color:var(--n400);text-underline-offset:.25em}
+.quiet:hover{text-decoration-color:var(--ink)}
+
+/* sections */
+section{padding:5rem 0}
+section h2{font-size:clamp(1.9rem,4.4vw,3rem);max-width:18ch;margin-bottom:2rem}
+.rule{border-top:1px solid var(--n200)}
+.sunday{background:#fff}
+.voices{max-width:36rem;margin:2.75rem 0 0;padding:1.5rem 0 0;border-top:1px solid var(--n200)}
+.voices p.eyebrow{margin-bottom:1rem}
+.voices blockquote{margin:0 0 1rem;font-size:1.3125rem;line-height:1.45;color:var(--n700);letter-spacing:-0.01em}
+.voices blockquote p{margin:0}
+.voices blockquote p::before,.voices blockquote p::after{content:'"';color:var(--ochre-text)}
+
+/* the month drawing */
+.month-intro{margin-bottom:3rem}
+.month{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin:0 0 4rem;padding:0;list-style:none}
+.box{position:relative;padding:1.25rem 1.1rem 1.25rem;min-height:15.5rem;display:flex;flex-direction:column}
+.box .frame{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.box .frame path{fill:none;stroke:var(--n700);stroke-width:1.5;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.box .when{font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--n600);position:relative}
+.box .sketch{display:block;width:100%;max-width:150px;height:auto;margin:1rem auto .9rem;position:relative}
+.box .sketch .ln{fill:none;stroke:var(--n700);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.box .what{position:relative;margin:auto 0 0;font-size:1rem;line-height:1.4;color:var(--ink)}
+.box .what span{display:block;color:var(--n600);font-size:.9375rem}
+.month-caption{font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;color:var(--n600);margin:-3rem 0 4rem}
+
+.moments{list-style:none;margin:0;padding:0;counter-reset:m;max-width:39.5rem}
+.moments li{position:relative;padding:0 0 2.75rem 3.25rem;counter-increment:m}
+.moments li::before{content:counter(m);position:absolute;left:0;top:.1rem;font-family:var(--mono);font-size:.8125rem;color:var(--ochre-text);width:2rem;height:2rem;border:1.5px solid var(--ochre);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.moments h3{font-size:clamp(1.375rem,2.6vw,1.75rem);margin-bottom:.8rem;letter-spacing:-0.02em}
+.moments p{color:var(--n700)}
+.moments em{font-style:normal;color:var(--ink);background:linear-gradient(transparent 62%,var(--ochre-wash) 62%)}
+
+/* example record */
+.record{max-width:36rem;margin:1rem 0 0 3.25rem;background:#fff;border:1px solid var(--n200);border-radius:6px;padding:1.4rem 1.5rem;font-size:1rem;line-height:1.5}
+.record .tag{font-family:var(--mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ochre-text);margin:0 0 .35rem}
+.record .co{color:var(--n600);font-size:.9375rem;margin:0 0 1.25rem}
+.record .head{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:baseline;padding:0 0 .9rem;border-bottom:1px solid var(--n200);margin-bottom:1rem}
+.record .num{font-family:var(--mono);font-size:1rem;color:var(--p700);font-weight:500}
+.record .pill{font-family:var(--mono);font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;background:var(--sky);color:var(--p700);padding:.2rem .5rem;border-radius:3px}
+.record .date{font-family:var(--mono);font-size:.75rem;color:var(--n600);margin-left:auto}
+.record dl{margin:0;display:grid;grid-template-columns:8.5rem 1fr;gap:.7rem 1rem}
+.record dt{font-family:var(--mono);font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--n600);padding-top:.2rem}
+.record dd{margin:0;color:var(--ink)}
+
+/* start */
+.start{background:#fff}
+.big{font-size:clamp(1.75rem,4vw,2.6rem);letter-spacing:-0.025em;line-height:1.2;margin:3rem 0 2.5rem;max-width:16ch;font-weight:500}
+.vivo-note{font-family:var(--mono);font-size:.875rem;line-height:1.5;color:var(--ink);background:var(--paper);border-left:3px solid var(--ochre);padding:.9rem 1.1rem;margin:0 0 1.4rem;border-radius:0 4px 4px 0}
+.bring{list-style:none;margin:0 0 1.6rem;padding:0;display:flex;flex-wrap:wrap;gap:.6rem}
+.bring li{font-family:var(--mono);font-size:.8125rem;letter-spacing:.04em;border:1px dashed var(--n400);border-radius:4px;padding:.4rem .7rem;color:var(--n700)}
+
+/* not */
+.nots{list-style:none;margin:0;padding:0;max-width:38rem}
+.nots li{padding:1.75rem 0;border-top:1px solid var(--n200)}
+.nots li:last-child{border-bottom:1px solid var(--n200)}
+.nots h3{font-size:clamp(1.375rem,2.8vw,1.875rem);margin-bottom:.8rem;font-weight:400;color:var(--n600)}
+.nots h3 .mark{color:var(--ink)}
+.nots p{color:var(--n700);margin:0}
+.trust{margin-top:2.5rem;font-family:var(--mono);font-size:.8125rem;letter-spacing:.06em;text-transform:uppercase;color:var(--n700);display:flex;flex-wrap:wrap;gap:.5rem 1.5rem}
+.trust span::before{content:'';display:inline-block;width:.5rem;height:.5rem;border-radius:50%;background:var(--p500);margin-right:.55rem;vertical-align:.08em}
+
+/* close */
+.close{background:var(--ink);color:var(--paper);padding:6rem 0}
+.close h2{color:#fff;max-width:16ch}
+.close p{color:var(--n200);max-width:34ch}
+.close .btn{background:var(--p500)}
+.close .btn:hover{background:var(--p400);color:var(--ink)}
+.close .mail{font-family:var(--mono);font-size:.875rem;color:var(--p200);margin-left:.25rem}
+.close .mark .hand{stroke:var(--ochre)}
+
+footer{background:var(--n900);color:var(--n400);padding:2.5rem 0;font-size:.875rem}
+footer .bar{display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+footer img{height:22px;width:auto;display:block}
+footer nav{display:flex;gap:1.5rem;flex-wrap:wrap}
+footer a{color:var(--n200);text-decoration:none}
+footer a:hover{text-decoration:underline}
+footer .copy{font-family:var(--mono);font-size:.75rem;letter-spacing:.06em}
+
+@media (max-width:860px){
+  .month{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){
+  body{font-size:1.0625rem}
+  .hero{padding:2.5rem 0 3.5rem}
+  section{padding:3.75rem 0}
+  .month{gap:.9rem}
+  .box{min-height:13.5rem;padding:1rem .85rem}
+  .box .what{font-size:.9375rem}
+  .box .what span{font-size:.875rem}
+  .moments li{padding-left:2.75rem}
+  .record{margin-left:0;padding:1.2rem 1.1rem}
+  .record dl{grid-template-columns:1fr;gap:.2rem}
+  .record dd{margin-bottom:.6rem}
+  .record .date{margin-left:0}
+  .voices blockquote{font-size:1.1875rem}
+  .close{padding:4.5rem 0}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .draw .hand{stroke-dashoffset:0 !important;opacity:1 !important;transition:none !important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="wide bar">
+    <a class="logo" href="#top" aria-label="Strapivo, back to top"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="103" height="26"></a>
+    <a class="signin" href="https://strapivo.app">Sign in</a>
+  </div>
+</header>
+
+<main id="main">
+  <div id="top"></div>
+
+  <section class="hero" aria-labelledby="h-hero">
+    <div class="wrap">
+      <p class="eyebrow">Strapivo for owner-managed companies</p>
+      <h1 id="h-hero" class="draw">You agreed a plan in spring. A supplier changed it <span class="mark">on a Tuesday.<svg class="under" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path class="hand" pathLength="1" d="M3 8.5 C 38 5, 74 9.5, 112 6.5 S 170 4.5, 197 6"/></svg></span></h1>
+      <p class="lead">Strapivo keeps your plan in one place and reads the news against it. When something touches the plan, you and your team get an hour to decide what to do. Strapivo writes down what you decided and why.</p>
+      <div class="cta-row">
+        <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+        <a class="quiet" href="#month">See how a month goes</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sunday" aria-labelledby="h-sunday">
+    <div class="wrap">
+      <h2 id="h-sunday" class="draw">You don't have a strategy department. You have <span class="mark">Sunday evening.<svg class="under" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path class="hand" pathLength="1" d="M2 6 C 45 9, 90 4, 135 7.5 S 182 8, 198 5"/></svg></span></h2>
+      <p>Large companies pay people to notice when the market moves against the plan. In your company, that person is you, once the week is over.</p>
+      <p>So the plan goes into a drawer. News arrives in pieces, and none of it says which goal it affects. The next proper look comes at the annual review. By then, a change of course costs more than it would have in March.</p>
+      <div class="voices">
+        <p class="eyebrow">What leadership teams tell us</p>
+        <blockquote><p>We finish the strategy, and then we forget it.</p></blockquote>
+        <blockquote><p>I know there's a threat coming. I don't know what it costs us to wait.</p></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section id="month" aria-labelledby="h-month">
+    <div class="wide">
+      <div class="wrap" style="padding:0;max-width:43rem">
+        <div class="month-intro">
+          <p class="eyebrow">An ordinary month</p>
+          <h2 id="h-month">Four things Strapivo does while you run the company.</h2>
+        </div>
+      </div>
+
+      <ol class="month draw" aria-label="One month in four weeks">
+        <li class="box">
+          <svg class="frame" viewBox="0 0 200 200" preserveAspectRatio="none" aria-hidden="true"><path d="M4 6 C 60 3, 140 8, 196 4 C 198 60, 194 140, 197 195 C 140 198, 60 193, 5 196 C 2 140, 6 60, 4 6"/></svg>
+          <span class="when">Week 1 · Mon, Thu</span>
+          <svg class="sketch" viewBox="0 0 120 80" aria-hidden="true">
+            <path class="ln" d="M10 14 H 70 M10 28 H 92 M10 42 H 64 M10 56 H 86 M10 70 H 52"/>
+            <path class="hand" pathLength="1" d="M98 24 l5 6 l10 -13"/>
+            <path class="hand" pathLength="1" d="M98 52 l5 6 l10 -13"/>
+          </svg>
+          <p class="what">Vivo reads.<span>Over 4,000 sources a day.</span></p>
+        </li>
+        <li class="box">
+          <svg class="frame" viewBox="0 0 200 200" preserveAspectRatio="none" aria-hidden="true"><path d="M5 4 C 70 6, 130 2, 195 6 C 197 70, 199 130, 195 196 C 130 194, 70 198, 4 195 C 6 130, 3 70, 5 4"/></svg>
+          <span class="when">Week 2 · Tuesday</span>
+          <svg class="sketch" viewBox="0 0 120 80" aria-hidden="true">
+            <path class="ln" d="M34 24 H 86 V 60 H 34 Z M34 24 L 60 44 L 86 24"/>
+            <path class="hand" pathLength="1" d="M58 10 C 92 8, 112 22, 110 42 C 108 66, 80 74, 54 72 C 26 70, 8 58, 10 40 C 12 22, 32 12, 66 13"/>
+          </svg>
+          <p class="what">A supplier letter.<span>Vivo links it to your margin goal.</span></p>
+        </li>
+        <li class="box">
+          <svg class="frame" viewBox="0 0 200 200" preserveAspectRatio="none" aria-hidden="true"><path d="M3 5 C 60 2, 140 6, 197 3 C 195 60, 198 140, 196 197 C 140 195, 60 199, 4 196 C 6 140, 2 60, 3 5"/></svg>
+          <span class="when">Week 3 · Thursday</span>
+          <svg class="sketch" viewBox="0 0 120 80" aria-hidden="true">
+            <circle class="ln" cx="60" cy="40" r="24"/>
+            <path class="ln" d="M60 40 V 24 M60 40 L 70 46"/>
+            <path class="hand" pathLength="1" d="M60 8 C 80 8, 94 22, 94 40 C 94 58, 80 72, 60 72 C 40 72, 26 58, 26 40 C 26 26, 34 15, 47 10"/>
+            <path class="hand" pathLength="1" d="M41 6 L 48 10 L 42 16"/>
+          </svg>
+          <p class="what">One hour with your team.<span>The agenda is already drafted.</span></p>
+        </li>
+        <li class="box">
+          <svg class="frame" viewBox="0 0 200 200" preserveAspectRatio="none" aria-hidden="true"><path d="M5 3 C 70 5, 130 2, 196 5 C 198 70, 195 130, 197 196 C 130 198, 70 194, 3 197 C 5 130, 2 70, 5 3"/></svg>
+          <span class="when">Week 4 · Any day</span>
+          <svg class="sketch" viewBox="0 0 120 80" aria-hidden="true">
+            <path class="ln" d="M22 12 H 98 V 70 H 22 Z"/>
+            <text x="30" y="31" font-family="JetBrains Mono, monospace" font-size="9" fill="#005DBD">SDS-2026-014</text>
+            <path class="ln" d="M30 44 H 88 M30 56 H 72"/>
+            <path class="hand" pathLength="1" d="M28 36 C 50 34, 72 37, 92 35"/>
+          </svg>
+          <p class="what">The decision, written down.<span>With who disagreed, and why.</span></p>
+        </li>
+      </ol>
+
+      <div class="wrap" style="padding:0;max-width:43rem">
+        <ol class="moments">
+          <li>
+            <h3>It reads for you.</h3>
+            <p>Vivo, the AI in Strapivo, reads over 4,000 sources a day and reports to you on Monday and Thursday. It searches for news about the few goals you picked as focus, what you want to achieve under each, and the risks you named.</p>
+          </li>
+          <li>
+            <h3>It tells you what touches your plan.</h3>
+            <p>Each news item arrives with the goal it affects and one line on why. You, or someone you hand this job to, mark it relevant or not. What you dismiss teaches Vivo what counts as noise.</p>
+            <p>If a risk looks bigger, Vivo proposes a new position and a person confirms it. A move into the danger zone needs at least one primary source. <em>A single blog post can't put a risk there.</em></p>
+          </li>
+          <li>
+            <h3>It sets the agenda for an hour with your team.</h3>
+            <p>The day before, Vivo drafts the agenda from what changed. Each item says in one line why it is there. You edit it, and the room approves it as the first step.</p>
+            <p>Before anyone speaks, each person writes down a first view. The views are revealed together, so <em>nobody adjusts their view to whoever spoke first.</em></p>
+          </li>
+          <li>
+            <h3>It writes down what you decided and why.</h3>
+            <p>For each item you choose one of five answers: hold, adapt, pivot, take advantage, or not yet. Vivo reads the decision back, including who disagreed and why. You confirm it, and it gets a permanent number.</p>
+            <p>"Not yet" ends in one of two ways. You park it with a trigger that brings it back, or you let it go and write down why.</p>
+          </li>
+        </ol>
+
+        <div class="record" role="group" aria-label="Illustrative example of a recorded decision">
+          <p class="tag">Illustrative example</p>
+          <p class="co">Hollis Kitchens, a fictional maker of commercial kitchen fittings.</p>
+          <div class="head">
+            <span class="num">SDS-2026-014</span>
+            <span class="pill">Adapt</span>
+            <span class="date">15 Oct 2026</span>
+          </div>
+          <dl>
+            <dt>News</dt><dd>The main steel supplier announces a price rise from January. Source is the supplier's letter, a primary source.</dd>
+            <dt>Decision</dt><dd>New quotes carry a material surcharge clause from November. Purchasing asks a second supplier for terms by December.</dd>
+            <dt>Dissent</dt><dd>Head of sales disagreed. Two large customers will push back on the clause.</dd>
+            <dt>Confirmed by</dt><dd>Managing director</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="start" aria-labelledby="h-start">
+    <div class="wrap">
+      <p class="eyebrow">Getting started</p>
+      <h2 id="h-start">We do the reading first.</h2>
+      <p>Send us what you have.</p>
+      <ul class="bring" aria-label="What you can bring">
+        <li>A workshop report</li>
+        <li>A document</li>
+        <li>An email to your team</li>
+        <li>Nothing at all</li>
+      </ul>
+      <p>Vivo sorts it into a plan. That means the goals that show you are getting there, what you want to achieve under each, the work that gets it done and the risks. Where something sits in the wrong place, Vivo says so. You accept the change or ignore it.</p>
+      <p class="vivo-note">"This reads like an activity, not an objective. Move it down?"</p>
+      <p class="big draw"><span class="mark">Four to five hours,<svg class="ring" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true"><path class="hand" pathLength="1" d="M96 5 C 160 2, 216 12, 214 30 C 212 48, 168 57, 110 56 C 52 55, 6 48, 6 30 C 6 14, 46 6, 150 9"/></svg></span> and then you run it.</p>
+      <p>Pick up to four goals to watch closely. Try to add a fifth and Strapivo asks you a question.</p>
+      <p class="vivo-note">"You're diluting focus and creating noise. Do you really want to?"</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-not">
+    <div class="wrap">
+      <h2 id="h-not">What Strapivo is not.</h2>
+      <ul class="nots draw">
+        <li>
+          <h3>Not <span class="mark">another to-do tool.<svg class="strike" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path class="hand" pathLength="1" d="M2 7 C 50 4, 110 9, 198 5"/></svg></span></h3>
+          <p>Your team keeps working where it works now. Before each session, the person responsible for each piece of work reports one line on how it is going, and can ask for help.</p>
+        </li>
+        <li>
+          <h3>Not <span class="mark">a dashboard.<svg class="strike" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path class="hand" pathLength="1" d="M2 6 C 60 9, 130 4, 198 7"/></svg></span></h3>
+          <p>There are no charts to feed. Each goal has one light, green, yellow or red, and a person sets it. When two focus activities slip, Vivo asks "Light still green?" It never changes the light itself.</p>
+        </li>
+        <li>
+          <h3>Not <span class="mark">an AI that rewrites your plan.<svg class="strike" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path class="hand" pathLength="1" d="M2 5 C 70 8, 140 4, 198 7"/></svg></span></h3>
+          <p>Vivo proposes. You decide. Every suggestion traces back to the plan you approved, and a change to the plan waits for an owner to confirm it.</p>
+        </li>
+      </ul>
+      <p class="trust"><span>EU-only infrastructure</span><span>GDPR by design</span></p>
+    </div>
+  </section>
+
+  <section class="close" aria-labelledby="h-close">
+    <div class="wrap">
+      <h2 id="h-close" class="draw">Tell us about the plan you <span class="mark">agreed in spring.<svg class="under" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path class="hand" pathLength="1" d="M3 7 C 50 4, 100 9.5, 150 6 S 190 5, 197 7.5"/></svg></span></h2>
+      <p>Write to us with what you have. We read it before we talk.</p>
+      <div class="cta-row">
+        <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+        <span class="mail">strategy@strapivo.com</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wide bar">
+    <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="87" height="22">
+    <nav aria-label="Legal">
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+    <span class="copy">© 2026 Strapivo</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  if(!('IntersectionObserver' in window)) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('js');
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:0.35});
+  var vh=window.innerHeight||800;
+  document.querySelectorAll('.draw').forEach(function(el){
+    var r=el.getBoundingClientRect();
+    if(r.top<vh*0.9 && r.bottom>0){ requestAnimationFrame(function(){ el.classList.add('in'); }); }
+    else io.observe(el);
+  });
+})();
+</script>
+</body>
+</html>

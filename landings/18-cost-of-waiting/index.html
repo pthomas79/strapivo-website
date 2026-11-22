@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The cost of waiting · Strapivo</title>
+<meta name="description" content="Two ways to mishandle a threat you can see coming: inertia and thrash. Strapivo gives leadership teams the practice between them, with small, early corrections to an agreed strategy.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --inert:#8CA0B3;--inert-ink:#4E6273;--inert-bg:#E9EEF3;
+  --thrash:#D9482B;--thrash-ink:#B23A20;--thrash-bg:#FBECE8;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --wrap:1200px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:17px;line-height:1.6;font-weight:400}
+h1,h2,h3{font-weight:400;margin:0;letter-spacing:-0.022em;line-height:1.12}
+p{margin:0 0 1em}
+a{color:var(--p700)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--n600);font-weight:500;margin:0 0 18px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--paper);padding:8px 12px;border-radius:4px;z-index:10}
+.skip:focus{left:8px}
+
+/* header */
+.site-head{border-bottom:1px solid var(--n200)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.site-head img{height:24px;width:auto;display:block}
+.head-nav{display:flex;gap:22px;align-items:center}
+.head-nav a{font-size:15px;color:var(--ink);text-decoration:none}
+.head-nav a:hover{color:var(--p700)}
+.btn{display:inline-block;background:var(--ink);color:var(--paper)!important;text-decoration:none;font-size:15px;font-weight:500;padding:11px 18px;border-radius:4px;transition:background .2s}
+.btn:hover{background:var(--p700)}
+.btn.azure{background:var(--p500)}
+.btn.azure:hover{background:var(--p700)}
+
+/* hero */
+.hero{padding:96px 0 40px}
+.hero blockquote{margin:0}
+.hero h1{font-size:clamp(2.3rem,5.4vw,5rem);letter-spacing:-0.03em;line-height:1.04;max-width:16ch}
+.hero h1 .wait{color:var(--p500)}
+.hero .attrib{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--n500);margin-top:26px}
+.hero-lede{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:64px;padding-top:32px;border-top:1px solid var(--n200);align-items:start}
+.hero-lede p{font-size:20px;line-height:1.5;color:var(--n700);margin:0}
+.hero-lede .cta-row{display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-self:end}
+.hero-lede .cta-row span{font-family:var(--mono);font-size:12px;color:var(--n500);letter-spacing:.06em}
+
+/* course sketch */
+.course{padding:48px 0 96px}
+.course-frame{background:#fff;border:1px solid var(--n200);border-radius:6px;padding:28px 28px 24px}
+.course-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+.course-top h2{font-size:22px;letter-spacing:-0.015em}
+.sketch-tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n600);border:1px dashed var(--n400);padding:4px 8px;border-radius:3px}
+.course svg{display:block;width:100%;height:auto}
+.course .bank-label{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+.course .axis-label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;fill:var(--n600);text-transform:uppercase}
+.course .note{font-family:var(--mono);font-size:12px;letter-spacing:.04em}
+.ctrl{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;margin-top:18px}
+.ctrl .end{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.ctrl .end.l{color:var(--inert-ink)}
+.ctrl .end.r{color:var(--thrash-ink)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;margin:0;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--inert) 0%,var(--n200) 38%,var(--p500) 50%,var(--n200) 62%,var(--thrash) 100%)}
+input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--inert) 0%,var(--n200) 38%,var(--p500) 50%,var(--n200) 62%,var(--thrash) 100%)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid var(--ink);margin-top:-8px}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--ink)}
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.presets button{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;background:transparent;border:1px solid var(--n200);color:var(--n700);padding:7px 12px;border-radius:3px;cursor:pointer}
+.presets button:hover{border-color:var(--n400)}
+.presets button[aria-pressed=true]{border-color:var(--ink);color:var(--ink);background:var(--n100)}
+.readout{display:grid;grid-template-columns:200px 1fr;gap:24px;margin-top:22px;padding-top:20px;border-top:1px solid var(--n200);min-height:96px}
+.readout .state{font-family:var(--mono);font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.readout p{margin:0;color:var(--n700);max-width:62ch}
+.course-foot{font-size:13px;color:var(--n500);margin-top:14px}
+
+/* ditches */
+.ditch{padding:104px 0}
+.ditch.inert{background:var(--inert-bg)}
+.ditch.thr{background:var(--thrash-bg)}
+.ditch .grid{display:grid;grid-template-columns:5fr 7fr;gap:64px}
+.ditch .tag{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;display:flex;gap:10px;align-items:center;margin-bottom:22px}
+.ditch .tag i{display:inline-block;width:28px;height:3px}
+.inert .tag{color:var(--inert-ink)} .inert .tag i{background:var(--inert)}
+.thr .tag{color:var(--thrash-ink)} .thr .tag i{background:var(--thrash)}
+.ditch h2{font-size:clamp(2rem,3.8vw,3.25rem)}
+.ditch .body p{font-size:18px;color:var(--n700)}
+.voice{margin:32px 0 0;padding:0 0 0 20px;font-size:21px;line-height:1.4;letter-spacing:-0.01em}
+.inert .voice{border-left:3px solid var(--inert)}
+.thr .voice{border-left:3px solid var(--thrash)}
+.voice cite{display:block;font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n600);margin-top:10px}
+.symptoms{list-style:none;padding:0;margin:28px 0 0;border-top:1px solid rgba(20,27,36,.12)}
+.symptoms li{padding:14px 0;border-bottom:1px solid rgba(20,27,36,.12);display:grid;grid-template-columns:120px 1fr;gap:16px;font-size:16px;color:var(--n700)}
+.symptoms li b{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);padding-top:3px}
+
+/* middle */
+.middle{padding:112px 0 64px}
+.middle h2{font-size:clamp(2.2rem,4.4vw,3.8rem);max-width:18ch}
+.middle h2 em{font-style:normal;color:var(--p500)}
+.middle .intro{display:grid;grid-template-columns:7fr 5fr;gap:64px;align-items:end}
+.middle .intro p{font-size:18px;color:var(--n700);margin:0}
+.middle .intro .q{font-size:15px;color:var(--n600);margin-top:16px;font-family:var(--mono);letter-spacing:.02em}
+
+/* channel of mechanisms */
+.channel{padding:40px 0 112px}
+.channel .cols{display:grid;grid-template-columns:1fr 56px 1fr;gap:0}
+.channel .rail{position:relative}
+.channel .rail::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--p500)}
+.channel .rail::after{content:"";position:absolute;left:50%;top:0;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--p500)}
+.col-head{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding-bottom:14px;border-bottom:2px solid;margin-bottom:8px}
+.col.l .col-head{color:var(--inert-ink);border-color:var(--inert)}
+.col.r .col-head{color:var(--thrash-ink);border-color:var(--thrash)}
+.col h3{font-size:16px;font-weight:500;letter-spacing:-0.01em;margin:0 0 6px}
+.mech{padding:26px 0;border-bottom:1px solid var(--n200)}
+.mech p{margin:0;font-size:16px;color:var(--n700)}
+.col.l{padding-right:32px}
+.col.r{padding-left:32px}
+
+/* UI fragments */
+.frag{margin-top:16px;background:#fff;border:1px solid var(--n200);border-radius:4px;font-family:var(--mono);font-size:12px;color:var(--n700)}
+.frag .row{display:flex;justify-content:space-between;gap:12px;padding:9px 12px;border-bottom:1px solid var(--n100);align-items:center}
+.frag .row:last-child{border-bottom:0}
+.pill{display:inline-block;padding:2px 7px;border-radius:3px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.pill.worse{background:var(--thrash-bg);color:var(--thrash-ink)}
+.pill.stable{background:var(--n100);color:var(--n600)}
+.pill.need{background:var(--sky2);color:var(--p700)}
+.pill.ok{background:var(--sky);color:var(--p700)}
+.vivo{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;font-family:'Inter',sans-serif;font-size:14px;color:var(--ink)}
+.vivo svg{flex:none;margin-top:3px}
+.vivo b{font-weight:500}
+.frag .muted{color:var(--n500)}
+.ex-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--n500);padding:6px 12px;border-bottom:1px solid var(--n100);background:var(--n100)}
+
+/* session finale */
+.session{background:var(--ink);color:var(--paper);padding:112px 0}
+.session .eyebrow{color:var(--n400)}
+.session h2{font-size:clamp(2.2rem,4.6vw,4rem);max-width:20ch}
+.session h2 .az{color:var(--p400)}
+.session .lede{font-size:18px;color:#C9D0D8;max-width:58ch;margin-top:24px}
+.agenda{margin-top:56px;display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:start}
+.item{border:1px solid var(--n700);border-radius:6px;overflow:hidden}
+.item .hd{display:flex;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--n700);font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--n400);text-transform:uppercase;flex-wrap:wrap}
+.item .bd{padding:18px}
+.step{display:grid;grid-template-columns:110px 1fr;gap:14px;padding:12px 0;border-bottom:1px solid #222B36;font-size:15px;color:#D3D9E0}
+.step:last-child{border-bottom:0}
+.step b{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n400);padding-top:3px}
+.prompt-box{border:1px solid var(--p500);background:rgba(0,130,230,.1);border-radius:4px;padding:14px 16px;color:var(--paper)}
+.prompt-box .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--p200);display:block;margin-bottom:6px}
+.prompt-box p{margin:0;font-size:17px;line-height:1.45}
+.decisions h3{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--n400);font-weight:500;margin-bottom:14px}
+.decisions ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--n700)}
+.decisions li{padding:14px 0;border-bottom:1px solid var(--n700);display:grid;grid-template-columns:120px 1fr;gap:14px;font-size:15px;color:#C9D0D8}
+.decisions li span{font-size:16px;color:var(--paper)}
+.record{margin-top:22px;font-family:var(--mono);font-size:12px;color:var(--n400);line-height:1.7}
+.record .num{color:var(--p200)}
+
+/* trust */
+.trust{padding:112px 0}
+.trust .grid{display:grid;grid-template-columns:5fr 7fr;gap:64px}
+.trust h2{font-size:clamp(2rem,3.6vw,3rem)}
+.facts{list-style:none;margin:0;padding:0;border-top:1px solid var(--n200)}
+.facts li{padding:20px 0;border-bottom:1px solid var(--n200);display:grid;grid-template-columns:180px 1fr;gap:20px}
+.facts li b{font-weight:500;font-size:16px}
+.facts li p{margin:0;color:var(--n700);font-size:16px}
+
+/* close */
+.close{padding:0 0 120px}
+.close .box{border-top:2px solid var(--ink);padding-top:56px;display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:end}
+.close h2{font-size:clamp(2.2rem,4.6vw,4rem);letter-spacing:-0.03em}
+.close p{color:var(--n700);font-size:18px}
+.close .mail{font-family:var(--mono);font-size:13px;color:var(--n600);margin-top:14px;display:block}
+
+/* footer */
+.site-foot{background:var(--n900);color:var(--n400);padding:48px 0;font-size:14px}
+.site-foot .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.site-foot img{height:22px;width:auto;display:block}
+.site-foot nav{display:flex;gap:22px}
+.site-foot a{color:#C9D0D8;text-decoration:none}
+.site-foot a:hover{color:#fff;text-decoration:underline}
+
+@media (max-width:900px){
+  .wrap{padding:0 22px}
+  .hero{padding:64px 0 24px}
+  .hero-lede,.ditch .grid,.middle .intro,.agenda,.trust .grid,.close .box{grid-template-columns:1fr;gap:32px}
+  .hero-lede .cta-row{justify-self:start}
+  .ditch{padding:72px 0}
+  .channel .cols{grid-template-columns:1fr}
+  .channel .rail{display:none}
+  .col.l,.col.r{padding:0}
+  .col.r{margin-top:48px}
+  .readout{grid-template-columns:1fr;gap:8px}
+  .middle{padding:80px 0 40px}
+  .session,.trust{padding:80px 0}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .head-nav .hide-s{display:none}
+  .course-frame{padding:18px 14px}
+  .ctrl{grid-template-columns:1fr 1fr;gap:6px 12px}
+  .ctrl input{grid-column:1 / -1;grid-row:1}
+  .ctrl .end.r{text-align:right}
+  .symptoms li,.facts li,.decisions li,.step{grid-template-columns:1fr;gap:4px}
+  .hero-lede p{font-size:18px}
+  .course-frame{padding:18px 10px}
+  .course-top{padding:0 6px}
+  .course svg .note{display:none}
+  .course svg .bank-label{font-size:46px;letter-spacing:.06em}
+  .course svg .axis-label{font-size:34px;letter-spacing:.02em}
+  #ship{r:16px}
+}
+#course-path,#ship,#edgeTop,#edgeBot{vector-effect:non-scaling-stroke}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a href="./" aria-label="Strapivo home"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="120" height="30"></a>
+    <nav class="head-nav" aria-label="Main">
+      <a class="hide-s" href="#course">The course</a>
+      <a class="hide-s" href="#session">The session</a>
+      <a href="https://strapivo.app">Sign in</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero" aria-labelledby="hero-h">
+  <div class="wrap">
+    <p class="eyebrow">What leadership teams tell us</p>
+    <blockquote>
+      <h1 id="hero-h">"I know there's a threat coming. I don't know what it <span class="wait">costs us to wait</span>."</h1>
+    </blockquote>
+    <div class="hero-lede">
+      <p>Teams get this wrong in two ways. Some wait until the annual review. Others react to every headline. Strapivo is built for the practice between them: small, early corrections to the strategy you already agreed.</p>
+      <div class="cta-row">
+        <a class="btn azure" href="mailto:strategy@strapivo.com">Start the conversation</a>
+        <span>strategy@strapivo.com</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="course" id="course" aria-labelledby="course-h">
+  <div class="wrap">
+    <div class="course-frame">
+      <div class="course-top">
+        <h2 id="course-h">Drag the company between the two banks</h2>
+        <span class="sketch-tag">A sketch, not data</span>
+      </div>
+      <svg id="sketch" viewBox="0 0 1200 472" role="img" aria-labelledby="sketch-title sketch-desc">
+        <title id="sketch-title">Course sketch</title>
+        <desc id="sketch-desc">A channel bends across the page. The inertia bank lies above it and the thrash bank below. The drawn line shows a company holding a steady course with small corrections.</desc>
+        <defs>
+          <pattern id="hatchI" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="#8CA0B3" stroke-width="1.2" opacity=".55"/></pattern>
+          <pattern id="hatchT" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="8" stroke="#D9482B" stroke-width="1.2" opacity=".4"/></pattern>
+        </defs>
+        <path id="bankTop" fill="#E9EEF3" d="M0 0 L1200 0 L1200 205 L1150.7 205 L1141.3 205 L1132 205 L1122.7 205.3 L1113.3 205.8 L1104 206.5 L1094.7 207.5 L1085.3 208.6 L1076 209.9 L1066.7 211.3 L1057.3 212.9 L1048 214.6 L1038.7 216.5 L1029.3 218.5 L1020 220.5 L1010.7 222.6 L1001.3 224.8 L992 227 L982.7 229.3 L973.3 231.6 L964 233.9 L954.7 236.2 L945.3 238.4 L936 240.6 L926.7 242.8 L917.3 244.9 L908 246.9 L898.7 248.9 L889.3 250.7 L880 252.4 L870.7 254 L861.3 255.4 L852 256.7 L842.7 257.7 L833.3 258.6 L824 259.3 L814.7 259.8 L805.3 260 L796 260 L786.7 260 L777.3 260 L768 260 L758.7 260 L749.3 260 L740 260 L730.7 260 L721.3 259.8 L712 259.3 L702.7 258.6 L693.3 257.6 L684 256.5 L674.7 255.1 L665.3 253.6 L656 251.9 L646.7 249.9 L637.3 247.9 L628 245.6 L618.7 243.3 L609.3 240.7 L600 238.1 L590.7 235.3 L581.3 232.5 L572 229.5 L562.7 226.4 L553.3 223.3 L544 220.1 L534.7 216.8 L525.3 213.5 L516 210.2 L506.7 206.8 L497.3 203.4 L488 200 L478.7 196.6 L469.3 193.2 L460 189.8 L450.7 186.5 L441.3 183.2 L432 179.9 L422.7 176.7 L413.3 173.6 L404 170.5 L394.7 167.5 L385.3 164.7 L376 161.9 L366.7 159.3 L357.3 156.7 L348 154.4 L338.7 152.1 L329.3 150.1 L320 148.1 L310.7 146.4 L301.3 144.9 L292 143.5 L282.7 142.4 L273.3 141.4 L264 140.7 L254.7 140.2 L245.3 140 L236 140 L226.7 140 L217.3 140 L208 140 L198.7 140 L189.3 140 L180 140 L170.7 140 L161.3 140 L152 140 L142.7 140 L133.3 140 L124 140 L114.7 140 L105.3 140 L96 140 L86.7 140 L77.3 140 L68 140 L58.7 140 L49.3 140 L0 140 Z"/>
+        <path id="bankTopH" fill="url(#hatchI)" d="M0 0 L1200 0 L1200 205 L1150.7 205 L1141.3 205 L1132 205 L1122.7 205.3 L1113.3 205.8 L1104 206.5 L1094.7 207.5 L1085.3 208.6 L1076 209.9 L1066.7 211.3 L1057.3 212.9 L1048 214.6 L1038.7 216.5 L1029.3 218.5 L1020 220.5 L1010.7 222.6 L1001.3 224.8 L992 227 L982.7 229.3 L973.3 231.6 L964 233.9 L954.7 236.2 L945.3 238.4 L936 240.6 L926.7 242.8 L917.3 244.9 L908 246.9 L898.7 248.9 L889.3 250.7 L880 252.4 L870.7 254 L861.3 255.4 L852 256.7 L842.7 257.7 L833.3 258.6 L824 259.3 L814.7 259.8 L805.3 260 L796 260 L786.7 260 L777.3 260 L768 260 L758.7 260 L749.3 260 L740 260 L730.7 260 L721.3 259.8 L712 259.3 L702.7 258.6 L693.3 257.6 L684 256.5 L674.7 255.1 L665.3 253.6 L656 251.9 L646.7 249.9 L637.3 247.9 L628 245.6 L618.7 243.3 L609.3 240.7 L600 238.1 L590.7 235.3 L581.3 232.5 L572 229.5 L562.7 226.4 L553.3 223.3 L544 220.1 L534.7 216.8 L525.3 213.5 L516 210.2 L506.7 206.8 L497.3 203.4 L488 200 L478.7 196.6 L469.3 193.2 L460 189.8 L450.7 186.5 L441.3 183.2 L432 179.9 L422.7 176.7 L413.3 173.6 L404 170.5 L394.7 167.5 L385.3 164.7 L376 161.9 L366.7 159.3 L357.3 156.7 L348 154.4 L338.7 152.1 L329.3 150.1 L320 148.1 L310.7 146.4 L301.3 144.9 L292 143.5 L282.7 142.4 L273.3 141.4 L264 140.7 L254.7 140.2 L245.3 140 L236 140 L226.7 140 L217.3 140 L208 140 L198.7 140 L189.3 140 L180 140 L170.7 140 L161.3 140 L152 140 L142.7 140 L133.3 140 L124 140 L114.7 140 L105.3 140 L96 140 L86.7 140 L77.3 140 L68 140 L58.7 140 L49.3 140 L0 140 Z"/>
+        <path id="bankBot" fill="#FBECE8" d="M0 440 L1200 440 L1200 325 L1150.7 325 L1141.3 325 L1132 325 L1122.7 325.3 L1113.3 325.8 L1104 326.5 L1094.7 327.5 L1085.3 328.6 L1076 329.9 L1066.7 331.3 L1057.3 332.9 L1048 334.6 L1038.7 336.5 L1029.3 338.5 L1020 340.5 L1010.7 342.6 L1001.3 344.8 L992 347 L982.7 349.3 L973.3 351.6 L964 353.9 L954.7 356.2 L945.3 358.4 L936 360.6 L926.7 362.8 L917.3 364.9 L908 366.9 L898.7 368.9 L889.3 370.7 L880 372.4 L870.7 374 L861.3 375.4 L852 376.7 L842.7 377.7 L833.3 378.6 L824 379.3 L814.7 379.8 L805.3 380 L796 380 L786.7 380 L777.3 380 L768 380 L758.7 380 L749.3 380 L740 380 L730.7 380 L721.3 379.8 L712 379.3 L702.7 378.6 L693.3 377.6 L684 376.5 L674.7 375.1 L665.3 373.6 L656 371.9 L646.7 369.9 L637.3 367.9 L628 365.6 L618.7 363.3 L609.3 360.7 L600 358.1 L590.7 355.3 L581.3 352.5 L572 349.5 L562.7 346.4 L553.3 343.3 L544 340.1 L534.7 336.8 L525.3 333.5 L516 330.2 L506.7 326.8 L497.3 323.4 L488 320 L478.7 316.6 L469.3 313.2 L460 309.8 L450.7 306.5 L441.3 303.2 L432 299.9 L422.7 296.7 L413.3 293.6 L404 290.5 L394.7 287.5 L385.3 284.7 L376 281.9 L366.7 279.3 L357.3 276.7 L348 274.4 L338.7 272.1 L329.3 270.1 L320 268.1 L310.7 266.4 L301.3 264.9 L292 263.5 L282.7 262.4 L273.3 261.4 L264 260.7 L254.7 260.2 L245.3 260 L236 260 L226.7 260 L217.3 260 L208 260 L198.7 260 L189.3 260 L180 260 L170.7 260 L161.3 260 L152 260 L142.7 260 L133.3 260 L124 260 L114.7 260 L105.3 260 L96 260 L86.7 260 L77.3 260 L68 260 L58.7 260 L49.3 260 L0 260 Z"/>
+        <path id="bankBotH" fill="url(#hatchT)" d="M0 440 L1200 440 L1200 325 L1150.7 325 L1141.3 325 L1132 325 L1122.7 325.3 L1113.3 325.8 L1104 326.5 L1094.7 327.5 L1085.3 328.6 L1076 329.9 L1066.7 331.3 L1057.3 332.9 L1048 334.6 L1038.7 336.5 L1029.3 338.5 L1020 340.5 L1010.7 342.6 L1001.3 344.8 L992 347 L982.7 349.3 L973.3 351.6 L964 353.9 L954.7 356.2 L945.3 358.4 L936 360.6 L926.7 362.8 L917.3 364.9 L908 366.9 L898.7 368.9 L889.3 370.7 L880 372.4 L870.7 374 L861.3 375.4 L852 376.7 L842.7 377.7 L833.3 378.6 L824 379.3 L814.7 379.8 L805.3 380 L796 380 L786.7 380 L777.3 380 L768 380 L758.7 380 L749.3 380 L740 380 L730.7 380 L721.3 379.8 L712 379.3 L702.7 378.6 L693.3 377.6 L684 376.5 L674.7 375.1 L665.3 373.6 L656 371.9 L646.7 369.9 L637.3 367.9 L628 365.6 L618.7 363.3 L609.3 360.7 L600 358.1 L590.7 355.3 L581.3 352.5 L572 349.5 L562.7 346.4 L553.3 343.3 L544 340.1 L534.7 336.8 L525.3 333.5 L516 330.2 L506.7 326.8 L497.3 323.4 L488 320 L478.7 316.6 L469.3 313.2 L460 309.8 L450.7 306.5 L441.3 303.2 L432 299.9 L422.7 296.7 L413.3 293.6 L404 290.5 L394.7 287.5 L385.3 284.7 L376 281.9 L366.7 279.3 L357.3 276.7 L348 274.4 L338.7 272.1 L329.3 270.1 L320 268.1 L310.7 266.4 L301.3 264.9 L292 263.5 L282.7 262.4 L273.3 261.4 L264 260.7 L254.7 260.2 L245.3 260 L236 260 L226.7 260 L217.3 260 L208 260 L198.7 260 L189.3 260 L180 260 L170.7 260 L161.3 260 L152 260 L142.7 260 L133.3 260 L124 260 L114.7 260 L105.3 260 L96 260 L86.7 260 L77.3 260 L68 260 L58.7 260 L49.3 260 L0 260 Z"/>
+        <path id="edgeTop" fill="none" stroke="#8CA0B3" stroke-width="1.5" d="M0 140 L49.3 140 L58.7 140 L68 140 L77.3 140 L86.7 140 L96 140 L105.3 140 L114.7 140 L124 140 L133.3 140 L142.7 140 L152 140 L161.3 140 L170.7 140 L180 140 L189.3 140 L198.7 140 L208 140 L217.3 140 L226.7 140 L236 140 L245.3 140 L254.7 140.2 L264 140.7 L273.3 141.4 L282.7 142.4 L292 143.5 L301.3 144.9 L310.7 146.4 L320 148.1 L329.3 150.1 L338.7 152.1 L348 154.4 L357.3 156.7 L366.7 159.3 L376 161.9 L385.3 164.7 L394.7 167.5 L404 170.5 L413.3 173.6 L422.7 176.7 L432 179.9 L441.3 183.2 L450.7 186.5 L460 189.8 L469.3 193.2 L478.7 196.6 L488 200 L497.3 203.4 L506.7 206.8 L516 210.2 L525.3 213.5 L534.7 216.8 L544 220.1 L553.3 223.3 L562.7 226.4 L572 229.5 L581.3 232.5 L590.7 235.3 L600 238.1 L609.3 240.7 L618.7 243.3 L628 245.6 L637.3 247.9 L646.7 249.9 L656 251.9 L665.3 253.6 L674.7 255.1 L684 256.5 L693.3 257.6 L702.7 258.6 L712 259.3 L721.3 259.8 L730.7 260 L740 260 L749.3 260 L758.7 260 L768 260 L777.3 260 L786.7 260 L796 260 L805.3 260 L814.7 259.8 L824 259.3 L833.3 258.6 L842.7 257.7 L852 256.7 L861.3 255.4 L870.7 254 L880 252.4 L889.3 250.7 L898.7 248.9 L908 246.9 L917.3 244.9 L926.7 242.8 L936 240.6 L945.3 238.4 L954.7 236.2 L964 233.9 L973.3 231.6 L982.7 229.3 L992 227 L1001.3 224.8 L1010.7 222.6 L1020 220.5 L1029.3 218.5 L1038.7 216.5 L1048 214.6 L1057.3 212.9 L1066.7 211.3 L1076 209.9 L1085.3 208.6 L1094.7 207.5 L1104 206.5 L1113.3 205.8 L1122.7 205.3 L1132 205 L1141.3 205 L1150.7 205 L1200 205"/>
+        <path id="edgeBot" fill="none" stroke="#D9482B" stroke-width="1.5" opacity=".7" d="M0 260 L49.3 260 L58.7 260 L68 260 L77.3 260 L86.7 260 L96 260 L105.3 260 L114.7 260 L124 260 L133.3 260 L142.7 260 L152 260 L161.3 260 L170.7 260 L180 260 L189.3 260 L198.7 260 L208 260 L217.3 260 L226.7 260 L236 260 L245.3 260 L254.7 260.2 L264 260.7 L273.3 261.4 L282.7 262.4 L292 263.5 L301.3 264.9 L310.7 266.4 L320 268.1 L329.3 270.1 L338.7 272.1 L348 274.4 L357.3 276.7 L366.7 279.3 L376 281.9 L385.3 284.7 L394.7 287.5 L404 290.5 L413.3 293.6 L422.7 296.7 L432 299.9 L441.3 303.2 L450.7 306.5 L460 309.8 L469.3 313.2 L478.7 316.6 L488 320 L497.3 323.4 L506.7 326.8 L516 330.2 L525.3 333.5 L534.7 336.8 L544 340.1 L553.3 343.3 L562.7 346.4 L572 349.5 L581.3 352.5 L590.7 355.3 L600 358.1 L609.3 360.7 L618.7 363.3 L628 365.6 L637.3 367.9 L646.7 369.9 L656 371.9 L665.3 373.6 L674.7 375.1 L684 376.5 L693.3 377.6 L702.7 378.6 L712 379.3 L721.3 379.8 L730.7 380 L740 380 L749.3 380 L758.7 380 L768 380 L777.3 380 L786.7 380 L796 380 L805.3 380 L814.7 379.8 L824 379.3 L833.3 378.6 L842.7 377.7 L852 376.7 L861.3 375.4 L870.7 374 L880 372.4 L889.3 370.7 L898.7 368.9 L908 366.9 L917.3 364.9 L926.7 362.8 L936 360.6 L945.3 358.4 L954.7 356.2 L964 353.9 L973.3 351.6 L982.7 349.3 L992 347 L1001.3 344.8 L1010.7 342.6 L1020 340.5 L1029.3 338.5 L1038.7 336.5 L1048 334.6 L1057.3 332.9 L1066.7 331.3 L1076 329.9 L1085.3 328.6 L1094.7 327.5 L1104 326.5 L1113.3 325.8 L1122.7 325.3 L1132 325 L1141.3 325 L1150.7 325 L1200 325"/>
+        <path id="centre" fill="none" stroke="#0082E6" stroke-width="1" stroke-dasharray="2 6" opacity=".6" d="M40 200 L49.3 200 L58.7 200 L68 200 L77.3 200 L86.7 200 L96 200 L105.3 200 L114.7 200 L124 200 L133.3 200 L142.7 200 L152 200 L161.3 200 L170.7 200 L180 200 L189.3 200 L198.7 200 L208 200 L217.3 200 L226.7 200 L236 200 L245.3 200 L254.7 200.2 L264 200.7 L273.3 201.4 L282.7 202.4 L292 203.5 L301.3 204.9 L310.7 206.4 L320 208.1 L329.3 210.1 L338.7 212.1 L348 214.4 L357.3 216.7 L366.7 219.3 L376 221.9 L385.3 224.7 L394.7 227.5 L404 230.5 L413.3 233.6 L422.7 236.7 L432 239.9 L441.3 243.2 L450.7 246.5 L460 249.8 L469.3 253.2 L478.7 256.6 L488 260 L497.3 263.4 L506.7 266.8 L516 270.2 L525.3 273.5 L534.7 276.8 L544 280.1 L553.3 283.3 L562.7 286.4 L572 289.5 L581.3 292.5 L590.7 295.3 L600 298.1 L609.3 300.7 L618.7 303.3 L628 305.6 L637.3 307.9 L646.7 309.9 L656 311.9 L665.3 313.6 L674.7 315.1 L684 316.5 L693.3 317.6 L702.7 318.6 L712 319.3 L721.3 319.8 L730.7 320 L740 320 L749.3 320 L758.7 320 L768 320 L777.3 320 L786.7 320 L796 320 L805.3 320 L814.7 319.8 L824 319.3 L833.3 318.6 L842.7 317.7 L852 316.7 L861.3 315.4 L870.7 314 L880 312.4 L889.3 310.7 L898.7 308.9 L908 306.9 L917.3 304.9 L926.7 302.8 L936 300.6 L945.3 298.4 L954.7 296.2 L964 293.9 L973.3 291.6 L982.7 289.3 L992 287 L1001.3 284.8 L1010.7 282.6 L1020 280.5 L1029.3 278.5 L1038.7 276.5 L1048 274.6 L1057.3 272.9 L1066.7 271.3 L1076 269.9 L1085.3 268.6 L1094.7 267.5 L1104 266.5 L1113.3 265.8 L1122.7 265.3 L1132 265 L1141.3 265 L1150.7 265 L1160 265"/>
+        <text class="bank-label" x="48" y="44" fill="#4E6273">Inertia</text>
+        <text class="note" x="48" y="66" fill="#4E6273">the strategy in the drawer</text>
+        <text class="bank-label" x="48" y="402" fill="#B23A20">Thrash</text>
+        <text class="note" x="48" y="424" fill="#B23A20">reacting to every headline</text>
+        <g id="ticks"><line x1="110" x2="110" y1="444" y2="451" stroke="#0082E6" stroke-width="1.5"></line><line x1="180" x2="180" y1="444" y2="451" stroke="#0082E6" stroke-width="1.5"></line><line x1="250" x2="250" y1="444" y2="451" stroke="#0082E6" stroke-width="1.5"></line><line x1="320" x2="320" y1="444" y2="451" stroke="#0082E6" stroke-width="1.5"></line><line x1="390" x2="390" y1="444" y2="451" stroke="#0082E6" stroke-width="1.5"></line><line x1="460" x2="460" y1="444" y2="451" stroke="#0082E6" stroke-width="1.5"></line><line x1="530" x2="530" y1="444" y2="451" stroke="#0082E6" stroke-width="1.5"></line><line x1="600" x2="600" y1="444" y2="451" stroke="#0082E6" stroke-width="1.5"></line><line x1="670" x2="670" y1="444" y2="451" stroke="#0082E6" stroke-width="1.5"></line><line x1="740" x2="740" y1="444" y2="451" stroke="#0082E6" stroke-width="1.5"></line><line x1="810" x2="810" y1="444" y2="451" stroke="#0082E6" stroke-width="1.5"></line><line x1="880" x2="880" y1="444" y2="451" stroke="#0082E6" stroke-width="1.5"></line><line x1="950" x2="950" y1="444" y2="451" stroke="#0082E6" stroke-width="1.5"></line><line x1="1020" x2="1020" y1="444" y2="451" stroke="#0082E6" stroke-width="1.5"></line><line x1="1090" x2="1090" y1="444" y2="451" stroke="#0082E6" stroke-width="1.5"></line></g>
+        <g id="reviewMark" opacity="0">
+          <line id="reviewLine" x1="980.8" y1="20" x2="980.8" y2="440" stroke="#4E6273" stroke-width="1" stroke-dasharray="3 4"/>
+          <text id="reviewText" class="note" x="972.8" y="96" fill="#4E6273" text-anchor="end">annual review</text>
+        </g>
+        <path id="course-path" fill="none" stroke="#0082E6" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" d="M40 200 L40 200 L42.3 200.6 L44.7 201.2 L47 201.9 L49.3 202.4 L51.7 203 L54 203.5 L56.3 204 L58.7 204.5 L61 204.9 L63.3 205.2 L65.7 205.5 L68 205.7 L70.3 205.9 L72.7 206 L75 206 L77.3 206 L79.2 205.9 L79.7 205.9 L82 205.7 L84.3 205.5 L86.7 205.2 L89 204.9 L91.3 204.5 L93.7 204 L96 203.5 L98.3 203 L100.7 202.4 L103 201.9 L105.3 201.2 L107.7 200.6 L110 200 L112.3 199.4 L114.7 198.8 L117 198.1 L118.4 197.8 L119.3 197.6 L121.7 197 L124 196.5 L126.3 196 L128.7 195.5 L131 195.1 L133.3 194.8 L135.7 194.5 L138 194.3 L140.3 194.1 L142.7 194 L145 194 L147.3 194 L149.7 194.1 L152 194.3 L152 194.3 L154.3 194.5 L156.7 194.8 L159 195.1 L161.3 195.5 L163.7 196 L166 196.5 L168.3 197 L170.7 197.6 L173 198.1 L175.3 198.8 L177.7 199.4 L180 200 L182.3 200.6 L184.7 201.2 L187 201.9 L189.3 202.4 L191.7 203 L194 203.5 L196.3 204 L196.8 204.1 L198.7 204.5 L201 204.9 L203.3 205.2 L205.7 205.5 L208 205.7 L210.3 205.9 L212.7 206 L215 206 L217.3 206 L219.7 205.9 L222 205.7 L224.3 205.5 L226.7 205.2 L229 204.9 L230.4 204.6 L231.3 204.5 L233.7 204 L236 203.5 L238.3 203 L240.7 202.4 L243 201.9 L245.3 201.3 L247.7 200.7 L250 200.1 L252.3 200.8 L254.7 201.5 L257 202.2 L259.3 202.9 L261.7 203.6 L264 204.2 L266.3 204.9 L268.7 205.5 L269.6 205.7 L271 206.1 L273.3 206.6 L275.7 207.1 L278 207.6 L280.3 208 L282.7 208.3 L285 208.6 L287.3 208.9 L289.7 209.1 L292 209.2 L294.3 209.3 L296.7 209.4 L299 209.4 L301.3 209.3 L303.7 209.2 L306 209.1 L308.3 209 L308.8 209 L310.7 208.9 L313 208.7 L315.3 208.5 L317.7 208.3 L320 208.1 L322.3 208 L324.7 207.8 L327 207.7 L329.3 207.6 L331.7 207.6 L334 207.5 L336.3 207.6 L338.7 207.7 L341 207.8 L342.4 207.9 L343.3 208 L345.7 208.3 L348 208.7 L350.3 209.1 L352.7 209.6 L355 210.1 L357.3 210.8 L359.7 211.5 L362 212.3 L364.3 213.1 L366.7 214.1 L369 215.1 L371.3 216.1 L373.7 217.2 L376 218.4 L378.3 219.6 L380.7 220.8 L383 222.1 L385.3 223.4 L387.2 224.5 L387.7 224.8 L390 226.1 L392.3 227.4 L394.7 228.8 L397 230.1 L399.3 231.5 L401.7 232.8 L404 234 L406.3 235.3 L408.7 236.5 L411 237.6 L413.3 238.8 L415.7 239.8 L418 240.8 L420.3 241.8 L422.7 242.7 L425 243.5 L426.4 244 L427.3 244.3 L429.7 245 L432 245.6 L434.3 246.2 L436.7 246.7 L439 247.2 L441.3 247.6 L443.7 248 L446 248.3 L448.3 248.6 L450.7 248.9 L453 249.2 L454.4 249.3 L455.3 249.4 L457.7 249.6 L460 249.8 L462.3 251.3 L464.7 252.8 L467 254.2 L469.3 255.6 L471.7 257 L474 258.4 L476.3 259.8 L478.7 261.1 L481 262.3 L483.3 263.5 L485.7 264.6 L488 265.7 L490.3 266.7 L492.7 267.7 L495 268.6 L497.3 269.4 L499.2 270 L499.7 270.1 L502 270.8 L504.3 271.4 L506.7 272 L509 272.5 L511.3 273 L513.7 273.4 L516 273.7 L518.3 274 L520.7 274.3 L523 274.6 L525.3 274.8 L527.7 275 L530 275.2 L532.3 275.4 L532.8 275.4 L534.7 275.6 L537 275.8 L539.3 276 L541.7 276.3 L544 276.6 L546.3 276.9 L548.7 277.3 L551 277.7 L553.3 278.1 L555.7 278.6 L558 279.2 L560.3 279.8 L562.7 280.5 L565 281.2 L567.3 282 L569.7 282.9 L572 283.8 L574.3 284.8 L576.7 285.8 L577.6 286.2 L579 286.9 L581.3 288 L583.7 289.2 L586 290.4 L588.3 291.6 L590.7 292.9 L593 294.2 L595.3 295.5 L597.7 296.8 L600 298.1 L602.3 299.4 L604.7 300.7 L607 301.9 L609.3 303.2 L611.2 304.1 L611.7 304.4 L614 305.5 L616.3 306.7 L618.7 307.7 L621 308.7 L623.3 309.7 L625.7 310.5 L628 311.3 L630.3 312.1 L632.7 312.7 L635 313.3 L637.3 313.8 L639.7 314.3 L642 314.6 L644.3 314.9 L646.7 315.1 L649 315.3 L650.4 315.4 L651.3 315.4 L653.7 315.4 L656 315.4 L658.3 315.3 L660.7 315.2 L663 315 L665.3 314.8 L667.7 314.6 L670 314.4 L672.3 315.4 L674.7 316.4 L677 317.3 L679.3 318.3 L681.7 319.2 L684 320 L686.3 320.8 L688.7 321.6 L689.6 321.8 L691 322.2 L693.3 322.8 L695.7 323.4 L698 323.8 L700.3 324.2 L702.7 324.5 L705 324.8 L707.3 324.9 L709.7 325 L712 325 L714.3 324.9 L716.7 324.7 L719 324.5 L721.3 324.2 L723.7 323.8 L726 323.4 L728.3 322.9 L730.7 322.4 L733 321.9 L734.4 321.5 L735.3 321.2 L737.7 320.6 L740 320 L742.3 319.4 L744.7 318.8 L747 318.1 L749.3 317.6 L751.7 317 L754 316.5 L756.3 316 L758.7 315.5 L761 315.1 L763.3 314.8 L765.7 314.5 L768 314.3 L768 314.3 L770.3 314.1 L772.7 314 L775 314 L777.3 314 L779.7 314.1 L782 314.3 L784.3 314.5 L786.7 314.8 L789 315.1 L791.3 315.5 L793.7 316 L796 316.5 L798.3 317 L800.7 317.6 L803 318.1 L805.3 318.7 L807.7 319.3 L810 319.9 L812.3 320.5 L812.8 320.6 L814.7 321 L817 321.5 L819.3 322 L821.7 322.4 L824 322.8 L826.3 323.2 L828.7 323.4 L831 323.7 L833.3 323.8 L835.7 323.9 L838 323.9 L840.3 323.8 L842.7 323.7 L845 323.5 L846.4 323.3 L847.3 323.2 L849.7 322.8 L852 322.4 L854.3 321.8 L856.7 321.2 L859 320.6 L861.3 319.9 L863.7 319.1 L866 318.2 L868.3 317.4 L870.7 316.4 L873 315.5 L875.3 314.5 L877.7 313.4 L880 312.4 L882.3 312.6 L884.7 312.8 L885.6 312.9 L887 313 L889.3 313.1 L891.7 313.3 L894 313.3 L896.3 313.4 L898.7 313.3 L901 313.3 L903.3 313.1 L905.7 312.9 L908 312.7 L910.3 312.3 L912.7 311.9 L915 311.4 L917.3 310.9 L919.7 310.3 L922 309.6 L924.3 308.8 L924.8 308.7 L926.7 308 L929 307.1 L931.3 306.2 L933.7 305.2 L936 304.2 L938.3 303.1 L940.7 302 L943 300.8 L945.3 299.7 L947.7 298.5 L950 297.3 L952.3 296.1 L954.7 294.9 L957 293.7 L959.3 292.6 L961.7 291.4 L964 290.3 L966.3 289.3 L968.7 288.3 L969.6 287.9 L971 287.3 L973.3 286.4 L975.7 285.5 L978 284.7 L980.3 284 L982.7 283.3 L985 282.7 L987.3 282.2 L989.7 281.7 L992 281.3 L994.3 281 L996.7 280.7 L999 280.5 L1001.3 280.3 L1003.2 280.3 L1003.7 280.2 L1006 280.2 L1008.3 280.2 L1010.7 280.2 L1013 280.2 L1015.3 280.3 L1017.7 280.4 L1020 280.5 L1022.3 280.6 L1024.7 280.7 L1027 280.8 L1029.3 280.9 L1031.7 281 L1034 281 L1036.3 281 L1038.7 281 L1041 280.9 L1043.3 280.8 L1045.7 280.6 L1048 280.4 L1048 280.4 L1050.3 280.1 L1052.7 279.7 L1055 279.3 L1057.3 278.9 L1059.7 278.4 L1062 277.8 L1064.3 277.2 L1066.7 276.5 L1069 275.8 L1071.3 275 L1073.7 274.2 L1076 273.4 L1078.3 272.5 L1080.7 271.6 L1081.6 271.3 L1083 270.7 L1085.3 269.8 L1087.7 268.9 L1090 268 L1092.3 268.4 L1094.7 268.7 L1097 269.1 L1099.3 269.4 L1101.7 269.8 L1104 270.1 L1106.3 270.4 L1108.7 270.6 L1111 270.8 L1113.3 271 L1115.7 271.2 L1118 271.2 L1120.3 271.3 L1120.8 271.3 L1122.7 271.3 L1125 271.2 L1127.3 271.1 L1129.7 271 L1132 270.8 L1134.3 270.5 L1136.7 270.2 L1139 269.9 L1141.3 269.5 L1143.7 269 L1146 268.5 L1148.3 268 L1150.7 267.4 L1153 266.9 L1155.3 266.2 L1157.7 265.6 L1160 265 L1160 265"/>
+        <circle id="ship" r="7" fill="#fff" stroke="#0082E6" stroke-width="3" cx="1160" cy="265"/>
+        <line x1="40" y1="444" x2="1160" y2="444" stroke="#E1E5EA"/>
+        <text class="axis-label" x="40" y="466">Workshop</text>
+        <text class="axis-label" x="600" y="466" text-anchor="middle" id="tickLabel">Sessions</text>
+        <text class="axis-label" x="1160" y="466" text-anchor="end">Time</text>
+      </svg>
+
+      <div class="ctrl">
+        <span class="end l" aria-hidden="true">Inertia</span>
+        <input id="behaviour" type="range" min="0" max="100" step="1" value="50" aria-label="Company behaviour, from inertia to thrash" aria-valuetext="Small, early corrections">
+        <span class="end r" aria-hidden="true">Thrash</span>
+      </div>
+      <div class="presets" role="group" aria-label="Jump to a behaviour">
+        <button type="button" data-v="4" aria-pressed="false">Wait for the review</button>
+        <button type="button" data-v="50" aria-pressed="true">Small, early corrections</button>
+        <button type="button" data-v="96" aria-pressed="false">React to everything</button>
+      </div>
+      <div class="readout" aria-live="polite">
+        <div class="state" id="state" style="color:var(--p600)">Small, early corrections</div>
+        <p id="explain">The team meets on a rhythm. Each session nudges the course a little against what the radar picked up. The line stays in the channel. No single correction is large.</p>
+      </div>
+    </div>
+    <p class="course-foot">The diagram has no scale and implies no costs. It shows the shape of each habit, nothing more.</p>
+  </div>
+</section>
+
+<section class="ditch inert" aria-labelledby="inert-h">
+  <div class="wrap grid">
+    <div>
+      <p class="tag"><i aria-hidden="true"></i>Inertia, the first bank</p>
+      <h2 id="inert-h">The strategy goes into a drawer.</h2>
+      <blockquote class="voice">"We finish the strategy, and then we forget it."<cite>What leadership teams tell us</cite></blockquote>
+    </div>
+    <div class="body">
+      <p>A leadership team agrees a strategy in a workshop. The slides go out. Then the daily work of the quarter takes priority.</p>
+      <p>The world keeps moving. A competitor cuts a price. A key supplier gets bought. Each change is small, and nobody owns the job of reading it against what the team agreed. The strategy stays as written while the market moves.</p>
+      <p>Then the quarterly or annual review arrives. By then a small correction has grown into a large one, and large corrections cost money and credibility.</p>
+      <ul class="symptoms">
+        <li><b>Sounds like</b><span>"Between offsites, nothing moves."</span></li>
+        <li><b>Board asks</b><span>What changed since we last met? The honest answer is that nobody checked.</span></li>
+        <li><b>Real cost</b><span>Hidden. It grows while the team waits.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="ditch thr" aria-labelledby="thr-h">
+  <div class="wrap grid">
+    <div>
+      <p class="tag"><i aria-hidden="true"></i>Thrash, the second bank</p>
+      <h2 id="thr-h">Every headline becomes a meeting.</h2>
+      <blockquote class="voice">"We restart the same argument every time a new analysis lands."<cite>What leadership teams tell us</cite></blockquote>
+    </div>
+    <div class="body">
+      <p>The opposite failure looks like vigilance. News arrives as noise, with no link to what the team said must succeed. One blog post becomes an agenda item. One analyst report reopens a decision closed in spring.</p>
+      <p>Meetings drift. The loudest voice sets the anchor. Decisions disappear into slides and minutes nobody reads, so six months later nobody can say what was decided, why, or who disagreed. The argument starts again.</p>
+      <p>The team spends its energy on reactions and still misses the targets it agreed.</p>
+      <ul class="symptoms">
+        <li><b>Sounds like</b><span>"Didn't we already decide this?"</span></li>
+        <li><b>Board asks</b><span>Why did the plan change three times? The honest answer is that nobody filtered.</span></li>
+        <li><b>Real cost</b><span>Visible. Attention spreads across every goal and none gets enough.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="middle" aria-labelledby="mid-h">
+  <div class="wrap intro">
+    <div>
+      <p class="eyebrow">Dynamic Strategy</p>
+      <h2 id="mid-h">Steer like a ship. <em>Small, early corrections.</em> Occasionally a change of course.</h2>
+    </div>
+    <div>
+      <p>Strapivo keeps an agreed strategy honest between workshops. The leadership team sets one Ambition, seven to twelve success criteria with a green, yellow or red light, and up to four focus areas. Then it meets on a rhythm and corrects course in small steps.</p>
+      <p class="q">"We're not changing strategy every week, but we are revising our tactics."</p>
+    </div>
+  </div>
+</section>
+
+<section class="channel" aria-labelledby="chan-h">
+  <div class="wrap">
+    <h2 id="chan-h" class="eyebrow" style="margin-bottom:32px">What keeps a team off each bank</h2>
+    <div class="cols">
+      <div class="col l">
+        <h3 class="col-head" style="font-size:12px">Against inertia</h3>
+
+        <div class="mech">
+          <h3>A radar that watches for you</h3>
+          <p>The Radar watches the outside world for each focus area. Its search brief is the criterion, its objectives and its risks. Market intelligence reads over 4,000 sources a day and reports on Monday and Thursday. A red-line exception interrupts that schedule.</p>
+        </div>
+
+        <div class="mech">
+          <h3>Trend word and time held</h3>
+          <p>Each risk carries a trend word, Easing, Stable or Worsening, and how long it has held its position. The Tracking view shows movement since the last session like a radar shadow. You see pressure build before anything has to move.</p>
+          <div class="frag" aria-hidden="true">
+            <div class="ex-label">Illustrative example · Risk register</div>
+            <div class="row"><span>Low-cost entrant, core market</span><span class="pill worse">Worsening</span></div>
+            <div class="row"><span class="muted">top right · 27 days</span><span class="pill need">Needs you</span></div>
+            <div class="row"><span>Key supplier consolidation</span><span class="pill stable">Stable</span></div>
+          </div>
+        </div>
+
+        <div class="mech">
+          <h3>The 14-day nudge</h3>
+          <p>A risk that sits in the top right for 14 days with no decision lands in the session lead's "Needs you" list. Nothing stays dangerous and undiscussed.</p>
+        </div>
+
+        <div class="mech">
+          <h3>"Light still green?"</h3>
+          <p>When two or more focus activities are off track, or a risk on that criterion enters the top right, Vivo asks the question. Vivo never changes the light. A person does.</p>
+          <div class="frag" aria-hidden="true">
+            <div class="vivo"><svg width="14" height="14" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#0082E6" stroke-width="12"/></svg><span><b>Light still green?</b> Two focus activities under "Win the mid-market" are off track, and a risk on this criterion entered the top right on Tuesday.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rail" aria-hidden="true"></div>
+
+      <div class="col r">
+        <h3 class="col-head" style="font-size:12px">Against thrash</h3>
+
+        <div class="mech">
+          <h3>Triage before discussion</h3>
+          <p>Vivo makes a first pass on every signal: which criterion, relevant or not, and one line of reason. A delegated person marks it relevant, irrelevant or unsure. Dismissed signals teach Vivo what counts as noise.</p>
+        </div>
+
+        <div class="mech">
+          <h3>One blog post can't raise an alarm</h3>
+          <p>Vivo proposes a risk move as a ghost on the radar with a one-line reason, and a person confirms or rejects it. A move into the top right needs at least one primary source.</p>
+          <div class="frag" aria-hidden="true">
+            <div class="ex-label">Illustrative example · Proposed move</div>
+            <div class="row"><span>Likelihood: medium to high</span><span class="pill stable">Ghost</span></div>
+            <div class="row"><span class="muted">Sources: 2 secondary, 0 primary</span><span class="pill worse">Blocked</span></div>
+          </div>
+        </div>
+
+        <div class="mech">
+          <h3>Four focus areas, no more</h3>
+          <p>"Fill a few glasses to the brim instead of all twelve a little." Try to flag a fifth and Strapivo asks: "You're diluting focus and creating noise. Do you really want to?"</p>
+        </div>
+
+        <div class="mech">
+          <h3>Hold is a decision</h3>
+          <p>Choosing Hold marks the criterion as reviewed on that date. Doing nothing on purpose goes on the record and counts.</p>
+        </div>
+
+        <div class="mech">
+          <h3>Parked or let go</h3>
+          <p>"Not yet" asks what's missing. The question is Parked with at least one trigger that brings it back, such as new evidence, a date or the next session. Or it is Let go, with a rationale. In the product's words: "So that it feels like parking, not losing."</p>
+        </div>
+
+        <div class="mech">
+          <h3>Closed questions stay closed</h3>
+          <p>Every decision joins the Record of Decisions with a permanent number, its reason and any dissent by name. When someone reopens the question, the team reads the entry instead of restarting the argument.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="session" id="session" aria-labelledby="sess-h">
+  <div class="wrap">
+    <p class="eyebrow">The Strategy Room · 60 minutes</p>
+    <h2 id="sess-h">In the session, Vivo asks the question nobody wants to price: <span class="az">what does doing nothing cost?</span></h2>
+    <p class="lede">Vivo drafts the agenda 24 hours ahead from what changed. The session lead edits it and the room approves it as step one. Each item runs the same way: evidence, sealed first takes, conversation with Vivo, decision. First takes are given alone and revealed together, so the loudest voice can't anchor the room.</p>
+
+    <div class="agenda">
+      <div class="item" aria-label="Illustrative agenda item">
+        <div class="hd"><span>Illustrative example · Agenda item 3</span><span>New business</span></div>
+        <div class="bd">
+          <div class="step"><b>Why it's here</b><span>Risk "Low-cost entrant, core market" entered the top right 27 days ago. Its trend word is Worsening, and one primary source backs the move.</span></div>
+          <div class="step"><b>First takes</b><span>Five sealed positions. Revealed together: two Hold, two Adapt, one Not yet.</span></div>
+          <div class="step"><b>Vivo</b><div>
+            <div class="prompt-box"><span class="k">Cost of doing nothing</span><p>If we Hold for another quarter, which objectives under "Defend core margin" still make sense, and which activities would we wish we had started today?</p></div>
+          </div></div>
+          <div class="step"><b>Other prompts</b><span>Vivo can also run scenarios, mount a challenge, list alternatives or raise a black swan.</span></div>
+        </div>
+      </div>
+
+      <div class="decisions">
+        <h3>Five ways to decide</h3>
+        <ol>
+          <li><span>Hold</span>The criterion is marked as reviewed today.</li>
+          <li><span>Adapt</span>Vivo drafts changes to objectives and activities.</li>
+          <li><span>Pivot</span>Vivo drafts new wording. It takes effect when someone with authority confirms.</li>
+          <li><span>Take advantage</span>Vivo adds detour activities. The criterion stays the same.</li>
+          <li><span>Not yet</span>The question is parked with a trigger, or let go with a reason.</li>
+        </ol>
+        <p class="record">Vivo reads back the entry. The lead confirms.<br><span class="num">SDS-2026-014</span> · Adapt · dissent recorded by name, with reason</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust" aria-labelledby="trust-h">
+  <div class="wrap grid">
+    <div>
+      <p class="eyebrow">Who holds the pen</p>
+      <h2 id="trust-h">The human stays in the chair.</h2>
+    </div>
+    <ul class="facts">
+      <li><b>Vivo proposes</b><p>People decide. Pivots wait for someone with authority. Changes to accepted truth wait for an Owner. Decisions beyond the team's remit go to an approver, as a memo or into the board pack.</p></li>
+      <li><b>Traceable</b><p>Every recommendation Vivo makes traces back to the strategic memory you approved. Every confirmed risk move keeps its signal, date and confirmer.</p></li>
+      <li><b>Built on your model</b><p>Strapivo is hardwired to the Business Model Canvas. It is not a generic prompt with your PDF attached.</p></li>
+      <li><b>Where it runs</b><p>EU-only infrastructure. GDPR by design.</p></li>
+      <li><b>Getting started</b><p>We do the reading first. Bring a workshop report, a document or an email. Four to five hours together, and then you run it.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="close" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="box">
+      <div>
+        <h2 id="close-h">You can see the threat. Find out what waiting costs.</h2>
+      </div>
+      <div>
+        <p>Tell us which risk keeps coming back to your leadership table. We will show you how a Strapivo session would handle it.</p>
+        <a class="btn azure" href="mailto:strategy@strapivo.com">Start the conversation</a>
+        <span class="mail">strategy@strapivo.com</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="110" height="28">
+    <nav aria-label="Legal">
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+    <span>© 2026 Strapivo</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var W=1200,X0=40,X1=1160,HALF=60,N=480;
+  function sm(a,b,u){var t=Math.min(1,Math.max(0,(u-a)/(b-a)));return t*t*(3-2*t);}
+  function cx(u){return X0+(X1-X0)*u;}
+  function cy(u){return 200+120*sm(0.18,0.62,u)-55*sm(0.68,0.98,u);}
+  var REVIEW=0.84;
+  function inertia(u){
+    var drift=200-14*u;
+    if(u<REVIEW)return drift;
+    var t=sm(REVIEW,REVIEW+0.07,u);
+    return drift+(cy(u)-drift)*t;
+  }
+  var SESS=16;
+  function steady(u){
+    var k=Math.floor(u*SESS),p=u*SESS-k;
+    var sgn=(k%3===1)?-1:1;
+    return cy(u)+sgn*6*Math.sin(Math.PI*p);
+  }
+  var zig=[0,.035,.07,.1,.14,.17,.205,.24,.27,.31,.345,.37,.41,.44,.48,.51,.545,.58,.62,.65,.69,.72,.755,.79,.83,.86,.9,.93,.965,1];
+  var amp=[0,58,-48,72,-40,80,-55,66,-46,84,-38,70,-60,78,-44,86,-52,64,-42,82,-56,74,-40,80,-50,70,-46,76,-38,60];
+  function thrash(u){
+    for(var i=1;i<zig.length;i++){if(u<=zig[i]){var t=(u-zig[i-1])/(zig[i]-zig[i-1]);var a=amp[i-1]+(amp[i]-amp[i-1])*t;return cy(u)+26*sm(0,.05,u)+a;}}
+    return cy(1)+26+amp[amp.length-1];
+  }
+  function us(){var a=[];for(var i=0;i<=N;i++)a.push(i/N);zig.forEach(function(z){a.push(z);});a.sort(function(x,y){return x-y;});return a;}
+  var U=us();
+  function f(n){return Math.round(n*10)/10;}
+  var $=function(id){return document.getElementById(id);};
+  // banks
+  var top='M0 0 L'+W+' 0',bot='M0 440 L'+W+' 440',eT='',eB='',cen='';
+  var topPts=[],botPts=[];
+  for(var i=0;i<=120;i++){var u=i/120;var x=u===0?0:(u===1?W:cx(u));topPts.push(f(x)+' '+f(cy(u)-HALF));botPts.push(f(x)+' '+f(cy(u)+HALF));}
+  eT='M'+topPts.join(' L');eB='M'+botPts.join(' L');
+  top='M0 0 L'+W+' 0 L'+topPts.slice().reverse().join(' L')+' Z';
+  bot='M0 440 L'+W+' 440 L'+botPts.slice().reverse().join(' L')+' Z';
+  for(var j=0;j<=120;j++){var v=j/120;cen+=(j?' L':'M')+f(cx(v))+' '+f(cy(v));}
+  $('bankTop').setAttribute('d',top);$('bankTopH').setAttribute('d',top);
+  $('bankBot').setAttribute('d',bot);$('bankBotH').setAttribute('d',bot);
+  $('edgeTop').setAttribute('d',eT);$('edgeBot').setAttribute('d',eB);$('centre').setAttribute('d',cen);
+  // session ticks
+  var ns='http://www.w3.org/2000/svg',g=$('ticks');
+  for(var s=1;s<SESS;s++){var l=document.createElementNS(ns,'line');var xx=cx(s/SESS);l.setAttribute('x1',f(xx));l.setAttribute('x2',f(xx));l.setAttribute('y1','444');l.setAttribute('y2','451');l.setAttribute('stroke','#0082E6');l.setAttribute('stroke-width','1.5');g.appendChild(l);}
+  var rx=cx(REVIEW);$('reviewLine').setAttribute('x1',f(rx));$('reviewLine').setAttribute('x2',f(rx));$('reviewText').setAttribute('x',f(rx-8));
+
+  function mix(a,b,t){return [0,1,2].map(function(i){return Math.round(a[i]+(b[i]-a[i])*t);});}
+  var AZ=[0,130,230],IN=[140,160,179],TH=[217,72,43];
+  var states=[
+    {max:30,name:'Inertia',col:'#4E6273',desc:'A flat line drifting up out of the channel while the channel bends',text:'The line holds the heading the workshop set while the channel bends away. Nobody corrects until the annual review, and by then the correction is large and late.'},
+    {max:70,name:'Small, early corrections',col:'#006FD1',desc:'A steady line with small corrections staying in the channel',text:'The team meets on a rhythm. Each session nudges the course a little against what the radar picked up. The line stays in the channel. No single correction is large.'},
+    {max:101,name:'Thrash',col:'#B23A20',desc:'A jagged zigzag that keeps hitting the lower bank',text:'Every headline turns the wheel. The line swings hard each time, mostly in reaction to noise. The team spends its effort on corrections and still ends up on the bank.'}
+  ];
+  var input=$('behaviour'),path=$('course-path'),ship=$('ship'),btns=document.querySelectorAll('.presets button');
+  var cur=null;
+  function draw(val){
+    var s=val/100,ti=s<.5?(.5-s)/.5:0,tt=s>.5?(s-.5)/.5:0;
+    ti=Math.pow(ti,.8);tt=Math.pow(tt,.8);
+    var d='',last;
+    for(var i=0;i<U.length;i++){var u=U[i];var y=steady(u);if(ti>0)y=y+(inertia(u)-y)*ti;if(tt>0)y=y+(thrash(u)-y)*tt;d+=(i?' L':'M')+f(cx(u))+' '+f(y);last=[cx(u),y];}
+    path.setAttribute('d',d);
+    var c=ti>0?mix(AZ,IN,ti):mix(AZ,TH,tt);var rgb='rgb('+c.join(',')+')';
+    path.setAttribute('stroke',rgb);ship.setAttribute('stroke',rgb);
+    ship.setAttribute('cx',f(last[0]));ship.setAttribute('cy',f(last[1]));
+    $('reviewMark').setAttribute('opacity',f(ti));
+    g.setAttribute('opacity',f(1-Math.max(ti,tt)));$('tickLabel').setAttribute('opacity',f(1-Math.max(ti,tt)));
+    var st=states.filter(function(x){return val<x.max;})[0];
+    if(st!==cur){cur=st;$('state').textContent=st.name;$('state').style.color=st.col;$('explain').textContent=st.text;input.setAttribute('aria-valuetext',st.name);$('sketch-desc').textContent='A channel bends across the page. The inertia bank lies above it and the thrash bank below. Current line: '+st.desc.toLowerCase()+'.';}
+    btns.forEach(function(b){var v=+b.dataset.v;b.setAttribute('aria-pressed',String(states.filter(function(x){return v<x.max;})[0]===st));});
+  }
+  input.addEventListener('input',function(){draw(+input.value);});
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var anim=null;
+  function glide(to){
+    if(anim)cancelAnimationFrame(anim);
+    var from=+input.value;if(reduce){input.value=to;draw(to);return;}
+    var t0=null,dur=700;
+    function step(ts){if(!t0)t0=ts;var k=Math.min(1,(ts-t0)/dur);var e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;var v=Math.round(from+(to-from)*e);input.value=v;draw(v);if(k<1)anim=requestAnimationFrame(step);}
+    anim=requestAnimationFrame(step);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){glide(+b.dataset.v);});});
+  draw(+input.value);
+})();
+</script>
+</body>
+</html>

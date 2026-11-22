@@ -1,0 +1,28 @@
+# 15 · One week
+
+Range: Confident (concept 15 of 40, ordered from conservative to a bit nuts)
+Audience: Teams asking how this fits into a working week
+Colours: Paper, ink, Azure. One additional colour: soft coral #D9654B to mark the red-line exception.
+
+## The task
+
+Build a complete landing page for Strapivo as a single `index.html` in this folder (`landings/15-one-week/`). It is one of 40 deliberately different concepts, so commit fully to this one and do not drift toward a generic software landing page.
+
+Read `../BRIEF.md` first. It holds the facts about Strapivo and Dynamic Strategy, the truth rules, the brand (fonts, colour tokens, logo), the build rules and the finishing steps. The brief decides what is true and what the brand allows. This prompt decides everything else.
+
+## The concept
+
+Dynamic Strategy told as one ordinary week. Not features: days. The visitor sees how little time it asks for and where that time falls.
+
+Structure: a seven-column week on wide screens that becomes a vertical day list on small ones. Monday: the radar report arrives, already read against your focus areas. Tuesday: the person delegated to triage spends a few minutes marking signals relevant, irrelevant or unsure. Wednesday: 24 hours before the session Vivo drafts the agenda, contributors report status and their ask, team members submit sealed first takes in advance. Thursday: the second radar report, and the 60-minute session. Friday: the record is confirmed, changes wait for the Owner, the announcement goes out. The weekend: nothing, and the radar keeps watching. Add the red-line exception as an interruption that can land on any day.
+
+For each day say who does what and what Vivo does. Do not invent durations beyond those in the brief (60 minutes, 24 hours).
+
+Signature element: the week as an instrument. A horizontal band with the seven days, events placed as small blocks, a marker that moves along it as the visitor scrolls the day sections below. Cadence switch: weekly, fortnightly, monthly, which redraws the band.
+
+## Standards
+
+- Strapivo sells to SMEs and corporates. The result must be something a CEO would forward to their board: confident, well made, never playful for its own sake.
+- Fonts and base colours are those of the current site (Inter 400 and 500, JetBrains Mono, Paper, Navy, Azure). The additional colours above are yours to use with a clear role.
+- Craft matters more than volume. Spend your effort on the signature element and on the copy.
+- Finish with the two steps in section 9 of the brief: screenshot and fix, then the unslop pass using `/home/hiasinho/Work/prot-strapivo-dynamic-strategy/.claude/skills/unslop/SKILL.md`.

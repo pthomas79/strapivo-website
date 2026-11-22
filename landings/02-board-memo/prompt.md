@@ -1,0 +1,26 @@
+# 02 · The board memorandum
+
+Range: Conservative (concept 2 of 40, ordered from conservative to a bit nuts)
+Audience: Board members and chairs
+Colours: Paper and ink, Azure for references. One additional colour: oxblood #7A1F2B, used only for the words 'Decision required' and the approval block.
+
+## The task
+
+Build a complete landing page for Strapivo as a single `index.html` in this folder (`landings/02-board-memo/`). It is one of 40 deliberately different concepts, so commit fully to this one and do not drift toward a generic software landing page.
+
+Read `../BRIEF.md` first. It holds the facts about Strapivo and Dynamic Strategy, the truth rules, the brand (fonts, colour tokens, logo), the build rules and the finishing steps. The brief decides what is true and what the brand allows. This prompt decides everything else.
+
+## The concept
+
+The whole page is a board memorandum recommending that the company adopt Dynamic Strategy. It looks like a document a careful company secretary would circulate: a letterhead, To / From / Date / Re lines, a one-paragraph summary, numbered paragraphs (1.1, 1.2), a recommendation, and a 'Decision required' block at the end that holds the call to action.
+
+Write it as a memo: reasoned, numbered, no slogans in the body. Sections: Purpose, Background (the strategy goes into a drawer), What changes (the loop), Governance (who decides, what the AI may and may not do, escalation, the board pack, the Record of Decisions with dissent on the record), Risks of adopting and of not adopting (inertia and thrash), Recommendation.
+
+Signature element: the document itself. A centred sheet on a slightly darker desk colour, a generous measure of about 68 characters, margin notes in mono on wide screens, paragraph numbers in the gutter, a 'Page 1 of 1' footer. A sticky outline on the left for wide screens. A print stylesheet that prints the memo cleanly on A4.
+
+## Standards
+
+- Strapivo sells to SMEs and corporates. The result must be something a CEO would forward to their board: confident, well made, never playful for its own sake.
+- Fonts and base colours are those of the current site (Inter 400 and 500, JetBrains Mono, Paper, Navy, Azure). The additional colours above are yours to use with a clear role.
+- Craft matters more than volume. Spend your effort on the signature element and on the copy.
+- Finish with the two steps in section 9 of the brief: screenshot and fix, then the unslop pass using `/home/hiasinho/Work/prot-strapivo-dynamic-strategy/.claude/skills/unslop/SKILL.md`.

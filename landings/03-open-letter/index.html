@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A letter to the person who owns the strategy · Strapivo</title>
+<meta name="description" content="A letter from the Strapivo team about the strategy that goes into a drawer after the offsite, and how Dynamic Strategy keeps it in use between meetings.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+
+:root{
+  --ink:#141B24;
+  --n900:#050C14; --n700:#2C343C; --n600:#495158; --n500:#6C727A; --n400:#999FA6; --n200:#E1E5EA; --n100:#EFF2F6;
+  --paper:#F6F9FB;
+  --sky:#EEF6FF; --sky2:#D4EBFF;
+  --p200:#A9D6FF; --p400:#3FA0FA; --p500:#0082E6; --p600:#006FD1; --p700:#005DBD;
+  --ground:#FBF8F2;
+  --rule:#E6E0D4;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --fs:clamp(19px, 0.55vw + 15.5px, 23px);
+  --measure:calc(var(--fs) * 33);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-weight:400;
+  font-size:var(--fs);
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  font-feature-settings:"ss01","cv11";
+  text-rendering:optimizeLegibility;
+}
+a{color:var(--p700);text-decoration-thickness:1px;text-underline-offset:0.18em}
+a:hover{color:var(--p500)}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+
+.skip{position:absolute;left:-9999px;top:0}
+.skip:focus{left:16px;top:12px;background:var(--ink);color:var(--ground);padding:8px 12px;font-family:var(--mono);font-size:13px;z-index:20}
+
+/* Reading position */
+.progress{position:fixed;inset:0 0 auto 0;height:2px;z-index:10;pointer-events:none}
+.progress span{display:block;height:100%;background:var(--p500);transform-origin:0 50%;transform:scaleX(0)}
+
+/* Letterhead */
+.letterhead{
+  max-width:calc(var(--measure) + 48px);
+  margin:0 auto;
+  padding:40px 24px 0;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  font-size:16px;
+}
+.letterhead .logo img{display:block;height:26px;width:auto}
+.signin{
+  font-family:var(--mono);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--n700);text-decoration:none;padding:8px 0;border-bottom:1px solid transparent;
+}
+.signin:hover{color:var(--p600);border-bottom-color:var(--p500)}
+.letterhead-rule{max-width:calc(var(--measure) + 48px);margin:18px auto 0;padding:0 24px}
+.letterhead-rule hr{border:0;border-top:1px solid var(--rule);margin:0}
+
+/* The letter */
+main{padding:0 24px}
+.letter{max-width:var(--measure);margin:0 auto;padding:64px 0 40px;position:relative}
+
+.envelope{
+  margin:0 0 56px;padding:0;
+  display:grid;grid-template-columns:max-content 1fr;column-gap:20px;row-gap:6px;
+  font-family:var(--mono);font-size:12.5px;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--n600);line-height:1.6;
+}
+.envelope dt{color:var(--n500)}
+.envelope dd{margin:0;color:var(--n700)}
+
+h1{
+  font-weight:500;
+  font-size:clamp(34px, 3vw + 18px, 58px);
+  line-height:1.08;
+  letter-spacing:-0.03em;
+  margin:0 0 56px;
+  max-width:15em;text-wrap:balance;
+}
+.salutation{margin:0 0 1.1em}
+
+p{margin:0 0 1.05em;hyphens:manual}
+.letter p.lead::first-letter{
+  float:left;font-weight:500;font-size:3.3em;line-height:0.86;
+  margin:0.06em 0.09em 0 -0.03em;color:var(--ink);letter-spacing:-0.04em;
+}
+
+/* Section markers, set in the margin on wide screens */
+.marker{
+  font-family:var(--mono);font-weight:500;
+  font-size:12.5px;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--n500);
+  margin:2.6em 0 1.2em;
+  display:flex;align-items:baseline;gap:14px;
+}
+.marker .num{color:var(--p600)}
+.marker .label{color:var(--n600);font-weight:400}
+
+/* Pulled sentences */
+.pull{
+  margin:1.2em 0 1.1em;text-wrap:balance;
+  padding:0;
+  font-weight:400;
+  font-size:clamp(28px, 2vw + 18px, 44px);
+  line-height:1.16;
+  letter-spacing:-0.022em;
+  color:var(--p600);
+  max-width:17em;
+}
+.pull p{margin:0}
+
+/* The one diagram */
+figure.radar{margin:2em 0 2.2em;padding:0}
+.radar-frame{
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:28px 0 22px;
+  display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:32px;align-items:center;
+}
+.radar svg{width:100%;height:auto;display:block}
+.radar .legend{font-family:var(--mono);font-size:12px;letter-spacing:0.06em;line-height:1.7;color:var(--n700)}
+.radar .legend .tag{display:block;text-transform:uppercase;letter-spacing:0.14em;color:var(--n500);margin-bottom:10px}
+.radar .legend ol{margin:0;padding:0;list-style:none;counter-reset:s}
+.radar .legend li{counter-increment:s;padding-left:2.2em;position:relative;margin-bottom:8px}
+.radar .legend li::before{content:counter(s, decimal-leading-zero);position:absolute;left:0;color:var(--p600)}
+.radar .legend .ref{display:block;margin-top:14px;color:var(--n600)}
+.radar figcaption{
+  font-family:var(--mono);font-size:12px;letter-spacing:0.06em;color:var(--n600);
+  margin-top:12px;line-height:1.6;
+}
+.ghost-ring{animation:none}
+@media (prefers-reduced-motion:no-preference){
+  .ghost-ring{animation:ghost 4.8s ease-in-out infinite}
+  @keyframes ghost{0%,100%{opacity:0.35}50%{opacity:1}}
+}
+
+/* Five options, kept as prose with a quiet run-in */
+.opt{font-weight:500}
+
+/* Sign-off */
+.signoff{margin:2.4em 0 0}
+.signoff p{margin:0}
+.signoff .sig{
+  margin-top:0.5em;font-weight:500;font-size:1.25em;letter-spacing:-0.02em;
+}
+.signoff .ring{display:inline-block;vertical-align:-0.08em;margin-right:0.35em}
+
+/* Postscript */
+.ps{
+  margin:3.2em 0 0;padding:1.6em 0 0;border-top:1px solid var(--rule);
+}
+.ps .mark{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:0.14em;color:var(--p600);margin-right:0.6em}
+.cta{
+  display:inline-flex;align-items:center;gap:14px;
+  margin-top:0.6em;padding:16px 24px;
+  background:var(--ink);color:var(--ground);text-decoration:none;
+  font-size:18px;font-weight:500;letter-spacing:-0.005em;border-radius:4px;
+}
+.cta:hover{background:var(--p600);color:#fff}
+.cta .addr{font-family:var(--mono);font-weight:400;font-size:13px;letter-spacing:0.04em;opacity:0.75}
+.pps{color:var(--n600);font-size:0.86em;margin-top:1.6em}
+
+/* Footer */
+footer{
+  width:calc(100% - 48px);max-width:var(--measure);margin:72px auto 0;padding:28px 0 48px;
+  border-top:1px solid var(--rule);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;
+  font-family:var(--mono);font-size:12px;letter-spacing:0.08em;color:var(--n600);text-transform:uppercase;
+}
+footer img{display:block;height:20px;width:auto}
+footer nav ul{list-style:none;margin:0;padding:0;display:flex;gap:20px;flex-wrap:wrap}
+footer a{color:var(--n700);text-decoration:none}
+footer a:hover{color:var(--p600);text-decoration:underline}
+
+@media (min-width:1100px){
+  .letter{padding-top:88px}
+  .marker{position:relative;display:block;margin:2.6em 0 1.1em}
+  .marker .num{position:absolute;right:calc(100% + 28px);top:0;white-space:nowrap}
+  .pull{margin-left:-0.04em}
+}
+@media (max-width:640px){
+  .letterhead{padding-top:24px}
+  .letterhead .logo img{height:22px}
+  .letter{padding-top:40px}
+  .envelope{margin-bottom:40px;font-size:11.5px;column-gap:14px}
+  h1{margin-bottom:40px}
+  .radar-frame{grid-template-columns:1fr;gap:20px}
+  .radar svg{max-width:300px}
+  .cta{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:17px}
+  footer{flex-direction:column;align-items:flex-start}
+}
+@media print{.progress,.signin{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<a class="skip" href="#letter">Skip to the letter</a>
+<div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+
+<header>
+  <div class="letterhead">
+    <a class="logo" href="./" aria-label="Strapivo"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="130" height="33"></a>
+    <a class="signin" href="https://strapivo.app">Sign in</a>
+  </div>
+  <div class="letterhead-rule"><hr></div>
+</header>
+
+<main id="letter">
+  <article class="letter">
+    <dl class="envelope">
+      <dt>From</dt><dd>The Strapivo team</dd>
+      <dt>To</dt><dd>The person who owns the strategy</dd>
+      <dt>Date</dt><dd>November 2026</dd>
+      <dt>Re</dt><dd>Dynamic Strategy</dd>
+    </dl>
+
+    <h1>The strategy you agreed at the offsite has not been opened since.</h1>
+
+    <p class="salutation">Dear strategy owner,</p>
+
+    <p class="lead">You know how it goes. The offsite ended well. The team argued, then agreed. Someone wrote it up, the board approved the document, and everyone went back to work.</p>
+    <p>Three months later, nobody has opened it.</p>
+    <p>Nobody was careless. Everyone was busy with the quarter. A competitor cut prices and a supplier ran into trouble. Each piece of news arrived on its own, and nobody held it against what the team had said must succeed. By the quarterly review, it was too late for cheap corrections. The meeting restarted an argument the team had already had.</p>
+
+    <blockquote class="pull"><p>Every other function got software. Strategy never did.</p></blockquote>
+
+    <p>Finance has a ledger and sales has a pipeline. Strategy has a slide deck in a shared folder. Strapivo is software for strategy. This letter explains how it works, and what it will not do.</p>
+
+    <h2 class="marker"><span class="num">I</span> <span class="label">What you said must succeed</span></h2>
+
+    <p>It starts with your words. You set one Ambition for the portfolio, with a turnover, a margin and a year if you want them. Under it sit your success criteria, usually seven to twelve. Each carries today's light, green, yellow or red.</p>
+    <p>You pick up to four of them as focus areas. Try a fifth, and Strapivo asks a plain question: "You're diluting focus and creating noise. Do you really want to?"</p>
+    <p>Each criterion holds two to four objectives. Each objective holds activities, and each activity has an action, a result, a timeframe and one person responsible. You can bring the plan in from a workshop report, a document or a pasted email. Vivo, our AI, proposes where each item belongs. An Owner accepts the proposal or moves the item.</p>
+
+    <h2 class="marker"><span class="num">II</span> <span class="label">The radar</span></h2>
+
+    <p>For each focus area, the Radar watches the outside world. Its search brief is the criterion, its objectives and its risks. Our market intelligence reads over 4,000 sources a day and reports on Monday and Thursday.</p>
+    <p>Vivo makes the first pass on each signal. It names the criterion, says whether the signal matters and gives one line of reason. A person you delegate marks it relevant, irrelevant or unsure. Each dismissed signal teaches Vivo what your team counts as noise.</p>
+    <p>When a signal bears on a risk, Vivo proposes a new position for that risk on a radar of impact against likelihood. The proposal appears as a ghost with a one-line reason. A person confirms it or rejects it. A move into the top right needs at least one primary source, so that one blog post can't raise an alarm.</p>
+
+    <figure class="radar" aria-labelledby="radar-cap">
+      <div class="radar-frame">
+        <svg viewBox="0 0 300 300" role="img" aria-labelledby="radar-title radar-desc">
+          <title id="radar-title">A risk radar with a proposed move</title>
+          <desc id="radar-desc">A square chart with likelihood on the horizontal axis and impact on the vertical axis. The top right quarter is shaded as the danger zone. A risk sits in the middle. A dashed ghost circle in the top right shows where Vivo proposes to move it, with a dotted line between the two.</desc>
+          <rect x="40" y="10" width="250" height="250" fill="#FFFFFF" stroke="#E6E0D4"/>
+          <rect x="165" y="10" width="125" height="125" fill="#EEF6FF"/>
+          <line x1="165" y1="10" x2="165" y2="260" stroke="#E6E0D4"/>
+          <line x1="40" y1="135" x2="290" y2="135" stroke="#E6E0D4"/>
+          <text x="280" y="28" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1" fill="#005DBD">DANGER ZONE</text>
+          <text x="165" y="282" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.2" fill="#495158">LIKELIHOOD</text>
+          <text x="18" y="135" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="1.2" fill="#495158" transform="rotate(-90 18 135)">IMPACT</text>
+          <line x1="132" y1="160" x2="218" y2="76" stroke="#0082E6" stroke-width="1.2" stroke-dasharray="2 4"/>
+          <circle cx="126" cy="166" r="9" fill="#141B24"/>
+          <g class="ghost-ring">
+            <circle cx="224" cy="70" r="11" fill="none" stroke="#0082E6" stroke-width="1.6" stroke-dasharray="3 3"/>
+          </g>
+          <text x="126" y="192" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="0.8" fill="#2C343C">NOW</text>
+          <text x="224" y="50" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="0.8" fill="#005DBD">PROPOSED</text>
+        </svg>
+        <div class="legend">
+          <span class="tag">Illustrative example</span>
+          <ol>
+            <li>A primary source reports a key supplier closing a plant.</li>
+            <li>Vivo proposes moving "Single-source supply" to the top right.</li>
+            <li>The delegated person checks the source and confirms.</li>
+          </ol>
+          <span class="ref">Trail: signal, date, confirmer</span>
+        </div>
+      </div>
+      <figcaption id="radar-cap">The ghost is a proposal. The risk moves only when a person confirms it.</figcaption>
+    </figure>
+
+    <p>Every confirmed move joins the risk's trail with its signal, its date and the name of the person who confirmed it. A risk that sits in the top right for 14 days without a decision lands on the session lead's Needs you list. Nothing stays dangerous and undiscussed.</p>
+
+    <blockquote class="pull"><p>Small, early corrections. Occasionally a change of course.</p></blockquote>
+
+    <p>We call this way of working Dynamic Strategy. It avoids two ways a strategy fails. One is inertia, where nothing changes until the annual review. The other is thrash, where every headline changes the plan. You keep the strategy and revise the tactics.</p>
+
+    <h2 class="marker"><span class="num">III</span> <span class="label">The session</span></h2>
+
+    <p>Twenty-four hours before you meet, Vivo drafts the agenda from what changed. It lists new signals, risks that entered the top right, parked questions that are due back and activities at risk or off track. It adds the asks the people responsible sent in. Old business comes first. Each item carries one line on why it is there. The session lead edits the draft, and the room approves it as the first step.</p>
+    <p>A session runs 60 minutes by default, weekly, fortnightly or monthly. For each item the room sees the evidence first. Then everyone writes a first take on their own. The takes stay sealed until all are in, and the room reads them together. Nobody hears the loudest opinion before writing their own. Then you talk, with Vivo in the conversation if you want it. You can ask it for the cost of doing nothing, or for a challenge to the view everyone in the room holds.</p>
+
+    <h2 class="marker"><span class="num">IV</span> <span class="label">Five options and a number</span></h2>
+
+    <p>Every item ends in one of five decisions. <span class="opt">Hold</span> marks the criterion as reviewed on that date. <span class="opt">Adapt</span> asks Vivo to draft changes to the objectives and activities. <span class="opt">Pivot</span> asks Vivo to draft new wording for the criterion, and the new wording takes effect when someone with authority confirms it. <span class="opt">Take advantage</span> adds detour activities and leaves the criterion as it is. <span class="opt">Not yet</span> asks what's missing. It ends as Parked, with a trigger that brings the question back, or as Let go, with a reason written down.</p>
+    <p>Vivo reads back each entry for the Record of Decisions. The entry names anyone who disagreed and gives their reason. The session lead confirms it, and the decision gets a permanent number, such as SDS-2026-014. A year later, you can look up what was decided, why, who disagreed and what happened next. When the board asks whether the strategy moved between meetings, you can show them the numbered decisions.</p>
+
+    <h2 class="marker"><span class="num">V</span> <span class="label">What Vivo does not do</span></h2>
+
+    <p>You may distrust software that offers to write your strategy. We would too. Vivo does not change a light. It does not move a risk, and it does not record a decision. It proposes, and a named person accepts or rejects. When two focus activities go off track, Vivo asks "Light still green?" The answer is yours.</p>
+
+    <blockquote class="pull"><p>Leadership teams ask us for help, not a co-author with the pen.</p></blockquote>
+
+    <p>Vivo reads your strategy through your Business Model Canvas. Every recommendation traces back to the strategic memory your team approved. Changes to that memory wait for an Owner. Strapivo runs on EU-only infrastructure and is built for GDPR from the start.</p>
+
+    <h2 class="marker"><span class="num">VI</span> <span class="label">How we begin</span></h2>
+
+    <p>We do the reading first. Send us your last strategy document, workshop report or board paper. We set up your Strategy Room from it. After four to five hours with us, your team runs it.</p>
+
+    <blockquote class="pull"><p>Strategy finally has a home.</p></blockquote>
+
+    <p>If the opening of this letter describes your last offsite, write to us. Tell us when your team next meets on strategy. We will reply with what we would set up before it.</p>
+
+    <div class="signoff">
+      <p>Yours,</p>
+      <p class="sig"><svg class="ring" width="20" height="20" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="42" fill="none" stroke="#0082E6" stroke-width="9"/></svg>The Strapivo team</p>
+    </div>
+
+    <aside class="ps" aria-label="Postscript">
+      <p><span class="mark">P.S.</span>You don't need a brief to write to us. One line on what your strategy has to achieve is enough.</p>
+      <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation <span class="addr">strategy@strapivo.com</span></a>
+      <p class="pps"><span class="mark">P.P.S.</span>Already a client? Your Strategy Room is at <a href="https://strapivo.app">strapivo.app</a>.</p>
+    </aside>
+  </article>
+</main>
+
+<footer>
+  <img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="100" height="25">
+  <span>© 2026 Strapivo</span>
+  <nav aria-label="Legal">
+    <ul>
+      <li><a href="/imprint">Imprint</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+      <li><a href="/terms">Terms</a></li>
+    </ul>
+  </nav>
+</footer>
+
+<script>
+(function(){
+  var bar=document.getElementById('progress-bar');
+  var letter=document.querySelector('.letter');
+  if(!bar||!letter)return;
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var r=letter.getBoundingClientRect();
+    var total=r.height-window.innerHeight;
+    var p=total>0?Math.min(1,Math.max(0,-r.top/total)):1;
+    bar.style.transform='scaleX('+p.toFixed(4)+')';
+  }
+  function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  update();
+})();
+</script>
+</body>
+</html>

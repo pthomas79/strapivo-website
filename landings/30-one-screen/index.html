@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo · Mission Control, your strategy on one screen</title>
+<meta name="description" content="Strapivo runs Dynamic Strategy for leadership teams. This page is Mission Control, the home screen: next session, what needs you, success criteria and recent decisions on one screen.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>document.documentElement.className+=' js';</script>
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --green:#1E9E6A;--yellow:#D9A300;--red:#D64545;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --gap:12px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";
+  background:var(--paper);color:var(--ink);font-size:15px;line-height:1.5}
+a{color:inherit}
+h1,h2,h3,p,ol,ul{margin:0}
+ol,ul{padding:0;list-style:none}
+:focus-visible{outline:2px solid var(--p500);outline-offset:2px;border-radius:3px}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.mono{font-family:var(--mono)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--n600)}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:#fff;padding:8px 12px;border-radius:4px;z-index:100;text-decoration:none}
+.skip:focus{top:8px}
+
+/* ---------- Frame ---------- */
+.screen{display:flex;flex-direction:column;min-height:100vh}
+.bar{display:flex;align-items:center;gap:20px;padding:0 20px;height:52px;background:#fff;border-bottom:1px solid var(--n200);flex:none}
+.bar .logo{display:flex;align-items:center;flex:none}
+.bar .logo img{height:22px;width:auto;display:block}
+.bar .where{display:flex;align-items:center;gap:10px;padding-left:20px;border-left:1px solid var(--n200);height:24px}
+.bar .where .eyebrow{color:var(--ink)}
+.bar .where .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--p700);background:var(--sky);border:1px solid var(--sky2);padding:2px 7px;border-radius:3px}
+.bar nav{margin-left:auto;display:flex;align-items:center;gap:6px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:500 14px/1 'Inter',sans-serif;text-decoration:none;border-radius:4px;padding:9px 14px;white-space:nowrap}
+.btn.ghost{color:var(--ink)}
+.btn.ghost:hover{background:var(--n100)}
+.btn.primary{color:#fff}
+.btn.primary{background:var(--p600)}
+.btn.primary:hover{background:var(--p700)}
+
+.intro{display:flex;align-items:baseline;gap:24px;padding:18px 20px 14px;flex:none;flex-wrap:wrap}
+.intro h1{font-weight:500;font-size:clamp(24px,2.3vw,34px);letter-spacing:-.025em;line-height:1.1}
+.intro h1 em{font-style:normal;color:var(--p500)}
+.intro p{color:var(--n600);font-size:14.5px;max-width:62ch}
+.intro .hint{margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--n500);white-space:nowrap}
+.intro .hint kbd{font-family:var(--mono);font-size:10.5px;border:1px solid var(--n200);border-bottom-width:2px;border-radius:3px;padding:0 5px;background:#fff;color:var(--ink)}
+
+.main-wrap{display:flex;flex-direction:column;flex:1;min-height:0}
+.board{display:grid;gap:var(--gap);padding:0 20px;flex:1;
+  grid-template-columns:minmax(0,.95fr) minmax(0,1.15fr) minmax(0,1fr);
+  grid-template-rows:auto minmax(0,1fr);
+  grid-template-areas:"next needs criteria" "decisions needs criteria"}
+.p-next{grid-area:next}.p-needs{grid-area:needs}.p-criteria{grid-area:criteria}.p-decisions{grid-area:decisions}
+
+.foot{display:flex;align-items:center;gap:18px;padding:10px 20px;flex:none;font-size:12.5px;color:var(--n600);flex-wrap:wrap}
+.foot img{height:15px;width:auto;display:block}
+.foot ul{display:flex;gap:16px}
+.foot a{color:var(--n600);text-decoration:none}
+.foot a:hover{color:var(--ink);text-decoration:underline}
+.foot .fnote{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--n500)}
+
+/* ---------- Panels ---------- */
+.panel{background:#fff;border:1px solid var(--n200);border-radius:6px;display:flex;flex-direction:column;min-height:0;min-width:0}
+.panel-head{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--n200);flex:none}
+.panel-head h2{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.panel-head .aside{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--n500);letter-spacing:.04em}
+.count{font-family:var(--mono);font-size:11px;background:var(--ink);color:#fff;border-radius:3px;padding:1px 6px}
+.panel-body{flex:1;min-height:0;overflow:auto}
+
+/* Next session */
+.p-next{background:var(--sky);border-color:var(--sky2)}
+.p-next .panel-head{border-color:var(--sky2)}
+.next-inner{padding:14px 16px 16px;display:flex;flex-direction:column;gap:12px}
+.room{font-size:13.5px;color:var(--n700)}
+.room b{font-weight:500;color:var(--ink)}
+.clock{display:flex;gap:6px}
+.clock div{flex:1;background:#fff;border:1px solid var(--sky2);border-radius:4px;padding:8px 4px 6px;text-align:center}
+.clock span{display:block;font-family:var(--mono);font-weight:500;font-size:clamp(22px,2.2vw,30px);line-height:1;color:var(--p600);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.clock small{display:block;margin-top:5px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600)}
+.when{font-family:var(--mono);font-size:12px;color:var(--n700);letter-spacing:.02em}
+.rows{display:flex;flex-direction:column;border-top:1px solid var(--sky2)}
+.row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--sky2);font-size:13.5px}
+.row .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--n600);width:84px;flex:none}
+.row .v{flex:1;min-width:0}
+.row a{color:var(--p700);font-weight:500;text-decoration:none;white-space:nowrap}
+.row a:hover{text-decoration:underline}
+.row a[aria-current="true"]{text-decoration:underline}
+
+/* Needs you */
+.needs li{border-bottom:1px solid var(--n100)}
+.needs li:last-child{border-bottom:0}
+.task{display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;align-items:start;padding:14px 16px;text-decoration:none;border-left:3px solid transparent;transition:background .2s}
+.task:hover{background:var(--paper)}
+.task[aria-current="true"]{background:var(--sky);border-left-color:var(--p500)}
+.task .box{width:16px;height:16px;border:1.5px solid var(--n400);border-radius:3px;margin-top:3px}
+.task .t{font-size:clamp(15px,1.15vw,17px);font-weight:500;letter-spacing:-.01em;line-height:1.3}
+.task .m{grid-column:2;font-size:13px;color:var(--n600);line-height:1.45}
+.task .go{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--p700);margin-top:4px;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--n700);border:1px solid var(--n200);border-radius:3px;padding:1px 6px;margin-right:6px;vertical-align:1px;background:#fff}
+.chip i{width:7px;height:7px;border-radius:50%;display:inline-block}
+
+/* Lights */
+.l-green{background:var(--green)}.l-yellow{background:var(--yellow)}.l-red{background:var(--red)}
+
+/* Criteria */
+.ambition{padding:12px 16px;border-bottom:1px solid var(--n100);font-size:13.5px;color:var(--n700)}
+.ambition .eyebrow{display:block;margin-bottom:2px}
+.ambition b{font-weight:500;color:var(--ink)}
+.crit li{border-bottom:1px solid var(--n100)}
+.crit a{display:flex;align-items:center;gap:12px;padding:0 16px;min-height:clamp(38px,5vh,46px);text-decoration:none;font-size:14px;border-left:3px solid transparent}
+.crit a:hover{background:var(--paper)}
+.crit a[aria-current="true"]{background:var(--sky);border-left-color:var(--p500)}
+.crit .dot{width:10px;height:10px;border-radius:50%;flex:none}
+.crit .name{flex:1;min-width:0;line-height:1.3;padding:6px 0}
+.crit .focus{font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--p700);border:1px solid var(--p200);background:var(--sky);border-radius:3px;padding:1px 6px;flex:none}
+.crit .is-focus .name{font-weight:500}
+.legend{display:flex;gap:14px;padding:10px 16px;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--n600);flex-wrap:wrap}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:8px;height:8px;border-radius:50%;display:inline-block}
+
+/* Decisions */
+.dec li{border-bottom:1px solid var(--n100)}
+.dec li:last-child{border-bottom:0}
+.dec a{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:10px 16px;text-decoration:none;border-left:3px solid transparent}
+.dec a:hover{background:var(--paper)}
+.dec a[aria-current="true"]{background:var(--sky);border-left-color:var(--p500)}
+.dec .num{font-family:var(--mono);font-size:11px;color:var(--n600);letter-spacing:.03em}
+.dec .opt{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink);justify-self:end;border:1px solid var(--n200);border-radius:3px;padding:0 6px}
+.dec .what{grid-column:1/-1;font-size:13.5px;line-height:1.35}
+.options{padding:8px 16px 10px;border-top:1px solid var(--n200);font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--n600)}
+
+/* ---------- Briefing notes (no-JS fallback and drawer source) ---------- */
+.notes{max-width:760px;margin:40px auto 0;padding:0 20px 40px}
+.notes > h2{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.note{background:#fff;border:1px solid var(--n200);border-radius:6px;padding:22px 24px;margin-bottom:12px}
+.note .eyebrow{display:block;margin-bottom:8px}
+.note h3{font-weight:500;font-size:22px;letter-spacing:-.02em;line-height:1.2;margin-bottom:12px}
+.note p{color:var(--n700);margin-bottom:10px;max-width:62ch}
+.note p:last-child{margin-bottom:0}
+.note blockquote{margin:14px 0;padding:2px 0 2px 14px;border-left:2px solid var(--p500);color:var(--ink)}
+.note q{quotes:'"' '"'}
+.note .cta{margin-top:16px}
+.note figure{margin:14px 0}
+.note figcaption{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--n600);margin-top:6px}
+.note .credit{font-size:12px;color:var(--n500)}
+.note dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:12px 0;font-size:14px}
+.note dt{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--n600);padding-top:2px}
+.note dd{margin:0;color:var(--n700)}
+.radar{display:block;width:100%;max-width:300px;height:auto}
+
+/* ---------- Drawer ---------- */
+.scrim{display:none}
+.drawer{display:none}
+html.js .notes{display:none}
+
+/* ---------- One screen: wide and tall enough ---------- */
+@media (min-width:1001px) and (min-height:701px){
+  html.js body{overflow:hidden}
+  html.js .screen{height:100vh;height:100dvh;min-height:0}
+  html.js .board{min-height:0}
+  .board .panel{overflow:hidden}
+  .p-needs .panel-body,.p-criteria .panel-body{display:flex;flex-direction:column}
+  .needs{flex:1;display:grid;grid-auto-rows:minmax(min-content,1fr)}
+  .needs li{display:flex;flex-direction:column;justify-content:center}
+  .crit{flex:1;display:grid;grid-auto-rows:minmax(min-content,1fr)}
+  .crit li{display:flex}.crit a{flex:1}
+  .p-decisions .panel-body{display:flex;flex-direction:column}
+  .dec{flex:1;display:grid;grid-auto-rows:minmax(min-content,1fr)}
+  .dec li{display:flex;flex-direction:column;justify-content:center}
+  .dec .what{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .foot{padding-top:10px}
+  html.js .scrim{display:block;position:fixed;inset:52px 0 0 0;background:rgba(20,27,36,.22);opacity:0;pointer-events:none;transition:opacity .3s;z-index:20}
+  html.js .scrim.on{opacity:1;pointer-events:auto}
+  html.js .drawer{display:flex;flex-direction:column;position:fixed;top:52px;right:0;bottom:0;width:min(500px,40vw);background:#fff;border-left:1px solid var(--n200);
+    box-shadow:-12px 0 32px rgba(20,27,36,.08);transform:translateX(102%);transition:transform .35s cubic-bezier(.2,.7,.2,1),visibility 0s .35s;visibility:hidden;z-index:30}
+  html.js .drawer.on{transform:none;visibility:visible;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+  .drawer-head{display:flex;align-items:center;gap:10px;padding:12px 16px 12px 24px;border-bottom:1px solid var(--n200);flex:none}
+  .drawer-head .eyebrow{color:var(--n600)}
+  .drawer-head button{margin-left:auto;font:500 13px/1 'Inter',sans-serif;background:none;border:1px solid var(--n200);border-radius:4px;padding:7px 10px;color:var(--ink);cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+  .drawer-head button:hover{background:var(--n100)}
+  .drawer-head kbd{font-family:var(--mono);font-size:10px;color:var(--n600)}
+  .drawer-body{flex:1;overflow:auto}
+  .drawer-body .note{border:0;border-radius:0;margin:0;padding:26px 28px 32px}
+  .drawer-body .note h3{font-size:clamp(22px,1.8vw,27px)}
+  .drawer-body .note > .eyebrow{display:none}
+  .ctx{margin:0 28px;padding:10px 12px;margin-top:22px;background:var(--sky);border:1px solid var(--sky2);border-radius:4px;font-size:13.5px;color:var(--n700)}
+  .ctx:empty{display:none}
+  .ctx b{font-weight:500;color:var(--ink)}
+  .drawer-body .ctx:not(:empty) + .note{padding-top:16px}
+}
+/* Short desktop: tighten the one-screen fit */
+@media (min-width:1001px) and (min-height:701px) and (max-height:860px){
+  .intro{padding:12px 20px 10px}
+  .intro p{font-size:13.5px}
+  .task{padding:10px 16px}
+  .task .m{font-size:12.5px}
+  .next-inner{gap:9px;padding:12px 16px}
+  .row{padding:6px 0}
+  .dec a{padding:7px 16px}
+  .ambition{padding:9px 16px}
+  .crit a{min-height:34px}
+  .panel-head{padding:9px 16px}
+}
+
+/* Narrow one-screen: drop the extras */
+@media (min-width:1001px) and (min-height:701px) and (max-width:1280px){
+  .panel-head .aside,.intro .hint,.task .go{display:none}
+  .intro{gap:6px 20px}
+  .intro p{font-size:13.5px;max-width:none}
+  .task{grid-template-columns:auto 1fr}
+  .clock span{font-size:24px}
+  .crit a{font-size:13.5px}
+}
+@media (min-width:1001px) and (min-height:701px) and (max-height:780px){
+  .room{display:none}
+  .task .m{font-size:0;line-height:0}
+  .task .m .chip{font-size:10.5px;line-height:1.5;margin-top:4px}
+  .ambition{font-size:12.5px}
+}
+
+/* ---------- Stacked: everything else ---------- */
+@media not all and (min-width:1001px) and (min-height:701px){
+  .board{grid-template-columns:minmax(0,1fr);grid-template-areas:"next" "needs" "criteria" "decisions";grid-template-rows:none;max-width:760px;width:100%;margin:0 auto}
+  .intro{max-width:760px;width:100%;margin:0 auto;display:block}
+  .intro p{margin-top:8px}
+  .intro .hint{display:none}
+  .foot{max-width:760px;width:100%;margin:16px auto 0;padding:18px 20px 28px;border-top:1px solid var(--n200)}
+  .foot .fnote{margin-left:0;width:100%}
+  .panel-body{overflow:visible}
+  .slot .note{border:0;border-top:1px dashed var(--n200);border-radius:0;margin:0;padding:14px 0 4px;background:transparent}
+  .slot .note h3{font-size:18px;margin-bottom:8px}
+  .slot .note p{font-size:14.5px}
+  .slot .note > .eyebrow{display:none}
+  .needs .slot,.dec .slot{padding:0 16px 14px 46px}
+  .dec .slot{padding-left:16px}
+  .crit-slot{padding:0 16px 14px}
+  .next-slot .note{border-color:var(--sky2)}
+  .task .go,.crit .go{display:none}
+  html.js .task,html.js .dec a{cursor:default}
+}
+@media (max-width:600px){
+  .bar{padding:0 14px;gap:10px}
+  .bar .where{display:none}
+  .bar .btn.ghost{padding:9px 8px}
+  .bar .btn.primary{padding:9px 10px;font-size:13px}
+  .intro,.board{padding-left:14px;padding-right:14px}
+  .needs .slot{padding-left:16px}
+}
+@media (max-width:400px){
+  .bar .logo img{height:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#board">Skip to Mission Control</a>
+<div class="screen">
+  <header class="bar">
+    <a class="logo" href="./" aria-label="Strapivo home"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="139" height="35"></a>
+    <div class="where"><span class="eyebrow">Mission Control</span><span class="tag">Illustrative example</span></div>
+    <nav aria-label="Account">
+      <a class="btn ghost" href="https://strapivo.app">Sign in</a>
+      <a class="btn primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </nav>
+  </header>
+
+  <main class="main-wrap">
+    <div class="intro">
+      <h1>Everything that matters. <em>One screen.</em></h1>
+      <p>Strapivo is where a leadership team runs Dynamic Strategy. This is its home screen, filled with a fictional company. Select any item to read how it works.</p>
+      <span class="hint" aria-hidden="true">Select an item · <kbd>Esc</kbd> closes</span>
+    </div>
+
+    <div class="board" id="board">
+      <!-- Next session -->
+      <section class="panel p-next" aria-labelledby="h-next">
+        <div class="panel-head"><h2 id="h-next">Next session</h2><span class="aside">Strategy Room</span></div>
+        <div class="next-inner">
+          <p class="room"><b>Leadership team</b> · 60 minutes · weekly</p>
+          <div class="clock" role="timer" aria-label="Time until the next session">
+            <div><span id="c-d">--</span><small>days</small></div>
+            <div><span id="c-h">--</span><small>hours</small></div>
+            <div><span id="c-m">--</span><small>min</small></div>
+            <div><span id="c-s">--</span><small>sec</small></div>
+          </div>
+          <p class="when" id="when">Thursday · 09:00</p>
+          <div class="rows">
+            <div class="row"><span class="k">Agenda</span><span class="v" id="agenda-state">Drafted by Vivo · 6 items</span><a href="#n-agenda" data-note="n-agenda">Open</a></div>
+            <div class="row"><span class="k">First takes</span><span class="v">3 of 7 sealed</span><a href="#n-takes" data-note="n-takes">Give yours</a></div>
+          </div>
+          <div class="slot next-slot" data-slot="n-agenda n-takes"></div>
+        </div>
+      </section>
+
+      <!-- Needs you -->
+      <section class="panel p-needs" aria-labelledby="h-needs">
+        <div class="panel-head"><h2 id="h-needs">Needs you</h2><span class="count">5</span><span class="aside">For the session lead</span></div>
+        <div class="panel-body">
+          <ul class="needs">
+            <li>
+              <a class="task" href="#n-drawer" data-note="n-drawer"><span class="box" aria-hidden="true"></span><span class="t">Read why the last strategy went into a drawer</span><span class="go" aria-hidden="true">Open</span><span class="m"><span class="chip">Read</span>The problem Strapivo exists to solve.</span></a>
+              <div class="slot" data-slot="n-drawer"></div>
+            </li>
+            <li>
+              <a class="task" href="#n-topright" data-note="n-topright"><span class="box" aria-hidden="true"></span><span class="t">A risk has sat in the top right for 14 days</span><span class="go" aria-hidden="true">Open</span><span class="m"><span class="chip"><i class="l-red" aria-hidden="true"></i>Top right · 14 days</span>No decision yet. It goes on Thursday's agenda.</span></a>
+              <div class="slot" data-slot="n-topright"></div>
+            </li>
+            <li>
+              <a class="task" href="#n-ghost" data-note="n-ghost"><span class="box" aria-hidden="true"></span><span class="t">Confirm a ghost move</span><span class="go" aria-hidden="true">Open</span><span class="m"><span class="chip">Proposed by Vivo</span>Vivo suggests a new position for one risk. You decide.</span></a>
+              <div class="slot" data-slot="n-ghost"></div>
+            </li>
+            <li>
+              <a class="task" href="#n-limits" data-note="n-limits"><span class="box" aria-hidden="true"></span><span class="t">Check what Vivo is allowed to change</span><span class="go" aria-hidden="true">Open</span><span class="m"><span class="chip">Trust</span>Lights and criteria stay with people.</span></a>
+              <div class="slot" data-slot="n-limits"></div>
+            </li>
+            <li>
+              <a class="task" href="#n-start" data-note="n-start"><span class="box" aria-hidden="true"></span><span class="t">Start the conversation with Strapivo</span><span class="go" aria-hidden="true">Open</span><span class="m"><span class="chip">Setup</span>We do the reading first. Four to five hours, and then you run it.</span></a>
+              <div class="slot" data-slot="n-start"></div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Success criteria -->
+      <section class="panel p-criteria" aria-labelledby="h-crit">
+        <div class="panel-head"><h2 id="h-crit">Success criteria at a glance</h2><span class="aside">Focus 4 of 4</span></div>
+        <div class="panel-body">
+          <p class="ambition"><span class="eyebrow">Ambition · 2030</span><b>Nordhaven Pumps</b>, a fictional manufacturer, becomes the service partner its customers renew with.</p>
+          <ul class="crit">
+            <li class="is-focus"><a href="#n-criteria" data-note="n-criteria" data-ctx="yellow|1"><span class="dot l-yellow" aria-hidden="true"></span><span class="name">Service revenue reaches a third of turnover</span><span class="sr">Light yellow.</span><span class="focus">Focus</span></a></li>
+            <li class="is-focus"><a href="#n-criteria" data-note="n-criteria" data-ctx="red|1"><span class="dot l-red" aria-hidden="true"></span><span class="name">Supply holds through a regional disruption</span><span class="sr">Light red.</span><span class="focus">Focus</span></a></li>
+            <li class="is-focus"><a href="#n-criteria" data-note="n-criteria" data-ctx="green|1"><span class="dot l-green" aria-hidden="true"></span><span class="name">Top accounts sign multi-year contracts</span><span class="sr">Light green.</span><span class="focus">Focus</span></a></li>
+            <li class="is-focus"><a href="#n-criteria" data-note="n-criteria" data-ctx="green|1"><span class="dot l-green" aria-hidden="true"></span><span class="name">Remote monitoring in every new installation</span><span class="sr">Light green.</span><span class="focus">Focus</span></a></li>
+            <li><a href="#n-criteria" data-note="n-criteria" data-ctx="green|0"><span class="dot l-green" aria-hidden="true"></span><span class="name">Repeat customers order online</span><span class="sr">Light green.</span></a></li>
+            <li><a href="#n-criteria" data-note="n-criteria" data-ctx="yellow|0"><span class="dot l-yellow" aria-hidden="true"></span><span class="name">Engineering hiring keeps pace with orders</span><span class="sr">Light yellow.</span></a></li>
+            <li><a href="#n-criteria" data-note="n-criteria" data-ctx="green|0"><span class="dot l-green" aria-hidden="true"></span><span class="name">Margin holds while service grows</span><span class="sr">Light green.</span></a></li>
+            <li><a href="#n-criteria" data-note="n-criteria" data-ctx="green|0"><span class="dot l-green" aria-hidden="true"></span><span class="name">Working capital stays inside plan</span><span class="sr">Light green.</span></a></li>
+          </ul>
+          <div class="slot crit-slot" data-slot="n-criteria"></div>
+          <p class="legend" aria-hidden="true"><span><i class="l-green"></i>Green</span><span><i class="l-yellow"></i>Yellow</span><span><i class="l-red"></i>Red</span><span>Today's light</span></p>
+        </div>
+      </section>
+
+      <!-- Recent decisions -->
+      <section class="panel p-decisions" aria-labelledby="h-dec">
+        <div class="panel-head"><h2 id="h-dec">Recent decisions</h2><span class="aside">Record of Decisions</span></div>
+        <div class="panel-body">
+          <ol class="dec">
+            <li><a href="#n-adapt" data-note="n-adapt"><span class="num">SDS-2026-014</span><span class="opt">Adapt</span><span class="what">Field service shifts to remote monitoring</span></a><div class="slot" data-slot="n-adapt"></div></li>
+            <li><a href="#n-hold" data-note="n-hold"><span class="num">SDS-2026-013</span><span class="opt">Hold</span><span class="what">Top accounts criterion kept as written</span></a><div class="slot" data-slot="n-hold"></div></li>
+            <li><a href="#n-notyet" data-note="n-notyet"><span class="num">SDS-2026-012</span><span class="opt">Not yet</span><span class="what">Second site parked until the supplier audit</span></a><div class="slot" data-slot="n-notyet"></div></li>
+            <li><a href="#n-advantage" data-note="n-advantage"><span class="num">SDS-2026-011</span><span class="opt">Take advantage</span><span class="what">Detour to win a closed rival's customers</span></a><div class="slot" data-slot="n-advantage"></div></li>
+          </ol>
+        </div>
+        <p class="options"><span class="sr">The five options: </span>Hold · Adapt · Pivot · Take advantage · Not yet</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="60" height="15">
+    <span>© 2026 Strapivo</span>
+    <ul>
+      <li><a href="/imprint">Imprint</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+      <li><a href="/terms">Terms</a></li>
+    </ul>
+    <span class="fnote">Illustrative example · Nordhaven Pumps is fictional</span>
+  </footer>
+</div>
+
+<!-- Briefing notes: shown as sections without JavaScript, used as drawer content with it -->
+<section class="notes" id="notes" aria-labelledby="h-notes">
+  <h2 id="h-notes">Briefing notes</h2>
+
+  <article class="note" id="n-drawer" aria-labelledby="t-drawer">
+    <span class="eyebrow">Needs you · Read</span>
+    <h3 id="t-drawer">Why the last strategy went into a drawer</h3>
+    <p>Every other function got software. Strategy never did. A leadership team agrees its strategy in a workshop, and then the document goes into a drawer.</p>
+    <p>The market keeps moving. News arrives unconnected to what the team said must succeed. The gap shows at the quarterly review, when a correction already costs more.</p>
+    <blockquote>"We finish the strategy, and then we forget it." <span class="eyebrow" style="display:block;margin-top:4px">What leadership teams tell us</span></blockquote>
+    <p>Strapivo is the Strategic Design System. A brand design system has one logo, one type scale and one palette. Strapivo holds one business model, one set of principles and guardrails, and one answer to where you play and where you don't.</p>
+    <p>Dynamic Strategy works from that system. The team makes small, early corrections, and occasionally changes course. The strategy stays agreed. The tactics get revised.</p>
+  </article>
+
+  <article class="note" id="n-topright" aria-labelledby="t-topright">
+    <span class="eyebrow">Needs you · Risk</span>
+    <h3 id="t-topright">A risk has sat in the top right for 14 days</h3>
+    <p>Every risk has a place on a radar of impact against likelihood. The top right is the danger zone.</p>
+    <p>The Radar watches the outside world for each focus area. Its search brief is the success criterion, its objectives and its risks. Each signal is dated, has a source, and is classed as primary or secondary.</p>
+    <p>A risk moves into the top right only on at least one primary source, "so that one blog post can't raise an alarm."</p>
+    <p>If a risk sits there for 14 days with no decision, it lands in the session lead's Needs you list. The Tracking view shows how each risk moved since the last session, with a trend word: Easing, Stable or Worsening.</p>
+  </article>
+
+  <article class="note" id="n-ghost" aria-labelledby="t-ghost">
+    <span class="eyebrow">Needs you · Proposed by Vivo</span>
+    <h3 id="t-ghost">Confirm a ghost move</h3>
+    <figure>
+      <svg class="radar" viewBox="0 0 300 220" role="img" aria-labelledby="radar-t">
+        <title id="radar-t">Risk radar. A supplier risk sits at medium impact and medium likelihood. Its ghost, the position Vivo proposes, sits higher and further right.</title>
+        <rect x="40" y="10" width="250" height="180" fill="#F6F9FB" stroke="#E1E5EA"/>
+        <rect x="165" y="10" width="125" height="90" fill="#D64545" fill-opacity=".09"/>
+        <line x1="165" y1="10" x2="165" y2="190" stroke="#E1E5EA"/>
+        <line x1="40" y1="100" x2="290" y2="100" stroke="#E1E5EA"/>
+        <text x="282" y="26" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" fill="#9b2f2f" letter-spacing=".5">DANGER ZONE</text>
+        <text x="165" y="208" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#495158" letter-spacing=".5">LIKELIHOOD</text>
+        <text x="16" y="100" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#495158" letter-spacing=".5" transform="rotate(-90 16 100)">IMPACT</text>
+        <circle cx="80" cy="160" r="6" fill="#999FA6"/>
+        <circle cx="110" cy="70" r="6" fill="#999FA6"/>
+        <circle cx="215" cy="150" r="6" fill="#999FA6"/>
+        <line x1="140" y1="118" x2="190" y2="74" stroke="#0082E6" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <path d="M190 74 l-9 1 l5 6 z" fill="#0082E6"/>
+        <circle cx="140" cy="118" r="7" fill="#0082E6"/>
+        <circle cx="196" cy="68" r="8" fill="none" stroke="#0082E6" stroke-width="1.5" stroke-dasharray="3 2"/>
+      </svg>
+      <figcaption>Illustrative example · supplier risk, ghost in the top right</figcaption>
+    </figure>
+    <p>A new primary source suggests a supplier risk has become more likely. Vivo, the AI in Strapivo, doesn't move the risk. It places a ghost on the radar at the proposed position, with a one-line reason and the signal behind it.</p>
+    <p>You confirm or reject the move. A confirmed move joins the trail with its signal, its date and your name.</p>
+    <p>Vivo makes a first pass on every signal: which criterion it touches, whether it is relevant, and one line of reason. A delegated person marks it relevant, irrelevant or unsure. Dismissed signals teach Vivo what counts as noise.</p>
+  </article>
+
+  <article class="note" id="n-limits" aria-labelledby="t-limits">
+    <span class="eyebrow">Needs you · Trust</span>
+    <h3 id="t-limits">What Vivo is allowed to change</h3>
+    <p>Vivo proposes; people decide. Vivo drafts and flags. People make every change.</p>
+    <p>Vivo never changes a light. When two focus activities go off track, it asks: "Light still green?" A Pivot that Vivo drafts takes effect only when someone with authority confirms it. Changes to accepted truth wait for an Owner.</p>
+    <p>Every recommendation traces back to the strategic memory your team approved. Strapivo is hardwired to the Business Model Canvas. It is not a generic prompt with your PDF attached.</p>
+    <p>Strapivo runs on EU-only infrastructure, with GDPR by design.</p>
+  </article>
+
+  <article class="note" id="n-start" aria-labelledby="t-start">
+    <span class="eyebrow">Needs you · Setup</span>
+    <h3 id="t-start">Start the conversation</h3>
+    <p>Setup takes what you already have: a workshop report, a strategy document, a pasted email or a plain prompt. Vivo proposes where each item belongs. "This reads like an activity, not an objective. Move it down?" An Owner accepts or corrects it.</p>
+    <p>We do the reading first. After four to five hours together, your team runs it.</p>
+    <p>Write to strategy@strapivo.com with a line about your company and where your strategy lives today.</p>
+    <p class="cta"><a class="btn primary" href="mailto:strategy@strapivo.com">Start the conversation</a></p>
+  </article>
+
+  <article class="note" id="n-agenda" aria-labelledby="t-agenda">
+    <span class="eyebrow">Next session · Agenda</span>
+    <h3 id="t-agenda">Vivo drafts the agenda 24 hours before</h3>
+    <p>The draft comes from what changed since the last session: relevant signals, risks entering the top right, parked questions that came back, carried-forward items, activities at risk or off track, and asks from the people responsible.</p>
+    <p>Old business comes first, then new business. Every item carries a one-line reason. The session lead edits the draft, and the room approves it as step one.</p>
+    <p>Sessions run 60 minutes by default, weekly, fortnightly or monthly, plus extra sessions on demand. Before each one, the people responsible for activities report a status, one line on the result and an optional ask of leadership.</p>
+  </article>
+
+  <article class="note" id="n-takes" aria-labelledby="t-takes">
+    <span class="eyebrow">Next session · First takes</span>
+    <h3 id="t-takes">First takes are sealed until everyone has one</h3>
+    <p>For each agenda item, the room sees the evidence first. Then each person writes a first take, an individual position given before discussion. The takes are revealed together, "without the loudest voice anchoring us."</p>
+    <p>Then the conversation starts, with Vivo in it. Vivo can raise the cost of doing nothing, sketch scenarios, challenge an assumption, offer alternatives or name a black swan.</p>
+    <dl>
+      <dt>Auditor</dt><dd>"Where did this number come from?"</dd>
+      <dt>Advisor</dt><dd>"Does this fit our principles?"</dd>
+      <dt>Scout</dt><dd>"What moved against the plan?"</dd>
+      <dt>Colleague</dt><dd>"Think this through with me."</dd>
+    </dl>
+    <p>Each item ends with a decision.</p>
+  </article>
+
+  <article class="note" id="n-criteria" aria-labelledby="t-criteria">
+    <span class="eyebrow">Success criteria</span>
+    <h3 id="t-criteria">Eight criteria, four in focus</h3>
+    <p>Each portfolio has one Ambition, with optional targets such as turnover, margin and a year. Seven to twelve success criteria sit under it. Each one carries today's light: green, yellow or red.</p>
+    <p>Up to four criteria are flagged as focus. "Fill a few glasses to the brim instead of all twelve a little." Flag a fifth and Strapivo asks: "You're diluting focus and creating noise. Do you really want to?"</p>
+    <p>Each criterion holds two to four objectives. Each activity sits under one objective, with an action, a result, a timeframe and a person responsible. The Radar watches the outside world for each focus area.</p>
+  </article>
+
+  <article class="note" id="n-adapt" aria-labelledby="t-adapt">
+    <span class="eyebrow">Decision · SDS-2026-014</span>
+    <h3 id="t-adapt">Adapt keeps the criterion and changes the route</h3>
+    <p>Adapt keeps the success criterion and changes how the team gets there. Vivo drafts the changes to objectives and activities. The team edits and accepts them.</p>
+    <p>In this example, two field-service activities moved to remote monitoring contracts. The head of service disagreed, and the record says so.</p>
+    <p>Vivo reads back each entry for the Record of Decisions, including dissent by name with its reason. The session lead confirms it. Each decision gets a permanent number, so anyone can find what was decided, why, and who disagreed.</p>
+  </article>
+
+  <article class="note" id="n-hold" aria-labelledby="t-hold">
+    <span class="eyebrow">Decision · SDS-2026-013</span>
+    <h3 id="t-hold">Hold is a decision too</h3>
+    <p>Hold keeps the criterion as written. Strapivo marks it reviewed on that date.</p>
+    <p>A team can fail in two ways. Inertia means doing nothing. Thrash means reacting to everything. A dated Hold shows the board that the question was asked and answered.</p>
+    <blockquote>"We're not changing strategy every week, but we are revising our tactics." <span class="eyebrow" style="display:block;margin-top:4px">What leadership teams tell us</span></blockquote>
+  </article>
+
+  <article class="note" id="n-notyet" aria-labelledby="t-notyet">
+    <span class="eyebrow">Decision · SDS-2026-012</span>
+    <h3 id="t-notyet">Not yet ends parked, with a trigger</h3>
+    <p>Not yet starts with one question: what's missing? The answer ends one of two ways.</p>
+    <p>Parked means the question waits for at least one trigger that brings it back: new evidence, a person's view, a date or the next session. Let go means the team drops it and records the rationale.</p>
+    <p>Here, the second assembly site returns to the agenda when the supplier audit arrives. "So that it feels like parking, not losing."</p>
+  </article>
+
+  <article class="note" id="n-advantage" aria-labelledby="t-advantage">
+    <span class="eyebrow">Decision · SDS-2026-011</span>
+    <h3 id="t-advantage">Take advantage, then escalate what's above you</h3>
+    <p>Take advantage adds detour activities without changing the criterion. A competitor closed, so the team quotes for its customers.</p>
+    <p>Pivot is the fifth option. Vivo drafts revised wording for the criterion, and the change takes effect only when someone with authority confirms it.</p>
+    <p>Decisions beyond the team's authority go to an approver in the app, as an exported memo, or into the board pack. The session lead is then prompted to announce what changed and why.</p>
+  </article>
+</section>
+
+<div class="scrim" id="scrim" aria-hidden="true"></div>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-label" hidden>
+  <div class="drawer-head"><span class="eyebrow" id="drawer-label">Detail</span><button type="button" id="drawer-close">Close <kbd>Esc</kbd></button></div>
+  <div class="drawer-body" id="drawer-body"><p class="ctx" id="ctx"></p></div>
+</div>
+
+<script>
+(function(){
+  var pad=function(n){return (n<10?'0':'')+n};
+  var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  /* ---- Countdown to next Thursday 09:00, local time ---- */
+  function nextSession(now){
+    var t=new Date(now.getFullYear(),now.getMonth(),now.getDate(),9,0,0,0);
+    var add=(4-now.getDay()+7)%7;
+    t.setDate(t.getDate()+add);
+    if(t<=now) t.setDate(t.getDate()+7);
+    return t;
+  }
+  var el={d:document.getElementById('c-d'),h:document.getElementById('c-h'),m:document.getElementById('c-m'),s:document.getElementById('c-s')};
+  var when=document.getElementById('when'), agenda=document.getElementById('agenda-state');
+  function tick(){
+    var now=new Date(), t=nextSession(now), ms=t-now, s=Math.floor(ms/1000);
+    el.d.textContent=pad(Math.floor(s/86400));
+    el.h.textContent=pad(Math.floor(s%86400/3600));
+    el.m.textContent=pad(Math.floor(s%3600/60));
+    el.s.textContent=pad(s%60);
+    when.textContent=days[t.getDay()]+' '+t.getDate()+' '+months[t.getMonth()]+' · 09:00';
+    agenda.textContent = ms<=86400000 ? 'Drafted by Vivo · 6 items' : 'Draft due Wednesday 09:00';
+  }
+  tick(); setInterval(tick,1000);
+
+  /* ---- Layout: one screen with a drawer, or stacked with notes inline ---- */
+  var mq=window.matchMedia('(min-width:1001px) and (min-height:701px)');
+  var notes=document.getElementById('notes');
+  var drawer=document.getElementById('drawer'), body=document.getElementById('drawer-body'), scrim=document.getElementById('scrim'), ctx=document.getElementById('ctx');
+  var label=document.getElementById('drawer-label'), closeBtn=document.getElementById('drawer-close');
+  var triggers=[].slice.call(document.querySelectorAll('[data-note]'));
+  var slots=[].slice.call(document.querySelectorAll('[data-slot]'));
+  var open=null, opener=null;
+
+  function place(){
+    if(open) close(true);
+    if(mq.matches){
+      slots.forEach(function(s){ while(s.firstChild) notes.appendChild(s.firstChild); });
+      triggers.forEach(function(a){ a.removeAttribute('aria-expanded'); });
+    } else {
+      slots.forEach(function(s){
+        s.getAttribute('data-slot').split(' ').forEach(function(id){ var n=document.getElementById(id); if(n) s.appendChild(n); });
+      });
+    }
+  }
+
+  function openNote(id,a){
+    var n=document.getElementById(id); if(!n) return;
+    opener=a; open=n;
+    body.appendChild(n);
+    var c=a.getAttribute('data-ctx');
+    if(c){
+      var p=c.split('|'), name=a.querySelector('.name').textContent;
+      ctx.innerHTML='Selected: <b></b>. Light '+p[0]+(p[1]==='1'?', flagged as focus.':', not in focus.');
+      ctx.querySelector('b').textContent=name;
+    } else ctx.textContent='';
+    label.textContent=n.querySelector('.eyebrow').textContent;
+    drawer.setAttribute('aria-labelledby',n.querySelector('h3').id);
+    drawer.hidden=false;
+    a.setAttribute('aria-current','true');
+    body.scrollTop=0;
+    requestAnimationFrame(function(){ drawer.classList.add('on'); scrim.classList.add('on'); });
+    closeBtn.focus({preventScroll:true});
+  }
+  function close(silent){
+    if(!open) return;
+    drawer.classList.remove('on'); scrim.classList.remove('on');
+    notes.appendChild(open); open=null;
+    if(opener){ opener.removeAttribute('aria-current'); if(!silent) opener.focus(); }
+    opener=null;
+    var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    setTimeout(function(){ if(!open) drawer.hidden=true; }, reduce?0:360);
+  }
+
+  triggers.forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var id=a.getAttribute('data-note');
+      if(mq.matches){ openNote(id,a); return; }
+      var n=document.getElementById(id);
+      if(n) n.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'nearest'});
+    });
+  });
+  closeBtn.addEventListener('click',function(){ close(); });
+  scrim.addEventListener('click',function(){ close(); });
+  document.addEventListener('keydown',function(e){
+    if(!open) return;
+    if(e.key==='Escape'){ e.preventDefault(); close(); return; }
+    if(e.key==='Tab'){
+      var f=[].slice.call(drawer.querySelectorAll('a[href],button,[tabindex]:not([tabindex="-1"])'));
+      if(!f.length) return;
+      var first=f[0], last=f[f.length-1];
+      if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+    }
+  });
+  if(mq.addEventListener) mq.addEventListener('change',place); else mq.addListener(place);
+  place();
+})();
+</script>
+</body>
+</html>

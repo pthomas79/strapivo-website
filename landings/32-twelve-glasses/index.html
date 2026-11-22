@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twelve glasses, one jug · Focus areas in Strapivo</title>
+<meta name="description" content="Choose which of twelve success criteria get your leadership team's attention. Strapivo lets you flag up to four as focus areas and puts its Radar and agenda to work on those four.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --amber:#F4D58D;--amber-ink:#5C4508;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:17px;line-height:1.55}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+p.eyebrow,.sec-head p.eyebrow,.struct-intro p.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--n600);margin:0 0 18px}
+.eyebrow b{font-weight:500;color:var(--p600)}
+h1,h2,h3{font-weight:500;margin:0}
+h1{font-size:clamp(38px,5.4vw,76px);line-height:1.02;letter-spacing:-.03em}
+h2{font-size:clamp(30px,3.6vw,48px);line-height:1.08;letter-spacing:-.025em}
+h3{font-size:21px;line-height:1.25;letter-spacing:-.015em}
+p{margin:0}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--paper);padding:8px 12px;z-index:10}
+.skip:focus{left:8px}
+
+/* header */
+.site-head{border-bottom:1px solid var(--n200)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+.logo img{display:block;height:26px;width:auto}
+.head-links{display:flex;align-items:center;gap:22px}
+.head-links a{text-decoration:none;font-size:15px}
+.head-links .signin{color:var(--n700)}
+.head-links .signin:hover{color:var(--p600)}
+.btn{display:inline-flex;align-items:center;gap:10px;font:500 15px/1 'Inter',sans-serif;text-decoration:none;border-radius:4px;padding:13px 18px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
+.btn:hover{background:var(--p600);border-color:var(--p600)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.btn.small{padding:10px 14px;font-size:14px}
+
+/* hero */
+.hero{padding:64px 0 72px}
+.hero-top{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:56px;align-items:end;margin-bottom:56px}
+.hero h1 .az{color:var(--p500)}
+.lede{font-size:19px;line-height:1.5;color:var(--n700);max-width:34em}
+.lede + .lede{margin-top:14px}
+.try{color:var(--ink)}
+
+.table{background:#fff;border:1px solid var(--n200);border-radius:8px;padding:28px 28px 24px}
+.table-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.table-head .mono{color:var(--n600)}
+.table-head .co{color:var(--ink)}
+.glasses{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:10px}
+.glass{all:unset;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;width:100%;height:100%;padding:10px 4px 8px;border-radius:6px;cursor:pointer;text-align:center;position:relative}
+.glass:hover{background:var(--sky)}
+.glass:focus-visible{outline:2px solid var(--p500);outline-offset:0}
+.glass svg{width:100%;max-width:76px;height:auto;display:block;overflow:visible}
+.glass .outline{stroke:var(--n500);stroke-width:1.5;fill:none}
+.glass .base{stroke:var(--n500);stroke-width:1.5}
+.glass .brim{stroke:var(--n400);stroke-width:1;stroke-dasharray:2 3}
+.glass:hover .outline,.glass:hover .base{stroke:var(--ink)}
+.glass[aria-pressed="true"] .outline,.glass[aria-pressed="true"] .base{stroke:var(--p700)}
+.water{transition:transform 1.8s var(--ease);will-change:transform}
+.water rect{fill:var(--p500)}
+.water .surface{fill:var(--p400)}
+.no-anim .water{transition:none}
+.g-num{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--n500);margin-top:12px}
+.g-lab{font-size:13px;line-height:1.3;color:var(--n700);margin-top:4px;hyphens:auto;overflow-wrap:break-word}
+.glass[aria-pressed="true"] .g-num{color:var(--p600)}
+.glass[aria-pressed="true"] .g-lab{color:var(--ink)}
+
+.jug{margin-top:26px;padding-top:22px;border-top:1px solid var(--n200);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px 32px;align-items:center}
+.jug-bar{display:flex;height:10px;border-radius:2px;background:var(--n100);overflow:hidden;gap:2px}
+.jug-bar span{flex:1 1 0;background:var(--p500);transition:flex-grow 1.2s var(--ease),background-color .6s}
+.jug-bar span.spare{background:var(--n100)}
+.readout{display:flex;flex-wrap:wrap;gap:6px 26px;margin-top:12px;color:var(--n600)}
+.readout b{font-weight:500;color:var(--ink)}
+.readout .warn b{color:var(--amber-ink)}
+.jug-actions{display:flex;gap:10px;flex-wrap:wrap}
+.status{grid-column:1/-1;font-size:17px;min-height:1.6em;color:var(--ink)}
+.status .az{color:var(--p600)}
+
+.vivo-ask{margin-top:22px;background:var(--amber);color:var(--ink);border-radius:6px;padding:20px 22px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px 20px;align-items:center}
+.vivo-ask[hidden]{display:none}
+.vivo-ask .who{color:var(--amber-ink)}
+.vivo-ask p{font-size:19px;line-height:1.35;letter-spacing:-.01em}
+.vivo-ask .acts{display:flex;gap:10px;flex-wrap:wrap}
+.vivo-ask .btn.ghost{border-color:var(--ink)}
+.limit-note{margin-top:18px;color:var(--n600);font-size:15px;max-width:58em}
+
+/* sections */
+section{padding:96px 0;border-top:1px solid var(--n200)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:end;margin-bottom:56px}
+.sec-head p{color:var(--n700);font-size:18px}
+
+.voices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--n200);margin-bottom:72px}
+.voices figure{margin:0;padding:22px 24px 22px 0}
+.voices figure + figure{padding-left:24px;border-left:1px solid var(--n200)}
+.voices blockquote{margin:0;font-size:24px;line-height:1.25;letter-spacing:-.015em}
+.voices figcaption{margin-top:10px;color:var(--n500)}
+
+.switches{list-style:none;margin:0;padding:0;counter-reset:sw}
+.switches > li{display:grid;grid-template-columns:64px minmax(0,1fr) minmax(0,420px);gap:24px 40px;padding:40px 0;border-top:1px solid var(--n200)}
+.switches > li:last-child{border-bottom:1px solid var(--n200)}
+.sw-n{font-family:var(--mono);font-size:13px;color:var(--p600);padding-top:5px}
+.switches h3{margin-bottom:12px}
+.switches p{color:var(--n700)}
+
+.frag{background:#fff;border:1px solid var(--n200);border-radius:6px;font-size:14px;align-self:start}
+.frag-h{display:flex;justify-content:space-between;gap:12px;padding:10px 14px;border-bottom:1px solid var(--n200);color:var(--n600)}
+.frag-b{padding:14px}
+.sig-t{font-size:15px;line-height:1.35;margin:6px 0 10px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--n200);border-radius:3px;padding:3px 7px;color:var(--n600)}
+.tag.az{border-color:var(--p200);background:var(--sky);color:var(--p700)}
+.agenda{list-style:none;margin:0;padding:0}
+.agenda li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:4px 10px;padding:9px 14px;border-top:1px solid var(--n100)}
+.agenda li.grp{display:block;background:var(--n100);color:var(--n600);padding:6px 14px}
+.agenda .dot{width:10px;height:10px;border-radius:50%;margin-top:5px;border:1.5px solid var(--n400)}
+.agenda .dot.f{background:var(--p500);border-color:var(--p500)}
+.agenda small{display:block;margin-top:2px;color:var(--n500);font-size:12.5px}
+.ask-card{background:var(--amber);border-radius:4px;padding:12px 14px;margin-top:10px}
+.ask-card .mono{color:var(--amber-ink);font-size:11px}
+.ask-card p{margin-top:4px;font-size:15px}
+.act-row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid var(--n100)}
+.act-row:first-child{border-top:0;padding-top:0}
+.act-row .mono{font-size:11px;color:var(--n600);white-space:nowrap}
+.act-row .off{color:#8A2E1F}
+.inout{list-style:none;margin:0;padding:0}
+.inout li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 14px;border-top:1px solid var(--n100)}
+.inout li:first-child{border-top:0}
+.pill{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-radius:3px;padding:3px 8px;border:1px solid var(--n200);color:var(--n500)}
+.pill.in{background:var(--p500);border-color:var(--p500);color:#fff}
+
+/* structure */
+.struct{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:56px;align-items:start}
+.struct-intro p{color:var(--n700);font-size:18px;margin-top:18px}
+.struct-intro .vivo-line{margin-top:24px;padding:16px 18px;border-left:2px solid var(--p500);background:#fff;font-size:16px;color:var(--ink)}
+.layers{margin:0;border-top:1px solid var(--ink)}
+.layers > div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;padding:16px 0;border-bottom:1px solid var(--n200)}
+.layers dt{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);padding-top:3px}
+.layers dd{margin:0}
+.layers .hl dt{color:var(--p600)}
+.layers .hl{background:linear-gradient(var(--sky),var(--sky)) no-repeat;background-size:100% 100%}
+.layers .hl{padding-left:12px;padding-right:12px;margin:0 -12px}
+
+/* loop */
+.loop{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
+.loop li{padding:22px 22px 26px 0;border-bottom:1px solid var(--n200)}
+.loop li:not(:nth-child(4n+1)){padding-left:22px;border-left:1px solid var(--n200)}
+.loop .mono{color:var(--p600);display:block;margin-bottom:10px}
+.loop h3{font-size:19px;margin-bottom:8px}
+.loop p{font-size:15px;color:var(--n700)}
+.decisions{display:flex;flex-wrap:wrap;gap:8px;margin-top:40px;align-items:center}
+.decisions .lbl{margin-right:8px;color:var(--n600)}
+.record{margin-top:28px;background:#fff;border:1px solid var(--n200);border-radius:6px;padding:18px 20px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 24px;font-size:15px}
+.record .mono{color:var(--n600)}
+.record .num{color:var(--p600)}
+
+/* trust */
+.trust{background:var(--ink);color:var(--paper);border-top:0}
+.trust .sec-head p.eyebrow{color:var(--n400)}
+.trust .sec-head p{color:var(--n200)}
+.rules{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 56px}
+.rules li{padding:20px 0;border-top:1px solid var(--n700);font-size:17px;color:var(--n100)}
+.rules li b{font-weight:500;color:#fff}
+
+/* close */
+.close{padding:120px 0}
+.close-in{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:56px;align-items:end}
+.close h2{font-size:clamp(34px,4.4vw,60px)}
+.close p{color:var(--n700);font-size:18px;margin-bottom:26px}
+.close .btn{font-size:16px;padding:16px 22px}
+.mail{display:block;margin-top:14px;color:var(--n600);font-size:15px}
+
+footer{border-top:1px solid var(--n200);padding:36px 0 48px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer img{height:22px;width:auto;display:block}
+footer nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:14px}
+footer nav a{color:var(--n600);text-decoration:none}
+footer nav a:hover{color:var(--p600)}
+footer small{color:var(--n500);font-size:14px}
+
+@media (max-width:1040px){
+  .glasses{grid-template-columns:repeat(6,minmax(0,1fr));row-gap:14px}
+  .hero-top,.sec-head,.struct,.close-in{grid-template-columns:1fr;gap:24px}
+  .switches > li{grid-template-columns:48px minmax(0,1fr)}
+  .switches .frag{grid-column:2}
+  .loop{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .loop li:not(:nth-child(4n+1)){padding-left:0;border-left:0}
+  .loop li:nth-child(2n){padding-left:22px;border-left:1px solid var(--n200)}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .wrap{padding:0 18px}
+  .hero{padding:40px 0 48px}
+  .hero-top{margin-bottom:32px}
+  .lede{font-size:17px}
+  .table{padding:18px 12px 18px;margin:0 -6px}
+  .table-head{padding:0 6px}
+  .glasses{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;row-gap:10px}
+  .glass{padding:8px 2px 6px}
+  .g-lab{font-size:12px}
+  .jug{grid-template-columns:1fr;padding:18px 6px 0}
+  .vivo-ask{grid-template-columns:1fr;padding:18px}
+  .head-links .btn{display:none}
+  section{padding:64px 0}
+  .voices{grid-template-columns:1fr}
+  .voices figure + figure{padding-left:0;border-left:0;border-top:1px solid var(--n200)}
+  .voices blockquote{font-size:21px}
+  .switches > li{grid-template-columns:1fr;gap:14px;padding:32px 0}
+  .switches .frag{grid-column:1}
+  .layers > div{grid-template-columns:1fr;gap:4px}
+  .loop{grid-template-columns:1fr}
+  .loop li:nth-child(2n){padding-left:0;border-left:0}
+  .rules{grid-template-columns:1fr}
+  .record{grid-template-columns:1fr}
+  .close{padding:72px 0}
+}
+@media (prefers-reduced-motion:reduce){
+  .water,.jug-bar span{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <clipPath id="glass-inside"><path d="M8.3 4 L14.7 91.5 L49.3 91.5 L55.7 4 Z"/></clipPath>
+  </defs>
+</svg>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Strapivo, top of page"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo"></a>
+    <nav class="head-links" aria-label="Account">
+      <a class="signin" href="https://strapivo.app">Sign in</a>
+      <a class="btn small" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="hero" id="top">
+    <div class="wrap">
+      <div class="hero-top">
+        <div>
+          <p class="eyebrow"><b>Dynamic Strategy</b> · Focus areas</p>
+          <h1>Fill a few glasses to the brim. <span class="az">Not all twelve a little.</span></h1>
+        </div>
+        <div>
+          <p class="lede">Your leadership team agreed twelve success criteria. It has one jug of attention.</p>
+          <p class="lede try">Choose the glasses to fill. The jug holds enough for four.</p>
+        </div>
+      </div>
+
+      <div class="table" id="twelve">
+        <div class="table-head">
+          <p class="mono" id="glasses-label"><span class="co">Twelve success criteria</span> · Kessler Armaturen, a fictional valve maker</p>
+          <p class="mono">Illustrative example</p>
+        </div>
+
+        <ul class="glasses" role="group" aria-labelledby="glasses-label">
+          <li><button class="glass" type="button" aria-pressed="true" data-i="0"><svg viewBox="0 0 64 100" aria-hidden="true" focusable="false"><g clip-path="url(#glass-inside)"><g class="water" style="transform:translateY(0px)"><rect x="0" y="8" width="64" height="90"/><rect class="surface" x="0" y="8" width="64" height="1.6"/></g></g><line class="brim" x1="9" y1="8" x2="55" y2="8"/><path class="outline" d="M6 3 L13 94 L51 94 L58 3"/><line class="base" x1="14" y1="91.5" x2="50" y2="91.5"/></svg><span class="g-num">01</span><span class="g-lab">Recurring service revenue</span></button></li>
+          <li><button class="glass" type="button" aria-pressed="false" data-i="1"><svg viewBox="0 0 64 100" aria-hidden="true" focusable="false"><g clip-path="url(#glass-inside)"><g class="water" style="transform:translateY(90px)"><rect x="0" y="8" width="64" height="90"/><rect class="surface" x="0" y="8" width="64" height="1.6"/></g></g><line class="brim" x1="9" y1="8" x2="55" y2="8"/><path class="outline" d="M6 3 L13 94 L51 94 L58 3"/><line class="base" x1="14" y1="91.5" x2="50" y2="91.5"/></svg><span class="g-num">02</span><span class="g-lab">Entry into the Nordics</span></button></li>
+          <li><button class="glass" type="button" aria-pressed="true" data-i="2"><svg viewBox="0 0 64 100" aria-hidden="true" focusable="false"><g clip-path="url(#glass-inside)"><g class="water" style="transform:translateY(0px)"><rect x="0" y="8" width="64" height="90"/><rect class="surface" x="0" y="8" width="64" height="1.6"/></g></g><line class="brim" x1="9" y1="8" x2="55" y2="8"/><path class="outline" d="M6 3 L13 94 L51 94 L58 3"/><line class="base" x1="14" y1="91.5" x2="50" y2="91.5"/></svg><span class="g-num">03</span><span class="g-lab">Gross margin back on target</span></button></li>
+          <li><button class="glass" type="button" aria-pressed="false" data-i="3"><svg viewBox="0 0 64 100" aria-hidden="true" focusable="false"><g clip-path="url(#glass-inside)"><g class="water" style="transform:translateY(90px)"><rect x="0" y="8" width="64" height="90"/><rect class="surface" x="0" y="8" width="64" height="1.6"/></g></g><line class="brim" x1="9" y1="8" x2="55" y2="8"/><path class="outline" d="M6 3 L13 94 L51 94 L58 3"/><line class="base" x1="14" y1="91.5" x2="50" y2="91.5"/></svg><span class="g-num">04</span><span class="g-lab">Two-week lead times</span></button></li>
+          <li><button class="glass" type="button" aria-pressed="true" data-i="4"><svg viewBox="0 0 64 100" aria-hidden="true" focusable="false"><g clip-path="url(#glass-inside)"><g class="water" style="transform:translateY(0px)"><rect x="0" y="8" width="64" height="90"/><rect class="surface" x="0" y="8" width="64" height="1.6"/></g></g><line class="brim" x1="9" y1="8" x2="55" y2="8"/><path class="outline" d="M6 3 L13 94 L51 94 L58 3"/><line class="base" x1="14" y1="91.5" x2="50" y2="91.5"/></svg><span class="g-num">05</span><span class="g-lab">Engineers who stay</span></button></li>
+          <li><button class="glass" type="button" aria-pressed="false" data-i="5"><svg viewBox="0 0 64 100" aria-hidden="true" focusable="false"><g clip-path="url(#glass-inside)"><g class="water" style="transform:translateY(90px)"><rect x="0" y="8" width="64" height="90"/><rect class="surface" x="0" y="8" width="64" height="1.6"/></g></g><line class="brim" x1="9" y1="8" x2="55" y2="8"/><path class="outline" d="M6 3 L13 94 L51 94 L58 3"/><line class="base" x1="14" y1="91.5" x2="50" y2="91.5"/></svg><span class="g-num">06</span><span class="g-lab">One ERP instead of three</span></button></li>
+          <li><button class="glass" type="button" aria-pressed="false" data-i="6"><svg viewBox="0 0 64 100" aria-hidden="true" focusable="false"><g clip-path="url(#glass-inside)"><g class="water" style="transform:translateY(90px)"><rect x="0" y="8" width="64" height="90"/><rect class="surface" x="0" y="8" width="64" height="1.6"/></g></g><line class="brim" x1="9" y1="8" x2="55" y2="8"/><path class="outline" d="M6 3 L13 94 L51 94 L58 3"/><line class="base" x1="14" y1="91.5" x2="50" y2="91.5"/></svg><span class="g-num">07</span><span class="g-lab">A renewed dealer network</span></button></li>
+          <li><button class="glass" type="button" aria-pressed="true" data-i="7"><svg viewBox="0 0 64 100" aria-hidden="true" focusable="false"><g clip-path="url(#glass-inside)"><g class="water" style="transform:translateY(0px)"><rect x="0" y="8" width="64" height="90"/><rect class="surface" x="0" y="8" width="64" height="1.6"/></g></g><line class="brim" x1="9" y1="8" x2="55" y2="8"/><path class="outline" d="M6 3 L13 94 L51 94 L58 3"/><line class="base" x1="14" y1="91.5" x2="50" y2="91.5"/></svg><span class="g-num">08</span><span class="g-lab">Less carbon per valve</span></button></li>
+          <li><button class="glass" type="button" aria-pressed="false" data-i="8"><svg viewBox="0 0 64 100" aria-hidden="true" focusable="false"><g clip-path="url(#glass-inside)"><g class="water" style="transform:translateY(90px)"><rect x="0" y="8" width="64" height="90"/><rect class="surface" x="0" y="8" width="64" height="1.6"/></g></g><line class="brim" x1="9" y1="8" x2="55" y2="8"/><path class="outline" d="M6 3 L13 94 L51 94 L58 3"/><line class="base" x1="14" y1="91.5" x2="50" y2="91.5"/></svg><span class="g-num">09</span><span class="g-lab">Online ordering for installers</span></button></li>
+          <li><button class="glass" type="button" aria-pressed="false" data-i="9"><svg viewBox="0 0 64 100" aria-hidden="true" focusable="false"><g clip-path="url(#glass-inside)"><g class="water" style="transform:translateY(90px)"><rect x="0" y="8" width="64" height="90"/><rect class="surface" x="0" y="8" width="64" height="1.6"/></g></g><line class="brim" x1="9" y1="8" x2="55" y2="8"/><path class="outline" d="M6 3 L13 94 L51 94 L58 3"/><line class="base" x1="14" y1="91.5" x2="50" y2="91.5"/></svg><span class="g-num">10</span><span class="g-lab">A second casting supplier</span></button></li>
+          <li><button class="glass" type="button" aria-pressed="false" data-i="10"><svg viewBox="0 0 64 100" aria-hidden="true" focusable="false"><g clip-path="url(#glass-inside)"><g class="water" style="transform:translateY(90px)"><rect x="0" y="8" width="64" height="90"/><rect class="surface" x="0" y="8" width="64" height="1.6"/></g></g><line class="brim" x1="9" y1="8" x2="55" y2="8"/><path class="outline" d="M6 3 L13 94 L51 94 L58 3"/><line class="base" x1="14" y1="91.5" x2="50" y2="91.5"/></svg><span class="g-num">11</span><span class="g-lab">A shorter product range</span></button></li>
+          <li><button class="glass" type="button" aria-pressed="false" data-i="11"><svg viewBox="0 0 64 100" aria-hidden="true" focusable="false"><g clip-path="url(#glass-inside)"><g class="water" style="transform:translateY(90px)"><rect x="0" y="8" width="64" height="90"/><rect class="surface" x="0" y="8" width="64" height="1.6"/></g></g><line class="brim" x1="9" y1="8" x2="55" y2="8"/><path class="outline" d="M6 3 L13 94 L51 94 L58 3"/><line class="base" x1="14" y1="91.5" x2="50" y2="91.5"/></svg><span class="g-num">12</span><span class="g-lab">A name installers know</span></button></li>
+        </ul>
+
+        <div class="vivo-ask" id="ask" hidden role="group" aria-labelledby="ask-text">
+          <span class="mono who">Strapivo asks</span>
+          <p id="ask-text">"You're diluting focus and creating noise. Do you really want to?"</p>
+          <div class="acts">
+            <button class="btn" type="button" id="ask-keep">Keep four</button>
+            <button class="btn ghost" type="button" id="ask-fill">Fill it anyway</button>
+          </div>
+        </div>
+
+        <div class="jug">
+          <div>
+            <div class="jug-bar" id="jug-bar" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <p class="readout mono" id="readout"><span>Jug · <b>enough for 4</b></span><span>Filled · <b id="r-n">4 of 12</b></span><span id="r-lvl-wrap">Each glass · <b id="r-lvl">100% full</b></span></p>
+          </div>
+          <div class="jug-actions">
+            <button class="btn ghost small" type="button" id="spread" hidden>Spread it evenly</button>
+            <button class="btn ghost small" type="button" id="empty" hidden>Empty all</button>
+          </div>
+          <p class="status" id="status" aria-live="polite">Four glasses full to the brim, eight empty. Four is the recommended limit.</p>
+        </div>
+      </div>
+
+      <p class="limit-note">In Strapivo, a leadership team flags up to four success criteria as focus areas. Try to flag a fifth and Strapivo asks the question you get here, in the same words.</p>
+    </div>
+  </div>
+
+  <section aria-labelledby="h-switch">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow">What a full glass changes</p>
+          <h2 id="h-switch">Flag a criterion as a focus area and Strapivo starts working on it.</h2>
+        </div>
+        <p>A success criterion is one of the 7 to 12 goals your team measures against its Ambition. A focus area is one of the four you chose. Four things then happen for those four, and only for those.</p>
+      </div>
+
+      <div class="voices">
+        <figure><blockquote><p>"We finish the strategy, and then we forget it."</p></blockquote><figcaption class="mono">What leadership teams tell us</figcaption></figure>
+        <figure><blockquote><p>"Between offsites, nothing moves."</p></blockquote><figcaption class="mono">What leadership teams tell us</figcaption></figure>
+      </div>
+
+      <ol class="switches">
+        <li>
+          <span class="sw-n">01</span>
+          <div>
+            <h3>The Radar watches the outside world for it.</h3>
+            <p>Each focus area gets its own search brief: the criterion, its objectives and its risks. Market intelligence reads over 4,000 sources a day and reports on Monday and Thursday. A red-line exception interrupts that schedule. Vivo makes a first pass on each signal, and a person you delegate marks it relevant, irrelevant or unsure.</p>
+          </div>
+          <div class="frag" aria-label="Interface sketch: a signal on the Radar">
+            <div class="frag-h mono"><span>Radar · Signal</span><span>New</span></div>
+            <div class="frag-b">
+              <p class="mono" style="color:var(--n500);font-size:11px">12 Nov 2026 · Primary source</p>
+              <p class="sig-t">Norwegian water utility publishes tender for district valve replacement</p>
+              <div class="tags"><span class="tag az">02 Entry into the Nordics</span><span class="tag">Relevant?</span></div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <span class="sw-n">02</span>
+          <div>
+            <h3>The agenda puts it first in new business.</h3>
+            <p>Vivo drafts the agenda 24 hours before each session from what changed. Old business comes first, then new business, and focus areas lead the new business. Every item carries a one-line reason. The session lead edits the draft and the room approves it as step one.</p>
+          </div>
+          <div class="frag" aria-label="Interface sketch: a draft agenda">
+            <div class="frag-h mono"><span>Draft agenda</span><span>60 min</span></div>
+            <ul class="agenda">
+              <li class="grp mono">Old business</li>
+              <li><span class="dot"></span><span>Parked: dealer contract terms<small>Trigger met: legal review is back.</small></span></li>
+              <li class="grp mono">New business</li>
+              <li><span class="dot f"></span><span>Entry into the Nordics<small>Focus area. Two new primary signals.</small></span></li>
+              <li><span class="dot f"></span><span>Engineers who stay<small>Focus area. One activity off track.</small></span></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <span class="sw-n">03</span>
+          <div>
+            <h3>Vivo asks if the light is still green.</h3>
+            <p>Each criterion carries today's light: green, yellow or red. When two or more focus activities are off track, or a risk on that criterion enters the top right of the radar, Vivo asks the question. Vivo never changes the light itself. A person does.</p>
+          </div>
+          <div class="frag" aria-label="Interface sketch: Vivo asks whether a light is still green">
+            <div class="frag-h mono"><span>05 Engineers who stay</span><span>Light · Green</span></div>
+            <div class="frag-b">
+              <div class="act-row"><span>Graduate scheme with two universities</span><span class="mono off">Off track</span></div>
+              <div class="act-row"><span>Pay review for field engineers</span><span class="mono off">Off track</span></div>
+              <div class="ask-card"><span class="mono">Vivo</span><p>Light still green?</p></div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <span class="sw-n">04</span>
+          <div>
+            <h3>There is no ranking. A criterion is in or out.</h3>
+            <p>Display order carries no weight. Strapivo has no first focus area and no fourth. Dragging a criterion up the list changes nothing, so the argument about order never starts.</p>
+          </div>
+          <div class="frag" aria-label="Interface sketch: criteria marked in or out of focus">
+            <div class="frag-h mono"><span>Focus</span><span>4 of 4</span></div>
+            <ul class="inout">
+              <li><span>Recurring service revenue</span><span class="pill in">In</span></li>
+              <li><span>Entry into the Nordics</span><span class="pill in">In</span></li>
+              <li><span>Engineers who stay</span><span class="pill in">In</span></li>
+              <li><span>Less carbon per valve</span><span class="pill in">In</span></li>
+              <li><span>One ERP instead of three</span><span class="pill">Out</span></li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-struct">
+    <div class="wrap struct">
+      <div class="struct-intro">
+        <p class="eyebrow">Where the glasses sit</p>
+        <h2 id="h-struct">Twelve criteria sit under one Ambition. Four are in focus.</h2>
+        <p>Strapivo uses three words for the work: objective, activity, result. It is not a to-do list and not a KPI dashboard. Set-up accepts a workshop report, a document, a pasted email or a plain prompt. Vivo proposes where each item belongs, and an Owner accepts it.</p>
+        <p class="vivo-line">"This reads like an activity, not an objective. Move it down?"</p>
+      </div>
+      <dl class="layers">
+        <div><dt>Ambition</dt><dd>One per portfolio, with optional targets such as turnover, margin and a year. Everything is read against it.</dd></div>
+        <div><dt>Success criteria</dt><dd>Usually 7 to 12 goals. Each carries today's light: green, yellow or red.</dd></div>
+        <div class="hl"><dt>Focus areas</dt><dd>Up to four success criteria. The Radar, the agenda and the light check work on these.</dd></div>
+        <div><dt>Objectives</dt><dd>Usually 2 to 4 under each success criterion.</dd></div>
+        <div><dt>Activities</dt><dd>An action, a result, a timeframe and a person responsible. On track, at risk, off track or done.</dd></div>
+        <div><dt>Risks</dt><dd>Placed on a radar of impact against likelihood, for the whole portfolio or for named business models.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-loop">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow">The rest of Dynamic Strategy</p>
+          <h2 id="h-loop">A short session every week, fortnight or month.</h2>
+        </div>
+        <p>The team makes small, early corrections and now and then changes course. Sessions run 60 minutes by default, with extra sessions when something can't wait.</p>
+      </div>
+      <ol class="loop">
+        <li><span class="mono">01 Watch</span><h3>Signals arrive dated</h3><p>Each signal has a source and a source class, primary or secondary.</p></li>
+        <li><span class="mono">02 Triage</span><h3>People sort them</h3><p>New, relevant, watching or dismissed. Dismissed signals teach Vivo what counts as noise.</p></li>
+        <li><span class="mono">03 Move</span><h3>Risks shift on the radar</h3><p>Vivo shows a proposed position as a ghost with a one-line reason. A person confirms or rejects it.</p></li>
+        <li><span class="mono">04 Agenda</span><h3>Drafted from what changed</h3><p>Ready 24 hours ahead, with old business first.</p></li>
+        <li><span class="mono">05 Session</span><h3>First takes, sealed</h3><p>Each person gives a position before discussion. The room sees them all at once.</p></li>
+        <li><span class="mono">06 Decide</span><h3>Five options</h3><p>Hold, Adapt, Pivot, Take advantage or Not yet. Not yet ends as Parked with a trigger, or Let go with a reason.</p></li>
+        <li><span class="mono">07 Record</span><h3>A permanent number</h3><p>Vivo reads back each entry, with dissent by name. The session lead confirms it.</p></li>
+        <li><span class="mono">08 Escalate</span><h3>Above the team, to an approver</h3><p>Decisions beyond the team's authority go to an approver. The lead is prompted to announce what changed and why.</p></li>
+      </ol>
+      <div class="record" aria-label="Illustrative example of a recorded decision">
+        <span class="mono">Illustrative example</span><span class="mono num">SDS-2026-014 · Adapt</span>
+        <span class="mono">Criterion</span><span>02 Entry into the Nordics</span>
+        <span class="mono">Decision</span><span>Bid for the Norwegian tender through a local partner. Vivo drafts two new activities.</span>
+        <span class="mono">Dissent</span><span>Head of Operations: lead times to Norway are not yet proven.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust" aria-labelledby="h-trust">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow">Trust</p>
+          <h2 id="h-trust">The human stays in the chair.</h2>
+        </div>
+        <p>Vivo proposes. People decide. Every recommendation traces back to the strategic memory your team approved.</p>
+      </div>
+      <ul class="rules">
+        <li><b>Vivo asks about the light.</b> A person sets it.</li>
+        <li><b>A move into the top right of the radar needs at least one primary source.</b> One blog post can't raise an alarm.</li>
+        <li><b>A risk left in the top right for 14 days without a decision</b> lands in the session lead's "Needs you" list.</li>
+        <li><b>A Pivot takes effect only when someone with authority confirms it.</b> Changes to accepted truth wait for an Owner.</li>
+        <li><b>The Record of Decisions keeps dissent.</b> It names who disagreed and why.</li>
+        <li><b>Strapivo runs on EU-only infrastructure.</b> GDPR is part of the design.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="close" aria-labelledby="h-close">
+    <div class="wrap close-in">
+      <h2 id="h-close">Which four would your team fill?</h2>
+      <div>
+        <p>Send us your strategy as it stands: a workshop report, a deck or an email. We do the reading first. Set-up takes four to five hours, and then you run it.</p>
+        <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+        <span class="mail mono">strategy@strapivo.com</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo">
+    <nav aria-label="Legal">
+      <ul><li><a href="/imprint">Imprint</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/terms">Terms</a></li></ul>
+    </nav>
+    <small>© 2026 Strapivo</small>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var JUG = 4;               // the jug holds enough to fill four glasses to the brim
+  var TRAVEL = 90;           // translateY that hides the water entirely
+  var BRIM_Y = 8, BOTTOM_Y = 91.5;
+  var H = BOTTOM_Y - BRIM_Y; // fillable height in viewBox units
+  // Inner radius at the bottom and at the brim of the tapered glass.
+  var R0 = 17.3, R1 = 23.7, K = R1 - R0;
+  function vol(h){ return R0*R0*h + R0*K*h*h + K*K*h*h*h/3; } // h in 0..1, volume of a frustum slice
+  var VMAX = vol(1);
+  function heightFor(fraction){       // fraction of the glass's volume -> fraction of its height
+    if (fraction <= 0) return 0;
+    if (fraction >= 1) return 1;
+    var lo = 0, hi = 1, target = fraction * VMAX;
+    for (var i = 0; i < 30; i++){ var m = (lo+hi)/2; if (vol(m) < target) lo = m; else hi = m; }
+    return (lo+hi)/2;
+  }
+
+  var root = document.getElementById('twelve');
+  var buttons = Array.prototype.slice.call(root.querySelectorAll('.glass'));
+  var ask = document.getElementById('ask');
+  var askFill = document.getElementById('ask-fill');
+  var askKeep = document.getElementById('ask-keep');
+  var statusEl = document.getElementById('status');
+  var rN = document.getElementById('r-n');
+  var rLvl = document.getElementById('r-lvl');
+  var rLvlWrap = document.getElementById('r-lvl-wrap');
+  var bar = document.getElementById('jug-bar');
+  var spreadBtn = document.getElementById('spread');
+  var emptyBtn = document.getElementById('empty');
+  var words = ['No','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve'];
+  var ordinals = ['','first','second','third','fourth','fifth','sixth','seventh','eighth','ninth','tenth','eleventh','twelfth'];
+
+  var filled = [];
+  var pending = null;
+
+  function share(){ return filled.length ? Math.min(1, JUG / filled.length) : 0; }
+
+  function render(message){
+    var n = filled.length, s = share();
+    var h = heightFor(s);
+    buttons.forEach(function(b, i){
+      var on = filled.indexOf(i) !== -1;
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      var y = on ? (1 - h) * H : TRAVEL;
+      b.querySelector('.water').style.transform = 'translateY(' + y.toFixed(2) + 'px)';
+    });
+    // jug bar: one segment per filled glass, spare capacity shown pale
+    var segs = Math.max(n, JUG);
+    var html = '';
+    for (var i = 0; i < segs; i++){ html += '<span' + (i >= n ? ' class="spare"' : '') + '></span>'; }
+    bar.innerHTML = html;
+    rN.textContent = n + ' of 12';
+    rLvl.textContent = n ? Math.round(s * 100) + '% full' : 'empty';
+    rLvlWrap.className = (n > JUG) ? 'warn' : '';
+    statusEl.innerHTML = message || describe();
+  }
+
+  function describe(){
+    var n = filled.length, pct = Math.round(share() * 100);
+    if (n === 0) return 'Twelve empty glasses. Choose the ones that get the jug.';
+    if (n < JUG) return words[n] + (n === 1 ? ' glass' : ' glasses') + ' full to the brim. Room for ' + words[JUG - n].toLowerCase() + ' more.';
+    if (n === JUG) return 'Four glasses full to the brim. <span class="az">Four is the recommended limit.</span>';
+    if (n === 12) return 'Twelve glasses, each ' + pct + '% full. Every criterion gets a little attention, and none gets enough.';
+    return words[n] + ' glasses share one jug. Each is now ' + pct + '% full, and none reaches the brim.';
+  }
+
+  function openAsk(i){
+    pending = i;
+    askFill.textContent = 'Fill a ' + ordinals[filled.length + 1] + ' anyway';
+    ask.hidden = false;
+    statusEl.textContent = words[filled.length + 1] + ' glasses would share one jug. Strapivo asks before it pours.';
+    askKeep.focus();
+  }
+  function closeAsk(confirm){
+    var i = pending;
+    pending = null;
+    ask.hidden = true;
+    if (i === null) return;
+    if (confirm){ filled.push(i); render(); }
+    else { render(words[filled.length] + ' glasses stay full to the brim.'); }
+    buttons[i].focus();
+  }
+
+  buttons.forEach(function(b, i){
+    b.addEventListener('click', function(){
+      if (pending !== null) closeAsk(false);
+      var at = filled.indexOf(i);
+      if (at !== -1){ filled.splice(at, 1); render(); }
+      else if (filled.length >= JUG){ openAsk(i); }
+      else { filled.push(i); render(); }
+      spreadBtn.hidden = false; emptyBtn.hidden = false;
+    });
+  });
+  askKeep.addEventListener('click', function(){ closeAsk(false); });
+  askFill.addEventListener('click', function(){ closeAsk(true); });
+  ask.addEventListener('keydown', function(e){ if (e.key === 'Escape'){ e.preventDefault(); closeAsk(false); } });
+  spreadBtn.addEventListener('click', function(){
+    if (pending !== null){ pending = null; ask.hidden = true; }
+    filled = buttons.map(function(_, i){ return i; });
+    render();
+  });
+  emptyBtn.addEventListener('click', function(){
+    if (pending !== null){ pending = null; ask.hidden = true; }
+    filled = [];
+    render();
+  });
+
+  // Start empty: the visitor chooses. Without JavaScript the page shows four full glasses.
+  root.classList.add('no-anim');
+  render();
+  spreadBtn.hidden = false; emptyBtn.hidden = false;
+  void root.offsetWidth;
+  requestAnimationFrame(function(){ root.classList.remove('no-anim'); });
+})();
+</script>
+</body>
+</html>

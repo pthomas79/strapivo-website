@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Radar · Dynamic Strategy · Strapivo</title>
+<meta name="description" content="Strapivo's Radar plots strategic risks by impact and likelihood. Vivo reads the signals and proposes each move. A person confirms it, and the trail records the evidence.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --amber:#F2A93B;
+  --muted:#A3AAB2;
+  --line:rgba(169,214,255,.14);
+  --line2:rgba(169,214,255,.26);
+  --field:#07111C;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--n900);color:var(--paper);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:16px;line-height:1.55}
+a{color:var(--p200)}
+:focus-visible{outline:2px solid var(--p400);outline-offset:3px;border-radius:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mono{font-family:var(--mono);font-weight:400;letter-spacing:.06em;text-transform:uppercase;font-size:11px}
+.wrap{max-width:1320px;margin:0 auto;padding:0 32px}
+@media (max-width:640px){.wrap{padding:0 18px}}
+
+/* header */
+.top{position:sticky;top:0;z-index:20;background:rgba(5,12,20,.92);border-bottom:1px solid var(--line);backdrop-filter:saturate(1.2)}
+.top .wrap{display:flex;align-items:center;gap:28px;height:64px}
+.top .logo img{height:24px;width:auto;display:block}
+.top nav{display:flex;gap:22px;margin-left:12px}
+.top nav a{color:var(--muted);text-decoration:none;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.top nav a:hover{color:var(--paper)}
+.top .right{margin-left:auto;display:flex;align-items:center;gap:18px}
+.signin{color:var(--paper);text-decoration:none;font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--p500);color:#fff;text-decoration:none;font-weight:500;font-size:14px;padding:10px 16px;border-radius:4px;border:1px solid var(--p500)}
+.btn:hover{background:var(--p600)}
+.btn .ring{width:10px;height:10px;border:2px solid #fff;border-radius:50%}
+@media (max-width:900px){.top nav{display:none}}
+@media (max-width:420px){.top .btn{padding:8px 11px;font-size:13px}.top .right{gap:12px}.top .logo img{height:20px}}
+
+/* hero */
+.hero{padding:56px 0 28px}
+.hero-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:end}
+.eyebrow{color:var(--p200);display:flex;align-items:center;gap:10px;margin:0 0 18px}
+.eyebrow:before{content:"";width:22px;height:1px;background:var(--p400)}
+h1{font-weight:400;font-size:clamp(34px,4.6vw,60px);line-height:1.04;letter-spacing:-.028em;margin:0}
+h1 em{font-style:normal;color:var(--p200)}
+.lede{color:#C9D0D7;font-size:18px;margin:0;max-width:520px}
+.lede strong{font-weight:500;color:var(--paper)}
+.operate{margin-top:16px;color:var(--muted)}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:22px}.hero{padding:40px 0 22px}}
+
+/* instrument */
+.inst{border:1px solid var(--line2);border-radius:6px;background:linear-gradient(180deg,#071019,#050C14);margin-bottom:24px}
+.strip{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:center;padding:11px 18px;border-bottom:1px solid var(--line);color:var(--muted)}
+.strip .live{display:inline-flex;align-items:center;gap:8px;color:var(--p200)}
+.strip .live:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--p400)}
+.strip .ill{margin-left:auto;color:var(--amber)}
+.controls{display:flex;flex-wrap:wrap;gap:14px 26px;padding:14px 18px;border-bottom:1px solid var(--line);align-items:center}
+.ctl{display:flex;align-items:center;gap:10px}
+.ctl > .mono{color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:4px;overflow:hidden}
+.seg button{all:unset;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:7px 10px;color:var(--muted);border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:rgba(0,130,230,.22);color:var(--paper);box-shadow:inset 0 -2px 0 var(--p400)}
+.seg button:hover{color:var(--paper)}
+.seg button:focus-visible{outline:2px solid var(--p400);outline-offset:-2px}
+.seg button[disabled]{opacity:.35;cursor:default}
+.tog{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.tog .sw{width:26px;height:14px;border:1px solid var(--line2);border-radius:8px;position:relative}
+.tog .sw:after{content:"";position:absolute;top:2px;left:2px;width:8px;height:8px;border-radius:50%;background:var(--n500);transition:left .2s}
+.tog[aria-pressed="true"]{color:var(--paper)}
+.tog[aria-pressed="true"] .sw{border-color:var(--p400)}
+.tog[aria-pressed="true"] .sw:after{left:14px;background:var(--p400)}
+.tog:focus-visible{outline:2px solid var(--p400);outline-offset:3px}
+.win[hidden]{display:none}
+.body{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);}
+.scope-col{padding:18px 18px 22px;border-right:1px solid var(--line)}
+.side-col{padding:18px;display:flex;flex-direction:column;gap:16px}
+.under{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 6px 0}
+@media (max-width:640px){.under{grid-template-columns:1fr;margin:16px 8px 0}}
+@media (max-width:980px){.body{display:flex;flex-direction:column}.scope-col{display:contents}
+.scope-col > svg{order:1;padding:14px 12px 4px}.side-col{order:2;border-top:1px solid var(--line)}.index{order:3;margin:6px 18px 0!important}.under{order:4;margin:18px 18px 22px!important}}
+@media (max-width:640px){svg#radar text{font-size:17px}.mk .dot{r:8}.mk .sel{r:14}.ghost circle{r:9}.ctl{flex-wrap:wrap}.index{margin:6px 14px 0!important}.under{margin:16px 14px 20px!important}}
+@media (max-width:640px){.scope-col{padding:10px 8px 18px}.side-col{padding:16px 14px}.controls{padding:12px 14px}.strip{padding:10px 14px}.strip .ill{margin-left:0}}
+
+svg#radar{width:100%;height:auto;display:block;max-width:660px;margin:0 auto}
+svg#radar text{font-family:var(--mono);letter-spacing:.06em}
+.mk{cursor:pointer;outline:none}
+.mk .dot{fill:var(--p200);stroke:var(--n900);stroke-width:2}
+.mk.tr .dot{fill:var(--amber)}
+.mk .sel{fill:none;stroke:var(--p400);stroke-width:1.5;opacity:0}
+.mk.on .sel{opacity:1}
+.mk:focus-visible .sel{opacity:1;stroke:var(--paper);stroke-dasharray:3 3}
+.mk .halo{fill:var(--p200);opacity:0}
+.mk.tr .halo{fill:var(--amber)}
+.mk text{fill:var(--muted);font-size:11px}
+.mk.on text,.mk:hover text{fill:var(--paper)}
+.mk .hit{fill:transparent}
+.ghost circle{fill:none;stroke:var(--amber);stroke-width:1.4;stroke-dasharray:3 3}
+.ghost line{stroke:var(--amber);stroke-width:1;stroke-dasharray:2 4;opacity:.8}
+.ghost text{fill:var(--amber);font-size:10px}
+.trail polyline{fill:none;stroke:var(--p200);stroke-width:1.2;opacity:.45}
+.trail.on polyline{opacity:.95;stroke:var(--p400)}
+.trail circle{fill:var(--p200)}
+.trail text{fill:var(--muted);font-size:9.5px}
+
+.index{margin:14px 6px 0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:0 18px;border-top:1px solid var(--line)}
+.index li{border-bottom:1px solid var(--line)}
+.index li[hidden]{display:none}
+.index button{all:unset;cursor:pointer;display:grid;grid-template-columns:44px 1fr auto;gap:8px;align-items:baseline;width:100%;padding:8px 2px;font-size:13px;color:#C9D0D7;box-sizing:border-box}
+.index button:hover,.index button[aria-current="true"]{color:var(--paper)}
+.index button[aria-current="true"] .id{color:var(--p400)}
+.index button:focus-visible{outline:2px solid var(--p400);outline-offset:-2px}
+.index .id{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.index .tw{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.index .tw.w{color:var(--amber)}
+@media (max-width:640px){.index{grid-template-columns:1fr;margin:12px 8px 0}}
+
+/* panel */
+.panel{border:1px solid var(--line2);border-radius:4px;background:rgba(7,17,28,.8)}
+.p-head{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line)}
+.p-head .rid{color:var(--p200);font-size:12px}
+.chip{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line2);border-radius:3px;padding:2px 6px;color:var(--muted)}
+.p-body{padding:14px 16px 16px}
+.p-body h3{font-weight:400;font-size:21px;line-height:1.25;letter-spacing:-.015em;margin:0 0 14px}
+.read{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:0 0 14px}
+.read div{background:#08131F;padding:9px 11px}
+.read div.full{grid-column:1/-1}
+.read dt{font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.read dd{margin:0;font-family:var(--mono);font-size:13px;color:var(--paper)}
+.read dd.serif{font-family:inherit;font-size:14px}
+.t-w{color:var(--amber)!important}.t-e{color:var(--p200)!important}
+.nudge{border-left:2px solid var(--amber);background:rgba(242,169,59,.07);padding:9px 12px;font-size:14px;margin:0 0 14px;color:#E9DCC8}
+.nudge .mono{color:var(--amber);display:block;margin-bottom:2px}
+.prop{border:1px dashed rgba(242,169,59,.55);border-radius:4px;padding:12px 13px;margin:0 0 16px}
+.prop .mono{color:var(--amber)}
+.prop p{margin:6px 0 8px;font-size:15px}
+.prop .src{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.03em;margin-bottom:12px}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.acts button{cursor:pointer;font:500 13px 'Inter',sans-serif;border-radius:4px;padding:8px 14px;border:1px solid var(--line2);background:transparent;color:var(--paper)}
+.acts .ok{background:var(--p500);border-color:var(--p500);color:#fff}
+.acts .ok:hover{background:var(--p600)}
+.acts button:hover{border-color:var(--p200)}
+.msg{font-size:14px;padding:9px 12px;border-radius:3px;margin:0 0 14px;background:rgba(0,130,230,.12);border-left:2px solid var(--p400)}
+.msg.warn{background:rgba(242,169,59,.09);border-left-color:var(--amber);color:#F1E3CC}
+.msg:focus{outline:none}
+.p-body h4{font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.trl{list-style:none;margin:0;padding:0 0 0 14px;border-left:1px solid var(--line2)}
+.trl li{position:relative;padding:0 0 11px;font-size:13.5px;color:#C9D0D7}
+.trl li:before{content:"";position:absolute;left:-18px;top:6px;width:7px;height:7px;border-radius:50%;background:var(--n900);border:1px solid var(--p200)}
+.trl li:first-child:before{background:var(--p200)}
+.trl .d{font-family:var(--mono);font-size:11px;color:var(--paper);letter-spacing:.03em}
+.trl .by{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.03em}
+
+.card{border:1px solid var(--line);border-radius:4px;padding:13px 14px}
+.card .hd{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:center;margin-bottom:8px}
+.card .hd .mono:first-child{color:var(--amber)}
+.state{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line2);padding:2px 6px;border-radius:3px;color:var(--p200)}
+.card p{margin:0 0 6px;font-size:14.5px}
+.card .src{font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:10px}
+.card .why{font-size:13px;color:var(--muted);margin-bottom:10px}
+.card .acts button{font-size:12px;padding:6px 10px}
+.queue ol{margin:6px 0 0;padding:0;list-style:none;counter-reset:q}
+.queue li{counter-increment:q;display:grid;grid-template-columns:22px 1fr;font-size:13.5px;color:#C9D0D7;padding:6px 0;border-top:1px solid var(--line)}
+.queue li:before{content:counter(q,decimal-leading-zero);font-family:var(--mono);font-size:10px;color:var(--muted);padding-top:3px}
+.queue .hd .mono:first-child{color:var(--p200)}
+
+/* sections */
+section.band{padding:96px 0;border-top:1px solid var(--line)}
+section.ink{background:var(--ink)}
+h2{font-weight:400;font-size:clamp(28px,3.3vw,42px);line-height:1.1;letter-spacing:-.022em;margin:0 0 18px}
+.k{color:var(--p200)}
+.drawer{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.drawer p{color:#C9D0D7;font-size:17px;margin:0 0 14px;max-width:560px}
+.voices{border-top:1px solid var(--line2);margin:0;padding:0;list-style:none}
+.voices li{border-bottom:1px solid var(--line);padding:18px 0;font-size:21px;line-height:1.35;letter-spacing:-.012em;display:grid;grid-template-columns:40px 1fr}
+.voices li:before{content:"";width:16px;height:1px;background:var(--p400);margin-top:15px}
+.voices + .mono{color:var(--muted);display:block;margin-top:12px}
+@media (max-width:900px){.drawer{grid-template-columns:1fr;gap:36px}section.band{padding:72px 0}}
+
+.rules-head{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-bottom:48px;align-items:end}
+.rules-head p{color:#C9D0D7;margin:0;font-size:17px;max-width:520px}
+.rule{display:grid;grid-template-columns:120px minmax(0,1fr) minmax(0,1fr);gap:40px;padding:36px 0;border-top:1px solid var(--line2)}
+.rule:last-child{border-bottom:1px solid var(--line2)}
+.rule .no{font-family:var(--mono);color:var(--p200);font-size:12px;letter-spacing:.08em}
+.rule .no b{display:block;font-weight:400;font-size:44px;letter-spacing:-.02em;color:var(--paper);margin-top:4px;font-family:'Inter',sans-serif}
+.rule h3{font-weight:400;font-size:25px;letter-spacing:-.018em;line-height:1.2;margin:0 0 12px}
+.rule p{color:#C9D0D7;margin:0 0 10px;font-size:15.5px}
+.rule .jump{all:unset;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--p200);border-bottom:1px solid rgba(169,214,255,.4);padding-bottom:1px}
+.rule .jump:focus-visible{outline:2px solid var(--p400);outline-offset:3px}
+@media (max-width:980px){.rules-head{grid-template-columns:1fr;gap:16px}.rule{grid-template-columns:1fr;gap:16px}.rule .no b{display:inline;font-size:12px;margin-left:8px;font-family:var(--mono)}}
+
+/* fragments */
+.frag{border:1px solid var(--line2);border-radius:4px;background:var(--n900);font-size:13px;overflow:hidden}
+.frag .fh{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px}
+.sigrow{display:grid;grid-template-columns:62px 1fr 78px;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line);align-items:baseline}
+.sigrow:last-child{border-bottom:0}
+.sigrow .d,.sigrow .c{font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.sigrow .c.p{color:var(--p200)}
+.sigrow .t{color:#D6DCE2}
+.sigrow .t small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.sigrow.dis .t{color:var(--n400);text-decoration:line-through;text-decoration-color:rgba(153,159,166,.5)}
+.gate{padding:14px 12px;display:grid;gap:10px}
+.gate .ln{display:grid;grid-template-columns:18px 1fr;gap:8px;align-items:start;color:#D6DCE2}
+.gate .ln i{font-style:normal;font-family:var(--mono);font-size:12px}
+.gate .ln.no i{color:var(--amber)}.gate .ln.yes i{color:var(--p200)}
+.gate .res{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--amber);border-top:1px solid var(--line);padding-top:10px}
+.mini{display:grid;grid-template-columns:140px 1fr;gap:12px;padding:12px;align-items:center}
+.mini svg{width:100%;height:auto}
+.mini ol{list-style:none;margin:0;padding:0;font-size:12.5px;color:#C9D0D7}
+.mini li{padding:4px 0;border-bottom:1px solid var(--line)}
+.mini li:last-child{border:0}
+.mini li span{font-family:var(--mono);font-size:10.5px;color:var(--muted);display:block}
+.needs{padding:4px 12px 10px}
+.needs .it{display:grid;grid-template-columns:1fr auto;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);color:#D6DCE2}
+.needs .it:last-child{border:0}
+.needs .it span:last-child{font-family:var(--mono);font-size:10.5px;color:var(--amber)}
+.needs .it.calm span:last-child{color:var(--muted)}
+.agenda{padding:4px 12px 10px}
+.agenda .grp{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:10px 0 4px}
+.agenda .it{padding:7px 0;border-bottom:1px solid var(--line);color:#D6DCE2}
+.agenda .it small{display:block;color:var(--muted);font-size:12px}
+.agenda .it.hot{border-left:2px solid var(--amber);padding-left:9px}
+@media (max-width:640px){.mini{grid-template-columns:1fr}.mini svg{max-width:180px}}
+
+/* loop */
+.loop{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(8,1fr);border-top:1px solid var(--line2);position:relative}
+.loop li{padding:18px 14px 0 0;position:relative}
+.loop li:before{content:"";position:absolute;top:-1px;left:0;width:1px;height:14px;background:var(--line2)}
+.loop li.r:before{background:var(--p400);height:18px;width:2px}
+.loop .n{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.08em}
+.loop li.r .n{color:var(--p200)}
+.loop h3{font-weight:500;font-size:16px;margin:6px 0 6px;letter-spacing:-.01em}
+.loop p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.5}
+.loop-note{margin-top:22px;color:var(--muted)}
+.loop-note .k{color:var(--p200)}
+@media (max-width:1100px){.loop{grid-template-columns:repeat(4,1fr);row-gap:28px}}
+@media (max-width:640px){.loop{grid-template-columns:1fr;border-top:0;border-left:1px solid var(--line2);margin-left:4px}.loop li{padding:0 0 22px 18px}.loop li:before{top:4px;left:-1px;width:12px;height:1px}.loop li.r:before{width:14px;height:2px}}
+
+.decide{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.decide span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line2);border-radius:3px;padding:6px 10px;color:#C9D0D7}
+.decide span.rec{border-color:var(--p400);color:var(--p200)}
+
+/* trust */
+.trust{display:grid;grid-template-columns:1.1fr 1fr;gap:64px}
+.trust p{color:#C9D0D7;font-size:17px;margin:0 0 14px;max-width:560px}
+.facts{margin:0;padding:0;list-style:none;border-top:1px solid var(--line2)}
+.facts li{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:15px 0;border-bottom:1px solid var(--line);font-size:15px;color:#D6DCE2}
+.facts li .mono{color:var(--muted);padding-top:3px}
+@media (max-width:900px){.trust{grid-template-columns:1fr;gap:32px}.facts li{grid-template-columns:1fr;gap:4px}}
+
+/* close */
+.close{padding:120px 0 110px;text-align:left;border-top:1px solid var(--line);position:relative;overflow:hidden}
+.close .wrap{position:relative}
+.close svg.rings{position:absolute;right:-120px;top:50%;transform:translateY(-50%);width:560px;height:560px;opacity:.55;pointer-events:none}
+.close h2{font-size:clamp(32px,4.2vw,54px);max-width:760px}
+.close p{color:#C9D0D7;font-size:18px;max-width:560px;margin:0 0 30px}
+.close .btn{font-size:16px;padding:13px 20px}
+.close .addr{display:block;margin-top:16px;color:var(--muted)}
+@media (max-width:900px){.close svg.rings{right:-260px;opacity:.3}}
+
+footer{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+footer img{height:20px;width:auto;display:block}
+footer nav{display:flex;gap:18px;margin-left:auto}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--paper)}
+footer small{display:block;width:100%;font-size:11.5px;color:var(--n400)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#main" aria-label="Strapivo, back to top"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="95" height="24"></a>
+    <nav aria-label="Page sections">
+      <a href="#radar">The Radar</a>
+      <a href="#rules">Rules</a>
+      <a href="#loop">After a move</a>
+      <a href="#trust">Trust</a>
+    </nav>
+    <div class="right">
+      <a class="signin" href="https://strapivo.app">Sign in</a>
+      <a class="btn" href="mailto:strategy@strapivo.com"><span class="ring" aria-hidden="true"></span>Start the conversation</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero" id="radar" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow mono">Dynamic Strategy · The Radar</p>
+        <h1 id="h1">Every risk has a position. <em>Every move has a name on it.</em></h1>
+      </div>
+      <div>
+        <p class="lede">The Radar plots your strategic risks by impact and likelihood. Vivo, Strapivo's AI, reads the outside world and proposes where a risk should move. <strong>A person on your team confirms or rejects every move.</strong> The trail keeps the evidence.</p>
+        <p class="operate mono">Try it below. Select a risk, switch to Tracking, then confirm or reject what Vivo proposes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="inst-h">
+  <div class="wrap">
+    <h2 class="sr" id="inst-h">Working radar, illustrative example</h2>
+    <div class="inst">
+      <div class="strip mono">
+        <span class="live">Fenmoor Pumps · Portfolio radar</span>
+        <span>As of 18 Nov 2026</span>
+        <span id="st-count">9 risks shown</span>
+        <span id="st-tr">2 in the top right</span>
+        <span id="st-gh">4 proposed moves</span>
+        <span class="ill">Illustrative example · fictional company</span>
+      </div>
+
+      <div class="controls" role="toolbar" aria-label="Radar controls">
+        <div class="ctl"><span class="mono" id="l-view">View</span>
+          <div class="seg" role="group" aria-labelledby="l-view">
+            <button type="button" data-view="now" aria-pressed="true">Now</button>
+            <button type="button" data-view="track" aria-pressed="false">Tracking</button>
+          </div>
+        </div>
+        <div class="ctl win" id="win" hidden><span class="mono" id="l-win">Window</span>
+          <div class="seg" role="group" aria-labelledby="l-win">
+            <button type="button" data-win="last" aria-pressed="true">Since last session</button>
+            <button type="button" data-win="30" aria-pressed="false">30 days</button>
+            <button type="button" data-win="origin" aria-pressed="false">Since origin</button>
+          </div>
+        </div>
+        <div class="ctl"><span class="mono" id="l-bm">Business model</span>
+          <div class="seg" role="group" aria-labelledby="l-bm">
+            <button type="button" data-bm="all" aria-pressed="true">All</button>
+            <button type="button" data-bm="pumps" aria-pressed="false">Pumps</button>
+            <button type="button" data-bm="service" aria-pressed="false">Service</button>
+            <button type="button" data-bm="parts" aria-pressed="false">Parts shop</button>
+          </div>
+        </div>
+        <button type="button" class="tog" id="t-port" aria-pressed="true"><span class="sw" aria-hidden="true"></span>Portfolio risks</button>
+        <button type="button" class="tog" id="t-sweep" aria-pressed="true"><span class="sw" aria-hidden="true"></span>Sweep</button>
+      </div>
+
+      <div class="body">
+        <div class="scope-col">
+          <svg id="radar" viewBox="0 0 640 640" role="img" aria-labelledby="radar-t">
+            <title id="radar-t">Radar of Fenmoor Pumps risks by impact and likelihood. Impact rises upwards, likelihood rises to the right. The top right quadrant is the danger zone. Use the risk index below the radar to select a risk.</title>
+            <defs>
+              <radialGradient id="fieldg" cx="50%" cy="50%" r="50%">
+                <stop offset="0" stop-color="#0B1A2A"/>
+                <stop offset="1" stop-color="#060F19"/>
+              </radialGradient>
+            </defs>
+            <circle cx="320" cy="320" r="270" fill="url(#fieldg)"/>
+            <path d="M320 320 L320 50 A270 270 0 0 1 590 320 Z" fill="rgba(242,169,59,.065)" stroke="rgba(242,169,59,.45)" stroke-width="1"/>
+            <g id="grid" fill="none" stroke="rgba(169,214,255,.13)" stroke-width="1"></g>
+            <g id="sweep" aria-hidden="true"></g>
+            <g id="ticks" stroke="rgba(169,214,255,.35)" stroke-width="1"></g>
+            <g fill="#A3AAB2" font-size="10.5" aria-hidden="true">
+              <text x="320" y="36" text-anchor="middle">IMPACT HIGH</text>
+              <text x="320" y="616" text-anchor="middle">IMPACT LOW</text>
+              <text x="30" y="320" text-anchor="middle" transform="rotate(-90 30 320)">LIKELIHOOD LOW</text>
+              <text x="610" y="320" text-anchor="middle" transform="rotate(90 610 320)">LIKELIHOOD HIGH</text>
+              <text x="512" y="96" fill="#F2A93B" text-anchor="middle">DANGER ZONE</text>
+            </g>
+            <g id="trails"></g>
+            <g id="ghosts"></g>
+            <g id="markers"></g>
+          </svg>
+
+          <ul class="index" id="index" aria-label="Risk index">
+            <li data-id="R-01"><button type="button" data-sel="R-01" aria-current="true"><span class="id">R-01</span><span>Casting costs outrun prices</span><span class="tw w">Worsening</span></button></li>
+            <li data-id="R-02"><button type="button" data-sel="R-02"><span class="id">R-02</span><span>Largest service customer goes in-house</span><span class="tw w">Worsening</span></button></li>
+            <li data-id="R-03"><button type="button" data-sel="R-03"><span class="id">R-03</span><span>Stricter pump efficiency rules</span><span class="tw">Stable</span></button></li>
+            <li data-id="R-04"><button type="button" data-sel="R-04"><span class="id">R-04</span><span>Marketplace sellers undercut parts</span><span class="tw w">Worsening</span></button></li>
+            <li data-id="R-05"><button type="button" data-sel="R-05"><span class="id">R-05</span><span>Senior technicians retire</span><span class="tw">Easing</span></button></li>
+            <li data-id="R-06"><button type="button" data-sel="R-06"><span class="id">R-06</span><span>Rates delay customer investment</span><span class="tw">Easing</span></button></li>
+            <li data-id="R-07"><button type="button" data-sel="R-07"><span class="id">R-07</span><span>One supplier for the controller chip</span><span class="tw">Stable</span></button></li>
+            <li data-id="R-08"><button type="button" data-sel="R-08"><span class="id">R-08</span><span>Currency swing on export orders</span><span class="tw">Stable</span></button></li>
+            <li data-id="R-09"><button type="button" data-sel="R-09"><span class="id">R-09</span><span>Parts shop payment outage</span><span class="tw">Easing</span></button></li>
+          </ul>
+          <div class="under">
+          <div class="card" id="newrisk">
+            <div class="hd"><span class="mono">Possible new risk?</span><span class="state" id="nr-state">New</span></div>
+            <p>Two competitors now bundle remote pump monitoring with their service contracts.</p>
+            <div class="src">17 Nov 2026 · Primary · Competitor press release</div>
+            <div class="why">Vivo marks it relevant to "Service revenue covers fixed costs by 2028". It matches no known risk.</div>
+            <div class="acts" role="group" aria-label="Triage this signal">
+              <button type="button" data-tri="Relevant">Relevant</button>
+              <button type="button" data-tri="Watching">Watch</button>
+              <button type="button" data-tri="Dismissed">Dismiss</button>
+            </div>
+          </div>
+
+          <div class="card queue" id="queue">
+            <div class="hd"><span class="mono">Next session · 25 Nov 2026</span><span class="mono" style="color:var(--muted)">Agenda drafts 24 Nov</span></div>
+            <ol id="q-list">
+              <li>R-01 has been in the top right for 28 days with no decision.</li>
+            </ol>
+          </div>
+          </div>
+        </div>
+
+        <div class="side-col">
+          <div class="panel" id="panel" aria-live="polite">
+            <div class="p-head"><span class="mono rid">R-01</span><span class="chip">Pumps</span></div>
+            <div class="p-body">
+              <h3>Casting costs rise faster than we can raise pump prices</h3>
+              <dl class="read">
+                <div><dt>Trend</dt><dd class="t-w">Worsening</dd></div>
+                <div><dt>Time held</dt><dd>top right · 28 days</dd></div>
+              </dl>
+              <div class="prop"><span class="mono">Vivo proposes a move</span>
+                <p>Both casting suppliers now charge more, and the 2027 price list is already with distributors.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="h-drawer">
+  <div class="wrap drawer">
+    <div>
+      <p class="eyebrow mono">The problem</p>
+      <h2 id="h-drawer">A risk register is accurate on the day of the workshop.</h2>
+      <p>Then nobody updates it. A supplier raises prices. A regulator publishes a draft. Nobody connects the news to the risks the team agreed on. The quarterly review finds it, after the cheap corrections have gone.</p>
+      <p>Strapivo is the Strategic Design System, one place where a company keeps its strategy current. The Radar is the part that watches the outside world. Between sessions, Vivo proposes small moves and a person signs off each one.</p>
+    </div>
+    <div>
+      <ul class="voices">
+        <li>"I know there's a threat coming. I don't know what it costs us to wait."</li>
+        <li>"Between offsites, nothing moves."</li>
+      </ul>
+      <span class="mono">What leadership teams tell us</span>
+    </div>
+  </div>
+</section>
+
+<section class="band ink" id="rules" aria-labelledby="h-rules">
+  <div class="wrap">
+    <div class="rules-head">
+      <div>
+        <p class="eyebrow mono">Calibration</p>
+        <h2 id="h-rules">Five rules decide what may move a risk.</h2>
+      </div>
+      <p>A finance director will only trust a chart if they can see what put each point there. These rules apply to every risk on every radar in Strapivo.</p>
+    </div>
+
+    <article class="rule">
+      <div class="no">Rule<b>01</b></div>
+      <div>
+        <h3>Every signal carries its source.</h3>
+        <p>A signal is a dated observation with a source and a source class, primary or secondary. Market intelligence reads over 4,000 sources a day and reports on Monday and Thursday. A red-line exception interrupts that schedule.</p>
+        <p>Vivo makes the first pass and gives one line of reason. A person you delegate marks each signal relevant, irrelevant or unsure. Dismissed signals teach Vivo what counts as noise.</p>
+      </div>
+      <div class="frag" aria-label="Example signal list">
+        <div class="fh"><span>Signals · Equipment margin</span><span>Thu report</span></div>
+        <div class="sigrow"><span class="d">13 Nov</span><span class="t">Second casting supplier quotes a surcharge for 2027<small>Vivo links it to R-01. Same cost driver.</small></span><span class="c p">Primary</span></div>
+        <div class="sigrow"><span class="d">12 Nov</span><span class="t">Analyst blog predicts a steel shortage next spring<small>Watching. No second source yet.</small></span><span class="c">Secondary</span></div>
+        <div class="sigrow dis"><span class="d">10 Nov</span><span class="t">Celebrity endorses a garden pump brand<small>Dismissed. Consumer market, not ours.</small></span><span class="c">Secondary</span></div>
+      </div>
+    </article>
+
+    <article class="rule">
+      <div class="no">Rule<b>02</b></div>
+      <div>
+        <h3>The top right needs a primary source.</h3>
+        <p>A move into the danger zone needs at least one primary source, "so that one blog post can't raise an alarm." Vivo may still propose the move. Nobody can confirm it until the evidence is there.</p>
+        <button type="button" class="jump" data-jump="R-02">Try confirming R-02 on the radar</button>
+      </div>
+      <div class="frag" aria-label="Example of a blocked move">
+        <div class="fh"><span>R-02 · proposed move</span><span>Bottom right to top right</span></div>
+        <div class="gate">
+          <div class="ln yes"><i aria-hidden="true">+</i><span>One line of reason from Vivo</span></div>
+          <div class="ln yes"><i aria-hidden="true">+</i><span>Signal dated 16 Nov 2026</span></div>
+          <div class="ln no"><i aria-hidden="true">×</i><span>Source class: secondary only, one trade blog</span></div>
+          <div class="res">Cannot be confirmed yet</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="rule">
+      <div class="no">Rule<b>03</b></div>
+      <div>
+        <h3>A person confirms every move.</h3>
+        <p>Vivo shows a proposed position as a ghost on the radar, with a one-line reason. Someone on your team confirms or rejects it. Each confirmed move joins the trail with its signal, its date and the name of the person who confirmed it.</p>
+        <p>Tracking replays that trail since the last session, over 30 days or since origin, like a radar shadow.</p>
+      </div>
+      <div class="frag" aria-label="Example trail of a risk">
+        <div class="fh"><span>R-01 · trail</span><span>Since origin</span></div>
+        <div class="mini">
+          <svg viewBox="0 0 140 140" aria-hidden="true">
+            <circle cx="70" cy="70" r="64" fill="#07111C" stroke="rgba(169,214,255,.25)"/>
+            <path d="M70 70 L70 6 A64 64 0 0 1 134 70 Z" fill="rgba(242,169,59,.07)" stroke="rgba(242,169,59,.4)"/>
+            <line x1="6" y1="70" x2="134" y2="70" stroke="rgba(169,214,255,.2)"/><line x1="70" y1="6" x2="70" y2="134" stroke="rgba(169,214,255,.2)"/>
+            <polyline points="48,61 66,50 88,41 93,38" fill="none" stroke="#A9D6FF" stroke-width="1.2" opacity=".7"/>
+            <circle cx="48" cy="61" r="2.5" fill="#A9D6FF" opacity=".35"/><circle cx="66" cy="50" r="2.5" fill="#A9D6FF" opacity=".55"/><circle cx="88" cy="41" r="2.5" fill="#A9D6FF" opacity=".75"/>
+            <circle cx="93" cy="38" r="4.5" fill="#F2A93B"/>
+            <line x1="93" y1="38" x2="102" y2="32" stroke="#F2A93B" stroke-dasharray="2 3"/><circle cx="102" cy="32" r="4.5" fill="none" stroke="#F2A93B" stroke-dasharray="2 2"/>
+          </svg>
+          <ol>
+            <li><span>13 Nov 2026 · S. Ahmed</span>Second supplier quotes a surcharge</li>
+            <li><span>21 Oct 2026 · S. Ahmed</span>Main supplier announces a surcharge</li>
+            <li><span>2 Jul 2026 · M. Keller</span>Foundry index up three months running</li>
+          </ol>
+        </div>
+      </div>
+    </article>
+
+    <article class="rule">
+      <div class="no">Rule<b>04</b></div>
+      <div>
+        <h3>After 14 days in the top right, a risk goes to the session lead.</h3>
+        <p>A risk that sits in the top right for 14 days with no decision lands in the session lead's Needs you list, "so that nothing stays dangerous and undiscussed."</p>
+        <p>The panel shows how long each risk has held its position, for example top right · 28 days.</p>
+      </div>
+      <div class="frag" aria-label="Example Needs you list">
+        <div class="fh"><span>Mission Control · Needs you</span><span>Session lead</span></div>
+        <div class="needs">
+          <div class="it"><span>R-01 · Casting costs outrun prices</span><span>Top right · 28 days</span></div>
+          <div class="it calm"><span>Approve the draft agenda for 25 Nov</span><span>Due 24 Nov</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="rule">
+      <div class="no">Rule<b>05</b></div>
+      <div>
+        <h3>A risk that enters the top right goes on the agenda.</h3>
+        <p>Vivo drafts the agenda 24 hours before the session from what changed. A risk entering the top right sits beside new signals, returning parked questions and activities at risk. Every item carries a one-line reason.</p>
+        <p>The session lead edits the draft. The room approves it as step one.</p>
+        <button type="button" class="jump" data-jump="R-04">Confirm R-04 and watch the agenda</button>
+      </div>
+      <div class="frag" aria-label="Example draft agenda">
+        <div class="fh"><span>Draft agenda · 25 Nov 2026</span><span>60 minutes</span></div>
+        <div class="agenda">
+          <div class="grp">Old business</div>
+          <div class="it">Parked: enter the Nordic service market?<small>Trigger met. The distributor's answer arrived.</small></div>
+          <div class="grp">New business</div>
+          <div class="it hot">R-04 entered the top right<small>Seal orders fell for six weeks while marketplace listings grew.</small></div>
+          <div class="it">Activity off track: new technician training plan<small>The person responsible asks for a budget decision.</small></div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="band" id="loop" aria-labelledby="h-loop">
+  <div class="wrap">
+    <p class="eyebrow mono">After a move</p>
+    <h2 id="h-loop">Confirmed moves go to the session. Each item ends in a decision.</h2>
+    <ol class="loop">
+      <li class="r"><span class="n">01</span><h3>Watch</h3><p>The Radar searches the outside world for each focus area.</p></li>
+      <li class="r"><span class="n">02</span><h3>Triage</h3><p>Vivo sorts signals first. A person marks each one.</p></li>
+      <li class="r"><span class="n">03</span><h3>Move</h3><p>Vivo proposes a position. A person confirms it.</p></li>
+      <li><span class="n">04</span><h3>Agenda</h3><p>Drafted 24 hours ahead from what changed.</p></li>
+      <li><span class="n">05</span><h3>Session</h3><p>Sealed first takes, revealed together, before the discussion starts.</p></li>
+      <li><span class="n">06</span><h3>Decide</h3><p>One of five options per item.</p></li>
+      <li><span class="n">07</span><h3>Record</h3><p>Vivo reads it back, dissent included by name.</p></li>
+      <li><span class="n">08</span><h3>Escalate</h3><p>Decisions beyond the team's authority go to an approver.</p></li>
+    </ol>
+    <div class="decide" aria-label="The five decision options and a record number">
+      <span>Hold</span><span>Adapt</span><span>Pivot</span><span>Take advantage</span><span>Not yet</span><span class="rec">Recorded as SDS-2026-014</span>
+    </div>
+    <p class="loop-note mono">Steps 01 to 03 happen on <span class="k">the Radar</span>. Not yet ends as Parked, with a trigger that brings it back, or as Let go, with a reason.</p>
+  </div>
+</section>
+
+<section class="band ink" id="trust" aria-labelledby="h-trust">
+  <div class="wrap trust">
+    <div>
+      <p class="eyebrow mono">The human stays in the chair</p>
+      <h2 id="h-trust">Vivo proposes. <span class="k">People decide.</span></h2>
+      <p>Vivo never moves a risk on its own. It never changes a success criterion's light. When two focus activities are off track or a risk on that criterion enters the top right, it asks one question: "Light still green?"</p>
+      <p>Every recommendation Vivo makes traces back to the strategic memory you approved. Changes to accepted truth wait for an Owner.</p>
+    </div>
+    <ul class="facts">
+      <li><span class="mono">Backbone</span><span>Built on your Business Model Canvas. A risk can cover the whole portfolio or one or more business models.</span></li>
+      <li><span class="mono">Data</span><span>EU-only infrastructure. GDPR by design.</span></li>
+      <li><span class="mono">Setup</span><span>We do the reading first. Bring a workshop report, a document or a pasted email. Four to five hours, and then you run it.</span></li>
+      <li><span class="mono">Exports</span><span>The plan and the board pack as Markdown, the plan as CSV.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="close" aria-labelledby="h-close">
+  <svg class="rings" viewBox="0 0 560 560" aria-hidden="true">
+    <g fill="none" stroke="rgba(169,214,255,.18)"><circle cx="280" cy="280" r="270"/><circle cx="280" cy="280" r="202"/><circle cx="280" cy="280" r="135"/><circle cx="280" cy="280" r="67"/></g>
+    <path d="M280 280 L280 10 A270 270 0 0 1 550 280 Z" fill="rgba(242,169,59,.05)" stroke="rgba(242,169,59,.3)"/>
+    <line x1="10" y1="280" x2="550" y2="280" stroke="rgba(169,214,255,.18)"/><line x1="280" y1="10" x2="280" y2="550" stroke="rgba(169,214,255,.18)"/>
+  </svg>
+  <div class="wrap">
+    <p class="eyebrow mono">Your risks</p>
+    <h2 id="h-close">Bring the risk list you already keep. We will put it on the Radar.</h2>
+    <p>Send us your last strategy workshop report or risk register. We read it, place each risk with your team, and set the search brief for each focus area.</p>
+    <a class="btn" href="mailto:strategy@strapivo.com"><span class="ring" aria-hidden="true"></span>Start the conversation</a>
+    <span class="addr mono">strategy@strapivo.com</span>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="80" height="20">
+    <span>© 2026 Strapivo</span>
+    <nav aria-label="Legal">
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+    <small>Fenmoor Pumps and every name and date on its radar are invented for this illustrative example.</small>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg', C=320, R=270;
+  var TODAY='2026-11-18', LAST='2026-11-11', D30='2026-10-19', NEXT='25 Nov 2026';
+  var BM={pumps:'Pumps',service:'Service',parts:'Parts shop',portfolio:'Portfolio'};
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var risks=[
+    {id:'R-01',short:'Casting costs outrun prices',title:'Casting costs rise faster than we can raise pump prices',scope:'pumps',crit:'Equipment margin holds through 2028',trend:'Worsening',
+     trail:[{d:'2026-03-12',x:-.35,y:.15,s:'Placed at setup from the strategy workshop report',c:'',b:'A. Lindqvist'},
+            {d:'2026-07-02',x:-.06,y:.32,s:'Foundry price index up three months running',c:'Secondary',b:'M. Keller'},
+            {d:'2026-10-21',x:.28,y:.45,s:'Main casting supplier announces a surcharge',c:'Primary',b:'S. Ahmed'},
+            {d:'2026-11-13',x:.36,y:.5,s:'Second supplier quotes a surcharge for 2027',c:'Primary',b:'S. Ahmed'}],
+     ghost:{x:.5,y:.6,r:'Both casting suppliers now charge more, and the 2027 price list is already with distributors.',d:'2026-11-17',s:'Foundry letter confirms an energy surcharge from January',c:'Primary'}},
+    {id:'R-02',short:'Largest service customer goes in-house',title:'Our largest service customer brings maintenance in-house',scope:'service',crit:'Service revenue covers fixed costs by 2028',trend:'Worsening',
+     trail:[{d:'2026-03-12',x:.05,y:-.35,s:'Placed at setup from the strategy workshop report',c:'',b:'A. Lindqvist'},
+            {d:'2026-09-08',x:.24,y:-.18,s:'Customer advertises four maintenance engineer jobs',c:'Primary',b:'J. Brandt'}],
+     ghost:{x:.4,y:.28,r:'Reported plans for an in-house service team would end our largest contract.',d:'2026-11-16',s:'Trade blog reports the customer is building a service team',c:'Secondary',src:'one trade blog'}},
+    {id:'R-03',short:'Stricter pump efficiency rules',title:'Stricter efficiency rules make part of the range unsellable',scope:'portfolio',crit:'Equipment margin holds through 2028',trend:'Stable',
+     trail:[{d:'2026-03-12',x:-.55,y:.45,s:'Placed at setup from the strategy workshop report',c:'',b:'A. Lindqvist'},
+            {d:'2026-06-18',x:-.32,y:.55,s:'Draft regulation published for consultation',c:'Primary',b:'A. Lindqvist'},
+            {d:'2026-10-02',x:-.22,y:.58,s:'Industry body expects adoption in 2027',c:'Secondary',b:'M. Keller'}]},
+    {id:'R-04',short:'Marketplace sellers undercut parts',title:'Marketplace sellers undercut our parts shop on common spares',scope:'parts',crit:'Parts shop reaches break-even in 2027',trend:'Worsening',
+     trail:[{d:'2026-03-12',x:.15,y:-.55,s:'Placed at setup from the strategy workshop report',c:'',b:'A. Lindqvist'},
+            {d:'2026-08-20',x:.3,y:-.4,s:'Price check shows common seals listed below our price',c:'Primary',b:'L. Novak'},
+            {d:'2026-10-30',x:.44,y:-.27,s:'Distributor lists compatible seals at lower prices',c:'Primary',b:'L. Novak'}],
+     ghost:{x:.5,y:.12,r:'Seal orders fell for six weeks while marketplace listings grew.',d:'2026-11-18',s:'Parts shop order data, week 46',c:'Primary'}},
+    {id:'R-05',short:'Senior technicians retire',title:'Senior service technicians retire faster than we can train new ones',scope:'service',crit:'Service revenue covers fixed costs by 2028',trend:'Easing',
+     trail:[{d:'2026-03-12',x:.5,y:.25,s:'Placed at setup from the strategy workshop report',c:'',b:'A. Lindqvist'},
+            {d:'2026-07-15',x:.3,y:.22,s:'Regional college opens a mechatronics course',c:'Primary',b:'J. Brandt'},
+            {d:'2026-11-16',x:-.04,y:.13,s:'State funding for apprentice training extended to 2029',c:'Primary',b:'J. Brandt'}]},
+    {id:'R-06',short:'Rates delay customer investment',title:'High interest rates delay customers\' investment in new pumps',scope:'portfolio',crit:'Equipment margin holds through 2028',trend:'Easing',
+     trail:[{d:'2026-03-12',x:.35,y:.3,s:'Placed at setup from the strategy workshop report',c:'',b:'A. Lindqvist'},
+            {d:'2026-09-25',x:.12,y:.36,s:'Central bank cuts its base rate',c:'Primary',b:'S. Ahmed'},
+            {d:'2026-11-12',x:-.12,y:.31,s:'Engineering orders index turns positive',c:'Secondary',b:'S. Ahmed'}],
+     ghost:{x:-.27,y:.26,r:'Pump tenders on public portals are back to last year\'s level.',d:'2026-11-15',s:'Public tender portal, October summary',c:'Primary'}},
+    {id:'R-07',short:'One supplier for the controller chip',title:'One supplier makes the chip in every pump controller',scope:'pumps',crit:'Delivery within six weeks on standard pumps',trend:'Stable',
+     trail:[{d:'2026-03-12',x:-.42,y:-.1,s:'Placed at setup from the strategy workshop report',c:'',b:'A. Lindqvist'},
+            {d:'2026-10-08',x:-.36,y:.04,s:'Chip maker announces allocation for industrial customers',c:'Primary',b:'M. Keller'}]},
+    {id:'R-08',short:'Currency swing on export orders',title:'A currency swing erodes the margin on export orders',scope:'portfolio',crit:'Equipment margin holds through 2028',trend:'Stable',
+     trail:[{d:'2026-03-12',x:-.3,y:-.45,s:'Placed at setup from the strategy workshop report',c:'',b:'A. Lindqvist'}]},
+    {id:'R-09',short:'Parts shop payment outage',title:'A payment provider outage takes the parts shop offline',scope:'parts',crit:'Parts shop reaches break-even in 2027',trend:'Easing',
+     trail:[{d:'2026-03-12',x:-.5,y:-.42,s:'Placed at setup from the strategy workshop report',c:'',b:'A. Lindqvist'},
+            {d:'2026-10-14',x:-.62,y:-.55,s:'Payment provider adds a second data centre',c:'Primary',b:'L. Novak'}]}
+  ];
+  var byId={}; risks.forEach(function(r){byId[r.id]=r; r.msg=null;});
+  var st={view:'now',win:'last',bm:'all',port:true,sweep:!reduce,sel:'R-01',signal:'New',queue:[]};
+
+  var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function fmt(d){var p=d.split('-');return (+p[2])+' '+MON[+p[1]-1]+' '+p[0];}
+  function days(a,b){return Math.round((Date.parse(b)-Date.parse(a))/864e5);}
+  function addDays(d,n){var t=new Date(Date.parse(d)+n*864e5);return t.toISOString().slice(0,10);}
+  function px(x){return C+x*R;} function py(y){return C-y*R;}
+  function quad(p){return (p.y>=0?'top':'bottom')+' '+(p.x>=0?'right':'left');}
+  function cur(r){return r.trail[r.trail.length-1];}
+  function isTR(p){return p.x>=0&&p.y>=0;}
+  function sinceQuad(r){var q=quad(cur(r)),d=cur(r).d;for(var i=r.trail.length-1;i>=0;i--){if(quad(r.trail[i])===q)d=r.trail[i].d;else break;}return d;}
+  function held(r){var n=days(sinceQuad(r),TODAY);return quad(cur(r))+' · '+(n===0?'since today':n+(n===1?' day':' days'));}
+  function visible(r){if(r.scope==='portfolio')return st.port;return st.bm==='all'||st.bm===r.scope;}
+  function el(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  /* static instrument furniture */
+  var grid=document.getElementById('grid');
+  [.25,.5,.75,1].forEach(function(f){el('circle',{cx:C,cy:C,r:R*f,stroke:f===1?'rgba(169,214,255,.32)':'rgba(169,214,255,.12)'},grid);});
+  for(var a=0;a<360;a+=30){var rad=a*Math.PI/180;el('line',{x1:C,y1:C,x2:C+R*Math.sin(rad),y2:C-R*Math.cos(rad),stroke:(a%90===0)?'rgba(169,214,255,.28)':'rgba(169,214,255,.07)'},grid);}
+  var ticks=document.getElementById('ticks');
+  for(var t=0;t<360;t+=5){var tr=t*Math.PI/180,len=(t%30===0)?9:4;el('line',{x1:C+R*Math.sin(tr),y1:C-R*Math.cos(tr),x2:C+(R+len)*Math.sin(tr),y2:C-(R+len)*Math.cos(tr)},ticks);}
+  [.25,.5,.75].forEach(function(f){var tx=el('text',{x:C+4,y:C-R*f-4,fill:'rgba(163,170,178,.55)','font-size':'8.5','aria-hidden':'true'},grid);tx.setAttribute('stroke','none');tx.textContent=(f*100)+'';});
+
+  var sweep=document.getElementById('sweep');
+  var sweepG=el('g',{},sweep);
+  var SL=16;
+  for(var i=0;i<SL;i++){
+    var a1=-(i+1)*2*Math.PI/180,a0=-i*2*Math.PI/180;
+    el('path',{d:'M'+C+' '+C+' L'+(C+R*Math.sin(a0))+' '+(C-R*Math.cos(a0))+' A'+R+' '+R+' 0 0 0 '+(C+R*Math.sin(a1))+' '+(C-R*Math.cos(a1))+' Z',fill:'rgba(63,160,250,'+(0.10*(1-i/SL)).toFixed(3)+')'},sweepG);
+  }
+  el('line',{x1:C,y1:C,x2:C,y2:C-R,stroke:'rgba(169,214,255,.55)','stroke-width':'1'},sweepG);
+
+  var gM=document.getElementById('markers'),gG=document.getElementById('ghosts'),gT=document.getElementById('trails');
+  var mkEls={};
+
+  function trailPts(r){
+    if(st.win==='origin')return r.trail.slice();
+    var start=st.win==='last'?LAST:D30,idx=-1;
+    for(var i=0;i<r.trail.length;i++){if(r.trail[i].d<=start)idx=i;}
+    return r.trail.slice(Math.max(idx,0));
+  }
+
+  function draw(){
+    gM.innerHTML='';gG.innerHTML='';gT.innerHTML='';mkEls={};
+    var vis=risks.filter(visible);
+    if(st.view==='track'){
+      vis.forEach(function(r){
+        var pts=trailPts(r);if(pts.length<2)return;
+        var g=el('g',{'class':'trail'+(r.id===st.sel?' on':''),'aria-hidden':'true'},gT);
+        el('polyline',{points:pts.map(function(p){return px(p.x)+','+py(p.y);}).join(' ')},g);
+        pts.slice(0,-1).forEach(function(p,i){
+          el('circle',{cx:px(p.x),cy:py(p.y),r:r.id===st.sel?3:2.4,opacity:(0.25+0.5*i/Math.max(1,pts.length-1)).toFixed(2)},g);
+          if(r.id===st.sel){var tx=el('text',{x:px(p.x)+6,y:py(p.y)+12},g);tx.textContent=fmt(p.d).slice(0,-5).toUpperCase();}
+        });
+      });
+    }
+    vis.forEach(function(r){
+      if(!r.ghost)return;var c=cur(r);
+      var g=el('g',{'class':'ghost','aria-hidden':'true'},gG);
+      el('line',{x1:px(c.x),y1:py(c.y),x2:px(r.ghost.x),y2:py(r.ghost.y)},g);
+      el('circle',{cx:px(r.ghost.x),cy:py(r.ghost.y),r:7},g);
+      if(r.id===st.sel){var tx=el('text',{x:px(r.ghost.x)+11,y:py(r.ghost.y)+4},g);tx.textContent='PROPOSED';}
+    });
+    vis.forEach(function(r){
+      var c=cur(r);
+      var g=el('g',{'class':'mk'+(isTR(c)?' tr':'')+(r.id===st.sel?' on':''),transform:'translate('+px(c.x)+' '+py(c.y)+')',tabindex:'0',role:'button','aria-label':r.id+', '+r.title+', '+quad(c)+', '+r.trend.toLowerCase()+(r.ghost?', move proposed':''),'aria-pressed':r.id===st.sel?'true':'false'},gM);
+      el('circle',{'class':'halo',r:15},g);
+      el('circle',{'class':'hit',r:16},g);
+      el('circle',{'class':'sel',r:11},g);
+      el('circle',{'class':'dot',r:5.5},g);
+      var tx=el('text',{x:10,y:-9},g);tx.textContent=r.id;
+      g.addEventListener('click',function(){select(r.id);});
+      g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();select(r.id,true);}});
+      var ang=(Math.atan2(c.x,c.y)*180/Math.PI+360)%360;
+      mkEls[r.id]={halo:g.firstChild,ang:ang};
+    });
+    // move selected to top of z-order
+    var on=gM.querySelector('.mk.on');if(on)gM.appendChild(on);
+    document.querySelectorAll('#index li').forEach(function(li){
+      var r=byId[li.dataset.id];li.hidden=!visible(r);
+      var b=li.querySelector('button');b.setAttribute('aria-current',r.id===st.sel?'true':'false');
+    });
+    document.getElementById('st-count').textContent=vis.length+(vis.length===1?' risk shown':' risks shown');
+    var ntr=vis.filter(function(r){return isTR(cur(r));}).length;
+    document.getElementById('st-tr').textContent=ntr+' in the top right';
+    var ng=vis.filter(function(r){return r.ghost;}).length;
+    document.getElementById('st-gh').textContent=ng+(ng===1?' proposed move':' proposed moves');
+  }
+
+  function trendCls(t){return t==='Worsening'?'t-w':(t==='Easing'?'t-e':'');}
+
+  function panel(focusMsg){
+    var r=byId[st.sel],c=cur(r),h='';
+    h+='<div class="p-head"><span class="mono rid">'+r.id+'</span><span class="chip">'+BM[r.scope]+'</span>'+(r.scope==='portfolio'?'<span class="chip">Whole portfolio</span>':'')+'</div>';
+    h+='<div class="p-body"><h3>'+esc(r.title)+'</h3>';
+    h+='<dl class="read"><div><dt>Trend</dt><dd class="'+trendCls(r.trend)+'">'+r.trend+'</dd></div>';
+    h+='<div><dt>Time held</dt><dd>'+held(r)+'</dd></div>';
+    h+='<div class="full"><dt>Success criterion</dt><dd class="serif">'+esc(r.crit)+'</dd></div></dl>';
+    if(r.msg){h+='<p class="msg'+(r.msg.warn?' warn':'')+'" id="pmsg" tabindex="-1">'+r.msg.t+'</p>';}
+    var since=sinceQuad(r);
+    if(isTR(c)&&days(since,TODAY)>=14&&!r.decided){
+      h+='<div class="nudge"><span class="mono">Needs you</span>14 days in the top right with no decision. In the session lead\'s list since '+fmt(addDays(since,14))+'.</div>';
+    }
+    if(r.ghost){
+      var g=r.ghost;
+      h+='<div class="prop"><span class="mono">Vivo proposes a move · '+(quad(c)===quad(g)?'within the '+quad(g):quad(c)+' to '+quad(g))+'</span><p>'+esc(g.r)+'</p>';
+      h+='<div class="src">'+fmt(g.d)+' · '+g.c+' · '+esc(g.s)+'</div>';
+      h+='<div class="acts"><button type="button" class="ok" data-act="confirm">Confirm move</button><button type="button" data-act="reject">Reject</button></div></div>';
+    }
+    h+='<h4>Trail of confirmed moves</h4><ol class="trl">';
+    r.trail.slice().reverse().forEach(function(p){
+      h+='<li><span class="d">'+fmt(p.d)+' · '+quad(p)+'</span><br>'+esc(p.s)+'<br><span class="by">'+(p.c?p.c+' source · ':'')+'Confirmed by '+esc(p.b)+'</span></li>';
+    });
+    h+='</ol></div>';
+    var pn=document.getElementById('panel');pn.innerHTML=h;
+    if(focusMsg){var m=document.getElementById('pmsg');if(m)m.focus();}
+  }
+
+  function queue(){
+    var items=['R-01 has been in the top right for 28 days with no decision.'];
+    st.queue.forEach(function(q){items.push(q);});
+    if(st.signal==='Relevant')items.push('Possible new risk. Two competitors bundle remote monitoring with service.');
+    document.getElementById('q-list').innerHTML=items.map(function(t){return '<li>'+esc(t)+'</li>';}).join('');
+  }
+
+  function select(id,keepFocus){
+    st.sel=id;draw();panel();
+    if(keepFocus){var m=gM.querySelector('.mk.on');if(m)m.focus();}
+  }
+
+  document.getElementById('panel').addEventListener('click',function(e){
+    var b=e.target.closest('button[data-act]');if(!b)return;
+    var r=byId[st.sel],g=r.ghost,c=cur(r);if(!g)return;
+    if(b.dataset.act==='confirm'){
+      var entering=isTR(g)&&!isTR(c);
+      if(entering&&g.c!=='Primary'){
+        r.msg={warn:true,t:'Not confirmed. A move into the top right needs at least one primary source. This proposal rests on '+esc(g.src||'a secondary source')+'. Reject it, or wait for a primary source.'};
+      }else{
+        r.trail.push({d:TODAY,x:g.x,y:g.y,s:g.s,c:g.c,b:'you, today'});
+        r.ghost=null;
+        if(entering){
+          r.msg={t:'Confirmed. '+r.id+' entered the top right and is queued for the agenda of '+NEXT+'.'};
+          st.queue.push(r.id+' entered the top right today. '+g.r);
+        }else{
+          r.msg={t:'Confirmed. The move joins the trail with its signal, today\'s date and your name.'};
+        }
+      }
+    }else{
+      r.ghost=null;
+      r.msg={t:'Rejected. '+r.id+' stays where it was, and the trail is unchanged.'};
+    }
+    draw();panel(true);queue();
+  });
+
+  function segs(attr,key,after){
+    document.querySelectorAll('[data-'+attr+']').forEach(function(b){
+      b.addEventListener('click',function(){
+        st[key]=b.dataset[attr];
+        document.querySelectorAll('[data-'+attr+']').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+        if(after)after();
+        var r=byId[st.sel];if(!visible(r)){var f=risks.filter(visible)[0];if(f)st.sel=f.id;}
+        draw();panel();
+      });
+    });
+  }
+  segs('view','view',function(){document.getElementById('win').hidden=st.view!=='track';});
+  segs('win','win');
+  segs('bm','bm');
+  var tp=document.getElementById('t-port');
+  tp.addEventListener('click',function(){st.port=!st.port;tp.setAttribute('aria-pressed',st.port);var r=byId[st.sel];if(!visible(r)){var f=risks.filter(visible)[0];if(f)st.sel=f.id;}draw();panel();});
+  var ts=document.getElementById('t-sweep');
+  ts.setAttribute('aria-pressed',st.sweep);
+  ts.addEventListener('click',function(){st.sweep=!st.sweep;ts.setAttribute('aria-pressed',st.sweep);sweep.style.display=st.sweep?'':'none';if(st.sweep)loop();else Object.keys(mkEls).forEach(function(k){mkEls[k].halo.setAttribute('opacity','0');});});
+  if(!st.sweep)sweep.style.display='none';
+
+  document.querySelectorAll('[data-sel]').forEach(function(b){b.addEventListener('click',function(){select(b.dataset.sel);});});
+  document.querySelectorAll('[data-tri]').forEach(function(b){b.addEventListener('click',function(){st.signal=b.dataset.tri;document.getElementById('nr-state').textContent=st.signal;queue();});});
+  document.querySelectorAll('[data-jump]').forEach(function(b){b.addEventListener('click',function(){
+    var id=b.dataset.jump;st.bm='all';st.port=true;
+    document.querySelectorAll('[data-bm]').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.bm==='all'?'true':'false');});tp.setAttribute('aria-pressed','true');
+    select(id);
+    document.querySelector('.inst').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+    var btn=document.querySelector('#panel button[data-act="confirm"]')||document.querySelector('#index button[data-sel="'+id+'"]');
+    setTimeout(function(){btn.focus({preventScroll:true});},reduce?0:600);
+  });});
+
+  /* sweep: one turn every 12 seconds; markers brighten as it passes */
+  var t0=null,running=false;
+  function loop(){if(running)return;running=true;requestAnimationFrame(frame);}
+  function frame(ts){
+    if(!st.sweep){running=false;return;}
+    if(t0===null)t0=ts;
+    var ang=((ts-t0)/12000*360)%360;
+    sweepG.setAttribute('transform','rotate('+ang.toFixed(2)+' '+C+' '+C+')');
+    for(var k in mkEls){var m=mkEls[k],d=(ang-m.ang+360)%360;m.halo.setAttribute('opacity',d<60?(0.32*(1-d/60)).toFixed(3):'0');}
+    requestAnimationFrame(frame);
+  }
+
+  draw();panel();queue();
+  if(st.sweep)loop();
+})();
+</script>
+</body>
+</html>

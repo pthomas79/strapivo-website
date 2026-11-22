@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agenda for your visit · Strapivo</title>
+<meta name="description" content="A working agenda drafted by Vivo for your visit to Strapivo. Reorder it, park items, mark them covered and approve it, the way a session lead runs Dynamic Strategy in the Strategy Room.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --park:#FFF1B8;--park-line:#E9D58A;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --wrap:1120px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:17px;line-height:1.55}
+a{color:var(--p700)}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:var(--paper);padding:8px 12px;border-radius:4px;z-index:50}
+.skip:focus{top:12px}
+
+/* Header */
+.site-head{border-bottom:1px solid var(--n200);background:var(--paper)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.site-head img{height:26px;width:auto;display:block}
+.nav{display:flex;align-items:center;gap:22px}
+.nav a{font-size:15px;color:var(--ink);text-decoration:none}
+.nav a:hover{color:var(--p700)}
+.btn{display:inline-flex;align-items:center;gap:8px;font:500 15px/1 'Inter',sans-serif;padding:12px 16px;border-radius:4px;border:1px solid var(--ink);background:var(--ink);color:var(--paper)!important;text-decoration:none;cursor:pointer}
+.btn:hover{background:var(--n700)}
+.btn.azure{background:var(--p600);border-color:var(--p600)}
+.btn.azure:hover{background:var(--p700)}
+
+/* Cover sheet */
+.cover{padding:64px 0 40px}
+.cover-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:56px;align-items:end}
+.eyebrow{color:var(--n600);margin:0 0 22px;display:flex;gap:10px;align-items:center}
+.eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--p500)}
+h1{font-weight:500;font-size:clamp(44px,6.4vw,84px);line-height:1;letter-spacing:-.03em;margin:0}
+.byline{font-size:clamp(20px,2.2vw,26px);letter-spacing:-.015em;color:var(--n600);margin:16px 0 0;line-height:1.3}
+.byline b{font-weight:500;color:var(--p600)}
+.lede{max-width:56ch;margin:28px 0 0;color:var(--n700)}
+.meta{border-top:2px solid var(--ink);margin:0;font-size:15px}
+.meta div{display:grid;grid-template-columns:118px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--n200)}
+.meta dt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500);padding-top:3px}
+.meta dd{margin:0}
+.status-pill{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:var(--n100);border:1px solid var(--n200);color:var(--n700)}
+.status-pill.ok{background:var(--sky);border-color:var(--p200);color:var(--p700)}
+.howto{margin:14px 0 0;font-size:14px;color:var(--n600)}
+
+/* Toolbar */
+.toolbar{position:sticky;top:0;z-index:20;background:rgba(246,249,251,.96);border-top:1px solid var(--n200);border-bottom:1px solid var(--n200);backdrop-filter:saturate(1.2)}
+.toolbar .wrap{display:flex;align-items:center;gap:20px;min-height:58px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+.tb-stats{display:flex;gap:18px;flex-wrap:wrap;color:var(--n600);font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.tb-stats strong{font-weight:500;color:var(--ink)}
+.tb-stats .remain strong{color:var(--p600)}
+.tb-actions{margin-left:auto;display:flex;gap:10px;align-items:center}
+.ghost{font:500 14px/1 'Inter',sans-serif;padding:10px 12px;border-radius:4px;border:1px solid var(--n200);background:#fff;color:var(--ink);cursor:pointer}
+.ghost:hover{border-color:var(--n400)}
+.approve[aria-pressed="true"]{background:var(--sky);border-color:var(--p200);color:var(--p700)!important}
+
+/* Agenda */
+.agenda{padding:8px 0 24px}
+.agenda-sheet{background:#fff;border:1px solid var(--n200);border-radius:6px;margin-top:28px}
+ol.items,ol.parked-list{list-style:none;margin:0;padding:0}
+.item{border-bottom:1px solid var(--n200);position:relative;background:#fff;transition:background .3s}
+.item:last-child{border-bottom:0}
+.item-head{display:grid;grid-template-columns:auto 64px minmax(0,1fr) auto;gap:0 18px;padding:24px 28px 22px 16px;align-items:start}
+.js .item-head{grid-template-columns:28px 64px minmax(0,1fr) auto}
+.handle{display:none}
+.js .handle{display:flex;align-items:center;justify-content:center;width:28px;height:40px;border:0;background:none;border-radius:4px;color:var(--n400);cursor:grab;touch-action:none;padding:0;margin-top:4px}
+.js .handle:hover{color:var(--ink);background:var(--n100)}
+.handle svg{width:12px;height:18px}
+.num{font-family:var(--mono);font-size:30px;line-height:1;letter-spacing:-.02em;color:var(--n400);padding-top:8px}
+.item.open .num{color:var(--p500)}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500)}
+.tag.parking{background:var(--park);color:var(--ink);padding:2px 7px;border-radius:3px}
+.item h2{margin:0;font-weight:500;font-size:clamp(21px,2.3vw,27px);line-height:1.2;letter-spacing:-.02em}
+.toggle{all:unset;cursor:pointer;display:inline;border-radius:2px}
+.toggle:hover{color:var(--p700)}
+.toggle:focus-visible{outline:2px solid var(--p500);outline-offset:4px}
+.toggle .chev{display:inline-block;width:14px;margin-left:8px;color:var(--n400);transition:transform .25s;font-family:var(--mono);font-size:16px}
+.toggle[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.reason{margin:8px 0 0;font-size:15px;color:var(--n600);display:flex;gap:10px;align-items:baseline}
+.reason .mono{font-size:10.5px;color:var(--p700);flex:none}
+.side{display:flex;flex-direction:column;align-items:flex-end;gap:10px;padding-top:6px}
+.dur{font-family:var(--mono);font-size:13px;color:var(--n600)}
+.acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.act{font:500 13px/1 'Inter',sans-serif;padding:8px 10px;border-radius:4px;border:1px solid var(--n200);background:#fff;color:var(--n700);cursor:pointer;white-space:nowrap}
+.act:hover{border-color:var(--n400);color:var(--ink)}
+.act.icon{width:32px;padding:8px 0;text-align:center;font-family:var(--mono)}
+.act[disabled]{opacity:.35;cursor:default}
+.act.covered[aria-pressed="true"]{background:var(--sky);border-color:var(--p200);color:var(--p700)}
+.item.is-covered h2,.item.is-covered .reason{color:var(--n500)}
+.item.is-covered .num{color:var(--n400)}
+.item.is-covered .num::after{content:" ✓";font-size:18px;color:var(--p500)}
+.item.dragging{background:var(--sky);box-shadow:0 6px 24px rgba(20,27,36,.12);z-index:3}
+.item.flash{background:var(--park)}
+.park-ctl{display:none}
+
+/* Item body */
+.item-body{padding:0 28px 36px 126px}
+.item-body[hidden]{display:none}
+.body-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:44px;align-items:start}
+.body-grid.single{grid-template-columns:minmax(0,62ch)}
+.prose p{margin:0 0 14px;max-width:62ch}
+.prose p:last-child{margin-bottom:0}
+.prose ul{margin:0 0 14px;padding:0;list-style:none}
+.prose li{padding:7px 0 7px 22px;border-top:1px solid var(--n100);position:relative}
+.prose li::before{content:"";position:absolute;left:2px;top:17px;width:8px;height:1px;background:var(--p500)}
+.prose .key{color:var(--p700)}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500);margin:0 0 10px}
+.voices{margin:0;padding:18px 20px;background:var(--n100);border-radius:4px}
+.voices blockquote{margin:0;padding:10px 0;border-top:1px solid var(--n200);font-size:17px;letter-spacing:-.01em;line-height:1.4}
+.voices blockquote:first-of-type{border-top:0;padding-top:0}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--n200);border:1px solid var(--n200);border-radius:4px;overflow:hidden;margin:18px 0}
+.modes div{background:#fff;padding:14px 16px;font-size:15px}
+.modes b{display:block;font-weight:500;font-size:16px;margin-bottom:2px}
+.figure{margin:0;border:1px solid var(--n200);border-radius:4px;padding:16px;background:var(--paper)}
+.figure figcaption{font-size:13.5px;color:var(--n600);margin-top:12px;line-height:1.5}
+.illus{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500);display:block;margin-bottom:10px}
+.radar svg{display:block;width:100%;height:auto}
+.feed{margin:0;padding:0;list-style:none;font-size:14.5px}
+.feed li{display:grid;grid-template-columns:96px 1fr;gap:10px;padding:9px 0;border-top:1px solid var(--n200)}
+.feed li:first-child{border-top:0;padding-top:0}
+.feed .mono{font-size:10.5px;color:var(--n500);padding-top:3px}
+.feed .mono.hl{color:var(--p700)}
+.feed .mono.pk{color:var(--ink);background:var(--park);padding:2px 5px;border-radius:2px;justify-self:start;height:max-content}
+
+/* Takes */
+.takes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.take{border:1px solid var(--n200);border-radius:4px;padding:12px;background:#fff;min-height:92px;font-size:14px;position:relative}
+.take .who{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500);display:block;margin-bottom:6px}
+.take .pos{font-size:17px;font-weight:500;letter-spacing:-.01em;display:block;color:var(--p700)}
+.take .why{display:block;color:var(--n600);margin-top:2px;line-height:1.4}
+.take .seal{display:none}
+.sealed .take .pos,.sealed .take .why{display:none}
+.sealed .take .seal{display:flex;align-items:center;gap:8px;color:var(--n500);font-size:14px}
+.sealed .take{background:repeating-linear-gradient(135deg,#fff 0 8px,var(--n100) 8px 9px)}
+.reveal{margin-top:10px;width:100%}
+
+/* Options */
+.options{margin:0;border-top:1px solid var(--n200)}
+.options div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--n200)}
+.options dt{font-weight:500;font-size:18px;letter-spacing:-.015em}
+.options dd{margin:0;color:var(--n700)}
+.options .notyet dt{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.options .notyet dt span{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--park);padding:2px 6px;border-radius:2px;font-weight:400}
+
+/* Record */
+.record{border:1px solid var(--n200);border-radius:4px;background:#fff;font-size:14.5px}
+.record header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--n200);background:var(--paper);gap:12px;flex-wrap:wrap}
+.record .no{font-family:var(--mono);font-size:15px;color:var(--p700);letter-spacing:.02em}
+.record dl{margin:0;padding:6px 16px 12px}
+.record dl div{display:grid;grid-template-columns:96px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid var(--n100)}
+.record dl div:last-child{border-bottom:0}
+.record dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500);padding-top:3px}
+.record dd{margin:0}
+
+/* Roles */
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--n200);border:1px solid var(--n200);border-radius:4px;overflow:hidden;margin:0 0 16px}
+.roles div{background:#fff;padding:14px}
+.roles b{display:block;font-weight:500}
+.roles span{font-size:14px;color:var(--n600)}
+.rule{border-left:2px solid var(--p500);padding:4px 0 4px 16px;margin:0 0 16px;font-size:19px;letter-spacing:-.015em;line-height:1.35}
+
+/* Parked */
+.parked{margin-top:20px;background:var(--park);border:1px solid var(--park-line);border-radius:6px;padding:22px 28px 22px 28px}
+.parked-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.parked h2{font-size:22px;font-weight:500;letter-spacing:-.02em;margin:0}
+.parked-note{font-size:14.5px;color:var(--n700);margin:6px 0 0;max-width:70ch}
+.parked-list .item{background:#fffbe6;border:1px solid var(--park-line);border-radius:4px;margin-top:12px}
+.parked-list .item:last-child{border-bottom:1px solid var(--park-line)}
+.parked-list .item-head{grid-template-columns:64px minmax(0,1fr) auto;padding:16px 18px}
+[hidden]{display:none!important}
+.parked-list .handle,.parked-list .side,.parked-list .acts,.parked-list .item-body{display:none!important}
+.parked-list .num{font-size:20px;padding-top:4px}
+.parked-list h2{font-size:19px}
+.parked-list .park-ctl{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.parked-list .reason{display:none}
+.trig{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.trig legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);margin-bottom:4px;padding:0}
+.trig label{display:flex;gap:8px;align-items:center;cursor:pointer}
+.trig input{accent-color:var(--p600);margin:0}
+
+/* Read-back */
+.readback{padding:72px 0 24px}
+.rb-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:56px}
+.section-h{font-weight:500;font-size:clamp(30px,3.6vw,44px);line-height:1.08;letter-spacing:-.025em;margin:0}
+.rb-intro{color:var(--n700);margin:16px 0 0;max-width:46ch}
+.rb{background:#fff;border:1px solid var(--n200);border-radius:6px;padding:8px 22px 18px;font-size:15.5px}
+.rb .row{display:grid;grid-template-columns:110px 1fr;gap:14px;padding:13px 0;border-bottom:1px solid var(--n100)}
+.rb .row:last-of-type{border-bottom:0}
+.rb dt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500);padding-top:3px}
+.rb dd{margin:0}
+.rb dd ul{margin:0;padding:0;list-style:none}
+.rb dd li{padding:2px 0}
+.rb .muted{color:var(--n500)}
+.rb .pk{background:var(--park);padding:1px 6px;border-radius:2px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-left:6px;white-space:nowrap}
+.rb-foot{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding-top:14px;border-top:1px solid var(--n200);margin-top:4px}
+.rb-foot p{margin:0;font-size:14px;color:var(--n600)}
+
+/* Close */
+.close{background:var(--ink);color:var(--paper);margin-top:72px;padding:80px 0}
+.close .eyebrow{color:var(--n400)}
+.close-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:56px;align-items:end}
+.close .section-h{font-size:clamp(32px,4.4vw,56px)}
+.close .section-h em{font-style:normal;color:var(--p400)}
+.close p{color:var(--n200);max-width:52ch;margin:20px 0 0}
+.close .slogan{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--n400);margin-top:28px}
+.close .btn{background:var(--p400);border-color:var(--p400);font-size:17px;padding:16px 20px;color:var(--n900)!important}
+.close .btn:hover{background:var(--p400)}
+.close .alt{display:block;margin-top:14px;font-size:14px;color:var(--n400)}
+.close .alt a{color:var(--p200)}
+
+.site-foot{background:var(--n900);color:var(--n400);padding:32px 0;font-size:14px}
+.site-foot .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.site-foot img{height:22px;width:auto;display:block}
+.site-foot nav{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.site-foot a{color:var(--n200);text-decoration:none}
+.site-foot a:hover{color:#fff;text-decoration:underline}
+
+/* Responsive */
+@media (max-width:960px){
+  .cover-grid,.rb-grid,.close-grid{grid-template-columns:1fr;gap:36px}
+  .body-grid{grid-template-columns:1fr;gap:28px}
+  .item-body{padding-left:28px}
+}
+@media (max-width:720px){
+  body{font-size:16px}
+  .wrap{padding:0 18px}
+  .nav .signin{font-size:14px}
+  .nav .btn{display:none}
+  .cover{padding:40px 0 28px}
+  .item-head,.js .item-head{grid-template-columns:44px minmax(0,1fr);padding:20px 16px 18px 14px;gap:0 10px}
+  .js .item-head{grid-template-columns:24px 40px minmax(0,1fr)}
+  .num{font-size:22px;padding-top:4px}
+  .side{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:center;padding-top:14px;flex-wrap:wrap}
+  .js .side{grid-column:3}
+  .item-body{padding:0 16px 28px 16px}
+  .reason{flex-direction:column;gap:2px}
+  .js .side{justify-content:flex-start;gap:12px}
+  .js .handle{width:24px}
+  .tb-actions{margin-left:0;width:100%}
+  .tb-actions .ghost{flex:1}
+  .tb-actions .btn{flex:1.4;justify-content:center}
+  .tb-stats{gap:12px;font-size:11px}
+  .toolbar .wrap{gap:10px}
+  .options div{grid-template-columns:1fr;gap:4px}
+  .modes,.roles,.takes{grid-template-columns:1fr}
+  .parked{padding:18px 16px}
+  .parked-list .item-head{grid-template-columns:40px minmax(0,1fr);padding:14px}
+  .parked-list .park-ctl{grid-column:1/-1;align-items:flex-start;padding-top:12px}
+  .rb .row{grid-template-columns:1fr;gap:4px}
+  .meta div{grid-template-columns:100px 1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#agenda">Skip to the agenda</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a href="#top" aria-label="Strapivo, top of page"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="132" height="33"></a>
+    <nav class="nav" aria-label="Main">
+      <a class="signin" href="https://strapivo.app">Sign in</a>
+      <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="cover" aria-labelledby="h1">
+    <div class="wrap cover-grid">
+      <div id="agenda-top">
+        <p class="eyebrow mono">Strapivo · Strategy Room · Draft agenda</p>
+        <h1 id="h1">Agenda for your visit.</h1>
+        <p class="byline">Drafted by <b>Vivo</b>. About six minutes.</p>
+        <p class="lede">Strapivo is the Strategic Design System: one place where a company's strategy lives, stays current and gets used. Every session in it runs from an agenda like this one. Vivo drafts it from what changed. The session lead edits it, and the room approves it. Today you are the session lead.</p>
+      </div>
+      <div>
+        <dl class="meta">
+          <div><dt>Session lead</dt><dd>You</dd></div>
+          <div><dt>Drafted by</dt><dd>Vivo, Strapivo's AI</dd></div>
+          <div><dt>Order</dt><dd>Old business first, then new business</dd></div>
+          <div><dt>Length</dt><dd>About six minutes, seven items</dd></div>
+          <div><dt>Status</dt><dd><span class="status-pill" id="status-pill">Draft</span></dd></div>
+        </dl>
+        <p class="howto" id="howto" hidden>Reorder items by dragging, with the arrow buttons, or with the arrow keys on a handle. Park what can wait. Mark what you have covered. This page stores nothing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="agenda" class="agenda" aria-label="Agenda">
+    <div class="toolbar" id="toolbar" hidden>
+      <div class="wrap">
+        <div class="tb-stats" aria-live="off">
+          <span><strong id="st-items">7</strong> on agenda</span>
+          <span><strong id="st-covered">0</strong> covered</span>
+          <span><strong id="st-parked">0</strong> parked</span>
+          <span class="remain"><strong id="st-time">5:50</strong> left</span>
+        </div>
+        <div class="tb-actions">
+          <button class="ghost" type="button" id="open-all">Open all</button>
+          <button class="btn azure approve" type="button" id="approve" aria-pressed="false">Approve agenda</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="agenda-sheet">
+        <ol class="items" id="items">
+
+          <li class="item" id="i-drawer" data-sec="60" data-business="old">
+            <div class="item-head">
+              <span class="num" aria-hidden="true">01</span>
+              <div>
+                <div class="tags"><span class="tag biz">Old business</span><span class="tag parking">Back from parking</span></div>
+                <h2 id="h-drawer">Why did the last strategy end up in a drawer?</h2>
+                <p class="reason"><span class="mono">Reason</span><span>Parked at the last offsite with a trigger: the next session. This is the next session.</span></p>
+              </div>
+              <div class="side"><span class="dur" aria-label="One minute">1:00</span></div>
+            </div>
+            <div class="item-body" id="b-drawer">
+              <div class="body-grid">
+                <div class="prose">
+                  <p>A strategy gets agreed in a workshop. Then it goes into a drawer. The market keeps moving, and nobody notices until the quarterly or annual review, when a correction is no longer cheap.</p>
+                  <p>There are two ways to fail.</p>
+                  <div class="modes">
+                    <div><b>Inertia</b>Nothing changes, whatever the news says.</div>
+                    <div><b>Thrash</b>Everything changes, whenever the news says.</div>
+                  </div>
+                  <p><span class="key">Dynamic Strategy</span> avoids both. The leadership team makes small, early corrections, and changes course when the evidence calls for it. Tactics can change every week. The strategy changes only by a recorded decision.</p>
+                  <p>Every other function got software. Strategy never did. Strapivo holds one Ambition, usually 7 to 12 success criteria with today's light on each, up to four focus areas, and the objectives, activities and risks under them.</p>
+                </div>
+                <figure class="voices" style="margin:0">
+                  <p class="label">What leadership teams tell us</p>
+                  <blockquote>"We finish the strategy, and then we forget it."</blockquote>
+                  <blockquote>"Between offsites, nothing moves."</blockquote>
+                  <blockquote>"We restart the same argument every time a new analysis lands."</blockquote>
+                  <blockquote>"I can't show the board that strategy actually moved between meetings."</blockquote>
+                </figure>
+              </div>
+            </div>
+          </li>
+
+          <li class="item" id="i-radar" data-sec="55" data-business="new">
+            <div class="item-head">
+              <span class="num" aria-hidden="true">02</span>
+              <div>
+                <div class="tags"><span class="tag biz">New business</span></div>
+                <h2 id="h-radar">What the radar is watching</h2>
+                <p class="reason"><span class="mono">Reason</span><span>News arrives as noise until something ties it to what must succeed.</span></p>
+              </div>
+              <div class="side"><span class="dur" aria-label="55 seconds">0:55</span></div>
+            </div>
+            <div class="item-body" id="b-radar">
+              <div class="body-grid">
+                <div class="prose">
+                  <p>The Radar watches the outside world for each focus area. Its search brief is the success criterion, its objectives and its risks. Market intelligence reads over 4,000 sources a day and reports on Monday and Thursday. A red-line exception interrupts that schedule.</p>
+                  <p>Each signal is a dated observation with a source, marked primary or secondary. Vivo makes the first pass: which criterion it touches, relevant or not, and one line of reason. A person you delegate marks it relevant, irrelevant or unsure. Dismissed signals teach Vivo what counts as noise.</p>
+                  <p>When a signal shifts a risk, Vivo draws the proposed position as a ghost on the radar. A person confirms it or rejects it. A move into the top right needs at least one primary source, so that one blog post can't raise an alarm.</p>
+                  <p>If a risk sits in the top right for 14 days with no decision, it lands in the session lead's Needs you list.</p>
+                </div>
+                <figure class="figure radar">
+                  <span class="illus">Illustrative example · Tracking view</span>
+                  <svg viewBox="0 0 340 300" role="img" aria-labelledby="radar-t">
+                    <title id="radar-t">Risk radar of impact against likelihood. A supplier risk sits in the middle, with a ghost position proposed by Vivo in the top right.</title>
+                    <defs>
+                      <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#D4EBFF" stroke-width="3"/></pattern>
+                      <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#006FD1"/></marker>
+                    </defs>
+                    <rect x="40" y="10" width="290" height="250" fill="#fff" stroke="#E1E5EA"/>
+                    <rect x="185" y="10" width="145" height="125" fill="url(#hatch)"/>
+                    <g stroke="#EFF2F6"><line x1="112.5" y1="10" x2="112.5" y2="260"/><line x1="185" y1="10" x2="185" y2="260" stroke="#E1E5EA"/><line x1="257.5" y1="10" x2="257.5" y2="260"/><line x1="40" y1="72.5" x2="330" y2="72.5"/><line x1="40" y1="135" x2="330" y2="135" stroke="#E1E5EA"/><line x1="40" y1="197.5" x2="330" y2="197.5"/></g>
+                    <text x="322" y="28" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing=".8" fill="#005DBD">TOP RIGHT</text>
+                    <text x="185" y="284" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing=".8" fill="#6C727A">LIKELIHOOD</text>
+                    <text x="14" y="135" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing=".8" fill="#6C727A" transform="rotate(-90 14 135)">IMPACT</text>
+                    <circle cx="118" cy="186" r="5" fill="#999FA6" opacity=".35"/>
+                    <circle cx="140" cy="168" r="5" fill="#999FA6" opacity=".55"/>
+                    <path d="M118 186 L140 168 L168 150" fill="none" stroke="#999FA6" stroke-dasharray="2 3"/>
+                    <circle cx="168" cy="150" r="8" fill="#141B24"/>
+                    <line x1="176" y1="143" x2="232" y2="88" stroke="#006FD1" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+                    <circle cx="242" cy="78" r="9" fill="none" stroke="#0082E6" stroke-width="1.5" stroke-dasharray="3 2.5"/>
+                    <text x="160" y="140" text-anchor="end" font-family="Inter, sans-serif" font-size="11" fill="#141B24">Supplier consolidation</text>
+                    <text x="254" y="74" font-family="JetBrains Mono, monospace" font-size="9" fill="#005DBD">GHOST</text>
+                  </svg>
+                  <ul class="feed" style="margin-top:14px">
+                    <li><span class="mono">Trend</span><span>Worsening</span></li>
+                    <li><span class="mono hl">Vivo</span><span>"Two suppliers announced a merger. Likelihood up. Source: primary."</span></li>
+                    <li><span class="mono">Waiting</span><span>Confirm or reject. Vivo does not move it alone.</span></li>
+                  </ul>
+                  <figcaption>Grey dots are the radar shadow: where the risk sat over the last 30 days.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </li>
+
+          <li class="item" id="i-build" data-sec="50" data-business="new">
+            <div class="item-head">
+              <span class="num" aria-hidden="true">03</span>
+              <div>
+                <div class="tags"><span class="tag biz">New business</span></div>
+                <h2 id="h-build">How the agenda gets built</h2>
+                <p class="reason"><span class="mono">Reason</span><span>You are reading one. You should know where it came from.</span></p>
+              </div>
+              <div class="side"><span class="dur" aria-label="50 seconds">0:50</span></div>
+            </div>
+            <div class="item-body" id="b-build">
+              <div class="body-grid">
+                <div class="prose">
+                  <p>Vivo drafts the agenda 24 hours before each session, from what changed since the last one:</p>
+                  <ul>
+                    <li>new relevant signals</li>
+                    <li>risks that entered the top right</li>
+                    <li>parked questions whose trigger has fired</li>
+                    <li>items carried forward</li>
+                    <li>activities at risk or off track</li>
+                    <li>asks from the people responsible for activities</li>
+                  </ul>
+                  <p>Old business comes first, then new business. Every item carries a one-line reason. The session lead edits the draft, and approving it is step one of the session.</p>
+                  <p>Sessions run 60 minutes by default, weekly, fortnightly or monthly. Extra sessions can be called when something can't wait.</p>
+                </div>
+                <figure class="figure">
+                  <span class="illus">Illustrative example · Inputs to a draft</span>
+                  <ul class="feed">
+                    <li><span class="mono pk">Parked</span><span>"Enter the Nordic market?" Trigger fired: the date set at the last session.</span></li>
+                    <li><span class="mono">Carried</span><span>Pricing review, not reached last time.</span></li>
+                    <li><span class="mono">Off track</span><span>Service pilot. Result: two of four sites ready.</span></li>
+                    <li><span class="mono hl">Ask</span><span>Head of operations: "I need a decision on the second warehouse."</span></li>
+                    <li><span class="mono">Signal</span><span>New regulation draft published, primary source.</span></li>
+                  </ul>
+                  <figcaption>Contributors report before each session: a status, one line on the result and an optional ask of leadership.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </li>
+
+          <li class="item" id="i-takes" data-sec="45" data-business="new">
+            <div class="item-head">
+              <span class="num" aria-hidden="true">04</span>
+              <div>
+                <div class="tags"><span class="tag biz">New business</span></div>
+                <h2 id="h-takes">Sealed first takes</h2>
+                <p class="reason"><span class="mono">Reason</span><span>Meetings anchor on the loudest voice.</span></p>
+              </div>
+              <div class="side"><span class="dur" aria-label="45 seconds">0:45</span></div>
+            </div>
+            <div class="item-body" id="b-takes">
+              <div class="body-grid">
+                <div class="prose">
+                  <p>Each item opens with the evidence. Then everyone in the room writes a first take alone. The takes stay sealed until they are all in, and then they open together.</p>
+                  <p>The conversation starts after that. Vivo joins when asked. It can put a figure on the cost of doing nothing, lay out scenarios, challenge the room, offer alternatives or name a black swan.</p>
+                  <p>The item ends with a decision.</p>
+                </div>
+                <figure class="figure" id="takes-fig">
+                  <span class="illus">Illustrative example · Second warehouse</span>
+                  <div class="takes" id="takes">
+                    <div class="take"><span class="who">CEO</span><span class="seal">Sealed</span><span class="pos">Adapt</span><span class="why">Lease, don't buy.</span></div>
+                    <div class="take"><span class="who">CFO</span><span class="seal">Sealed</span><span class="pos">Not yet</span><span class="why">Missing: Q3 freight costs.</span></div>
+                    <div class="take"><span class="who">Operations</span><span class="seal">Sealed</span><span class="pos">Adapt</span><span class="why">Capacity runs out in spring.</span></div>
+                    <div class="take"><span class="who">Sales</span><span class="seal">Sealed</span><span class="pos">Take advantage</span><span class="why">A competitor just closed a depot.</span></div>
+                  </div>
+                </figure>
+              </div>
+            </div>
+          </li>
+
+          <li class="item" id="i-options" data-sec="50" data-business="new">
+            <div class="item-head">
+              <span class="num" aria-hidden="true">05</span>
+              <div>
+                <div class="tags"><span class="tag biz">New business</span></div>
+                <h2 id="h-options">The five options</h2>
+                <p class="reason"><span class="mono">Reason</span><span>Every item ends in a decision, and there are five to choose from.</span></p>
+              </div>
+              <div class="side"><span class="dur" aria-label="50 seconds">0:50</span></div>
+            </div>
+            <div class="item-body" id="b-options">
+              <div class="body-grid single">
+                <dl class="options">
+                  <div><dt>Hold</dt><dd>The success criterion is marked reviewed, with the date.</dd></div>
+                  <div><dt>Adapt</dt><dd>Vivo drafts changes to the objectives and activities under it.</dd></div>
+                  <div><dt>Pivot</dt><dd>Vivo drafts new wording for the criterion. It takes effect when someone with authority confirms it.</dd></div>
+                  <div><dt>Take advantage</dt><dd>Detour activities are added. The criterion stays as it is.</dd></div>
+                  <div class="notyet"><dt>Not yet <span>Parked</span></dt><dd>The room asks what is missing. The item is parked with at least one trigger that brings it back: evidence, a person's view, a date or the next session. Or it is let go, with a rationale. "So that it feels like parking, not losing." This page parks items the same way.</dd></div>
+                </dl>
+              </div>
+            </div>
+          </li>
+
+          <li class="item" id="i-record" data-sec="50" data-business="new">
+            <div class="item-head">
+              <span class="num" aria-hidden="true">06</span>
+              <div>
+                <div class="tags"><span class="tag biz">New business</span></div>
+                <h2 id="h-record">The Record of Decisions</h2>
+                <p class="reason"><span class="mono">Reason</span><span>Later, nobody can find what was decided, why, or who disagreed.</span></p>
+              </div>
+              <div class="side"><span class="dur" aria-label="50 seconds">0:50</span></div>
+            </div>
+            <div class="item-body" id="b-record">
+              <div class="body-grid">
+                <div class="prose">
+                  <p>When an item is decided, Vivo reads back the entry for the Record of Decisions. Dissent goes in by name, with its reason. The session lead confirms the entry, and it gets a permanent number.</p>
+                  <p>A year later, anyone in the room can look up what was decided, on which evidence, who disagreed and what happened next. The board can see that strategy moved between meetings.</p>
+                  <p>The plan and the board pack export as Markdown. The plan also exports as CSV.</p>
+                </div>
+                <article class="record" aria-label="Illustrative Record of Decisions entry">
+                  <header><span class="no">SDS-2026-014</span><span class="illus" style="margin:0">Illustrative example</span></header>
+                  <dl>
+                    <div><dt>Item</dt><dd>Second warehouse</dd></div>
+                    <div><dt>Decision</dt><dd>Adapt. Lease a site for 24 months. Activity added: shortlist three sites by 15 January.</dd></div>
+                    <div><dt>Evidence</dt><dd>Two signals, one primary. One ask from operations.</dd></div>
+                    <div><dt>Dissent</dt><dd>Helena Brandt, CFO: "We commit before we have the Q3 freight costs."</dd></div>
+                    <div><dt>Confirmed</dt><dd>Session lead, 12 November 2026</dd></div>
+                  </dl>
+                </article>
+              </div>
+            </div>
+          </li>
+
+          <li class="item" id="i-authority" data-sec="50" data-business="new">
+            <div class="item-head">
+              <span class="num" aria-hidden="true">07</span>
+              <div>
+                <div class="tags"><span class="tag biz">New business</span></div>
+                <h2 id="h-authority">Who holds authority</h2>
+                <p class="reason"><span class="mono">Reason</span><span>Teams want help from AI, not a co-author with the pen.</span></p>
+              </div>
+              <div class="side"><span class="dur" aria-label="50 seconds">0:50</span></div>
+            </div>
+            <div class="item-body" id="b-authority">
+              <div class="body-grid">
+                <div class="prose">
+                  <p class="rule">Vivo proposes. People decide.</p>
+                  <p>Vivo never changes a light, never moves a risk and never rewrites a success criterion on its own. When two focus activities go off track, it asks "Light still green?" and a person answers.</p>
+                  <p>Decisions beyond the room's authority go to an approver: in the app, as an exported memo or in the board pack. Then Vivo prompts the session lead to announce what changed and why.</p>
+                  <p>Strapivo is hardwired to the Business Model Canvas. It is not a generic prompt with your PDF attached. Every recommendation from Vivo traces back to the strategic memory you approved. The infrastructure is EU-only and GDPR by design.</p>
+                </div>
+                <div>
+                  <p class="label">Roles in the Strategy Room</p>
+                  <div class="roles">
+                    <div><b>Owner</b><span>Accepts changes to what the company holds as true.</span></div>
+                    <div><b>Contributor</b><span>Responsible for activities. Reports before each session.</span></div>
+                  </div>
+                  <p style="font-size:14px;color:var(--n600);margin:0">Admin and Member are the other two roles.</p>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <section class="parked" id="parked" aria-labelledby="h-parked" hidden>
+        <div class="parked-head">
+          <h2 id="h-parked">Parked</h2>
+          <span class="mono" id="parked-count" style="color:var(--n700)">Nothing parked</span>
+        </div>
+        <p class="parked-note" id="parked-note">Park an item to take it off this visit. Give it a trigger, and it comes back as old business, labelled "Back from parking".</p>
+        <ol class="parked-list" id="parked-list"></ol>
+      </section>
+    </div>
+  </section>
+
+  <section class="readback" aria-labelledby="h-rb">
+    <div class="wrap rb-grid">
+      <div>
+        <p class="eyebrow mono">Close of session</p>
+        <h2 class="section-h" id="h-rb">Read-back</h2>
+        <p class="rb-intro">In a session, Vivo reads back each entry before it joins the Record of Decisions. Here is the read-back of your visit, built from what you did on this page.</p>
+      </div>
+      <div class="rb" aria-live="polite">
+        <dl id="rb">
+          <div class="row"><dt>Agenda</dt><dd id="rb-approved">Drafted by Vivo. Not yet approved.</dd></div>
+          <div class="row"><dt>Covered</dt><dd id="rb-covered"><span class="muted">Nothing marked as covered.</span></dd></div>
+          <div class="row"><dt>Parked</dt><dd id="rb-parked"><span class="muted">Nothing parked.</span></dd></div>
+          <div class="row"><dt>Still open</dt><dd id="rb-open">All seven items.</dd></div>
+        </dl>
+        <div class="rb-foot" id="rb-foot" hidden>
+          <button class="ghost" type="button" id="approve-2">Approve agenda</button>
+          <p>Approval is step one of every session. You can still approve it now.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close" aria-labelledby="h-close">
+    <div class="wrap close-grid">
+      <div>
+        <p class="eyebrow mono">Carried forward to the next session</p>
+        <h2 class="section-h" id="h-close">Your own strategy, <em>back from the drawer</em>.</h2>
+        <p>We do the reading first. Send us a workshop report, a strategy document or a pasted email. Vivo proposes where each part belongs, and your Owners accept it. Setup takes four to five hours, and then you run it.</p>
+        <p class="slogan">Any AI can answer a question. Only Strapivo answers it as you.</p>
+      </div>
+      <div>
+        <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+        <span class="alt">strategy@strapivo.com · Already a client? <a href="https://strapivo.app">Sign in</a></span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="110" height="28">
+    <nav aria-label="Legal">
+      <span>© 2026 Strapivo</span>
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="sr" aria-live="polite" id="announce"></div>
+
+<script>
+(function(){
+  var doc = document.documentElement;
+  doc.classList.add('js');
+  var list = document.getElementById('items');
+  var parkedList = document.getElementById('parked-list');
+  var parkedSec = document.getElementById('parked');
+  var announceEl = document.getElementById('announce');
+  var approved = null;
+  var words = ['zero','one','two','three','four','five','six','seven'];
+
+  function $(s, r){ return (r || document).querySelector(s); }
+  function all(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function say(t){ announceEl.textContent = ''; setTimeout(function(){ announceEl.textContent = t; }, 30); }
+  function title(li){ return $('h2', li).textContent.replace(/\s*›\s*$/, '').trim(); }
+  function fmt(sec){ var m = Math.floor(sec / 60), s = sec % 60; return m + ':' + (s < 10 ? '0' : '') + s; }
+
+  document.getElementById('toolbar').hidden = false;
+  document.getElementById('howto').hidden = false;
+  parkedSec.hidden = false;
+  document.getElementById('rb-foot').hidden = false;
+
+  var takes = document.getElementById('takes');
+  takes.classList.add('sealed');
+  var rv = document.createElement('button');
+  rv.type = 'button'; rv.className = 'ghost reveal'; rv.textContent = 'Reveal all four together';
+  rv.addEventListener('click', function(){
+    var sealed = takes.classList.toggle('sealed');
+    rv.textContent = sealed ? 'Reveal all four together' : 'Seal again';
+    say(sealed ? 'Takes sealed.' : 'Takes revealed. Two say adapt, one says not yet, one says take advantage.');
+  });
+  document.getElementById('takes-fig').appendChild(rv);
+
+  var gripSvg = '<svg viewBox="0 0 12 18" aria-hidden="true"><g fill="currentColor"><circle cx="3" cy="3" r="1.5"/><circle cx="9" cy="3" r="1.5"/><circle cx="3" cy="9" r="1.5"/><circle cx="9" cy="9" r="1.5"/><circle cx="3" cy="15" r="1.5"/><circle cx="9" cy="15" r="1.5"/></g></svg>';
+
+  all('.item', list).forEach(function(li){
+    var id = li.id.slice(2);
+    var head = $('.item-head', li);
+    var h2 = $('h2', li);
+    var body = $('.item-body', li);
+    var name = h2.textContent;
+
+    var handle = document.createElement('button');
+    handle.type = 'button'; handle.className = 'handle';
+    handle.setAttribute('aria-label', 'Reorder: ' + name + '. Press the up or down arrow key to move it.');
+    handle.innerHTML = gripSvg;
+    head.insertBefore(handle, head.firstChild);
+
+    var t = document.createElement('button');
+    t.type = 'button'; t.className = 'toggle';
+    t.setAttribute('aria-expanded', 'false');
+    t.setAttribute('aria-controls', body.id);
+    t.innerHTML = h2.innerHTML + '<span class="chev" aria-hidden="true">›</span>';
+    h2.innerHTML = ''; h2.appendChild(t);
+
+    var side = $('.side', li);
+    var acts = document.createElement('div');
+    acts.className = 'acts';
+    acts.innerHTML =
+      '<button type="button" class="act icon up" aria-label="Move up: ' + name + '">↑</button>' +
+      '<button type="button" class="act icon down" aria-label="Move down: ' + name + '">↓</button>' +
+      '<button type="button" class="act park" aria-label="Park: ' + name + '">Park</button>' +
+      '<button type="button" class="act covered" aria-pressed="false" aria-label="Mark as covered: ' + name + '">Covered</button>';
+    side.appendChild(acts);
+
+    var pc = document.createElement('div');
+    pc.className = 'park-ctl';
+    pc.innerHTML =
+      '<fieldset class="trig"><legend>Trigger</legend>' +
+      '<label><input type="radio" name="trig-' + id + '" value="scroll" checked> Returns when you scroll back</label>' +
+      '<label><input type="radio" name="trig-' + id + '" value="visit"> Returns on your next visit</label></fieldset>' +
+      '<button type="button" class="act unpark">Bring back now</button>';
+    head.appendChild(pc);
+
+    body.hidden = true;
+
+    t.addEventListener('click', function(){ setOpen(li, body.hidden); });
+    $('.up', acts).addEventListener('click', function(){ move(li, -1, this); });
+    $('.down', acts).addEventListener('click', function(){ move(li, 1, this); });
+    $('.park', acts).addEventListener('click', function(){ park(li); });
+    $('.covered', acts).addEventListener('click', function(){ cover(li); });
+    $('.unpark', pc).addEventListener('click', function(){ unpark(li, true); });
+    all('input', pc).forEach(function(r){ r.addEventListener('change', function(){ li.dataset.trigger = r.value; update(); }); });
+
+    handle.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        move(li, e.key === 'ArrowUp' ? -1 : 1, handle);
+      }
+    });
+    dragify(li, handle);
+  });
+
+  function setOpen(li, open){
+    var body = $('.item-body', li), t = $('.toggle', li);
+    body.hidden = !open;
+    t.setAttribute('aria-expanded', open ? 'true' : 'false');
+    li.classList.toggle('open', open);
+  }
+
+  function move(li, dir, focusEl){
+    var sib = dir < 0 ? li.previousElementSibling : li.nextElementSibling;
+    if (!sib) return;
+    if (dir < 0) list.insertBefore(li, sib); else list.insertBefore(sib, li);
+    update();
+    if (focusEl) focusEl.focus();
+    var pos = all('.item', list).indexOf(li) + 1;
+    say(title(li) + ' is now item ' + pos + ' of ' + list.children.length + '.');
+  }
+
+  function cover(li){
+    var on = !li.classList.contains('is-covered');
+    li.classList.toggle('is-covered', on);
+    $('.covered', li).setAttribute('aria-pressed', on ? 'true' : 'false');
+    if (on) {
+      setOpen(li, false);
+      var next = li.nextElementSibling;
+      while (next && next.classList.contains('is-covered')) next = next.nextElementSibling;
+      if (next) setOpen(next, true);
+      say('Covered: ' + title(li) + '.' + (next ? ' Next: ' + title(next) + '.' : ''));
+    } else say('No longer covered: ' + title(li) + '.');
+    update();
+  }
+
+  function park(li){
+    li.dataset.trigger = li.dataset.trigger || 'scroll';
+    li.dataset.armed = '0';
+    setOpen(li, false);
+    var focusNext = li.nextElementSibling || li.previousElementSibling;
+    parkedList.appendChild(li);
+    update();
+    say('Parked: ' + title(li) + '. It returns when you scroll back to the top of the agenda.');
+    if (focusNext) $('.toggle', focusNext).focus();
+  }
+
+  function unpark(li, manual){
+    list.insertBefore(li, list.firstElementChild);
+    li.dataset.business = 'old';
+    $('.biz', li).textContent = 'Old business';
+    if (!$('.tag.parking', li)) {
+      var tag = document.createElement('span');
+      tag.className = 'tag parking'; tag.textContent = 'Back from parking';
+      $('.tags', li).appendChild(tag);
+    }
+    var r = $('.reason span:last-child', li);
+    if (!li.dataset.origReason) li.dataset.origReason = r.textContent;
+    r.textContent = manual ? 'You brought it back from parking. Returning items open the agenda as old business.'
+                           : 'Parked earlier on this visit. Trigger fired: you scrolled back.';
+    li.classList.add('flash');
+    setTimeout(function(){ li.classList.remove('flash'); }, 1600);
+    delete li.dataset.trigger;
+    update();
+    say('Back from parking: ' + title(li) + '. It is now item 1, as old business.');
+    if (manual) $('.toggle', li).focus();
+  }
+
+  function dragify(li, handle){
+    var dragging = false;
+    handle.addEventListener('pointerdown', function(e){
+      if (e.button !== 0 || li.parentNode !== list) return;
+      e.preventDefault();
+      dragging = true;
+      handle.setPointerCapture(e.pointerId);
+      li.classList.add('dragging');
+    });
+    handle.addEventListener('pointermove', function(e){
+      if (!dragging) return;
+      var y = e.clientY, target = null;
+      var sibs = all('.item', list).filter(function(s){ return s !== li; });
+      for (var i = 0; i < sibs.length; i++) {
+        var r = sibs[i].getBoundingClientRect();
+        if (y < r.top + r.height / 2) { target = sibs[i]; break; }
+      }
+      if (target) { if (target !== li.nextElementSibling) list.insertBefore(li, target); }
+      else if (li !== list.lastElementChild) list.appendChild(li);
+      renumber();
+    });
+    function end(){
+      if (!dragging) return;
+      dragging = false;
+      li.classList.remove('dragging');
+      update();
+      say(title(li) + ' is now item ' + (all('.item', list).indexOf(li) + 1) + '.');
+    }
+    handle.addEventListener('pointerup', end);
+    handle.addEventListener('pointercancel', end);
+  }
+
+  function renumber(){
+    all('.item', list).forEach(function(li, i){
+      $('.num', li).textContent = (i < 9 ? '0' : '') + (i + 1);
+      $('.up', li).disabled = i === 0;
+      $('.down', li).disabled = i === list.children.length - 1;
+    });
+    all('.item', parkedList).forEach(function(li){ $('.num', li).textContent = 'P'; });
+  }
+
+  function stamp(d){ return (d.getHours() < 10 ? '0' : '') + d.getHours() + ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes(); }
+
+  function names(items){ return items.map(function(li){ return '<li>' + title(li) + '</li>'; }).join(''); }
+
+  function update(){
+    renumber();
+    var onAgenda = all('.item', list);
+    var covered = onAgenda.filter(function(li){ return li.classList.contains('is-covered'); });
+    var open = onAgenda.filter(function(li){ return !li.classList.contains('is-covered'); });
+    var parked = all('.item', parkedList);
+    var sec = open.reduce(function(a, li){ return a + (+li.dataset.sec); }, 0);
+
+    document.getElementById('st-items').textContent = onAgenda.length;
+    document.getElementById('st-covered').textContent = covered.length;
+    document.getElementById('st-parked').textContent = parked.length;
+    document.getElementById('st-time').textContent = fmt(sec);
+
+    document.getElementById('parked-count').textContent = parked.length ? parked.length + ' parked' : 'Nothing parked';
+    document.getElementById('parked-note').textContent = parked.length
+      ? 'Each parked item keeps its trigger. This page stores nothing, so an item set to "next visit" only comes back if you bring it back.'
+      : 'Park an item to take it off this visit. Give it a trigger, and it comes back as old business, labelled "Back from parking".';
+
+    document.getElementById('rb-covered').innerHTML = covered.length ? '<ul>' + names(covered) + '</ul>' : '<span class="muted">Nothing marked as covered.</span>';
+    document.getElementById('rb-parked').innerHTML = parked.length
+      ? '<ul>' + parked.map(function(li){ return '<li>' + title(li) + '<span class="pk">' + (li.dataset.trigger === 'visit' ? 'Next visit' : 'Scroll back') + '</span></li>'; }).join('') + '</ul>'
+      : '<span class="muted">Nothing parked.</span>';
+    document.getElementById('rb-open').innerHTML = !open.length ? '<span class="muted">Nothing. The agenda is complete.</span>'
+      : open.length === onAgenda.length && !parked.length ? 'All seven items, in your order.' : '<ul>' + names(open) + '</ul>';
+  }
+
+  function approve(){
+    if (approved) return;
+    approved = new Date();
+    var b = document.getElementById('approve');
+    b.setAttribute('aria-pressed', 'true');
+    b.textContent = 'Approved ' + stamp(approved);
+    var p = document.getElementById('status-pill');
+    p.textContent = 'Approved ' + stamp(approved); p.classList.add('ok');
+    document.getElementById('rb-approved').textContent = 'Drafted by Vivo. Edited and approved by you at ' + stamp(approved) + '.';
+    document.getElementById('rb-foot').hidden = true;
+    say('Agenda approved at ' + stamp(approved) + '. Step one is done.');
+  }
+  document.getElementById('approve').addEventListener('click', approve);
+  document.getElementById('approve-2').addEventListener('click', approve);
+
+  var openAll = document.getElementById('open-all');
+  openAll.addEventListener('click', function(){
+    var items = all('.item', list);
+    var anyClosed = items.some(function(li){ return $('.item-body', li).hidden; });
+    items.forEach(function(li){ setOpen(li, anyClosed); });
+    openAll.textContent = anyClosed ? 'Close all' : 'Open all';
+  });
+
+  // "Returns when you scroll back": arm once the top of the agenda leaves view, fire when it returns.
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        all('.item', parkedList).forEach(function(li){
+          if (li.dataset.trigger !== 'scroll') return;
+          if (!en.isIntersecting) li.dataset.armed = '1';
+          else if (li.dataset.armed === '1') unpark(li, false);
+        });
+      });
+    });
+    io.observe(document.getElementById('agenda-top'));
+  }
+
+  setOpen(list.firstElementChild, true);
+  update();
+})();
+</script>
+</body>
+</html>

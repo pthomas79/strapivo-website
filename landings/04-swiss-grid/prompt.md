@@ -1,0 +1,26 @@
+# 04 · The Swiss grid
+
+Range: Conservative (concept 4 of 40, ordered from conservative to a bit nuts)
+Audience: Design-literate executives and strategy teams
+Colours: Paper, ink, Azure at full strength as large flat fields. No additional colour.
+
+## The task
+
+Build a complete landing page for Strapivo as a single `index.html` in this folder (`landings/04-swiss-grid/`). It is one of 40 deliberately different concepts, so commit fully to this one and do not drift toward a generic software landing page.
+
+Read `../BRIEF.md` first. It holds the facts about Strapivo and Dynamic Strategy, the truth rules, the brand (fonts, colour tokens, logo), the build rules and the finishing steps. The brief decides what is true and what the brand allows. This prompt decides everything else.
+
+## The concept
+
+International typographic style applied without compromise. A visible 12-column grid, flush-left ragged-right text, enormous numerals, asymmetric composition, flat Azure rectangles, hairline rules. Think of a poster series that became a website.
+
+Structure the page as numbered plates, 01 to 07, each one a strict composition: 01 the claim, 02 the problem, 03 the structure (Ambition, success criteria, focus areas, objectives, activities), 04 the radar, 05 the session, 06 the five options, 07 the record. Each plate has one huge numeral, one headline, one short text block, and one geometric figure built from circles, lines and squares.
+
+Signature element: the figures. The radar is concentric circles and a quadrant. The focus rule is twelve small circles with four filled. The five options are five bars of different lengths. Pure geometry, no icons, no gradients, no shadows, zero radius. Headlines up to 14vw. The grid lines may show faintly behind everything.
+
+## Standards
+
+- Strapivo sells to SMEs and corporates. The result must be something a CEO would forward to their board: confident, well made, never playful for its own sake.
+- Fonts and base colours are those of the current site (Inter 400 and 500, JetBrains Mono, Paper, Navy, Azure). The additional colours above are yours to use with a clear role.
+- Craft matters more than volume. Spend your effort on the signature element and on the copy.
+- Finish with the two steps in section 9 of the brief: screenshot and fix, then the unslop pass using `/home/hiasinho/Work/prot-strapivo-dynamic-strategy/.claude/skills/unslop/SKILL.md`.

@@ -1,0 +1,28 @@
+# 30 · One screen
+
+Range: Experimental (concept 30 of 40, ordered from conservative to a bit nuts)
+Audience: Executives with ninety seconds
+Colours: Sky and Paper surfaces, ink, Azure. Status colours: green #1E9E6A, yellow #D9A300, red #D64545.
+
+## The task
+
+Build a complete landing page for Strapivo as a single `index.html` in this folder (`landings/30-one-screen/`). It is one of 40 deliberately different concepts, so commit fully to this one and do not drift toward a generic software landing page.
+
+Read `../BRIEF.md` first. It holds the facts about Strapivo and Dynamic Strategy, the truth rules, the brand (fonts, colour tokens, logo), the build rules and the finishing steps. The brief decides what is true and what the brand allows. This prompt decides everything else.
+
+## The concept
+
+"Everything that matters. One screen." The landing page obeys the product's own rule: on desktop it does not scroll. The whole page is one viewport laid out as Mission Control, and the marketing lives inside the panels.
+
+Four blocks, as in the product. 'Next session': a live countdown to next Thursday 09:00 computed in the page, agenda status, a link to the first takes. 'Needs you': four or five items that are in fact the page's arguments, each phrased as a task ('Read why the last strategy went into a drawer', 'A risk has sat in the top right for 14 days', 'Confirm a ghost move'). 'Success criteria at a glance': eight illustrative criteria with lights, four flagged as focus. 'Recent decisions': four numbered entries, each one of the five options.
+
+Selecting any item opens a detail drawer over part of the screen with the explanation, 80 to 150 words each, and closes with Escape. A thin header carries the logo, Sign in and the call to action. A footer strip carries the legal links. Label the data as an illustrative example.
+
+Signature element: the constraint. Use CSS grid sized to 100dvh on screens wider than 1000 px and taller than 700 px. Below that, it becomes a normal scrolling page with the four blocks stacked and the details expanded inline. Total copy lives mostly in the drawers. With JavaScript off, the drawers' content appears as sections below.
+
+## Standards
+
+- Strapivo sells to SMEs and corporates. The result must be something a CEO would forward to their board: confident, well made, never playful for its own sake.
+- Fonts and base colours are those of the current site (Inter 400 and 500, JetBrains Mono, Paper, Navy, Azure). The additional colours above are yours to use with a clear role.
+- Craft matters more than volume. Spend your effort on the signature element and on the copy.
+- Finish with the two steps in section 9 of the brief: screenshot and fix, then the unslop pass using `/home/hiasinho/Work/prot-strapivo-dynamic-strategy/.claude/skills/unslop/SKILL.md`.

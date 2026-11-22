@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo · An invitation to the founding customer programme</title>
+<meta name="description" content="Strapivo works with five founding companies. Four have joined. The fifth gets its strategy built in Strapivo with our team, a team of five on Dynamic Strategy for twelve months, and a say in the roadmap.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+
+:root{
+  --ink:#141B24;
+  --n900:#050C14; --n700:#2C343C; --n600:#495158; --n500:#6C727A; --n400:#999FA6; --n200:#E1E5EA; --n100:#EFF2F6;
+  --paper:#F6F9FB;
+  --sky:#EEF6FF; --sky2:#D4EBFF;
+  --p200:#A9D6FF; --p400:#3FA0FA; --p500:#0082E6; --p600:#006FD1; --p700:#005DBD;
+  --brass:#B08D57;
+  --brass-rule:rgba(176,141,87,.55);
+  --card:#0E141C;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ink);color:var(--paper);
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  -webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";
+  font-size:17px;line-height:1.6;font-weight:400;
+}
+img,svg{display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--p400);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:0}
+.skip:focus{left:16px;top:16px;background:var(--paper);color:var(--ink);padding:8px 12px;z-index:10}
+
+.mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:400}
+.eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:12px;color:var(--brass);margin:0 0 20px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+
+/* header */
+.site-head{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:28px 32px;max-width:1280px;margin:0 auto}
+.site-head .logo img{height:22px;width:auto}
+.site-head nav{display:flex;align-items:center;gap:28px}
+.site-head .label{color:var(--n400)}
+.signin{font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em;font-size:12px;text-decoration:none;color:var(--paper);border:1px solid var(--n600);padding:9px 14px;border-radius:3px;transition:border-color .3s}
+.signin:hover{border-color:var(--paper)}
+
+/* invitation */
+.invite{padding:40px 24px 120px;display:flex;justify-content:center}
+.card{
+  position:relative;width:100%;max-width:660px;background:var(--card);
+  border:1px solid var(--brass-rule);border-radius:3px;
+  padding:72px 64px 64px;text-align:center;
+  box-shadow:0 30px 80px -40px rgba(0,0,0,.6);
+}
+.card::before{content:"";position:absolute;inset:9px;border:1px solid var(--brass-rule);border-radius:2px;pointer-events:none}
+.card .eyebrow{margin-bottom:40px}
+.numeral{font-size:184px;line-height:.86;letter-spacing:-.04em;color:var(--brass);font-weight:400;margin:0}
+.numeral-caption{color:var(--n400);margin:22px 0 34px}
+.places{display:flex;justify-content:center;gap:18px;margin:0 auto 14px;padding:0;list-style:none}
+.places li{display:flex;flex-direction:column;align-items:center;gap:10px}
+.places svg{width:44px;height:44px}
+.places .tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--n500)}
+.places .open .tag{color:var(--p400)}
+.places-sum{color:var(--n200);margin:18px 0 0}
+.rule{display:flex;align-items:center;gap:14px;justify-content:center;margin:44px auto}
+.rule span{display:block;height:1px;width:96px;background:var(--brass-rule)}
+.rule i{display:block;width:7px;height:7px;border:1px solid var(--brass);border-radius:50%}
+.card h1{font-size:44px;line-height:1.1;letter-spacing:-.025em;font-weight:500;margin:0 0 22px}
+.card .lede{color:var(--n200);max-width:30em;margin:0 auto;font-size:18px}
+.trade{font-size:24px;line-height:1.35;letter-spacing:-.015em;margin:0;color:var(--paper)}
+.trade em{font-style:normal;color:var(--p400)}
+.rsvp{margin-top:48px;padding-top:36px;border-top:1px solid var(--n700)}
+.rsvp .mono{color:var(--n400);margin:0 0 18px}
+.btn{
+  display:inline-block;background:var(--p500);color:#fff;text-decoration:none;font-weight:500;
+  padding:15px 28px;border-radius:3px;font-size:16px;letter-spacing:-.005em;transition:background .3s;
+}
+.btn:hover{background:var(--p600)}
+.addr{display:block;margin-top:16px;color:var(--n400);font-family:var(--mono);font-size:13px;letter-spacing:.04em}
+.addr a{color:var(--n200);text-decoration:none;border-bottom:1px solid var(--n600)}
+.addr a:hover{border-color:var(--n200)}
+
+/* ring draw */
+.ring-solid circle{stroke-dasharray:264;stroke-dashoffset:0}
+@media (prefers-reduced-motion:no-preference){
+  .ring-solid circle{animation:draw 1.6s cubic-bezier(.4,0,.2,1) both}
+  .places li:nth-child(2) .ring-solid circle{animation-delay:.25s}
+  .places li:nth-child(3) .ring-solid circle{animation-delay:.5s}
+  .places li:nth-child(4) .ring-solid circle{animation-delay:.75s}
+  .ring-open{animation:appear 1.2s 1.4s ease both}
+  @keyframes draw{from{stroke-dashoffset:264}to{stroke-dashoffset:0}}
+  @keyframes appear{from{opacity:0}to{opacity:1}}
+}
+
+/* sections */
+section.block{padding:112px 0;border-top:1px solid var(--n700)}
+h1,h2,.trade,.lede{text-wrap:balance}
+h2{font-size:40px;line-height:1.12;letter-spacing:-.025em;font-weight:500;margin:0 0 24px;max-width:18em}
+h3{font-size:22px;line-height:1.25;letter-spacing:-.015em;font-weight:500;margin:0 0 16px}
+p{margin:0 0 16px}
+.intro{color:var(--n200);max-width:36em;font-size:18px}
+
+/* terms */
+.terms{display:grid;grid-template-columns:1fr 1px 1fr;gap:56px;margin-top:56px}
+.terms .divider{background:var(--brass-rule)}
+.terms h3{font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:400;color:var(--brass);margin-bottom:8px}
+.terms ol{list-style:none;margin:0;padding:0;counter-reset:t}
+.terms li{counter-increment:t;display:grid;grid-template-columns:44px 1fr;padding:22px 0;border-bottom:1px solid var(--n700)}
+.terms li::before{content:counter(t,upper-roman);font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--brass);padding-top:5px}
+.terms li strong{display:block;font-weight:500;font-size:19px;letter-spacing:-.01em;margin-bottom:4px}
+.terms li span{color:var(--n400)}
+.terms .ask li strong{font-size:24px;line-height:1.3;letter-spacing:-.015em}
+.ask-note{margin-top:28px;color:var(--n400);font-size:15px}
+
+/* why */
+.why{display:grid;grid-template-columns:1.1fr 1fr;gap:72px;align-items:start}
+.voices{margin:0;padding:0;list-style:none}
+.voices-head{color:var(--n400);margin:0 0 12px}
+.voices li{border-left:1px solid var(--brass-rule);padding:4px 0 4px 24px;margin:0 0 26px;font-size:21px;line-height:1.4;letter-spacing:-.012em;color:var(--paper)}
+
+/* structure */
+.shape{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:56px 0 0;border-top:1px solid var(--n700);border-bottom:1px solid var(--n700)}
+.shape div{padding:26px 22px 28px 0}
+.shape div + div{padding-left:22px;border-left:1px solid var(--n700)}
+.shape dt{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--p400);margin-bottom:10px}
+.shape dd{margin:0;color:var(--n200);font-size:15px;line-height:1.55}
+.lights{display:inline-flex;gap:5px;vertical-align:middle;margin-left:4px}
+.lights b{width:8px;height:8px;border-radius:50%;display:block}
+
+/* proceedings */
+.proceed-wrap{display:grid;grid-template-columns:1fr 380px;gap:72px;margin-top:88px;align-items:start}
+.proceed{list-style:none;margin:0;padding:0;counter-reset:p}
+.proceed li{counter-increment:p;display:grid;grid-template-columns:56px 1fr;gap:0;padding:20px 0;border-top:1px solid var(--n700)}
+.proceed li:last-child{border-bottom:1px solid var(--n700)}
+.proceed li::before{content:counter(p,decimal-leading-zero);font-family:var(--mono);font-size:13px;color:var(--brass);padding-top:3px}
+.proceed strong{font-weight:500;color:var(--paper);margin-right:6px}
+.proceed p{margin:0;color:var(--n200);font-size:16px}
+.proceed-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:20px}
+.proceed-head .mono{color:var(--n500);white-space:nowrap}
+
+/* record example */
+.record{position:sticky;top:32px;background:var(--paper);color:var(--ink);border-radius:3px;padding:28px 28px 24px}
+.record .flag{white-space:nowrap;gap:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);display:flex;justify-content:space-between;border-bottom:1px solid var(--n200);padding-bottom:12px;margin-bottom:18px}
+.record .num{font-family:var(--mono);font-size:22px;letter-spacing:.02em;color:var(--p600);margin:0 0 2px}
+.record .date{font-family:var(--mono);font-size:12px;color:var(--n600);margin:0 0 18px}
+.record dl{margin:0}
+.record dt{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--n600);margin-top:14px}
+.record dd{margin:3px 0 0;font-size:15px;line-height:1.5;color:var(--ink)}
+.chip{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:var(--sky2);color:var(--p700)}
+.record .foot{margin-top:20px;padding-top:12px;border-top:1px solid var(--n200);font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--n600)}
+
+/* trust */
+.trust{display:grid;grid-template-columns:1fr 1.2fr;gap:72px}
+.trust ul{list-style:none;margin:0;padding:0}
+.trust li{padding:20px 0;border-top:1px solid var(--n700);color:var(--n200)}
+.trust li:last-child{border-bottom:1px solid var(--n700)}
+.trust li strong{display:block;color:var(--paper);font-weight:500;margin-bottom:2px}
+.trust .big{font-size:20px;color:var(--n200);max-width:24em}
+.trust .big em{font-style:normal;color:var(--p400)}
+
+/* hosts */
+.hosts{list-style:none;margin:48px 0 0;padding:0;max-width:820px}
+.hosts li{display:flex;align-items:baseline;gap:14px;padding:16px 0}
+.hosts .name{font-size:22px;letter-spacing:-.015em;white-space:nowrap}
+.hosts .lead{flex:1;border-bottom:1px dotted var(--n600);transform:translateY(-5px);min-width:24px}
+.hosts .role{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--n400);text-align:right}
+
+/* closing */
+.closing{padding:128px 24px 136px;border-top:1px solid var(--n700);display:flex;justify-content:center}
+.reply{position:relative;max-width:560px;width:100%;text-align:center;border:1px solid var(--brass-rule);border-radius:3px;padding:64px 48px 56px;background:var(--card)}
+.reply::before{content:"";position:absolute;inset:9px;border:1px solid var(--brass-rule);border-radius:2px;pointer-events:none}
+.reply h2{margin:0 auto 18px;font-size:36px}
+.reply p{color:var(--n200);max-width:26em;margin:0 auto 32px}
+.reply .eyebrow{margin-bottom:28px}
+
+/* footer */
+footer{border-top:1px solid var(--n700);padding:40px 32px;max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer img{height:18px;width:auto}
+footer .meta{display:flex;gap:28px;flex-wrap:wrap;align-items:center;color:var(--n400);font-size:14px}
+footer .meta a{color:var(--n200);text-decoration:none}
+footer .meta a:hover{text-decoration:underline}
+
+/* responsive */
+@media (max-width:1000px){
+  .why,.trust,.proceed-wrap{grid-template-columns:1fr;gap:48px}
+  .record{position:static;max-width:460px}
+  .shape{grid-template-columns:1fr 1fr}
+  .shape div{padding:22px 18px 22px 0;border-bottom:1px solid var(--n700)}
+  .shape div + div{padding-left:0;border-left:0}
+  .shape div:nth-child(even){padding-left:18px;border-left:1px solid var(--n700)}
+  .shape div:last-child{border-bottom:0}
+}
+@media (max-width:760px){
+  body{font-size:16px}
+  .wrap{padding:0 22px}
+  .site-head{padding:20px 22px}
+  .site-head .label{display:none}
+  .invite{padding:16px 14px 80px}
+  .card{padding:52px 26px 44px}
+  .card::before,.reply::before{inset:6px}
+  .numeral{font-size:136px}
+  .places{gap:10px}
+  .places svg{width:36px;height:36px}
+  .card h1{font-size:32px}
+  .card .lede{font-size:17px}
+  .trade{font-size:20px}
+  .rule{margin:34px auto}
+  .rule span{width:56px}
+  section.block{padding:80px 0}
+  h2{font-size:30px}
+  .terms{grid-template-columns:1fr;gap:40px}
+  .terms .divider{height:1px}
+  .terms .ask li strong{font-size:20px}
+  .voices li{font-size:18px}
+  .shape{grid-template-columns:1fr}
+  .shape div,.shape div:nth-child(even){padding:18px 0;border-left:0}
+  .shape div:last-child{border-bottom:0}
+  .proceed li{grid-template-columns:40px 1fr}
+  .hosts li{flex-wrap:wrap;gap:2px 14px;border-bottom:1px solid var(--n700)}
+  .hosts .lead{display:none}
+  .hosts .name{font-size:19px;width:100%;white-space:normal}
+  .hosts .role{text-align:left}
+  .closing{padding:80px 14px 96px}
+  .reply{padding:48px 24px 44px}
+  .reply h2{font-size:28px}
+  footer{padding:32px 22px;flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="dotted" viewBox="0 0 100 100">
+      <g fill="currentColor">
+        <circle cx="50" cy="8" r="4.2"/><circle cx="60.87" cy="9.431" r="4.2"/><circle cx="71" cy="13.627" r="4.2"/><circle cx="79.698" cy="20.302" r="4.2"/><circle cx="86.373" cy="29" r="4.2"/><circle cx="90.569" cy="39.13" r="4.2"/><circle cx="92" cy="50" r="4.2"/><circle cx="90.569" cy="60.87" r="4.2"/><circle cx="86.373" cy="71" r="4.2"/><circle cx="79.698" cy="79.698" r="4.2"/><circle cx="71" cy="86.373" r="4.2"/><circle cx="60.87" cy="90.569" r="4.2"/><circle cx="50" cy="92" r="4.2"/><circle cx="39.13" cy="90.569" r="4.2"/><circle cx="29" cy="86.373" r="4.2"/><circle cx="20.302" cy="79.698" r="4.2"/><circle cx="13.627" cy="71" r="4.2"/><circle cx="9.431" cy="60.87" r="4.2"/><circle cx="8" cy="50" r="4.2"/><circle cx="9.431" cy="39.13" r="4.2"/><circle cx="13.627" cy="29" r="4.2"/><circle cx="20.302" cy="20.302" r="4.2"/><circle cx="29" cy="13.627" r="4.2"/><circle cx="39.13" cy="9.431" r="4.2"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="site-head">
+  <a class="logo" href="#main"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="87" height="22"></a>
+  <nav aria-label="Account">
+    <span class="mono label">Founding customer programme</span>
+    <a class="signin" href="https://strapivo.app">Sign in</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="invite" aria-labelledby="invite-title">
+    <div class="card">
+      <p class="eyebrow">Strapivo · Founding customer programme · 2026</p>
+
+      <p class="numeral" aria-hidden="true">5</p>
+      <p class="mono numeral-caption">Founding companies</p>
+
+      <ul class="places" aria-label="Five founding places. Four are taken and one is open.">
+        <li>
+          <svg class="ring-solid" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="#F6F9FB" stroke-opacity=".82" stroke-width="9" transform="rotate(-90 50 50)"/></svg>
+          <span class="tag">Taken</span>
+        </li>
+        <li>
+          <svg class="ring-solid" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="#F6F9FB" stroke-opacity=".82" stroke-width="9" transform="rotate(-90 50 50)"/></svg>
+          <span class="tag">Taken</span>
+        </li>
+        <li>
+          <svg class="ring-solid" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="#F6F9FB" stroke-opacity=".82" stroke-width="9" transform="rotate(-90 50 50)"/></svg>
+          <span class="tag">Taken</span>
+        </li>
+        <li>
+          <svg class="ring-solid" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="#F6F9FB" stroke-opacity=".82" stroke-width="9" transform="rotate(-90 50 50)"/></svg>
+          <span class="tag">Taken</span>
+        </li>
+        <li class="open">
+          <svg class="ring-open" viewBox="0 0 100 100" aria-hidden="true" style="color:#3FA0FA"><use href="#dotted"/></svg>
+          <span class="tag">Open</span>
+        </li>
+      </ul>
+
+      <div class="rule" aria-hidden="true"><span></span><i></i><span></span></div>
+
+      <h1 id="invite-title">The fifth founding place is open.</h1>
+      <p class="lede">Strapivo is working with five founding companies. Four have joined. The fifth place is for a leadership team that will run its strategy in Strapivo for twelve months.</p>
+
+      <div class="rule" aria-hidden="true"><span></span><i></i><span></span></div>
+
+      <p class="trade">Founding customers shape the product. <em>That's the trade.</em></p>
+
+      <div class="rsvp">
+        <p class="mono">RSVP</p>
+        <a class="btn" href="mailto:strategy@strapivo.com?subject=Founding%20place">Start the conversation</a>
+        <span class="addr">or write to <a href="mailto:strategy@strapivo.com">strategy@strapivo.com</a></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="terms-title">
+    <div class="wrap">
+      <p class="eyebrow">The terms</p>
+      <h2 id="terms-title">What each side brings to the year.</h2>
+      <p class="intro">This is a working arrangement between your leadership team and ours. You get the product built around your strategy. We get a company that uses it for real and reports what breaks.</p>
+
+      <div class="terms">
+        <div>
+          <h3>Your company receives</h3>
+          <ol>
+            <li><div><strong>The full build of your strategy in Strapivo.</strong><span>The Strapivo team does the build with you.</span></div></li>
+            <li><div><strong>Two to three onboarding sessions of one hour each.</strong><span>We do the reading first. Four to five hours, and then you run it.</span></div></li>
+            <li><div><strong>Access for a team of five.</strong><span>The five can be your leadership team or the people who run strategy for it.</span></div></li>
+            <li><div><strong>Twelve months.</strong><span>That is long enough to run many sessions and judge the Record of Decisions.</span></div></li>
+            <li><div><strong>Direct influence on the roadmap.</strong><span>You talk to the people who decide what we build next.</span></div></li>
+          </ol>
+        </div>
+        <div class="divider" aria-hidden="true"></div>
+        <div class="ask">
+          <h3>We ask in return</h3>
+          <ol>
+            <li><div><strong>Use it in real sessions, on real decisions.</strong></div></li>
+            <li><div><strong>Tell us what is wrong with it.</strong></div></li>
+          </ol>
+          <p class="ask-note">That is the whole list. We would rather hear a blunt complaint in week three than a polite summary in month twelve.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="why-title">
+    <div class="wrap why">
+      <div>
+        <p class="eyebrow">Why we built it</p>
+        <h2 id="why-title">Every other function got software. Strategy never did.</h2>
+        <p class="intro">A leadership team agrees a strategy in a workshop. Then the market keeps moving and nobody checks the strategy against it. The gap shows up at the quarterly or annual review, when a correction costs the most.</p>
+        <p class="intro">News arrives unconnected to what the team said must succeed. Meetings follow the loudest voice. Decisions end up in slides and minutes that nobody reads.</p>
+      </div>
+      <div>
+        <p class="mono voices-head">What leadership teams tell us</p>
+        <ul class="voices">
+          <li>"We finish the strategy, and then we forget it."</li>
+          <li>"Between offsites, nothing moves."</li>
+          <li>"We restart the same argument every time a new analysis lands."</li>
+          <li>"I can't show the board that strategy actually moved between meetings."</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="run-title">
+    <div class="wrap">
+      <p class="eyebrow">Dynamic Strategy</p>
+      <h2 id="run-title">What your team would be running.</h2>
+      <p class="intro">Dynamic Strategy is how a leadership team keeps an agreed strategy current. It makes small corrections early and changes direction rarely, with someone in authority confirming each change. Strapivo holds the structure, and Vivo, the AI in Strapivo, does the preparation.</p>
+
+      <dl class="shape">
+        <div><dt>Ambition</dt><dd>One per portfolio, with optional targets for turnover, margin and a year.</dd></div>
+        <div><dt>Success criteria</dt><dd>Usually seven to twelve. Each shows today's light<span class="lights" aria-hidden="true"><b style="background:#3E9B6B"></b><b style="background:#D6A93A"></b><b style="background:#C8524A"></b></span>: green, yellow or red.</dd></div>
+        <div><dt>Focus areas</dt><dd>Up to four criteria. Ask for a fifth and Vivo replies: "You're diluting focus and creating noise. Do you really want to?"</dd></div>
+        <div><dt>Objectives and activities</dt><dd>Each activity has an action, a result, a timeframe and a person responsible.</dd></div>
+        <div><dt>Risks</dt><dd>Each sits on a radar of impact against likelihood. The top right is the danger zone.</dd></div>
+      </dl>
+
+      <div class="proceed-wrap">
+        <div>
+          <div class="proceed-head">
+            <h3>The order of proceedings</h3>
+            <span class="mono">Each cycle</span>
+          </div>
+          <ol class="proceed">
+            <li><p><strong>Watch.</strong>The Radar reads the outside world for each focus area and logs dated signals, each with its source.</p></li>
+            <li><p><strong>Triage.</strong>Vivo suggests which criterion a signal concerns, with a one-line reason. A person marks it relevant, irrelevant or unsure.</p></li>
+            <li><p><strong>Move.</strong>Vivo proposes a new position for a risk. A person confirms or rejects it. A move into the danger zone needs at least one primary source, so one blog post can't raise an alarm.</p></li>
+            <li><p><strong>Agenda.</strong>Vivo drafts the agenda 24 hours before the session from what changed. The session lead edits it, and the room approves it as the first item.</p></li>
+            <li><p><strong>Session.</strong>A session runs sixty minutes by default. Each person gives a sealed first take before the discussion, and the takes are revealed together.</p></li>
+            <li><p><strong>Decide.</strong>The room chooses Hold, Adapt, Pivot, Take advantage or Not yet. Not yet ends as Parked, with a trigger that brings it back, or as Let go, with a reason.</p></li>
+            <li><p><strong>Record.</strong>Vivo reads back each decision, with dissent by name. The session lead confirms it, and the decision gets a permanent number.</p></li>
+            <li><p><strong>Escalate and announce.</strong>Decisions beyond the team's authority go to an approver. The lead is prompted to announce what changed and why.</p></li>
+          </ol>
+        </div>
+
+        <aside class="record" aria-label="Illustrative example of a Record of Decisions entry">
+          <div class="flag"><span>Illustrative example</span><span>Record of Decisions</span></div>
+          <p class="num">SDS-2026-014</p>
+          <p class="date">Session of 12 Nov 2026 · Halvard Logistics, a fictional company</p>
+          <dl>
+            <dt>Success criterion</dt>
+            <dd>Win the cold-chain contracts in the southern region.</dd>
+            <dt>Decision</dt>
+            <dd><span class="chip">Not yet · Parked</span></dd>
+            <dt>What is missing</dt>
+            <dd>A confirmed price from the second refrigeration supplier.</dd>
+            <dt>Brings it back</dt>
+            <dd>The supplier's quote arrives, or the session of 10 Dec 2026.</dd>
+            <dt>Dissent</dt>
+            <dd>K. Varga: "Waiting costs us the spring tender."</dd>
+          </dl>
+          <p class="foot">Confirmed by the session lead, M. Ortiz</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="trust-title">
+    <div class="wrap trust">
+      <div>
+        <p class="eyebrow">Who decides</p>
+        <h2 id="trust-title">The human stays in the chair.</h2>
+        <p class="big"><em>Vivo proposes; people decide.</em> Every recommendation Vivo makes traces back to the strategic memory your team approved.</p>
+      </div>
+      <ul>
+        <li><strong>Vivo never changes a light.</strong>When two or more focus activities go off track, Vivo asks "Light still green?" and a person answers.</li>
+        <li><strong>A pivot needs authority.</strong>Vivo drafts the new wording. It takes effect only when someone with authority confirms it. Changes to accepted truth wait for an Owner.</li>
+        <li><strong>A risk can't sit unattended.</strong>A risk that stays in the danger zone for 14 days without a decision goes on the session lead's "Needs you" list.</li>
+        <li><strong>Your data stays in the EU.</strong>Strapivo runs on EU-only infrastructure. GDPR by design.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="hosts-title">
+    <div class="wrap">
+      <p class="eyebrow">Your hosts</p>
+      <h2 id="hosts-title">You would work with the people building it.</h2>
+      <ul class="hosts">
+        <li><span class="name">Paris Thomas</span><span class="lead" aria-hidden="true"></span><span class="role">CEO and founder</span></li>
+        <li><span class="name">Mathias Maisberger</span><span class="lead" aria-hidden="true"></span><span class="role">CTO and co-founder</span></li>
+        <li><span class="name">Michael N. Wilkens</span><span class="lead" aria-hidden="true"></span><span class="role">CCO and co-founder</span></li>
+        <li><span class="name">Paul Cubbon</span><span class="lead" aria-hidden="true"></span><span class="role">Co-founder and advisor</span></li>
+        <li><span class="name">Dr. Alex Osterwalder</span><span class="lead" aria-hidden="true"></span><span class="role">Co-founder and advisor, creator of the Business Model Canvas</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="closing" aria-labelledby="reply-title">
+    <div class="reply">
+      <p class="eyebrow">RSVP</p>
+      <h2 id="reply-title">Reply for the fifth place.</h2>
+      <p>Write to us with your company, your role and the decisions your leadership team faces this year. The first step is a conversation between your team and ours.</p>
+      <a class="btn" href="mailto:strategy@strapivo.com?subject=Founding%20place">Start the conversation</a>
+      <span class="addr"><a href="mailto:strategy@strapivo.com">strategy@strapivo.com</a></span>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="71" height="18">
+  <div class="meta">
+    <span>© 2026 Strapivo</span>
+    <a href="/imprint">Imprint</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+  </div>
+</footer>
+</body>
+</html>

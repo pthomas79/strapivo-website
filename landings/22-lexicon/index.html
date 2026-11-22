@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A lexicon of Dynamic Strategy · Strapivo</title>
+<meta name="description" content="Twenty-six words that define Dynamic Strategy in Strapivo, arranged A to Z. Each word names one mechanism in the product.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --red:#9B2C2C;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --wrap:1320px;
+  --gut:clamp(20px,4vw,48px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:17px;line-height:1.6}
+a{color:var(--p700)}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gut)}
+.mono{font-family:var(--mono)}
+.label{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--n600)}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:var(--paper);padding:8px 12px;border-radius:4px;z-index:50}
+.skip:focus{left:8px}
+
+/* Header */
+.site-head{border-bottom:1px solid var(--n200);background:var(--paper)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+.site-head img{height:24px;width:auto;display:block}
+.site-head nav{display:flex;align-items:center;gap:20px}
+.site-head nav a{font-size:15px;text-decoration:none;color:var(--ink)}
+.site-head nav a:hover{color:var(--p700)}
+.btn{display:inline-block;background:var(--p600);color:#fff !important;text-decoration:none;font-weight:500;font-size:15px;padding:10px 16px;border-radius:4px;transition:background .2s}
+.btn:hover{background:var(--p700)}
+
+/* Title page */
+.title{padding:clamp(48px,8vw,104px) 0 clamp(40px,6vw,72px);border-bottom:1px solid var(--ink)}
+.title .eyebrow{display:flex;flex-wrap:wrap;gap:6px 18px;margin-bottom:clamp(32px,5vw,56px)}
+.title-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,6vw,96px);align-items:end}
+.lead-entry h1{font-weight:500;font-size:clamp(46px,8.4vw,120px);line-height:.98;letter-spacing:-.035em;margin:0}
+.lead-entry .pos{margin:18px 0 22px;display:block}
+.lead-entry .pos b{font-weight:500;color:var(--p700)}
+.lead-entry .sense{font-size:clamp(20px,2.1vw,26px);line-height:1.4;letter-spacing:-.012em;margin:0;max-width:30ch}
+.lead-entry .sense .hl{color:var(--p700)}
+.lead-entry .use{margin:22px 0 0;color:var(--n600);font-size:16px}
+.intro p{margin:0;font-size:18px;line-height:1.6;color:var(--n700)}
+.intro p + p{margin-top:14px}
+.intro .count{margin-top:28px;padding-top:16px;border-top:1px solid var(--n200);display:flex;justify-content:space-between;gap:12px}
+
+/* Body: rail + entries */
+.body{display:grid;grid-template-columns:232px minmax(0,1fr);gap:clamp(32px,5vw,72px);padding-top:clamp(32px,5vw,56px)}
+.side{position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding-bottom:24px}
+.rail ol{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:2px}
+.rail li a,.rail li span{display:flex;align-items:center;justify-content:center;height:34px;font-family:var(--mono);font-size:14px;border-radius:3px;text-decoration:none}
+.rail li span{color:var(--n400)}
+.rail li a{color:var(--ink);font-weight:500;background:var(--n100)}
+.rail li a:hover{background:var(--sky2)}
+.rail li a.on{background:var(--p600);color:#fff}
+.rail li a.dim{background:none;color:var(--n400);font-weight:400}
+.filter{margin-top:28px}
+.filter label{display:block;margin-bottom:8px}
+.filter input{width:100%;font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--n400);border-radius:4px;background:#fff;color:var(--ink)}
+.filter input:focus{outline:2px solid var(--p500);outline-offset:1px;border-color:var(--p500)}
+.filter .status{margin-top:8px;font-family:var(--mono);font-size:12px;color:var(--n600);min-height:1.4em}
+.path{margin-top:32px;padding-top:20px;border-top:1px solid var(--n200)}
+.path ol{list-style:none;margin:10px 0 0;padding:0;counter-reset:s}
+.path li{counter-increment:s;display:grid;grid-template-columns:26px 1fr;font-size:14.5px;line-height:1.45;padding:5px 0}
+.path li::before{content:counter(s,decimal-leading-zero);font-family:var(--mono);font-size:11.5px;color:var(--n500);padding-top:2px}
+.path a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--n200)}
+.path a:hover{color:var(--p700);border-color:var(--p400)}
+.path p{font-size:13.5px;color:var(--n600);margin:12px 0 0;line-height:1.5}
+
+.letter{border-top:1px solid var(--n200);padding-top:8px;margin-bottom:12px}
+.letter:first-child{border-top:0;padding-top:0}
+.letter > h2{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.14em;color:var(--p700);margin:0 0 4px;display:flex;align-items:center;gap:14px}
+.letter > h2 .big{font-family:'Inter',sans-serif;font-size:52px;line-height:1;letter-spacing:-.03em;color:var(--sky2);font-weight:500}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.entry{display:grid;grid-template-columns:minmax(0,3.4fr) minmax(0,7fr);gap:8px clamp(24px,4vw,56px);padding:28px 0 32px;position:relative}
+.entry:not([hidden]) ~ .entry:not([hidden]){border-top:1px solid var(--n200)}
+.letter > h2 + .entry{padding-top:10px}
+.letter > h2 + .entry:target::before{top:10px}
+.entry .hw h3{font-weight:500;font-size:clamp(30px,3.2vw,44px);line-height:1.05;letter-spacing:-.028em;margin:0}
+.entry .hw .pos{display:block;margin-top:10px}
+.pos{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--n600)}
+.entry .def p{margin:0}
+.entry .def p + p,.entry .def ol + p{margin-top:12px}
+.entry .def .d{font-size:18px;line-height:1.55}
+.entry .def ol.senses{margin:0;padding:0;list-style:none;counter-reset:n}
+.entry .def ol.senses li{counter-increment:n;display:grid;grid-template-columns:28px 1fr;font-size:18px;line-height:1.55}
+.entry .def ol.senses li + li{margin-top:10px}
+.entry .def ol.senses li::before{content:counter(n) ".";font-family:var(--mono);font-size:14px;color:var(--p700);padding-top:3px}
+.use{color:var(--n600);font-size:16px}
+.use .label,.xref .label{margin-right:10px;font-size:11px}
+.xref{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase}
+.xref a{text-decoration:none;border-bottom:1px solid var(--p200);color:var(--p700)}
+.xref a:hover{border-color:var(--p600)}
+.entry:target{background:linear-gradient(90deg,var(--sky) 0,rgba(238,246,255,0) 70%)}
+.entry:target::before{content:"";position:absolute;left:calc(-1 * clamp(12px,2vw,24px));top:28px;bottom:32px;width:3px;background:var(--p500);border-radius:2px}
+.entry .quote{font-family:var(--mono);font-size:13.5px;color:var(--ink);background:var(--n100);padding:2px 6px;border-radius:3px;white-space:nowrap}
+
+figure{margin:20px 0 0}
+figure figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);margin-top:8px}
+.radar svg{width:150px;height:150px;display:block}
+.glasses svg{width:100%;max-width:252px;height:auto;display:block}
+
+/* Never say */
+.never{margin-top:clamp(56px,8vw,96px);border-top:1px solid var(--ink);padding-top:32px}
+.never > h2{font-weight:500;font-size:clamp(30px,3.6vw,48px);letter-spacing:-.025em;line-height:1.1;margin:0 0 8px}
+.never > p{max-width:58ch;color:var(--n700);margin:0 0 8px}
+.never .entry .hw h3{color:var(--red);text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:rgba(155,44,44,.45)}
+.never .entry .hw .pos{color:var(--red)}
+
+/* Close */
+.close{background:var(--ink);color:var(--paper);margin-top:clamp(56px,8vw,96px)}
+.close .wrap{padding-top:clamp(56px,8vw,104px);padding-bottom:clamp(56px,8vw,104px);display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(32px,6vw,96px)}
+.close .label{color:var(--n400)}
+.close h2{font-weight:500;font-size:clamp(34px,4.6vw,64px);line-height:1.04;letter-spacing:-.03em;margin:18px 0 22px}
+.close h2 .hl{color:var(--p200)}
+.close p{color:#C9CFD6;margin:0 0 28px;max-width:46ch;font-size:18px}
+.close .btn{background:#fff;color:var(--ink) !important}
+.close .btn:hover{background:var(--sky2)}
+.close dl{margin:0;border-top:1px solid var(--n700)}
+.close dl div{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:16px;padding:16px 0;border-bottom:1px solid var(--n700)}
+.close dt{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--p200);padding-top:3px}
+.close dd{margin:0;color:#DDE2E7;font-size:16px;line-height:1.5}
+
+footer{padding:32px 0 40px}
+footer .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+footer img{height:20px;width:auto;display:block}
+footer nav{display:flex;flex-wrap:wrap;gap:18px;align-items:center;font-size:14px;color:var(--n600)}
+footer nav a{color:var(--n600);text-decoration:none}
+footer nav a:hover{color:var(--p700);text-decoration:underline}
+
+.empty{display:none;padding:32px 0;font-size:18px;color:var(--n600)}
+.empty.show{display:block}
+[hidden]{display:none !important}
+
+@media (max-width:1180px){
+  .entry{grid-template-columns:1fr}
+  .entry .hw{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px}
+  .entry .hw .pos{margin-top:0}
+  .entry .hw figure{flex-basis:100%;margin:10px 0 6px}
+  .entry .def{padding-left:clamp(0px,3vw,32px)}
+}
+@media (max-width:900px){
+  .title-grid{grid-template-columns:1fr;align-items:start}
+  .body{grid-template-columns:minmax(0,1fr);gap:0;padding-top:0}
+  .side{min-width:0}
+  .filter input{flex:1;min-width:0}
+  .side{position:sticky;top:0;z-index:5;background:var(--paper);max-height:none;overflow:visible;padding:12px 0 12px;border-bottom:1px solid var(--n200);margin:0 calc(-1 * var(--gut));padding-left:var(--gut);padding-right:var(--gut)}
+  .rail .label,.path{display:none}
+  .rail ol{display:flex;gap:2px;overflow-x:auto;margin:0;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .rail ol::-webkit-scrollbar{display:none}
+  .rail li{flex:0 0 auto}
+  .rail li a,.rail li span{width:32px;height:32px;font-size:13px}
+  .filter{margin-top:10px;display:flex;align-items:center;gap:12px}
+  .filter label{position:absolute;left:-9999px}
+  .filter input{padding:8px 10px}
+  .filter .status{margin:0;white-space:nowrap}
+  .letter:first-child{padding-top:24px}
+  html{scroll-padding-top:150px}
+  .close .wrap{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  .site-head nav{gap:12px}
+  .site-head nav .btn{padding:8px 10px;font-size:14px}
+  .site-head img{height:20px}
+  .entry .def .d,.entry .def ol.senses li{font-size:17px}
+  .close dl div{grid-template-columns:1fr;gap:4px}
+  .entry .quote{white-space:normal}
+}
+@media (max-width:400px){
+  .site-head .signin{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none !important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#entries">Skip to the entries</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a href="./" aria-label="Strapivo home"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="95" height="24"></a>
+    <nav aria-label="Account">
+      <a class="signin" href="https://strapivo.app">Sign in</a>
+      <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="title" aria-labelledby="title-word">
+    <div class="wrap">
+      <div class="eyebrow">
+        <span class="label">Strapivo</span>
+        <span class="label">A lexicon</span>
+        <span class="label">26 entries · A to V</span>
+      </div>
+      <div class="title-grid">
+        <div class="lead-entry">
+          <h1 id="title-word">Dynamic Strategy</h1>
+          <span class="pos">noun · <b>the subject of this lexicon</b></span>
+          <p class="sense">How a leadership team keeps an agreed strategy honest, with <span class="hl">small, early corrections</span> and occasionally a change of course.</p>
+          <p class="use"><span class="label">Usage</span> "We're not changing strategy every week, but we are revising our tactics."</p>
+        </div>
+        <div class="intro">
+          <p>Every other function got software, and strategy never did.</p>
+          <p>Strapivo is the Strategic Design System, the one place where a company's strategy lives, stays current and gets used.</p>
+          <p>The 26 words below name its parts.</p>
+          <p>Each word means one thing, so a leadership team spends the session on the decision instead of the definition.</p>
+          <div class="count"><span class="label">Arranged A to Z</span><a class="label" href="#never" style="color:var(--red)">Three words we never say</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap body">
+    <aside class="side" aria-label="Index">
+      <nav class="rail" aria-label="Alphabet">
+        <span class="label">Index</span>
+        <ol id="rail"></ol>
+      </nav>
+      <div class="filter" id="filter" hidden>
+        <label class="label" for="q">Look up a word</label>
+        <input id="q" type="search" placeholder="Try parked or signal" autocomplete="off" spellcheck="false">
+        <p class="status" id="status" aria-live="polite">26 entries</p>
+      </div>
+      <div class="path">
+        <span class="label">Read in loop order</span>
+        <ol>
+          <li><a href="#signal">Signal</a></li>
+          <li><a href="#radar">Radar</a></li>
+          <li><a href="#ghost">Ghost</a></li>
+          <li><a href="#agenda">Agenda</a></li>
+          <li><a href="#first-take">First take</a></li>
+          <li><span><a href="#hold">Hold</a>, <a href="#adapt">Adapt</a>, <a href="#pivot">Pivot</a>, <a href="#take-advantage">Take advantage</a>, <a href="#not-yet">Not yet</a></span></li>
+          <li><a href="#record-of-decisions">Record of Decisions</a></li>
+        </ol>
+        <p>One session runs 60 minutes by default, weekly, fortnightly or monthly.</p>
+      </div>
+    </aside>
+
+    <div id="entries" tabindex="-1">
+
+      <section class="letter" id="letter-a" aria-label="A">
+        <h2><span class="big" aria-hidden="true">A</span><span class="sr">Letter A</span></h2>
+
+        <article class="entry" id="activity">
+          <div class="hw"><h3>Activity</h3><span class="pos">noun</span></div>
+          <div class="def">
+            <p class="d">A piece of work under one objective. It has an action, a result, a timeframe and a person responsible, and its status is on track, at risk, off track or done.</p>
+            <p class="use"><span class="label">Usage</span> "Two focus activities are off track, so Vivo asks whether the light is still green."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#objective">Objective</a>, <a href="#contributor">Contributor</a>, <a href="#light">Light</a></p>
+          </div>
+        </article>
+
+        <article class="entry" id="adapt">
+          <div class="hw"><h3>Adapt</h3><span class="pos">decision</span></div>
+          <div class="def">
+            <p class="d">One of five decisions a session can reach. The success criterion stays. Vivo drafts changes to the objectives and activities beneath it.</p>
+            <p class="use"><span class="label">Usage</span> "We adapt. The criterion stays, and two objectives change."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#hold">Hold</a>, <a href="#pivot">Pivot</a>, <a href="#take-advantage">Take advantage</a>, <a href="#not-yet">Not yet</a></p>
+          </div>
+        </article>
+
+        <article class="entry" id="agenda">
+          <div class="hw"><h3>Agenda</h3><span class="pos">noun</span></div>
+          <div class="def">
+            <p class="d">Vivo drafts it 24 hours before each session from what changed. That means new signals, risks entering the top right, parked questions coming back, carried-forward items, activities at risk or off track, and asks from contributors.</p>
+            <p class="d">Old business comes first. Every item carries a one-line reason. The session lead edits the draft and the room approves it as step one.</p>
+            <p class="use"><span class="label">Usage</span> "Item three is here because a risk entered the top right on Tuesday."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#back-from-parking">Back from parking</a>, <a href="#signal">Signal</a>, <a href="#time-held">Time held</a></p>
+          </div>
+        </article>
+
+        <article class="entry" id="ambition">
+          <div class="hw"><h3>Ambition</h3><span class="pos">noun</span></div>
+          <div class="def">
+            <p class="d">The one statement a portfolio is read against, with optional targets such as turnover, margin and a year. Usually 7 to 12 success criteria measure progress toward it.</p>
+            <p class="use"><span class="label">Usage</span> "Does this objective move us toward the Ambition, or only keep us busy?"</p>
+            <p class="xref"><span class="label">See also</span> <a href="#focus-area">Focus area</a>, <a href="#light">Light</a>, <a href="#objective">Objective</a></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="letter" id="letter-b" aria-label="B">
+        <h2><span class="big" aria-hidden="true">B</span><span class="sr">Letter B</span></h2>
+        <article class="entry" id="back-from-parking">
+          <div class="hw"><h3>Back from parking</h3><span class="pos">state</span></div>
+          <div class="def">
+            <p class="d">A parked question returns to the agenda because its trigger fired. A trigger is new evidence, a person's view, a date, or the next session.</p>
+            <p class="use"><span class="label">Usage</span> "The pricing question is back from parking. The evidence it waited for arrived on Monday."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#parked">Parked</a>, <a href="#not-yet">Not yet</a>, <a href="#agenda">Agenda</a></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="letter" id="letter-c" aria-label="C">
+        <h2><span class="big" aria-hidden="true">C</span><span class="sr">Letter C</span></h2>
+        <article class="entry" id="contributor">
+          <div class="hw"><h3>Contributor</h3><span class="pos">role</span></div>
+          <div class="def">
+            <p class="d">The person responsible for an activity. Before each session a contributor reports a status, one line on the result and, if needed, an ask of leadership.</p>
+            <p class="use"><span class="label">Usage</span> "Her ask went straight onto Thursday's agenda."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#activity">Activity</a>, <a href="#owner">Owner</a>, <a href="#agenda">Agenda</a></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="letter" id="letter-d" aria-label="D">
+        <h2><span class="big" aria-hidden="true">D</span><span class="sr">Letter D</span></h2>
+        <article class="entry" id="dissent">
+          <div class="hw"><h3>Dissent</h3><span class="pos">noun</span></div>
+          <div class="def">
+            <p class="d">A disagreement kept on the record by name, with its reason. Vivo reads it back with the decision, and the session lead confirms both.</p>
+            <p class="use"><span class="label">Usage</span> "SDS-2026-014 carries one dissent. The reason is written next to her name."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#record-of-decisions">Record of Decisions</a>, <a href="#first-take">First take</a></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="letter" id="letter-f" aria-label="F">
+        <h2><span class="big" aria-hidden="true">F</span><span class="sr">Letter F</span></h2>
+        <article class="entry" id="first-take">
+          <div class="hw"><h3>First take</h3><span class="pos">noun</span></div>
+          <div class="def">
+            <p class="d">Each person's position on an item, given before discussion and sealed. All first takes are revealed together, so the loudest voice cannot anchor the room.</p>
+            <p class="use"><span class="label">Usage</span> "Four first takes said hold. One said pivot, and the conversation started there."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#dissent">Dissent</a>, <a href="#hold">Hold</a>, <a href="#pivot">Pivot</a></p>
+          </div>
+        </article>
+
+        <article class="entry" id="focus-area">
+          <div class="hw">
+            <h3>Focus area</h3><span class="pos">rule</span>
+            <figure class="glasses">
+              <svg viewBox="0 0 252 24" role="img" aria-label="Twelve circles in a row. Four are filled.">
+                <g stroke-width="2">
+                  <circle cx="10" cy="12" r="8" fill="#0082E6" stroke="#0082E6"/>
+                  <circle cx="31" cy="12" r="8" fill="#0082E6" stroke="#0082E6"/>
+                  <circle cx="52" cy="12" r="8" fill="#0082E6" stroke="#0082E6"/>
+                  <circle cx="73" cy="12" r="8" fill="#0082E6" stroke="#0082E6"/>
+                  <circle cx="94" cy="12" r="8" fill="none" stroke="#999FA6"/>
+                  <circle cx="115" cy="12" r="8" fill="none" stroke="#999FA6"/>
+                  <circle cx="136" cy="12" r="8" fill="none" stroke="#999FA6"/>
+                  <circle cx="157" cy="12" r="8" fill="none" stroke="#999FA6"/>
+                  <circle cx="178" cy="12" r="8" fill="none" stroke="#999FA6"/>
+                  <circle cx="199" cy="12" r="8" fill="none" stroke="#999FA6"/>
+                  <circle cx="220" cy="12" r="8" fill="none" stroke="#999FA6"/>
+                  <circle cx="241" cy="12" r="8" fill="none" stroke="#999FA6"/>
+                </g>
+              </svg>
+              <figcaption>Four of twelve, filled to the brim</figcaption>
+            </figure>
+          </div>
+          <div class="def">
+            <p class="d">A success criterion flagged for focus. A portfolio has four at most. Try to flag a fifth and Strapivo asks: <span class="quote">"You're diluting focus and creating noise. Do you really want to?"</span></p>
+            <p class="use"><span class="label">Usage</span> "Fill a few glasses to the brim instead of all twelve a little."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#ambition">Ambition</a>, <a href="#radar">Radar</a>, <a href="#light">Light</a></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="letter" id="letter-g" aria-label="G">
+        <h2><span class="big" aria-hidden="true">G</span><span class="sr">Letter G</span></h2>
+        <article class="entry" id="ghost">
+          <div class="hw"><h3>Ghost</h3><span class="pos">noun</span></div>
+          <div class="def">
+            <p class="d">A new position for a risk that Vivo proposes, drawn as a faint outline on the radar with a one-line reason. It moves the risk only when a person confirms it.</p>
+            <p class="use"><span class="label">Usage</span> "There's a ghost in the top right. Nobody has confirmed it yet."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#radar">Radar</a>, <a href="#trail">Trail</a>, <a href="#signal">Signal</a></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="letter" id="letter-h" aria-label="H">
+        <h2><span class="big" aria-hidden="true">H</span><span class="sr">Letter H</span></h2>
+        <article class="entry" id="hold">
+          <div class="hw"><h3>Hold</h3><span class="pos">decision</span></div>
+          <div class="def">
+            <p class="d">The success criterion stays as written, and Strapivo marks it reviewed on that date. Holding is a decision, and the record shows it.</p>
+            <p class="use"><span class="label">Usage</span> "Hold. We looked, and nothing needs to change."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#adapt">Adapt</a>, <a href="#not-yet">Not yet</a>, <a href="#record-of-decisions">Record of Decisions</a></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="letter" id="letter-l" aria-label="L">
+        <h2><span class="big" aria-hidden="true">L</span><span class="sr">Letter L</span></h2>
+        <article class="entry" id="let-go">
+          <div class="hw"><h3>Let go</h3><span class="pos">state</span></div>
+          <div class="def">
+            <p class="d">One of two ways a "not yet" ends. The question closes, and its rationale stays on the record.</p>
+            <p class="use"><span class="label">Usage</span> "We let go of the second warehouse. The rationale is in the record."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#not-yet">Not yet</a>, <a href="#parked">Parked</a></p>
+          </div>
+        </article>
+
+        <article class="entry" id="light">
+          <div class="hw"><h3>Light</h3><span class="pos">state</span></div>
+          <div class="def">
+            <p class="d">Today's status of a success criterion: green, yellow or red. A person sets it.</p>
+            <p class="d">Vivo asks <span class="quote">"Light still green?"</span> when two or more focus activities are off track, or when a risk on that criterion enters the top right. Vivo never changes the light itself.</p>
+            <p class="use"><span class="label">Usage</span> "Yellow since March, and the chief strategy officer still defends it."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#activity">Activity</a>, <a href="#focus-area">Focus area</a>, <a href="#vivo">Vivo</a></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="letter" id="letter-m" aria-label="M">
+        <h2><span class="big" aria-hidden="true">M</span><span class="sr">Letter M</span></h2>
+        <article class="entry" id="mission-control">
+          <div class="hw"><h3>Mission Control</h3><span class="pos">noun</span></div>
+          <div class="def">
+            <p class="d">The home screen. It shows the next session with a countdown, the Needs you list, the success criteria at a glance and recent decisions.</p>
+            <p class="use"><span class="label">Usage</span> "Open Mission Control and the Needs you list says what is waiting for you."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#time-held">Time held</a>, <a href="#light">Light</a>, <a href="#record-of-decisions">Record of Decisions</a></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="letter" id="letter-n" aria-label="N">
+        <h2><span class="big" aria-hidden="true">N</span><span class="sr">Letter N</span></h2>
+        <article class="entry" id="not-yet">
+          <div class="hw"><h3>Not yet</h3><span class="pos">decision</span></div>
+          <div class="def">
+            <p class="d">A decision to wait, with a question attached: what's missing? It ends as Parked, with at least one trigger that brings it back, or as Let go, with a rationale.</p>
+            <p class="use"><span class="label">Usage</span> "Not yet. We need the churn figures for the third quarter first."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#parked">Parked</a>, <a href="#let-go">Let go</a>, <a href="#back-from-parking">Back from parking</a></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="letter" id="letter-o" aria-label="O">
+        <h2><span class="big" aria-hidden="true">O</span><span class="sr">Letter O</span></h2>
+        <article class="entry" id="objective">
+          <div class="hw"><h3>Objective</h3><span class="pos">noun</span></div>
+          <div class="def">
+            <p class="d">A goal under one success criterion, usually one of two to four. Activities sit beneath it. During setup Vivo proposes where each item belongs, and an Owner accepts or rejects the proposal.</p>
+            <p class="use"><span class="label">Usage</span> "This reads like an activity, not an objective. Move it down?"</p>
+            <p class="xref"><span class="label">See also</span> <a href="#activity">Activity</a>, <a href="#ambition">Ambition</a>, <a href="#owner">Owner</a></p>
+          </div>
+        </article>
+
+        <article class="entry" id="owner">
+          <div class="hw"><h3>Owner</h3><span class="pos">role</span></div>
+          <div class="def">
+            <p class="d">The role that accepts what counts as true. Changes to accepted truth wait for an Owner. The other roles are Admin, Member and Contributor.</p>
+            <p class="use"><span class="label">Usage</span> "Vivo proposed the change. The Owner accepted it on Friday."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#contributor">Contributor</a>, <a href="#pivot">Pivot</a>, <a href="#vivo">Vivo</a></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="letter" id="letter-p" aria-label="P">
+        <h2><span class="big" aria-hidden="true">P</span><span class="sr">Letter P</span></h2>
+        <article class="entry" id="parked">
+          <div class="hw"><h3>Parked</h3><span class="pos">state</span></div>
+          <div class="def">
+            <p class="d">A "not yet" question set aside with at least one trigger that brings it back. The trigger is evidence, a person's view, a date, or the next session.</p>
+            <p class="use"><span class="label">Usage</span> "It feels like parking, not losing."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#back-from-parking">Back from parking</a>, <a href="#let-go">Let go</a>, <a href="#not-yet">Not yet</a></p>
+          </div>
+        </article>
+
+        <article class="entry" id="pivot">
+          <div class="hw"><h3>Pivot</h3><span class="pos">decision</span></div>
+          <div class="def">
+            <p class="d">A change to the wording of a success criterion. Vivo drafts the new wording. It takes effect only when someone with authority confirms it.</p>
+            <p class="d">Decisions beyond the team's authority go to an approver in the app, as an exported memo, or into the board pack.</p>
+            <p class="use"><span class="label">Usage</span> "We pivot on criterion four, once the board confirms."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#adapt">Adapt</a>, <a href="#owner">Owner</a>, <a href="#record-of-decisions">Record of Decisions</a></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="letter" id="letter-r" aria-label="R">
+        <h2><span class="big" aria-hidden="true">R</span><span class="sr">Letter R</span></h2>
+        <article class="entry" id="radar">
+          <div class="hw">
+            <h3>Radar</h3><span class="pos">noun</span>
+            <figure class="radar">
+              <svg viewBox="0 0 150 150" role="img" aria-label="A risk radar. Impact on the vertical axis, likelihood on the horizontal. One risk has a dashed ghost position proposed in the top right.">
+                <rect x="78" y="10" width="62" height="62" fill="#EEF6FF"/>
+                <g stroke="#E1E5EA" stroke-width="1">
+                  <line x1="18" y1="41" x2="140" y2="41"/><line x1="18" y1="72" x2="140" y2="72"/><line x1="18" y1="103" x2="140" y2="103"/>
+                  <line x1="47" y1="10" x2="47" y2="134"/><line x1="78" y1="10" x2="78" y2="134"/><line x1="109" y1="10" x2="109" y2="134"/>
+                </g>
+                <path d="M18 10V134H140" fill="none" stroke="#141B24" stroke-width="1.2"/>
+                <circle cx="40" cy="112" r="4" fill="#141B24"/>
+                <circle cx="62" cy="58" r="4" fill="#141B24"/>
+                <circle cx="96" cy="94" r="4" fill="#141B24"/>
+                <line x1="96" y1="94" x2="120" y2="32" stroke="#0082E6" stroke-width="1.2" stroke-dasharray="3 3"/>
+                <circle cx="120" cy="30" r="5.5" fill="none" stroke="#0082E6" stroke-width="1.5" stroke-dasharray="2.5 2"/>
+                <text x="140" y="146" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing=".8" fill="#6C727A">LIKELIHOOD</text>
+                <text transform="translate(10 134) rotate(-90)" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing=".8" fill="#6C727A">IMPACT</text>
+              </svg>
+              <figcaption>A ghost, proposed top right</figcaption>
+            </figure>
+          </div>
+          <div class="def">
+            <ol class="senses">
+              <li>The plot of risks by impact against likelihood. The top right is the danger zone. The Now view shows where each risk sits today. The Tracking view shows movement since the last session, over 30 days or since origin.</li>
+              <li>The watch on the outside world for each focus area. Its search brief is the success criterion, its objectives and its risks.</li>
+            </ol>
+            <p class="use"><span class="label">Usage</span> "On Tracking you can see where the risk sat three weeks ago."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#ghost">Ghost</a>, <a href="#signal">Signal</a>, <a href="#time-held">Time held</a></p>
+          </div>
+        </article>
+
+        <article class="entry" id="record-of-decisions">
+          <div class="hw"><h3>Record of Decisions</h3><span class="pos">noun</span></div>
+          <div class="def">
+            <p class="d">The permanent log of what a team decided. Vivo reads back each entry, including dissent by name with its reason, and the session lead confirms it. Each decision gets a permanent number, such as SDS-2026-014.</p>
+            <p class="use"><span class="label">Usage</span> "We settled that in May. Look up SDS-2026-014."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#dissent">Dissent</a>, <a href="#trail">Trail</a>, <a href="#hold">Hold</a></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="letter" id="letter-s" aria-label="S">
+        <h2><span class="big" aria-hidden="true">S</span><span class="sr">Letter S</span></h2>
+        <article class="entry" id="signal">
+          <div class="hw"><h3>Signal</h3><span class="pos">noun</span></div>
+          <div class="def">
+            <p class="d">A dated observation from outside the company, with a source and a source class, primary or secondary. Its state is New, Relevant, Watching or Dismissed.</p>
+            <p class="d">Vivo makes the first pass and names the criterion it touches. A delegated person marks it relevant, irrelevant or unsure. Dismissed signals teach Vivo what counts as noise. Market intelligence reads over 4,000 sources a day and reports on Monday and Thursday.</p>
+            <p class="use"><span class="label">Usage</span> "One blog post is a signal. It cannot move a risk into the top right without a primary source."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#radar">Radar</a>, <a href="#ghost">Ghost</a>, <a href="#agenda">Agenda</a></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="letter" id="letter-t" aria-label="T">
+        <h2><span class="big" aria-hidden="true">T</span><span class="sr">Letter T</span></h2>
+        <article class="entry" id="take-advantage">
+          <div class="hw"><h3>Take advantage</h3><span class="pos">decision</span></div>
+          <div class="def">
+            <p class="d">The team adds detour activities to use an opening. The success criterion does not change.</p>
+            <p class="use"><span class="label">Usage</span> "A competitor left the region. We take advantage, and the criterion stays as written."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#adapt">Adapt</a>, <a href="#activity">Activity</a>, <a href="#hold">Hold</a></p>
+          </div>
+        </article>
+
+        <article class="entry" id="time-held">
+          <div class="hw"><h3>Time held</h3><span class="pos">noun</span></div>
+          <div class="def">
+            <p class="d">How long a risk has stayed where it is, shown as <span class="quote">top right · 27 days</span>, next to a trend word: Easing, Stable or Worsening.</p>
+            <p class="d">A risk that sits in the top right for 14 days with no decision lands in the session lead's Needs you list.</p>
+            <p class="use"><span class="label">Usage</span> "Top right, 27 days, worsening. That goes first."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#radar">Radar</a>, <a href="#mission-control">Mission Control</a>, <a href="#agenda">Agenda</a></p>
+          </div>
+        </article>
+
+        <article class="entry" id="trail">
+          <div class="hw"><h3>Trail</h3><span class="pos">noun</span></div>
+          <div class="def">
+            <p class="d">The history of every confirmed risk move. Each move carries its signal, its date and the person who confirmed it.</p>
+            <p class="use"><span class="label">Usage</span> "The trail shows who moved it, when, and on what evidence."</p>
+            <p class="xref"><span class="label">See also</span> <a href="#ghost">Ghost</a>, <a href="#radar">Radar</a>, <a href="#record-of-decisions">Record of Decisions</a></p>
+          </div>
+        </article>
+      </section>
+
+      <section class="letter" id="letter-v" aria-label="V">
+        <h2><span class="big" aria-hidden="true">V</span><span class="sr">Letter V</span></h2>
+        <article class="entry" id="vivo">
+          <div class="hw"><h3>Vivo</h3><span class="pos">name</span></div>
+          <div class="def">
+            <p class="d">Strapivo's AI. Vivo drafts agendas, triages signals, proposes risk moves and reads back decisions. It never changes a light, a criterion or the record by itself. Vivo proposes; people decide.</p>
+            <p class="d">It takes five roles: Auditor, Advisor, Scout, Colleague and Researcher. Every recommendation traces back to the strategic memory the team approved.</p>
+            <p class="use"><span class="label">Usage</span> "Where did this number come from?" Vivo, as Auditor.</p>
+            <p class="xref"><span class="label">See also</span> <a href="#ghost">Ghost</a>, <a href="#light">Light</a>, <a href="#owner">Owner</a></p>
+          </div>
+        </article>
+      </section>
+
+      <p class="empty" id="empty" role="status"></p>
+
+      <section class="never" id="never" aria-labelledby="never-h">
+        <span class="label" style="color:var(--red)">Appendix</span>
+        <h2 id="never-h">Words we do not use</h2>
+        <p>The product says objective, activity and result. These three words never appear in it.</p>
+
+        <article class="entry">
+          <div class="hw"><h3>KPI</h3><span class="pos">never say</span></div>
+          <div class="def">
+            <p class="d">Strapivo is not a KPI dashboard. A success criterion carries a light that a person sets and defends in the room.</p>
+            <p class="xref"><span class="label">Say instead</span> <a href="#light">Light</a>, <a href="#ambition">Ambition</a></p>
+          </div>
+        </article>
+        <article class="entry">
+          <div class="hw"><h3>OKR</h3><span class="pos">never say</span></div>
+          <div class="def">
+            <p class="d">OKR is a method with its own rules. Strapivo does not prescribe a method. Setup accepts a workshop report, a document, a pasted email or a plain prompt.</p>
+            <p class="xref"><span class="label">Say instead</span> <a href="#objective">Objective</a>, <a href="#activity">Activity</a></p>
+          </div>
+        </article>
+        <article class="entry">
+          <div class="hw"><h3>Key result</h3><span class="pos">never say</span></div>
+          <div class="def">
+            <p class="d">A result belongs to one activity and one person responsible. It needs no other adjective.</p>
+            <p class="xref"><span class="label">Say instead</span> <a href="#activity">Activity</a>, <a href="#contributor">Contributor</a></p>
+          </div>
+        </article>
+      </section>
+    </div>
+  </div>
+
+  <section class="close" aria-labelledby="close-h">
+    <div class="wrap">
+      <div>
+        <span class="label">End of entries</span>
+        <h2 id="close-h">Put your strategy into <span class="hl">these words</span>.</h2>
+        <p>We do the reading first. Send us the workshop report, the deck or the email thread. Setup takes four to five hours with your team, and then you run it.</p>
+        <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      </div>
+      <dl>
+        <div><dt>Who decides</dt><dd>Humans decide. Humans validate. The human stays in the chair.</dd></div>
+        <div><dt>Where Vivo's advice comes from</dt><dd>Every recommendation traces back to the strategic memory you approved.</dd></div>
+        <div><dt>Where the data lives</dt><dd>EU-only infrastructure. GDPR by design.</dd></div>
+        <div><dt>What you take away</dt><dd>The plan and the board pack as Markdown, the plan as CSV, escalation memos as Markdown.</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="80" height="20">
+    <nav aria-label="Legal">
+      <span>© 2026 Strapivo</span>
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  var rail=document.getElementById('rail');
+  var sections={};
+  document.querySelectorAll('section.letter').forEach(function(s){sections[s.id.slice(-1).toUpperCase()]=s;});
+  var links={};
+  letters.forEach(function(L){
+    var li=document.createElement('li');
+    if(sections[L]){
+      var a=document.createElement('a');a.href='#letter-'+L.toLowerCase();a.textContent=L;
+      var n=sections[L].querySelectorAll('.entry').length;
+      a.setAttribute('aria-label',L+', '+n+(n===1?' entry':' entries'));
+      li.appendChild(a);links[L]=a;
+    }else{
+      var s=document.createElement('span');s.textContent=L;s.setAttribute('aria-hidden','true');li.appendChild(s);
+    }
+    rail.appendChild(li);
+  });
+
+  /* Current letter while reading */
+  if('IntersectionObserver' in window){
+    var current=null;
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          var L=e.target.id.slice(-1).toUpperCase();
+          if(current) current.classList.remove('on');
+          current=links[L]; if(current){current.classList.add('on');
+            if(current.scrollIntoView && window.matchMedia('(max-width:900px)').matches){
+              var ol=rail; ol.scrollLeft=current.parentNode.offsetLeft-ol.clientWidth/2+16;
+            }
+          }
+        }
+      });
+    },{rootMargin:'-30% 0px -65% 0px'});
+    Object.keys(sections).forEach(function(k){io.observe(sections[k]);});
+  }
+
+  /* Filter */
+  var wrap=document.getElementById('filter'); wrap.hidden=false;
+  var q=document.getElementById('q'), status=document.getElementById('status'), empty=document.getElementById('empty');
+  var entries=[].slice.call(document.querySelectorAll('#entries section.letter .entry'));
+  var total=entries.length;
+  entries.forEach(function(e){
+    e._head=e.querySelector('h3').textContent.toLowerCase();
+    e._text=e.querySelector('.def').textContent.toLowerCase();
+  });
+  function run(){
+    var v=q.value.trim().toLowerCase(), shown=0;
+    entries.forEach(function(e){
+      var hit=!v||e._head.indexOf(v)>-1||e._text.indexOf(v)>-1;
+      e.hidden=!hit; if(hit) shown++;
+    });
+    Object.keys(sections).forEach(function(L){
+      var any=sections[L].querySelector('.entry:not([hidden])');
+      sections[L].hidden=!any;
+      links[L].classList.toggle('dim',!any);
+    });
+    status.textContent=v?(shown+' of '+total+' entries'):(total+' entries');
+    if(v&&!shown){empty.textContent='No entry uses "'+q.value.trim()+'". Try parked, signal or light.';empty.classList.add('show');}
+    else{empty.textContent='';empty.classList.remove('show');}
+  }
+  q.addEventListener('input',run);
+  q.addEventListener('keydown',function(e){if(e.key==='Escape'){q.value='';run();}});
+  /* A cross-reference always lands, even when a filter hides the target */
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="#"]'); if(!a||!q.value) return;
+    var t=document.querySelector(a.getAttribute('href'));
+    if(t&&t.closest('[hidden]')){q.value='';run();}
+  });
+})();
+</script>
+</body>
+</html>

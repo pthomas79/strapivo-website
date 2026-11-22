@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo security and governance datasheet: what Vivo may do and who decides</title>
+<meta name="description" content="For IT, risk, legal and procurement. What Strapivo's AI may propose, what it may never change, the four roles, the audit trail, EU-only hosting and open exports.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --green:#2F5D50;--green-bg:#E6EFEC;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --rail:212px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";color:var(--ink);background:var(--n100);font-size:15px;line-height:1.55}
+a{color:var(--p700);text-underline-offset:3px}
+a:hover{color:var(--p500)}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:#fff;padding:8px 12px;border-radius:4px;z-index:50;font-family:var(--mono);font-size:12px}
+.skip:focus{top:12px;color:#fff}
+.mono{font-family:var(--mono)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);font-weight:500}
+
+/* Header */
+.top{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--ink)}
+.top-in{max-width:1320px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;gap:24px}
+.logo{display:block;height:26px;width:auto}
+.docid{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);border-left:1px solid var(--n200);padding-left:24px;white-space:nowrap}
+.top nav{margin-left:auto;display:flex;align-items:center;gap:20px}
+.signin{font-size:14px;color:var(--ink);text-decoration:none;font-weight:500}
+.signin:hover{color:var(--p600)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:1;padding:12px 16px;border-radius:4px;text-decoration:none;border:1px solid var(--p600);background:var(--p600);color:#fff;cursor:pointer}
+.btn:hover{background:var(--p700);border-color:var(--p700);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--n400)}
+.btn.ghost:hover{border-color:var(--ink);color:var(--ink);background:#fff}
+.btn svg{flex:none}
+
+/* Sheet layout */
+.sheet{max-width:1320px;margin:0 auto;padding:32px 28px 0;display:grid;grid-template-columns:var(--rail) minmax(0,1fr);gap:0}
+.rail{position:sticky;top:88px;align-self:start;padding:8px 24px 24px 0}
+.rail .label{display:block;margin-bottom:14px}
+.rail ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--n200)}
+.rail a{display:grid;grid-template-columns:30px 1fr;gap:6px;padding:7px 0 7px 14px;margin-left:-1px;border-left:2px solid transparent;text-decoration:none;color:var(--n600);font-size:13px;line-height:1.35}
+.rail a .n{font-family:var(--mono);font-size:11px;color:var(--n500);padding-top:1px}
+.rail a:hover{color:var(--ink)}
+.rail a[aria-current="true"]{border-left-color:var(--p500);color:var(--ink)}
+.rail a[aria-current="true"] .n{color:var(--p600)}
+.rail .print{margin-top:22px;white-space:nowrap;font-size:13px}
+.rail .print[hidden]{display:none}
+
+.doc{background:#fff;border:1px solid var(--n200);border-radius:4px;min-width:0}
+
+/* Section frame */
+.sec{display:grid;grid-template-columns:88px minmax(0,1fr);border-top:1px solid var(--ink)}
+.sec:first-child{border-top:0}
+.secno{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--p600);padding:30px 0 0 28px;letter-spacing:.04em}
+.secbody{padding:28px 36px 40px 0;min-width:0}
+.sechead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:baseline;margin-bottom:6px}
+.sechead .label{white-space:nowrap}
+h1,h2,h3{font-weight:500;margin:0;color:var(--ink)}
+h2{font-size:26px;line-height:1.2;letter-spacing:-.02em}
+h3{font-size:15px;letter-spacing:-.005em}
+.lede{color:var(--n700);max-width:68ch;margin:10px 0 24px}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:36px;padding:36px 36px 40px 0}
+.hero .label{color:var(--n600)}
+h1{font-size:clamp(38px,5vw,60px);line-height:1.04;letter-spacing:-.03em;margin:18px 0 22px}
+h1 span{color:var(--p600)}
+.hero p{margin:0 0 14px;max-width:58ch;color:var(--n700)}
+.hero p.key{font-size:18px;line-height:1.45;color:var(--ink);letter-spacing:-.005em}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.glance{border:1px solid var(--ink);border-radius:4px;align-self:start;background:var(--paper)}
+.glance-h{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:3px 3px 0 0}
+.glance-h .label{color:#fff}
+.glance-h .label.dim{color:var(--p200)}
+.glance dl{margin:0}
+.glance .r{display:grid;grid-template-columns:128px minmax(0,1fr);gap:12px;padding:9px 16px;border-top:1px solid var(--n200);font-size:13.5px;line-height:1.4}
+.glance .r:first-child{border-top:0}
+.glance dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--n600);padding-top:2px}
+.glance dd{margin:0}
+
+/* Markers */
+.mk{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;line-height:1;padding:4px 7px;border-radius:2px;white-space:nowrap;vertical-align:1px}
+.mk.yes{color:var(--green);background:var(--green-bg);border:1px solid #C3D6CF}
+.mk.yes::before{content:"";width:6px;height:6px;border-radius:1px;background:var(--green)}
+.mk.no{color:var(--ink);background:#fff;border:1px solid var(--n400)}
+.mk.no::before{content:"";width:7px;height:1.5px;background:var(--ink)}
+a.mk.ask{color:var(--p700);background:var(--sky);border:1px solid var(--sky2);text-decoration:none}
+a.mk.ask:hover{background:var(--sky2);color:var(--p700)}
+a.mk.ask::after{content:"\2197";font-size:11px;letter-spacing:0}
+
+/* Spec tables */
+.tbl{width:100%;border-collapse:collapse;font-size:14px;line-height:1.5}
+.tbl caption{text-align:left;padding:0 0 10px}
+.tbl th,.tbl td{text-align:left;vertical-align:top;padding:12px 14px 12px 0;border-top:1px solid var(--n200)}
+.tbl thead th{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);border-top:0;border-bottom:1px solid var(--ink);padding-top:0;padding-bottom:8px}
+.tbl tbody th{font-weight:500;font-size:14px}
+.tbl tbody tr:first-child th,.tbl tbody tr:first-child td{border-top:0}
+.tbl td p{margin:0 0 6px}
+.tbl td p:last-child{margin-bottom:0}
+.tbl .rn{font-family:var(--mono);font-size:11px;color:var(--n500);width:44px;padding-top:14px}
+.tbl q{quotes:none;color:var(--n700)}
+.tbl q::before{content:'"'}.tbl q::after{content:'"'}
+.perm col.c-area{width:16%}
+.perm col.c-may{width:30%}
+.perm col.c-never{width:26%}
+.perm td.never{color:var(--n700)}
+.perm td.who .mk{margin-bottom:8px}
+.perm td.who span.t{display:block}
+.subhead{display:flex;align-items:baseline;gap:12px;margin:34px 0 12px}
+.subhead .label{color:var(--p600)}
+.kv{display:grid;grid-template-columns:220px minmax(0,1fr) auto;gap:0;border-top:1px solid var(--ink)}
+.kv>div{display:contents}
+.kv dt,.kv dd{padding:12px 0;border-bottom:1px solid var(--n200);margin:0}
+.kv dt{padding-right:20px!important;font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--n600);padding-top:15px}
+.kv dd{font-size:14px}
+.kv dd.m{text-align:right;padding-left:20px}
+.kv.two{grid-template-columns:220px minmax(0,1fr)}
+.note{font-size:13px;color:var(--n600);margin:14px 0 0;max-width:72ch}
+.note .mk{margin-left:4px}
+
+/* Record sample */
+.rec{margin:28px 0 0;border:1px solid var(--n400);border-radius:4px;background:var(--paper);font-size:13.5px}
+.rec-h{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px dashed var(--n400)}
+.rec-h .num{font-family:var(--mono);font-weight:500;font-size:14px;color:var(--p600);letter-spacing:.03em}
+.rec dl{margin:0;padding:6px 16px 12px}
+.rec .r{display:grid;grid-template-columns:140px minmax(0,1fr);gap:12px;padding:7px 0;border-bottom:1px solid var(--n200)}
+.rec .r:last-child{border-bottom:0}
+.rec dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--n600);padding-top:2px}
+.rec dd{margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--mono);font-size:11px;padding:2px 6px;border:1px solid var(--n400);border-radius:2px;white-space:nowrap}
+.chip.on{border-color:var(--ink);background:var(--ink);color:#fff}
+
+/* Hosting statement */
+.statement{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;padding:20px 22px;margin:4px 0 26px;border:1px solid var(--green);border-left-width:4px;border-radius:4px;background:#FBFCFB}
+.statement p{margin:0;font-size:22px;letter-spacing:-.015em;line-height:1.25}
+
+/* Questions */
+.qa{margin:0;border-top:1px solid var(--ink)}
+.qa details{border-bottom:1px solid var(--n200)}
+.qa summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px minmax(0,1fr) 20px;gap:0;padding:15px 0;font-weight:500;font-size:15px}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary .rn{font-family:var(--mono);font-size:11px;color:var(--n500);padding-top:3px;font-weight:400}
+.qa summary .pm{font-family:var(--mono);color:var(--n500);text-align:right}
+.qa summary .pm::before{content:"+"}
+.qa details[open] summary .pm::before{content:"\2212"}
+.qa summary:hover{color:var(--p700)}
+.qa .a{padding:0 20px 18px 44px;color:var(--n700);max-width:76ch}
+.qa .a p{margin:0 0 8px}
+
+/* Close */
+.close{background:var(--ink);color:#fff;border-radius:0 0 3px 3px}
+.close .secno{color:var(--p200)}
+.close h2{color:#fff;font-size:clamp(26px,3vw,34px)}
+.close .lede{color:#C9D0D8}
+.close .label{color:var(--n400)}
+.close .btn.ghost{color:#fff;border-color:#6C727A}
+.close .btn.ghost:hover{background:transparent;border-color:#fff}
+.sendlist{list-style:none;margin:0 0 6px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border-top:1px solid #2C343C}
+.sendlist li{padding:12px 16px 12px 0;border-bottom:1px solid #2C343C;font-size:14px;color:#E1E5EA}
+.sendlist li .mono{color:var(--p200);font-size:11px;margin-right:10px}
+
+/* Footer */
+footer{max-width:1320px;margin:0 auto;padding:36px 28px 48px;display:grid;grid-template-columns:var(--rail) 1fr;align-items:center;gap:16px}
+footer .fl{display:flex;flex-wrap:wrap;gap:8px 28px;align-items:center;font-size:13px;color:var(--n600)}
+footer .fl a{color:var(--n700)}
+footer .logo{height:22px}
+
+/* Responsive */
+@media (max-width:1100px){
+  .hero{grid-template-columns:1fr}
+  .glance{max-width:640px}
+}
+@media (max-width:920px){
+  :root{--rail:0px}
+  .sheet{grid-template-columns:1fr;padding:20px 16px 0}
+  .rail{position:static;padding:0 0 18px}
+  .rail ol{display:grid;grid-template-columns:1fr 1fr;border-left:0;border-top:1px solid var(--n200)}
+  .rail a{border-left:0;margin-left:0;padding:8px 8px 8px 0;border-bottom:1px solid var(--n200)}
+  .rail .print{display:none}
+  .docid{display:none}
+  .top-in{padding:0 16px}
+  footer{grid-template-columns:1fr;padding:28px 16px 40px}
+  .perm thead{display:none}
+  .perm,.perm tbody,.perm tr,.perm th,.perm td{display:block;width:auto}
+  .perm col{display:none}
+  .perm tr{border-top:1px solid var(--ink);padding:14px 0 6px}
+  .perm tbody tr:first-child{border-top:1px solid var(--ink)}
+  .perm th,.perm td{border-top:0;padding:4px 0 10px}
+  .perm td.rn{display:inline-block;padding:0 10px 0 0}
+  .perm th{display:inline-block;padding:0 0 10px;font-size:16px}
+  .perm td[data-h]::before{content:attr(data-h);display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);margin-bottom:3px}
+}
+@media (max-width:720px){
+  .top-in{gap:12px;height:56px}
+  .logo{height:22px}
+  .top nav{gap:12px}
+  .top .btn{padding:10px 12px;font-size:13px}
+  .sec{grid-template-columns:1fr}
+  .secno{padding:22px 18px 0}
+  .secbody{padding:8px 18px 32px}
+  .hero{padding:10px 18px 32px}
+  .sechead{grid-template-columns:1fr}
+  .sechead .label{display:none}
+  .kv,.kv.two{grid-template-columns:1fr}
+  .kv dt{border-bottom:0;padding:14px 0 0}
+  .kv dd{padding:4px 0 12px}
+  .kv dd.m{text-align:left;padding-top:0}
+  .kv dd.m:empty{display:none}
+  .kv dd:has(+ dd.m:empty){border-bottom:1px solid var(--n200)}
+  .kv dd:has(+ dd){border-bottom:0}
+  .glance .r{grid-template-columns:1fr;gap:2px}
+  .rec .r{grid-template-columns:1fr;gap:2px}
+  .tbl.simple thead{display:none}
+  .tbl.simple,.tbl.simple tbody,.tbl.simple tr,.tbl.simple th,.tbl.simple td{display:block}
+  .tbl.simple tr{border-top:1px solid var(--n200);padding:10px 0}
+  .tbl.simple tbody tr:first-child{border-top:1px solid var(--ink)}
+  .tbl.simple th,.tbl.simple td{border:0;padding:2px 0}
+  .tbl.simple td[data-h]::before{content:attr(data-h) " ";font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);margin-right:6px}
+  .qa .a{padding-left:0;padding-right:0}
+  .qa summary{grid-template-columns:36px minmax(0,1fr) 20px}
+  .statement p{font-size:19px}
+}
+@media (max-width:400px){
+  .signin{font-size:13px}
+  .top .btn{padding:9px 10px;font-size:12.5px}
+  .logo{height:19px}
+}
+
+/* Print */
+@media print{
+  @page{size:A4;margin:14mm 14mm 16mm}
+  body{background:#fff;font-size:10pt}
+  .top{position:static;border-bottom:1px solid #000}
+  .top nav,.rail,.skip,.actions,.close .actions{display:none!important}
+  .docid{display:block!important}
+  .sheet{display:block;padding:0;max-width:none}
+  .doc{border:0}
+  .sec{break-inside:auto;grid-template-columns:44px 1fr}
+  .secno{padding:20px 0 0}
+  .secbody{padding:18px 0 22px}
+  .hero{grid-template-columns:1fr 1fr;padding:18px 0}
+  h1{font-size:30pt}
+  .tbl tr,.kv>div,.rec,.glance,.qa details{break-inside:avoid}
+  .qa details .a{display:block}
+  .close{background:#fff;color:#000;border-top:2px solid #000}
+  .close h2,.close .lede,.sendlist li{color:#000}
+  .close .secno,.sendlist li .mono{color:#005DBD}
+  .sendlist,.sendlist li{border-color:#999}
+  a.mk.ask::after{content:""}
+  .print-only{display:block!important}
+  footer{display:block;padding:12px 0}
+}
+.print-only{display:none}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the datasheet</a>
+
+<header class="top">
+  <div class="top-in">
+    <a href="#top" aria-label="Strapivo, back to top"><img class="logo" src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="104" height="26"></a>
+    <span class="docid">Security and governance datasheet · Revision November 2026</span>
+    <nav aria-label="Account and contact">
+      <a class="signin" href="https://strapivo.app">Sign in</a>
+      <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </nav>
+  </div>
+</header>
+
+<div class="sheet" id="top">
+  <aside class="rail" aria-label="Datasheet sections">
+    <span class="label">Contents</span>
+    <ol>
+      <li><a href="#s00"><span class="n">00</span><span>At a glance</span></a></li>
+      <li><a href="#s01"><span class="n">01</span><span>What Vivo may do</span></a></li>
+      <li><a href="#s02"><span class="n">02</span><span>Authority model</span></a></li>
+      <li><a href="#s03"><span class="n">03</span><span>Audit trail</span></a></li>
+      <li><a href="#s04"><span class="n">04</span><span>Data and hosting</span></a></li>
+      <li><a href="#s05"><span class="n">05</span><span>Exports</span></a></li>
+      <li><a href="#s06"><span class="n">06</span><span>Procurement questions</span></a></li>
+      <li><a href="#s07"><span class="n">07</span><span>Contact</span></a></li>
+    </ol>
+    <button class="btn ghost print" type="button" id="printBtn" hidden>
+      <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6V1.5h8V6M4 12H2.5V6.5h11V12H12M4 9.5h8v5H4z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+      Print this datasheet
+    </button>
+  </aside>
+
+  <main class="doc" id="main">
+
+    <!-- 00 -->
+    <section class="sec" id="s00" aria-labelledby="h00">
+      <div class="secno" aria-hidden="true">00</div>
+      <div class="hero">
+        <div>
+          <p class="label">For IT, risk, legal and procurement</p>
+          <h1 id="h00">Humans decide. <span>Humans validate.</span></h1>
+          <p class="key">Every recommendation Vivo makes traces back to the strategic memory you approved.</p>
+          <p>Strapivo is the Strategic Design System. A leadership team keeps its strategy in Strapivo and runs Dynamic Strategy there. The Radar watches the outside world, the team triages what arrives, decides in a regular session and records the decision. Vivo is the AI inside Strapivo. Vivo proposes. People decide.</p>
+          <p>This sheet is for the people who review Strapivo before the CEO signs. It shows where the line between Vivo and your people sits, and how you can check it afterwards.</p>
+          <div class="actions">
+            <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+            <a class="btn ghost" href="#s06">Read the procurement questions</a>
+          </div>
+        </div>
+        <aside class="glance" aria-labelledby="glance-h">
+          <div class="glance-h"><h2 class="label" id="glance-h">At a glance</h2><span class="label dim">Sheet 1 of 1</span></div>
+          <dl>
+            <div class="r"><dt>AI role</dt><dd>Proposes and drafts. Never changes accepted truth.</dd></div>
+            <div class="r"><dt>Final say</dt><dd>A named person, every time <span class="mk yes">By design</span></dd></div>
+            <div class="r"><dt>Accepted truth</dt><dd>Changes wait for an Owner</dd></div>
+            <div class="r"><dt>Roles</dt><dd>Owner, Admin, Member, Contributor</dd></div>
+            <div class="r"><dt>Decision record</dt><dd>Permanent numbers, dissent recorded by name</dd></div>
+            <div class="r"><dt>Risk alarms</dt><dd>Need at least one primary source</dd></div>
+            <div class="r"><dt>Hosting</dt><dd>EU-only infrastructure <span class="mk yes">By design</span></dd></div>
+            <div class="r"><dt>Data protection</dt><dd>GDPR by design <span class="mk yes">By design</span></dd></div>
+            <div class="r"><dt>Meetings</dt><dd>Vivo does not listen to the room</dd></div>
+            <div class="r"><dt>Exports</dt><dd>Markdown and CSV</dd></div>
+            <div class="r"><dt>Certifications</dt><dd><a class="mk ask" href="mailto:strategy@strapivo.com?subject=Certifications">Ask us</a></dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 01 -->
+    <section class="sec" id="s01" aria-labelledby="h01">
+      <div class="secno" aria-hidden="true">01</div>
+      <div class="secbody">
+        <div class="sechead"><h2 id="h01">What Vivo may do, and what it may never do</h2><span class="label">Permissions</span></div>
+        <p class="lede">Vivo works in proposals and drafts. Each one waits for a person. The table lists every place Vivo acts in Dynamic Strategy, what it may do there and who decides.</p>
+        <table class="tbl perm">
+          <colgroup><col class="c-n"><col class="c-area"><col class="c-may"><col class="c-never"><col class="c-who"></colgroup>
+          <thead><tr><th scope="col"><span class="sr">No.</span></th><th scope="col">Area</th><th scope="col">Vivo may</th><th scope="col">Vivo may never</th><th scope="col">Who decides</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="rn">1.01</td><th scope="row">Setup</th>
+              <td data-h="Vivo may"><p>Propose where each imported item belongs, from a workshop report, a document, an email or a prompt.</p><p><q>This reads like an activity, not an objective. Move it down?</q></p></td>
+              <td class="never" data-h="Vivo may never">Place an item in the plan on its own.</td>
+              <td class="who" data-h="Who decides"><span class="mk yes">Person signs off</span><span class="t">An Owner accepts or rejects.</span></td>
+            </tr>
+            <tr>
+              <td class="rn">1.02</td><th scope="row">Signals</th>
+              <td data-h="Vivo may">Make a first pass on each signal. It names the success criterion, says relevant or not, and gives one line of reason.</td>
+              <td class="never" data-h="Vivo may never">Set the final state of a signal.</td>
+              <td class="who" data-h="Who decides"><span class="mk yes">Person signs off</span><span class="t">A delegated person marks it relevant, irrelevant or unsure.</span></td>
+            </tr>
+            <tr>
+              <td class="rn">1.03</td><th scope="row">Risk radar</th>
+              <td data-h="Vivo may">Propose a new position for a risk. The proposal shows as a ghost on the radar with a one-line reason.</td>
+              <td class="never" data-h="Vivo may never"><p>Move a risk.</p><p>Raise a risk into the top right on secondary sources alone.</p></td>
+              <td class="who" data-h="Who decides"><span class="mk yes">Person signs off</span><span class="t">A person confirms or rejects. A move into the top right needs at least one primary source.</span></td>
+            </tr>
+            <tr>
+              <td class="rn">1.04</td><th scope="row">Criterion lights</th>
+              <td data-h="Vivo may">Ask <q>Light still green?</q> when two or more focus activities are off track, or when a risk on that criterion enters the top right.</td>
+              <td class="never" data-h="Vivo may never">Change a light from green, yellow or red.</td>
+              <td class="who" data-h="Who decides"><span class="mk yes">Person signs off</span><span class="t">The team sets the light. Vivo only asks.</span></td>
+            </tr>
+            <tr>
+              <td class="rn">1.05</td><th scope="row">Agenda</th>
+              <td data-h="Vivo may">Draft the session agenda 24 hours ahead from what changed. Each item carries a one-line reason.</td>
+              <td class="never" data-h="Vivo may never">Fix the agenda.</td>
+              <td class="who" data-h="Who decides"><span class="mk yes">Person signs off</span><span class="t">The session lead edits it. The room approves it as step one.</span></td>
+            </tr>
+            <tr>
+              <td class="rn">1.06</td><th scope="row">Decisions</th>
+              <td data-h="Vivo may">Draft changes to objectives and activities after Adapt. Draft new wording for a success criterion after Pivot.</td>
+              <td class="never" data-h="Vivo may never">Put a Pivot into effect.</td>
+              <td class="who" data-h="Who decides"><span class="mk yes">Person signs off</span><span class="t">Someone with authority confirms.</span></td>
+            </tr>
+            <tr>
+              <td class="rn">1.07</td><th scope="row">Record</th>
+              <td data-h="Vivo may">Read back each entry for the Record of Decisions, dissent included.</td>
+              <td class="never" data-h="Vivo may never">Write an entry that nobody has confirmed.</td>
+              <td class="who" data-h="Who decides"><span class="mk yes">Person signs off</span><span class="t">The session lead confirms.</span></td>
+            </tr>
+            <tr>
+              <td class="rn">1.08</td><th scope="row">Accepted truth</th>
+              <td data-h="Vivo may">Propose a change.</td>
+              <td class="never" data-h="Vivo may never">Change accepted truth.</td>
+              <td class="who" data-h="Who decides"><span class="mk yes">Person signs off</span><span class="t">An Owner decides.</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section class="sec" id="s02" aria-labelledby="h02">
+      <div class="secno" aria-hidden="true">02</div>
+      <div class="secbody">
+        <div class="sechead"><h2 id="h02">Authority model</h2><span class="label">Roles and escalation</span></div>
+        <p class="lede">Four roles set what a person can see and change. Two further permissions go to named people. A decision beyond the team's authority is escalated to an approver.</p>
+
+        <div class="subhead"><span class="label">2.1</span><h3>Roles</h3></div>
+        <dl class="kv two">
+          <div><dt>Owner</dt><dd>Accepts or rejects changes to accepted truth, including the placements Vivo proposes during setup.</dd></div>
+          <div><dt>Admin</dt><dd>Runs the workspace and its members.</dd></div>
+          <div><dt>Member</dt><dd>Works in the Strategy Room. Gives a sealed first take on each session item and takes part in the decision.</dd></div>
+          <div><dt>Contributor</dt><dd>Is responsible for activities. Before each session, reports a status, one line on the result and an optional ask of leadership.</dd></div>
+        </dl>
+
+        <div class="subhead"><span class="label">2.2</span><h3>Permissions given to named people</h3></div>
+        <dl class="kv two">
+          <div><dt>Can lead sessions</dt><dd>Edits the drafted agenda, runs the session and confirms each entry in the Record of Decisions. Receives the "Needs you" list. A risk that sits in the top right for 14 days with no decision lands on that list.</dd></div>
+          <div><dt>Can triage signals</dt><dd>Marks each signal relevant, irrelevant or unsure. Dismissed signals teach Vivo what counts as noise.</dd></div>
+        </dl>
+
+        <div class="subhead"><span class="label">2.3</span><h3>Escalation and acceptance</h3></div>
+        <table class="tbl simple">
+          <thead><tr><th scope="col">Case</th><th scope="col">Route</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Decision beyond the team's authority</th><td data-h="Route">Goes to an approver in the app, as an exported memo, or into the board pack.</td></tr>
+            <tr><th scope="row">Change to accepted truth</th><td data-h="Route">Waits for an Owner.</td></tr>
+            <tr><th scope="row">Pivot of a success criterion</th><td data-h="Route">Takes effect when someone with authority confirms it.</td></tr>
+            <tr><th scope="row">Any confirmed change</th><td data-h="Route">The session lead is prompted to announce what changed and why.</td></tr>
+          </tbody>
+        </table>
+        <p class="note">The full permission matrix per role is available for your review. <a class="mk ask" href="mailto:strategy@strapivo.com?subject=Permission%20matrix">Ask us</a></p>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section class="sec" id="s03" aria-labelledby="h03">
+      <div class="secno" aria-hidden="true">03</div>
+      <div class="secbody">
+        <div class="sechead"><h2 id="h03">Audit trail</h2><span class="label">What is recorded</span></div>
+        <p class="lede">Strapivo keeps the reason with the result. A reviewer can follow a change back to its signal, its date and the person who confirmed it.</p>
+        <dl class="kv two">
+          <div><dt>Signal</dt><dd>A dated observation with a source and a source class, primary or secondary. States are New, Relevant, Watching and Dismissed. Each hand-off of a signal is recorded.</dd></div>
+          <div><dt>Risk move</dt><dd>Every confirmed move joins the trail with its signal, date and confirmer. The Tracking view shows movement since the last session, over 30 days or since origin. Each risk carries a trend word, Easing, Stable or Worsening, and its time held, such as "top right · 27 days".</dd></div>
+          <div><dt>Decision</dt><dd>One of five options: Hold, Adapt, Pivot, Take advantage, Not yet. Each decision gets a permanent number such as SDS-2026-014.</dd></div>
+          <div><dt>Dissent</dt><dd>Recorded by name, with its reason.</dd></div>
+          <div><dt>Review date</dt><dd>Hold marks the success criterion as reviewed on that date.</dd></div>
+          <div><dt>Open question</dt><dd>Not yet ends as Parked, with at least one trigger that brings the question back, or as Let go, with a rationale.</dd></div>
+        </dl>
+
+        <figure class="rec" aria-labelledby="rec-cap">
+          <div class="rec-h">
+            <span class="num">SDS-2026-014</span>
+            <span class="label" id="rec-cap">Illustrative example · Record of Decisions entry · fictional company</span>
+          </div>
+          <dl>
+            <div class="r"><dt>Company</dt><dd>Halden Valves, a fictional mid-sized manufacturer</dd></div>
+            <div class="r"><dt>Success criterion</dt><dd>Service contracts carry the margin. The light is yellow.</dd></div>
+            <div class="r"><dt>Evidence</dt><dd>Two signals, one primary. Risk "Competitor bundles service" moved to the top right, confirmed by A. Brandt</dd></div>
+            <div class="r"><dt>Options</dt><dd class="chips"><span class="chip">Hold</span><span class="chip on">Adapt</span><span class="chip">Pivot</span><span class="chip">Take advantage</span><span class="chip">Not yet</span></dd></div>
+            <div class="r"><dt>Decision</dt><dd>Adapt. Vivo drafted two new activities under the pricing objective. Both have an owner and a timeframe.</dd></div>
+            <div class="r"><dt>Dissent</dt><dd>K. Osei. "Wait for the next quarter's renewal figures before changing prices."</dd></div>
+            <div class="r"><dt>Confirmed by</dt><dd>Session lead M. Laine</dd></div>
+          </dl>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section class="sec" id="s04" aria-labelledby="h04">
+      <div class="secno" aria-hidden="true">04</div>
+      <div class="secbody">
+        <div class="sechead"><h2 id="h04">Data and hosting</h2><span class="label">Where data lives</span></div>
+        <div class="statement"><p>EU-only infrastructure. GDPR by design.</p><span class="mk yes">By design</span></div>
+        <p class="lede">This page states only what we can back. Where you would expect a document, a figure or a name, the row says Ask us and we answer you directly.</p>
+        <dl class="kv">
+          <div><dt>Infrastructure</dt><dd>Hosted in the EU only.</dd><dd class="m"><span class="mk yes">By design</span></dd></div>
+          <div><dt>Data protection</dt><dd>GDPR by design.</dd><dd class="m"><span class="mk yes">By design</span></dd></div>
+          <div><dt>Grounding</dt><dd>Vivo's recommendations trace back to the strategic memory your team approved.</dd><dd class="m"><span class="mk yes">By design</span></dd></div>
+          <div><dt>Outside sources</dt><dd>Market intelligence reads over 4,000 sources a day and reports on Monday and Thursday. A red-line exception interrupts that schedule. Every signal names its source.</dd><dd class="m"></dd></div>
+          <div><dt>Meetings</dt><dd>Vivo does not listen to the room and does not take minutes.</dd><dd class="m"><span class="mk no">Never</span></dd></div>
+          <div><dt>Certifications</dt><dd>Current certifications and audits.</dd><dd class="m"><a class="mk ask" href="mailto:strategy@strapivo.com?subject=Certifications">Ask us</a></dd></div>
+          <div><dt>Penetration testing</dt><dd>Scope, date and summary of findings.</dd><dd class="m"><a class="mk ask" href="mailto:strategy@strapivo.com?subject=Penetration%20testing">Ask us</a></dd></div>
+          <div><dt>Sub-processors</dt><dd>Names, purposes and locations.</dd><dd class="m"><a class="mk ask" href="mailto:strategy@strapivo.com?subject=Sub-processors">Ask us</a></dd></div>
+          <div><dt>Retention</dt><dd>Retention and deletion periods.</dd><dd class="m"><a class="mk ask" href="mailto:strategy@strapivo.com?subject=Retention">Ask us</a></dd></div>
+          <div><dt>Model training</dt><dd>Whether customer data trains any AI model.</dd><dd class="m"><a class="mk ask" href="mailto:strategy@strapivo.com?subject=Model%20training">Ask us</a></dd></div>
+          <div><dt>Service levels</dt><dd>Availability and support commitments.</dd><dd class="m"><a class="mk ask" href="mailto:strategy@strapivo.com?subject=Service%20levels">Ask us</a></dd></div>
+          <div><dt>Contract terms</dt><dd>Data processing agreement.</dd><dd class="m"><a class="mk ask" href="mailto:strategy@strapivo.com?subject=Data%20processing%20agreement">Ask us</a></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section class="sec" id="s05" aria-labelledby="h05">
+      <div class="secno" aria-hidden="true">05</div>
+      <div class="secbody">
+        <div class="sechead"><h2 id="h05">Exports in open formats</h2><span class="label">Portability</span></div>
+        <p class="lede">You export your strategy as plain files. Any text editor or spreadsheet opens them.</p>
+        <table class="tbl simple">
+          <thead><tr><th scope="col">Item</th><th scope="col">Format</th><th scope="col">Typical reader</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">The plan</th><td data-h="Format" class="mono">Markdown, CSV</td><td data-h="Reader">Leadership team, analysts</td></tr>
+            <tr><th scope="row">Board pack</th><td data-h="Format" class="mono">Markdown</td><td data-h="Reader">Board members</td></tr>
+            <tr><th scope="row">Escalation memo</th><td data-h="Format" class="mono">Markdown or copied text</td><td data-h="Reader">The approver</td></tr>
+            <tr><th scope="row">Session invitation</th><td data-h="Format" class="mono">Calendar file by email</td><td data-h="Reader">Session participants</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Strapivo has no calendar integration and no two-way sync with task tools. A person starts every export.</p>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section class="sec" id="s06" aria-labelledby="h06">
+      <div class="secno" aria-hidden="true">06</div>
+      <div class="secbody">
+        <div class="sechead"><h2 id="h06">Questions procurement asks</h2><span class="label">Answers</span></div>
+        <p class="lede">Each answer is short. Where the answer is a document, we send it on request.</p>
+        <div class="qa">
+          <details open>
+            <summary><span class="rn">6.01</span><span>Can Vivo change our strategy without a person?</span><span class="pm" aria-hidden="true"></span></summary>
+            <div class="a"><p>No. Vivo proposes and drafts. An Owner accepts changes to accepted truth, a person confirms every risk move, and the session lead confirms every Record entry. See section 01.</p></div>
+          </details>
+          <details>
+            <summary><span class="rn">6.02</span><span>Where is our data hosted?</span><span class="pm" aria-hidden="true"></span></summary>
+            <div class="a"><p>On EU-only infrastructure. For providers and locations, ask us and we send the list.</p></div>
+          </details>
+          <details>
+            <summary><span class="rn">6.03</span><span>Which certifications do you hold?</span><span class="pm" aria-hidden="true"></span></summary>
+            <div class="a"><p>This page lists none. Ask us for the current position and the supporting documents.</p></div>
+          </details>
+          <details>
+            <summary><span class="rn">6.04</span><span>Is our data used to train AI models?</span><span class="pm" aria-hidden="true"></span></summary>
+            <div class="a"><p>Ask us. We answer this in writing for your file.</p></div>
+          </details>
+          <details>
+            <summary><span class="rn">6.05</span><span>Does Strapivo record our meetings?</span><span class="pm" aria-hidden="true"></span></summary>
+            <div class="a"><p>No. Vivo does not listen to the room and does not write minutes. The session lead confirms each Record entry after Vivo reads it back.</p></div>
+          </details>
+          <details>
+            <summary><span class="rn">6.06</span><span>Does it connect to our calendar, Teams or task tools?</span><span class="pm" aria-hidden="true"></span></summary>
+            <div class="a"><p>No. Strapivo sends calendar files by email and exports the plan as Markdown and CSV. Nothing writes back into your other systems.</p></div>
+          </details>
+          <details>
+            <summary><span class="rn">6.07</span><span>How do we get our data out?</span><span class="pm" aria-hidden="true"></span></summary>
+            <div class="a"><p>By export, in the formats in section 05. For deletion at the end of a contract, ask us.</p></div>
+          </details>
+          <details>
+            <summary><span class="rn">6.08</span><span>How much of our time does onboarding take?</span><span class="pm" aria-hidden="true"></span></summary>
+            <div class="a"><p>We do the reading first. Four to five hours, and then you run it.</p></div>
+          </details>
+          <details>
+            <summary><span class="rn">6.09</span><span>Can we try it before we sign a contract?</span><span class="pm" aria-hidden="true"></span></summary>
+            <div class="a"><p>There is no self-serve trial. Start the conversation and we take your reviewers through the product and this sheet.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 -->
+    <section class="sec close" id="s07" aria-labelledby="h07">
+      <div class="secno" aria-hidden="true">07</div>
+      <div class="secbody">
+        <div class="sechead"><h2 id="h07">Send us your questionnaire</h2><span class="label">Contact</span></div>
+        <p class="lede">If your review uses its own forms, send them to strategy@strapivo.com and we answer each question.</p>
+        <ul class="sendlist">
+          <li><span class="mono">A</span>Security questionnaire</li>
+          <li><span class="mono">B</span>Your data processing agreement template</li>
+          <li><span class="mono">C</span>Any row marked Ask us</li>
+        </ul>
+        <p class="print-only">strategy@strapivo.com · strapivo.com</p>
+        <div class="actions">
+          <a class="btn" href="mailto:strategy@strapivo.com?subject=Security%20review">Start the conversation</a>
+          <a class="btn ghost" href="https://strapivo.app">Sign in</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <a href="#top" aria-label="Strapivo, back to top"><img class="logo" src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="88" height="22"></a>
+  <div class="fl">
+    <span>© 2026 Strapivo</span>
+    <a href="/imprint">Imprint</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var btn=document.getElementById('printBtn');
+  if(btn&&window.print){btn.hidden=false;btn.addEventListener('click',function(){window.print()});}
+  /* open every answer for print, restore afterwards */
+  var opened=[];
+  window.addEventListener('beforeprint',function(){
+    opened=[];document.querySelectorAll('.qa details').forEach(function(d){if(!d.open){d.open=true;opened.push(d);}});
+  });
+  window.addEventListener('afterprint',function(){opened.forEach(function(d){d.open=false});});
+  /* rail state */
+  var links={};document.querySelectorAll('.rail a').forEach(function(a){links[a.getAttribute('href').slice(1)]=a;});
+  if(!('IntersectionObserver' in window))return;
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        Object.keys(links).forEach(function(k){links[k].removeAttribute('aria-current')});
+        var l=links[e.target.id];if(l)l.setAttribute('aria-current','true');
+      }
+    });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  document.querySelectorAll('.doc > .sec').forEach(function(s){io.observe(s)});
+})();
+</script>
+</body>
+</html>

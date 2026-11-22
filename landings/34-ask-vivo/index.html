@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ask Vivo · Strapivo answers strategy questions as you</title>
+<meta name="description" content="A scripted exchange with Vivo, Strapivo's AI. Pick a question and a role, then see each answer cite the Ambition, principles and numbered decisions a leadership team approved.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --auditor:#4A5560;--advisor:#1F3A5F;--scout:#2E7D5B;--colleague:#0082E6;--researcher:#6A4C7D;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --wrap:1240px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:17px;line-height:1.55;font-weight:400}
+img,svg{display:block;max-width:100%}
+a{color:var(--p700)}
+:focus-visible{outline:2px solid var(--p500);outline-offset:2px;border-radius:2px}
+h1,h2,h3{font-weight:500;margin:0;letter-spacing:-0.025em;line-height:1.1}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:400}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:16px;top:-60px;background:var(--ink);color:#fff;padding:10px 14px;border-radius:4px;z-index:10;font-size:14px}
+.skip:focus{top:12px}
+
+/* Header */
+.top{border-bottom:1px solid var(--n200)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:24px}
+.top nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+.top nav a{color:var(--n600);text-decoration:none;font-size:14px}
+.top nav a:hover{color:var(--ink)}
+.signin{font-size:14px;color:var(--ink);text-decoration:none;border:1px solid var(--n200);padding:8px 14px;border-radius:4px;background:#fff}
+.signin:hover{border-color:var(--n400)}
+.logo img{height:26px;width:auto}
+
+/* Hero */
+.hero{padding:64px 0 32px}
+.hero-head{display:grid;grid-template-columns:1.35fr 1fr;gap:48px;align-items:end;margin-bottom:40px}
+.hero h1{font-size:clamp(38px,5.2vw,68px);letter-spacing:-0.03em;line-height:1.02}
+.hero h1 .you{color:var(--p500)}
+.hero-head p{color:var(--n600);font-size:18px;max-width:440px}
+.eyebrow{color:var(--n500);margin-bottom:20px;display:block}
+
+/* Console */
+.console{background:#fff;border:1px solid var(--n200);border-radius:8px;box-shadow:0 1px 2px rgba(20,27,36,.04),0 12px 40px -24px rgba(20,27,36,.18)}
+.c-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 24px;border-bottom:1px solid var(--n200);color:var(--n500)}
+.c-bar .note{display:flex;align-items:center;gap:8px;text-transform:none;letter-spacing:.02em}
+.c-bar .note::before{content:"";width:7px;height:7px;border-radius:50%;border:1.5px solid var(--n500)}
+.c-ask{padding:24px 24px 8px}
+.qbox{display:flex;align-items:flex-start;gap:14px;border:1px solid var(--n200);border-radius:6px;padding:16px 18px;background:var(--paper)}
+.qbox .who{color:var(--n500);padding-top:6px;flex:none;width:34px}
+.qline{font-size:clamp(20px,2.2vw,26px);letter-spacing:-0.015em;line-height:1.3}
+.qline .caret{display:inline-block;width:2px;height:1em;background:var(--p500);vertical-align:-0.12em;margin-left:3px;animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.qctx{display:block;color:var(--n600);margin-top:6px;text-transform:none;letter-spacing:.01em;font-size:12.5px}
+.qctx:empty{display:none}
+.picks{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center}
+.picks .lab,.roles .lab{color:var(--n500);margin-right:6px;width:96px;flex:none}
+.chip{font:inherit;font-size:14px;color:var(--ink);background:#fff;border:1px solid var(--n200);border-radius:4px;padding:7px 12px;cursor:pointer;line-height:1.3;text-align:left}
+.chip:hover{border-color:var(--n400)}
+.chip[aria-pressed="true"]{border-color:var(--p500);background:var(--sky);color:var(--p700)}
+.roles{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 24px 0}
+.rgroup{display:flex;border:1px solid var(--n200);border-radius:4px;overflow:hidden}
+.role{font:inherit;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;background:#fff;color:var(--n600);border:0;border-right:1px solid var(--n200);padding:9px 14px;cursor:pointer;display:flex;align-items:center;gap:8px}
+.role:last-child{border-right:0}
+.role i{width:8px;height:8px;border-radius:50%;background:var(--rc);flex:none}
+.role:hover{color:var(--ink)}
+.role[aria-pressed="true"]{background:var(--rc);color:#fff}
+.role[aria-pressed="true"] i{background:#fff}
+.role-note{color:var(--n600);font-size:14px;margin-left:8px}
+.r-auditor{--rc:var(--auditor);--rt:var(--auditor)}
+.r-advisor{--rc:var(--advisor);--rt:var(--advisor)}
+.r-scout{--rc:var(--scout);--rt:var(--scout)}
+.r-colleague{--rc:var(--colleague);--rt:var(--p700)}
+.r-researcher{--rc:var(--researcher);--rt:var(--researcher)}
+.role.r-colleague[aria-pressed="true"]{background:var(--p700)}
+
+.stage{padding:24px}
+.ans{display:grid;grid-template-columns:minmax(0,1fr) 360px;border:1px solid var(--n200);border-radius:6px;border-left:3px solid var(--rc)}
+.ans[hidden]{display:none}
+.say{padding:22px 26px 24px}
+.say h3{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;color:var(--rt);display:flex;align-items:center;gap:8px;margin-bottom:14px;line-height:1.4}
+.say h3::before{content:"";width:12px;height:12px;border-radius:50%;border:2.5px solid var(--p500);flex:none}
+.say p{font-size:19px;line-height:1.6;letter-spacing:-0.005em;max-width:60ch}
+.say p+p{margin-top:12px}
+.ref{font-family:var(--mono);font-size:10.5px;font-weight:500;color:var(--p700);background:var(--sky);border:1px solid var(--sky2);border-radius:3px;padding:1px 4px;margin-left:2px;vertical-align:.45em;line-height:1}
+.src{background:var(--paper);border-left:1px solid var(--n200);padding:22px 22px 18px}
+.src h4{margin:0 0 12px;color:var(--n500);font-weight:400}
+.src ol{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.src li{display:grid;grid-template-columns:22px 1fr;gap:2px 8px;font-size:14px;line-height:1.45;padding:10px 12px;background:#fff;border:1px solid var(--n200);border-radius:4px;transition:opacity .5s,border-color .5s}
+.src li::before{content:attr(data-n);grid-row:span 3;font-family:var(--mono);font-size:10.5px;font-weight:500;color:var(--p700);background:var(--sky);border:1px solid var(--sky2);border-radius:3px;height:18px;display:flex;align-items:center;justify-content:center}
+.src .k{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600)}
+.src .m{font-family:var(--mono);font-size:11px;color:var(--n500);letter-spacing:.02em}
+.js .playing .w{opacity:0;transition:opacity .35s ease}
+.js .playing .w.on{opacity:1}
+.js .playing .src li{opacity:.35}
+.js .playing .src li.lit{opacity:1;border-color:var(--p500)}
+
+.ctl{display:flex;align-items:center;gap:10px;margin:14px 0 0}
+.btn-s{font:inherit;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;background:#fff;color:var(--ink);border:1px solid var(--n200);border-radius:4px;padding:8px 12px;cursor:pointer}
+.btn-s:hover{border-color:var(--n400)}
+.btn-s[disabled]{color:var(--n500);cursor:default;border-color:var(--n100)}
+.ctl .hint{color:var(--n500);margin-left:auto}
+.no-js-hide{display:none}
+.js .no-js-hide{display:flex}
+
+.generic{display:grid;grid-template-columns:minmax(0,1fr) 360px;margin-top:16px;border:1px dashed var(--n400);border-radius:6px;color:var(--n500);transition:opacity .7s ease}
+.generic[hidden]{display:none}
+.js .generic:not(.shown){opacity:0}
+.generic .g-say{padding:20px 26px}
+.generic h3{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:400;color:var(--n500);margin-bottom:12px;line-height:1.4}
+.generic ul{margin:0;padding:0;list-style:none}
+.generic li{font-size:17px;line-height:1.5;padding:4px 0}
+.generic .g-src{border-left:1px dashed var(--n400);padding:20px 22px;font-size:14px}
+.generic .g-src p{margin-top:12px}
+
+/* Sections */
+section{scroll-margin-top:20px}
+.sec{padding:112px 0;border-top:1px solid var(--n200)}
+.sec-head{display:grid;grid-template-columns:280px minmax(0,1fr);gap:48px;margin-bottom:56px}
+.sec-head .mono{color:var(--n500);padding-top:10px}
+.sec h2{font-size:clamp(30px,3.6vw,46px);max-width:20ch}
+.lede{color:var(--n600);font-size:19px;max-width:58ch;margin-top:20px}
+.lede+.lede{margin-top:12px}
+.body-grid{display:grid;grid-template-columns:280px minmax(0,1fr);gap:48px}
+
+/* Memory ledger */
+.ledger{border:1px solid var(--n200);border-radius:6px;background:#fff}
+.ledger-cap{display:flex;justify-content:space-between;gap:16px;padding:12px 20px;border-bottom:1px solid var(--n200);color:var(--n500)}
+.ledger dl{margin:0}
+.lrow{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;padding:16px 20px;border-bottom:1px solid var(--n100)}
+.lrow:last-child{border-bottom:0}
+.lrow dt{color:var(--n600);padding-top:3px}
+.lrow dd{margin:0;font-size:15.5px}
+.lrow dd .it{display:flex;gap:10px;align-items:baseline;padding:2px 0}
+.lrow dd .id{font-family:var(--mono);font-size:12px;color:var(--n500);flex:none;min-width:94px}
+.light{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:0}
+.l-g{background:#2E7D5B}.l-y{background:#C9A227}.l-r{background:#B4413A}
+.tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--p700);border:1px solid var(--sky2);background:var(--sky);border-radius:3px;padding:1px 5px;margin-left:6px;white-space:nowrap}
+.formula{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:start;gap:12px;margin-top:40px}
+.formula div{border-top:2px solid var(--ink);padding-top:12px}
+.formula div:last-child{border-top-color:var(--p500)}
+.formula b{display:block;font-weight:500;font-size:17px;letter-spacing:-0.01em}
+.formula span{display:block;color:var(--n600);font-size:14px;margin-top:4px}
+.formula .op{font-family:var(--mono);color:var(--n500);font-size:18px;padding-top:14px}
+
+/* Trail */
+.trail{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
+.trail-fig{background:#fff;border:1px solid var(--n200);border-radius:6px;padding:28px}
+.t-claim{border-left:3px solid var(--advisor);padding:4px 0 4px 16px;font-size:19px;line-height:1.5}
+.t-claim .mono{display:block;color:var(--advisor);margin-bottom:6px}
+.t-lines{margin:4px 0 0 18px;border-left:1px solid var(--p500);padding:0 0 0 0}
+.t-node{position:relative;padding:20px 0 0 26px}
+.t-node::before{content:"";position:absolute;left:0;top:34px;width:18px;border-top:1px solid var(--p500)}
+.t-node .card{border:1px solid var(--n200);border-radius:4px;padding:12px 14px;background:var(--paper)}
+.t-node .k{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600)}
+.t-node p{font-size:15.5px;margin:2px 0}
+.t-node .m{font-family:var(--mono);font-size:11px;color:var(--n500)}
+.t-end{margin:20px 0 0;color:var(--n500)}
+.t-node .m{line-height:1.5;display:block}
+.nw{white-space:nowrap}
+.rules{list-style:none;margin:0;padding:0;counter-reset:r}
+.rules li{counter-increment:r;padding:20px 0 20px 52px;border-top:1px solid var(--n200);position:relative;font-size:17px}
+.rules li:last-child{border-bottom:1px solid var(--n200)}
+.rules li::before{content:"0" counter(r);position:absolute;left:0;top:22px;font-family:var(--mono);font-size:12px;color:var(--p700)}
+.rules b{font-weight:500;display:block;margin-bottom:4px}
+.rules span{color:var(--n600)}
+
+/* Authority */
+.motto{font-size:clamp(34px,5vw,64px);letter-spacing:-0.03em;line-height:1.05;margin:0 0 48px}
+.motto em{font-style:normal;color:var(--p500)}
+.split{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--n200);border-radius:6px;background:#fff}
+.split > div{padding:28px 28px 20px}
+.split > div + div{border-left:1px solid var(--n200)}
+.split h3{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.split .v h3{color:var(--p700)}
+.split .v h3::before{content:"";width:12px;height:12px;border-radius:50%;border:2.5px solid var(--p500)}
+.split .h h3::before{content:"";width:12px;height:12px;border-radius:2px;background:var(--ink)}
+.split ul{list-style:none;margin:0;padding:0}
+.split li{padding:12px 0;border-top:1px solid var(--n100);font-size:16px}
+.split li small{display:block;font-family:var(--mono);font-size:11px;color:var(--n500);letter-spacing:.02em;margin-top:2px}
+.quote{margin:40px 0 0;display:grid;grid-template-columns:280px minmax(0,1fr);gap:48px}
+.quote blockquote{margin:0;font-size:22px;letter-spacing:-0.015em;max-width:40ch}
+.quote .mono{color:var(--n500);padding-top:8px}
+
+/* Session */
+.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:2px solid var(--ink)}
+.flow li{padding:16px 16px 0 0;position:relative}
+.flow li::before{content:"";position:absolute;top:-6px;left:0;width:10px;height:10px;border-radius:50%;background:var(--ink)}
+.flow .n{font-family:var(--mono);font-size:12px;color:var(--n500);display:block;margin:6px 0 6px}
+.flow b{font-weight:500;display:block;font-size:17px;letter-spacing:-0.01em}
+.flow p{font-size:14.5px;color:var(--n600);margin-top:6px}
+.flow li.here::before{background:#fff;border:2.5px solid var(--p500);width:14px;height:14px;top:-8px}
+.flow li.here b{color:var(--p700)}
+.flow li.here .n{color:var(--p700)}
+.record{margin-top:64px;display:grid;grid-template-columns:280px minmax(0,1fr);gap:48px}
+.record .mono{color:var(--n500);padding-top:4px}
+.rec{background:#fff;border:1px solid var(--n200);border-radius:6px;font-size:15.5px}
+.rec-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 22px;border-bottom:1px solid var(--n200)}
+.rec-h strong{font-family:var(--mono);font-weight:500;font-size:15px;color:var(--p700);letter-spacing:.04em}
+.rec-h span{font-family:var(--mono);font-size:12px;color:var(--n500)}
+.rec dl{margin:0;padding:6px 22px 14px}
+.rec .row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;padding:9px 0;border-bottom:1px solid var(--n100)}
+.rec .row:last-child{border-bottom:0}
+.rec dt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500);padding-top:3px}
+.rec dd{margin:0}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opts span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--n200);border-radius:3px;padding:2px 7px;color:var(--n500)}
+.opts span.sel{border-color:var(--ink);background:var(--ink);color:#fff}
+
+/* Trust */
+.trust{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
+.trust div{padding:20px 24px 0 0}
+.trust b{font-weight:500;display:block;font-size:18px;letter-spacing:-0.01em}
+.trust p{color:var(--n600);font-size:15px;margin-top:8px}
+
+/* CTA */
+.cta{background:var(--ink);color:#fff;padding:120px 0}
+.cta .mono{color:var(--p200)}
+.cta h2{font-size:clamp(34px,4.6vw,60px);max-width:18ch;margin:20px 0 24px;letter-spacing:-0.03em}
+.cta p{color:#C9CFD6;font-size:19px;max-width:54ch}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--p500);color:#fff;text-decoration:none;font-weight:500;padding:14px 22px;border-radius:4px;margin-top:36px;font-size:16px}
+.btn:hover{background:var(--p600)}
+.cta .btn:focus-visible{outline-color:#fff}
+.cta .sub{margin-top:18px;font-family:var(--mono);font-size:12px;color:var(--n400);letter-spacing:.04em}
+.foot{background:var(--n900);color:var(--n400);padding:36px 0;font-size:14px}
+.foot .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.foot img{height:22px;width:auto}
+.foot ul{display:flex;gap:24px;list-style:none;margin:0;padding:0}
+.foot a{color:#C9CFD6;text-decoration:none}
+.foot a:hover{color:#fff;text-decoration:underline}
+
+@media (max-width:1100px){
+  .ans,.generic{grid-template-columns:minmax(0,1fr) 300px}
+  .flow{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:28px;border-top:0}
+  .flow li{border-top:2px solid var(--ink)}
+  .trust{grid-template-columns:1fr 1fr;row-gap:24px}
+}
+@media (max-width:900px){
+  .wrap{padding:0 20px}
+  .top nav{display:none}
+  .hero{padding:40px 0 24px}
+  .hero-head{grid-template-columns:1fr;gap:20px;margin-bottom:28px}
+  .ans,.generic{grid-template-columns:1fr}
+  .src{border-left:0;border-top:1px solid var(--n200)}
+  .generic .g-src{border-left:0;border-top:1px dashed var(--n400)}
+  .sec{padding:72px 0}
+  .sec-head,.body-grid,.quote,.record{grid-template-columns:1fr;gap:16px}
+  .sec-head{margin-bottom:36px}
+  .trail{grid-template-columns:1fr}
+  .split{grid-template-columns:1fr}
+  .split > div + div{border-left:0;border-top:1px solid var(--n200)}
+  .formula{grid-template-columns:1fr;gap:4px}
+  .formula .op{padding:4px 0}
+  .lrow{grid-template-columns:1fr;gap:6px}
+  .cta{padding:80px 0}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .c-bar{flex-direction:column;align-items:flex-start;gap:6px;padding:12px 16px}
+  .c-ask{padding:16px 16px 4px}
+  .qbox{padding:14px}
+  .qbox .who{display:none}
+  .picks .lab,.roles .lab{width:100%;margin:0 0 2px}
+  .roles{padding:14px 16px 0}
+  .rgroup{flex-wrap:wrap;width:100%}
+  .role{flex:1 1 33%;justify-content:center;border-bottom:1px solid var(--n200);margin-bottom:-1px;padding:10px 8px}
+  .role-note{margin:4px 0 0;width:100%}
+  .stage{padding:16px}
+  .say{padding:18px}
+  .say p{font-size:17px}
+  .src,.generic .g-src,.generic .g-say{padding:18px}
+  .ctl .hint{display:none}
+  .flow{grid-template-columns:1fr}
+  .trust{grid-template-columns:1fr}
+  .rec .row{grid-template-columns:1fr;gap:2px}
+  .rec-h{flex-direction:column;gap:4px}
+  .lrow dd .it{flex-direction:column;gap:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .qline .caret{display:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#ask">Skip to the exchange</a>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Strapivo, back to top"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="103" height="26"></a>
+    <nav aria-label="Page sections">
+      <ul>
+        <li><a href="#ask">The exchange</a></li>
+        <li><a href="#memory">Memory</a></li>
+        <li><a href="#trail">Trail</a></li>
+        <li><a href="#authority">Authority</a></li>
+        <li><a href="#session">Session</a></li>
+      </ul>
+    </nav>
+    <a class="signin" href="https://strapivo.app">Sign in</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="hero-head">
+      <div>
+        <span class="mono eyebrow">Ask Vivo · Strapivo</span>
+        <h1 id="h1">Any AI can answer a question. Only Strapivo answers it <span class="you">as you.</span></h1>
+      </div>
+      <p>Vivo is the AI inside Strapivo. It answers from the strategy your leadership team approved. Pick a question below. Each answer names the Ambition, criteria, principles and numbered decisions it used.</p>
+    </div>
+
+    <div class="console" id="ask" aria-label="Scripted exchange with Vivo">
+      <div class="c-bar mono">
+        <span>Illustrative example · Corvane Fittings, a fictional valve maker</span>
+        <span class="note">Scripted example. Nothing you select is sent anywhere.</span>
+      </div>
+
+      <div class="c-ask">
+        <div class="qbox">
+          <span class="who mono">You</span>
+          <div>
+            <p class="qline"><span id="q-text">Roast my business model.</span><span class="caret" aria-hidden="true"></span></p>
+            <span class="qctx mono" id="q-ctx"></span>
+          </div>
+        </div>
+        <div class="picks" role="group" aria-label="Choose a question">
+          <span class="lab mono">Questions</span>
+          <button class="chip" type="button" data-pick-q="roast" aria-pressed="true" data-ctx="">Roast my business model.</button>
+          <button class="chip" type="button" data-pick-q="ai" aria-pressed="false" data-ctx="">Will my business survive AI?</button>
+          <button class="chip" type="button" data-pick-q="moved" aria-pressed="false" data-ctx="">What moved against the plan?</button>
+          <button class="chip" type="button" data-pick-q="fit" aria-pressed="false" data-ctx="Re: sales proposal, 18 Nov. Cut list prices 8% on standard ball valves to hold share.">Does this fit our principles?</button>
+          <button class="chip" type="button" data-pick-q="number" aria-pressed="false" data-ctx="Re: board pack draft, page 3. Service revenue is 31% of turnover.">Where did this number come from?</button>
+        </div>
+      </div>
+
+      <div class="roles">
+        <span class="lab mono" id="roles-lab">Answer as</span>
+        <div class="rgroup" role="group" aria-labelledby="roles-lab">
+          <button class="role r-auditor" type="button" data-pick-r="auditor" aria-pressed="false" data-note="Checks where every figure and claim came from.">Auditor<i aria-hidden="true"></i></button>
+          <button class="role r-advisor" type="button" data-pick-r="advisor" aria-pressed="false" data-note="Checks the question against your principles and Ambition.">Advisor<i aria-hidden="true"></i></button>
+          <button class="role r-scout" type="button" data-pick-r="scout" aria-pressed="false" data-note="Checks what moved outside the company against the plan.">Scout<i aria-hidden="true"></i></button>
+          <button class="role r-colleague" type="button" data-pick-r="colleague" aria-pressed="true" data-note="Thinks it through with you and asks questions back.">Colleague<i aria-hidden="true"></i></button>
+          <button class="role r-researcher" type="button" data-pick-r="researcher" aria-pressed="false" data-note="Says what evidence would settle it and where to look.">Researcher<i aria-hidden="true"></i></button>
+        </div>
+        <span class="role-note" id="role-note">Thinks it through with you and asks questions back.</span>
+      </div>
+
+      <div class="stage">
+        <p class="sr" id="status" aria-live="polite"></p>
+
+        <!-- ROAST -->
+        <article class="ans r-auditor" data-q="roast" data-r="auditor" hidden>
+          <div class="say"><h3>Vivo, as Auditor</h3>
+            <p>Your canvas describes a service business. Your revenue streams say 71% product and 29% service<sup class="ref" data-n="1">1</sup>. SC-02 asks for 35%<sup class="ref" data-n="2">2</sup>. The one activity meant to close that gap, the remote monitoring pilot, is at risk<sup class="ref" data-n="3">3</sup>.</p>
+            <p>The canvas shows the company you plan to be. The numbers show the company you are. Which one should the board read?</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Business model · Revenue streams</span><span>Product 71%, service 29% of turnover.</span><span class="m">FY2025 actuals · finance export, 2 Oct</span></li>
+            <li data-n="2"><span class="k">Success criterion · SC-02 · Focus</span><span>Service revenue reaches 35% of turnover.</span><span class="m">Light: yellow</span></li>
+            <li data-n="3"><span class="k">Activity · A-21</span><span>Remote monitoring pilot with three utilities.</span><span class="m">Head of Service · at risk</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-advisor" data-q="roast" data-r="advisor" hidden>
+          <div class="say"><h3>Vivo, as Advisor</h3>
+            <p>Your model breaks your own principle in one place. P1 says you do not chase volume on commodity lines<sup class="ref" data-n="1">1</sup>. Yet SC-04 pushes you to ship standard ball valves faster<sup class="ref" data-n="2">2</sup>, and those are your commodity line.</p>
+            <p>Either narrow SC-04 to engineered lines, or write down why P1 has an exception. Today the plan asks the factory to do both.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Principle · P1</span><span>We do not chase volume on commodity lines.</span><span class="m">Approved by Owner, 12 Mar 2026</span></li>
+            <li data-n="2"><span class="k">Success criterion · SC-04 · Focus</span><span>Standard lines ship within 15 working days.</span><span class="m">Light: red · set 16 Nov</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-scout" data-q="roast" data-r="scout" hidden>
+          <div class="say"><h3>Vivo, as Scout</h3>
+            <p>The weak block is your cost structure. An importer has opened a warehouse in Rotterdam and promises standard ball valves from stock in five days<sup class="ref" data-n="1">1</sup>. R-03 has been in the top right for seven days<sup class="ref" data-n="2">2</sup>.</p>
+            <p>Your margin on standard lines assumes nobody beats you on lead time. This month, that stopped being true.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Signal · S-121 · Primary</span><span>Importer's own announcement of a Rotterdam warehouse.</span><span class="m">12 Nov · marked relevant</span></li>
+            <li data-n="2"><span class="k">Risk · R-03</span><span>Low-cost importer undercuts standard ball valves.</span><span class="m">Top right · 7 days · Worsening</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-colleague" data-q="roast" data-r="colleague">
+          <div class="say"><h3>Vivo, as Colleague</h3>
+            <p>Here is the roast. You sell valves and say you sell uptime. Let's test that. If every standard valve left the catalogue tomorrow, how much of the service book would leave with it?</p>
+            <p>In June you moved two engineers to remote monitoring<sup class="ref" data-n="1">1</sup>. Was that a bet on service, or a hedge on product? Your answer changes what SC-02 should say<sup class="ref" data-n="2">2</sup>.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Decision · SDS-2026-009 · Adapt</span><span>Two engineers move from new product work to remote monitoring.</span><span class="m">18 Jun 2026 · confirmed by session lead</span></li>
+            <li data-n="2"><span class="k">Success criterion · SC-02 · Focus</span><span>Service revenue reaches 35% of turnover.</span><span class="m">Light: yellow</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-researcher" data-q="roast" data-r="researcher" hidden>
+          <div class="say"><h3>Vivo, as Researcher</h3>
+            <p>Before you defend this model, check whether customers will pay for monitoring data they own. P5 gives them that data<sup class="ref" data-n="1">1</sup>. If they won't pay, the monitoring pilot<sup class="ref" data-n="2">2</sup> can't earn money, and nothing else in the plan moves SC-02.</p>
+            <p>I would then look at what utilities plan to spend on monitoring once their capex freeze eases<sup class="ref" data-n="3">3</sup>. I can turn both into a search brief for the Radar.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Principle · P5</span><span>Field data belongs to the customer.</span><span class="m">Approved by Owner, 12 Mar 2026</span></li>
+            <li data-n="2"><span class="k">Activity · A-21</span><span>Remote monitoring pilot with three utilities.</span><span class="m">Head of Service · at risk</span></li>
+            <li data-n="3"><span class="k">Risk · R-05</span><span>Utility capex freeze delays orders.</span><span class="m">Easing</span></li>
+          </ol></aside>
+        </article>
+
+        <!-- AI -->
+        <article class="ans r-auditor" data-q="ai" data-r="auditor" hidden>
+          <div class="say"><h3>Vivo, as Auditor</h3>
+            <p>Nothing in your strategic memory supports a yes or a no. No success criterion mentions AI. No risk on the radar names it. One signal from March was marked unsure and never looked at again<sup class="ref" data-n="1">1</sup>.</p>
+            <p>The team should first decide whether AI is a risk, an objective, or neither. Shall I propose a risk entry for an Owner to accept?</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Signal · S-041 · Secondary</span><span>Trade press on software-led maintenance contracts.</span><span class="m">19 Mar · marked unsure</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-advisor" data-q="ai" data-r="advisor" hidden>
+          <div class="say"><h3>Vivo, as Advisor</h3>
+            <p>Your Ambition rests on service, and the valve comes second<sup class="ref" data-n="1">1</sup>. So for Corvane the AI question is narrow. Could someone use your customers' field data to sell them service without you?</p>
+            <p>P5 says that data belongs to the customer<sup class="ref" data-n="2">2</sup>. You have already promised customers the thing a rival would need to take from them. Put that promise in every utility tender you answer.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Ambition · 2030</span><span>Service partner of choice for industrial flow systems in Northern Europe.</span><span class="m">Approved 14 Jan 2026</span></li>
+            <li data-n="2"><span class="k">Principle · P5</span><span>Field data belongs to the customer.</span><span class="m">Approved by Owner, 12 Mar 2026</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-scout" data-q="ai" data-r="scout" hidden>
+          <div class="say"><h3>Vivo, as Scout</h3>
+            <p>Two signals touch this. A pump maker now bundles maintenance software with new installations<sup class="ref" data-n="1">1</sup>. A utility in your SC-08 pipeline asks for anomaly detection in its tender<sup class="ref" data-n="2">2</sup>.</p>
+            <p>Neither matches a known risk, so I have flagged a possible new risk. Someone on the team needs to mark it relevant or dismiss it.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Signal · S-119 · Secondary</span><span>Pump maker bundles maintenance software with installs.</span><span class="m">3 Nov · relevant</span></li>
+            <li data-n="2"><span class="k">Signal · S-116 · Primary</span><span>Utility tender requires anomaly detection.</span><span class="m">28 Oct · relevant · SC-08</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-colleague" data-q="ai" data-r="colleague" hidden>
+          <div class="say"><h3>Vivo, as Colleague</h3>
+            <p>Let's make the question smaller. Survive in which part? The valve business does not depend on software. The service business might<sup class="ref" data-n="1">1</sup>.</p>
+            <p>If remote monitoring becomes standard, does SC-02 get easier or harder for you<sup class="ref" data-n="2">2</sup>? Tell me which you believe. I'll show you which of your activities that puts at risk.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Business model · Value proposition</span><span>Valves that keep running, with the service to prove it.</span><span class="m">Accepted 14 Jan 2026</span></li>
+            <li data-n="2"><span class="k">Success criterion · SC-02 · Focus</span><span>Service revenue reaches 35% of turnover.</span><span class="m">Light: yellow</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-researcher" data-q="ai" data-r="researcher" hidden>
+          <div class="say"><h3>Vivo, as Researcher</h3>
+            <p>I can bring evidence for one scenario at a time. In the first, monitoring software becomes a commodity and service prices fall. In the second, utilities buy monitoring only from their valve supplier. Your pilot<sup class="ref" data-n="1">1</sup> tests both.</p>
+            <p>I would sort the last twelve months of utility tenders<sup class="ref" data-n="2">2</sup> by which scenario they support.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Activity · A-21</span><span>Remote monitoring pilot with three utilities.</span><span class="m">Head of Service · at risk</span></li>
+            <li data-n="2"><span class="k">Signals · utility tenders</span><span>14 tender signals since Nov 2025, 9 marked relevant.</span><span class="m">Radar · SC-08 focus area</span></li>
+          </ol></aside>
+        </article>
+
+        <!-- MOVED -->
+        <article class="ans r-auditor" data-q="moved" data-r="auditor" hidden>
+          <div class="say"><h3>Vivo, as Auditor</h3>
+            <p>Three things moved since the session on 12 November. The Operations director set SC-04 to red on 16 November<sup class="ref" data-n="1">1</sup>. A-17, the second shift, is off track<sup class="ref" data-n="2">2</sup>. R-03 entered the top right on 13 November against a primary source<sup class="ref" data-n="3">3</sup>.</p>
+            <p>Each change has a date and a named person. None of them has a decision yet.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Success criterion · SC-04 · Focus</span><span>Standard lines ship within 15 working days.</span><span class="m">Yellow to red · 16 Nov</span></li>
+            <li data-n="2"><span class="k">Activity · A-17</span><span>Second shift on line 2.</span><span class="m">Operations director · off track</span></li>
+            <li data-n="3"><span class="k">Risk move · R-03</span><span>Into the top right. Source: S-121, primary.</span><span class="m">Confirmed 13 Nov</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-advisor" data-q="moved" data-r="advisor" hidden>
+          <div class="say"><h3>Vivo, as Advisor</h3>
+            <p>The one that matters is SC-04<sup class="ref" data-n="1">1</sup>. It is red, and R-03 makes it worse<sup class="ref" data-n="2">2</sup>. Before you add effort to fix it, read it against P1<sup class="ref" data-n="3">3</sup>.</p>
+            <p>If standard lines are commodity work, a red light there may mean the plan is working. I would put it on Thursday's agenda as an open question.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Success criterion · SC-04 · Focus</span><span>Standard lines ship within 15 working days.</span><span class="m">Light: red</span></li>
+            <li data-n="2"><span class="k">Risk · R-03</span><span>Low-cost importer undercuts standard ball valves.</span><span class="m">Top right · 7 days · Worsening</span></li>
+            <li data-n="3"><span class="k">Principle · P1</span><span>We do not chase volume on commodity lines.</span><span class="m">Approved by Owner, 12 Mar 2026</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-scout" data-q="moved" data-r="scout" hidden>
+          <div class="say"><h3>Vivo, as Scout</h3>
+            <p>R-03 moved. The importer announced a Rotterdam warehouse with stock in five days<sup class="ref" data-n="1">1</sup>. Since then a tariff notice has opened a duty review on imported cast valves<sup class="ref" data-n="2">2</sup>. The first pushes the risk up. The second may ease it within months.</p>
+            <p>R-03 is Worsening and has been in the top right for seven days<sup class="ref" data-n="3">3</sup>. If Thursday's session takes no decision, it lands in your Needs you list the next day.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Signal · S-121 · Primary</span><span>Importer's own announcement of a Rotterdam warehouse.</span><span class="m">12 Nov · relevant</span></li>
+            <li data-n="2"><span class="k">Signal · S-124 · Primary</span><span>Tariff notice opens a duty review on cast valves.</span><span class="m">17 Nov · watching</span></li>
+            <li data-n="3"><span class="k">Risk · R-03</span><span>Low-cost importer undercuts standard ball valves.</span><span class="m">Top right · 7 days · Worsening</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-colleague" data-q="moved" data-r="colleague" hidden>
+          <div class="say"><h3>Vivo, as Colleague</h3>
+            <p>It is mostly one problem seen from three sides. Lead time, the importer and the second shift are the same problem<sup class="ref" data-n="1">1</sup><sup class="ref" data-n="2">2</sup>. You can't stop the importer. You can decide whether the second shift is worth the hire.</p>
+            <p>In September the team chose the second shift with one dissent<sup class="ref" data-n="3">3</sup>. Does that dissent read differently now?</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Risk · R-03</span><span>Low-cost importer undercuts standard ball valves.</span><span class="m">Top right · 7 days · Worsening</span></li>
+            <li data-n="2"><span class="k">Activity · A-17</span><span>Second shift on line 2.</span><span class="m">Operations director · off track</span></li>
+            <li data-n="3"><span class="k">Decision · SDS-2026-011 · Adapt</span><span>Add a second shift on line 2 by end of Q3. Dissent: J. Brandt, Finance, on hiring cost.</span><span class="m">10 Sep 2026</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-researcher" data-q="moved" data-r="researcher" hidden>
+          <div class="say"><h3>Vivo, as Researcher</h3>
+            <p>I would check two things before Thursday. How long did the last duty review on cast valves take to reach a ruling<sup class="ref" data-n="1">1</sup>? And what lead time do your 20 largest customers order against today?</p>
+            <p>If they order at 15 days and the importer offers five, R-03 sits in the right place<sup class="ref" data-n="2">2</sup>. If they order at 30, it may be too high.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Signal · S-124 · Primary</span><span>Tariff notice opens a duty review on cast valves.</span><span class="m">17 Nov · watching</span></li>
+            <li data-n="2"><span class="k">Risk · R-03</span><span>Low-cost importer undercuts standard ball valves.</span><span class="m">Top right · 7 days · Worsening</span></li>
+          </ol></aside>
+        </article>
+
+        <!-- FIT -->
+        <article class="ans r-auditor" data-q="fit" data-r="auditor" hidden>
+          <div class="say"><h3>Vivo, as Auditor</h3>
+            <p>The proposal cites a loss of six points of market share. I can't find that figure in strategic memory or in any confirmed signal. The only approved evidence on this topic is R-03 and its sources<sup class="ref" data-n="1">1</sup>.</p>
+            <p>Before we test it against principles, ask the author where the six points came from.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Risk · R-03</span><span>Low-cost importer undercuts standard ball valves. Sources: S-121 primary, S-118 secondary.</span><span class="m">Top right · 7 days</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-advisor" data-q="fit" data-r="advisor" hidden>
+          <div class="say"><h3>Vivo, as Advisor</h3>
+            <p>No. P1 says you do not chase volume on commodity lines<sup class="ref" data-n="1">1</sup>. An 8% price cut on standard ball valves to hold share is chasing volume on a commodity line.</p>
+            <p>If the team wants it anyway, change P1 first. An Owner has to approve that change<sup class="ref" data-n="2">2</sup>. Until then, the decision that fits on R-03 is Hold.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Principle · P1</span><span>We do not chase volume on commodity lines.</span><span class="m">Approved by Owner, 12 Mar 2026</span></li>
+            <li data-n="2"><span class="k">Roles</span><span>Changes to accepted truth wait for an Owner.</span><span class="m">Owners: CEO, Chair</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-scout" data-q="fit" data-r="scout" hidden>
+          <div class="say"><h3>Vivo, as Scout</h3>
+            <p>It fits badly, and the timing is off too. The duty review<sup class="ref" data-n="1">1</sup> could raise the importer's prices within months. Cutting now gives away margin you may not need to give.</p>
+            <p>R-03 is Worsening, but its price evidence rests on one secondary source<sup class="ref" data-n="2">2</sup>. I'd watch for a primary source on price before anyone moves.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Signal · S-124 · Primary</span><span>Tariff notice opens a duty review on cast valves.</span><span class="m">17 Nov · watching</span></li>
+            <li data-n="2"><span class="k">Signal · S-118 · Secondary</span><span>Trade press reports the importer quoting 20% below list.</span><span class="m">10 Nov · relevant</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-colleague" data-q="fit" data-r="colleague" hidden>
+          <div class="say"><h3>Vivo, as Colleague</h3>
+            <p>It clashes with P1<sup class="ref" data-n="1">1</sup>. I don't think the proposal is foolish, though. Someone may be worried about SC-06<sup class="ref" data-n="2">2</sup>. If one large utility switches supplier, you lose more than share.</p>
+            <p>Is that the real worry? If so, the conversation is about one customer. A list price cut is a blunt answer to it.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Principle · P1</span><span>We do not chase volume on commodity lines.</span><span class="m">Approved by Owner, 12 Mar 2026</span></li>
+            <li data-n="2"><span class="k">Success criterion · SC-06</span><span>No single customer above 10% of turnover.</span><span class="m">Light: green · reviewed 12 Nov</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-researcher" data-q="fit" data-r="researcher" hidden>
+          <div class="say"><h3>Vivo, as Researcher</h3>
+            <p>For the cut to make sense, the evidence would have to show that customers switch on price and not on lead time. It would also have to show that the importer's price survives the duty review<sup class="ref" data-n="1">1</sup>, and that your margin on standard lines can absorb 8%<sup class="ref" data-n="2">2</sup>.</p>
+            <p>Today you can show none of them. I can draft a search brief for the Radar.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Signal · S-124 · Primary</span><span>Tariff notice opens a duty review on cast valves.</span><span class="m">17 Nov · watching</span></li>
+            <li data-n="2"><span class="k">Success criterion · SC-01</span><span>Gross margin holds at 31% or above.</span><span class="m">Light: green</span></li>
+          </ol></aside>
+        </article>
+
+        <!-- NUMBER -->
+        <article class="ans r-auditor" data-q="number" data-r="auditor" hidden>
+          <div class="say"><h3>Vivo, as Auditor</h3>
+            <p>The 31% is not from finance. The FY2025 actuals in the business model say 29%<sup class="ref" data-n="1">1</sup>. The 31% first appears in the Head of Service's update of 3 November<sup class="ref" data-n="2">2</sup>. It counts pilot contracts that have not been invoiced.</p>
+            <p>You have two numbers with two definitions, and SC-02 needs one<sup class="ref" data-n="3">3</sup>.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Business model · Revenue streams</span><span>Service 29% of turnover.</span><span class="m">FY2025 actuals · finance export, 2 Oct</span></li>
+            <li data-n="2"><span class="k">Contributor report · A-21</span><span>Service share 31%, signed pilots included.</span><span class="m">Head of Service · 3 Nov</span></li>
+            <li data-n="3"><span class="k">Success criterion · SC-02 · Focus</span><span>Service revenue reaches 35% of turnover.</span><span class="m">Light: yellow</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-advisor" data-q="number" data-r="advisor" hidden>
+          <div class="say"><h3>Vivo, as Advisor</h3>
+            <p>Whichever number you use, read it against the Ambition<sup class="ref" data-n="1">1</sup>. At 31% or 29%, you are short of the 35% in SC-02<sup class="ref" data-n="2">2</sup>. The board will ask about the gap before it asks about the decimal.</p>
+            <p>Show both figures with their definitions. Whether the light stays yellow is your call.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Ambition · 2030</span><span>€180m turnover, 12% EBIT, service partner of choice.</span><span class="m">Approved 14 Jan 2026</span></li>
+            <li data-n="2"><span class="k">Success criterion · SC-02 · Focus</span><span>Service revenue reaches 35% of turnover.</span><span class="m">Light: yellow</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-scout" data-q="number" data-r="scout" hidden>
+          <div class="say"><h3>Vivo, as Scout</h3>
+            <p>Inside the company, it comes from the Head of Service's report<sup class="ref" data-n="1">1</sup>. Outside, no signal this quarter touches service pricing.</p>
+            <p>There is one thing to watch. A pump maker now bundles maintenance software with new installations<sup class="ref" data-n="2">2</sup>. If that spreads, pilots like the ones inside the 31% get harder to convert.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Contributor report · A-21</span><span>Service share 31%, signed pilots included.</span><span class="m">Head of Service · 3 Nov</span></li>
+            <li data-n="2"><span class="k">Signal · S-119 · Secondary</span><span>Pump maker bundles maintenance software with installs.</span><span class="m">3 Nov · relevant</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-colleague" data-q="number" data-r="colleague" hidden>
+          <div class="say"><h3>Vivo, as Colleague</h3>
+            <p>It comes from two places, and that is the useful part. Finance says 29%<sup class="ref" data-n="1">1</sup>. Service says 31% because it counts signed pilots<sup class="ref" data-n="2">2</sup>.</p>
+            <p>Which should SC-02 measure, invoiced or signed? Pick one and I'll draft the wording for an Owner to accept.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Business model · Revenue streams</span><span>Service 29% of turnover.</span><span class="m">FY2025 actuals · finance export, 2 Oct</span></li>
+            <li data-n="2"><span class="k">Contributor report · A-21</span><span>Service share 31%, signed pilots included.</span><span class="m">Head of Service · 3 Nov</span></li>
+          </ol></aside>
+        </article>
+
+        <article class="ans r-researcher" data-q="number" data-r="researcher" hidden>
+          <div class="say"><h3>Vivo, as Researcher</h3>
+            <p>Here is the trail. The finance export of 2 October says 29%<sup class="ref" data-n="1">1</sup>. The Head of Service's update of 3 November says 31%, counting pilots<sup class="ref" data-n="2">2</sup>. Those pilots exist because of a decision in June<sup class="ref" data-n="3">3</sup>.</p>
+            <p>Three pilot contracts make up the difference. Their first invoices are due in January.</p>
+          </div>
+          <aside class="src" aria-label="Drawn from"><h4 class="mono">Drawn from</h4><ol>
+            <li data-n="1"><span class="k">Business model · Revenue streams</span><span>Service 29% of turnover.</span><span class="m">FY2025 actuals · finance export, 2 Oct</span></li>
+            <li data-n="2"><span class="k">Contributor report · A-21</span><span>Service share 31%, signed pilots included.</span><span class="m">Head of Service · 3 Nov</span></li>
+            <li data-n="3"><span class="k">Decision · SDS-2026-009 · Adapt</span><span>Two engineers move to remote monitoring.</span><span class="m">18 Jun 2026</span></li>
+          </ol></aside>
+        </article>
+
+        <div class="ctl no-js-hide">
+          <button class="btn-s" type="button" id="showall">Show all</button>
+          <button class="btn-s" type="button" id="replay">Replay</button>
+          <span class="hint mono">Five questions · five roles · 25 written answers</span>
+        </div>
+
+        <!-- Generic -->
+        <div class="generic" data-q="roast">
+          <div class="g-say"><h3>A generic assistant would say</h3><ul>
+            <li>Consider diversifying your revenue streams to reduce risk.</li>
+            <li>Look for ways to strengthen your value proposition.</li>
+            <li>Many manufacturers are exploring digital transformation.</li>
+          </ul></div>
+          <div class="g-src"><span class="mono">Drawn from</span><p>Nothing of yours. It has never seen Corvane's canvas, principles or decisions.</p></div>
+        </div>
+        <div class="generic" data-q="ai" hidden>
+          <div class="g-say"><h3>A generic assistant would say</h3><ul>
+            <li>AI will change every industry, including yours.</li>
+            <li>Companies that adopt AI early gain an advantage.</li>
+            <li>Start by identifying use cases and training your staff.</li>
+          </ul></div>
+          <div class="g-src"><span class="mono">Drawn from</span><p>Nothing of yours. It cannot tell your valve business from your service business.</p></div>
+        </div>
+        <div class="generic" data-q="moved" hidden>
+          <div class="g-say"><h3>A generic assistant would say</h3><ul>
+            <li>Review your key metrics regularly to stay on track.</li>
+            <li>Markets change quickly, so stay agile.</li>
+            <li>Consider holding a quarterly review with your team.</li>
+          </ul></div>
+          <div class="g-src"><span class="mono">Drawn from</span><p>Nothing of yours. It does not know you have a plan, so it can't say what moved against it.</p></div>
+        </div>
+        <div class="generic" data-q="fit" hidden>
+          <div class="g-say"><h3>A generic assistant would say</h3><ul>
+            <li>Make sure the decision aligns with your company values.</li>
+            <li>Weigh short-term gains against long-term goals.</li>
+            <li>Explain the reasoning clearly to stakeholders.</li>
+          </ul></div>
+          <div class="g-src"><span class="mono">Drawn from</span><p>Nothing of yours. It has not read P1, so it cannot say the proposal breaks it.</p></div>
+        </div>
+        <div class="generic" data-q="number" hidden>
+          <div class="g-say"><h3>A generic assistant would say</h3><ul>
+            <li>Figures like this usually come from finance or BI systems.</li>
+            <li>Check with your finance team to verify it.</li>
+            <li>Use one consistent source for all reporting.</li>
+          </ul></div>
+          <div class="g-src"><span class="mono">Drawn from</span><p>Nothing of yours. It can't see that two people report the same figure two ways.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="memory" aria-labelledby="h-memory">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="mono">01 · Strategic memory</span>
+      <div>
+        <h2 id="h-memory">Vivo reads your strategy before it answers</h2>
+        <p class="lede">Strategic memory is what is true inside your company, written down and approved by your leadership team. Vivo answers from it. If an answer can't point to it, Vivo says so.</p>
+        <p class="lede">It is hardwired to your business model on the Business Model Canvas. It is not a generic prompt with your PDF attached.</p>
+      </div>
+    </div>
+
+    <div class="ledger">
+      <div class="ledger-cap mono"><span>Corvane Fittings · strategic memory</span><span>Illustrative example</span></div>
+      <dl>
+        <div class="lrow"><dt class="mono">Ambition</dt><dd>Service partner of choice for industrial flow systems in Northern Europe by 2030. Turnover €180m, EBIT margin 12%. Everything else is read against it.</dd></div>
+        <div class="lrow"><dt class="mono">Business model</dt><dd>Nine blocks, kept current. Customer segments are water utilities, food processing and chemicals. Revenue streams are 71% product and 29% service.</dd></div>
+        <div class="lrow"><dt class="mono">Success criteria</dt><dd>
+          <div class="it"><span class="id">SC-02</span><span><i class="light l-y" aria-hidden="true"></i>Service revenue reaches 35% of turnover. <span class="tag">Focus</span> <span class="sr">Light yellow.</span></span></div>
+          <div class="it"><span class="id">SC-04</span><span><i class="light l-r" aria-hidden="true"></i>Standard lines ship within 15 working days. <span class="tag">Focus</span> <span class="sr">Light red.</span></span></div>
+          <div class="it"><span class="id">SC-08</span><span><i class="light l-g" aria-hidden="true"></i>Two new utility customers a year. <span class="tag">Focus</span> <span class="sr">Light green.</span></span></div>
+          <div class="it"><span class="id">+ 6 more</span><span>Nine in all. A person sets each light. Vivo only asks "Light still green?"</span></div>
+        </dd></div>
+        <div class="lrow"><dt class="mono">Principles</dt><dd>
+          <div class="it"><span class="id">P1</span><span>We do not chase volume on commodity lines.</span></div>
+          <div class="it"><span class="id">P3</span><span>No new market without a service partner in place.</span></div>
+          <div class="it"><span class="id">P5</span><span>Field data belongs to the customer.</span></div>
+        </dd></div>
+        <div class="lrow"><dt class="mono">Objectives and activities</dt><dd>
+          <div class="it"><span class="id">A-17</span><span>Second shift on line 2. Operations director. Off track.</span></div>
+          <div class="it"><span class="id">A-21</span><span>Remote monitoring pilot with three utilities. Head of Service. At risk.</span></div>
+        </dd></div>
+        <div class="lrow"><dt class="mono">Risks</dt><dd>
+          <div class="it"><span class="id">R-03</span><span>Low-cost importer undercuts standard ball valves. Top right · 7 days · Worsening.</span></div>
+          <div class="it"><span class="id">R-05</span><span>Utility capex freeze delays orders. Easing.</span></div>
+        </dd></div>
+        <div class="lrow"><dt class="mono">Record of Decisions</dt><dd>
+          <div class="it"><span class="id">SDS-2026-009</span><span>Adapt. Two engineers move to remote monitoring.</span></div>
+          <div class="it"><span class="id">SDS-2026-011</span><span>Adapt. Second shift on line 2. Dissent: J. Brandt, Finance.</span></div>
+          <div class="it"><span class="id">SDS-2026-014</span><span>Not yet. Baltic water utilities parked until a service partner signs.</span></div>
+        </dd></div>
+      </dl>
+    </div>
+
+    <div class="formula" aria-label="The Strapivo formula">
+      <div><b>Strategic memory</b><span>What is true inside your company.</span></div>
+      <span class="op" aria-hidden="true">+</span>
+      <div><b>Market intelligence</b><span>Live signals from outside it. Over 4,000 sources a day, reported on Monday and Thursday.</span></div>
+      <span class="op" aria-hidden="true">+</span>
+      <div><b>Strategic session</b><span>The conversation where the two meet.</span></div>
+      <span class="op" aria-hidden="true">=</span>
+      <div><b>Lasting advantage</b><span>Corrections made early, while they are still cheap.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="trail" aria-labelledby="h-trail">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="mono">02 · The trail</span>
+      <div>
+        <h2 id="h-trail">Every answer cites something you approved</h2>
+        <p class="lede">Every recommendation Vivo makes traces back to the strategic memory you approved. You can follow any sentence to its source, its date and the person who accepted it.</p>
+      </div>
+    </div>
+    <div class="trail">
+      <figure class="trail-fig" style="margin:0" aria-labelledby="trail-cap">
+        <div class="t-claim"><span class="mono">Vivo, as Advisor</span>"An 8% price cut on standard ball valves to hold share is chasing volume on a commodity line."</div>
+        <div class="t-lines">
+          <div class="t-node"><div class="card"><span class="k">Principle · P1</span><p>We do not chase volume on commodity lines.</p><span class="m">Approved by Owner · 12 Mar 2026</span></div></div>
+          <div class="t-node"><div class="card"><span class="k">Risk · R-03 · top right</span><p>Low-cost importer undercuts standard ball valves.</p><span class="m">Moved 13 Nov · primary source S-121 · confirmed by Head of Strategy</span></div></div>
+          <div class="t-node"><div class="card"><span class="k">Success criterion · SC-04</span><p>Standard lines ship within 15 working days.</p><span class="m">Light set to red by Operations director · 16 Nov</span></div></div>
+        </div>
+        <figcaption class="t-end mono" id="trail-cap">Illustrative example · one sentence and three sources</figcaption>
+      </figure>
+      <ol class="rules">
+        <li><b>No source, no claim.</b><span>When memory holds nothing on a question, Vivo says so and offers to propose an entry. The Auditor's answer on AI above shows it.</span></li>
+        <li><b>Signals carry a date and a class.</b><span>Each signal has a source and a source class, primary or secondary. A risk moves into the top right only with at least one primary source, so that one blog post can't raise an alarm.</span></li>
+        <li><b>Dismissed signals count too.</b><span>When someone dismisses a signal, Vivo learns what your team counts as noise.</span></li>
+        <li><b>Decisions keep their number.</b><span>Every decision gets a permanent number, such as <span class="nw">SDS-2026-014</span>, with its date, its reason and any dissent by name.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="authority" aria-labelledby="h-auth">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="mono">03 · Where Vivo stops</span>
+      <div>
+        <h2 id="h-auth">Where Vivo's authority ends</h2>
+      </div>
+    </div>
+    <p class="motto">Vivo proposes; <em>people decide.</em></p>
+    <div class="split">
+      <div class="v">
+        <h3>Vivo may</h3>
+        <ul>
+          <li>Draft the agenda 24 hours before a session, with a one-line reason for every item.<small>The session lead edits it. The room approves it.</small></li>
+          <li>Propose a new position for a risk as a ghost on the radar.<small>One line of reason, linked to the signal.</small></li>
+          <li>Ask "Light still green?" when two focus activities go off track.<small>It never changes the light itself.</small></li>
+          <li>Draft new objectives and activities after an Adapt.<small>Nothing changes until someone accepts the draft.</small></li>
+          <li>Read back each decision for the Record of Decisions.<small>The session lead confirms it.</small></li>
+        </ul>
+      </div>
+      <div class="h">
+        <h3>Only a person may</h3>
+        <ul>
+          <li>Set the light on a success criterion.<small>Green, yellow or red.</small></li>
+          <li>Confirm or reject a risk move.<small>The confirmer's name joins the trail.</small></li>
+          <li>Confirm a Pivot.<small>Only someone with authority can do it.</small></li>
+          <li>Accept a change to accepted truth.<small>That waits for an Owner.</small></li>
+          <li>Approve a decision beyond the team's authority.<small>It goes to an approver in the app, as a memo, or into the board pack.</small></li>
+        </ul>
+      </div>
+    </div>
+    <div class="quote">
+      <span class="mono">What leadership teams tell us</span>
+      <blockquote>"Help, not a co-author with the pen."</blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="session" aria-labelledby="h-session">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="mono">04 · Dynamic Strategy</span>
+      <div>
+        <h2 id="h-session">The conversation is one step in a session that ends with a decision</h2>
+        <p class="lede">Dynamic Strategy keeps an agreed strategy honest between offsites. The team makes small, early corrections and changes course now and then. Each session runs for 60 minutes by default, weekly, fortnightly or monthly.</p>
+      </div>
+    </div>
+    <ol class="flow">
+      <li><span class="n">01</span><b>Agenda</b><p>Vivo drafts it from what changed. Old business first, then new business.</p></li>
+      <li><span class="n">02</span><b>Evidence</b><p>The signals, risk moves and contributor reports behind each item.</p></li>
+      <li><span class="n">03</span><b>First takes</b><p>Each person gives a sealed position before discussion. All are revealed together, so the loudest voice can't anchor the room.</p></li>
+      <li class="here"><span class="n">04 · This page</span><b>Conversation with Vivo</b><p>Pick a role. Ask about the cost of doing nothing, a scenario, a challenge or a black swan.</p></li>
+      <li><span class="n">05</span><b>Decision</b><p>Hold, Adapt, Pivot, Take advantage or Not yet.</p></li>
+      <li><span class="n">06</span><b>Record</b><p>Vivo reads the entry back. The session lead confirms it. It gets a number.</p></li>
+    </ol>
+
+    <div class="record">
+      <span class="mono">Illustrative example<br>The entry that closes the R-03 item</span>
+      <article class="rec" aria-label="Record of Decisions entry">
+        <div class="rec-h"><strong>SDS-2026-017</strong><span>Corvane Fittings · session of 26 Nov 2026</span></div>
+        <dl>
+          <div class="row"><dt>Item</dt><dd>R-03 in the top right. Sales proposes an 8% price cut on standard ball valves.</dd></div>
+          <div class="row"><dt>Decision</dt><dd><div class="opts"><span>Hold</span><span>Adapt</span><span>Pivot</span><span>Take advantage</span><span class="sel">Not yet</span></div></dd></div>
+          <div class="row"><dt>Outcome</dt><dd>Parked. The price cut conflicts with P1, and the price evidence rests on one secondary source.</dd></div>
+          <div class="row"><dt>Triggers</dt><dd>A ruling on the duty review, or a primary source on the importer's prices, or the session of 10 Dec.</dd></div>
+          <div class="row"><dt>Dissent</dt><dd>K. Aalto, Sales. Wants a price response before the January utility tenders.</dd></div>
+          <div class="row"><dt>Confirmed by</dt><dd>Session lead, 26 Nov 2026, 10:58</dd></div>
+        </dl>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="h-trust">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="mono">05 · Trust</span>
+      <div><h2 id="h-trust">Humans decide. Humans validate.</h2></div>
+    </div>
+    <div class="trust">
+      <div><b>EU-only infrastructure</b><p>GDPR by design. Your strategic memory stays in the EU.</p></div>
+      <div><b>We do the reading first</b><p>Bring a workshop report, a document or a pasted email. Onboarding takes four to five hours, and then you run it.</p></div>
+      <div><b>Roles with limits</b><p>Owner, Admin, Member and Contributor. Contributors report status and asks before each session.</p></div>
+      <div><b>Plain exports</b><p>The plan and the board pack as Markdown, the plan as CSV, escalation memos as Markdown.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<section class="cta" aria-labelledby="h-cta">
+  <div class="wrap">
+    <span class="mono">Start here</span>
+    <h2 id="h-cta">Bring the strategy question your last chatbot got wrong.</h2>
+    <p>Tell us what you asked and what came back. We'll show you what Vivo would need from your strategy to answer it as you.</p>
+    <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    <p class="sub">strategy@strapivo.com</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="88" height="22">
+    <span>© 2026 Strapivo</span>
+    <nav aria-label="Legal"><ul>
+      <li><a href="/imprint">Imprint</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+      <li><a href="/terms">Terms</a></li>
+    </ul></nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.getElementById('ask');
+  if(!root) return;
+  document.documentElement.classList.add('js');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var state={q:'roast',r:'colleague'};
+  var timer=null, current=null, currentGen=null;
+  var qBtns=[].slice.call(root.querySelectorAll('[data-pick-q]'));
+  var rBtns=[].slice.call(root.querySelectorAll('[data-pick-r]'));
+  var qText=document.getElementById('q-text'), qCtx=document.getElementById('q-ctx');
+  var note=document.getElementById('role-note'), status=document.getElementById('status');
+  var showAll=document.getElementById('showall'), replay=document.getElementById('replay');
+
+  function prep(ans){
+    if(ans.getAttribute('data-prepped')) return;
+    ans.querySelectorAll('.say p').forEach(function(p){
+      [].slice.call(p.childNodes).forEach(function(n){
+        if(n.nodeType===3){
+          var frag=document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(function(t){
+            if(!t) return;
+            if(/^\s+$/.test(t)){frag.appendChild(document.createTextNode(t));}
+            else{var s=document.createElement('span');s.className='w';s.textContent=t;frag.appendChild(s);}
+          });
+          p.replaceChild(frag,n);
+        } else if(n.nodeType===1){ n.classList.add('w'); }
+      });
+    });
+    ans.setAttribute('data-prepped','1');
+  }
+  function finish(){
+    clearTimeout(timer);
+    if(!current) return;
+    current.querySelectorAll('.w').forEach(function(u){u.classList.add('on');});
+    current.querySelectorAll('.src li').forEach(function(l){l.classList.add('lit');});
+    current.classList.remove('playing');
+    if(currentGen) currentGen.classList.add('shown');
+    showAll.disabled=true;
+  }
+  function play(){
+    clearTimeout(timer);
+    var ans=root.querySelector('.ans[data-q="'+state.q+'"][data-r="'+state.r+'"]');
+    var gen=root.querySelector('.generic[data-q="'+state.q+'"]');
+    root.querySelectorAll('.ans').forEach(function(a){a.hidden=(a!==ans);a.classList.remove('playing');});
+    root.querySelectorAll('.generic').forEach(function(g){g.hidden=(g!==gen);g.classList.remove('shown');});
+    current=ans; currentGen=gen;
+    if(!ans) return;
+    prep(ans);
+    var units=[].slice.call(ans.querySelectorAll('.w'));
+    units.forEach(function(u){u.classList.remove('on');});
+    ans.querySelectorAll('.src li').forEach(function(l){l.classList.remove('lit');});
+    if(reduce.matches){finish();return;}
+    ans.classList.add('playing');
+    showAll.disabled=false;
+    var i=0;
+    (function step(){
+      if(i>=units.length){finish();return;}
+      var u=units[i++]; u.classList.add('on');
+      if(u.classList.contains('ref')){
+        var li=ans.querySelector('.src li[data-n="'+u.getAttribute('data-n')+'"]');
+        if(li) li.classList.add('lit');
+      }
+      var t=u.textContent;
+      var wait=u.classList.contains('ref')?160:/[.?!]$/.test(t)?380:/[,;]$/.test(t)?170:95;
+      timer=setTimeout(step,wait);
+    })();
+  }
+  function sync(){
+    var qb=null;
+    qBtns.forEach(function(b){var on=b.getAttribute('data-pick-q')===state.q;b.setAttribute('aria-pressed',on);if(on)qb=b;});
+    var rb=null;
+    rBtns.forEach(function(b){var on=b.getAttribute('data-pick-r')===state.r;b.setAttribute('aria-pressed',on);if(on)rb=b;});
+    qText.textContent=qb.textContent;
+    qCtx.textContent=qb.getAttribute('data-ctx')||'';
+    note.textContent=rb.getAttribute('data-note');
+    status.textContent='Vivo answers as '+rb.textContent+': '+qb.textContent;
+    play();
+  }
+  qBtns.forEach(function(b){b.addEventListener('click',function(){state.q=b.getAttribute('data-pick-q');sync();});});
+  rBtns.forEach(function(b){b.addEventListener('click',function(){state.r=b.getAttribute('data-pick-r');sync();});});
+  showAll.addEventListener('click',finish);
+  replay.addEventListener('click',play);
+
+  if('IntersectionObserver' in window){
+    var started=false;
+    var io=new IntersectionObserver(function(es){
+      if(!started && es[0].isIntersecting){started=true;io.disconnect();play();}
+    },{threshold:0.2});
+    io.observe(root.querySelector('.stage'));
+  } else { play(); }
+})();
+</script>
+</body>
+</html>

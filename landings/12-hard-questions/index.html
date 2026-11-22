@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo · Hard questions, short answers</title>
+<meta name="description" content="Eighteen questions sceptical executives ask Strapivo in the first meeting. Each has the short answer first and the full answer below it.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --amber:#E0A12B;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --index-w:280px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11"}
+a{color:var(--p400)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--p400);outline-offset:4px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--paper);color:var(--ink);padding:8px 12px;border-radius:4px;z-index:20}
+.skip:focus{left:8px}
+.mono{font-family:var(--mono)}
+.eyebrow{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--n400)}
+
+/* Header */
+.site-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px clamp(20px,4vw,56px);border-bottom:1px solid var(--n700)}
+.site-head img{display:block;height:26px;width:auto}
+.head-links{display:flex;gap:20px;align-items:center}
+.head-links a{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--paper)}
+.head-links a.signin{color:var(--n200);border:1px solid var(--n600);padding:8px 12px;border-radius:4px}
+.head-links a.signin:hover{border-color:var(--n400)}
+.head-links a.talk{color:var(--amber)}
+
+/* Layout with side index */
+.frame{display:block}
+.index{display:none}
+@media (min-width:1240px){
+  .frame{display:grid;grid-template-columns:var(--index-w) minmax(0,1fr)}
+  .index{display:block;position:sticky;top:0;height:100vh;overflow-y:auto;border-right:1px solid var(--n700);padding:40px 24px 40px 32px}
+}
+.index h2{margin:0 0 18px;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--n400)}
+.index ol{list-style:none;margin:0;padding:0}
+.index li{margin:0}
+.index .grp{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--n500);margin:16px 0 6px}
+.index .grp:first-child{margin-top:0}
+.index a{display:grid;grid-template-columns:26px 1fr;gap:6px;padding:4px 0;font-size:13.5px;line-height:1.35;color:var(--n400);text-decoration:none;transition:color .3s}
+.index a .n{font-family:var(--mono);font-size:11px;padding-top:2px;color:var(--n500);transition:color .3s}
+.index a:hover{color:var(--paper)}
+.index a.on{color:var(--paper)}
+.index a.on .n{color:var(--amber)}
+
+/* Opening */
+.open{padding:clamp(72px,12vh,140px) clamp(20px,6vw,96px) clamp(64px,10vh,120px);border-bottom:1px solid var(--n700)}
+.open .eyebrow{margin:0 0 28px}
+h1{margin:0;max-width:14ch;font-size:clamp(44px,8vw,120px);line-height:.98;font-weight:500;letter-spacing:-.03em}
+h1 span{color:var(--amber)}
+.open-body{display:grid;gap:40px;margin-top:clamp(40px,7vh,80px);max-width:1100px}
+@media (min-width:900px){.open-body{grid-template-columns:1.2fr 1fr;gap:72px}}
+.open-body p{margin:0 0 16px;font-size:clamp(17px,1.4vw,20px);color:var(--n200);max-width:56ch}
+.open-body p strong{font-weight:500;color:var(--paper)}
+.voices{margin:0;padding:0;list-style:none;border-left:1px solid var(--n600)}
+.voices li{padding:6px 0 6px 20px;color:var(--n400);font-size:15px}
+.voices li::before{content:'"'}
+.voices li::after{content:'"'}
+.open-body .voices-cap{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--n500);margin:14px 0 0 20px;max-width:none}
+.how{margin-top:clamp(40px,6vh,64px);font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--n400);display:flex;flex-wrap:wrap;gap:10px 28px}
+.how b{font-weight:500;color:var(--amber)}
+
+/* Groups and questions */
+.group-head{margin:0;padding:clamp(48px,8vh,88px) clamp(20px,6vw,96px) 0;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--n400);display:flex;align-items:center;gap:16px}
+.group-head::after{content:'';flex:1;height:1px;background:var(--n700)}
+.q{padding:clamp(56px,9vh,96px) clamp(20px,6vw,96px);display:grid;align-content:center;border-bottom:1px solid var(--n700)}
+@media (min-width:900px){.q{min-height:min(82vh,860px)}.group-head+.q{min-height:min(68vh,720px)}}
+.q-grid{display:grid;grid-template-columns:1fr;gap:18px 40px}
+@media (min-width:900px){.q-grid{grid-template-columns:minmax(0,1fr) minmax(180px,260px)}}
+.q-num{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--n500);margin:0 0 20px}
+.q h3{margin:0;font-size:clamp(34px,5.2vw,80px);line-height:1.04;font-weight:500;letter-spacing:-.028em;color:var(--paper);max-width:17ch}
+.q h3 button{all:unset;cursor:pointer;display:block;border-radius:2px}
+.q h3 button:focus-visible{outline:2px solid var(--p400);outline-offset:6px}
+.q .hint{cursor:pointer;width:max-content;display:flex;align-items:center;gap:10px;margin-top:22px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--n400);font-weight:400;transition:color .25s}
+.q .hint:hover,.q.btn-focus .hint,.q:has(h3 button:hover) .hint{color:var(--paper)}
+.q .hint i{display:inline-block;width:10px;height:10px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translate(-2px,-2px);transition:transform .35s}
+.q.is-open .hint i{transform:rotate(-135deg) translate(-2px,-2px)}
+.short{margin:0;font-family:var(--mono);font-weight:500;color:var(--amber);font-size:clamp(22px,2.4vw,34px);line-height:1.2;letter-spacing:-.01em;border-left:2px solid var(--amber);padding:4px 0 4px 18px;align-self:start}
+@media (min-width:900px){.short{margin-top:36px}}
+
+/* Paper answer panel */
+.ans-wrap{display:grid;grid-template-rows:1fr;transition:grid-template-rows .55s ease}
+.ans-wrap>.ans-clip{overflow:hidden;min-height:0}
+.q.is-shut .ans-wrap{grid-template-rows:0fr}
+.ans{margin-top:36px;background:var(--paper);color:var(--ink);border-radius:6px;padding:clamp(24px,3.4vw,44px);max-width:980px;display:grid;gap:28px}
+@media (min-width:1000px){.ans.with-fig{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:44px}}
+.ans p{margin:0 0 14px;font-size:clamp(16px,1.15vw,18px);line-height:1.62;color:var(--n700);max-width:62ch}
+.ans p:last-child{margin-bottom:0}
+.ans p.lead{color:var(--ink);font-size:clamp(18px,1.45vw,22px);line-height:1.45;letter-spacing:-.01em}
+.ans em{font-style:normal;color:var(--p600)}
+.ans q{color:var(--ink)}
+.ans q::before{content:'"'}.ans q::after{content:'"'}
+.term{font-family:var(--mono);font-size:.86em;letter-spacing:.02em;color:var(--ink);background:var(--n100);padding:1px 6px;border-radius:3px;white-space:nowrap}
+
+/* Figures inside answers */
+.fig{margin:0;align-self:start;border:1px solid var(--n200);border-radius:6px;background:#fff;padding:18px}
+.fig-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--n500);margin:0 0 12px}
+.fig figcaption{font-family:var(--mono);font-size:11.5px;line-height:1.5;color:var(--n600);margin-top:12px}
+.fig svg{display:block;width:100%;height:auto}
+.rec{font-family:var(--mono);font-size:12.5px;line-height:1.55;color:var(--n700)}
+.rec .id{font-size:15px;font-weight:500;color:var(--p600);letter-spacing:.02em}
+.rec dl{margin:12px 0 0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px}
+.rec dt{color:var(--n500);text-transform:uppercase;font-size:10.5px;letter-spacing:.12em;padding-top:2px}
+.rec dd{margin:0;color:var(--ink)}
+.chip{display:inline-block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:var(--sky);color:var(--p700);margin-left:8px;vertical-align:2px}
+.focus-list{list-style:none;margin:0;padding:0;font-size:13.5px;line-height:1.35}
+.focus-list li{display:flex;gap:10px;align-items:center;padding:5px 0;border-bottom:1px solid var(--n100);color:var(--n600)}
+.focus-list li .dot{width:8px;height:8px;border-radius:50%;flex:none;border:1.5px solid var(--n400)}
+.focus-list li.f{color:var(--ink)}
+.focus-list li.f .dot{background:var(--p500);border-color:var(--p500)}
+.focus-list li.try{color:var(--ink);background:var(--sky);margin:0 -8px;padding:5px 8px;border-radius:3px;border-bottom:0}
+.vivo{margin-top:12px;padding:12px 14px;border-left:2px solid var(--p500);background:var(--sky);font-size:14px;line-height:1.45;color:var(--ink)}
+.vivo .who{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--p700);margin-bottom:4px}
+
+/* Closing */
+.close{padding:clamp(72px,14vh,160px) clamp(20px,6vw,96px);background:var(--n900);border-bottom:1px solid var(--n700)}
+.close h2{margin:0;font-size:clamp(40px,6.4vw,96px);line-height:1;font-weight:500;letter-spacing:-.03em;max-width:14ch}
+.close p.short{display:inline-block;margin:32px 0 0;color:var(--amber);font-size:clamp(22px,2.4vw,34px)}
+.close p.eyebrow{margin:0 0 28px;font-size:12px;color:var(--n400)}
+.close p:not(.short):not(.eyebrow){margin:28px 0 0;max-width:56ch;color:var(--n200);font-size:clamp(17px,1.4vw,20px)}
+.cta{display:inline-flex;align-items:center;gap:14px;margin-top:40px;padding:18px 26px;background:var(--amber);color:var(--n900);text-decoration:none;font-family:var(--mono);font-weight:500;font-size:14px;letter-spacing:.12em;text-transform:uppercase;border-radius:4px;transition:background .25s}
+.cta:hover{background:#ECB54A}
+.cta:focus-visible{outline:2px solid var(--paper);outline-offset:4px}
+.close .mail{display:block;margin-top:16px;font-family:var(--mono);font-size:13px;color:var(--n400)}
+
+/* Footer */
+.site-foot{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:space-between;padding:32px clamp(20px,6vw,96px);background:var(--n900);font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--n400)}
+.site-foot img{display:block;height:20px;width:auto}
+.site-foot nav{display:flex;gap:24px}
+.site-foot a{color:var(--n200);text-decoration:none}
+.site-foot a:hover{color:var(--paper);text-decoration:underline}
+
+@media (max-width:560px){
+  .head-links a.talk{display:none}
+  .q h3{font-size:clamp(30px,8.6vw,40px)}
+  .short{font-size:22px}
+  .ans{margin-top:28px}
+  .site-foot nav{gap:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .ans-wrap,.q .hint i,.index a,.index a .n{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#questions">Skip to the questions</a>
+
+<header class="site-head">
+  <a href="#top" aria-label="Strapivo, back to top"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="155" height="39"></a>
+  <nav class="head-links" aria-label="Account">
+    <a class="talk" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    <a class="signin" href="https://strapivo.app">Sign in</a>
+  </nav>
+</header>
+
+<div class="frame">
+<aside class="index" aria-label="Question index">
+  <h2>18 questions</h2>
+  <ol id="index-list">
+    <li class="grp" aria-hidden="true">The AI</li>
+    <li><a href="#q1"><span class="n">01</span>Will Vivo rewrite our strategy?</a></li>
+    <li><a href="#q2"><span class="n">02</span>A chatbot with our PDF?</a></li>
+    <li class="grp" aria-hidden="true">Noise</li>
+    <li><a href="#q3"><span class="n">03</span>One blog post, one alarm?</a></li>
+    <li><a href="#q4"><span class="n">04</span>Won't we drown in news?</a></li>
+    <li><a href="#q5"><span class="n">05</span>New strategy every week?</a></li>
+    <li class="grp" aria-hidden="true">The work</li>
+    <li><a href="#q6"><span class="n">06</span>Another meeting?</a></li>
+    <li><a href="#q7"><span class="n">07</span>The loudest voice?</a></li>
+    <li><a href="#q8"><span class="n">08</span>When we can't decide?</a></li>
+    <li><a href="#q9"><span class="n">09</span>Find it in a year?</a></li>
+    <li><a href="#q10"><span class="n">10</span>Does Vivo take minutes?</a></li>
+    <li class="grp" aria-hidden="true">Control</li>
+    <li><a href="#q11"><span class="n">11</span>Who decides?</a></li>
+    <li><a href="#q12"><span class="n">12</span>Show the board?</a></li>
+    <li class="grp" aria-hidden="true">Fit</li>
+    <li><a href="#q13"><span class="n">13</span>Our consultant's strategy?</a></li>
+    <li><a href="#q14"><span class="n">14</span>Twelve priorities?</a></li>
+    <li class="grp" aria-hidden="true">What it is not</li>
+    <li><a href="#q15"><span class="n">15</span>A KPI dashboard?</a></li>
+    <li><a href="#q16"><span class="n">16</span>Sync with our task tools?</a></li>
+    <li class="grp" aria-hidden="true">Getting started</li>
+    <li><a href="#q17"><span class="n">17</span>Where does our data live?</a></li>
+    <li><a href="#q18"><span class="n">18</span>How long to set up?</a></li>
+  </ol>
+</aside>
+
+<main id="top">
+  <section class="open" aria-labelledby="h1">
+    <p class="eyebrow">Strapivo · Dynamic Strategy</p>
+    <h1 id="h1">Ask us the <span>hard questions.</span></h1>
+    <div class="open-body">
+      <div>
+        <p>Every other function got software. Strategy never did. <strong>Strapivo is where a company's strategy lives, stays current and gets used.</strong> Dynamic Strategy is how a leadership team keeps that strategy honest between offsites, with small, early corrections and the rare change of course.</p>
+        <p>You have heard AI claims before, so this page has no feature tour. It has the eighteen questions executives put to us in the first meeting, with the short answer first.</p>
+      </div>
+      <div>
+        <ul class="voices">
+          <li>We finish the strategy, and then we forget it.</li>
+          <li>We restart the same argument every time a new analysis lands.</li>
+          <li>Between offsites, nothing moves.</li>
+        </ul>
+        <p class="voices-cap">What leadership teams tell us</p>
+      </div>
+    </div>
+    <p class="how" aria-label="How to read this page"><span><b>Amber</b> is the short answer.</span><span>Select a question to read the long one.</span></p>
+  </section>
+
+  <div id="questions">
+
+  <!-- THE AI -->
+  <h2 class="group-head">About the AI</h2>
+
+  <article class="q" id="q1">
+    <p class="q-num">01 / 18</p>
+    <div class="q-grid">
+      <h3>Will Vivo rewrite our strategy?</h3>
+      <p class="short">No.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans">
+      <div>
+        <p class="lead">Vivo proposes. People decide.</p>
+        <p>Vivo is Strapivo's AI. When a decision calls for new wording on a success criterion, Vivo drafts it. The change takes effect only when someone with authority confirms it.</p>
+        <p>Vivo never sets the green, yellow or red light on a criterion. When two or more focus activities go off track, or a risk on that criterion enters the danger zone, Vivo asks <q>Light still green?</q> A person answers.</p>
+        <p>Leadership teams tell us they want help, not a co-author with the pen. That is the design.</p>
+      </div>
+    </div></div></div>
+  </article>
+
+  <article class="q" id="q2">
+    <p class="q-num">02 / 18</p>
+    <div class="q-grid">
+      <h3>Isn't this a chatbot with our PDF attached?</h3>
+      <p class="short">No.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans">
+      <div>
+        <p class="lead">Strapivo is hardwired to your business model, built on the Business Model Canvas.</p>
+        <p>Vivo works from your strategic memory: the business model and its environment, the principles and guardrails for every call, where you play and where you don't. Your Owners approved every line of that memory, and every recommendation Vivo makes traces back to it.</p>
+        <p>Vivo can work as Auditor, Advisor, Scout, Colleague or Researcher. As Auditor it asks <q>Where did this number come from?</q> Any AI can answer a question. <em>Only Strapivo answers it as you.</em></p>
+      </div>
+    </div></div></div>
+  </article>
+
+  <!-- NOISE -->
+  <h2 class="group-head">About noise</h2>
+
+  <article class="q" id="q3">
+    <p class="q-num">03 / 18</p>
+    <div class="q-grid">
+      <h3>How do you stop one blog post raising an alarm?</h3>
+      <p class="short">A primary source.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans with-fig">
+      <div>
+        <p class="lead">A risk cannot move into the danger zone without at least one primary source.</p>
+        <p>Each risk sits on a radar of impact against likelihood. When a signal suggests a risk has moved, Vivo shows the new position as a ghost with a one-line reason. A person confirms the move or rejects it.</p>
+        <p>The top right of the radar is the danger zone. A move there needs a primary source. A secondary source on its own is not enough. Every confirmed move joins the trail with its signal, its date and the name of the person who confirmed it.</p>
+      </div>
+      <figure class="fig">
+        <p class="fig-tag">Illustrative example</p>
+        <svg viewBox="0 0 260 230" role="img" aria-labelledby="radar-t">
+          <title id="radar-t">A risk radar. A solid dot marks a risk's current position. A dashed ghost dot in the top right shows Vivo's proposed move, waiting for confirmation.</title>
+          <rect x="40" y="10" width="210" height="180" fill="#F6F9FB" stroke="#E1E5EA"/>
+          <rect x="145" y="10" width="105" height="90" fill="#EEF6FF"/>
+          <line x1="145" y1="10" x2="145" y2="190" stroke="#E1E5EA"/>
+          <line x1="40" y1="100" x2="250" y2="100" stroke="#E1E5EA"/>
+          <text x="244" y="26" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" fill="#005DBD" letter-spacing="1">DANGER ZONE</text>
+          <circle cx="112" cy="128" r="7" fill="#141B24"/>
+          <line x1="118" y1="121" x2="186" y2="58" stroke="#495158" stroke-width="1.2" stroke-dasharray="3 3"/>
+          <circle cx="194" cy="52" r="8" fill="none" stroke="#0082E6" stroke-width="1.6" stroke-dasharray="3 2.5"/>
+          <text x="112" y="150" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#495158">now</text>
+          <text x="194" y="76" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#005DBD">proposed</text>
+          <text x="145" y="210" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#6C727A" letter-spacing="1">LIKELIHOOD</text>
+          <text x="22" y="100" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#6C727A" letter-spacing="1" transform="rotate(-90 22 100)">IMPACT</text>
+        </svg>
+        <figcaption>Proposed by Vivo from one secondary source. It cannot be confirmed until a primary source supports it.</figcaption>
+      </figure>
+    </div></div></div>
+  </article>
+
+  <article class="q" id="q4">
+    <p class="q-num">04 / 18</p>
+    <div class="q-grid">
+      <h3>Won't we drown in news?</h3>
+      <p class="short">No. A person triages it.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans">
+      <div>
+        <p class="lead">The Radar searches for what your focus areas need, and a named person sorts what it finds.</p>
+        <p>The search brief for each focus area is its success criterion, the objectives under it and its risks. Market intelligence reads over 4,000 sources a day and reports on Monday and Thursday. A red-line exception interrupts that schedule.</p>
+        <p>Vivo makes the first pass on each signal. It names the criterion, says relevant or not and gives one line of reason. The person you delegate marks the signal relevant, irrelevant or unsure. Each dismissed signal teaches Vivo what counts as noise for your company.</p>
+        <p>A relevant signal that matches no known risk comes back as a question: <q>Possible new risk?</q></p>
+      </div>
+    </div></div></div>
+  </article>
+
+  <article class="q" id="q5">
+    <p class="q-num">05 / 18</p>
+    <div class="q-grid">
+      <h3>Will we end up changing strategy every week?</h3>
+      <p class="short">No. Tactics move. Strategy holds.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans">
+      <div>
+        <p class="lead">Strategies fail in two ways. Inertia is doing nothing. Thrash is reacting to everything.</p>
+        <p>Dynamic Strategy works like steering a ship. You make small, early corrections, and once in a while you change course. <span class="term">Hold</span> is a decision in its own right, and it marks the criterion as reviewed on that date. <span class="term">Adapt</span> changes objectives and activities.</p>
+        <p>The wording of a criterion changes only through a <span class="term">Pivot</span>, and a Pivot waits for someone with authority to confirm it. Leadership teams tell us the same thing: <q>We're not changing strategy every week, but we are revising our tactics.</q></p>
+      </div>
+    </div></div></div>
+  </article>
+
+  <!-- THE WORK -->
+  <h2 class="group-head">About the work</h2>
+
+  <article class="q" id="q6">
+    <p class="q-num">06 / 18</p>
+    <div class="q-grid">
+      <h3>Is this another meeting?</h3>
+      <p class="short">It replaces one.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans">
+      <div>
+        <p class="lead">It replaces the strategy meeting that drifts.</p>
+        <p>A session in the Strategy Room runs 60 minutes by default. You choose weekly, fortnightly or monthly, and add a session when something can't wait.</p>
+        <p>Vivo drafts the agenda 24 hours before, from what changed: new signals, risks entering the top right, parked questions coming back, carried-forward items, activities at risk or off track, and asks from the people responsible. Old business comes first. Each item carries a one-line reason. The session lead edits the draft, and the room approves it as step one.</p>
+      </div>
+    </div></div></div>
+  </article>
+
+  <article class="q" id="q7">
+    <p class="q-num">07 / 18</p>
+    <div class="q-grid">
+      <h3>How do we stop the loudest voice setting the direction?</h3>
+      <p class="short">Sealed first takes.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans">
+      <div>
+        <p class="lead">Everyone records a position before the discussion starts. The positions are revealed together.</p>
+        <p>Each agenda item runs the same way: evidence, sealed first takes, a conversation with Vivo, a decision. Nobody anchors on the first opinion spoken because nobody has spoken yet.</p>
+        <p>In the conversation, Vivo can put the cost of doing nothing on the table, sketch scenarios, challenge an assumption, offer alternatives or raise a black swan. It answers the executive who says <q>I know there's a threat coming. I don't know what it costs us to wait.</q></p>
+      </div>
+    </div></div></div>
+  </article>
+
+  <article class="q" id="q8">
+    <p class="q-num">08 / 18</p>
+    <div class="q-grid">
+      <h3>What if we can't decide?</h3>
+      <p class="short">"Not yet" is a decision.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans">
+      <div>
+        <p class="lead">Each item ends in one of five decisions: Hold, Adapt, Pivot, Take advantage or Not yet.</p>
+        <p><span class="term">Not yet</span> opens with one question: what's missing? The item ends as Parked, with at least one trigger that brings it back. The trigger is new evidence, a person's view, a date or the next session. Or it ends as Let go, with a written rationale. It should feel like parking, not losing.</p>
+        <p>Nothing dangerous stays undiscussed. A risk that sits in the top right for 14 days with no decision lands on the session lead's <span class="term">Needs you</span> list.</p>
+      </div>
+    </div></div></div>
+  </article>
+
+  <article class="q" id="q9">
+    <p class="q-num">09 / 18</p>
+    <div class="q-grid">
+      <h3>Will we find this decision in a year?</h3>
+      <p class="short">Yes. By its number.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans with-fig">
+      <div>
+        <p class="lead">Every decision gets a permanent number in the Record of Decisions.</p>
+        <p>At the end of each item, Vivo reads the entry back. Dissent goes in by name, with its reason. The session lead confirms the entry and it gets a number in the form SDS-2026-014.</p>
+        <p>A year later you can see what was decided, why, who disagreed and what happened next. Nobody has to rebuild the argument from slides.</p>
+      </div>
+      <figure class="fig">
+        <p class="fig-tag">Illustrative example · fictional company</p>
+        <div class="rec">
+          <div class="id">SDS-2026-014 <span class="chip">Adapt</span></div>
+          <dl>
+            <dt>Criterion</dt><dd>Win back mid-size distributors in DACH</dd>
+            <dt>Decided</dt><dd>12 Nov 2026</dd>
+            <dt>Why</dt><dd>Two primary sources confirm a competitor's new rebate scheme.</dd>
+            <dt>Change</dt><dd>New objective on distributor terms. Two activities added.</dd>
+            <dt>Dissent</dt><dd>J. Berger. Wants Q1 pricing data first.</dd>
+            <dt>Confirmed</dt><dd>Session lead</dd>
+          </dl>
+        </div>
+      </figure>
+    </div></div></div>
+  </article>
+
+  <article class="q" id="q10">
+    <p class="q-num">10 / 18</p>
+    <div class="q-grid">
+      <h3>Does Vivo listen in and take the minutes?</h3>
+      <p class="short">No.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans">
+      <div>
+        <p class="lead">Vivo does not listen to the room, and it writes no minutes.</p>
+        <p>The record holds decisions, not transcripts. Each entry is the decision, the reason and any dissent. Vivo reads it back and the session lead confirms it. Only confirmed entries go into the record.</p>
+      </div>
+    </div></div></div>
+  </article>
+
+  <!-- CONTROL -->
+  <h2 class="group-head">About control</h2>
+
+  <article class="q" id="q11">
+    <p class="q-num">11 / 18</p>
+    <div class="q-grid">
+      <h3>Who decides?</h3>
+      <p class="short">You do.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans">
+      <div>
+        <p class="lead">The human stays in the chair. Every change Vivo proposes waits for a person.</p>
+        <p>Strapivo has four roles: Owner, Admin, Member and Contributor. Contributors are the people responsible for activities. Before each session they report a status, one line on the result and an optional ask of leadership.</p>
+        <p>Changes to accepted truth wait for an Owner. A decision beyond the team's authority goes to an approver in the app, as an exported memo or into the board pack. After the session, Strapivo prompts the lead to announce what changed and why.</p>
+      </div>
+    </div></div></div>
+  </article>
+
+  <article class="q" id="q12">
+    <p class="q-num">12 / 18</p>
+    <div class="q-grid">
+      <h3>Can I show the board that strategy moved between meetings?</h3>
+      <p class="short">Yes.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans">
+      <div>
+        <p class="lead">The radar records each move, and the board pack exports it.</p>
+        <p>The Tracking view shows where each risk moved since the last session, over 30 days or since origin. Each risk carries a trend word, Easing, Stable or Worsening, and the time it has held its position, such as <span class="term">top right · 27 days</span>.</p>
+        <p>The board pack exports as Markdown. The plan exports as Markdown or CSV.</p>
+      </div>
+    </div></div></div>
+  </article>
+
+  <!-- FIT -->
+  <h2 class="group-head">About fit</h2>
+
+  <article class="q" id="q13">
+    <p class="q-num">13 / 18</p>
+    <div class="q-grid">
+      <h3>We already have a strategy from a consultant. Does it fit?</h3>
+      <p class="short">Yes.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans">
+      <div>
+        <p class="lead">Strapivo takes the strategy you have, in the form you have it.</p>
+        <p>Setup accepts a workshop report, a document, a pasted email or a plain prompt. No method is required. Vivo proposes where each item belongs, with prompts like <q>This reads like an activity, not an objective. Move it down?</q> An Owner accepts or changes each proposal.</p>
+        <p>The result is one Ambition for the portfolio, with optional targets such as turnover, margin and a year. Under it sit the success criteria, their objectives, the activities and the risks.</p>
+      </div>
+    </div></div></div>
+  </article>
+
+  <article class="q" id="q14">
+    <p class="q-num">14 / 18</p>
+    <div class="q-grid">
+      <h3>We have twelve priorities. Can we keep them all?</h3>
+      <p class="short">Keep them. Focus on four.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans with-fig">
+      <div>
+        <p class="lead">Fill a few glasses to the brim instead of all twelve a little.</p>
+        <p>A strategy usually carries 7 to 12 success criteria, each measured against the Ambition. You can flag up to four of them as focus areas. The Radar watches the world for those four.</p>
+        <p>Flag a fifth and Vivo asks whether you really want to. You can still say yes.</p>
+      </div>
+      <figure class="fig">
+        <p class="fig-tag">Illustrative example</p>
+        <ul class="focus-list" aria-label="Success criteria, four flagged as focus">
+          <li class="f"><span class="dot" aria-hidden="true"></span>Win back mid-size distributors</li>
+          <li class="f"><span class="dot" aria-hidden="true"></span>Service revenue above one third</li>
+          <li class="f"><span class="dot" aria-hidden="true"></span>Second plant at full capacity</li>
+          <li class="f"><span class="dot" aria-hidden="true"></span>Keep key engineers</li>
+          <li class="try"><span class="dot" aria-hidden="true"></span>Enter the Nordic market</li>
+          <li><span class="dot" aria-hidden="true"></span>Shorter quote-to-order time</li>
+        </ul>
+        <div class="vivo"><span class="who">Vivo</span>You're diluting focus and creating noise. Do you really want to?</div>
+      </figure>
+    </div></div></div>
+  </article>
+
+  <!-- WHAT IT IS NOT -->
+  <h2 class="group-head">About what it is not</h2>
+
+  <article class="q" id="q15">
+    <p class="q-num">15 / 18</p>
+    <div class="q-grid">
+      <h3>Is this a KPI dashboard?</h3>
+      <p class="short">No.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans">
+      <div>
+        <p class="lead">It is not a KPI dashboard, and it is not a to-do list.</p>
+        <p>Each success criterion carries today's light, green, yellow or red, and a person sets it. Under each criterion sit 2 to 4 objectives. Under each objective sit activities, and every activity has an action, a result, a timeframe and a person responsible. Its status is on track, at risk, off track or done.</p>
+        <p>The home screen is Mission Control. It shows the next session with a countdown, your Needs you list, the success criteria at a glance and recent decisions.</p>
+      </div>
+    </div></div></div>
+  </article>
+
+  <article class="q" id="q16">
+    <p class="q-num">16 / 18</p>
+    <div class="q-grid">
+      <h3>Does it sync with our task tools?</h3>
+      <p class="short">No. It exports.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans">
+      <div>
+        <p class="lead">Strapivo holds the strategy. Your task tools keep the tasks.</p>
+        <p>The plan exports as Markdown or CSV. Escalation memos export as Markdown or as copied text. Session invitations arrive by email as calendar files. There is no two-way sync, and we would rather say so in the first meeting than in the third.</p>
+      </div>
+    </div></div></div>
+  </article>
+
+  <!-- GETTING STARTED -->
+  <h2 class="group-head">About getting started</h2>
+
+  <article class="q" id="q17">
+    <p class="q-num">17 / 18</p>
+    <div class="q-grid">
+      <h3>Where does our data live?</h3>
+      <p class="short">In the EU.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans">
+      <div>
+        <p class="lead">Strapivo runs on EU-only infrastructure, with GDPR by design.</p>
+        <p>Humans decide and humans validate. Every recommendation Vivo makes traces back to the strategic memory your Owners approved.</p>
+      </div>
+    </div></div></div>
+  </article>
+
+  <article class="q" id="q18">
+    <p class="q-num">18 / 18</p>
+    <div class="q-grid">
+      <h3>How long until we run it ourselves?</h3>
+      <p class="short">Four to five hours.</p>
+    </div>
+    <div class="ans-wrap"><div class="ans-clip"><div class="ans">
+      <div>
+        <p class="lead">We do the reading first.</p>
+        <p>You send what you have: the workshop report, the board paper, the email thread. We read it before we meet. Then we spend four to five hours with your team, and after that you run it.</p>
+      </div>
+    </div></div></div>
+  </article>
+
+  </div>
+
+  <section class="close" aria-labelledby="close-h">
+    <p class="eyebrow">The last question</p>
+    <h2 id="close-h">What happens next?</h2>
+    <p class="short">A conversation.</p>
+    <p>Bring the question this page did not answer. We work with SMEs and corporates, and we read your strategy before the first meeting.</p>
+    <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    <span class="mail">strategy@strapivo.com</span>
+  </section>
+
+  <footer class="site-foot">
+    <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="120" height="30">
+    <span>© 2026 Strapivo</span>
+    <nav aria-label="Legal">
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+  </footer>
+</main>
+</div>
+
+<script>
+(function(){
+  var items=[].slice.call(document.querySelectorAll('.q'));
+  items.forEach(function(q,i){
+    var h=q.querySelector('h3');
+    var wrap=q.querySelector('.ans-wrap');
+    var panelId=q.id+'-a';
+    wrap.id=panelId;
+    var btn=document.createElement('button');
+    btn.type='button';
+    btn.setAttribute('aria-controls',panelId);
+    var label=document.createElement('span');
+    label.textContent=h.textContent;
+    var hint=document.createElement('span');
+    hint.className='hint';
+    hint.setAttribute('aria-hidden','true');
+    hint.innerHTML='<i></i><span class="hint-t"></span>';
+    btn.appendChild(label);
+    h.textContent='';h.appendChild(btn);
+    q.querySelector('.q-grid').insertAdjacentElement('afterend',hint);
+    hint.addEventListener('click',function(){btn.click()});
+    btn.addEventListener('focus',function(){q.classList.add('btn-focus')});
+    btn.addEventListener('blur',function(){q.classList.remove('btn-focus')});
+    function set(open){
+      btn.setAttribute('aria-expanded',open?'true':'false');
+      q.classList.toggle('is-open',open);
+      q.classList.toggle('is-shut',!open);
+      wrap.querySelector('.ans-clip').inert=!open;
+      hint.querySelector('.hint-t').textContent=open?'Close the answer':'Read the answer';
+    }
+    set(i<3);
+    btn.addEventListener('click',function(){set(btn.getAttribute('aria-expanded')!=='true')});
+    q._open=function(){set(true)};
+  });
+
+  // Opening a question from the index also opens its answer
+  [].forEach.call(document.querySelectorAll('.index a'),function(a){
+    a.addEventListener('click',function(){
+      var t=document.querySelector(a.getAttribute('href'));
+      if(t&&t._open)t._open();
+    });
+  });
+  if(location.hash){var t=document.querySelector(location.hash);if(t&&t._open)t._open();}
+
+  // Highlight the current question in the side index
+  if('IntersectionObserver' in window){
+    var links={};
+    [].forEach.call(document.querySelectorAll('.index a'),function(a){links[a.getAttribute('href').slice(1)]=a});
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          for(var k in links){links[k].classList.remove('on');links[k].removeAttribute('aria-current')}
+          var l=links[e.target.id];
+          if(l){l.classList.add('on');l.setAttribute('aria-current','true')}
+        }
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    items.forEach(function(q){io.observe(q)});
+  }
+})();
+</script>
+</body>
+</html>

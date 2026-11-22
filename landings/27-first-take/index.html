@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seal your first take · Strapivo</title>
+<meta name="description" content="Read a strategy case, seal your own position, then see five sealed takes from a leadership team opened together. This is how a session runs in Strapivo.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --wax:#A8322D;--wax-dark:#7C2320;--amber:#C9A227;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --wrap:1200px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";color:var(--ink);background:var(--paper);font-size:17px;line-height:1.55;font-weight:400}
+h1,h2,h3{font-weight:500;margin:0;letter-spacing:-0.022em;line-height:1.12}
+p{margin:0}
+a{color:inherit}
+button{font:inherit}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:400}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--n500)}
+:focus-visible{outline:2px solid var(--p400);outline-offset:3px;border-radius:3px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--paper);color:var(--ink);padding:8px 12px;border-radius:4px;z-index:10}
+.skip:focus{left:8px}
+.only-js{display:none}
+.js .only-js{display:block}
+.js .no-js{display:none}
+
+/* Header */
+.site-head{background:var(--ink);color:var(--paper)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+.site-head img{height:24px;width:auto;display:block}
+.head-nav{display:flex;align-items:center;gap:24px}
+.head-nav a{font-size:15px;text-decoration:none}
+.head-nav a:hover{text-decoration:underline;text-underline-offset:4px}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--p500);color:#fff;border:0;border-radius:4px;padding:13px 20px;font-size:16px;font-weight:500;text-decoration:none;cursor:pointer;line-height:1.2;transition:background .2s}
+.btn:hover{background:var(--p600)}
+.btn-sm{padding:9px 14px;font-size:14px}
+.head-nav .btn{font-size:14px}
+
+/* Stage: the case, navy */
+.stage{background:var(--ink);color:var(--paper);padding:56px 0 88px;border-top:1px solid var(--n700)}
+.stage .eyebrow{color:var(--n400)}
+.stage-intro{max-width:760px;margin-bottom:48px}
+.stage-intro h1{font-size:clamp(40px,6vw,72px);letter-spacing:-0.03em;margin:16px 0 20px}
+.stage-intro p{font-size:19px;color:var(--n200);max-width:620px}
+.stage-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:40px;align-items:start}
+
+.case{border:1px solid var(--n700);border-radius:6px;background:#19212B}
+.case-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 20px;border-bottom:1px solid var(--n700);color:var(--n400)}
+.case-row{padding:20px;border-bottom:1px solid var(--n700)}
+.case-row:last-child{border-bottom:0}
+.case-row .mono{color:var(--n400);display:block;margin-bottom:8px}
+.case-row p{color:var(--n100)}
+.case-row .big{font-size:20px;line-height:1.35;color:var(--paper);letter-spacing:-0.01em}
+.crit{display:flex;gap:12px;align-items:flex-start}
+.light{flex:none;width:12px;height:12px;border-radius:50%;background:var(--amber);margin-top:8px;box-shadow:0 0 0 3px rgba(201,162,39,.18)}
+.crit-meta{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;color:var(--n400)}
+.crit-meta .mono{display:inline;margin:0}
+.objs{list-style:none;margin:12px 0 0;padding:0;font-size:15px;color:var(--n200)}
+.objs li{padding-left:18px;position:relative;margin-top:4px}
+.objs li::before{content:"";position:absolute;left:2px;top:.72em;width:8px;height:1px;background:var(--n500)}
+.signal{display:grid;grid-template-columns:minmax(0,1fr) 132px;gap:20px;align-items:start}
+.signal-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--n600);border-radius:3px;padding:3px 7px;color:var(--n200)}
+.tag-az{border-color:var(--p400);color:var(--p200)}
+.vivo-line{margin-top:14px;font-size:14px;color:var(--n200);border-left:2px solid var(--p400);padding-left:12px}
+.vivo-line b{font-weight:500;color:var(--p200)}
+.radar svg{width:132px;height:132px;display:block}
+.radar figcaption{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--n400);margin-top:6px;line-height:1.4}
+
+/* The question */
+.question{border-top:2px solid var(--p400);padding-top:22px}
+.question h2{font-size:clamp(24px,2.4vw,30px);margin-bottom:8px}
+.question .lede{color:var(--n200);font-size:16px;margin-bottom:20px}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend{padding:0}
+.opts{display:grid;gap:8px;margin:0 0 22px}
+.opt{position:relative;display:grid;grid-template-columns:20px minmax(0,1fr);gap:14px;align-items:start;padding:14px 16px;border:1px solid var(--n700);border-radius:5px;cursor:pointer;transition:border-color .2s,background .2s}
+.opt:hover{border-color:var(--n500)}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt .dot{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--n400);margin-top:3px;position:relative}
+.opt input:checked ~ .dot{border-color:var(--p400)}
+.opt input:checked ~ .dot::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--p400)}
+.opt:has(input:checked){border-color:var(--p400);background:rgba(63,160,250,.08)}
+.opt:has(input:focus-visible){outline:2px solid var(--p400);outline-offset:2px}
+.opt-name{display:block;font-size:17px;font-weight:500;color:var(--paper)}
+.opt-desc{display:block;font-size:14px;color:var(--n400);margin-top:2px}
+.why label{display:block;font-size:15px;font-weight:500;margin-bottom:6px}
+.why .hint{font-size:13px;color:var(--n400);margin-bottom:8px}
+.why input{width:100%;font:inherit;font-size:16px;color:var(--paper);background:#0E141C;border:1px solid var(--n600);border-radius:4px;padding:12px 14px}
+.why input::placeholder{color:var(--n500)}
+.why input:focus{outline:2px solid var(--p400);outline-offset:1px;border-color:var(--p400)}
+fieldset:disabled .opt{cursor:default;opacity:.55}
+fieldset:disabled .opt:has(input:checked){opacity:1}
+fieldset:disabled .why input{opacity:.7}
+.seal-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:22px}
+.btn-seal{background:var(--wax);color:#fff}
+.btn-seal:hover{background:var(--wax-dark)}
+.btn-seal[disabled]{background:var(--n700);color:var(--n200);cursor:default}
+.btn-seal svg{width:18px;height:18px}
+.count{display:flex;align-items:center;gap:6px;color:var(--n400)}
+.count i{display:block;width:12px;height:12px;border-radius:50%;background:var(--wax)}
+.count i.empty{background:transparent;border:1.5px dashed var(--n400)}
+.count i.empty.filled{background:var(--wax);border:0}
+.count span{margin-left:6px}
+.form-msg{min-height:22px;font-size:14px;color:#F0B8B4;margin-top:10px}
+.privacy-note{font-size:14px;color:var(--n400);margin-top:6px}
+.linkish{background:none;border:0;padding:0;color:var(--n200);text-decoration:underline;text-underline-offset:4px;cursor:pointer;font-size:14px}
+.linkish:hover{color:var(--paper)}
+.linkish[disabled]{display:none}
+
+/* The room */
+.room{padding:88px 0 96px;background:var(--paper);color:var(--ink);transition:background-color 1.4s ease,color 1.4s ease}
+.js .room:not(.revealed){background:var(--n900);color:var(--paper)}
+.room-head{display:flex;justify-content:space-between;align-items:end;gap:32px;flex-wrap:wrap;margin-bottom:40px}
+.room-head h2{font-size:clamp(30px,3.6vw,46px);max-width:640px;margin-top:14px}
+.room-head h2:focus{outline:none}
+.room-state{color:var(--n500);transition:color 1.4s;display:none}
+.js .room-state{display:block}
+.js .room:not(.revealed) .room-state,.js .room:not(.revealed) .eyebrow{color:var(--n400)}
+.table{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;list-style:none;margin:0;padding:0}
+.slip{perspective:1400px;min-width:0}
+.slip-in{display:grid;height:100%;transform-style:preserve-3d;transition:transform 1.3s cubic-bezier(.45,.05,.25,1)}
+.face{grid-area:1/1;border-radius:5px;padding:18px 16px 18px;min-height:260px;-webkit-backface-visibility:hidden;backface-visibility:hidden;display:flex;flex-direction:column}
+.front{display:none}
+.back{background:#fff;border:1px solid var(--n200);box-shadow:0 1px 2px rgba(20,27,36,.05)}
+.js .front{display:flex}
+.js .back{transform:rotateY(180deg)}
+.js .revealed .slip-in{transform:rotateY(180deg)}
+.front{background:var(--n100);color:var(--ink);position:relative;overflow:hidden;align-items:center;text-align:center;justify-content:flex-end;padding-top:0}
+.front::before{content:"";position:absolute;left:0;right:0;top:0;height:46%;background:var(--n200);clip-path:polygon(0 0,100% 0,50% 100%)}
+.front::after{content:"";position:absolute;left:0;right:0;top:0;height:46%;background:linear-gradient(to bottom right,transparent calc(50% - 1px),rgba(20,27,36,.10) 50%,transparent calc(50% + 1px)) left/50% 100% no-repeat,linear-gradient(to bottom left,transparent calc(50% - 1px),rgba(20,27,36,.10) 50%,transparent calc(50% + 1px)) right/50% 100% no-repeat}
+.seal{position:absolute;left:50%;top:46%;width:58px;height:58px;transform:translate(-50%,-50%);z-index:2;filter:drop-shadow(0 1px 1px rgba(5,12,20,.25))}
+.front .who{position:relative;z-index:1}
+.who-name{font-size:16px;font-weight:500;line-height:1.25}
+.who-role{font-size:13px;color:var(--n600);margin-top:2px}
+.front .mono{font-size:10.5px;color:var(--n600);margin-top:10px;display:block}
+.back .who{margin-top:auto;padding-top:14px;border-top:1px solid var(--n200)}
+.back .who-role{color:var(--n500)}
+.choice{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n500)}
+.choice-name{font-size:24px;font-weight:500;letter-spacing:-0.02em;color:var(--p600);margin:4px 0 12px;line-height:1.1}
+.why-text{font-size:15px;line-height:1.45;color:var(--n700)}
+.slip-you{display:none}
+.js .slip-you{display:block}
+.slip-you.gone{display:none}
+.slip-you .front.empty{background:transparent;border:1.5px dashed var(--n600);color:var(--n400);justify-content:center}
+.slip-you .front.empty::before,.slip-you .front.empty::after,.slip-you .front.empty .seal{display:none}
+.slip-you .front.empty .who-role{color:var(--n400)}
+.slip-you .back{border:2px solid var(--p500);background:var(--sky)}
+.slip-you .back .who{border-color:var(--sky2)}
+.seal-in{animation:press .7s ease-out both}
+@keyframes press{from{opacity:0;transform:translate(-50%,-50%) scale(1.25)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+
+.after{margin-top:44px;transition:opacity 1s ease .9s}
+.js .room:not(.revealed) .after{opacity:0;visibility:hidden}
+.spread{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--n200);border-bottom:1px solid var(--n200)}
+.spread div{padding:16px 16px 18px;border-left:1px solid var(--n200)}
+.spread div:first-child{border-left:0;padding-left:0}
+.spread .mono{color:var(--n500);display:block;margin-bottom:8px}
+.spread span.n{display:inline-block;font-size:14px;margin:0 6px 4px 0;padding:2px 8px;border-radius:3px;background:var(--n100);color:var(--n700)}
+.spread span.n.you{background:var(--p500);color:#fff}
+.verdict{font-size:18px;margin-top:22px;color:var(--n700);min-height:1.5em}
+
+/* Lesson */
+.lesson{padding:24px 0 104px;background:var(--paper)}
+.lesson-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;border-top:1px solid var(--n200);padding-top:56px}
+.lesson h2{font-size:clamp(32px,4vw,52px);letter-spacing:-0.028em}
+.lesson h2 em{font-style:normal;color:var(--p500)}
+.lesson p{font-size:18px;color:var(--n700);margin-bottom:18px}
+.lesson p:last-child{margin-bottom:0}
+
+/* Next */
+.next{background:#fff;padding:104px 0;border-top:1px solid var(--n200);border-bottom:1px solid var(--n200)}
+.sec-head{max-width:720px;margin-bottom:56px}
+.sec-head h2{font-size:clamp(30px,3.6vw,46px);margin-top:14px}
+.sec-head p{font-size:18px;color:var(--n600);margin-top:16px}
+.step{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;padding:44px 0;border-top:1px solid var(--n200)}
+.step-num{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--p600);text-transform:uppercase}
+.step h3{font-size:26px;margin:10px 0 12px}
+.step p{color:var(--n600)}
+.panel{border:1px solid var(--n200);border-radius:6px;background:var(--paper);overflow:hidden}
+.panel-bar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:11px 16px;border-bottom:1px solid var(--n200);background:#fff;color:var(--n500)}
+.panel-body{padding:18px 18px 20px}
+.msg{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;margin-bottom:16px}
+.msg:last-child{margin-bottom:0}
+.av{width:34px;height:34px;border-radius:50%;background:var(--n200);color:var(--n700);display:grid;place-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.04em}
+.av.vivo{background:var(--ink);color:var(--p200)}
+.msg .mono{color:var(--n500);font-size:11px;display:block;margin-bottom:3px}
+.msg p{font-size:15.5px;color:var(--ink)}
+.msg.v p{background:#fff;border:1px solid var(--n200);border-radius:4px;padding:10px 12px}
+.prompt-chip{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--p700);background:var(--sky);border-radius:3px;padding:2px 6px;margin-left:6px;vertical-align:1px}
+.choices{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.choices span{font-size:14px;padding:6px 10px;border:1px solid var(--n200);border-radius:4px;color:var(--n500);background:#fff}
+.choices span.on{background:var(--p500);border-color:var(--p500);color:#fff}
+.diff{border-top:1px solid var(--n200)}
+.diff-row{padding:14px 0;border-bottom:1px solid var(--n200)}
+.diff-row:last-child{border-bottom:0;padding-bottom:0}
+.diff-row .mono{font-size:11px;color:var(--n500);display:block;margin-bottom:6px}
+.old{color:var(--n500);text-decoration:line-through;text-decoration-color:var(--n400);font-size:15px}
+.new{font-size:15.5px;margin-top:2px}
+.new::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--p500);margin-right:8px;vertical-align:2px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 20px;margin-top:4px}
+.fields dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500)}
+.fields dd{margin:2px 0 0;font-size:15px}
+.drafted{font-size:13px;color:var(--n500);margin-top:14px}
+.record-no{font-family:var(--mono);font-size:22px;letter-spacing:.02em;color:var(--p600);font-weight:500}
+.rec dl{margin:14px 0 0}
+.rec .r{display:grid;grid-template-columns:110px minmax(0,1fr);gap:14px;padding:10px 0;border-top:1px solid var(--n200)}
+.rec dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500);padding-top:3px}
+.rec dd{margin:0;font-size:15px}
+.dissent p{margin-bottom:8px}
+.dissent p:last-child{margin-bottom:0}
+.dissent b{font-weight:500}
+.confirm{display:flex;align-items:center;gap:12px;margin-top:6px;padding-top:14px;border-top:1px solid var(--n200);font-size:14px;color:var(--n600)}
+.confirm svg{width:36px;height:36px;flex:none}
+
+/* Session + loop */
+.session{padding:104px 0 40px}
+.track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));list-style:none;margin:0;padding:0;counter-reset:t}
+.track li{padding:18px 20px 0 0;border-top:3px solid var(--n200);position:relative}
+.track li.key{border-top-color:var(--wax)}
+.track li::before{counter-increment:t;content:"0" counter(t);font-family:var(--mono);font-size:12px;color:var(--n500);letter-spacing:.08em;display:block;margin-bottom:6px}
+.track h3{font-size:20px;margin-bottom:6px}
+.track p{font-size:15px;color:var(--n600)}
+.session-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin-top:48px;padding-top:28px;border-top:1px solid var(--n200)}
+.session-meta p{font-size:15.5px;color:var(--n700)}
+.session-meta .mono{display:block;color:var(--n500);margin-bottom:6px}
+
+.loop{padding:72px 0 104px}
+.loop-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:56px;counter-reset:l}
+.loop-list li{display:grid;grid-template-columns:44px 150px minmax(0,1fr);gap:12px;padding:16px 0;border-top:1px solid var(--n200);align-items:baseline}
+.loop-list li::before{counter-increment:l;content:"0" counter(l);font-family:var(--mono);font-size:12px;color:var(--n500);letter-spacing:.08em}
+.loop-list b{font-weight:500;font-size:17px}
+.loop-list span{font-size:15px;color:var(--n600)}
+.loop-list li.here::before{color:var(--p600)}
+.loop-list li.here b{color:var(--p600)}
+.loop-note{margin-top:20px;font-size:14px;color:var(--n500)}
+.loop-note i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--p500);margin-right:8px;font-style:normal}
+
+/* Trust */
+.trust{background:var(--sky);padding:96px 0}
+.trust-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:64px}
+.trust h2{font-size:clamp(30px,3.6vw,46px);margin-top:14px}
+.trust .sub{font-size:18px;color:var(--n600);margin-top:16px}
+.trust ul{list-style:none;margin:0;padding:0}
+.trust li{padding:18px 0;border-top:1px solid var(--sky2);font-size:17px}
+.trust li:last-child{border-bottom:1px solid var(--sky2)}
+.trust li b{font-weight:500}
+.trust li.page-note{display:flex;gap:14px;align-items:flex-start}
+.trust li.page-note svg{width:30px;height:30px;flex:none;margin-top:1px}
+
+/* CTA */
+.cta{background:var(--ink);color:var(--paper);padding:112px 0}
+.cta-in{max-width:780px}
+.cta h2{font-size:clamp(34px,4.6vw,60px);letter-spacing:-0.03em;margin:16px 0 22px}
+.cta .eyebrow{color:var(--n400)}
+.cta p{font-size:19px;color:var(--n200);margin-bottom:32px;max-width:620px}
+.cta .btn{font-size:17px;padding:15px 24px}
+.cta small{display:block;margin-top:18px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--n400)}
+
+.site-foot{background:var(--n900);color:var(--n400);padding:36px 0;font-size:14px}
+.site-foot .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.site-foot img{height:20px;width:auto;display:block}
+.foot-links{display:flex;gap:22px;flex-wrap:wrap;align-items:center}
+.foot-links a{color:var(--n200);text-decoration:none}
+.foot-links a:hover{text-decoration:underline}
+
+@media (max-width:1100px){
+  .table{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stage-grid{grid-template-columns:1fr}
+  .spread{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .spread div:nth-child(4){border-left:0;padding-left:0}
+  .spread div:nth-child(n+4){border-top:1px solid var(--n200)}
+}
+@media (max-width:860px){
+  .lesson-grid,.step,.trust-grid{grid-template-columns:1fr;gap:28px}
+  .track{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:28px}
+  .session-meta{grid-template-columns:1fr;gap:20px}
+  .loop-list{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .wrap{padding:0 20px}
+  .head-nav{gap:16px}
+  .head-nav .btn{display:none}
+  .stage{padding:40px 0 64px}
+  .stage-intro{margin-bottom:32px}
+  .stage-intro p{font-size:17px}
+  .signal{grid-template-columns:1fr}
+  .table{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .face{min-height:236px;padding:14px 12px}
+  .seal{width:48px;height:48px}
+  .choice-name{font-size:20px}
+  .why-text{font-size:14px}
+  .spread{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .spread div:nth-child(n){border-left:0;padding-left:0;border-top:1px solid var(--n200)}
+  .spread div:nth-child(even){border-left:1px solid var(--n200);padding-left:14px}
+  .spread div:first-child,.spread div:nth-child(2){border-top:0}
+  .room,.next,.trust,.cta{padding:64px 0}
+  .lesson{padding:8px 0 64px}
+  .lesson-grid{padding-top:40px}
+  .session{padding:64px 0 24px}
+  .loop{padding:48px 0 64px}
+  .track{grid-template-columns:1fr}
+  .loop-list li{grid-template-columns:36px minmax(0,1fr);row-gap:2px}
+  .loop-list li span{grid-column:2}
+  .rec .r{grid-template-columns:1fr;gap:4px}
+  .fields{grid-template-columns:1fr}
+  .panel-body{padding:14px}
+}
+@media (max-width:380px){
+  .face{padding:12px 10px}
+  .who-name{font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:0s !important;transition-delay:0s !important;animation:none !important}
+  html{scroll-behavior:auto}
+  .js .revealed .slip-in{transform:none}
+  .js .revealed .front{display:none}
+  .js .revealed .back{transform:none}
+}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#case">Skip to the case</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="wax" viewBox="0 0 100 100">
+      <path fill="#A8322D" d="M50 4c6 0 9 4 14 5s10-1 14 3 2 9 5 13 8 6 9 11-3 9-3 14 4 9 2 14-8 6-11 10-2 10-7 13-10 0-14 2-8 6-13 6-9-4-14-5-10 1-14-3-2-9-5-13-8-6-9-11 3-9 3-14-4-9-2-14 8-6 11-10 2-10 7-13 10 0 14-2 8-6 13-6z"/>
+      <circle cx="50" cy="50" r="31" fill="none" stroke="#7C2320" stroke-width="2.5"/>
+      <circle cx="50" cy="50" r="17" fill="none" stroke="#C9625C" stroke-width="5.5"/>
+      <circle cx="50" cy="50" r="17" fill="none" stroke="#7C2320" stroke-width="1.2" transform="translate(.8 .8)" opacity=".6"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="site-head">
+  <div class="wrap">
+    <a href="./" aria-label="Strapivo home"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo"></a>
+    <nav class="head-nav" aria-label="Main">
+      <a href="https://strapivo.app">Sign in</a>
+      <a class="btn btn-sm" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="stage" id="case" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="stage-intro">
+      <p class="eyebrow">Illustrative example · Fictional company</p>
+      <h1 id="h1">What would you decide?</h1>
+      <p>A leadership team meets on Thursday. Five of them have read this case and written down their position. Each position is sealed. Read the case, then add yours.</p>
+    </div>
+
+    <div class="stage-grid">
+      <article class="case" aria-label="The case">
+        <div class="case-head mono"><span>Norrvik Cooling · Strategy Room</span><span>Agenda item 2 of 5</span></div>
+        <div class="case-row">
+          <span class="mono">The company</span>
+          <p>Norrvik Cooling builds and services refrigeration for supermarket chains in northern Europe. About 900 people. Norrvik is fictional.</p>
+        </div>
+        <div class="case-row">
+          <span class="mono">Ambition</span>
+          <p class="big">Be the refrigeration partner supermarkets renew without a tender. €240m turnover at 11% margin by 2030.</p>
+        </div>
+        <div class="case-row">
+          <span class="mono">Success criterion · Focus area</span>
+          <div class="crit">
+            <span class="light" aria-hidden="true"></span>
+            <div>
+              <p class="big">Service contracts make up a third of turnover.</p>
+              <div class="crit-meta"><span class="mono">Today's light: yellow</span><span class="mono">Last reviewed 22 Oct 2026</span></div>
+              <ul class="objs" aria-label="Objectives">
+                <li>Renew every contract with the four largest chains.</li>
+                <li>Move older stores onto remote monitoring.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="case-row">
+          <span class="mono">New signal</span>
+          <div class="signal">
+            <div>
+              <div class="signal-tags"><span class="tag">17 Nov 2026</span><span class="tag tag-az">Primary source</span><span class="tag">Competitor press release</span></div>
+              <p>A direct competitor launches a monthly subscription for supermarkets. One price per store covers maintenance, remote monitoring and emergency call-outs.</p>
+              <p class="vivo-line"><b>Vivo:</b> Relevant to "Service contracts make up a third of turnover". Two of the four largest chains renew before the March session.</p>
+            </div>
+            <figure class="radar" style="margin:0">
+              <svg viewBox="0 0 132 132" role="img" aria-label="Risk radar. The risk 'Service contracts priced out' has moved from the centre into the top right corner.">
+                <rect x="66" y="0" width="66" height="66" fill="#A8322D" opacity=".16"/>
+                <rect x=".5" y=".5" width="131" height="131" fill="none" stroke="#495158"/>
+                <line x1="66" y1="0" x2="66" y2="132" stroke="#2C343C"/>
+                <line x1="0" y1="66" x2="132" y2="66" stroke="#2C343C"/>
+                <circle cx="58" cy="78" r="6" fill="none" stroke="#999FA6" stroke-width="1.5" stroke-dasharray="3 2.5"/>
+                <path d="M63 73 L96 40" stroke="#999FA6" stroke-width="1.2" stroke-dasharray="3 3"/>
+                <path d="M92 38 L99 37 L98 44" fill="none" stroke="#999FA6" stroke-width="1.2"/>
+                <circle cx="104" cy="32" r="7" fill="#3FA0FA"/>
+              </svg>
+              <figcaption>Risk: service contracts priced out. Moved to top right. Confirmed by A. Haddad.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </article>
+
+      <div class="question">
+        <h2>What should the leadership team do about this criterion?</h2>
+        <p class="lede only-js">Pick one option. Add one line of reasoning if you like. Then seal it.</p>
+        <p class="lede no-js">In the session, each person picks one of these five options before anyone speaks.</p>
+        <form id="take" novalidate>
+          <fieldset id="takeSet">
+            <legend class="mono" style="color:var(--n400);margin-bottom:10px">Your take</legend>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="take" value="Hold"><span class="dot" aria-hidden="true"></span><span><span class="opt-name">Hold</span><span class="opt-desc">Keep the criterion and the plan. Mark it reviewed today.</span></span></label>
+              <label class="opt"><input type="radio" name="take" value="Adapt"><span class="dot" aria-hidden="true"></span><span><span class="opt-name">Adapt</span><span class="opt-desc">Keep the criterion. Change the objectives and activities under it.</span></span></label>
+              <label class="opt"><input type="radio" name="take" value="Pivot"><span class="dot" aria-hidden="true"></span><span><span class="opt-name">Pivot</span><span class="opt-desc">Rewrite the criterion itself.</span></span></label>
+              <label class="opt"><input type="radio" name="take" value="Take advantage"><span class="dot" aria-hidden="true"></span><span><span class="opt-name">Take advantage</span><span class="opt-desc">Add detour activities to use the moment. The criterion stays.</span></span></label>
+              <label class="opt"><input type="radio" name="take" value="Not yet"><span class="dot" aria-hidden="true"></span><span><span class="opt-name">Not yet</span><span class="opt-desc">Something is missing. Park it with a trigger that brings it back.</span></span></label>
+            </div>
+            <div class="why only-js">
+              <label for="why">Why, in one line</label>
+              <p class="hint" id="whyHint">Optional. Up to 120 characters.</p>
+              <input id="why" name="why" type="text" maxlength="120" autocomplete="off" aria-describedby="whyHint" placeholder="The reason you would give the room">
+            </div>
+          </fieldset>
+          <div class="only-js">
+            <div class="seal-row">
+              <button class="btn btn-seal" id="sealBtn" type="submit">
+                <svg aria-hidden="true" viewBox="0 0 20 20"><circle cx="10" cy="10" r="7" fill="none" stroke="#F6F9FB" stroke-width="2"/><circle cx="10" cy="10" r="3" fill="#F6F9FB"/></svg>
+                <span id="sealLabel">Seal my take</span>
+              </button>
+              <div class="count mono" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i class="empty" id="countYou"></i><span id="countText">5 of 6 sealed</span></div>
+            </div>
+            <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
+            <p class="privacy-note">Nothing is sent anywhere. Your take stays in this browser tab and is gone when you close it.</p>
+            <p style="margin-top:12px"><button class="linkish" id="skipBtn" type="button">Open the five takes without adding mine</button></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="room" id="room" aria-labelledby="roomH">
+  <div class="wrap">
+    <div class="room-head">
+      <div>
+        <p class="eyebrow">The room · Thursday, 10:00</p>
+        <h2 id="roomH" tabindex="-1">Sealed separately. Opened together.</h2>
+      </div>
+      <p class="room-state mono" id="roomState"><span id="roomStateText">Five takes sealed. One place empty.</span></p>
+    </div>
+
+    <ol class="table" aria-label="First takes">
+      <li class="slip"><div class="slip-in">
+        <div class="face front" aria-hidden="true"><svg class="seal"><use href="#wax"/></svg><div class="who"><div class="who-name">Katrin Vogel</div><div class="who-role">CEO, session lead</div><span class="mono">Sealed Tue 18:40</span></div></div>
+        <div class="face back"><span class="choice">First take</span><p class="choice-name">Adapt</p><p class="why-text">Move two service objectives onto subscription pricing before the spring renewals.</p><div class="who"><div class="who-name">Katrin Vogel</div><div class="who-role">CEO, session lead</div></div></div>
+      </div></li>
+      <li class="slip"><div class="slip-in">
+        <div class="face front" aria-hidden="true"><svg class="seal"><use href="#wax"/></svg><div class="who"><div class="who-name">Tomasz Nowak</div><div class="who-role">Chief financial officer</div><span class="mono">Sealed Wed 08:12</span></div></div>
+        <div class="face back"><span class="choice">First take</span><p class="choice-name">Hold</p><p class="why-text">One press release is not a trend. Our renewals have not moved yet.</p><div class="who"><div class="who-name">Tomasz Nowak</div><div class="who-role">Chief financial officer</div></div></div>
+      </div></li>
+      <li class="slip slip-you" id="youSlip"><div class="slip-in">
+        <div class="face front empty" id="youFront" aria-hidden="true"><svg class="seal" id="youSeal"><use href="#wax"/></svg><div class="who"><div class="who-name">You</div><div class="who-role" id="youFrontRole">Not sealed yet</div><span class="mono" id="youFrontTime"></span></div></div>
+        <div class="face back"><span class="choice">Your first take</span><p class="choice-name" id="youChoice">None</p><p class="why-text" id="youWhy">No reason given.</p><div class="who"><div class="who-name">You</div><div class="who-role">Reader of this page</div></div></div>
+      </div></li>
+      <li class="slip"><div class="slip-in">
+        <div class="face front" aria-hidden="true"><svg class="seal"><use href="#wax"/></svg><div class="who"><div class="who-name">Amira Haddad</div><div class="who-role">Head of service</div><span class="mono">Sealed Wed 09:31</span></div></div>
+        <div class="face back"><span class="choice">First take</span><p class="choice-name">Take advantage</p><p class="why-text">Their bundle leaves out spare parts. Offer a parts guarantee to both chains up for renewal.</p><div class="who"><div class="who-name">Amira Haddad</div><div class="who-role">Head of service</div></div></div>
+      </div></li>
+      <li class="slip"><div class="slip-in">
+        <div class="face front" aria-hidden="true"><svg class="seal"><use href="#wax"/></svg><div class="who"><div class="who-name">Jonas Richter</div><div class="who-role">Sales director</div><span class="mono">Sealed Wed 13:05</span></div></div>
+        <div class="face back"><span class="choice">First take</span><p class="choice-name">Pivot</p><p class="why-text">"A third from contracts" is the old model. Rewrite it around recurring revenue.</p><div class="who"><div class="who-name">Jonas Richter</div><div class="who-role">Sales director</div></div></div>
+      </div></li>
+      <li class="slip"><div class="slip-in">
+        <div class="face front" aria-hidden="true"><svg class="seal"><use href="#wax"/></svg><div class="who"><div class="who-name">Elena Marković</div><div class="who-role">Chief operating officer</div><span class="mono">Sealed Wed 16:48</span></div></div>
+        <div class="face back"><span class="choice">First take</span><p class="choice-name">Not yet</p><p class="why-text">I want their contract terms before we price anything. Bring it back when we have them.</p><div class="who"><div class="who-name">Elena Marković</div><div class="who-role">Chief operating officer</div></div></div>
+      </div></li>
+    </ol>
+
+    <div class="after" id="after">
+      <div class="spread" aria-label="Takes by option">
+        <div data-opt="Hold"><span class="mono">Hold</span><span class="n">Tomasz</span></div>
+        <div data-opt="Adapt"><span class="mono">Adapt</span><span class="n">Katrin</span></div>
+        <div data-opt="Pivot"><span class="mono">Pivot</span><span class="n">Jonas</span></div>
+        <div data-opt="Take advantage"><span class="mono">Take advantage</span><span class="n">Amira</span></div>
+        <div data-opt="Not yet"><span class="mono">Not yet</span><span class="n">Elena</span></div>
+      </div>
+      <p class="verdict" id="verdict" aria-live="polite">Five people, five different options. Nobody chose the same one.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson" aria-labelledby="lessonH">
+  <div class="wrap">
+    <div class="lesson-grid">
+      <h2 id="lessonH">Nobody saw anyone else's position first. <em>That is a first take.</em></h2>
+      <div>
+        <p>Katrin runs the company and chairs this session. In most meetings she speaks first, and the next forty minutes become a debate about her view. Tomasz agrees out loud, Elena keeps her doubt to herself, and Jonas never mentions the criterion at all.</p>
+        <p>In Strapivo, every person in the session writes a first take on each agenda item before discussion starts. The takes open together. The conversation starts from five real positions, and the loudest voice does not set the starting point.</p>
+        <p>Here the split is wide, which is useful. The team now knows where it disagrees before it spends an hour on it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="next" aria-labelledby="nextH">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Illustrative example · What happens next</p>
+      <h2 id="nextH">The room talks it through with Vivo, decides, and writes down who disagreed.</h2>
+    </div>
+
+    <div class="step">
+      <div>
+        <p class="step-num">Step 1 · Conversation</p>
+        <h3>Vivo asks what waiting costs</h3>
+        <p>Vivo is Strapivo's AI. It reads the team's strategy and the signals, and the session lead can ask it for the cost of doing nothing, a challenge, scenarios, alternatives or a black swan. Vivo proposes. People decide.</p>
+      </div>
+      <div class="panel" aria-label="Session conversation">
+        <div class="panel-bar mono"><span>Item 2 · Conversation</span><span>Service contracts</span></div>
+        <div class="panel-body">
+          <div class="msg"><span class="av" aria-hidden="true">KV</span><div><span class="mono">Katrin Vogel</span><p>Vivo, what does it cost us to wait until March? <span class="prompt-chip">Cost of doing nothing</span></p></div></div>
+          <div class="msg v"><span class="av vivo" aria-hidden="true">V</span><div><span class="mono">Vivo</span><p>Two of the four largest chains renew before the March session. If either moves to the competitor's subscription, this criterion loses its two largest service contracts. Waiting means you answer both tenders without a decision.</p></div></div>
+          <div class="msg"><span class="av" aria-hidden="true">TN</span><div><span class="mono">Tomasz Nowak</span><p>And if their subscription fails within a year? <span class="prompt-chip">Challenge</span></p></div></div>
+          <div class="msg v"><span class="av vivo" aria-hidden="true">V</span><div><span class="mono">Vivo</span><p>Then a subscription option you priced costs little to withdraw. Amira's parts guarantee works with or without it. Adapt and Take advantage can run together. Hold and Pivot cannot.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div>
+        <p class="step-num">Step 2 · Decision</p>
+        <h3>The room picks one of five options</h3>
+        <p>For Adapt, Vivo drafts the changes to objectives and activities. Every activity has an action, a result, a timeframe and one person responsible. The session lead edits the draft and the room accepts it.</p>
+      </div>
+      <div class="panel" aria-label="Decision draft">
+        <div class="panel-bar mono"><span>Item 2 · Decision</span><span>Draft by Vivo, edited by K. Vogel</span></div>
+        <div class="panel-body">
+          <div class="choices" aria-label="Decision: Adapt"><span>Hold</span><span class="on">Adapt</span><span>Pivot</span><span>Take advantage</span><span>Not yet</span></div>
+          <div class="diff">
+            <div class="diff-row">
+              <span class="mono">Objective · Changed</span>
+              <p class="old">Renew every contract with the four largest chains.</p>
+              <p class="new">Renew the four largest chains, on a contract or a per-store subscription.</p>
+            </div>
+            <div class="diff-row">
+              <span class="mono">Activity · Added</span>
+              <dl class="fields">
+                <div><dt>Action</dt><dd>Price a per-store subscription for the two chains renewing first</dd></div>
+                <div><dt>Result</dt><dd>Offer approved by the CFO</dd></div>
+                <div><dt>Timeframe</dt><dd>By 15 Jan 2027</dd></div>
+                <div><dt>Responsible</dt><dd>Amira Haddad</dd></div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div>
+        <p class="step-num">Step 3 · Record</p>
+        <h3>Dissent goes on the record by name</h3>
+        <p>Vivo reads the entry back. The session lead confirms it. The decision gets a permanent number, and the people who disagreed are listed with their reason. A year later, anyone can find what was decided, why, and who argued against it.</p>
+      </div>
+      <div class="panel rec" aria-label="Record of Decisions entry">
+        <div class="panel-bar mono"><span>Record of Decisions</span><span>19 Nov 2026</span></div>
+        <div class="panel-body">
+          <p class="record-no">SDS-2026-041</p>
+          <dl>
+            <div class="r"><dt>Criterion</dt><dd>Service contracts make up a third of turnover</dd></div>
+            <div class="r"><dt>Decision</dt><dd>Adapt</dd></div>
+            <div class="r"><dt>Reason</dt><dd>Two renewals fall due before March. We answer them with a subscription option and do not wait.</dd></div>
+            <div class="r"><dt>Dissent</dt><dd class="dissent"><p><b>Tomasz Nowak.</b> One competitor launch is not evidence of demand. Review at the March session.</p><p><b>Jonas Richter.</b> The criterion itself is out of date. Adapt delays the real question.</p></dd></div>
+          </dl>
+          <div class="confirm"><svg aria-hidden="true"><use href="#wax"/></svg><span>Read back by Vivo. Confirmed by Katrin Vogel, session lead.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="session" aria-labelledby="sessionH">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The session</p>
+      <h2 id="sessionH">Each agenda item runs the same four steps.</h2>
+    </div>
+    <ol class="track">
+      <li><h3>Evidence</h3><p>The signals, the risk moves and the reports from the people responsible for activities.</p></li>
+      <li class="key"><h3>First takes</h3><p>Everyone seals a position before discussion. All of them open at once.</p></li>
+      <li><h3>Conversation</h3><p>The room discusses the split. Vivo can add the cost of waiting, a challenge or scenarios.</p></li>
+      <li><h3>Decision</h3><p>Hold, Adapt, Pivot, Take advantage or Not yet. Not yet ends as parked with a trigger, or let go with a reason.</p></li>
+    </ol>
+    <div class="session-meta">
+      <div><span class="mono">Length</span><p>60 minutes by default. Weekly, fortnightly or monthly, plus extra sessions when something cannot wait.</p></div>
+      <div><span class="mono">Agenda</span><p>Vivo drafts it 24 hours before, from what changed. Old business first. The room approves it as the first step.</p></div>
+      <div><span class="mono">Pivots</span><p>Vivo can draft new wording for a criterion. It takes effect only when someone with authority confirms it.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="loop" aria-labelledby="loopH">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Dynamic Strategy</p>
+      <h2 id="loopH">The session is one step in a loop that runs between sessions.</h2>
+      <p>A strategy agreed in a workshop usually sits unused until the annual review. Dynamic Strategy keeps it in use between meetings. The team makes small corrections early and changes course when the evidence calls for it.</p>
+    </div>
+    <ol class="loop-list">
+      <li><b>Watch</b><span>The Radar reads over 4,000 sources a day against each focus area.</span></li>
+      <li><b>Triage</b><span>Vivo sorts each signal first. A named person marks it relevant, irrelevant or unsure.</span></li>
+      <li><b>Move</b><span>Vivo proposes a new radar position for a risk. A person confirms or rejects it.</span></li>
+      <li><b>Agenda</b><span>Vivo drafts it from what changed. The session lead edits it.</span></li>
+      <li class="here"><b>Session</b><span>Evidence, sealed first takes, conversation with Vivo.</span></li>
+      <li class="here"><b>Decide</b><span>One of five options per item.</span></li>
+      <li class="here"><b>Record</b><span>A permanent number, the reason, and dissent by name.</span></li>
+      <li><b>Escalate</b><span>Decisions beyond the team's authority go to an approver. The lead announces what changed and why.</span></li>
+    </ol>
+    <p class="loop-note"><i aria-hidden="true"></i>Steps 5 to 7 are the ones you just went through.</p>
+  </div>
+</section>
+
+<section class="trust" aria-labelledby="trustH">
+  <div class="wrap trust-grid">
+    <div>
+      <p class="eyebrow">Trust</p>
+      <h2 id="trustH">The human stays in the chair.</h2>
+      <p class="sub">Leadership teams tell us they want help from AI, not a co-author holding the pen. Strapivo is built that way.</p>
+    </div>
+    <ul>
+      <li><b>Vivo proposes. People decide.</b> Vivo never changes a light, a criterion or a risk position by itself.</li>
+      <li><b>A risk enters the top right of the radar only with a primary source,</b> so that one blog post cannot raise an alarm.</li>
+      <li><b>Every recommendation links back</b> to the strategic memory your team approved.</li>
+      <li><b>EU-only infrastructure.</b> GDPR by design.</li>
+      <li class="page-note"><svg aria-hidden="true"><use href="#wax"/></svg><span><b>This page sent nothing.</b> Your take stayed in your browser and was never stored.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="cta" aria-labelledby="ctaH">
+  <div class="wrap cta-in">
+    <p class="eyebrow">Your next leadership meeting</p>
+    <h2 id="ctaH">Hear five positions before you hear one opinion.</h2>
+    <p>We do the reading first: your workshop reports, strategy documents and plans. Then four to five hours with your team, and you run the sessions yourselves.</p>
+    <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    <small>strategy@strapivo.com</small>
+  </div>
+</section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo">
+    <nav class="foot-links" aria-label="Legal">
+      <span>© 2026 Strapivo</span>
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var form=document.getElementById('take');
+  if(!form)return;
+  var set=document.getElementById('takeSet');
+  var btn=document.getElementById('sealBtn');
+  var skip=document.getElementById('skipBtn');
+  var msg=document.getElementById('formMsg');
+  var room=document.getElementById('room');
+  var roomH=document.getElementById('roomH');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var people={'Hold':'Tomasz Nowak, the CFO','Adapt':'Katrin Vogel, the CEO','Pivot':'Jonas Richter, the sales director','Take advantage':'Amira Haddad, the head of service','Not yet':'Elena Marković, the COO'};
+  var done=false;
+
+  function pad(n){return n<10?'0'+n:''+n}
+  function reveal(choice){
+    done=true;
+    set.disabled=true;btn.disabled=true;skip.disabled=true;
+    room.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+    var delay=reduce?0:1300;
+    setTimeout(function(){
+      room.classList.add('revealed');
+      document.getElementById('roomStateText').textContent=choice?'Six takes, opened together.':'Five takes, opened together.';
+      var v=document.getElementById('verdict');
+      if(choice){
+        var box=document.querySelector('.spread [data-opt="'+choice+'"]');
+        var s=document.createElement('span');s.className='n you';s.textContent='You';box.appendChild(s);
+        v.textContent='You chose '+choice+', as did '+people[choice]+'. Each of the other four options also had one supporter.';
+      }else{
+        v.textContent='Five people, five different options. Nobody chose the same one.';
+      }
+      roomH.focus({preventScroll:true});
+    },delay);
+  }
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(done)return;
+    var picked=form.querySelector('input[name="take"]:checked');
+    if(!picked){msg.textContent='Choose one of the five options first.';return}
+    msg.textContent='';
+    var why=document.getElementById('why').value.trim();
+    var now=new Date();
+    var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    document.getElementById('youChoice').textContent=picked.value;
+    document.getElementById('youWhy').textContent=why||'No reason given.';
+    document.getElementById('youFrontRole').textContent='Reader of this page';
+    document.getElementById('youFrontTime').textContent='Sealed '+days[now.getDay()]+' '+pad(now.getHours())+':'+pad(now.getMinutes());
+    document.getElementById('youFront').classList.remove('empty');
+    document.getElementById('youSeal').classList.add('seal-in');
+    document.getElementById('countYou').classList.add('filled');
+    document.getElementById('countText').textContent='6 of 6 sealed';
+    document.getElementById('sealLabel').textContent='Sealed';
+    reveal(picked.value);
+  });
+  skip.addEventListener('click',function(){
+    if(done)return;
+    document.getElementById('youSlip').classList.add('gone');
+    reveal(null);
+  });
+  form.addEventListener('change',function(){msg.textContent=''});
+})();
+</script>
+</body>
+</html>

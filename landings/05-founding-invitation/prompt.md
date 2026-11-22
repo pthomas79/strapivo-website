@@ -1,0 +1,28 @@
+# 05 · The founding invitation
+
+Range: Conservative (concept 5 of 40, ordered from conservative to a bit nuts)
+Audience: A CEO considering being one of the first customers
+Colours: Navy ground with Paper text, Azure accents. One additional colour: a muted brass #B08D57 for fine rules and the numeral.
+
+## The task
+
+Build a complete landing page for Strapivo as a single `index.html` in this folder (`landings/05-founding-invitation/`). It is one of 40 deliberately different concepts, so commit fully to this one and do not drift toward a generic software landing page.
+
+Read `../BRIEF.md` first. It holds the facts about Strapivo and Dynamic Strategy, the truth rules, the brand (fonts, colour tokens, logo), the build rules and the finishing steps. The brief decides what is true and what the brand allows. This prompt decides everything else.
+
+## The concept
+
+A formal invitation to the founding customer programme. Strapivo is working with five founding companies. Four have joined. Say that plainly and say what the trade is: "Founding customers shape the product. That's the trade."
+
+It reads like an invitation to something limited, not like a pricing page. State what a founding company gets: the full build of its strategy in Strapivo with the Strapivo team, two to three one-hour onboarding sessions ("We do the reading first." "Four to five hours, and then you run it."), access for a team of five, twelve months, and direct influence on the roadmap. State what is asked in return: use it in real sessions and tell us what is wrong with it. Do not state a price.
+
+Then explain what they would be running: Dynamic Strategy, briefly, with the loop. Name the team here (roles only, as listed in the brief).
+
+Signature element: the invitation card. A dark, calm opening screen with a centred card, fine brass rules, a large "5" with four of five places marked taken using five O-mark rings (four solid, one dotted). The reply mechanism is the call to action, phrased as an RSVP.
+
+## Standards
+
+- Strapivo sells to SMEs and corporates. The result must be something a CEO would forward to their board: confident, well made, never playful for its own sake.
+- Fonts and base colours are those of the current site (Inter 400 and 500, JetBrains Mono, Paper, Navy, Azure). The additional colours above are yours to use with a clear role.
+- Craft matters more than volume. Spend your effort on the signature element and on the copy.
+- Finish with the two steps in section 9 of the brief: screenshot and fix, then the unslop pass using `/home/hiasinho/Work/prot-strapivo-dynamic-strategy/.claude/skills/unslop/SKILL.md`.

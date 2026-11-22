@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case file SDS-2026-014: one strategy decision in ten days | Strapivo</title>
+<meta name="description" content="The case file of one decision at a fictional packaging manufacturer. A signal arrives on Monday 2 March and becomes recorded decision SDS-2026-014 ten days later, with every step made in Strapivo.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --green:#3F6B55;--green-wash:#EAF1EC;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --wrap:1160px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+[id]{scroll-margin-top:84px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:17px;line-height:1.55}
+img,svg{display:block;max-width:100%}
+a{color:var(--p600)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+h1,h2,h3,h4{font-weight:500;margin:0;letter-spacing:-.02em;line-height:1.15}
+p{margin:0}
+.mono{font-family:var(--mono);font-weight:400}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--n600)}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:#fff;padding:8px 12px;z-index:10}
+.skip:focus{left:8px}
+
+/* header */
+.site-head{border-bottom:1px solid var(--n200);background:var(--paper);position:sticky;top:0;z-index:5}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.site-head .logo img{height:24px;width:auto}
+.site-head nav{display:flex;align-items:center;gap:22px}
+.site-head nav a{font-size:15px;color:var(--n700);text-decoration:none}
+.site-head nav a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+.btn{display:inline-block;font:500 15px/1 'Inter',sans-serif;text-decoration:none;padding:12px 18px;border-radius:4px;background:var(--p500);color:#fff;letter-spacing:-.005em}
+.btn:hover{background:var(--p600)}
+.site-head nav a.btn{color:#fff;padding:10px 14px}
+.site-head nav a.btn:hover{text-decoration:none}
+
+/* stamps */
+.stamp{display:inline-block;font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);border:1.5px solid var(--green);outline:1px solid var(--green);outline-offset:2px;padding:4px 8px;border-radius:2px;transform:rotate(-2deg);background:transparent;white-space:nowrap}
+.stamp.big{font-size:13px;padding:7px 12px}
+
+/* hero / cover */
+.hero{padding:72px 0 56px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:start}
+.hero h1{font-size:clamp(38px,5.2vw,64px);letter-spacing:-.03em;line-height:1.04;margin:18px 0 24px;max-width:13ch}
+.hero h1 em{font-style:normal;color:var(--p500)}
+.hero .lead{font-size:19px;color:var(--n700);max-width:34em}
+.hero .lead + .lead{margin-top:14px}
+.hero .actions{margin-top:32px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.hero .actions .textlink{font-size:15px;color:var(--n700)}
+
+.folder{position:relative;margin-top:22px}
+.folder::before{content:"";position:absolute;top:-22px;left:0;width:42%;height:24px;background:#fff;border:1px solid var(--n200);border-bottom:none;border-radius:6px 6px 0 0}
+.folder .tablabel{position:absolute;top:-17px;left:14px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--n600);text-transform:uppercase;z-index:1}
+.cover{position:relative;background:#fff;border:1px solid var(--n200);border-radius:0 6px 6px 6px;padding:28px 28px 24px;box-shadow:0 1px 0 var(--n200),0 18px 40px -28px rgba(20,27,36,.35)}
+.cover::after{content:"";position:absolute;left:8px;right:-8px;bottom:-8px;height:8px;border:1px solid var(--n200);border-top:none;border-radius:0 0 6px 6px;background:var(--n100);z-index:-1}
+.cover-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;border-bottom:1px solid var(--ink);padding-bottom:14px;margin-bottom:6px}
+.cover-top .num{font-family:var(--mono);font-size:24px;font-weight:500;letter-spacing:-.01em;color:var(--p500)}
+.cover-top .kind{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--n600);margin-bottom:6px}
+.cover dl{margin:0;display:grid;grid-template-columns:118px 1fr}
+.cover dt,.cover dd{padding:10px 0;border-bottom:1px dotted var(--n200);margin:0;font-size:15px}
+.cover dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n600);padding-top:13px}
+.cover dd .code{font-family:var(--mono);font-size:13px;color:var(--n600);margin-right:6px}
+.cover .note{margin-top:14px;font-size:13px;color:var(--n600)}
+
+/* section heads */
+.sec-head{padding:56px 0 8px;border-top:1px solid var(--n200)}
+.sec-head h2{font-size:clamp(28px,3.4vw,40px);margin-top:12px;max-width:22ch}
+.sec-head p{margin-top:14px;color:var(--n700);max-width:38em}
+
+/* spine */
+.file{padding:24px 0 40px}
+.spine{position:relative;list-style:none;margin:0;padding:0}
+.spine::before{content:"";position:absolute;top:8px;bottom:0;left:var(--line-x);width:1px;background:var(--n400)}
+.spine .fill{position:absolute;top:8px;left:calc(var(--line-x) - 1px);width:3px;background:var(--p500);height:0;border-radius:2px;transition:height .25s linear}
+.spine{--meta-w:168px;--line-x:calc(var(--meta-w) + 24px)}
+.entry{position:relative;display:grid;grid-template-columns:var(--meta-w) 1fr;column-gap:64px;padding:12px 0 30px}
+.entry::before{content:"";position:absolute;left:calc(var(--line-x) - 6px);top:16px;width:11px;height:11px;border-radius:50%;background:var(--paper);border:2px solid var(--ink)}
+.entry.key::before{background:var(--p500);border-color:var(--p500)}
+.meta{text-align:right;padding-top:8px}
+.meta .day{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.1em;color:var(--ink)}
+.meta .day b{font-weight:500;font-size:28px;letter-spacing:-.02em;display:block;line-height:1;margin-bottom:6px}
+.meta .when{font-family:var(--mono);font-size:12px;color:var(--n600);margin-top:4px;line-height:1.5}
+.meta .step{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--p600);margin-top:10px}
+.gap{position:relative;padding:4px 0 34px;display:grid;grid-template-columns:var(--meta-w) 1fr;column-gap:64px}
+.gap span{grid-column:2;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--n600);background:var(--paper);justify-self:start;margin-left:-82px;padding:4px 10px;border:1px solid var(--n200);border-radius:20px}
+.gap.long span{color:var(--ink);border-color:var(--n400)}
+.body{min-width:0}
+.body h3{font-size:22px;letter-spacing:-.015em;margin-bottom:14px}
+.caption{margin-top:14px;font-size:15px;color:var(--n600);max-width:40em}
+.caption strong{font-weight:500;color:var(--ink)}
+
+/* artefact base */
+.doc{background:#fff;border:1px solid var(--n200);border-radius:4px;position:relative}
+.doc-bar{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--n200);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n600);flex-wrap:wrap}
+.doc-in{padding:18px 20px 20px}
+.fields{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:16px;padding-top:12px;border-top:1px dotted var(--n200)}
+.field{font-size:14px}
+.field .k{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--n500)}
+.chip{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:3px;border:1px solid var(--n200);color:var(--n700);background:var(--n100);white-space:nowrap}
+.chip.az{background:var(--sky);border-color:var(--p200);color:var(--p700)}
+.chip.gr{background:var(--green-wash);border-color:#B9CDBF;color:var(--green)}
+.chip.off{text-decoration:line-through;color:var(--n500);background:transparent}
+
+/* 01 clipping */
+.clip{max-width:560px;background:#fff;border:1px solid var(--n200);border-radius:2px;padding:20px 22px;position:relative}
+.clip .pub{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--n600);border-bottom:2px solid var(--ink);padding-bottom:8px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.clip h4{font-size:22px;letter-spacing:-.02em;margin:14px 0 10px;line-height:1.2}
+.clip p.ex{color:var(--n700);font-size:15px}
+.clip .stamp{position:absolute;right:18px;bottom:18px}
+.clip.primary{border-left:3px solid var(--green)}
+
+/* 02 triage */
+.triage{max-width:640px}
+.triage .row{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;align-items:baseline}
+.vivo-line{display:flex;gap:12px;align-items:flex-start;margin-top:14px;padding:12px 14px;background:var(--sky);border-radius:4px}
+.vivo-mark{flex:none;width:14px;height:14px;margin-top:5px}
+.vivo-line p{font-size:15px}
+.vivo-line .who{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--p700);margin-bottom:2px}
+.held{margin-top:12px;padding:10px 14px;border:1px dashed var(--n400);border-radius:4px;font-size:14px;color:var(--n700)}
+.held .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--n600);display:block}
+.states{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.signed{margin-top:14px;font-size:14px;color:var(--n700);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.signed .t{font-family:var(--mono);font-size:12px;color:var(--n600)}
+
+/* 04 radar */
+.radar-doc{max-width:680px}
+.radar-wrap{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:24px;align-items:start}
+.radar-svg text{font-family:var(--mono);font-size:9px;letter-spacing:.08em;fill:var(--n600);text-transform:uppercase}
+.ghost-path{stroke-dasharray:4 4}
+.js .radar-doc .ghost-grp{opacity:0;transition:opacity 1.2s ease .6s}
+.js .radar-doc.in .ghost-grp{opacity:1}
+.js .radar-doc .ghost-arrow{stroke-dashoffset:120;transition:stroke-dashoffset 1.4s ease}
+.js .radar-doc.in .ghost-arrow{stroke-dashoffset:0}
+.mv dl{margin:0}
+.mv dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--n500);margin-top:12px}
+.mv dt:first-child{margin-top:0}
+.mv dd{margin:2px 0 0;font-size:14.5px}
+.lights{display:inline-flex;gap:4px;vertical-align:middle;margin-left:4px}
+.lights i{font-style:normal;font-family:var(--mono);font-size:10px;width:22px;height:20px;display:inline-grid;place-items:center;border:1px solid var(--n200);color:var(--n500);border-radius:3px}
+.lights i.on{border-color:var(--ink);color:#fff;background:var(--ink)}
+.ask{margin-top:16px;border-top:1px dotted var(--n200);padding-top:14px;font-size:14.5px}
+
+/* 05 agenda */
+.agenda{max-width:680px;font-size:15px}
+.agenda h4{font-size:19px;letter-spacing:-.015em}
+.agenda .sub{font-family:var(--mono);font-size:12px;color:var(--n600);margin-top:4px}
+.agenda .part{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--n500);margin:18px 0 6px}
+.agenda ol{list-style:none;margin:0;padding:0;counter-reset:a}
+.agenda li{display:grid;grid-template-columns:28px 1fr;padding:9px 0;border-top:1px solid var(--n100)}
+.agenda li .n{font-family:var(--mono);font-size:13px;color:var(--n500)}
+.agenda li .why{display:block;font-family:var(--mono);font-size:12px;color:var(--n600);margin-top:3px;line-height:1.5}
+.agenda li.hl{background:var(--sky);margin:0 -20px;padding:10px 20px;grid-template-columns:28px 1fr;border-top:1px solid var(--p200);border-bottom:1px solid var(--p200)}
+.agenda li.hl .n{color:var(--p600)}
+.agenda .foot{margin-top:16px;padding-top:12px;border-top:1px solid var(--ink);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;font-size:14px;color:var(--n700)}
+
+/* 06 first takes */
+.takes-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.takes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;list-style:none;margin:0;padding:0}
+.take{background:#fff;border:1px solid var(--n200);border-radius:4px;padding:14px 12px 14px;min-height:196px;position:relative;display:flex;flex-direction:column}
+.take .nm{font-size:14px;font-weight:500;line-height:1.25}
+.take .rl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--n500);margin-top:3px}
+.take .pos{margin-top:14px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;color:var(--p600)}
+.take .pos.other{color:var(--ink)}
+.take .q{margin-top:6px;font-size:13.5px;color:var(--n700);line-height:1.45}
+.take .seal{display:none}
+.js .takes.sealed .take .open{display:none}
+.js .takes.sealed .take .seal{display:flex;flex:1;min-height:110px;margin-top:12px;border:1px dashed var(--n400);border-radius:3px;align-items:center;justify-content:center;flex-direction:column;gap:6px;background:repeating-linear-gradient(135deg,var(--n100) 0 6px,#fff 6px 12px)}
+.seal .stamp{transform:rotate(-4deg);background:#fff}
+.seal .t{font-family:var(--mono);font-size:10.5px;color:var(--n600);background:#fff;padding:0 4px}
+.take .open{transition:opacity .6s ease}
+.reveal-btn{font:500 14px/1 'Inter',sans-serif;background:var(--ink);color:#fff;border:0;border-radius:4px;padding:10px 14px;cursor:pointer}
+.reveal-btn:hover{background:var(--n700)}
+.reveal-btn[disabled]{background:var(--n200);color:var(--n600);cursor:default}
+.tally{font-family:var(--mono);font-size:12px;color:var(--n600)}
+
+/* 07 decision */
+.decision{max-width:720px}
+.options{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 18px;padding:0;list-style:none}
+.options li{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:9px 12px;border:1px solid var(--n200);border-radius:4px;color:var(--n500);background:#fff}
+.options li.sel{border-color:var(--p500);background:var(--p500);color:#fff}
+.decision .rat{font-size:16px}
+.cost{margin-top:14px;font-size:14.5px;color:var(--n700)}
+.dissent{margin-top:18px;border-left:3px solid var(--ink);padding:10px 16px;background:var(--n100);border-radius:0 4px 4px 0}
+.dissent .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--n600)}
+.dissent p{margin-top:4px;font-size:15px}
+
+/* 08 record */
+.record{max-width:720px;background:#fff;border:1px solid var(--ink);border-radius:2px;padding:0;position:relative}
+.record .rhead{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--ink);gap:12px;flex-wrap:wrap}
+.record .rnum{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--p500);letter-spacing:-.01em}
+.record .rk{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--n600)}
+.record table{width:100%;border-collapse:collapse;font-size:14.5px}
+.record th{text-align:left;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--n500);width:132px;vertical-align:top;padding:11px 0 11px 20px}
+.record td{padding:10px 20px 10px 12px;vertical-align:top}
+.record tr+tr th,.record tr+tr td{border-top:1px dotted var(--n200)}
+.record .rfoot{border-top:1px solid var(--ink);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:14px;color:var(--n700)}
+
+/* 09 diff */
+.diff{max-width:720px}
+.diff ul{list-style:none;margin:0;padding:0}
+.diff li{display:grid;grid-template-columns:30px 1fr;gap:4px;padding:12px 0;border-top:1px solid var(--n100);font-size:15px}
+.diff li:first-child{border-top:0;padding-top:2px}
+.diff .sg{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--green)}
+.diff .sg.ch{color:var(--p600)}
+.diff .lvl{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--n500);display:block}
+.diff .attr{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:6px;font-family:var(--mono);font-size:12px;color:var(--n600)}
+.diff .foot{margin-top:6px;padding-top:12px;border-top:1px solid var(--ink);font-size:14px;color:var(--n700)}
+.diff .foot p+p{margin-top:6px}
+
+/* 10 memo */
+.memo{max-width:640px;background:#fff;border:1px solid var(--n200);border-top:4px solid var(--ink);border-radius:2px;padding:20px 24px 22px}
+.memo .hdr{display:grid;grid-template-columns:72px 1fr;gap:4px 10px;font-size:14px;padding-bottom:14px;border-bottom:1px solid var(--n200);margin-bottom:16px}
+.memo .hdr span:nth-child(odd){font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--n500);padding-top:3px}
+.memo p{font-size:15.5px}
+.memo p+p{margin-top:10px}
+
+.closed{display:grid;grid-template-columns:var(--meta-w) 1fr;column-gap:64px;padding:6px 0 0;position:relative}
+.closed::before{content:"";position:absolute;left:calc(var(--line-x) - 8px);top:6px;width:15px;height:15px;background:var(--ink);transform:rotate(45deg)}
+.closed p{grid-column:2;font-family:var(--mono);font-size:13px;color:var(--n700);line-height:1.6}
+
+/* every time */
+.every{background:var(--ink);color:#E9EEF3;padding:88px 0}
+.every .eyebrow{color:var(--p200)}
+.every h2{font-size:clamp(30px,3.8vw,46px);color:#fff;margin-top:14px;max-width:18ch;letter-spacing:-.025em}
+.every .intro{margin-top:16px;max-width:36em;color:#C3CBD3;font-size:18px}
+.loop{list-style:none;margin:48px 0 0;padding:0;border-top:1px solid #3A434D}
+.loop li{display:grid;grid-template-columns:56px 200px 1fr 150px;gap:20px;padding:18px 0;border-bottom:1px solid #3A434D;align-items:baseline}
+.loop .i{font-family:var(--mono);font-size:13px;color:var(--p400)}
+.loop .s{font-size:20px;color:#fff;letter-spacing:-.015em;font-weight:500}
+.loop .d{color:#C3CBD3;font-size:15.5px}
+.loop .r{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n400);text-align:right}
+.loop .r a{color:var(--p200);text-decoration:none;border-bottom:1px solid #3A434D}
+.loop .r a:hover{border-bottom-color:var(--p200)}
+.every .opts{margin-top:40px;display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:baseline}
+.every .opts h3{font-size:20px;color:#fff;letter-spacing:-.015em}
+.every .opts dl{margin:0;display:grid;grid-template-columns:150px 1fr;gap:8px 20px;font-size:15px;color:#C3CBD3}
+.every .opts dt{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#fff}
+.every .opts dd{margin:0}
+
+/* chair */
+.chair{padding:88px 0}
+.chair-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px}
+.chair h2{font-size:clamp(30px,3.6vw,44px);margin-top:14px;max-width:12ch;letter-spacing:-.025em}
+.chair .side p{margin-top:16px;color:var(--n700);max-width:24em}
+.rules{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.rules li{display:grid;grid-template-columns:44px 1fr;padding:16px 0;border-bottom:1px solid var(--n200)}
+.rules .k{font-family:var(--mono);font-size:12px;color:var(--green);padding-top:3px}
+.rules strong{font-weight:500;display:block;font-size:17px;letter-spacing:-.01em}
+.rules span.t{color:var(--n700);font-size:15.5px}
+
+/* closing */
+.close{border-top:1px solid var(--n200);padding:88px 0 96px;background:#fff}
+.close-grid{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end}
+.close h2{font-size:clamp(32px,4.4vw,54px);letter-spacing:-.03em;max-width:15ch}
+.close p{margin-top:18px;font-size:18px;color:var(--n700);max-width:34em}
+.close .eyebrow{font-size:12px;margin:0 0 14px;color:var(--n600)}
+.close .slogan{max-width:none;margin-top:28px;font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--n600)}
+.close .slogan b{font-weight:500;color:var(--p600)}
+.close .blank{border:1px dashed var(--n400);border-radius:4px;padding:18px 22px;min-width:280px;background:var(--paper)}
+.close .blank .num{font-family:var(--mono);font-size:22px;color:var(--n400);letter-spacing:-.01em}
+.close .blank .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--n600);margin-bottom:6px}
+.close .blank .btn{margin-top:18px}
+
+footer{background:var(--ink);color:#C3CBD3;padding:36px 0;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer img{height:20px;width:auto}
+footer nav{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+footer a{color:#E9EEF3;text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+/* responsive */
+@media (max-width:1000px){
+  .hero-grid{grid-template-columns:1fr;gap:56px}
+  .folder{max-width:560px}
+  .takes{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .loop li{grid-template-columns:44px 170px 1fr}
+  .loop .r{grid-column:3;text-align:left}
+  .chair-grid{grid-template-columns:1fr;gap:32px}
+}
+@media (max-width:760px){
+  body{font-size:16px}
+  .wrap{padding:0 20px}
+  .site-head nav a.navlink{display:none}
+  .hero{padding:44px 0 40px}
+  .spine{--line-x:7px}
+  .entry,.gap,.closed{grid-template-columns:1fr;padding-left:32px;column-gap:0}
+  .entry{padding-bottom:26px}
+  .entry::before{top:6px}
+  .meta{text-align:left;padding-top:0;margin-bottom:14px;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+  .meta .day b{display:inline;font-size:20px;margin:0 6px 0 0}
+  .meta .when,.meta .step{margin-top:0}
+  .meta .when br{display:none}
+  .cover-top{flex-wrap:wrap}
+  .cover-top .num{font-size:21px;white-space:nowrap}
+  .gap span{grid-column:1;margin-left:-40px}
+  .closed p{grid-column:1}
+  .closed::before{left:0}
+  .radar-wrap{grid-template-columns:1fr}
+  .radar-svg{max-width:320px}
+  .takes{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .take{min-height:180px}
+  .every,.chair,.close{padding:64px 0}
+  .loop li{grid-template-columns:36px 1fr;gap:6px 12px}
+  .loop .d,.loop .r{grid-column:2}
+  .every .opts{grid-template-columns:1fr}
+  .every .opts dl{grid-template-columns:1fr;gap:2px}
+  .every .opts dd{margin-bottom:10px}
+  .close-grid{grid-template-columns:1fr}
+  .close .blank{min-width:0}
+  .record th{width:96px;padding-left:14px}
+  .record td{padding-right:14px}
+  .agenda li.hl{margin:0 -16px;padding:10px 16px}
+  .doc-in{padding:16px}
+  .cover{padding:22px 18px 18px}
+  .cover dl{grid-template-columns:96px 1fr}
+}
+@media (max-width:400px){
+  .take:last-child{grid-column:1 / -1}
+  .site-head nav{gap:14px}
+  .site-head nav a.btn{padding:9px 11px;font-size:14px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the case file</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Strapivo home"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="96" height="24"></a>
+    <nav aria-label="Main">
+      <a class="navlink" href="#file">The case</a>
+      <a class="navlink" href="#every-time">Every time</a>
+      <a href="https://strapivo.app">Sign in</a>
+      <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Case file SDS-2026-014 · Illustrative example</p>
+      <h1 id="hero-title">Ten days between a signal and a <em>recorded decision</em>.</h1>
+      <p class="lead">Every other function got software. Strategy never did. Strapivo is the Strategic Design System, the place where a company's strategy lives and gets used.</p>
+      <p class="lead">This page is the file of one decision at a fictional packaging manufacturer. Read it top to bottom and you have read how Dynamic Strategy works.</p>
+      <div class="actions">
+        <a class="btn" href="#file">Open the file</a>
+        <a class="textlink" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      </div>
+    </div>
+
+    <div class="folder" aria-label="Case file cover sheet">
+      <span class="tablabel" aria-hidden="true">Record of Decisions</span>
+      <div class="cover">
+        <div class="cover-top">
+          <div>
+            <p class="kind">Case file</p>
+            <p class="num">SDS-2026-014</p>
+          </div>
+          <span class="stamp big">Illustrative example</span>
+        </div>
+        <dl>
+          <dt>Company</dt><dd>Harlow &amp; Vane Packaging, a mid-sized maker of cartons and fibre trays for food</dd>
+          <dt>Criterion</dt><dd><span class="code">C2</span>Lead fibre packaging for fresh food. A focus area.</dd>
+          <dt>Risk</dt><dd><span class="code">R-07</span>Our largest customer moves fresh produce to reusable crates</dd>
+          <dt>Opened</dt><dd class="mono">Mon 2 Mar 2026</dd>
+          <dt>Recorded</dt><dd class="mono">Thu 12 Mar 2026</dd>
+          <dt>Outcome</dt><dd><span class="chip az">Adapt</span></dd>
+        </dl>
+        <p class="note">Everyone and everything named in this case is invented. The steps are the ones Strapivo runs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="file" class="file" aria-labelledby="file-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The file</p>
+      <h2 id="file-title">Ten documents, in the order they were made.</h2>
+      <p>Each one carries a timestamp and the name of the person who acted on it. Watch the day count on the left.</p>
+    </div>
+
+    <ol class="spine" id="spine">
+      <li class="fill" aria-hidden="true"></li>
+
+      <!-- 01 -->
+      <li id="doc-01" class="entry">
+        <div class="meta">
+          <p class="day"><b>Day 0</b></p>
+          <p class="when">Mon 2 Mar 2026 <br>07:40</p>
+          <p class="step">01 · Watch</p>
+        </div>
+        <div class="body">
+          <h3>A signal arrives in the Monday report.</h3>
+          <article class="clip" aria-label="Signal 0412">
+            <p class="pub"><span>Packaging trade press · weekly</span><span>Signal 0412</span></p>
+            <h4>Grocer to trial reusable crates for fresh produce in one region</h4>
+            <p class="ex">The chain plans to move salad and soft fruit in its northern region into reusable plastic crates from June. A spokesperson called it a trial.</p>
+            <div class="fields">
+              <p class="field"><span class="k">Source class</span>Secondary</p>
+              <p class="field"><span class="k">Observed</span><span class="mono">2 Mar 2026</span></p>
+              <p class="field"><span class="k">Focus area</span>C2</p>
+            </div>
+          </article>
+          <p class="caption">The grocer is Harlow &amp; Vane's largest customer. The Radar watches the outside world for each focus area. Its search brief is the criterion, its objectives and its risks.</p>
+        </div>
+      </li>
+
+      <!-- 02 -->
+      <li id="doc-02" class="entry">
+        <div class="meta">
+          <p class="day"><b>Day 0</b></p>
+          <p class="when">Mon 2 Mar 2026 <br>10:15 to 11:02</p>
+          <p class="step">02 · Triage</p>
+        </div>
+        <div class="body">
+          <h3>Vivo makes the first pass. Jonas decides.</h3>
+          <div class="doc triage">
+            <div class="doc-bar"><span>Signal 0412 · Triage</span><span class="states"><span class="chip off">New</span><span class="chip gr">Relevant</span></span></div>
+            <div class="doc-in">
+              <div class="vivo-line">
+                <svg class="vivo-mark" viewBox="0 0 100 100" aria-hidden="true"><rect x="22" y="22" width="56" height="56" rx="8" fill="#0082E6"/></svg>
+                <p><span class="who">Vivo · first pass</span>Criterion C2. Relevant. It names our largest customer and the tray format behind our fresh food line. Matches risk R-07.</p>
+              </div>
+              <div class="held"><span class="k">Proposed move held</span>A move into the top right needs at least one primary source. This signal is secondary.</div>
+              <p class="signed"><span>Marked relevant by Jonas Feld, strategy analyst</span><span class="t">11:02</span></p>
+            </div>
+          </div>
+          <p class="caption">Signals are New, Relevant, Watching or Dismissed. Dismissed signals teach Vivo what counts as noise.</p>
+        </div>
+      </li>
+
+      <li class="gap" aria-hidden="true"><span>+ 3 days</span></li>
+
+      <!-- 03 -->
+      <li id="doc-03" class="entry">
+        <div class="meta">
+          <p class="day"><b>Day 3</b></p>
+          <p class="when">Thu 5 Mar 2026 <br>07:30</p>
+          <p class="step">01 · Watch</p>
+        </div>
+        <div class="body">
+          <h3>The Thursday report brings the primary source.</h3>
+          <article class="clip primary" aria-label="Signal 0431">
+            <p class="pub"><span>The grocer's supplier portal</span><span>Signal 0431</span></p>
+            <h4>Supplier notice: reusable crate trial, northern depots, from 1 June</h4>
+            <p class="ex">Suppliers of salad and soft fruit to the northern depots will deliver in reusable crates during the trial. Fibre trays stay in use in all other regions.</p>
+            <div class="fields">
+              <p class="field"><span class="k">Source class</span>Primary</p>
+              <p class="field"><span class="k">Observed</span><span class="mono">5 Mar 2026</span></p>
+              <p class="field"><span class="k">Linked to</span>Signal 0412</p>
+            </div>
+            <span class="stamp">Primary</span>
+          </article>
+        </div>
+      </li>
+
+      <!-- 04 -->
+      <li id="doc-04" class="entry key">
+        <div class="meta">
+          <p class="day"><b>Day 3</b></p>
+          <p class="when">Thu 5 Mar 2026 <br>09:10 to 09:48</p>
+          <p class="step">03 · Move</p>
+        </div>
+        <div class="body">
+          <h3>A ghost on the radar. Ruth confirms it.</h3>
+          <div class="doc radar-doc" id="radar">
+            <div class="doc-bar"><span>Risk radar · Portfolio · Now</span><span>R-07</span></div>
+            <div class="doc-in radar-wrap">
+              <svg class="radar-svg" viewBox="0 0 300 300" role="img" aria-labelledby="radar-t radar-d">
+                <title id="radar-t">Risk radar for R-07</title>
+                <desc id="radar-d">Impact on the vertical axis, likelihood on the horizontal. R-07 sat in the middle left. Vivo proposed a move into the top right quadrant, the danger zone, shown as a dashed ghost. Ruth Okafor confirmed it.</desc>
+                <rect x="30" y="10" width="260" height="260" fill="#fff" stroke="#E1E5EA"/>
+                <rect x="160" y="10" width="130" height="130" fill="#EEF6FF"/>
+                <line x1="160" y1="10" x2="160" y2="270" stroke="#E1E5EA"/>
+                <line x1="30" y1="140" x2="290" y2="140" stroke="#E1E5EA"/>
+                <text x="282" y="26" text-anchor="end" fill="#005DBD">Danger zone</text>
+                <text x="160" y="292" text-anchor="middle">Likelihood</text>
+                <text x="14" y="140" text-anchor="middle" transform="rotate(-90 14 140)">Impact</text>
+                <!-- other risks -->
+                <circle cx="70" cy="220" r="5" fill="#999FA6"/>
+                <circle cx="120" cy="80" r="5" fill="#999FA6"/>
+                <circle cx="210" cy="230" r="5" fill="#999FA6"/>
+                <circle cx="245" cy="190" r="5" fill="#999FA6"/>
+                <!-- trail -->
+                <path class="ghost-arrow ghost-path" d="M98 128 C 140 100, 190 80, 238 58" fill="none" stroke="#0082E6" stroke-width="1.5" stroke-dasharray="4 4"/>
+                <circle cx="98" cy="130" r="8" fill="#fff" stroke="#141B24" stroke-width="2"/>
+                <text x="98" y="156" text-anchor="middle" fill="#2C343C">was</text>
+                <g class="ghost-grp">
+                  <circle cx="244" cy="54" r="10" fill="#EEF6FF" stroke="#0082E6" stroke-width="2" stroke-dasharray="3 3"/>
+                  <circle cx="244" cy="54" r="4" fill="#0082E6"/>
+                  <text x="244" y="82" text-anchor="middle" fill="#005DBD">R-07</text>
+                </g>
+              </svg>
+              <div class="mv">
+                <dl>
+                  <dt>Vivo's reason</dt>
+                  <dd>A primary source confirms a dated trial in our largest customer's fresh produce range.</dd>
+                  <dt>Evidence</dt>
+                  <dd>Signals 0412 and 0431. One primary.</dd>
+                  <dt>Confirmed by</dt>
+                  <dd>Ruth Okafor, head of strategy, 09:48</dd>
+                  <dt>Trend</dt>
+                  <dd>Worsening</dd>
+                </dl>
+              </div>
+            </div>
+            <div class="doc-in ask" style="padding-top:14px">
+              <p><span class="chip az">Vivo asks</span> Light still green? <span class="mono" style="font-size:13px;color:var(--n600)">C2</span></p>
+              <p style="margin-top:8px">Ruth set C2 to yellow <span class="lights" aria-hidden="true"><i>G</i><i class="on">Y</i><i>R</i></span></p>
+            </div>
+          </div>
+          <p class="caption">Vivo never changes a light itself. Every confirmed move joins the trail with its signal, its date and the person who confirmed it.</p>
+        </div>
+      </li>
+
+      <li class="gap long" aria-hidden="true"><span>+ 5 days</span></li>
+
+      <!-- 05 -->
+      <li id="doc-05" class="entry">
+        <div class="meta">
+          <p class="day"><b>Day 8</b></p>
+          <p class="when">Wed 11 Mar 2026 <br>09:00</p>
+          <p class="step">04 · Agenda</p>
+        </div>
+        <div class="body">
+          <h3>Vivo drafts the agenda 24 hours ahead.</h3>
+          <div class="doc agenda">
+            <div class="doc-in">
+              <h4>Strategy session, fortnightly</h4>
+              <p class="sub">Thu 12 Mar 2026 · 09:00 to 10:00 · Draft by Vivo</p>
+              <p class="part">Old business</p>
+              <ol>
+                <li><span class="n">1</span><span>Carried forward: the quote for warehouse automation.<span class="why">Reason. Deferred on 26 Feb until the quote arrived. It arrived on 9 Mar.</span></span></li>
+                <li><span class="n">2</span><span>Parked question returns: price review for the bakery range.<span class="why">Reason. Its trigger date is today.</span></span></li>
+              </ol>
+              <p class="part">New business</p>
+              <ol>
+                <li class="hl"><span class="n">3</span><span>R-07 entered the top right on 5 Mar. No decision yet.<span class="why">Reason. A primary source confirms a June trial at our largest customer.</span></span></li>
+                <li><span class="n">4</span><span>Ask from Callum Price: two days of line time for liner samples.<span class="why">Reason. His activity A2.4 is at risk without them.</span></span></li>
+              </ol>
+              <div class="foot"><span>Edited by Anna Brecht, session lead. Approved by the room as step one.</span><span class="mono" style="font-size:12px;color:var(--n600)">Thu 09:03</span></div>
+            </div>
+          </div>
+          <p class="caption">Old business first, then new. Every item carries a one-line reason, so the room knows why it is on the agenda.</p>
+        </div>
+      </li>
+
+      <li class="gap" aria-hidden="true"><span>+ 1 day</span></li>
+
+      <!-- 06 -->
+      <li id="doc-06" class="entry">
+        <div class="meta">
+          <p class="day"><b>Day 9</b></p>
+          <p class="when">Thu 12 Mar 2026 <br>09:14 to 09:19</p>
+          <p class="step">05 · Session</p>
+        </div>
+        <div class="body">
+          <h3>Five first takes, sealed, then revealed together.</h3>
+          <div class="takes-head">
+            <p class="tally" id="takes-status">Item 3 · R-07 · Sealed 09:14 · Revealed 09:19</p>
+            <button class="reveal-btn" id="reveal" type="button" hidden aria-controls="takes">Reveal first takes</button>
+          </div>
+          <ul class="takes" id="takes" aria-live="polite">
+            <li class="take"><p class="nm">Anna Brecht</p><p class="rl">Managing director</p>
+              <div class="open"><p class="pos">Adapt</p><p class="q">"Keep the criterion. Change how we get there."</p></div>
+              <div class="seal" aria-hidden="true"><span class="stamp">Sealed</span><span class="t">09:14</span></div></li>
+            <li class="take"><p class="nm">Ruth Okafor</p><p class="rl">Head of strategy</p>
+              <div class="open"><p class="pos">Adapt</p><p class="q">"It is one region now. Our plan should assume it spreads."</p></div>
+              <div class="seal" aria-hidden="true"><span class="stamp">Sealed</span><span class="t">09:12</span></div></li>
+            <li class="take"><p class="nm">Lena Voss</p><p class="rl">Sales director</p>
+              <div class="open"><p class="pos">Adapt</p><p class="q">"They still buy our trays everywhere else. Protect that."</p></div>
+              <div class="seal" aria-hidden="true"><span class="stamp">Sealed</span><span class="t">09:13</span></div></li>
+            <li class="take"><p class="nm">Callum Price</p><p class="rl">Operations director</p>
+              <div class="open"><p class="pos other">Take advantage</p><p class="q">"Crates need liners. We can make liners."</p></div>
+              <div class="seal" aria-hidden="true"><span class="stamp">Sealed</span><span class="t">09:11</span></div></li>
+            <li class="take"><p class="nm">Tomás Reyes</p><p class="rl">Finance director</p>
+              <div class="open"><p class="pos other">Not yet</p><p class="q">"One region is a trial. Wait for their volume plan."</p></div>
+              <div class="seal" aria-hidden="true"><span class="stamp">Sealed</span><span class="t">09:14</span></div></li>
+          </ul>
+          <p class="caption">Each person commits a position before anyone speaks. The takes open at the same moment, without the loudest voice anchoring the room.</p>
+        </div>
+      </li>
+
+      <li class="gap" aria-hidden="true"><span>+ 12 minutes</span></li>
+
+      <!-- 07 -->
+      <li id="doc-07" class="entry key">
+        <div class="meta">
+          <p class="day"><b>Day 9</b></p>
+          <p class="when">Thu 12 Mar 2026 <br>09:31</p>
+          <p class="step">06 · Decide</p>
+        </div>
+        <div class="body">
+          <h3>The room decides to adapt.</h3>
+          <div class="doc decision">
+            <div class="doc-bar"><span>Decision · Item 3 · R-07</span><span>Five options</span></div>
+            <div class="doc-in">
+              <ul class="options" aria-label="Decision options, Adapt selected">
+                <li>Hold</li><li class="sel" aria-current="true">Adapt</li><li>Pivot</li><li>Take advantage</li><li>Not yet</li>
+              </ul>
+              <p class="rat">Keep criterion C2 as worded. Add an objective for crate liners. Put the order for the second tray line on hold until the liner samples report.</p>
+              <p class="cost">Before deciding, Anna asked Vivo for the cost of doing nothing. Vivo set the 1 June trial date against the delivery date of the second tray line.</p>
+              <div class="dissent">
+                <p class="k">Dissent, by name</p>
+                <p>Tomás Reyes, finance director. One region is a trial. He would wait for the grocer's volume plan before changing capital spending.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="gap" aria-hidden="true"><span>+ 7 minutes</span></li>
+
+      <!-- 08 -->
+      <li id="doc-08" class="entry">
+        <div class="meta">
+          <p class="day"><b>Day 9</b></p>
+          <p class="when">Thu 12 Mar 2026 <br>09:38</p>
+          <p class="step">07 · Record</p>
+        </div>
+        <div class="body">
+          <h3>Vivo reads the entry back. Anna confirms it.</h3>
+          <div class="record">
+            <div class="rhead">
+              <div><p class="rk">Record of Decisions</p><p class="rnum">SDS-2026-014</p></div>
+              <span class="stamp big">Recorded</span>
+            </div>
+            <table>
+              <tbody>
+                <tr><th scope="row">Item</th><td>R-07. Our largest customer moves fresh produce to reusable crates.</td></tr>
+                <tr><th scope="row">Decision</th><td>Adapt. Criterion C2 unchanged.</td></tr>
+                <tr><th scope="row">Evidence</th><td>Signal 0412, secondary. Signal 0431, primary.</td></tr>
+                <tr><th scope="row">First takes</th><td>Three for Adapt, one for Take advantage, one for Not yet.</td></tr>
+                <tr><th scope="row">Dissent</th><td>Tomás Reyes. One region is a trial. Wait for the volume plan before changing capital spending.</td></tr>
+              </tbody>
+            </table>
+            <div class="rfoot"><span>Read back by Vivo. Confirmed by Anna Brecht, session lead.</span><span class="mono" style="font-size:12px;color:var(--n600)">09:38</span></div>
+          </div>
+          <p class="caption">The number is permanent. A year from now, anyone can find what was decided, why, and who disagreed.</p>
+        </div>
+      </li>
+
+      <li class="gap" aria-hidden="true"><span>+ 6 hours</span></li>
+
+      <!-- 09 -->
+      <li id="doc-09" class="entry">
+        <div class="meta">
+          <p class="day"><b>Day 9</b></p>
+          <p class="when">Thu 12 Mar 2026 <br>15:40</p>
+          <p class="step">08 · Escalate</p>
+        </div>
+        <div class="body">
+          <h3>Vivo drafts the consequences. An Owner accepts them.</h3>
+          <div class="doc diff">
+            <div class="doc-bar"><span>Changes to plan · C2</span><span>Drafted by Vivo</span></div>
+            <div class="doc-in">
+              <ul>
+                <li><span class="sg" aria-label="Added">+</span><div><span class="lvl">Objective O2.4</span>Supply liners and inserts for reusable crates by the fourth quarter of 2026.</div></li>
+                <li><span class="sg" aria-label="Added">+</span><div><span class="lvl">Activity</span>Build three liner samples with the grocer's northern depot team.
+                  <span class="attr"><span>Result: fit and cost feedback</span><span>By 30 Apr</span><span>Callum Price</span></span></div></li>
+                <li><span class="sg" aria-label="Added">+</span><div><span class="lvl">Activity</span>Map tray volume at risk by product line.
+                  <span class="attr"><span>Result: a one-page exposure note</span><span>By 27 Mar</span><span>Tomás Reyes</span></span></div></li>
+                <li><span class="sg ch" aria-label="Changed">~</span><div><span class="lvl">Activity</span>Order the second tray line. Now on hold until the liner samples report.
+                  <span class="attr"><span>Callum Price</span></span></div></li>
+              </ul>
+              <div class="foot">
+                <p>Accepted by Ruth Okafor, Owner.</p>
+                <p>The hold on the tray line is beyond the team's authority. Anna exported it as a memo for the board pack.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="gap" aria-hidden="true"><span>+ 1 day</span></li>
+
+      <!-- 10 -->
+      <li id="doc-10" class="entry key">
+        <div class="meta">
+          <p class="day"><b>Day 10</b></p>
+          <p class="when">Fri 13 Mar 2026 <br>08:30</p>
+          <p class="step">08 · Announce</p>
+        </div>
+        <div class="body">
+          <h3>Anna tells people what changed and why.</h3>
+          <article class="memo" aria-label="Announcement">
+            <div class="hdr">
+              <span>From</span><span>Anna Brecht</span>
+              <span>To</span><span>Leadership team and contributors</span>
+              <span>Subject</span><span>What changed on Thursday, and why</span>
+            </div>
+            <p>Our largest customer will trial reusable crates for fresh produce in its northern region from 1 June.</p>
+            <p>We keep our goal for fibre packaging in fresh food. We change how we get there. Callum will build liner samples with the grocer's depot team, and the order for the second tray line waits for those samples.</p>
+            <p>Tomás disagreed. His reason is in the record. Decision SDS-2026-014 has the full trail.</p>
+          </article>
+        </div>
+      </li>
+
+      <li class="closed"><p>R-07 stays on the radar. Trend worsening. Top right · 8 days. Callum's first liner samples are due 30 Apr.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="every-time" class="every" aria-labelledby="every-title">
+  <div class="wrap">
+    <p class="eyebrow">Outside the case</p>
+    <h2 id="every-title">This is what Strapivo does, every time.</h2>
+    <p class="intro">Take away the trays and the names. The same eight steps run for every focus area, between every session. Most weeks that means a small correction. Now and then it means a change of course.</p>
+    <ol class="loop">
+      <li><span class="i">01</span><span class="s">Watch</span><span class="d">The Radar reads over 4,000 sources a day against each focus area and reports on Monday and Thursday.</span><span class="r"><a href="#doc-01">Day 0 · 07:40</a></span></li>
+      <li><span class="i">02</span><span class="s">Triage</span><span class="d">Vivo proposes a criterion and a one-line reason. A person marks each signal relevant, irrelevant or unsure.</span><span class="r"><a href="#doc-02">Day 0 · 10:15</a></span></li>
+      <li><span class="i">03</span><span class="s">Move</span><span class="d">Vivo proposes a new position for a risk as a ghost. A person confirms or rejects it.</span><span class="r"><a href="#doc-04">Day 3 · 09:10</a></span></li>
+      <li><span class="i">04</span><span class="s">Agenda</span><span class="d">Vivo drafts the agenda 24 hours before the session from what changed. The lead edits it. The room approves it.</span><span class="r"><a href="#doc-05">Day 8 · 09:00</a></span></li>
+      <li><span class="i">05</span><span class="s">Session</span><span class="d">Sixty minutes by default. Per item, the room sees the evidence, gives sealed first takes and talks it through with Vivo.</span><span class="r"><a href="#doc-06">Day 9 · 09:14</a></span></li>
+      <li><span class="i">06</span><span class="s">Decide</span><span class="d">The room picks one of five options. Each option has a fixed effect on the plan, listed below.</span><span class="r"><a href="#doc-07">Day 9 · 09:31</a></span></li>
+      <li><span class="i">07</span><span class="s">Record</span><span class="d">Vivo reads the entry back with dissent by name. The lead confirms. The decision gets a permanent number.</span><span class="r"><a href="#doc-08">Day 9 · 09:38</a></span></li>
+      <li><span class="i">08</span><span class="s">Escalate and announce</span><span class="d">Decisions beyond the team's authority go to an approver, a memo or the board pack. The lead is prompted to announce what changed.</span><span class="r"><a href="#doc-10">Day 10 · 08:30</a></span></li>
+    </ol>
+    <div class="opts">
+      <h3>The five options</h3>
+      <dl>
+        <dt>Hold</dt><dd>The criterion is marked reviewed on that date.</dd>
+        <dt>Adapt</dt><dd>Vivo drafts changes to objectives and activities.</dd>
+        <dt>Pivot</dt><dd>Vivo drafts new wording for the criterion. It takes effect when someone with authority confirms it.</dd>
+        <dt>Take advantage</dt><dd>Detour activities join the plan. The criterion stays as it is.</dd>
+        <dt>Not yet</dt><dd>The question is parked with a trigger that brings it back, or let go with a reason.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="chair" aria-labelledby="chair-title">
+  <div class="wrap chair-grid">
+    <div class="side">
+      <p class="eyebrow">The guardrails</p>
+      <h2 id="chair-title">The human stays in the chair.</h2>
+      <p>Vivo proposes. People decide. Every move and every decision in this file carries a person's name and a time.</p>
+    </div>
+    <ul class="rules">
+      <li><span class="k">01</span><div><strong>One blog post can't raise an alarm.</strong><span class="t">A move into the top right needs at least one primary source. Signal 0412 alone was not enough.</span></div></li>
+      <li><span class="k">02</span><div><strong>Vivo never changes a light.</strong><span class="t">It asks "Light still green?" when two or more focus activities go off track or a risk on that criterion enters the top right. A person answers.</span></div></li>
+      <li><span class="k">03</span><div><strong>Nothing stays dangerous and undiscussed.</strong><span class="t">A risk that sits in the top right for 14 days with no decision lands in the session lead's Needs you list.</span></div></li>
+      <li><span class="k">04</span><div><strong>Dissent is kept.</strong><span class="t">The record names who disagreed and why. Tomás's reason is still there when the volume plan arrives.</span></div></li>
+      <li><span class="k">05</span><div><strong>Recommendations trace back.</strong><span class="t">Every recommendation Vivo makes traces back to the strategic memory you approved. Vivo is hardwired to your business model. It does not work from a PDF pasted into a prompt.</span></div></li>
+      <li><span class="k">06</span><div><strong>EU-only infrastructure.</strong><span class="t">GDPR by design.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="close" aria-labelledby="close-title">
+  <div class="wrap close-grid">
+    <div>
+      <p class="eyebrow">Your first case file</p>
+      <h2 id="close-title">Strategy finally has a home.</h2>
+      <p>We do the reading first: your workshop reports, documents and plans. Four to five hours together, and then you run it.</p>
+      <p class="slogan">Any AI can answer a question. <b>Only Strapivo answers it as you.</b></p>
+    </div>
+    <div class="blank">
+      <p class="k">Record of Decisions · Next entry</p>
+      <p class="num">SDS-2026-___</p>
+      <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="80" height="20">
+    <nav aria-label="Legal">
+      <span>© 2026 Strapivo</span>
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  root.classList.add('js');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // sealed first takes
+  var takes=document.getElementById('takes'),btn=document.getElementById('reveal'),status=document.getElementById('takes-status');
+  if(takes&&btn){
+    takes.classList.add('sealed');
+    btn.hidden=false;
+    status.textContent='Item 3 · R-07 · Five takes sealed by 09:14';
+    takes.querySelectorAll('.open').forEach(function(o){o.setAttribute('aria-hidden','true')});
+    btn.addEventListener('click',function(){
+      takes.classList.remove('sealed');
+      takes.querySelectorAll('.open').forEach(function(o){o.removeAttribute('aria-hidden')});
+      btn.disabled=true;btn.textContent='Revealed at 09:19';
+      status.textContent='Item 3 · R-07 · Three Adapt, one Take advantage, one Not yet';
+    });
+  }
+
+  // radar ghost
+  var radar=document.getElementById('radar');
+  if(radar){
+    if(reduce||!('IntersectionObserver' in window)){radar.classList.add('in')}
+    else{
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){radar.classList.add('in');io.disconnect()}})},{threshold:.5});
+      io.observe(radar);
+    }
+  }
+
+  // spine fill follows reading position
+  var spine=document.getElementById('spine'),fill=spine&&spine.querySelector('.fill');
+  if(spine&&fill){
+    var tick=false;
+    function upd(){
+      tick=false;
+      var r=spine.getBoundingClientRect(),h=r.height-8;
+      var p=Math.max(0,Math.min(h,window.innerHeight*0.55-r.top));
+      fill.style.height=p+'px';
+    }
+    window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});
+    window.addEventListener('resize',upd);upd();
+  }
+})();
+</script>
+</body>
+</html>
