@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo · Four to five hours, then you run your strategy</title>
+<meta name="description" content="Strapivo is software where a leadership team keeps its strategy current and records its decisions. Our team does the reading first. Your part is three sessions, four to five hours in total.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --sand:#F1EADB;--sand2:#E4D8BF;--sand-ink:#5E5440;
+  --green:#2E7D5B;--green-l:#E3F0E9;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --wrap:1200px;--gut:clamp(20px,4vw,48px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";overflow-x:hidden}
+h1,h2,h3{font-weight:500;margin:0;letter-spacing:-0.025em;line-height:1.1}
+p{margin:0}
+a{color:inherit}
+img{display:block}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gut)}
+.eyebrow{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--n600)}
+.skip{position:absolute;left:-9999px;top:0}
+.skip:focus{left:16px;top:16px;z-index:10;background:var(--ink);color:var(--paper);padding:12px 16px;border-radius:4px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:4px;background:var(--p500);color:#fff;text-decoration:none;font-weight:500;font-size:16px;transition:background .2s ease,transform .2s ease}
+.btn:hover{background:var(--p700)}
+.btn:active{transform:translateY(1px)}
+.btn svg{transition:transform .2s ease}
+.btn:hover svg{transform:translateX(3px)}
+.link{display:inline-flex;align-items:center;min-height:44px;color:var(--ink);text-decoration:underline;text-decoration-color:var(--n400);text-underline-offset:5px;font-weight:500;transition:text-decoration-color .2s}
+.link:hover{text-decoration-color:var(--p500)}
+
+/* Header */
+.hdr{position:sticky;top:0;z-index:5;background:rgba(246,249,251,.94);border-bottom:1px solid transparent;transition:border-color .2s}
+.hdr.scrolled{border-bottom-color:var(--n200)}
+@supports (backdrop-filter:blur(8px)){.hdr{backdrop-filter:blur(8px)}}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:var(--s5)}
+.logo{display:inline-flex;align-items:center;min-height:44px}
+.logo img{height:26px;width:auto}
+.nav{display:flex;align-items:center;gap:var(--s5)}
+.nav a.txt{font-size:15px;color:var(--n700);text-decoration:none;min-height:44px;display:inline-flex;align-items:center;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.nav a.txt:hover{color:var(--ink);border-bottom-color:var(--ink)}
+.nav .btn{min-height:44px;padding:0 18px;font-size:15px}
+
+/* Hero */
+.hero{padding:var(--s7) 0 var(--s8)}
+.hero .eyebrow{margin-bottom:var(--s5)}
+.hero h1{font-size:clamp(38px,5vw,64px);letter-spacing:-0.03em;line-height:1.04;max-width:21ch}
+.hero h1 .az{color:var(--p500)}
+.hero h1 .gr{color:var(--green)}
+.lead{font-size:clamp(18px,1.6vw,20px);color:var(--n700);max-width:60ch;margin-top:var(--s5);line-height:1.55}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3) var(--s6);margin-top:var(--s6)}
+
+/* Timeline */
+.tl{margin-top:var(--s7)}
+.tl-cap{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);margin-bottom:var(--s5);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600)}
+.tl-cap span{display:inline-flex;align-items:center;gap:8px}
+.tl-cap i{display:inline-block;width:18px;height:10px;border-radius:2px}
+.k-sand{background:var(--sand2)}.k-az{background:var(--p500)}.k-gr{background:var(--green)}
+.track{list-style:none;margin:0;padding:52px 0 0;display:flex;gap:4px}
+.track li{position:relative;display:flex}
+.track li.sd{flex:1 1 0}
+.track li.sd1{flex-grow:24}.track li.sd2{flex-grow:20}.track li.sd3{flex-grow:12}
+.track li.az{flex:0 0 52px}
+.track li.az.wide{flex-basis:84px}
+.track li.gr{flex:20 1 0}
+.seg{position:relative;display:block;width:100%;height:76px;text-decoration:none;border-radius:3px;outline-offset:3px}
+.bar{position:absolute;inset:0;border-radius:3px;transform-origin:left center;animation:grow .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i) * 140ms + 150ms)}
+.sd .bar{background:var(--sand);box-shadow:inset 0 0 0 1px var(--sand2)}
+.az .bar{background:var(--p500)}
+.gr .bar{background:var(--green);clip-path:polygon(0 0,calc(100% - 22px) 0,100% 50%,calc(100% - 22px) 100%,0 100%)}
+.seg .lab{position:absolute;z-index:1;animation:fade .6s ease both;animation-delay:calc(var(--i) * 140ms + 500ms)}
+.sd .lab,.gr .lab{left:14px;right:10px;top:50%;transform:translateY(-50%);font-size:14px;line-height:1.3;color:var(--sand-ink)}
+.gr .lab{color:#fff;font-weight:500;font-size:16px}
+.az .lab{bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);white-space:nowrap;text-align:center;font-family:var(--mono);font-size:12px;line-height:1.35;letter-spacing:.04em;color:var(--ink)}
+.az .lab b{display:block;font-weight:500;color:var(--p600)}
+.seg:hover .bar{filter:brightness(.95)}
+.az .seg:hover .bar{background:var(--p700)}
+.seg:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.axis{display:flex;gap:4px;margin-top:var(--s3);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600)}
+.axis span{border-top:1px solid var(--n400);padding-top:8px;position:relative}
+.axis span::before,.axis span::after{content:"";position:absolute;top:-6px;height:6px;border-left:1px solid var(--n400)}
+.axis span::before{left:0}.axis span::after{right:0}
+.ax-build{flex:56 1 216px}
+.ax-run{flex:20 1 0;border-top-color:var(--green)!important;color:var(--green)}
+@keyframes grow{from{transform:scaleX(0)}to{transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+/* Sections */
+section{scroll-margin-top:72px}
+.sec{padding:var(--s10) 0}
+.sec-head{max-width:760px}
+.sec-head .eyebrow{margin-bottom:var(--s4)}
+.sec h2{font-size:clamp(30px,3.6vw,46px);line-height:1.08}
+.sec-head p{margin-top:var(--s5);color:var(--n700);font-size:18px;max-width:60ch}
+
+/* End state */
+.end{border-top:1px solid var(--n200)}
+.have{list-style:none;margin:var(--s8) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s6)}
+.have li{border-top:3px solid var(--green);padding-top:var(--s4)}
+.have h3{font-size:20px;letter-spacing:-0.015em;margin-bottom:var(--s2)}
+.have p{font-size:16px;color:var(--n700)}
+.have .num{font-family:var(--mono);font-size:15px;color:var(--p600);white-space:nowrap}
+
+/* Steps */
+.steps-sec{padding-bottom:0}
+.steps{list-style:none;margin:var(--s8) 0 0;padding:0}
+.step{position:relative}
+.step.sand{background:var(--sand)}
+.step.run{background:var(--green-l)}
+.step-in{display:grid;grid-template-columns:224px minmax(0,1fr) 360px;gap:var(--s7);padding:var(--s8) 0;position:relative}
+.step-in::before{content:"";position:absolute;left:-28px;top:0;bottom:0;width:6px;background:var(--sand2)}
+.step.you .step-in::before{background:var(--p500);top:var(--s8);bottom:var(--s8);border-radius:3px}
+.step.run .step-in::before{background:var(--green)}
+.step.you + .step.you .step-in{border-top:1px solid var(--n200)}
+.meta .n{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--n600);text-transform:uppercase}
+.meta .phase{font-size:18px;font-weight:500;margin-top:var(--s2);line-height:1.3;letter-spacing:-0.01em}
+.meta .sub{display:block;font-size:15px;font-weight:400;color:var(--n600);letter-spacing:0;margin-top:2px}
+.chip{display:inline-block;margin-top:var(--s4);font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border-radius:3px;white-space:nowrap}
+.chip.c-sand{background:#fff;color:var(--sand-ink);box-shadow:inset 0 0 0 1px var(--sand2)}
+.chip.c-az{background:var(--p500);color:#fff}
+.chip.c-gr{background:var(--green);color:#fff}
+.body h3{font-size:clamp(26px,2.6vw,34px);line-height:1.12;max-width:20ch}
+.body > p{margin-top:var(--s4);color:var(--n700);max-width:58ch}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5);margin:var(--s6) 0 0;max-width:640px}
+.pg div{border-top:1px solid rgba(20,27,36,.16);padding-top:var(--s3)}
+.pg dt{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--n600);margin-bottom:var(--s1)}
+.pg .yp dt{color:var(--p600)}
+.pg dd{margin:0;font-size:16px;line-height:1.5}
+.step.sand .pg dt{color:var(--sand-ink)}
+
+/* Illustrations */
+.fig{margin:0;align-self:start;background:#fff;border:1px solid var(--n200);border-radius:6px;padding:var(--s5);box-shadow:0 1px 2px rgba(20,27,36,.04),0 8px 24px -12px rgba(20,27,36,.12)}
+.fig .fh{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s3);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);padding-bottom:var(--s3);border-bottom:1px solid var(--n100)}
+.fig figcaption{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--n500);margin-top:var(--s4);text-transform:uppercase}
+.rows{list-style:none;margin:0;padding:0}
+.rows li{display:flex;justify-content:space-between;align-items:center;gap:var(--s3);padding:12px 0;border-bottom:1px solid var(--n100);font-size:15px;line-height:1.35}
+.rows li:last-child{border-bottom:0}
+.tag{flex:none;font-family:var(--mono);font-size:12px;letter-spacing:.04em;padding:4px 8px;border-radius:3px;background:var(--n100);color:var(--n700)}
+.tag.ok{background:var(--sky);color:var(--p700)}
+.tag.sel{background:var(--p500);color:#fff}
+.rows li.add{color:var(--p700)}
+.sig p{font-size:17px;line-height:1.4;margin-top:var(--s4)}
+.sig .src{font-family:var(--mono);font-size:12px;color:var(--n600);margin-top:var(--s2);letter-spacing:.04em}
+.rank{display:flex;gap:var(--s2);margin-top:var(--s5)}
+.rank span{flex:1;text-align:center;font-family:var(--mono);font-size:13px;padding:10px 0;border-radius:3px;border:1px solid var(--n200);color:var(--n700)}
+.rank span.sel{background:var(--p500);border-color:var(--p500);color:#fff}
+.rec .id{font-family:var(--mono);font-size:15px;color:var(--p600);margin-top:var(--s4)}
+.rec .opt{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:#fff;padding:4px 8px;border-radius:3px;margin-top:var(--s3)}
+.rec p{font-size:16px;line-height:1.45;margin-top:var(--s3)}
+.rec .dis{color:var(--n600);font-size:15px;border-left:2px solid var(--n200);padding-left:var(--s3)}
+
+/* Trust */
+.trust .grid{display:grid;grid-template-columns:5fr 6fr;gap:var(--s8);align-items:start}
+.trust ul{list-style:none;margin:0;padding:0}
+.trust li{padding:var(--s5) 0;border-top:1px solid var(--n200)}
+.trust li:last-child{border-bottom:1px solid var(--n200)}
+.trust h3{font-size:20px;letter-spacing:-0.015em}
+.trust li p{margin-top:var(--s2);color:var(--n700);font-size:16px;max-width:56ch}
+.widen{display:flex;align-items:flex-end;gap:6px;margin-top:var(--s6);max-width:420px}
+.widen span{flex:1;border-radius:2px;background:var(--sky2);position:relative}
+.widen span:nth-child(1){height:20px;background:var(--p500)}
+.widen span:nth-child(2){height:36px;background:var(--p400)}
+.widen span:nth-child(3){height:52px;background:var(--p200)}
+.widen-l{display:flex;gap:6px;max-width:420px;margin-top:var(--s2);font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--n600);text-transform:uppercase}
+.widen-l span{flex:1;line-height:1.3}
+
+/* Close */
+.close{background:var(--ink);color:var(--paper);padding:var(--s10) 0 var(--s9)}
+.close h2{font-size:clamp(36px,5vw,64px);letter-spacing:-0.03em;line-height:1.06;max-width:17ch}
+.close h2 .gr{color:#7CC4A0}
+.close p{margin-top:var(--s5);color:#C9D0D8;font-size:19px;max-width:52ch}
+.close .cta-row a.link{color:var(--paper);text-decoration-color:var(--n500)}
+.close .cta-row a.link:hover{text-decoration-color:var(--p400)}
+.mini{display:flex;gap:3px;height:18px;margin-top:var(--s8)}
+.mini i{border-radius:2px}
+.mini .m-sd{background:#4A4538}
+.mini .m-az{background:var(--p500);flex:0 0 14px}
+.mini .m-az.w{flex-basis:22px}
+.mini .m-gr{background:var(--green);flex:40 1 0;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%)}
+.mini-l{display:flex;justify-content:space-between;margin-top:var(--s2);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#99A3AE}
+
+/* Footer */
+.ftr{background:var(--n900);color:#AEB6BF;padding:var(--s7) 0}
+.ftr .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--s5)}
+.ftr img{height:22px;width:auto}
+.ftr nav{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);font-size:15px}
+.ftr nav a{color:#D5DBE1;text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.ftr nav a:hover{color:#fff;text-decoration:underline;text-underline-offset:4px}
+
+
+/* Tablet */
+@media (max-width:1080px){
+  .step-in{grid-template-columns:160px minmax(0,1fr);gap:var(--s5) var(--s6)}
+  .fig{grid-column:2;max-width:460px}
+  .have{grid-template-columns:1fr 1fr;gap:var(--s6) var(--s7)}
+  .trust .grid{grid-template-columns:1fr;gap:var(--s6)}
+}
+@media (max-width:1300px){.step-in::before{left:-20px}}
+
+/* Phone */
+@media (max-width:760px){
+  body{font-size:16px}
+  .nav a.txt.opt{display:none}
+  .nav .btn{display:none}
+  .hdr .wrap{height:64px}
+  .logo img{height:22px}
+  .nav{gap:var(--s4)}
+  .hero{padding:var(--s7) 0 var(--s8)}
+  .hero h1{font-size:clamp(34px,9.6vw,44px)}
+  .cta-row .btn{width:100%}
+  .tl{margin-top:var(--s7)}
+  .track{flex-direction:column;padding:0;gap:4px}
+  .track li,.track li.sd,.track li.az,.track li.gr{flex:none}
+  .seg{display:grid;grid-template-columns:36px 1fr;align-items:center;column-gap:var(--s4);height:auto;min-height:48px}
+  .bar{position:relative;inset:auto;grid-column:1;grid-row:1;align-self:stretch;transform-origin:center top;animation-name:growy}
+  .track li.sd1 .seg{min-height:120px}.track li.sd2 .seg{min-height:104px}.track li.sd3 .seg{min-height:80px}
+  .track li.az .seg{min-height:48px}
+  .track li.az.wide .seg{min-height:60px}
+  .track li.gr .seg{min-height:96px}
+  .gr .bar{clip-path:polygon(0 0,100% 0,100% calc(100% - 18px),50% 100%,0 calc(100% - 18px))}
+  .seg .lab,.sd .lab,.gr .lab,.az .lab{position:static;grid-column:2;grid-row:1;transform:none;white-space:normal;text-align:left;left:auto;right:auto;top:auto;bottom:auto}
+  .sd .lab{font-size:15px}
+  .gr .lab{color:var(--green);font-size:17px}
+  .az .lab{font-size:13px}
+  .az .lab b{display:inline;margin-right:8px}
+  .axis{display:none}
+  .sec{padding:var(--s9) 0}
+  .have{grid-template-columns:1fr;gap:var(--s5);margin-top:var(--s6)}
+  .steps{margin-top:var(--s6)}
+  .step-in{grid-template-columns:1fr;gap:var(--s4);padding:var(--s7) 0 var(--s7) 20px}
+  .step-in::before{left:0}
+  .step.you .step-in::before{top:var(--s7);bottom:var(--s7)}
+  .meta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2) var(--s3)}
+  .meta .phase{margin-top:0;font-size:16px;flex-basis:100%;order:-1}
+  .meta .n{order:-2;flex-basis:100%}
+  .chip{margin-top:0}
+  .fig{grid-column:1;max-width:none;padding:var(--s4)}
+  .pg{grid-template-columns:1fr;gap:var(--s4);margin-top:var(--s5)}
+  .close{padding:var(--s9) 0 var(--s8)}
+  .close p{font-size:17px}
+  .mini{margin-top:var(--s7)}
+}
+@media (max-width:380px){
+  .nav .btn{display:none}
+}
+@keyframes growy{from{transform:scaleY(0)}to{transform:none}}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .bar,.seg .lab{animation:none}
+  .btn,.btn svg{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="hdr" id="top">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="Strapivo, back to top"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="139" height="35"></a>
+    <nav class="nav" aria-label="Main">
+      <a class="txt opt" href="#steps">The six steps</a>
+      <a class="txt opt" href="#data">Your data</a>
+      <a class="txt" href="https://strapivo.app">Sign in</a>
+      <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="h1">
+    <div class="wrap">
+      <p class="eyebrow">Strapivo · strategy software for leadership teams</p>
+      <h1 id="h1"><span class="az">Four to five hours of your time.</span> Then <span class="gr">you run</span> your strategy in Strapivo.</h1>
+      <p class="lead">Strapivo is the software where your leadership team keeps its strategy current, watches the market against it and records every decision. Our team does the reading first. Your part is three working sessions.</p>
+      <div class="cta-row">
+        <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+        <a class="link" href="#steps">See what each hour is for</a>
+      </div>
+
+      <div class="tl">
+        <p class="tl-cap" aria-hidden="true"><span><i class="k-sand"></i>Strapivo works</span><span><i class="k-az"></i>Your hours</span><span><i class="k-gr"></i>You run it</span></p>
+        <ol class="track" aria-label="Onboarding timeline">
+          <li class="sd sd1" style="--i:0"><a class="seg" href="#step-1"><span class="bar"></span><span class="lab">We read your material and draft your business model</span></a></li>
+          <li class="az" style="--i:1"><a class="seg" href="#step-2"><span class="bar"></span><span class="lab"><b>Session 1</b> 1 hour</span></a></li>
+          <li class="sd sd2" style="--i:2"><a class="seg" href="#step-3"><span class="bar"></span><span class="lab">The Radar scans against your plan</span></a></li>
+          <li class="az" style="--i:3"><a class="seg" href="#step-4"><span class="bar"></span><span class="lab"><b>Session 2</b> 1 hour</span></a></li>
+          <li class="sd sd3" style="--i:4"><a class="seg" href="#step-5"><span class="bar"></span><span class="lab">Evidence builds</span></a></li>
+          <li class="az wide" style="--i:5"><a class="seg" href="#step-5"><span class="bar"></span><span class="lab"><b>Session 3</b> 1 to 2 hours</span></a></li>
+          <li class="gr" style="--i:6"><a class="seg" href="#step-6"><span class="bar"></span><span class="lab">You run it</span></a></li>
+        </ol>
+        <div class="axis" aria-hidden="true"><span class="ax-build">A few weeks</span><span class="ax-run">From then on</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec end" aria-labelledby="end-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" style="color:var(--green)">What you have at the end</p>
+        <h2 id="end-h">A strategy your team reviews every week or month, not once a year.</h2>
+        <p>We call this Dynamic Strategy. Your team makes small, early corrections while they are still cheap, and changes course only when the evidence says so.</p>
+      </div>
+      <ul class="have">
+        <li><h3>An agreed strategy</h3><p>It holds your business model, ambition and success criteria. You approved every line.</p></li>
+        <li><h3>The Radar</h3><p>It watches the outside world for each focus area and flags what moved against your plan.</p></li>
+        <li><h3>A 60-minute session</h3><p>Vivo, our AI, drafts the agenda from what changed. Your team decides.</p></li>
+        <li><h3>A Record of Decisions</h3><p>Each decision gets a permanent number, such as <span class="num">SDS-2026-014</span>, with its reasoning and any dissent.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec steps-sec" id="steps" aria-labelledby="steps-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">How onboarding runs today</p>
+        <h2 id="steps-h">Six steps. Three of them need you in the room.</h2>
+      </div>
+    </div>
+    <ol class="steps">
+      <li class="step sand" id="step-1">
+        <div class="wrap"><div class="step-in">
+          <div class="meta"><p class="n">Step 1</p><p class="phase">Before we meet</p><p class="chip c-sand">Strapivo works</p></div>
+          <div class="body">
+            <h3>We do the reading first.</h3>
+            <p>We draft your business model from the public record, then refine it with your material. You walk into session one with a draft you can correct, not a blank page.</p>
+            <dl class="pg">
+              <div class="yp"><dt>Your part</dt><dd>Send what already exists: strategy documents, board material, plans. Nothing needs tidying.</dd></div>
+              <div><dt>What you get</dt><dd>A first draft of your business model.</dd></div>
+            </dl>
+          </div>
+        </div></div>
+      </li>
+
+      <li class="step you" id="step-2">
+        <div class="wrap"><div class="step-in">
+          <div class="meta"><p class="n">Step 2</p><p class="phase">Session 1<span class="sub">Strategic memory</span></p><p class="chip c-az">Your time · 1 hour</p></div>
+          <div class="body">
+            <h3>We show you what we got wrong.</h3>
+            <p>We go through the draft together. You say what is true, wrong, missing or out of date. Vivo proposes where each correction belongs, and you accept it.</p>
+            <dl class="pg">
+              <div class="yp"><dt>Your part</dt><dd>Correct the draft for one hour.</dd></div>
+              <div><dt>What you get</dt><dd>A baseline you approved, your strategic memory. Every later answer traces back to it.</dd></div>
+            </dl>
+          </div>
+          <figure class="fig" aria-label="Illustrative example of a draft being corrected">
+            <div class="fh"><span>Draft · Customer segments</span></div>
+            <ul class="rows">
+              <li>Mid-sized machine builders <span class="tag ok">True</span></li>
+              <li>Public sector buyers <span class="tag">Out of date</span></li>
+              <li>Spare parts resellers <span class="tag">Wrong</span></li>
+              <li class="add">Service contract clients <span class="tag sel">Missing</span></li>
+            </ul>
+            <figcaption>Illustrative example</figcaption>
+          </figure>
+        </div></div>
+      </li>
+
+      <li class="step sand" id="step-3">
+        <div class="wrap"><div class="step-in">
+          <div class="meta"><p class="n">Step 3</p><p class="phase">Between the sessions</p><p class="chip c-sand">Strapivo works</p></div>
+          <div class="body">
+            <h3>The waiting is by design.</h3>
+            <p>The Radar starts scanning against your plan. It reads over 4,000 sources a day, and evidence builds over several days.</p>
+            <dl class="pg">
+              <div class="yp"><dt>Your part</dt><dd>Nothing. This step takes none of your time.</dd></div>
+              <div><dt>What you get</dt><dd>A first set of dated signals, each with its source.</dd></div>
+            </dl>
+          </div>
+        </div></div>
+      </li>
+
+      <li class="step you" id="step-4">
+        <div class="wrap"><div class="step-in">
+          <div class="meta"><p class="n">Step 4</p><p class="phase">Session 2<span class="sub">Market intelligence</span></p><p class="chip c-az">Your time · 1 hour</p></div>
+          <div class="body">
+            <h3>You teach it what relevant means.</h3>
+            <p>Vivo shows the signals it found. You rank each one up, down or ignore. Every signal you ignore teaches Vivo what counts as noise for your company.</p>
+            <dl class="pg">
+              <div class="yp"><dt>Your part</dt><dd>Rank signals for one hour.</dd></div>
+              <div><dt>What you get</dt><dd>A Radar tuned to your focus areas. It reports every Monday and Thursday.</dd></div>
+            </dl>
+          </div>
+          <figure class="fig sig" aria-label="Illustrative example of a signal being ranked">
+            <div class="fh"><span>Signal · 12 Nov</span><span>Primary source</span></div>
+            <p>Two competitors announce service-only pricing for older machines.</p>
+            <p class="src">Focus area · Recurring service revenue</p>
+            <div class="rank"><span class="sel">Up</span><span>Down</span><span>Ignore</span></div>
+            <figcaption>Illustrative example</figcaption>
+          </figure>
+        </div></div>
+      </li>
+
+      <li class="step you" id="step-5">
+        <div class="wrap"><div class="step-in">
+          <div class="meta"><p class="n">Step 5</p><p class="phase">Session 3<span class="sub">Your first strategic session</span></p><p class="chip c-az">Your time · 1 to 2 hours</p></div>
+          <div class="body">
+            <h3>We use it, once, together.</h3>
+            <p>You bring a real question. Each person gives a first take before the discussion, so nobody simply follows the loudest voice. The room talks it through with Vivo and decides.</p>
+            <dl class="pg">
+              <div class="yp"><dt>Your part</dt><dd>Bring one real question and the people who decide it.</dd></div>
+              <div><dt>What you get</dt><dd>One decision made, with the reasoning kept beside it.</dd></div>
+            </dl>
+          </div>
+          <figure class="fig rec" aria-label="Illustrative example of an entry in the Record of Decisions">
+            <div class="fh"><span>Record of Decisions</span></div>
+            <p class="id">SDS-2026-001</p>
+            <span class="opt">Adapt</span>
+            <p>Move two activities to service contracts before the second quarter.</p>
+            <p class="dis">Dissent from the Head of Sales. The timing is too early.</p>
+            <figcaption>Illustrative example</figcaption>
+          </figure>
+        </div></div>
+      </li>
+
+      <li class="step run" id="step-6">
+        <div class="wrap"><div class="step-in">
+          <div class="meta"><p class="n">Step 6</p><p class="phase">After</p><p class="chip c-gr">You run it</p></div>
+          <div class="body">
+            <h3>You open it because there is a decision to make.</h3>
+            <p>The Radar keeps watching. Vivo drafts each agenda 24 hours before the session. No facilitator is in the room. Your team runs the session weekly, fortnightly or monthly.</p>
+            <dl class="pg">
+              <div class="yp"><dt>Your part</dt><dd>60 minutes per session, at the rhythm you choose.</dd></div>
+              <div><dt>What you get</dt><dd>A strategy that stays current between offsites.</dd></div>
+            </dl>
+          </div>
+        </div></div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="sec trust" id="data" aria-labelledby="data-h">
+    <div class="wrap grid">
+      <div class="sec-head">
+        <p class="eyebrow">Your data</p>
+        <h2 id="data-h">Start with public material. Add more when you are ready.</h2>
+        <div class="widen" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="widen-l" aria-hidden="true"><span>Public record</span><span>Non-sensitive</span><span>Your wider material</span></div>
+      </div>
+      <ul>
+        <li><h3>You choose what we read.</h3><p>Onboarding can begin with the public record and non-sensitive documents. You widen access once you have seen what Strapivo does with them.</p></li>
+        <li><h3>Your data stays in the EU.</h3><p>Strapivo runs on EU-only infrastructure and is built for GDPR by design.</p></li>
+        <li><h3>People decide.</h3><p>Vivo proposes. It never changes your strategy or a status light on its own. Every recommendation traces back to the strategic memory you approved.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="close" aria-labelledby="close-h">
+    <div class="wrap">
+      <h2 id="close-h">It knows you. It watches your world. <span class="gr">You decide in it.</span></h2>
+      <p>Four to five hours, and then you run it. Write to us and we will tell you what to send for the first reading.</p>
+      <div class="cta-row">
+        <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+        <a class="link" href="mailto:strategy@strapivo.com">strategy@strapivo.com</a>
+      </div>
+      <div class="mini" aria-hidden="true"><i class="m-sd" style="flex:24 1 0"></i><i class="m-az"></i><i class="m-sd" style="flex:20 1 0"></i><i class="m-az"></i><i class="m-sd" style="flex:12 1 0"></i><i class="m-az w"></i><i class="m-gr"></i></div>
+      <div class="mini-l" aria-hidden="true"><span>A few weeks</span><span>From then on</span></div>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <a href="#" class="logo" aria-label="Strapivo, back to top"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="117" height="29"></a>
+    <nav aria-label="Legal">
+      <span>© 2026 Strapivo</span>
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var h=document.querySelector('.hdr');
+  addEventListener('scroll',function(){h.classList.toggle('scrolled',scrollY>8)},{passive:true});
+})();
+</script>
+</body>
+</html>
