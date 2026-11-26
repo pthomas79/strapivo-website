@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo. Finance got a ledger, sales got a pipeline, strategy got slides</title>
+<meta name="description" content="Strapivo is software for a leadership team's strategy. It keeps success criteria current, reads market signals against them, runs a 60-minute session and numbers every decision.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --g1:#3A424B;--g2:#8A929B;--deck:#F3E6B3;
+  --green:#2F9466;--amber:#D19A1A;--red:#C9483E;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
+  --wrap:1120px;--pad:24px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:18px;line-height:1.55}
+h1,h2,h3,p,ul,ol,figure,blockquote{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:inherit}
+img{display:block}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--pad)}
+.eyebrow{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--p600);margin-bottom:var(--s4)}
+h2{font-size:40px;line-height:1.1;font-weight:500;letter-spacing:-.025em;max-width:22ch}
+.lede{font-size:20px;line-height:1.5;color:var(--n600);max-width:60ch;margin-top:var(--s5)}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--ink);color:#fff;padding:12px 16px;z-index:10;border-radius:4px}
+.skip:focus{left:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 var(--s5);background:var(--p500);color:#fff;text-decoration:none;font-size:17px;font-weight:500;border-radius:6px;transition:background .2s}
+.btn:hover{background:var(--p700)}
+.btn .arr{display:inline-block;margin-left:10px;transition:transform .2s}
+.btn:hover .arr{transform:translateX(3px)}
+.tlink{display:inline-flex;align-items:center;min-height:48px;font-size:17px;color:var(--ink);text-decoration:underline;text-decoration-color:var(--n400);text-underline-offset:5px;transition:text-decoration-color .2s}
+.tlink:hover{text-decoration-color:var(--p500)}
+
+/* header */
+.hdr{position:sticky;top:0;z-index:5;background:rgba(246,249,251,.94);border-bottom:1px solid transparent;transition:border-color .2s}
+.hdr.scrolled{border-bottom-color:var(--n200)}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{display:inline-flex;align-items:center;min-height:44px}
+.logo img{height:26px;width:auto}
+.nav{display:flex;align-items:center;gap:var(--s5)}
+.nav a{font-size:16px;text-decoration:none;color:var(--n700);min-height:44px;display:inline-flex;align-items:center}
+.nav a:hover{color:var(--p600)}
+.nav .btn{min-height:44px;font-size:16px;padding:0 var(--s4);color:#fff}
+.nav .btn:hover{color:#fff}
+
+/* hero */
+.hero{padding:var(--s7) 0 var(--s9)}
+.hero h1{font-size:60px;line-height:1.04;font-weight:500;letter-spacing:-.03em}
+.hero h1 span{display:block}
+.hero h1 .last{color:var(--p500)}
+.hero .sub{font-size:21px;line-height:1.5;color:var(--n600);max-width:58ch;margin-top:var(--s5)}
+.hero .sub strong{font-weight:500;color:var(--ink)}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3) var(--s5);margin-top:var(--s6)}
+
+/* function cards */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4);margin-top:var(--s7)}
+.fc{background:#fff;border:1px solid var(--n200);border-radius:6px;padding:var(--s4);display:flex;flex-direction:column;min-height:236px}
+.fc-h{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--g1)}
+.fc-h b{font-weight:500;color:var(--ink)}
+.fc-b{flex:1;margin:var(--s4) 0;display:flex;flex-direction:column;justify-content:center}
+.fc-f{font-family:var(--mono);font-size:12px;color:var(--g1);display:flex;align-items:center;gap:8px;padding-top:var(--s3);border-top:1px solid var(--n100)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--p500);flex:none}
+.live .dot{animation:pulse 3.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,130,230,.35)}50%{box-shadow:0 0 0 5px rgba(0,130,230,0)}}
+
+/* ledger */
+.ledger{font-family:var(--mono);font-size:12px;color:var(--g1)}
+.ledger li{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid var(--n100)}
+.ledger li:last-child{border-bottom:0}
+.ledger .ref{color:var(--g2)}
+.ledger .new{color:var(--ink);background:var(--sky);margin:0 -6px;padding:6px}
+.live .ledger .new{animation:newrow 6s ease-in-out infinite}
+@keyframes newrow{0%,8%{background:var(--sky)}40%,100%{background:transparent}}
+/* pipeline */
+.pipe{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;align-items:end;height:118px}
+.pipe .col{display:flex;flex-direction:column-reverse;gap:4px}
+.pipe i{display:block;height:14px;border-radius:2px;background:var(--n200)}
+.pipe .col:nth-child(2) i{background:#C9CED4}
+.pipe .col:nth-child(3) i{background:var(--g2)}
+.pipe .col:nth-child(4) i{background:var(--g1)}
+.pipe-l{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;font-size:12px;color:var(--g1);margin-top:8px}
+/* queue */
+.queue li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--n100);font-family:var(--mono);font-size:12px;color:var(--g1)}
+.queue li:last-child{border-bottom:0}
+.pill{font-family:'Inter',sans-serif;font-size:12px;line-height:1;padding:4px 7px;border-radius:3px;border:1px solid var(--n200);color:var(--g1);white-space:nowrap}
+.pill.open{border-color:var(--g1);color:var(--ink)}
+.pill.done{background:var(--n100);border-color:var(--n100)}
+/* abandoned deck */
+.fc.stale{background:#FBFBF8;border-style:dashed;border-color:#C9CED4}
+.fc.stale .fc-h b{color:var(--n600)}
+.thumb{aspect-ratio:16/10;background:var(--deck);border-radius:3px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;opacity:.78;filter:saturate(.7);transform:rotate(-1.2deg);box-shadow:0 1px 0 rgba(20,27,36,.06)}
+.thumb .t{font-size:12px;font-weight:500;color:#5E5530;letter-spacing:-.01em}
+.thumb i{display:block;height:5px;border-radius:2px;background:rgba(94,85,48,.22)}
+.thumb i:nth-of-type(2){width:80%}.thumb i:nth-of-type(3){width:60%}
+.fname{font-family:var(--mono);font-size:12px;color:var(--n600);margin-top:var(--s3)}
+.fc.stale .fc-f{color:var(--n600)}
+.fc.stale .dot{background:transparent;border:1.5px solid var(--n400)}
+
+/* sections */
+section{padding:var(--s9) 0}
+.band{background:#fff;border-top:1px solid var(--n200);border-bottom:1px solid var(--n200)}
+
+/* problem */
+.prob{display:grid;grid-template-columns:5fr 6fr;gap:var(--s8);align-items:start}
+.cannot{counter-reset:c;margin-top:0}
+.cannot li{padding:var(--s5) 0;border-top:1px solid var(--n200);display:grid;grid-template-columns:40px 1fr;gap:var(--s3)}
+.cannot li:last-child{border-bottom:1px solid var(--n200)}
+.cannot li::before{counter-increment:c;content:"0" counter(c);font-family:var(--mono);font-size:13px;color:var(--n500);padding-top:5px}
+.cannot h3{font-size:22px;font-weight:500;letter-spacing:-.015em;line-height:1.3}
+.cannot p{color:var(--n600);margin-top:var(--s2);max-width:52ch}
+.quotes{margin-top:var(--s7);display:grid;gap:var(--s5)}
+.quotes blockquote{font-size:24px;line-height:1.35;letter-spacing:-.015em;padding-left:var(--s5);border-left:2px solid var(--p500);max-width:26ch}
+.quotes .src{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500)}
+
+/* comparison */
+.cmp{width:100%;margin-top:var(--s7);border-collapse:collapse;text-align:left}
+.cmp th,.cmp td{vertical-align:top;padding:var(--s5) var(--s5) var(--s5) 0}
+.cmp thead th{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--n500);padding-top:0;padding-bottom:var(--s3);border-bottom:1px solid var(--ink)}
+.cmp thead th.us{color:var(--p600)}
+.cmp tbody tr{border-bottom:1px solid var(--n200)}
+.cmp tbody th{width:24%;font-size:22px;font-weight:500;letter-spacing:-.015em;line-height:1.3}
+.cmp td.them{width:30%;color:var(--g1)}
+.cmp td.us{padding-left:var(--s5);padding-right:0;background:var(--sky);border-left:2px solid var(--p500)}
+.cmp tbody tr:hover td.us{background:var(--sky2)}
+.cmp .tok{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--p700);margin-bottom:var(--s2)}
+.lt{width:10px;height:10px;border-radius:50%;display:inline-block}
+.lt.g{background:var(--green)}.lt.y{background:var(--amber)}.lt.r{background:var(--red)}
+.cmp .lbl{display:none}
+
+/* redrawn card */
+.redo{display:grid;grid-template-columns:5fr 6fr;gap:var(--s8);align-items:center}
+.redo .ill{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500);margin-bottom:var(--s3);display:flex;justify-content:space-between}
+.pair{display:grid;grid-template-columns:150px 1fr;gap:var(--s5);align-items:center}
+.pair .was{opacity:.9}
+.pair .was .fc{min-height:0;padding:var(--s3)}
+.pair .was .thumb{padding:8px}
+.pair .was .cap{font-family:var(--mono);font-size:12px;color:var(--n600);margin-top:var(--s2);text-align:center}
+.fc.now{border-color:var(--p500);box-shadow:0 8px 24px -12px rgba(0,93,189,.25);padding:var(--s5);min-height:0}
+.fc.now .fc-h{font-size:12px}
+.crit{margin-top:var(--s4)}
+.crit li{display:grid;grid-template-columns:12px 1fr auto;gap:var(--s3);align-items:center;padding:10px 0;border-bottom:1px solid var(--n100);font-size:16px;line-height:1.35}
+.crit .lt{width:12px;height:12px}
+.crit .f{font-family:var(--mono);font-size:12px;color:var(--p700);letter-spacing:.06em;text-transform:uppercase}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin-top:var(--s4)}
+.meta div{background:var(--paper);border-radius:4px;padding:var(--s3)}
+.meta span{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--n500)}
+.meta strong{display:block;font-weight:500;font-size:16px;margin-top:4px}
+.meta .num{font-family:var(--mono);font-size:15px;color:var(--p700)}
+.tagline{margin-top:var(--s5);font-size:20px;color:var(--ink)}
+
+/* week */
+.beats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:var(--s7);position:relative}
+.beat{padding:0 var(--s6) 0 0;position:relative;display:flex;flex-direction:column}
+.beat .ex{margin-top:auto}
+.beat>p:not(.ex):not(.when){margin-bottom:var(--s5)}
+.beat+.beat{padding-left:var(--s6);border-left:1px solid var(--n200)}
+.beat .when{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--n500)}
+.beat h3{font-size:28px;font-weight:500;letter-spacing:-.02em;margin:var(--s3) 0 var(--s3);display:flex;align-items:baseline;gap:var(--s3)}
+.beat h3 .n{font-family:var(--mono);font-size:14px;color:var(--p600);font-weight:500}
+.beat p{color:var(--n600);max-width:36ch}
+.ex{margin-top:var(--s5);background:#fff;border:1px solid var(--n200);border-left:2px solid var(--p500);border-radius:4px;padding:var(--s3) var(--s4);font-size:16px;line-height:1.4}
+.ex .k{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--p700);margin-bottom:4px}
+.ex .m{display:block;font-family:var(--mono);font-size:12px;color:var(--n500);margin-top:6px}
+.wk-note{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500);margin-top:var(--s5)}
+.options{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 var(--s5)}
+.options span{font-family:var(--mono);font-size:12px;letter-spacing:.04em;padding:6px 9px;border:1px solid var(--n200);border-radius:3px;color:var(--n700);background:#fff}
+
+/* trust + start */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:var(--s8)}
+.two h2{font-size:32px;max-width:18ch}
+.list{margin-top:var(--s5)}
+.list li{padding:var(--s4) 0 var(--s4) var(--s6);border-top:1px solid var(--n200);position:relative;color:var(--n700)}
+.list li::before{content:"";position:absolute;left:0;top:27px;width:14px;height:2px;background:var(--p500)}
+.list li strong{font-weight:500;color:var(--ink)}
+.list li:last-child{border-bottom:1px solid var(--n200)}
+
+/* close */
+.close{background:var(--ink);color:var(--paper);padding:var(--s10) 0}
+.tabs{display:flex;flex-wrap:wrap;gap:var(--s2);margin-bottom:var(--s7)}
+.tabs span{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;border:1px solid #2C343C;border-radius:4px;color:#C9CED4}
+.tabs .dot{background:var(--p400)}
+.tabs .s{border-color:var(--p400);color:#fff}
+.close h2{font-size:56px;max-width:16ch;line-height:1.05;letter-spacing:-.03em}
+.close h2 span{color:var(--p400)}
+.close p{font-size:20px;color:#C9CED4;max-width:52ch;margin-top:var(--s5)}
+.close .cta-row{margin-top:var(--s6)}
+.close .tlink{color:var(--paper);text-decoration-color:#6C727A}
+.close .tlink:hover{text-decoration-color:var(--p400)}
+
+/* footer */
+.ftr{background:var(--n900);color:#C9CED4;padding:var(--s6) 0;font-size:15px}
+.ftr .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--s4)}
+.ftr img{height:22px;width:auto}
+.ftr nav{display:flex;gap:var(--s5)}
+.ftr a{text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.ftr a:hover{color:#fff;text-decoration:underline;text-underline-offset:4px}
+.ftr .copy{color:#999FA6}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+.js .rv.in{opacity:1;transform:none}
+.js .cards .fc{opacity:0;transform:translateY(10px);transition:opacity .8s ease,transform .8s ease}
+.js .cards.in .fc{opacity:1;transform:none}
+.js .cards.in .fc:nth-child(2){transition-delay:.12s}
+.js .cards.in .fc:nth-child(3){transition-delay:.24s}
+.js .cards.in .fc:nth-child(4){transition-delay:.6s}
+
+/* tablet */
+@media (max-width:1000px){
+  .hero h1{font-size:48px}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .prob,.redo,.two{grid-template-columns:1fr;gap:var(--s7)}
+  .beats{grid-template-columns:1fr;gap:var(--s6)}
+  .beat,.beat+.beat{padding:var(--s6) 0 0;border-left:0;border-top:1px solid var(--n200)}
+  .beat p{max-width:60ch}
+  .beat .ex{margin-top:var(--s5)}
+}
+/* phone */
+@media (max-width:720px){
+  :root{--pad:20px}
+  body{font-size:17px}
+  .nav .hide-s{display:none}
+  .nav{gap:var(--s4)}
+  .hdr .wrap{height:64px}
+  .logo img{height:22px}
+  .hero{padding:var(--s6) 0 var(--s8)}
+  .hero h1{font-size:35px;line-height:1.08}
+  .hero .sub{font-size:18px}
+  .cta-row .btn{width:100%}
+  .cards{gap:var(--s2);margin-top:var(--s7)}
+  .fc{padding:var(--s3);min-height:198px}
+  .fc-b{margin:var(--s3) 0}
+  .fc-h{font-size:12px;letter-spacing:.04em}
+  .fc-h .k{display:none}
+  .ledger .ref{display:none}
+  .pipe{height:92px}
+  .pipe i{height:11px}
+  .queue li{padding:6px 0}
+  .queue li:nth-child(4){display:none}
+  .thumb{padding:8px}
+  section{padding:var(--s8) 0}
+  h2{font-size:30px}
+  .lede{font-size:18px}
+  .cannot li{grid-template-columns:32px 1fr}
+  .cannot h3{font-size:20px}
+  .quotes blockquote{font-size:21px}
+  /* comparison becomes stacked rows */
+  .cmp,.cmp tbody,.cmp tr,.cmp th,.cmp td{display:block;width:auto}
+  .cmp thead{display:none}
+  .cmp tbody tr{padding:var(--s5) 0;border-bottom:1px solid var(--n200)}
+  .cmp tbody tr:first-child{border-top:1px solid var(--ink)}
+  .cmp tbody th{width:auto;padding:0 0 var(--s3);font-size:21px}
+  .cmp td.them{width:auto;padding:0 0 var(--s3)}
+  .cmp td.us{padding:var(--s3) var(--s4)}
+  .cmp .lbl{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500);margin-bottom:2px}
+  .pair{grid-template-columns:1fr}
+  .pair .was{display:flex;align-items:center;gap:var(--s4)}
+  .pair .was .fc{width:120px;flex:none}
+  .pair .was .cap{text-align:left;margin:0}
+  .fc.now{padding:var(--s4)}
+  .meta{grid-template-columns:1fr}
+  .beat h3{font-size:24px}
+  .two h2{font-size:28px}
+  .close{padding:var(--s9) 0}
+  .close h2{font-size:38px}
+  .tabs{gap:6px;margin-bottom:var(--s6)}
+  .tabs span{font-size:12px;letter-spacing:.03em;padding:6px 8px;gap:6px}
+  .close p{font-size:18px}
+  .ftr .wrap{flex-direction:column;align-items:flex-start}
+}
+@media (max-width:370px){
+  .hero h1{font-size:32px}
+  .tabs span{padding:6px 6px}
+  .fc-h{letter-spacing:0}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .rv,.js .cards .fc{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="hdr" id="top">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="Strapivo, back to top"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="160" height="40"></a>
+    <nav class="nav" aria-label="Main">
+      <a class="hide-s" href="#compare">How it compares</a>
+      <a class="hide-s" href="#week">How it works</a>
+      <a href="https://strapivo.app">Sign in</a>
+      <a class="btn hide-s" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- hero -->
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <p class="eyebrow">Strategy software for leadership teams</p>
+    <h1 id="h1"><span>Finance got a ledger.</span> <span>Sales got a pipeline.</span> <span class="last">Strategy got slides.</span></h1>
+    <p class="sub"><strong>Strapivo is the software where a leadership team keeps its strategy.</strong> It gives strategy what other functions have had for decades: one place where it lives, stays current and gets used.</p>
+    <div class="cta-row">
+      <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation<span class="arr" aria-hidden="true">&rarr;</span></a>
+      <a class="tlink" href="#compare">See what strategy has been missing</a>
+    </div>
+
+    <div class="cards" id="cards" role="img" aria-label="Four cards. Finance has a ledger updated two minutes ago. Sales has a pipeline updated today. Service has a queue with three open tickets. Strategy has a slide deck last opened in September 2025.">
+      <div class="fc live" aria-hidden="true">
+        <div class="fc-h"><b>Finance</b><span class="k">Ledger</span></div>
+        <ul class="fc-b ledger">
+          <li class="new"><span>18 Nov</span><span class="ref">#2291</span><span>4,120.00</span></li>
+          <li><span>18 Nov</span><span class="ref">#2290</span><span>860.50</span></li>
+          <li><span>17 Nov</span><span class="ref">#2289</span><span>12,400.00</span></li>
+          <li><span>17 Nov</span><span class="ref">#2288</span><span>315.00</span></li>
+        </ul>
+        <div class="fc-f"><span class="dot"></span>Updated 2 min ago</div>
+      </div>
+      <div class="fc live" aria-hidden="true">
+        <div class="fc-h"><b>Sales</b><span class="k">Pipeline</span></div>
+        <div class="fc-b">
+          <div class="pipe">
+            <div class="col"><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="col"><i></i><i></i><i></i><i></i></div>
+            <div class="col"><i></i><i></i><i></i></div>
+            <div class="col"><i></i><i></i></div>
+          </div>
+          <div class="pipe-l"><span>New</span><span>Met</span><span>Offer</span><span>Won</span></div>
+        </div>
+        <div class="fc-f"><span class="dot"></span>Updated today</div>
+      </div>
+      <div class="fc live" aria-hidden="true">
+        <div class="fc-h"><b>Service</b><span class="k">Queue</span></div>
+        <ul class="fc-b queue">
+          <li><span>#4821</span><span class="pill open">Open</span></li>
+          <li><span>#4820</span><span class="pill open">Open</span></li>
+          <li><span>#4819</span><span class="pill">Waiting</span></li>
+          <li><span>#4818</span><span class="pill done">Closed</span></li>
+        </ul>
+        <div class="fc-f"><span class="dot"></span>3 open</div>
+      </div>
+      <div class="fc stale" aria-hidden="true">
+        <div class="fc-h"><b>Strategy</b><span class="k">Slides</span></div>
+        <div class="fc-b">
+          <div class="thumb"><span class="t">Strategy 2025+</span><i></i><i></i><i></i></div>
+          <div class="fname">Strategy_v7.pptx</div>
+        </div>
+        <div class="fc-f"><span class="dot"></span>Last opened Sep 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 1. what slides cannot do -->
+<section class="band" id="slides" aria-labelledby="h-slides">
+  <div class="wrap prob">
+    <div class="rv">
+      <p class="eyebrow">What slides cannot do</p>
+      <h2 id="h-slides">A deck records the strategy. Then nobody opens it.</h2>
+      <div class="quotes">
+        <figure>
+          <blockquote>"We finish the strategy, and then we forget it."</blockquote>
+        </figure>
+        <figure>
+          <blockquote>"Between offsites, nothing moves."</blockquote>
+          <figcaption class="src" style="margin-top:12px">What leadership teams tell us</figcaption>
+        </figure>
+      </div>
+    </div>
+    <ol class="cannot rv">
+      <li><div><h3>Slides don't notice when the market moves.</h3><p>The world changes in March. The team finds out at the annual review in December, when a correction costs far more.</p></div></li>
+      <li><div><h3>Slides don't remember why.</h3><p>A year later, nobody can find what was decided, who disagreed, or what happened next.</p></div></li>
+      <li><div><h3>Nobody opens them.</h3><p>The strategy gets agreed at the offsite and goes into a drawer. Day-to-day work carries on without it.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 2. comparison -->
+<section id="compare" aria-labelledby="h-compare">
+  <div class="wrap">
+    <div class="rv">
+      <p class="eyebrow">What every function's system has</p>
+      <h2 id="h-compare">Five parts every function's software has. Strapivo builds them for strategy.</h2>
+    </div>
+    <table class="cmp rv">
+      <caption class="sr">How finance and sales software compares with Strapivo for strategy</caption>
+      <thead>
+        <tr><th scope="col">Every system has</th><th scope="col">In finance and sales</th><th scope="col" class="us">In Strapivo, for strategy</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">A current state</th>
+          <td class="them"><span class="lbl">In finance and sales</span>Today's balance. Deals by stage.</td>
+          <td class="us"><span class="lbl">In Strapivo</span><span class="tok" aria-hidden="true"><span class="lt g"></span><span class="lt y"></span><span class="lt r"></span></span>Success criteria, each with today's light: green, yellow or red.</td>
+        </tr>
+        <tr>
+          <th scope="row">A feed of what changed</th>
+          <td class="them"><span class="lbl">In finance and sales</span>New invoices. New leads.</td>
+          <td class="us"><span class="lbl">In Strapivo</span><span class="tok">Radar</span>Market signals, each read against the focus area it affects.</td>
+        </tr>
+        <tr>
+          <th scope="row">A rhythm</th>
+          <td class="them"><span class="lbl">In finance and sales</span>Month-end close. The weekly pipeline review.</td>
+          <td class="us"><span class="lbl">In Strapivo</span><span class="tok">60 min</span>A strategy session, weekly, fortnightly or monthly.</td>
+        </tr>
+        <tr>
+          <th scope="row">A record</th>
+          <td class="them"><span class="lbl">In finance and sales</span>Every entry, kept and numbered.</td>
+          <td class="us"><span class="lbl">In Strapivo</span><span class="tok">SDS-2026-014</span>Numbered decisions, with the reason and any dissent by name.</td>
+        </tr>
+        <tr>
+          <th scope="row">Controls</th>
+          <td class="them"><span class="lbl">In finance and sales</span>Sign-off before money moves.</td>
+          <td class="us"><span class="lbl">In Strapivo</span><span class="tok">Confirmed by a person</span>Vivo, the AI, proposes each change. A person confirms it.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 3. the fourth card, redrawn -->
+<section class="band" id="card" aria-labelledby="h-card">
+  <div class="wrap redo">
+    <div class="rv">
+      <p class="eyebrow">The fourth card, redrawn</p>
+      <h2 id="h-card">Your strategy, current on one screen.</h2>
+      <p class="lede">Mission Control is the first screen your team sees in Strapivo. It shows how each success criterion stands today, when the team meets next and what it decided last time.</p>
+      <p class="tagline">Approved by you. Updated as you go. Never stale.</p>
+    </div>
+    <div class="rv">
+      <p class="ill" aria-hidden="true"><span>Illustrative example</span></p>
+      <div class="pair">
+        <div class="was" aria-hidden="true">
+          <div class="fc stale">
+            <div class="thumb"><span class="t">Strategy 2025+</span><i></i><i></i><i></i></div>
+          </div>
+          <p class="cap">Before</p>
+        </div>
+        <div class="fc now live" role="img" aria-label="Illustrative example of Mission Control. Four success criteria with lights: two green, one yellow, one red. Next session Thursday at 09:00. Last decision SDS-2026-014, Adapt.">
+          <div class="fc-h" aria-hidden="true"><b>Strategy</b><span>Mission Control</span></div>
+          <ul class="crit" aria-hidden="true">
+            <li><span class="lt g"></span><span>Recurring revenue grows faster than projects</span><span class="f">Focus</span></li>
+            <li><span class="lt y"></span><span>Two anchor clients in the Nordics</span><span class="f">Focus</span></li>
+            <li><span class="lt g"></span><span>Delivery margin holds</span><span></span></li>
+            <li><span class="lt r"></span><span>Senior engineers stay</span><span class="f">Focus</span></li>
+          </ul>
+          <div class="meta" aria-hidden="true">
+            <div><span>Next session</span><strong>Thu 09:00, in 2 days</strong></div>
+            <div><span>Last decision</span><strong class="num">SDS-2026-014 Adapt</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. how a week runs -->
+<section id="week" aria-labelledby="h-week">
+  <div class="wrap">
+    <div class="rv">
+      <p class="eyebrow">How a week runs</p>
+      <h2 id="h-week">Something changes. You talk it through. You decide.</h2>
+      <p class="wk-note">Illustrative example, following one criterion from the card above</p>
+    </div>
+    <ol class="beats rv">
+      <li class="beat">
+        <p class="when">Monday and Thursday</p>
+        <h3><span class="n">01</span>Signal</h3>
+        <p>The Radar reads over 4,000 sources a day and reports twice a week. Vivo matches each signal to a success criterion. A person on your team marks it relevant or not.</p>
+        <p class="ex"><span class="k">Signal &middot; Relevant</span>A rival opens an office in Oslo.<span class="m">Primary source &middot; Two anchor clients in the Nordics</span></p>
+      </li>
+      <li class="beat">
+        <p class="when">The session, 60 minutes</p>
+        <h3><span class="n">02</span>Discuss</h3>
+        <p>Vivo drafts the agenda a day ahead from what changed. In the room, each person records a first take before the discussion. Strapivo reveals the takes together, so nobody's view is shaped by whoever speaks first.</p>
+        <p class="ex"><span class="k">Agenda item 2</span>Does the Oslo office change our Nordic plan?<span class="m">5 first takes, revealed together</span></p>
+      </li>
+      <li class="beat">
+        <p class="when">Same hour</p>
+        <h3><span class="n">03</span>Decide</h3>
+        <p>The team picks one of five options. Each decision gets a number, a reason and a place in the record.</p>
+        
+        <div class="options" aria-label="The five options"><span>Hold</span><span>Adapt</span><span>Pivot</span><span>Take advantage</span><span>Not yet</span></div>
+        <p class="ex"><span class="k">SDS-2026-015 &middot; Adapt</span>Bring the second client meeting forward to January.<span class="m">One dissent recorded, with its reason</span></p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 5. trust and getting started -->
+<section class="band" id="trust" aria-label="Trust and getting started">
+  <div class="wrap two">
+    <div class="rv">
+      <p class="eyebrow">Trust</p>
+      <h2>The human stays in the chair.</h2>
+      <ul class="list">
+        <li><strong>Vivo proposes. People decide.</strong> Vivo never changes a light or rewrites a success criterion.</li>
+        <li><strong>Every recommendation has a source.</strong> It traces back to the strategy your team approved.</li>
+        <li><strong>One blog post cannot raise an alarm.</strong> A risk moves into the danger zone only with a primary source.</li>
+        <li><strong>EU-only infrastructure.</strong> GDPR by design.</li>
+      </ul>
+    </div>
+    <div class="rv">
+      <p class="eyebrow">Getting started</p>
+      <h2>We do the reading first.</h2>
+      <ul class="list">
+        <li>Send us workshop reports, documents or a plain email. Start with public and non-sensitive material.</li>
+        <li>You walk into session one with a draft you can correct, not a blank page.</li>
+        <li>We show you what we got wrong. You teach Vivo what relevant means.</li>
+        <li><strong>Four to five hours, and then you run it.</strong></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- closing -->
+<section class="close" aria-labelledby="h-close">
+  <div class="wrap rv">
+    <div class="tabs" aria-hidden="true"><span><i class="dot"></i>Finance</span><span><i class="dot"></i>Sales</span><span><i class="dot"></i>Service</span><span class="s"><i class="dot"></i>Strategy</span></div>
+    <h2 id="h-close">Strategy finally has <span>a home.</span></h2>
+    <p>Tell us how your leadership team runs strategy today. We will show you what the same strategy looks like in Strapivo, read and drafted before we meet.</p>
+    <div class="cta-row">
+      <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation<span class="arr" aria-hidden="true">&rarr;</span></a>
+      <a class="tlink" href="mailto:strategy@strapivo.com">strategy@strapivo.com</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <a class="logo" href="#"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="140" height="35"></a>
+    <nav aria-label="Legal"><a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav>
+    <p class="copy">&copy; 2026 Strapivo</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var d=document.documentElement;
+  d.classList.add('js');
+  var hdr=document.querySelector('.hdr');
+  addEventListener('scroll',function(){hdr.classList.toggle('scrolled',scrollY>8)},{passive:true});
+  var els=document.querySelectorAll('.rv,.cards');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){io.observe(e)});
+  function sweep(){var h=innerHeight;els.forEach(function(e){if(!e.classList.contains('in')&&e.getBoundingClientRect().top<h){e.classList.add('in')}})}
+  addEventListener('scroll',sweep,{passive:true});addEventListener('load',sweep);sweep();
+})();
+</script>
+</body>
+</html>
