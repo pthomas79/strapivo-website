@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo: memory, intelligence and session, added up</title>
+<meta name="description" content="Strapivo holds the strategy your leadership team approved, reads the market against it and runs the session where you decide. Monitoring and an AI to talk to are for sale elsewhere. The combination needs your strategy.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--white:#FFFFFF;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  /* one colour per term */
+  --mem:#0082E6;--mem-ink:#005DBD;--mem-tint:#EEF6FF;--mem-dark:#5DB0FB;
+  --int:#0F8B8D;--int-ink:#0A6C6E;--int-tint:#E7F3F3;--int-dark:#4FC1C3;
+  --ses:#C98A00;--ses-ink:#835A00;--ses-big:#A26F00;--ses-tint:#FAF2DF;--ses-dark:#E5B341;
+  --res:#141B24;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  /* spacing scale */
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
+  --wrap:1280px;--pad:24px;
+}
+@media (min-width:760px){:root{--pad:48px}}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;font-weight:400;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11"}
+@media (max-width:759px){body{font-size:16px}}
+h1,h2,h3{font-weight:500;margin:0;letter-spacing:-0.025em;line-height:1.1}
+p{margin:0}
+a{color:inherit}
+img,svg{display:block}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--pad)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mono{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:var(--s4);top:-60px;background:var(--ink);color:var(--paper);padding:var(--s3) var(--s4);border-radius:4px;z-index:20;text-decoration:none}
+.skip:focus{top:var(--s3)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 var(--s5);border-radius:4px;font-size:16px;font-weight:500;text-decoration:none;letter-spacing:-0.005em;transition:background-color .2s ease,color .2s ease,border-color .2s ease}
+.btn-primary{background:var(--ink);color:var(--paper)}
+.btn-primary:hover{background:var(--p700)}
+.btn-ghost{color:var(--ink);border:1px solid var(--n200)}
+.btn-ghost:hover{border-color:var(--ink)}
+.btn-light{background:var(--paper);color:var(--ink)}
+.btn-light:hover{background:var(--sky2)}
+
+/* header */
+.site-head{position:sticky;top:0;z-index:10;background:rgba(246,249,251,.96);border-bottom:1px solid var(--n200)}
+.head-in{display:flex;align-items:center;justify-content:space-between;gap:var(--s5);height:68px}
+.logo{display:flex;align-items:center;min-height:44px}
+.logo img{height:26px;width:auto}
+.nav{display:flex;align-items:center;gap:var(--s2)}
+.nav a.nl{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--s3);text-decoration:none;font-size:15px;color:var(--n700);border-radius:4px}
+.nav a.nl:hover{color:var(--ink);background:var(--n100)}
+.nav .btn{min-height:44px;font-size:15px;padding:0 var(--s4)}
+@media (max-width:899px){.nav a.nl.anchor{display:none}}
+.nav a,.nav .btn{white-space:nowrap}
+@media (max-width:479px){.head-in{gap:var(--s2)}.logo img{height:20px}.nav{gap:var(--s1)}.nav a.nl{padding:0 var(--s2);font-size:14px}.nav .btn{padding:0 var(--s3);font-size:13px}}
+@media (max-width:374px){.logo img{height:18px}.nav a.nl{padding:0 6px}.nav .btn{padding:0 10px}}
+
+/* operators */
+.op svg{width:100%;height:100%}
+.op{color:var(--ink)}
+
+/* hero */
+.hero{padding:var(--s7) 0 var(--s9)}
+.hero .eyebrow{color:var(--n600);margin-bottom:var(--s5)}
+.hero h1{font-size:clamp(34px,4vw,58px);letter-spacing:-0.032em;line-height:1.05;max-width:23ch}
+.hero h1 .k{color:var(--mem-ink)}
+.hero-sub{display:grid;gap:var(--s5);margin-top:var(--s5);align-items:end}
+.hero-sub p{font-size:clamp(18px,1.5vw,21px);line-height:1.5;color:var(--n700);max-width:56ch}
+.ctas{display:flex;flex-wrap:wrap;gap:var(--s3)}
+@media (min-width:1000px){.hero-sub{grid-template-columns:minmax(0,1fr) auto;gap:var(--s7)}}
+
+/* the equation */
+.eq{margin-top:var(--s7);display:grid;grid-template-columns:minmax(0,1fr) 64px minmax(0,1fr) 64px minmax(0,1fr) 64px minmax(0,1fr);column-gap:var(--s3);align-items:start}
+.term{border-top:4px solid var(--c);padding-top:var(--s4)}
+.t-name{display:block;font-size:clamp(30px,3.15vw,46px);font-weight:500;letter-spacing:-0.035em;line-height:1;color:var(--cbig,var(--c))}
+.t-name span{display:block}
+.t-cap{display:block;margin-top:var(--s4);font-family:var(--mono);font-size:13px;letter-spacing:.04em;line-height:1.5;color:var(--n600);max-width:22ch}
+.t-mem{--c:var(--mem)}
+.t-int{--c:var(--int)}
+.t-ses{--c:var(--ses);--cbig:var(--ses-big)}
+.t-res{--c:var(--ink);border-top:0;padding-top:0;position:relative}
+.t-res::before{content:"";display:block;height:4px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-bottom:var(--s4)}
+.eq .op{height:clamp(30px,3.15vw,46px);margin-top:calc(var(--s4) + 4px + clamp(30px,3.15vw,46px) * .5);display:flex;align-items:center;justify-content:center}
+.eq .op svg{width:44px;height:44px}
+
+/* phone: column sum */
+@media (max-width:759px){
+  .hero{padding:var(--s7) 0 var(--s8)}
+  .eq{grid-template-columns:36px minmax(0,1fr);column-gap:var(--s3);row-gap:var(--s5);margin-top:var(--s7)}
+  .eq > :nth-child(1){grid-column:2;grid-row:1}
+  .eq > :nth-child(2){grid-column:1;grid-row:2}
+  .eq > :nth-child(3){grid-column:2;grid-row:2}
+  .eq > :nth-child(4){grid-column:1;grid-row:3}
+  .eq > :nth-child(5){grid-column:2;grid-row:3}
+  .eq > :nth-child(6){grid-column:1;grid-row:4}
+  .eq > :nth-child(7){grid-column:2;grid-row:4}
+  .term{border-top:0;border-left:4px solid var(--c);padding:0 0 0 var(--s4)}
+  .t-name{font-size:clamp(26px,7.6vw,32px);letter-spacing:-0.03em}
+  .t-name span{display:inline}
+  .t-cap{margin-top:var(--s2);max-width:none}
+  .eq .op{margin-top:0;height:32px;justify-content:flex-start}
+  .eq .op svg{width:32px;height:32px}
+  .t-res{border-left:0;padding-left:0;padding-top:var(--s4)}
+  .t-res::before{display:none}
+  .eq > :nth-child(6),.eq > :nth-child(7){border-top:2px solid var(--ink);padding-top:var(--s4)}
+  .eq > :nth-child(6){height:auto;margin-right:calc(-1 * var(--s3));align-items:flex-start}
+  .t-res .t-name{border-bottom:4px double var(--ink);padding-bottom:var(--s2);display:inline-block}
+}
+
+/* sections */
+.sec{padding:var(--s9) 0;border-top:1px solid var(--n200)}
+.sec-grid{display:grid;grid-template-columns:80px minmax(0,5fr) minmax(0,6fr);column-gap:var(--s7);align-items:start}
+.gutter{padding-top:2px}
+.gutter .op{display:block;width:56px;height:56px}
+.sec .eyebrow{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s3);align-items:baseline;margin-bottom:var(--s4)}
+.sec .eyebrow .cap{font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--n600);text-transform:none;font-weight:400}
+.term-word{color:var(--cink)}
+.sec h2{font-size:clamp(28px,3vw,42px);max-width:20ch}
+.copy p{margin-top:var(--s5);max-width:60ch;color:var(--n700)}
+.copy p + p{margin-top:var(--s4)}
+.s-mem{--c:var(--mem);--cink:var(--mem-ink);--tint:var(--mem-tint)}
+.s-int{--c:var(--int);--cink:var(--int-ink);--tint:var(--int-tint)}
+.s-ses{--c:var(--ses);--cink:var(--ses-ink);--tint:var(--ses-tint)}
+@media (max-width:999px){
+  .sec-grid{grid-template-columns:56px minmax(0,1fr);column-gap:var(--s5)}
+  .sec-grid > .fig-col{grid-column:1 / -1;margin-top:var(--s7)}
+  .gutter .op{width:44px;height:44px}
+}
+@media (max-width:759px){
+  .sec{padding:var(--s8) 0}
+  .sec-grid{grid-template-columns:minmax(0,1fr)}
+  .gutter{margin-bottom:var(--s4)}
+  .gutter .op{width:36px;height:36px}
+  .gutter:empty{display:none}
+}
+
+/* figures */
+.fig{background:var(--white);border:1px solid var(--n200);border-top:4px solid var(--c);border-radius:6px;padding:var(--s6);box-shadow:0 1px 2px rgba(20,27,36,.04),0 12px 32px -16px rgba(20,27,36,.12)}
+.fig-head > :last-child{white-space:nowrap}
+.fig-head{display:flex;justify-content:space-between;gap:var(--s3);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500);margin-bottom:var(--s5)}
+.lbl{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);font-weight:500}
+@media (max-width:759px){.fig{padding:var(--s5)}}
+
+/* memory figure */
+.m-amb{padding-bottom:var(--s5);border-bottom:1px solid var(--n200)}
+.m-amb p{margin-top:var(--s2);font-size:20px;line-height:1.35;letter-spacing:-0.015em;font-weight:500}
+.m-crit{list-style:none;margin:var(--s3) 0 0;padding:0}
+.m-crit li{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) 0;border-bottom:1px solid var(--n100);font-size:16px}
+.m-crit li:last-child{border-bottom:0}
+.light{flex:none;width:12px;height:12px;border-radius:50%}
+.light.g{background:#2F8A57}.light.y{background:#E2BD2F}.light.r{background:#C4483D}
+.focus{margin-left:auto;flex:none;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mem-ink);background:var(--mem-tint);padding:2px var(--s2);border-radius:3px}
+.m-foot{margin-top:var(--s4);padding-top:var(--s4);border-top:1px solid var(--n200);display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);align-items:baseline}
+.m-foot .ids{font-family:var(--mono);font-size:13px;color:var(--ink)}
+.m-appr{margin-top:var(--s4);display:flex;align-items:center;gap:var(--s2);font-size:14px;color:var(--mem-ink)}
+.m-appr svg{width:16px;height:16px;flex:none}
+
+/* intelligence figure */
+.radar{width:100%;height:auto}
+.radar text{font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.06em;fill:var(--n600)}
+.radar .tl{font-family:'Inter',sans-serif;font-size:16px;letter-spacing:0;fill:var(--ink)}
+.sig{margin-top:var(--s5);border:1px solid var(--n200);border-left:4px solid var(--int);border-radius:4px;padding:var(--s4)}
+.sig .meta{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--int-ink)}
+.sig .what{margin-top:var(--s1);font-weight:500;font-size:16px;line-height:1.4}
+.sig .why{margin-top:var(--s2);font-size:15px;color:var(--n700);line-height:1.45}
+.sig .wait{margin-top:var(--s3);font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--n600);display:flex;align-items:center;gap:var(--s2)}
+.sig .wait::before{content:"";width:8px;height:8px;border-radius:50%;border:1.5px solid var(--int)}
+
+/* session figure */
+.clock{display:flex;gap:3px;height:10px;margin-bottom:var(--s5)}
+.clock i{flex:var(--w);background:var(--ses);border-radius:2px;opacity:var(--o,1)}
+.agenda{list-style:none;margin:0;padding:0}
+.agenda li{display:grid;grid-template-columns:28px 1fr;gap:var(--s2);padding:var(--s3) 0;border-bottom:1px solid var(--n100);font-size:16px;line-height:1.4}
+.agenda .n{font-family:var(--mono);font-size:13px;color:var(--ses-ink);padding-top:2px}
+.takes{display:flex;align-items:center;gap:var(--s2);margin-top:var(--s5);flex-wrap:wrap}
+.takes .env{width:30px;height:22px;border:1.5px solid var(--n400);border-radius:3px;position:relative;background:var(--white)}
+.takes .env::after{content:"";position:absolute;left:3px;right:3px;top:3px;height:8px;border-bottom:1.5px solid var(--n400);border-right:1.5px solid transparent;transform:skewY(0);background:linear-gradient(to bottom right,transparent 48%,var(--n400) 49%,var(--n400) 52%,transparent 53%) left/50% 100% no-repeat,linear-gradient(to bottom left,transparent 48%,var(--n400) 49%,var(--n400) 52%,transparent 53%) right/50% 100% no-repeat;border-bottom:0}
+.takes .lbl{margin-right:var(--s2)}
+.opts{margin-top:var(--s5);padding-top:var(--s5);border-top:1px solid var(--n200)}
+.chips{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s3)}
+.chip{font-size:15px;padding:var(--s1) var(--s3);border:1px solid var(--n200);border-radius:4px;color:var(--n700);background:var(--white)}
+.chip.on{background:var(--ses-tint);border-color:var(--ses);color:var(--ses-ink);font-weight:500}
+
+/* take one away */
+.s-take{background:var(--white)}
+.take-body{grid-column:2 / -1}
+@media (max-width:759px){.take-body{grid-column:1 / -1}}
+.take-intro{max-width:60ch;margin-top:var(--s5);color:var(--n700)}
+.control{margin:var(--s7) 0 0;padding:0;border:0;min-width:0}
+.control legend{padding:0;margin-bottom:var(--s3)}
+.seg{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg label{display:inline-flex;align-items:center;gap:var(--s2);min-height:48px;padding:0 var(--s4);border:1px solid var(--n200);border-radius:4px;cursor:pointer;font-size:16px;font-weight:500;color:var(--cink);background:var(--white);transition:background-color .2s ease,border-color .2s ease}
+.seg label::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c)}
+.seg label:hover{border-color:var(--c)}
+.seg input:checked + label{background:var(--tint);border-color:var(--c);text-decoration:line-through;text-decoration-thickness:2px}
+.seg input:focus-visible + label{outline:2px solid var(--p500);outline-offset:3px}
+.mini{display:none}
+.js .mini{display:grid;grid-template-columns:auto auto auto auto auto auto auto;justify-content:start;align-items:center;gap:var(--s5);margin-top:var(--s7);padding:var(--s6) 0;border-top:1px solid var(--n200);border-bottom:1px solid var(--n200);font-size:clamp(22px,3.1vw,46px);font-weight:500;letter-spacing:-0.03em;line-height:1.1}
+.mini .mt{color:var(--c);padding:var(--s2) 0;border-bottom:2px solid var(--c);transition:opacity .35s ease,color .35s ease}
+.mini .mt.out{color:var(--n400);border-bottom-style:dashed;border-color:var(--n400);text-decoration:line-through;text-decoration-thickness:2px}
+.mini .op{width:clamp(24px,2.6vw,40px);height:clamp(24px,2.6vw,40px);display:block}
+.mini .m-ses{color:var(--ses-big)}
+.mini .mres{color:var(--paper);padding:var(--s2) var(--s4);background:var(--ink);border-radius:4px}
+.cases{list-style:none;margin:var(--s7) 0 0;padding:0;display:grid;gap:var(--s6)}
+.case-h{font-size:clamp(22px,2.2vw,30px);font-weight:500;letter-spacing:-0.02em;line-height:1.2;max-width:40ch}
+.case-h .w{color:var(--cink)}
+.case p + p{margin-top:var(--s3);color:var(--n700);max-width:60ch}
+.js .cases{margin-top:var(--s6)}
+.js .case{display:none}
+.js .case.on{display:block}
+@media (prefers-reduced-motion:no-preference){.js.moved .case.on{animation:rise .45s ease both}}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.c-mem{--c:var(--mem);--cink:var(--mem-ink);--tint:var(--mem-tint)}
+.c-int{--c:var(--int);--cink:var(--int-ink);--tint:var(--int-tint)}
+.c-ses{--c:var(--ses);--cink:var(--ses-ink);--tint:var(--ses-tint)}
+@media (max-width:759px){
+  .seg{display:grid}
+  .seg label{width:100%}
+  .js .mini{grid-template-columns:28px minmax(0,1fr);gap:var(--s2) var(--s3);font-size:24px;padding:var(--s5) 0}
+  .mini .mt,.mini .mres{grid-column:2}
+  .mini .op{grid-column:1;width:24px;height:24px}
+  .mini .mt{justify-self:start}
+  .mini .mres{justify-self:start}
+}
+
+/* result */
+.res-grid{display:grid;grid-template-columns:80px minmax(0,5fr) minmax(0,6fr);column-gap:var(--s7);align-items:start}
+.record{background:var(--white);border:1px solid var(--n200);border-radius:6px;overflow:hidden;box-shadow:0 1px 2px rgba(20,27,36,.04),0 12px 32px -16px rgba(20,27,36,.12)}
+.rec-top{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s3);flex-wrap:wrap;padding:var(--s5) var(--s6);background:var(--ink);color:var(--paper)}
+.rec-top .no{font-family:var(--mono);font-size:clamp(20px,2vw,26px);letter-spacing:.02em;font-weight:500}
+.rec-top .d{font-family:var(--mono);font-size:13px;color:var(--n200);letter-spacing:.06em;text-transform:uppercase}
+.record dl{margin:0;padding:var(--s3) var(--s6) var(--s5)}
+.record dl > div{display:grid;grid-template-columns:120px 1fr;gap:var(--s4);padding:var(--s3) 0;border-bottom:1px solid var(--n100)}
+.record dl > div:last-child{border-bottom:0}
+.record dt{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);padding-top:3px}
+.record dd{margin:0;font-size:16px;line-height:1.45}
+.record .dec{font-weight:500;color:var(--ses-ink)}
+.rec-tag{padding:0 var(--s6) var(--s5);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--n500)}
+@media (max-width:999px){.res-grid{grid-template-columns:56px minmax(0,1fr);column-gap:var(--s5)}.res-grid > .fig-col{grid-column:1 / -1;margin-top:var(--s7)}}
+@media (max-width:759px){
+  .res-grid{grid-template-columns:minmax(0,1fr)}
+  .rec-top,.record dl,.rec-tag{padding-left:var(--s5);padding-right:var(--s5)}
+  .record dl > div{grid-template-columns:1fr;gap:var(--s1)}
+}
+
+/* trust */
+.trust-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--s8);align-items:start}
+.trust-grid .lead{margin-top:var(--s5);font-size:19px;color:var(--n700);max-width:40ch}
+.facts{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.facts li{display:grid;grid-template-columns:40px 1fr;gap:var(--s3);padding:var(--s4) 0;border-bottom:1px solid var(--n200)}
+.facts .n{font-family:var(--mono);font-size:13px;color:var(--p700);padding-top:3px}
+@media (max-width:899px){.trust-grid{grid-template-columns:1fr;gap:var(--s6)}}
+
+/* start */
+.steps{list-style:none;margin:var(--s7) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s5);counter-reset:st}
+.steps li{border-top:2px solid var(--ink);padding-top:var(--s4)}
+.steps .n{display:block;font-family:var(--mono);font-size:13px;color:var(--n600);margin-bottom:var(--s2)}
+.steps h3{font-size:20px;letter-spacing:-0.015em}
+.steps p{margin-top:var(--s2);color:var(--n700);font-size:16px}
+.hours{margin-top:var(--s7);font-size:clamp(22px,2.2vw,28px);font-weight:500;letter-spacing:-0.02em;max-width:36ch}
+@media (max-width:999px){.steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:var(--s6)}}
+@media (max-width:559px){.steps{grid-template-columns:1fr}}
+
+/* closing */
+.close{background:var(--ink);color:var(--paper);padding:var(--s10) 0 var(--s9)}
+.close .eyebrow{color:var(--n200)}
+.close h2{margin-top:var(--s5);font-size:clamp(34px,4.6vw,64px);letter-spacing:-0.032em;line-height:1.04;max-width:16ch}
+.close-eq{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3) var(--s4);margin-top:var(--s7);font-size:clamp(20px,2.3vw,32px);font-weight:500;letter-spacing:-0.015em}
+.close-eq .op{width:26px;height:26px}
+.close-eq .op{color:var(--n400)}
+.close-eq .a{color:var(--mem-dark)}.close-eq .b{color:var(--int-dark)}.close-eq .c{color:var(--ses-dark)}.close-eq .d{color:var(--paper);border-bottom:3px double var(--paper)}
+@media (max-width:759px){
+  .close{padding:var(--s9) 0 var(--s8)}
+  .close-eq{display:grid;grid-template-columns:28px minmax(0,1fr);gap:var(--s3);align-items:center;font-size:24px}
+  .close-eq > :nth-child(1){grid-column:2;grid-row:1}
+  .close-eq > :nth-child(2){grid-column:1;grid-row:2}.close-eq > :nth-child(3){grid-column:2;grid-row:2}
+  .close-eq > :nth-child(4){grid-column:1;grid-row:3}.close-eq > :nth-child(5){grid-column:2;grid-row:3}
+  .close-eq > :nth-child(6){grid-column:1;grid-row:4}.close-eq > :nth-child(7){grid-column:2;grid-row:4;justify-self:start}
+  .close-eq .op{width:24px;height:24px}
+}
+.close .ctas{margin-top:var(--s7);align-items:center;gap:var(--s5)}
+.close .mail{font-family:var(--mono);font-size:14px;color:var(--n200);text-decoration:none;min-height:44px;display:inline-flex;align-items:center;border-bottom:1px solid transparent}
+.close .mail:hover{color:var(--paper);border-bottom-color:var(--paper)}
+.close :focus-visible{outline-color:var(--p400)}
+
+/* footer */
+.foot{background:var(--n900);color:var(--n200);padding:var(--s6) 0}
+.foot-in{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--s4)}
+.foot img{height:22px;width:auto}
+.foot nav{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:center;font-size:14px}
+.foot nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--s2);text-decoration:none;color:var(--n200)}
+.foot nav a:hover{color:var(--paper);text-decoration:underline}
+.foot small{font-size:14px;color:var(--n400);margin-right:var(--s3)}
+.foot :focus-visible{outline-color:var(--p400)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="plus" viewBox="0 0 44 44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><line x1="22" y1="6" x2="22" y2="38"/><line x1="6" y1="22" x2="38" y2="22"/></symbol>
+    <symbol id="equals" viewBox="0 0 44 44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><line x1="6" y1="16" x2="38" y2="16"/><line x1="6" y1="28" x2="38" y2="28"/></symbol>
+    <symbol id="minus" viewBox="0 0 44 44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><line x1="6" y1="22" x2="38" y2="22"/></symbol>
+  </defs>
+</svg>
+
+<header class="site-head">
+  <div class="wrap head-in">
+    <a class="logo" href="#" aria-label="Strapivo, back to top"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="111" height="28"></a>
+    <nav class="nav" aria-label="Main">
+      <a class="nl anchor" href="#memory">How it works</a>
+      <a class="nl anchor" href="#take">Take one away</a>
+      <a class="nl anchor" href="#trust">Trust</a>
+      <a class="nl" href="https://strapivo.app">Sign in</a>
+      <a class="btn btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <p class="eyebrow mono">Strategy software for leadership teams</p>
+    <h1 id="h1">You can buy monitoring. You can buy an AI to talk to. <span class="k">Nobody else holds your strategy.</span></h1>
+    <div class="hero-sub">
+      <p>Strapivo keeps the strategy your leadership team approved, reads the market against it and invites you to a session when a decision is due.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+        <a class="btn btn-ghost" href="#take">Take one away</a>
+      </div>
+    </div>
+
+    <div class="eq" role="group" aria-label="The Strapivo formula">
+      <div class="term t-mem"><span class="t-name"><span>Strategic</span> <span>memory</span></span><span class="t-cap">what's true inside your company</span></div>
+      <span class="op"><svg viewBox="0 0 44 44" aria-hidden="true"><use href="#plus"/></svg><span class="sr">plus</span></span>
+      <div class="term t-int"><span class="t-name"><span>Market</span> <span>intelligence</span></span><span class="t-cap">live signals from outside it</span></div>
+      <span class="op"><svg viewBox="0 0 44 44" aria-hidden="true"><use href="#plus"/></svg><span class="sr">plus</span></span>
+      <div class="term t-ses"><span class="t-name"><span>Strategic</span> <span>session</span></span><span class="t-cap">the conversation where the two meet</span></div>
+      <span class="op"><svg viewBox="0 0 44 44" aria-hidden="true"><use href="#equals"/></svg><span class="sr">equals</span></span>
+      <div class="term t-res"><span class="t-name"><span>Lasting</span> <span>advantage</span></span><span class="t-cap">a strategy that stays current</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec s-mem" id="memory" aria-labelledby="h-mem">
+  <div class="wrap sec-grid">
+    <div class="gutter"></div>
+    <div class="copy">
+      <p class="eyebrow"><span class="mono term-word">Strategic memory</span><span class="cap">what's true inside your company</span></p>
+      <h2 id="h-mem">Your strategy, written down once and approved.</h2>
+      <p>It holds one Ambition and seven to twelve success criteria, each with today's light. Up to four are flagged as focus. Under each sit objectives and activities, and every activity has a person responsible. It also holds your risks and past decisions.</p>
+      <p>Vivo, the AI in Strapivo, proposes where each item goes. An Owner approves it.</p>
+    </div>
+    <div class="fig-col">
+      <div class="fig" role="img" aria-label="Illustrative strategic memory: an Ambition, four success criteria with green, yellow and red lights, two flagged as focus, and two decisions on file.">
+        <div class="fig-head"><span>Illustrative example</span><span>Halden Pumps</span></div>
+        <div class="m-amb"><span class="lbl">Ambition</span><p>First-choice pump supplier in three EU markets by 2029</p></div>
+        <div class="lbl" style="margin-top:var(--s5)">Success criteria</div>
+        <ul class="m-crit">
+          <li><i class="light g"></i>Two new export markets<span class="focus">Focus</span></li>
+          <li><i class="light y"></i>Margin above 12 percent<span class="focus">Focus</span></li>
+          <li><i class="light r"></i>Service revenue from installed pumps</li>
+          <li><i class="light g"></i>Lead times under six weeks</li>
+        </ul>
+        <div class="m-foot"><span class="lbl">Decisions on file</span><span class="ids">SDS-2026-011, SDS-2026-014</span></div>
+        <div class="m-appr"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 8.2l2 2 4-4.2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Approved by the leadership team</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec s-int" id="intelligence" aria-labelledby="h-int">
+  <div class="wrap sec-grid">
+    <div class="gutter"><span class="op"><svg viewBox="0 0 44 44" aria-hidden="true"><use href="#plus"/></svg></span></div>
+    <div class="copy">
+      <p class="eyebrow"><span class="mono term-word">Market intelligence</span><span class="cap">live signals from outside it</span></p>
+      <h2 id="h-int">The Radar reads the market for each focus area.</h2>
+      <p>Its search brief is your success criterion, with its objectives and risks. Each signal carries a date and a source. Vivo matches it to a criterion with one line of reason, and a person marks it relevant or not.</p>
+      <p>When a signal changes a risk, Vivo proposes a new position on the radar and a person confirms it. A move into the top right needs a primary source, so one blog post can't raise an alarm.</p>
+    </div>
+    <div class="fig-col">
+      <div class="fig" role="img" aria-label="Illustrative risk radar: a tariff risk with a proposed move towards the top right, triggered by a dated primary-source signal and waiting for a person to confirm.">
+        <div class="fig-head"><span>Illustrative example</span><span>Risk radar</span></div>
+        <svg class="radar" viewBox="0 0 400 290" aria-hidden="true">
+          <rect x="210" y="10" width="180" height="120" fill="#E7F3F3"/>
+          <rect x="30" y="10" width="360" height="240" fill="none" stroke="#E1E5EA"/>
+          <line x1="210" y1="10" x2="210" y2="250" stroke="#E1E5EA"/>
+          <line x1="30" y1="130" x2="390" y2="130" stroke="#E1E5EA"/>
+          <text x="380" y="32" text-anchor="end">TOP RIGHT</text>
+          <text x="210" y="280" text-anchor="middle">LIKELIHOOD</text>
+          <text x="18" y="130" text-anchor="middle" transform="rotate(-90 18 130)">IMPACT</text>
+          <circle cx="110" cy="200" r="5" fill="#C9D9E0"/>
+          <circle cx="300" cy="215" r="5" fill="#C9D9E0"/>
+          <circle cx="150" cy="70" r="5" fill="#C9D9E0"/>
+          <path d="M160 168 C 210 140, 245 110, 282 82" fill="none" stroke="#0F8B8D" stroke-width="2" stroke-dasharray="5 5"/>
+          <path d="M274 80 L286 79 L280 90" fill="none" stroke="#0F8B8D" stroke-width="2"/>
+          <circle cx="150" cy="175" r="10" fill="#0F8B8D"/>
+          <circle cx="300" cy="70" r="10" fill="#fff" stroke="#0F8B8D" stroke-width="2" stroke-dasharray="4 3"/>
+          <text class="tl" x="150" y="210" text-anchor="middle">Tariff risk</text>
+          <text class="tl" x="300" y="105" text-anchor="middle">Proposed</text>
+        </svg>
+        <div class="sig">
+          <div class="meta">12 Nov 2026 · Primary source</div>
+          <div class="what">Regulator publishes a new import tariff schedule</div>
+          <div class="why">Vivo: raises the likelihood of the tariff risk.</div>
+          <div class="wait">Waiting for a person to confirm</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec s-ses" id="session" aria-labelledby="h-ses">
+  <div class="wrap sec-grid">
+    <div class="gutter"><span class="op"><svg viewBox="0 0 44 44" aria-hidden="true"><use href="#plus"/></svg></span></div>
+    <div class="copy">
+      <p class="eyebrow"><span class="mono term-word">Strategic session</span><span class="cap">the conversation where the two meet</span></p>
+      <h2 id="h-ses">Sixty minutes, with an agenda built from what changed.</h2>
+      <p>Vivo drafts the agenda 24 hours ahead from new signals, risks in the top right, activities off track and parked questions that are due. The session lead edits it.</p>
+      <p>Each person seals a first take before discussion, so nobody adjusts their view to the first speaker. Each item ends in one of five options.</p>
+    </div>
+    <div class="fig-col">
+      <div class="fig" role="img" aria-label="Illustrative session: a 60-minute agenda of three items drafted from what changed, five sealed first takes, and the decision Adapt chosen from five options.">
+        <div class="fig-head"><span>Agenda, drafted 24 hours ahead</span><span>60 min</span></div>
+        <div class="clock" aria-hidden="true"><i style="--w:20"></i><i style="--w:20"></i><i style="--w:12"></i><i style="--w:8;--o:.35"></i></div>
+        <ol class="agenda">
+          <li><span class="n">01</span><span>Tariff risk entered the top right</span></li>
+          <li><span class="n">02</span><span>Lead-time activity is off track</span></li>
+          <li><span class="n">03</span><span>Parked question on service pricing is due</span></li>
+        </ol>
+        <div class="takes"><span class="lbl">First takes</span><span class="env"></span><span class="env"></span><span class="env"></span><span class="env"></span><span class="env"></span></div>
+        <div class="opts">
+          <span class="lbl">Decision on item 01</span>
+          <div class="chips"><span class="chip">Hold</span><span class="chip on">Adapt</span><span class="chip">Pivot</span><span class="chip">Take advantage</span><span class="chip">Not yet</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec s-take" id="take" aria-labelledby="h-take">
+  <div class="wrap sec-grid">
+    <div class="gutter"><span class="op"><svg viewBox="0 0 44 44" aria-hidden="true"><use href="#minus"/></svg></span></div>
+    <div class="take-body">
+      <p class="eyebrow"><span class="mono">Take one away</span></p>
+      <h2 id="h-take">Remove any term and see what is left.</h2>
+      <p class="take-intro">You may already pay for one or two of these. Here is what you get without the third.</p>
+
+      <fieldset class="control" hidden>
+        <legend class="lbl">Take away</legend>
+        <div class="seg">
+          <input type="radio" name="without" id="w-mem" value="mem" checked><label for="w-mem" class="c-mem">Strategic memory</label>
+          <input type="radio" name="without" id="w-int" value="int"><label for="w-int" class="c-int">Market intelligence</label>
+          <input type="radio" name="without" id="w-ses" value="ses"><label for="w-ses" class="c-ses">Strategic session</label>
+        </div>
+      </fieldset>
+
+      <div class="mini" aria-hidden="true">
+        <span class="mt m-mem c-mem" data-k="mem">Memory</span>
+        <span class="op"><svg viewBox="0 0 44 44"><use href="#plus"/></svg></span>
+        <span class="mt m-int c-int" data-k="int">Intelligence</span>
+        <span class="op"><svg viewBox="0 0 44 44"><use href="#plus"/></svg></span>
+        <span class="mt m-ses c-ses" data-k="ses">Session</span>
+        <span class="op"><svg viewBox="0 0 44 44"><use href="#equals"/></svg></span>
+        <span class="mres">Noise</span>
+      </div>
+
+      <ul class="cases" aria-live="polite">
+        <li class="case c-mem on" data-k="mem" data-res="Noise">
+          <p class="case-h"><span class="w">Without strategic memory,</span> news is noise.</p>
+          <p>Signals arrive with nothing to measure them against. Every headline looks urgent, so the session debates headlines.</p>
+        </li>
+        <li class="case c-int" data-k="int" data-res="A plan in a drawer">
+          <p class="case-h"><span class="w">Without market intelligence,</span> the plan sits in a drawer.</p>
+          <p>The strategy is approved and filed. The market moves, and nobody notices until the annual review, when a correction costs more.</p>
+        </li>
+        <li class="case c-ses" data-k="ses" data-res="Alerts, no decision">
+          <p class="case-h"><span class="w">Without the session,</span> there are alerts and nobody decides.</p>
+          <p>The Radar flags a threat and it sits in an inbox. Nobody owns the call, so nothing changes and nothing is recorded.</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="result" aria-labelledby="h-res">
+  <div class="wrap res-grid">
+    <div class="gutter"><span class="op"><svg viewBox="0 0 44 44" aria-hidden="true"><use href="#equals"/></svg></span></div>
+    <div class="copy">
+      <p class="eyebrow"><span class="mono">Lasting advantage</span></p>
+      <h2 id="h-res">A numbered record of what you decided, and why.</h2>
+      <p>Vivo reads back each decision and the session lead confirms it. It gets a permanent number in the Record of Decisions, with the signal that started it, the reasoning and any dissent by name.</p>
+      <p>Next quarter, nobody restarts the argument. You can show the board how the strategy moved between meetings.</p>
+    </div>
+    <div class="fig-col">
+      <article class="record" aria-label="Illustrative entry in the Record of Decisions">
+        <div class="rec-top"><span class="no">SDS-2026-014</span><span class="d">19 Nov 2026</span></div>
+        <dl>
+          <div><dt>Criterion</dt><dd>Two new export markets</dd></div>
+          <div><dt>Decision</dt><dd class="dec">Adapt</dd></div>
+          <div><dt>Why</dt><dd>The new tariff makes market one dearer to enter. Launch in market two first.</dd></div>
+          <div><dt>Signal</dt><dd>Regulator notice, 12 Nov, primary source</dd></div>
+          <div><dt>Dissent</dt><dd>Head of finance: wait for the first-quarter order data.</dd></div>
+        </dl>
+        <p class="rec-tag">Illustrative example</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="trust" aria-labelledby="h-trust">
+  <div class="wrap trust-grid">
+    <div>
+      <p class="eyebrow"><span class="mono">Trust</span></p>
+      <h2 id="h-trust">Vivo proposes. People decide.</h2>
+      <p class="lead">Vivo drafts and suggests. It never changes your strategy without a person saying yes.</p>
+    </div>
+    <ol class="facts">
+      <li><span class="n">01</span><span>A person confirms every risk move and every change to objectives and activities.</span></li>
+      <li><span class="n">02</span><span>Vivo never changes a light. When focus activities go off track, it asks: "Light still green?"</span></li>
+      <li><span class="n">03</span><span>Every recommendation traces back to the strategic memory you approved.</span></li>
+      <li><span class="n">04</span><span>EU-only infrastructure. GDPR by design.</span></li>
+      <li><span class="n">05</span><span>Start with public and non-sensitive material, and widen from there.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="start" aria-labelledby="h-start">
+  <div class="wrap">
+    <p class="eyebrow"><span class="mono">Getting started</span></p>
+    <h2 id="h-start">We do the reading first.</h2>
+    <ol class="steps">
+      <li><span class="n">01</span><h3>Send what you have</h3><p>A workshop report, a strategy document or a few emails. We draft from them.</p></li>
+      <li><span class="n">02</span><h3>Correct the draft</h3><p>Session one starts from a draft, and we show you what we got wrong.</p></li>
+      <li><span class="n">03</span><h3>Teach the Radar</h3><p>You teach it what relevant means.</p></li>
+      <li><span class="n">04</span><h3>Run one session together</h3><p>After that, your team runs it.</p></li>
+    </ol>
+    <p class="hours">Four to five hours, and then you run it.</p>
+  </div>
+</section>
+
+<section class="close" aria-labelledby="h-close">
+  <div class="wrap">
+    <p class="eyebrow mono">For leaders who feel an annual review is too slow</p>
+    <h2 id="h-close">Correct course once a week, not once a year.</h2>
+    <p class="close-eq" aria-label="Strategic memory plus market intelligence plus strategic session equals lasting advantage">
+      <span class="a">Strategic memory</span><span class="op"><svg viewBox="0 0 44 44" aria-hidden="true"><use href="#plus"/></svg></span>
+      <span class="b">Market intelligence</span><span class="op"><svg viewBox="0 0 44 44" aria-hidden="true"><use href="#plus"/></svg></span>
+      <span class="c">Strategic session</span><span class="op"><svg viewBox="0 0 44 44" aria-hidden="true"><use href="#equals"/></svg></span>
+      <span class="d">Lasting advantage</span>
+    </p>
+    <div class="ctas">
+      <a class="btn btn-light" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      <a class="mail" href="mailto:strategy@strapivo.com">strategy@strapivo.com</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="88" height="22">
+    <nav aria-label="Legal">
+      <small>© 2026 Strapivo</small>
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var sec=document.getElementById('take');
+  if(!sec) return;
+  var body=sec.querySelector('.take-body');
+  var ctl=sec.querySelector('.control');
+  var res=sec.querySelector('.mres');
+  var cases=[].slice.call(sec.querySelectorAll('.case'));
+  var terms=[].slice.call(sec.querySelectorAll('.mt'));
+  body.classList.add('js');
+  ctl.hidden=false;
+  function show(k){
+    cases.forEach(function(c){
+      var on=c.getAttribute('data-k')===k;
+      c.classList.toggle('on',on);
+      if(on) res.textContent=c.getAttribute('data-res');
+    });
+    terms.forEach(function(t){t.classList.toggle('out',t.getAttribute('data-k')===k)});
+  }
+  sec.querySelectorAll('input[name="without"]').forEach(function(i){
+    i.addEventListener('change',function(){if(i.checked){body.classList.add('moved');show(i.value)}});
+  });
+  var cur=sec.querySelector('input[name="without"]:checked');
+  show(cur?cur.value:'mem');
+})();
+</script>
+</body>
+</html>
