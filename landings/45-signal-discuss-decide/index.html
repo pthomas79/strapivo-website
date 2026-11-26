@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo | Something changed. You talk about it. You decide.</title>
+<meta name="description" content="Strapivo is strategy software for leadership teams. Every week it shows what changed, helps your team talk it through and records what you decide.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;--p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --sand:#F4EEDF;--amber:#E0A100;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --wrap:1200px;--pad:24px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";font-size:17px;line-height:1.55}
+img,svg{display:block;max-width:100%}
+a{color:var(--p700)}
+:focus-visible{outline:2px solid var(--p600);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--pad)}
+.eyebrow{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--n600);margin:0 0 var(--s4)}
+h1,h2,h3{font-weight:500;margin:0}
+h2{font-size:clamp(30px,4.2vw,48px);line-height:1.08;letter-spacing:-.025em;max-width:16ch}
+h3{font-size:20px;line-height:1.3;letter-spacing:-.015em}
+p{margin:0}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--paper);padding:var(--s3) var(--s4);z-index:10}
+.skip:focus{left:8px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:var(--s3);min-height:48px;padding:0 var(--s5);border-radius:6px;background:var(--p600);color:#fff;font-size:16px;font-weight:500;text-decoration:none;transition:background .2s}
+.btn:hover{background:var(--p700)}
+.btn svg{width:16px;height:16px;transition:transform .2s}
+.btn:hover svg{transform:translateX(3px)}
+.link{display:inline-flex;align-items:center;min-height:44px;font-size:16px;font-weight:500;color:var(--ink);text-decoration:underline;text-decoration-color:var(--n400);text-underline-offset:5px}
+.link:hover{text-decoration-color:var(--p600);color:var(--p700)}
+
+/* header */
+.top{border-bottom:1px solid var(--n200)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{display:flex;align-items:center;min-height:44px}
+.logo img{height:24px;width:auto}
+.nav{display:flex;align-items:center;gap:var(--s6)}
+.nav a{font-size:15px;color:var(--n700);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.nav a:hover{color:var(--p700)}
+.nav .signin{border:1px solid var(--n400);border-radius:6px;padding:0 var(--s4);color:var(--ink)}
+.nav .signin:hover{border-color:var(--p600)}
+
+/* hero */
+.hero{padding:var(--s7) 0 var(--s8)}
+.hero-head{display:grid;grid-template-columns:8fr 5fr;gap:var(--s7);align-items:end;margin-bottom:var(--s6)}
+h1{font-size:clamp(38px,4.9vw,70px);line-height:1.02;letter-spacing:-.03em}
+h1 span{display:block}
+h1 .hl{color:var(--p500)}
+.lede{font-size:20px;line-height:1.5;color:var(--n700);max-width:34ch;margin-bottom:var(--s5)}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3) var(--s5)}
+
+/* triptych */
+.trip{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);list-style:none;margin:0;padding:0}
+.panel{position:relative;display:flex;flex-direction:column;height:370px;padding:var(--s5);border-radius:6px;color:var(--ink);text-decoration:none;outline-offset:4px;transition:transform .3s,box-shadow .3s}
+.panel:hover{transform:translateY(-3px);box-shadow:0 10px 30px -18px rgba(5,12,20,.45)}
+.t-signal{background:var(--sky2)}
+.t-discuss{background:var(--sand)}
+.t-decide{background:var(--ink);color:var(--paper)}
+.panel .num{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--n600)}
+.t-decide .num{color:var(--n400)}
+.panel .art{flex:1;display:flex;align-items:center;justify-content:center;min-height:0;padding:var(--s4) 0}
+.panel .art svg{width:100%;max-width:230px;height:auto;max-height:100%}
+.panel .word{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3)}
+.panel .word b{font-weight:500;font-size:40px;letter-spacing:-.025em;line-height:1}
+.panel .cap{font-size:16px;color:var(--n600);margin-top:var(--s2)}
+.t-decide .cap{color:var(--n200)}
+.panel .go{width:20px;height:20px;flex:none;transition:transform .3s}
+.panel:hover .go{transform:translateY(3px)}
+
+/* drawings */
+.ln{fill:none;stroke:currentColor;stroke-width:1.5px;vector-effect:non-scaling-stroke}
+.ln.f{stroke-opacity:.35}
+.zone{fill:currentColor;fill-opacity:.07}
+.dot-o{fill:none;stroke:currentColor;stroke-width:1.5px;vector-effect:non-scaling-stroke}
+.ghost{fill:none;stroke:currentColor;stroke-width:1.5px;stroke-dasharray:3 3;vector-effect:non-scaling-stroke;opacity:.7}
+.trail{fill:none;stroke:currentColor;stroke-width:1.5px;stroke-dasharray:2 4;vector-effect:non-scaling-stroke;opacity:.6}
+.amber{fill:var(--amber)}
+.halo{fill:none;stroke:var(--amber);stroke-width:1.5px;vector-effect:non-scaling-stroke;opacity:.55}
+.lbl{font-family:var(--mono);font-size:10px;letter-spacing:.06em;fill:var(--n700);paint-order:stroke;stroke:var(--sky2);stroke-width:4px;stroke-linejoin:round}
+.lbl.k{fill:var(--ink);font-weight:500}
+.seal{fill:var(--p600)}
+.flap{transform-box:fill-box;transform-origin:50% 0}
+
+.dec{width:100%;max-width:220px;display:flex;flex-direction:column;gap:var(--s2)}
+.dec .tabs{display:flex;flex-direction:column;gap:6px}
+.dec .tabs span{display:block;border:1.5px solid rgba(246,249,251,.35);border-radius:4px;padding:3px var(--s3);font-size:14px;line-height:1.3;color:var(--n200)}
+.dec .tabs .on{background:var(--p600);border-color:var(--p600);color:#fff}
+.dec .no{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--p200);margin-top:var(--s2);padding-top:var(--s3);border-top:1.5px dashed rgba(246,249,251,.3)}
+
+/* beat sections */
+.beat{padding:var(--s9) 0;border-top:1px solid var(--n200)}
+.beat .wrap{display:grid;grid-template-columns:5fr 6fr;grid-template-areas:"head fig" "body fig";column-gap:var(--s9);row-gap:var(--s5);align-items:start}
+.beat.flip .wrap{grid-template-columns:6fr 5fr;grid-template-areas:"fig head" "fig body"}
+.beat .head{grid-area:head;align-self:end}
+.beat .body{grid-area:body;max-width:62ch}
+.beat figure{grid-area:fig;margin:0}
+.beat .tag{display:inline-flex;align-items:center;gap:var(--s2)}
+.beat .tag i{display:inline-block;width:10px;height:10px;border-radius:50%}
+.body>p{font-size:18px;color:var(--n700);margin-bottom:var(--s5)}
+.pts{list-style:none;margin:0;padding:0;display:grid;gap:var(--s4)}
+.pts li{position:relative;padding-left:var(--s6);color:var(--n700)}
+.pts li::before{content:"";position:absolute;left:0;top:.7em;width:16px;height:1.5px;background:var(--p500)}
+.pane{border-radius:6px;padding:var(--s7);display:flex;align-items:center;justify-content:center;aspect-ratio:1/1;max-height:560px}
+.pane svg{width:100%;max-width:420px;height:auto}
+figcaption{font-size:15px;color:var(--n600);margin-top:var(--s3)}
+
+.opts{margin:0;display:grid;gap:var(--s3)}
+.opts div{display:grid;grid-template-columns:150px 1fr;gap:var(--s4);padding-top:var(--s3);border-top:1px solid var(--n200)}
+.opts dt{font-weight:500}
+.opts dd{margin:0;color:var(--n700)}
+.opts .hit dt{color:var(--p700)}
+
+.pane.t-decide{flex-direction:column;gap:var(--s6)}
+.dec-lg{max-width:400px;width:100%}
+.dec-lg .tabs{flex-direction:row;flex-wrap:wrap;gap:var(--s2)}
+.dec-lg .tabs span{font-size:16px;padding:var(--s2) var(--s4)}
+.rec{width:100%;max-width:400px;border:1.5px solid rgba(246,249,251,.3);border-radius:6px;padding:var(--s5)}
+.rec .k{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--n400)}
+.rec .id{font-family:var(--mono);font-size:26px;color:var(--p200);margin:var(--s2) 0 var(--s3);letter-spacing:.02em}
+.rec p{color:var(--n200);font-size:16px}
+
+/* rhythm */
+.rhythm{background:var(--sky);padding:var(--s9) 0}
+.rhythm .grid{display:grid;grid-template-columns:5fr 6fr;gap:var(--s9);align-items:start}
+.rhythm .say{font-size:20px;color:var(--n700);margin-top:var(--s5);max-width:36ch}
+.weeks{list-style:none;margin:var(--s7) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2);max-width:440px}
+.weeks li{border-top:2px solid var(--n400);padding-top:var(--s3);font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--n600)}
+.weeks li.now{border-top-color:var(--p500);color:var(--p700)}
+.weeks li.next{border-top-style:dashed}
+.weeks .d{display:flex;gap:6px;margin-top:var(--s3)}
+.weeks .d i{width:12px;height:12px;border-radius:50%;display:block}
+.weeks .d i:nth-child(1){background:var(--amber)}
+.weeks .d i:nth-child(2){background:#C9B98F}
+.weeks .d i:nth-child(3){background:var(--p500)}
+.weeks .next .d i{background:none;border:1.5px dashed var(--n400)}
+.cards{display:grid;gap:var(--s5)}
+.card{background:#fff;border:1px solid var(--n200);border-radius:6px;padding:var(--s6)}
+.card h3{margin-bottom:var(--s3)}
+.card p{color:var(--n700)}
+.card .meta{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--p700);margin-bottom:var(--s3);text-transform:uppercase}
+
+/* human */
+.human{padding:var(--s9) 0}
+.human .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s6) var(--s7);margin-top:var(--s7)}
+.human .item{border-top:1.5px solid var(--ink);padding-top:var(--s4)}
+.human .item h3{margin-bottom:var(--s2)}
+.human .item p{color:var(--n700);max-width:44ch}
+
+/* start */
+.start{padding:var(--s9) 0;border-top:1px solid var(--n200)}
+.start .intro{display:grid;grid-template-columns:5fr 6fr;gap:var(--s9);align-items:end}
+.start .intro p{font-size:18px;color:var(--n700);max-width:44ch}
+.steps{list-style:none;margin:var(--s7) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s5)}
+.steps li{padding-top:var(--s4);border-top:1px solid var(--n400)}
+.steps .n{font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--p700);display:block;margin-bottom:var(--s3)}
+.steps h3{font-size:19px;margin-bottom:var(--s2)}
+.steps p{color:var(--n700);font-size:16px}
+
+/* close */
+.close{background:var(--ink);color:var(--paper);padding:var(--s10) 0 var(--s9)}
+.close h2{font-size:clamp(36px,5.6vw,72px);line-height:1.04;letter-spacing:-.03em;max-width:none}
+.close h2 span{display:block}
+.close h2 .hl{color:var(--p400)}
+.close .row{display:grid;grid-template-columns:7fr 5fr;gap:var(--s7);align-items:end}
+.close p{font-size:19px;color:var(--n200);max-width:38ch;margin-bottom:var(--s5)}
+.close .mail{display:block;margin-top:var(--s4);font-size:15px;color:var(--n400)}
+.close .mail a{color:var(--p200)}
+.close .beats{display:flex;gap:var(--s3);margin-bottom:var(--s6)}
+.close .beats a{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--n200);text-decoration:none;display:inline-flex;align-items:center;gap:var(--s2);min-height:44px}
+.close .beats a:hover{color:#fff}
+.close .beats i{width:8px;height:8px;border-radius:50%;display:inline-block}
+
+footer{background:var(--ink);color:var(--n400);border-top:1px solid var(--n700)}
+footer .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s4);padding-top:var(--s6);padding-bottom:var(--s6)}
+footer img{height:20px;width:auto}
+footer nav{display:flex;gap:var(--s5);align-items:center;font-size:15px}
+footer nav a{color:var(--n200);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+footer nav a:hover{color:#fff;text-decoration:underline}
+
+/* motion */
+.anim .mover{transition:transform 1.8s cubic-bezier(.45,0,.2,1) .3s}
+.anim .trail{transition:opacity .8s 1.6s}
+.anim .radar:not(.play) .mover{transform:translate(-62px,14px)}
+.anim .radar:not(.play) .trail{opacity:0}
+
+/* tablet */
+@media (max-width:1020px){
+  .hero-head{grid-template-columns:1fr;gap:var(--s5)}
+  .panel{height:360px}
+  .beat .wrap,.beat.flip .wrap{grid-template-columns:1fr;grid-template-areas:"head" "fig" "body";row-gap:var(--s6)}
+  .pane{max-height:none;max-width:560px}
+  .rhythm .grid,.start .intro,.close .row{grid-template-columns:1fr;gap:var(--s6)}
+  .steps{grid-template-columns:repeat(2,1fr)}
+}
+/* phone */
+@media (max-width:720px){
+  :root{--pad:20px}
+  body{font-size:16px}
+  .nav .opt{display:none}
+  .top .wrap{height:64px}
+  .hero{padding:var(--s7) 0 var(--s7)}
+  h1{font-size:clamp(34px,9.6vw,44px)}
+  .lede{font-size:18px}
+  .hero-head{margin-bottom:var(--s6)}
+  .trip{grid-template-columns:1fr;gap:var(--s3)}
+  .panel{height:auto;display:grid;grid-template-columns:1fr 132px;grid-template-rows:auto 1fr;column-gap:var(--s4);padding:var(--s4) var(--s4) var(--s4) var(--s5);min-height:164px}
+  .panel .num{grid-column:1;grid-row:1}
+  .panel .art{grid-column:2;grid-row:1/3;padding:0}
+  .panel .art svg{max-width:132px}
+  .panel .wordbox{grid-column:1;grid-row:2;align-self:end}
+  .panel .word b{font-size:32px}
+  .panel .go{display:none}
+  .panel .cap{font-size:15px}
+  .panel .dec{max-width:132px;gap:4px}
+  .panel .dec .tabs{gap:3px}
+  .panel .dec .tabs span{font-size:12px;padding:2px 6px;border-width:1px}
+  .panel .dec .no{font-size:12px;margin-top:2px;padding-top:4px;letter-spacing:0}
+  .dec-lg .tabs span{font-size:15px;padding:6px var(--s3)}
+  .pane.t-decide{aspect-ratio:auto;padding:var(--s6) var(--s5)}
+  .beat,.rhythm,.human,.start{padding:var(--s8) 0}
+  .pane{padding:var(--s5)}
+  .opts div{grid-template-columns:1fr;gap:var(--s1)}
+  .human .grid,.steps{grid-template-columns:1fr;gap:var(--s5)}
+  .card{padding:var(--s5)}
+  .close{padding:var(--s8) 0 var(--s8)}
+  .close .beats{flex-wrap:wrap;gap:0 var(--s4)}
+  footer .wrap{flex-direction:column;align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+  .panel:hover{transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="Strapivo, back to top"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="104" height="26"></a>
+    <nav class="nav" aria-label="Main">
+      <a class="opt" href="#signal">How it works</a>
+      <a class="opt" href="#start">Getting started</a>
+      <a class="signin" href="https://strapivo.app">Sign in</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <div class="hero-head">
+      <div>
+        <p class="eyebrow">Strategy software for leadership teams</p>
+        <h1 id="h1"><span>Something changed.</span> <span>You talk about it.</span> <span class="hl">You decide.</span></h1>
+      </div>
+      <div>
+        <p class="lede">Strapivo runs this loop for your strategy every week. The plan your leadership team agreed stays current.</p>
+        <div class="actions">
+          <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+          <a class="link" href="#signal">See how it works</a>
+        </div>
+      </div>
+    </div>
+
+    <ol class="trip" aria-label="The three steps">
+      <li>
+        <a class="panel t-signal" href="#signal">
+          <span class="num">01</span>
+          <span class="art" aria-hidden="true">
+            <svg class="radar" id="radar-hero" viewBox="0 0 220 220">
+              <path class="zone" d="M110 110 L110 20 A90 90 0 0 1 200 110 Z"/>
+              <circle class="ln" cx="110" cy="110" r="90"/>
+              <circle class="ln f" cx="110" cy="110" r="60"/>
+              <circle class="ln f" cx="110" cy="110" r="30"/>
+              <path class="ln f" d="M110 14V206M14 110H206"/>
+              <circle class="dot-o" cx="66" cy="148" r="5"/>
+              <circle class="dot-o" cx="146" cy="150" r="5"/>
+              <circle class="ghost" cx="88" cy="78" r="7"/>
+              <path class="trail" d="M96 76 L140 66"/>
+              <g class="mover"><circle class="halo" cx="150" cy="64" r="13"/><circle class="amber" cx="150" cy="64" r="7"/></g>
+            </svg>
+          </span>
+          <span class="wordbox">
+            <span class="word"><b>Signal</b><svg class="go" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v13M5 11l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span>
+            <span class="cap">The Radar flags a shift.</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="panel t-discuss" href="#discuss">
+          <span class="num">02</span>
+          <span class="art" aria-hidden="true">
+            <svg viewBox="0 0 200 200">
+              <circle class="ln" cx="100" cy="100" r="54"/>
+              <circle class="ln f" cx="100" cy="24" r="9"/>
+              <circle class="ln f" cx="172.3" cy="76.5" r="9"/>
+              <circle class="ln f" cx="144.7" cy="161.5" r="9"/>
+              <circle class="ln f" cx="55.3" cy="161.5" r="9"/>
+              <circle class="ln f" cx="27.7" cy="76.5" r="9"/>
+              <g transform="translate(100 69) rotate(0)"><rect class="ln" x="-11" y="-7.5" width="22" height="15" rx="1"/><polyline class="ln flap" points="-11,-7.5 0,1.5 11,-7.5"/><circle class="seal" cx="0" cy="1.5" r="2"/></g>
+              <g transform="translate(129.5 90.4) rotate(72)"><rect class="ln" x="-11" y="-7.5" width="22" height="15" rx="1"/><polyline class="ln flap" points="-11,-7.5 0,1.5 11,-7.5"/><circle class="seal" cx="0" cy="1.5" r="2"/></g>
+              <g transform="translate(118.2 125.1) rotate(144)"><rect class="ln" x="-11" y="-7.5" width="22" height="15" rx="1"/><polyline class="ln flap" points="-11,-7.5 0,1.5 11,-7.5"/><circle class="seal" cx="0" cy="1.5" r="2"/></g>
+              <g transform="translate(81.8 125.1) rotate(216)"><rect class="ln" x="-11" y="-7.5" width="22" height="15" rx="1"/><polyline class="ln flap" points="-11,-7.5 0,1.5 11,-7.5"/><circle class="seal" cx="0" cy="1.5" r="2"/></g>
+              <g transform="translate(70.5 90.4) rotate(288)"><rect class="ln" x="-11" y="-7.5" width="22" height="15" rx="1"/><polyline class="ln flap" points="-11,-7.5 0,1.5 11,-7.5"/><circle class="seal" cx="0" cy="1.5" r="2"/></g>
+            </svg>
+          </span>
+          <span class="wordbox">
+            <span class="word"><b>Discuss</b><svg class="go" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v13M5 11l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span>
+            <span class="cap">Your team talks it through.</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="panel t-decide" href="#decide">
+          <span class="num">03</span>
+          <span class="art" aria-hidden="true">
+            <span class="dec">
+              <span class="tabs"><span class="on">Hold</span><span>Adapt</span><span>Pivot</span><span>Take advantage</span><span>Not yet</span></span>
+              <span class="no">SDS-2026-014</span>
+            </span>
+          </span>
+          <span class="wordbox">
+            <span class="word"><b>Decide</b><svg class="go" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v13M5 11l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span>
+            <span class="cap">You act, or you choose not to.</span>
+          </span>
+        </a>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="beat" id="signal" aria-labelledby="h-signal">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow tag"><i style="background:var(--amber)"></i>01 Signal</p>
+      <h2 id="h-signal">Something changed. You see it early.</h2>
+    </div>
+    <figure>
+      <div class="pane t-signal">
+        <svg class="radar" id="radar-lg" viewBox="0 0 220 220" role="img" aria-label="A risk radar. One risk has moved from its earlier place into the top right corner, the danger zone.">
+          <path class="zone" d="M110 110 L110 20 A90 90 0 0 1 200 110 Z"/>
+          <circle class="ln" cx="110" cy="110" r="90"/>
+          <circle class="ln f" cx="110" cy="110" r="60"/>
+          <circle class="ln f" cx="110" cy="110" r="30"/>
+          <path class="ln f" d="M110 14V206M14 110H206"/>
+          <circle class="dot-o" cx="66" cy="148" r="5"/>
+          <circle class="dot-o" cx="146" cy="150" r="5"/>
+          <circle class="ghost" cx="88" cy="78" r="7"/>
+          <path class="trail" d="M96 76 L140 66"/>
+          <g class="mover"><circle class="halo" cx="150" cy="64" r="13"/><circle class="amber" cx="150" cy="64" r="7"/></g>
+          <text class="lbl" x="116" y="12">IMPACT</text>
+          <text class="lbl" x="218" y="128" text-anchor="end">LIKELIHOOD</text>
+          <text class="lbl" x="118" y="102">DANGER ZONE</text>
+          <text class="lbl" x="84" y="96" text-anchor="middle">BEFORE</text>
+          <text class="lbl k" x="166" y="52">NOW</text>
+        </svg>
+      </div>
+      <figcaption>The risk moved into the danger zone. A person confirmed it.</figcaption>
+    </figure>
+    <div class="body">
+      <p>The Radar watches the outside world for each of your focus areas. A focus area is one of the few goals your team said matter most right now.</p>
+      <ul class="pts">
+        <li>Vivo, the AI in Strapivo, sorts each new signal. It names the goal it touches and gives one line of reason.</li>
+        <li>A person on your team marks what is relevant. What they dismiss teaches Vivo what counts as noise.</li>
+        <li>When a risk grows, Vivo proposes a new place for it on the radar. A person confirms the move or rejects it.</li>
+        <li>A move into the danger zone needs at least one primary source, such as the original report. One blog post can't raise an alarm.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="beat flip" id="discuss" aria-labelledby="h-discuss">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow tag"><i style="background:#C9B98F"></i>02 Discuss</p>
+      <h2 id="h-discuss">You talk about it, one item at a time.</h2>
+    </div>
+    <figure>
+      <div class="pane t-discuss">
+        <svg class="table" id="table-lg" viewBox="0 0 200 200" role="img" aria-label="A meeting table seen from above. Five sealed cards lie in front of five seats.">
+          <circle class="ln" cx="100" cy="100" r="54"/>
+          <circle class="ln f" cx="100" cy="24" r="9"/>
+          <circle class="ln f" cx="172.3" cy="76.5" r="9"/>
+          <circle class="ln f" cx="144.7" cy="161.5" r="9"/>
+          <circle class="ln f" cx="55.3" cy="161.5" r="9"/>
+          <circle class="ln f" cx="27.7" cy="76.5" r="9"/>
+          <g transform="translate(100 69) rotate(0)"><rect class="ln" x="-11" y="-7.5" width="22" height="15" rx="1"/><polyline class="ln flap" points="-11,-7.5 0,1.5 11,-7.5"/><circle class="seal" cx="0" cy="1.5" r="2"/></g>
+          <g transform="translate(129.5 90.4) rotate(72)"><rect class="ln" x="-11" y="-7.5" width="22" height="15" rx="1"/><polyline class="ln flap" points="-11,-7.5 0,1.5 11,-7.5"/><circle class="seal" cx="0" cy="1.5" r="2"/></g>
+          <g transform="translate(118.2 125.1) rotate(144)"><rect class="ln" x="-11" y="-7.5" width="22" height="15" rx="1"/><polyline class="ln flap" points="-11,-7.5 0,1.5 11,-7.5"/><circle class="seal" cx="0" cy="1.5" r="2"/></g>
+          <g transform="translate(81.8 125.1) rotate(216)"><rect class="ln" x="-11" y="-7.5" width="22" height="15" rx="1"/><polyline class="ln flap" points="-11,-7.5 0,1.5 11,-7.5"/><circle class="seal" cx="0" cy="1.5" r="2"/></g>
+          <g transform="translate(70.5 90.4) rotate(288)"><rect class="ln" x="-11" y="-7.5" width="22" height="15" rx="1"/><polyline class="ln flap" points="-11,-7.5 0,1.5 11,-7.5"/><circle class="seal" cx="0" cy="1.5" r="2"/></g>
+        </svg>
+      </div>
+      <figcaption>Five first takes. They open together, after everyone has written one.</figcaption>
+    </figure>
+    <div class="body">
+      <p>Your team meets in a strategy session. It lasts 60 minutes, every week, every two weeks or every month.</p>
+      <ul class="pts">
+        <li>The agenda arrives 24 hours before. Vivo drafts it from what changed, and every item has one line that says why it is there.</li>
+        <li>The session lead, the person who runs the meeting, edits the agenda. The team approves it as the first step.</li>
+        <li>On each item, everyone writes a first take before anyone speaks. The takes stay sealed, then open together. So the loudest voice can't sway the others first.</li>
+        <li>Then you talk. Vivo can bring evidence, the cost of waiting and other options.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="beat" id="decide" aria-labelledby="h-decide">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow tag"><i style="background:var(--p500)"></i>03 Decide</p>
+      <h2 id="h-decide">You decide. Hold is a decision too.</h2>
+    </div>
+    <figure>
+      <div class="pane t-decide" role="img" aria-label="Five decision options. Hold is selected. The decision gets the number SDS-2026-014.">
+        <div class="dec dec-lg" aria-hidden="true">
+          <div class="tabs"><span class="on">Hold</span><span>Adapt</span><span>Pivot</span><span>Take advantage</span><span>Not yet</span></div>
+        </div>
+        <div class="rec" aria-hidden="true">
+          <p class="k">Illustrative example</p>
+          <p class="id">SDS-2026-014</p>
+          <p>Hold. The plan stays as agreed. The goal is marked as reviewed today.</p>
+        </div>
+      </div>
+      <figcaption>Every decision gets a permanent number.</figcaption>
+    </figure>
+    <div class="body">
+      <p>Every item ends with one of five decisions. Sometimes you act. Sometimes you don't, and you say so.</p>
+      <dl class="opts">
+        <div class="hit"><dt>Hold</dt><dd>Keep the plan. The goal is marked as reviewed on that date.</dd></div>
+        <div><dt>Adapt</dt><dd>Change the objectives and activities under the goal. Vivo drafts the changes.</dd></div>
+        <div><dt>Pivot</dt><dd>Change the goal itself. This needs someone with authority to confirm it.</dd></div>
+        <div><dt>Take advantage</dt><dd>Add activities to use an opening. The goal stays the same.</dd></div>
+        <div><dt>Not yet</dt><dd>Park the question with at least one trigger that brings it back, such as new evidence, a date or the next session.</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="rhythm" aria-labelledby="h-again">
+  <div class="wrap grid">
+    <div>
+      <p class="eyebrow">Then</p>
+      <h2 id="h-again">And next week it runs again.</h2>
+      <p class="say">A yearly review is too slow for today's world. A weekly loop lets you correct course early, in small steps.</p>
+      <ol class="weeks" aria-hidden="true"><li>WEEK 1<span class="d"><i></i><i></i><i></i></span></li><li>WEEK 2<span class="d"><i></i><i></i><i></i></span></li><li class="now">WEEK 3<span class="d"><i></i><i></i><i></i></span></li><li class="next">NEXT<span class="d"><i></i><i></i><i></i></span></li></ol>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <p class="meta">Record of Decisions</p>
+        <h3>You can always find what you decided, and why.</h3>
+        <p>Vivo reads each decision back before it is saved. The record keeps the number, the date, the reason and who disagreed, by name.</p>
+      </article>
+      <article class="card">
+        <p class="meta">Needs you</p>
+        <h3>Nothing stays in the danger zone unseen.</h3>
+        <p>A risk that sits in the danger zone for 14 days with no decision goes on the session lead's list.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="human" aria-labelledby="h-human">
+  <div class="wrap">
+    <p class="eyebrow">What stays human</p>
+    <h2 id="h-human">Vivo proposes. People decide.</h2>
+    <div class="grid">
+      <div class="item"><h3>A person confirms every change.</h3><p>Vivo suggests risk moves, agendas and drafts. Nothing enters your plan until someone on your team accepts it.</p></div>
+      <div class="item"><h3>Only people set the light.</h3><p>Each goal shows green, yellow or red. Vivo can ask if a light is still right. It never changes one.</p></div>
+      <div class="item"><h3>It answers from your strategy.</h3><p>Every suggestion traces back to the strategy you approved. Strapivo is built on your business model, not on a generic prompt with your PDF attached.</p></div>
+      <div class="item"><h3>Your data stays in the EU.</h3><p>Strapivo runs on EU-only infrastructure and is built for GDPR from the start.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="start" id="start" aria-labelledby="h-start">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">Getting started</p>
+        <h2 id="h-start">Four to five hours, and then you run it.</h2>
+      </div>
+      <p>Start with public and non-sensitive material. Add more when you trust it.</p>
+    </div>
+    <ol class="steps">
+      <li><span class="n">Step 1</span><h3>We do the reading first.</h3><p>Send what you have: a workshop report, a document or an email.</p></li>
+      <li><span class="n">Step 2</span><h3>You correct a draft.</h3><p>You start with a draft, not a blank page. We show you what we got wrong.</p></li>
+      <li><span class="n">Step 3</span><h3>You teach it what relevant means.</h3><p>You mark signals as relevant or not. Vivo learns from both.</p></li>
+      <li><span class="n">Step 4</span><h3>We run one session together.</h3><p>After that, your team runs the sessions.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="close" aria-labelledby="h-close">
+  <div class="wrap">
+    <nav class="beats" aria-label="The three steps again">
+      <a href="#signal"><i style="background:var(--amber)"></i>Signal</a>
+      <a href="#discuss"><i style="background:var(--sand)"></i>Discuss</a>
+      <a href="#decide"><i style="background:var(--p400)"></i>Decide</a>
+    </nav>
+    <div class="row">
+      <h2 id="h-close"><span>Something will change this week.</span> <span class="hl">Be ready to decide.</span></h2>
+      <div>
+        <p>Tell us how your team runs strategy today. We will show you what the weekly loop looks like for you.</p>
+        <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+        <span class="mail">Or write to <a href="mailto:strategy@strapivo.com">strategy@strapivo.com</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="80" height="20">
+    <nav aria-label="Legal">
+      <span>&copy; 2026 Strapivo</span>
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  if (!window.matchMedia || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('anim');
+  var hero = document.getElementById('radar-hero');
+  setTimeout(function(){ hero.classList.add('play'); }, 500);
+  var targets = [document.getElementById('radar-lg'), document.getElementById('table-lg')];
+  if (!('IntersectionObserver' in window)) { targets.forEach(function(t){ t.classList.add('play'); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('play'); io.unobserve(e.target); } });
+  }, {threshold: 0.5});
+  targets.forEach(function(t){ io.observe(t); });
+})();
+</script>
+</body>
+</html>
