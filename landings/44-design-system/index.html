@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo: a design system for your strategy</title>
+<meta name="description" content="Your brand has one logo, one type scale and one palette. Strapivo gives your strategy one approved source that every meeting and decision draws on, kept current each week.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --ink:#141B24;--n900:#050C14;--n700:#2C343C;--n600:#495158;--n500:#6C727A;--n400:#999FA6;--n200:#E1E5EA;--n100:#EFF2F6;
+  --paper:#F6F9FB;--sky:#EEF6FF;--sky2:#D4EBFF;
+  --p200:#A9D6FF;--p400:#3FA0FA;--p500:#0082E6;--p600:#006FD1;--p700:#005DBD;
+  --coral:#E4572E;--forest:#2F6B4F;--sand:#E9DFC9;
+  --green:#2E8A57;--amber:#C99A12;--red:#C8442F;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;--s9:96px;--s10:128px;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --r:4px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";overflow-x:hidden}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--p500);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 var(--s6)}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;line-height:1.5}
+.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--paper);padding:var(--s3) var(--s4);z-index:20}
+.skip:focus{left:var(--s4);top:var(--s4)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);min-height:48px;padding:0 var(--s5);border-radius:var(--r);font:500 16px/1 'Inter',sans-serif;text-decoration:none;transition:background .2s,color .2s,border-color .2s}
+.btn-primary{background:var(--p500);color:#fff}
+.btn-primary:hover{background:var(--p700)}
+.btn-ghost{color:var(--ink);border:1px solid var(--n200);background:#fff}
+.btn-ghost:hover{border-color:var(--ink)}
+.btn .arr{transition:transform .2s}
+.btn:hover .arr{transform:translateX(3px)}
+
+/* header */
+.top{position:sticky;top:0;z-index:10;background:rgba(246,249,251,.94);border-bottom:1px solid var(--n200);backdrop-filter:saturate(1.2)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{display:inline-flex;align-items:center;min-height:44px}
+.logo img{height:24px;width:auto;display:block}
+.top nav{display:flex;align-items:center;gap:var(--s2)}
+.top .signin{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--s4);font-size:16px;text-decoration:none;color:var(--n700);border-radius:var(--r)}
+.top .signin:hover{color:var(--p600)}
+.top .btn{min-height:44px;padding:0 var(--s4);font-size:15px}
+
+/* section scaffolding */
+section{padding:var(--s9) 0}
+.eyebrow{display:flex;align-items:center;gap:var(--s3);color:var(--p600);margin-bottom:var(--s4)}
+.eyebrow::before{content:"";width:24px;height:1px;background:var(--p500)}
+h2{font-weight:400;font-size:clamp(30px,3.6vw,44px);line-height:1.12;letter-spacing:-.025em;max-width:20ch}
+.lede{font-size:18px;color:var(--n700);max-width:62ch;margin-top:var(--s4)}
+.head{margin-bottom:var(--s7)}
+
+/* hero */
+.hero{padding:var(--s8) 0 var(--s9)}
+.hero h1{font-weight:400;font-size:clamp(38px,4.6vw,64px);line-height:1.06;letter-spacing:-.032em}
+.hero h1 span{display:block}.hero h1 span+span{color:var(--p500)}
+.hero-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s7);align-items:end;margin-top:var(--s5)}
+.hero-row .sub{margin-top:0}
+.hero-cta .cta-row{margin-top:0}
+.hero .sub{font-size:19px;line-height:1.55;color:var(--n700);max-width:60ch;margin-top:var(--s5)}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3);margin-top:var(--s6)}
+.cta-note{color:var(--n500);margin-top:var(--s4)}
+
+/* specification sheet */
+.sheet{position:relative;margin-top:var(--s8);background:#fff;border:1px solid var(--n200);border-radius:var(--r);
+  background-image:linear-gradient(var(--n100) 1px,transparent 1px),linear-gradient(90deg,var(--n100) 1px,transparent 1px);background-size:24px 24px;background-position:-1px -1px}
+.sheet-top{display:flex;justify-content:space-between;gap:var(--s4);padding:var(--s3) var(--s5);border-bottom:1px solid var(--n200);background:#fff;color:var(--n500)}
+.halves{display:grid;grid-template-columns:1fr 1fr}
+.half{padding:var(--s6) var(--s5) var(--s5);position:relative}
+.half+.half{border-left:1px dashed var(--n400)}
+.half-head{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);flex-wrap:wrap}
+.half-head .h3{font-weight:500;font-size:20px;letter-spacing:-.015em}
+.half-head .mono{color:var(--n500)}
+.brand .half-head .h3{color:var(--ink)}
+.sds .half-head .h3{color:var(--p600)}
+
+/* dimension line */
+.dim{position:relative;display:flex;align-items:center;gap:var(--s2);color:var(--n500);margin:var(--s4) 0 var(--s3)}
+.dim::before,.dim::after{content:"";flex:1;height:1px;background:currentColor;opacity:.6}
+.dim span{white-space:nowrap}
+.dim i{position:absolute;top:50%;width:1px;height:11px;margin-top:-5px;background:currentColor;opacity:.6}
+.dim i:first-child{left:0}.dim i:last-child{right:0}
+.sds .dim{color:var(--p600)}
+
+.cells{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2)}
+.cell{background:#fff;border:1px solid var(--n200);border-radius:var(--r);padding:var(--s3);display:flex;flex-direction:column;gap:var(--s3)}
+.spec{height:92px;display:flex;align-items:center;justify-content:center}
+.cell .k{color:var(--n500);font-size:12px}
+.cap{font-size:14px;line-height:1.35;color:var(--n700)}
+.sds .cap{color:var(--ink)}
+
+.spec-mark{gap:var(--s2);flex-direction:column}
+.spec-mark b{font-weight:500;font-size:15px;letter-spacing:-.01em}
+.spec-type{gap:var(--s2);align-items:baseline}
+.spec-type span{font-weight:500;letter-spacing:-.02em;line-height:1}
+.spec-type .t1{font-size:40px}.spec-type .t2{font-size:26px}.spec-type .t3{font-size:17px}.spec-type .t4{font-size:12px}
+.spec-pal{flex-direction:column;align-items:stretch;gap:6px}
+.sw{display:flex;align-items:center;gap:var(--s2);font-family:var(--mono);font-size:12px;color:var(--n600)}
+.sw i{width:22px;height:22px;border-radius:2px;flex:none}
+
+.bmc{position:relative;width:100%;max-width:150px;padding:8px;border:1px dashed var(--p400);border-radius:2px}
+.bmc-grid{display:grid;grid-template-columns:repeat(10,1fr);grid-template-rows:16px 16px 14px;gap:2px}
+.bmc-grid i{border:1px solid var(--p400);border-radius:1px;background:#fff}
+.bmc-grid i:nth-child(1){grid-column:1/3;grid-row:1/3}
+.bmc-grid i:nth-child(2){grid-column:3/5;grid-row:1}
+.bmc-grid i:nth-child(3){grid-column:3/5;grid-row:2}
+.bmc-grid i:nth-child(4){grid-column:5/7;grid-row:1/3;background:var(--sky2)}
+.bmc-grid i:nth-child(5){grid-column:7/9;grid-row:1}
+.bmc-grid i:nth-child(6){grid-column:7/9;grid-row:2}
+.bmc-grid i:nth-child(7){grid-column:9/11;grid-row:1/3}
+.bmc-grid i:nth-child(8){grid-column:1/6;grid-row:3}
+.bmc-grid i:nth-child(9){grid-column:6/11;grid-row:3}
+.spec-pr{flex-direction:column;align-items:stretch;gap:var(--s2);font-size:13px;line-height:1.3}
+.spec-pr span{display:flex;align-items:center;gap:var(--s2)}
+.spec-pr span::before{content:"";width:9px;height:9px;border:2px solid var(--p500);border-radius:50%;flex:none}
+.spec-wp{flex-direction:column;align-items:stretch;gap:var(--s2);font-size:13px}
+.spec-wp span{display:flex;align-items:center;gap:var(--s2)}
+.spec-wp em{font-style:normal;font-family:var(--mono);font-size:12px;letter-spacing:.08em;padding:2px 6px;border-radius:2px;min-width:40px;text-align:center}
+.spec-wp .in{background:var(--p500);color:#fff}
+.spec-wp .out{background:var(--n100);color:var(--n600);border:1px solid var(--n200)}
+.spec-wp .out+b{font-weight:400;color:var(--n500);text-decoration:line-through;text-decoration-color:var(--n400)}
+.spec-wp b{font-weight:400}
+
+/* plug: one stem, one bus, four outputs */
+.plug{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2);padding-top:36px;margin-top:0}
+.plug::before{content:"";position:absolute;left:50%;top:0;height:18px;border-left:1px solid var(--n400)}
+.plug li{position:relative;display:flex;align-items:center;justify-content:center;text-align:center;min-height:52px;padding:var(--s2);border:1px solid var(--n200);border-radius:var(--r);background:var(--paper);font-size:14px;line-height:1.25}
+.plug li::before{content:"";position:absolute;left:50%;top:-18px;height:18px;border-left:1px solid var(--n400)}
+.plug li::after{content:"";position:absolute;top:-18px;left:-5px;right:-5px;border-top:1px solid var(--n400)}
+.plug li:first-child::after{left:50%}
+.plug li:last-child::after{right:50%}
+.sds .plug::before,.sds .plug li::before,.sds .plug li::after{border-color:var(--p400)}
+.sds .plug li{background:var(--sky);border-color:var(--sky2)}
+.sheet-cap{margin-top:var(--s4);font-size:15px;color:var(--n600)}
+.sds .sheet-cap{color:var(--p700)}
+
+/* without */
+.without{border-top:1px solid var(--n200)}
+.without .grid{display:grid;grid-template-columns:1.05fr 1fr;gap:var(--s8);align-items:center}
+.folder{background:#fff;border:1px solid var(--n200);border-radius:var(--r);background-image:linear-gradient(var(--n100) 1px,transparent 1px),linear-gradient(90deg,var(--n100) 1px,transparent 1px);background-size:24px 24px}
+.folder-top{display:flex;justify-content:space-between;gap:var(--s4);padding:var(--s3) var(--s5);border-bottom:1px solid var(--n200);background:#fff;color:var(--n500)}
+.dont{display:inline-flex;align-items:center;gap:var(--s2);color:#A23722}
+.dont::before{content:"";width:14px;height:14px;background:linear-gradient(45deg,transparent 45%,#C8442F 45%,#C8442F 55%,transparent 55%),linear-gradient(-45deg,transparent 45%,#C8442F 45%,#C8442F 55%,transparent 55%)}
+.folder .files{padding:var(--s6) var(--s5) var(--s5)}
+.files{position:relative;padding:var(--s2) 0 0}
+.files li{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s4);background:#fff;border:1px solid var(--n200);border-radius:var(--r);font-family:var(--mono);font-size:13px;color:var(--n500);margin-bottom:var(--s2);text-decoration:line-through;text-decoration-color:var(--n400);overflow-wrap:anywhere}
+.files li::before{content:"";flex:none;width:18px;height:22px;border:1px solid var(--n400);border-radius:2px;background:linear-gradient(var(--n200),var(--n200)) 3px 6px/10px 1px no-repeat,linear-gradient(var(--n200),var(--n200)) 3px 10px/10px 1px no-repeat}
+.files li:nth-child(2){margin-left:var(--s5)}
+.files li:nth-child(3){margin-left:var(--s6)}
+.files li:last-child{margin-left:var(--s7);text-decoration:none;color:var(--ink);border-color:var(--n400)}
+.files-cap{color:var(--n500);margin-top:var(--s3)}
+.voices{margin-top:var(--s6);border-left:1px solid var(--n200);padding-left:var(--s5)}
+.voices p.mono{color:var(--n500);margin-bottom:var(--s3);font-size:12px;letter-spacing:.1em}
+.voices p{font-size:19px;line-height:1.45;letter-spacing:-.01em;color:var(--n700)}
+.voices p+p{margin-top:var(--s3)}
+
+/* components */
+.components{background:#fff;border-top:1px solid var(--n200);border-bottom:1px solid var(--n200)}
+.compsheet{border:1px solid var(--n200);border-radius:var(--r);background:var(--paper)}
+.compsheet-top{display:flex;justify-content:space-between;gap:var(--s4);flex-wrap:wrap;padding:var(--s3) var(--s5);border-bottom:1px solid var(--n200);color:var(--n500)}
+.comp{display:grid;grid-template-columns:250px 1fr;gap:var(--s6);padding:var(--s5);align-items:start}
+.comp+.comp{border-top:1px solid var(--n200)}
+.comp h3{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--p600)}
+.comp .rule{font-size:16px;color:var(--n700);margin-top:var(--s1);line-height:1.45}
+.specimen{background:#fff;border:1px solid var(--n200);border-radius:var(--r);padding:var(--s4)}
+.amb{font-size:20px;line-height:1.4;letter-spacing:-.015em;max-width:44ch}
+.crit li{display:flex;align-items:center;gap:var(--s3);padding:var(--s2) 0;font-size:16px}
+.crit li+li{border-top:1px solid var(--n100)}
+.light{width:12px;height:12px;border-radius:50%;flex:none}
+.l-g{background:var(--green)}.l-y{background:var(--amber)}.l-r{background:var(--red)}
+.crit .fx{margin-left:auto;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--p600);border:1px solid var(--p200);background:var(--sky);padding:1px 8px;border-radius:2px}
+.crit .more{color:var(--n500);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.vivo{display:flex;gap:var(--s3);align-items:flex-start;border-left:2px solid var(--p500);background:var(--sky);padding:var(--s3) var(--s4)}
+.vivo .mono{color:var(--p700);flex:none;padding-top:3px}
+.vivo p{font-size:17px}
+.objs li{display:flex;gap:var(--s3);align-items:baseline;font-size:16px;padding:var(--s1) 0}
+.objs .parent{color:var(--n500);margin-bottom:var(--s2)}
+.objs li::before{content:"";width:10px;height:10px;border:1px solid var(--n400);border-radius:2px;flex:none;transform:translateY(1px)}
+.act{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3) var(--s4)}
+.act div{border-top:1px solid var(--p200);padding-top:var(--s2)}
+.act dt{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--p600)}
+.act dd{font-size:15px;line-height:1.4;margin-top:var(--s1)}
+.status{display:inline-flex;align-items:center;gap:var(--s2);margin-top:var(--s3);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8A6A0B}
+.radar-wrap{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:var(--s5);align-items:center}
+.radar-wrap svg{width:100%;height:auto;display:block}
+.radar-notes p{font-size:16px;line-height:1.45}
+.radar-notes p+p{margin-top:var(--s3)}
+.radar-notes .mono{color:var(--n500);display:block;margin-bottom:2px}
+.compsheet-foot{padding:var(--s3) var(--s5);border-top:1px solid var(--n200);color:var(--n500)}
+
+/* versioning */
+.beats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5);margin-bottom:var(--s7)}
+.beat{border-top:1px solid var(--ink);padding-top:var(--s4)}
+.beat .mono{color:var(--p600)}
+.beat h3{font-weight:500;font-size:22px;letter-spacing:-.015em;margin:var(--s2) 0 var(--s2)}
+.beat p{font-size:16px;color:var(--n700);max-width:36ch}
+.log{background:#fff;border:1px solid var(--n200);border-radius:var(--r)}
+.log-top{display:flex;justify-content:space-between;gap:var(--s4);flex-wrap:wrap;padding:var(--s3) var(--s5);border-bottom:1px solid var(--n200);color:var(--n500)}
+.log ol{padding:var(--s2) var(--s5) var(--s4)}
+.entry{position:relative;display:grid;grid-template-columns:150px 110px 1fr;gap:var(--s4);padding:var(--s4) 0 var(--s4) var(--s6)}
+.entry+.entry{border-top:1px solid var(--n100)}
+.entry::before{content:"";position:absolute;left:5px;top:0;bottom:0;border-left:1px solid var(--n200)}
+.entry::after{content:"";position:absolute;left:0;top:24px;width:11px;height:11px;border-radius:50%;background:#fff;border:2px solid var(--n400)}
+.entry:first-child::after{border-color:var(--p500);background:var(--p500)}
+.entry:first-child::before{top:24px}
+.entry:last-child::before{bottom:auto;height:28px}
+.num{font-family:var(--mono);font-size:14px;color:var(--p600);letter-spacing:.02em;padding-top:2px}
+.opt{justify-self:start;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:2px;border:1px solid var(--n200);color:var(--n700);height:max-content;margin-top:2px}
+.entry:first-child .opt{border-color:var(--p500);color:var(--p700);background:var(--sky)}
+.entry p{font-size:16px;line-height:1.5}
+.entry .meta{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--n500);margin-top:var(--s1);text-transform:uppercase}
+
+/* governance */
+.gov{background:var(--ink);color:var(--paper)}
+.gov .eyebrow{color:var(--p200)}
+.gov .eyebrow::before{background:var(--p400)}
+.gov .grid{display:grid;grid-template-columns:1fr 1.5fr;gap:var(--s8);align-items:start}
+.gov .lede{color:#C9D0D8}
+.gov h2 span{color:var(--p400);display:block}
+.tokens{border-top:1px solid #36404B}
+.tokens div{display:grid;grid-template-columns:190px 1fr;gap:var(--s5);padding:var(--s4) 0;border-bottom:1px solid #36404B}
+.tokens dt{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--p200);padding-top:4px}
+.tokens dd{font-size:17px;line-height:1.5;color:#E6EBF0}
+
+/* onboarding */
+.steps{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s4);padding-top:var(--s7)}
+.steps .dim{position:absolute;top:0;left:0;right:0;margin:0;color:var(--p600)}
+.steps li{border-left:1px solid var(--n200);padding:0 0 0 var(--s4)}
+.steps .mono{color:var(--n500)}
+.steps h3{font-weight:500;font-size:18px;line-height:1.3;letter-spacing:-.01em;margin-top:var(--s2)}
+.steps p{font-size:16px;color:var(--n700);margin-top:var(--s2)}
+
+/* closing */
+.close{padding:0 0 var(--s9)}
+.panel{position:relative;background:var(--n900);color:var(--paper);border-radius:var(--r);padding:var(--s9) var(--s8);overflow:hidden;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:24px 24px}
+.panel .crop{position:absolute;width:20px;height:20px;border-color:var(--p400);border-style:solid;border-width:0}
+.crop.tl{top:16px;left:16px;border-top-width:1px;border-left-width:1px}
+.crop.tr{top:16px;right:16px;border-top-width:1px;border-right-width:1px}
+.crop.bl{bottom:16px;left:16px;border-bottom-width:1px;border-left-width:1px}
+.crop.br{bottom:16px;right:16px;border-bottom-width:1px;border-right-width:1px}
+.panel .mono.lbl{color:var(--p200)}
+.panel h2{font-size:clamp(34px,4.6vw,60px);letter-spacing:-.03em;max-width:16ch;margin-top:var(--s4)}
+.panel h2 span{color:var(--p400)}
+.panel p.txt{font-size:19px;color:#C9D0D8;max-width:54ch;margin-top:var(--s5)}
+.panel .cta-row{margin-top:var(--s6)}
+.panel .btn-primary{background:var(--p500)}
+.panel .btn-primary:hover{background:var(--p400);color:var(--n900)}
+.panel .mail{color:var(--p200);font-family:var(--mono);font-size:14px;text-decoration:none;min-height:44px;display:inline-flex;align-items:center;padding:0 var(--s2)}
+.panel .mail:hover{text-decoration:underline}
+.panel .dimv{position:absolute;right:var(--s8);top:var(--s9);bottom:var(--s9);width:1px;background:rgba(169,214,255,.4)}
+.panel .dimv::before,.panel .dimv::after{content:"";position:absolute;left:-5px;width:11px;height:1px;background:rgba(169,214,255,.6)}
+.panel .dimv::before{top:0}.panel .dimv::after{bottom:0}
+.panel .dimv span{position:absolute;top:50%;left:12px;transform:translateY(-50%) rotate(90deg);transform-origin:left center;white-space:nowrap;color:var(--p200);font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+
+/* footer */
+footer{border-top:1px solid var(--n200);padding:var(--s7) 0}
+footer .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s4)}
+footer img{height:20px;width:auto;display:block}
+footer ul{display:flex;gap:var(--s2);flex-wrap:wrap}
+footer ul a{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--s2);font-size:15px;color:var(--n600);text-decoration:none}
+footer ul a:hover{color:var(--p600);text-decoration:underline}
+footer .copy{font-size:15px;color:var(--n600)}
+footer .credit{flex-basis:100%;font-size:13px;color:var(--n500)}
+
+/* motion: only when JS runs and motion is welcome */
+@media (prefers-reduced-motion:no-preference){
+  .js .sheet .plug li,.js .sheet .cell{opacity:0;transition:opacity .6s ease}
+  .js .sheet.in .cell,.js .sheet.in .plug li{opacity:1}
+  .js .sheet.in .cell:nth-child(2){transition-delay:.12s}
+  .js .sheet.in .cell:nth-child(3){transition-delay:.24s}
+  .js .sheet.in .plug li{transition-delay:.5s}
+  .js .sheet.in .plug li:nth-child(2){transition-delay:.58s}
+  .js .sheet.in .plug li:nth-child(3){transition-delay:.66s}
+  .js .sheet.in .plug li:nth-child(4){transition-delay:.74s}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* tablet */
+@media (max-width:1040px){
+  .halves{grid-template-columns:1fr}
+  .half+.half{border-left:0;border-top:1px dashed var(--n400)}
+  .without .grid,.gov .grid{grid-template-columns:1fr;gap:var(--s7)}
+  .comp{grid-template-columns:200px 1fr;gap:var(--s5)}
+  .steps{grid-template-columns:repeat(3,1fr);row-gap:var(--s6)}
+  .panel .dimv{display:none}
+  .hero-row{grid-template-columns:1fr;gap:var(--s5)}
+}
+/* phone */
+@media (max-width:720px){
+  body{font-size:16px}
+  .wrap{padding:0 var(--s5)}
+  section{padding:var(--s8) 0}
+  .top .wrap{height:64px}
+  .logo img{height:21px}
+  .top .btn{display:none}
+  .hero{padding:var(--s6) 0 var(--s8)}
+  .hero .sub{font-size:17px}
+  .cta-row .btn{flex:1 1 100%}
+  .sheet{margin-top:var(--s7);margin-left:calc(-1 * var(--s3));margin-right:calc(-1 * var(--s3))}
+  .sheet-top{padding:var(--s3) var(--s4)}
+  .sheet-top span+span{display:none}
+  .half{padding:var(--s5) var(--s4) var(--s4)}
+  .cells{grid-template-columns:1fr}
+  .cell{flex-direction:row;align-items:center;gap:var(--s4)}
+  .spec{width:132px;height:80px;flex:none}
+  .cell .txt{flex:1}
+  .cap{font-size:15px}
+  .plug{grid-template-columns:1fr 1fr;padding:var(--s2);margin-top:22px;border:1px dashed var(--n400);border-radius:var(--r)}
+  .sds .plug{border-color:var(--p400)}
+  .plug::before{top:-23px;height:22px}
+  .plug li::before,.plug li::after{display:none}
+  .plug li{min-height:48px}
+  .comp{grid-template-columns:1fr;gap:var(--s3);padding:var(--s5) var(--s4)}
+  .compsheet-top,.compsheet-foot,.log-top{padding:var(--s3) var(--s4)}
+  .amb{font-size:18px}
+  .act{grid-template-columns:1fr 1fr}
+  .radar-wrap{grid-template-columns:1fr}
+  .radar-wrap svg{max-width:320px}
+  .beats{grid-template-columns:1fr;gap:var(--s5)}
+  .log ol{padding:var(--s2) var(--s4) var(--s3)}
+  .entry{grid-template-columns:auto 1fr;gap:var(--s2) var(--s3);padding-left:var(--s5)}
+  .entry p{grid-column:1/-1}
+  .tokens div{grid-template-columns:1fr;gap:var(--s1)}
+  .tokens dd{font-size:16px}
+  .steps{grid-template-columns:1fr;padding-top:0;padding-left:var(--s6);row-gap:var(--s5)}
+  .steps .dim{display:none}
+  .steps::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;border-left:1px solid var(--p400)}
+  .steps::after{content:"4 to 5 hours";position:absolute;left:0;top:0;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--p600);writing-mode:vertical-rl;transform:rotate(180deg);background:var(--paper);padding:var(--s2) 0;left:-1px;top:40%}
+  .steps li{border-left:0;padding-left:0}
+  .panel{padding:var(--s8) var(--s5);margin:0 calc(-1 * var(--s3))}
+  .panel p.txt{font-size:17px}
+  footer .wrap{flex-direction:column;align-items:flex-start}
+  .files li{font-size:12px;padding:var(--s3)}
+  .folder-top{padding:var(--s3) var(--s4)}.folder .files{padding:var(--s5) var(--s3) var(--s3)}
+  .files li:nth-child(2){margin-left:var(--s2)}.files li:nth-child(3){margin-left:var(--s4)}.files li:last-child{margin-left:var(--s5)}
+}
+@media (max-width:380px){
+  .spec{width:112px}
+  .bmc{max-width:112px}
+  .spec-type .t4{display:none}
+  .spec-type .t1{font-size:34px}.spec-type .t2{font-size:22px}
+  .files li:nth-child(n){margin-left:0}
+  .files li:nth-child(2){margin-left:var(--s1)}.files li:nth-child(3){margin-left:var(--s2)}.files li:last-child{margin-left:var(--s3)}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="Strapivo, back to top"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="96" height="24"></a>
+    <nav aria-label="Account">
+      <a class="signin" href="https://strapivo.app">Sign in</a>
+      <a class="btn btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <p class="mono eyebrow">Strapivo, the Strategic Design System</p>
+    <h1 id="h1"><span>Your brand has a design system.</span> <span>Your strategy needs one too.</span></h1>
+    <div class="hero-row">
+    <p class="sub">Strapivo is software that gives a leadership team one approved home for its strategy. Your business model, principles and priorities live there. Every meeting and decision draws on them, and the system keeps them current as the market moves.</p>
+    <div class="hero-cta">
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:strategy@strapivo.com">Start the conversation <span class="arr" aria-hidden="true">&rarr;</span></a>
+      <a class="btn btn-ghost" href="#parts">See the parts</a>
+    </div>
+      <p class="mono cta-note">For leadership teams in SMEs and corporates</p>
+    </div>
+    </div>
+
+    <figure class="sheet" aria-label="A specification sheet in two halves. Left, a brand design system for a fictional brand: one mark, one type scale and one palette feed a brochure, a campaign, a website and a newsletter. Right, the Strategic Design System, where the business model, principles and where to play feed board meetings, team alignment, the business model portfolio and the defence of the strategy.">
+      <div class="sheet-top mono"><span>Specification sheet</span></div>
+      <div class="halves">
+        <div class="half brand">
+          <div class="half-head"><p class="h3">Brand design system</p><span class="mono">Northfold, a fictional brand</span></div>
+          <div class="dim mono" aria-hidden="true"><i></i><span>The source</span><i></i></div>
+          <div class="cells">
+            <div class="cell">
+              <div class="spec spec-mark" aria-hidden="true">
+                <svg width="40" height="40" viewBox="0 0 40 40"><rect width="40" height="40" rx="4" fill="#E4572E"/><path d="M8 30 L20 10 L32 30 Z" fill="#E9DFC9"/><circle cx="20" cy="25" r="4" fill="#2F6B4F"/></svg>
+                <b>Northfold</b>
+              </div>
+              <div class="txt"><p class="mono k">Mark</p><p class="cap">One mark, everywhere</p></div>
+            </div>
+            <div class="cell">
+              <div class="spec spec-type" aria-hidden="true"><span class="t1">Ag</span><span class="t2">Ag</span><span class="t3">Ag</span><span class="t4">Ag</span></div>
+              <div class="txt"><p class="mono k">Type</p><p class="cap">One scale, everywhere</p></div>
+            </div>
+            <div class="cell">
+              <div class="spec spec-pal" aria-hidden="true">
+                <span class="sw"><i style="background:#E4572E"></i>Coral</span>
+                <span class="sw"><i style="background:#2F6B4F"></i>Forest</span>
+                <span class="sw"><i style="background:#E9DFC9"></i>Sand</span>
+              </div>
+              <div class="txt"><p class="mono k">Palette</p><p class="cap">One palette, everywhere</p></div>
+            </div>
+          </div>
+          <ul class="plug" aria-label="Plugs into">
+            <li>Brochure</li><li>Campaign</li><li>Website</li><li>Newsletter</li>
+          </ul>
+          <p class="sheet-cap">One source of truth. Everything downstream plugs into it.</p>
+        </div>
+
+        <div class="half sds">
+          <div class="half-head"><p class="h3">Strategic Design System</p><span class="mono">Your company</span></div>
+          <div class="dim mono" aria-hidden="true"><i></i><span>The source</span><i></i></div>
+          <div class="cells">
+            <div class="cell">
+              <div class="spec" aria-hidden="true"><div class="bmc"><div class="bmc-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
+              <div class="txt"><p class="mono k">Business model</p><p class="cap">The model and the market around it</p></div>
+            </div>
+            <div class="cell">
+              <div class="spec spec-pr" aria-hidden="true"><span>Margin before volume</span><span>No price wars</span></div>
+              <div class="txt"><p class="mono k">Principles</p><p class="cap">Guardrails for every call</p></div>
+            </div>
+            <div class="cell">
+              <div class="spec spec-wp" aria-hidden="true">
+                <span><em class="in">In</em><b>Water utilities</b></span>
+                <span><em class="out">Out</em><b>Households</b></span>
+              </div>
+              <div class="txt"><p class="mono k">Where to play</p><p class="cap">Where you play, and where you don't</p></div>
+            </div>
+          </div>
+          <ul class="plug" aria-label="Plugs into">
+            <li>Board meeting</li><li>Team alignment</li><li>Business model portfolio</li><li>Defend strategy</li>
+          </ul>
+          <p class="sheet-cap">One source of truth. Every decision plugs into it.</p>
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- WITHOUT ONE -->
+<section class="without" aria-labelledby="h-without">
+  <div class="wrap grid">
+    <div class="reveal">
+      <p class="mono eyebrow">Without a system</p>
+      <h2 id="h-without">The argument starts over at every meeting.</h2>
+      <p class="lede">Most companies keep their strategy in the deck from the last offsite. Someone rebuilds it before every board meeting. Each new analysis restarts the old debate, and nobody can find what was decided last time, or why.</p>
+      <div class="voices">
+        <p class="mono">What leadership teams tell us</p>
+        <p>"We restart the same argument every time a new analysis lands."</p>
+      </div>
+    </div>
+    <div class="reveal folder">
+      <div class="folder-top mono"><span>A typical strategy folder</span><span class="dont">Don't</span></div>
+      <ul class="files" aria-label="A typical strategy folder">
+        <li>Strategy_offsite_FINAL.pptx</li>
+        <li>Strategy_offsite_FINAL_v2.pptx</li>
+        <li>Board_update_strategy_REVISED.pptx</li>
+        <li>Strategy_2027_USE_THIS_ONE.pptx</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- COMPONENTS -->
+<section class="components" id="parts" aria-labelledby="h-parts">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="mono eyebrow">Components</p>
+      <h2 id="h-parts">The parts of a strategy, specified.</h2>
+      <p class="lede">A style guide defines each component once. Strapivo does the same for the parts of your strategy. We call this structure Dynamic Strategy.</p>
+    </div>
+
+    <div class="compsheet reveal">
+      <div class="compsheet-top mono"><span>Component sheet</span><span>Illustrative example</span></div>
+
+      <div class="comp">
+        <div><h3>Ambition</h3><p class="rule">Each portfolio has one. Every other part is read against it.</p></div>
+        <div class="specimen"><p class="amb">First choice for regional water utilities in Northern Europe, at €60m turnover and 14% margin by 2029.</p></div>
+      </div>
+
+      <div class="comp">
+        <div><h3>Success criteria</h3><p class="rule">A portfolio usually has 7 to 12. Each carries today's light.</p></div>
+        <div class="specimen">
+          <ul class="crit">
+            <li><i class="light l-g" aria-hidden="true"></i>Recurring service revenue<span class="fx">Focus</span></li>
+            <li><i class="light l-y" aria-hidden="true"></i>Two new export markets<span class="fx">Focus</span></li>
+            <li><i class="light l-r" aria-hidden="true"></i>Delivery within ten days</li>
+            <li><span class="more">and seven more</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="comp">
+        <div><h3>Focus areas</h3><p class="rule">Up to 4 criteria get focus. Try a fifth and Vivo, the AI in Strapivo, objects.</p></div>
+        <div class="specimen vivo"><span class="mono">Vivo</span><p>"You're diluting focus and creating noise. Do you really want to?"</p></div>
+      </div>
+
+      <div class="comp">
+        <div><h3>Objectives</h3><p class="rule">Each criterion usually has 2 to 4.</p></div>
+        <div class="specimen objs">
+          <p class="parent mono">Criterion · Two new export markets</p>
+          <ul><li>Find a distribution partner in Poland</li><li>Certify the range for Nordic standards</li></ul>
+        </div>
+      </div>
+
+      <div class="comp">
+        <div><h3>Activities</h3><p class="rule">Each has an owner and a status. It is not a to-do list.</p></div>
+        <div class="specimen">
+          <dl class="act">
+            <div><dt>Action</dt><dd>Shortlist three Polish distributors</dd></div>
+            <div><dt>Result</dt><dd>Signed letter of intent</dd></div>
+            <div><dt>Timeframe</dt><dd>By March 2027</dd></div>
+            <div><dt>Responsible</dt><dd>Head of Sales</dd></div>
+          </dl>
+          <p class="status"><i class="light l-y" aria-hidden="true"></i>At risk</p>
+        </div>
+      </div>
+
+      <div class="comp">
+        <div><h3>Risks</h3><p class="rule">Each sits on a radar of impact and likelihood. The top right is the danger zone.</p></div>
+        <div class="specimen radar-wrap">
+          <svg viewBox="0 0 300 220" role="img" aria-label="Risk radar. The steel tariff risk has moved from the middle into the top right corner.">
+            <rect x="150" y="10" width="140" height="90" fill="#FBEAE6"/>
+            <rect x="40" y="10" width="250" height="180" fill="none" stroke="#999FA6"/>
+            <line x1="40" y1="100" x2="290" y2="100" stroke="#E1E5EA"/>
+            <line x1="150" y1="10" x2="150" y2="190" stroke="#E1E5EA"/>
+            <text x="282" y="30" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="13" fill="#A23722">DANGER ZONE</text>
+            <text x="165" y="212" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#6C727A">LIKELIHOOD</text>
+            <text x="22" y="100" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#6C727A" transform="rotate(-90 22 100)">IMPACT</text>
+            <circle cx="125" cy="125" r="9" fill="none" stroke="#6C727A" stroke-dasharray="3 3"/>
+            <path d="M133 118 L220 60" stroke="#C8442F" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
+            <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#C8442F"/></marker></defs>
+            <circle cx="232" cy="52" r="10" fill="#C8442F"/>
+          </svg>
+          <div class="radar-notes">
+            <p><span class="mono">Risk</span>Steel tariff on export parts</p>
+            <p><span class="mono">Trend</span>Worsening. Top right for 27 days.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VERSIONING -->
+<section class="versions" aria-labelledby="h-versions">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="mono eyebrow">Versioning</p>
+      <h2 id="h-versions">A system that stays current.</h2>
+      <p class="lede">A design system ships a new version when the brand changes. So does your strategy in Strapivo, and every change gets a permanent number.</p>
+    </div>
+
+    <ol class="beats reveal">
+      <li class="beat"><p class="mono">Signal</p><h3>Something changed.</h3><p>The Radar reads over 4,000 sources a day for your focus areas. A person on your team confirms what matters.</p></li>
+      <li class="beat"><p class="mono">Discuss</p><h3>You talk it through.</h3><p>Your team meets with Vivo for 60 minutes. First takes are sealed and revealed together, so nobody adjusts to the loudest voice.</p></li>
+      <li class="beat"><p class="mono">Decide</p><h3>You act, or you don't.</h3><p>There are five options: hold, adapt, pivot, take advantage or not yet. The session lead confirms each decision, with dissent on record.</p></li>
+    </ol>
+
+    <div class="log reveal">
+      <div class="log-top mono"><span>Record of decisions</span><span>Illustrative example</span></div>
+      <ol>
+        <li class="entry">
+          <span class="num">SDS-2026-014</span><span class="opt">Adapt</span>
+          <p>The team revised export objectives after a steel tariff signal. Finance disagreed and wanted first-quarter prices first.<span class="meta">12 Nov 2026 · Confirmed by session lead</span></p>
+        </li>
+        <li class="entry">
+          <span class="num">SDS-2026-013</span><span class="opt">Not yet</span>
+          <p>The team parked Nordic certification. It returns when the new standard is published.<span class="meta">29 Oct 2026 · Parked with a trigger</span></p>
+        </li>
+        <li class="entry">
+          <span class="num">SDS-2026-012</span><span class="opt">Hold</span>
+          <p>The team reviewed recurring service revenue. The light stays green.<span class="meta">15 Oct 2026 · Marked reviewed</span></p>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- GOVERNANCE -->
+<section class="gov" aria-labelledby="h-gov">
+  <div class="wrap grid">
+    <div class="reveal">
+      <p class="mono eyebrow">Governance</p>
+      <h2 id="h-gov">Approved by you. <span>Vivo proposes, people decide.</span></h2>
+      <p class="lede">Every recommendation traces back to the strategy your team approved.</p>
+    </div>
+    <dl class="tokens reveal">
+      <div><dt>Proposals</dt><dd>Vivo drafts. A named person accepts or rejects.</dd></div>
+      <div><dt>Approved strategy</dt><dd>Only an Owner can change it.</dd></div>
+      <div><dt>Alarms</dt><dd>A risk enters the danger zone only with a primary source, so one blog post cannot raise an alarm.</dd></div>
+      <div><dt>Lights</dt><dd>Vivo may ask whether a light is still green. It never changes the light.</dd></div>
+      <div><dt>Data</dt><dd>Start with public, non-sensitive material and widen from there.</dd></div>
+      <div><dt>Hosting</dt><dd>Your data stays on EU-only infrastructure. GDPR is part of the design.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ONBOARDING -->
+<section class="start" aria-labelledby="h-start">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="mono eyebrow">Getting started</p>
+      <h2 id="h-start">Four to five hours, and then you run it.</h2>
+      <p class="lede">Send us what you have: a workshop report, a strategy document or an email.</p>
+    </div>
+    <ol class="steps reveal">
+      <li class="dim mono" aria-hidden="true"><i></i><span>4 to 5 hours</span><i></i></li>
+      <li><p class="mono">Step 1</p><h3>We do the reading first.</h3><p>Vivo proposes where each item belongs.</p></li>
+      <li><p class="mono">Step 2</p><h3>You correct a draft, not a blank page.</h3></li>
+      <li><p class="mono">Step 3</p><h3>We show you what we got wrong.</h3></li>
+      <li><p class="mono">Step 4</p><h3>You teach it what relevant means.</h3><p>Dismissed signals teach Vivo what counts as noise.</p></li>
+      <li><p class="mono">Step 5</p><h3>We run one session together.</h3></li>
+    </ol>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="close" aria-labelledby="h-close">
+  <div class="wrap">
+    <div class="panel reveal">
+      <i class="crop tl" aria-hidden="true"></i><i class="crop tr" aria-hidden="true"></i><i class="crop bl" aria-hidden="true"></i><i class="crop br" aria-hidden="true"></i>
+      <div class="dimv" aria-hidden="true"><span>One source of truth</span></div>
+      <p class="mono lbl">Start here</p>
+      <h2 id="h-close">Give your strategy <span>a system.</span></h2>
+      <p class="txt">Tell us where your strategy lives today. We will show you how it looks as one approved source that every decision plugs into.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mailto:strategy@strapivo.com">Start the conversation <span class="arr" aria-hidden="true">&rarr;</span></a>
+        <a class="mail" href="mailto:strategy@strapivo.com">strategy@strapivo.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="Strapivo, back to top"><img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="80" height="20"></a>
+    <ul>
+      <li><a href="/imprint">Imprint</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+      <li><a href="/terms">Terms</a></li>
+    </ul>
+    <p class="copy">© 2026 Strapivo</p>
+    <p class="credit">Business Model Canvas adapted from Strategyzer.com, licensed under CC BY-SA 3.0.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var d=document.documentElement, sheet=document.querySelector('.sheet');
+  if(!sheet)return;
+  d.classList.add('js');
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ sheet.classList.add('in'); }); });
+})();
+</script>
+</body>
+</html>
