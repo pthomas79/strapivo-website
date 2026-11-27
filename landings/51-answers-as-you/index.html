@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Strapivo. Any AI can answer a question. Only Strapivo answers it as you.</title>
+  <meta name="description" content="Strapivo is the Strategic Design System where a leadership team keeps its agreed strategy current, checks live market signals and updates the plan in a 60-minute session.">
+  <link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --ink: #141B24;
+      --n900: #050C14;
+      --n700: #2C343C;
+      --n600: #495158;
+      --n500: #6C727A;
+      --n400: #999FA6;
+      --n200: #E1E5EA;
+      --n100: #EFF2F6;
+      --paper: #F6F9FB;
+      --white: #FFFFFF;
+      --sky: #EEF6FF;
+      --sky2: #D4EBFF;
+      --p200: #A9D6FF;
+      --p400: #3FA0FA;
+      --p500: #0082E6;
+      --p600: #006FD1;
+      --p700: #005DBD;
+
+      --slate: #D8DFE7;
+      --slate-soft: #E5EBF1;
+      --slate-border: #BCC6D2;
+      --pine: #1F6F54;
+      --pine-tint: #ECF5F1;
+      --pine-border: #BFDCD0;
+
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --max-w: 1240px;
+      --gutter: 32px;
+      --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.58;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "ss01", "cv11";
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--p500);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 12px;
+      z-index: 100;
+      padding: 10px 16px;
+      background: var(--ink);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+    }
+
+    .skip-link:focus {
+      left: 16px;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    /* Header */
+    .site-header {
+      background: var(--paper);
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 72px;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 4px 0;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      height: 24px;
+      width: auto;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .link-signin {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      border: 1px solid var(--n200);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      transition: border-color 0.16s ease, color 0.16s ease, background-color 0.16s ease;
+    }
+
+    .link-signin:hover {
+      border-color: var(--p500);
+      color: var(--p600);
+      background: var(--sky);
+    }
+
+    /* Typography helpers */
+    .eyebrow {
+      margin: 0 0 12px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--n500);
+    }
+
+    .eyebrow-azure {
+      color: var(--p600);
+    }
+
+    .eyebrow-dark {
+      color: var(--p200);
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 2.95vw, 2.75rem);
+      line-height: 1.08;
+      letter-spacing: -0.028em;
+    }
+
+    .h1-azure {
+      color: var(--p500);
+      display: block;
+      margin-top: 6px;
+    }
+
+    h2 {
+      font-size: clamp(1.5625rem, 2.2vw, 2.125rem);
+      line-height: 1.15;
+      letter-spacing: -0.022em;
+    }
+
+    h3 {
+      font-size: 1.125rem;
+      line-height: 1.3;
+      letter-spacing: -0.015em;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    /* Primary button */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 22px;
+      background: var(--p500);
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--p500);
+      transition: background-color 0.16s ease, border-color 0.16s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--p600);
+      border-color: var(--p600);
+    }
+
+    .btn-primary:active {
+      background: var(--p700);
+      border-color: var(--p700);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 44px 0 56px;
+      border-bottom: 1px solid var(--n200);
+      background: var(--paper);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 456px) minmax(0, 1fr);
+      gap: 44px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      padding-top: 0;
+    }
+
+    .hero-lead {
+      margin-top: 20px;
+      font-size: 17px;
+      line-height: 1.56;
+      color: var(--n700);
+      max-width: 44ch;
+    }
+
+    .hero-actions {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .hero-audience {
+      font-size: 14px;
+      color: var(--n600);
+    }
+
+    /* Drawing 1: Hero Split Comparison Card */
+    .compare-frame {
+      background: var(--white);
+      border: 1px solid var(--n200);
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 28px rgba(20, 27, 36, 0.05);
+      overflow: hidden;
+    }
+
+    .compare-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 16px;
+      padding: 12px 18px;
+      background: var(--n100);
+      border-bottom: 1px solid var(--n200);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--n600);
+    }
+
+    .compare-question {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--n200);
+      background: var(--white);
+    }
+
+    .compare-q-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--n500);
+      margin-bottom: 4px;
+    }
+
+    .compare-q-text {
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.35;
+      color: var(--ink);
+      letter-spacing: -0.015em;
+    }
+
+    .compare-split {
+      display: grid;
+      grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
+      gap: 14px;
+      padding: 16px;
+      background: var(--paper);
+    }
+
+    .panel-generic,
+    .panel-vivo {
+      display: flex;
+      flex-direction: column;
+      border-radius: var(--radius-sm);
+      padding: 16px;
+    }
+
+    .panel-generic {
+      background: var(--slate);
+      border: 1px solid var(--slate-border);
+      color: var(--n700);
+    }
+
+    .panel-vivo {
+      background: var(--white);
+      border: 2px solid var(--p500);
+      color: var(--ink);
+      box-shadow: 0 4px 16px rgba(0, 130, 230, 0.08);
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .panel-generic .panel-head {
+      color: var(--n600);
+      border-bottom: 1px solid var(--slate-border);
+    }
+
+    .panel-vivo .panel-head {
+      color: var(--p600);
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .omark-mini {
+      width: 14px;
+      height: 14px;
+      flex: 0 0 14px;
+    }
+
+    .generic-list,
+    .vivo-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      flex: 1 1 auto;
+    }
+
+    .generic-list li {
+      font-size: 14px;
+      line-height: 1.48;
+      color: var(--n700);
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .generic-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--n500);
+    }
+
+    .vivo-list li {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--n100);
+    }
+
+    .vivo-list li:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .vivo-line {
+      font-size: 14px;
+      line-height: 1.48;
+      color: var(--ink);
+    }
+
+    .cite-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      background: var(--pine-tint);
+      border: 1px solid var(--pine-border);
+      border-radius: 3px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--pine);
+    }
+
+    .cite-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--pine);
+      flex: 0 0 6px;
+    }
+
+    .panel-foot {
+      margin-top: 16px;
+      padding-top: 12px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .panel-generic .panel-foot {
+      border-top: 1px solid var(--slate-border);
+      color: var(--n600);
+    }
+
+    .panel-vivo .panel-foot {
+      border-top: 1px solid var(--n200);
+      color: var(--pine);
+      font-weight: 500;
+    }
+
+    /* Sections */
+    .section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .section-white {
+      background: var(--white);
+    }
+
+    .section-paper {
+      background: var(--paper);
+    }
+
+    .section-navy {
+      background: var(--ink);
+      color: var(--paper);
+      border-bottom-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .section-head {
+      max-width: 64ch;
+      margin-bottom: 36px;
+    }
+
+    .section-intro {
+      margin-top: 14px;
+      font-size: 17px;
+      line-height: 1.58;
+      color: var(--n700);
+    }
+
+    .section-navy h2 {
+      color: var(--paper);
+    }
+
+    .section-navy .section-intro {
+      color: var(--n200);
+    }
+
+    /* Section 1: Why attaching a PDF fails */
+    .pdf-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 48px;
+      align-items: center;
+    }
+
+    .prose-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 60ch;
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--n700);
+    }
+
+    .prose-lead {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .quote-card {
+      background: var(--slate-soft);
+      border: 1px solid var(--slate-border);
+      border-left: 3px solid var(--n600);
+      border-radius: var(--radius-sm);
+      padding: 24px 26px;
+    }
+
+    .quote-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--n600);
+      margin-bottom: 12px;
+    }
+
+    .quote-text {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.32;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .quote-note {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--slate-border);
+      font-size: 15px;
+      line-height: 1.52;
+      color: var(--n700);
+    }
+
+    /* Section 2: Drawing 2 structural diagram */
+    .diagram-shell {
+      background: var(--white);
+      border: 1px solid var(--n200);
+      border-radius: var(--radius-md);
+      padding: 28px;
+    }
+
+    .diagram-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) 76px minmax(0, 0.88fr);
+      align-items: stretch;
+    }
+
+    .source-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .source-node {
+      background: var(--paper);
+      border: 1px solid var(--n200);
+      border-radius: var(--radius-sm);
+      padding: 18px 20px;
+      transition: border-color 0.16s ease, background-color 0.16s ease;
+    }
+
+    .source-node.is-active {
+      background: var(--white);
+      border-color: var(--pine);
+      box-shadow: 0 0 0 1px var(--pine);
+    }
+
+    .source-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .source-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .source-body {
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--n700);
+    }
+
+    .connector-desktop {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    .connector-desktop svg {
+      width: 76px;
+      height: 100%;
+    }
+
+    .connector-hub {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--p500);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .connector-mobile {
+      display: none;
+      justify-content: center;
+      padding: 6px 0;
+    }
+
+    .flow-path {
+      fill: none;
+      stroke: var(--n400);
+      stroke-width: 1.75;
+      vector-effect: non-scaling-stroke;
+      transition: stroke 0.16s ease, stroke-width 0.16s ease;
+    }
+
+    .flow-path.is-active {
+      stroke: var(--pine);
+      stroke-width: 2.5;
+    }
+
+    .flow-trunk {
+      fill: none;
+      stroke: var(--p500);
+      stroke-width: 2;
+    }
+
+    .answer-node {
+      align-self: center;
+      background: var(--white);
+      border: 2px solid var(--p500);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      box-shadow: 0 6px 20px rgba(0, 130, 230, 0.08);
+    }
+
+    .answer-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--p600);
+      margin-bottom: 10px;
+    }
+
+    .answer-node h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .answer-copy {
+      font-size: 15px;
+      line-height: 1.54;
+      color: var(--n700);
+    }
+
+    .cite-controls {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--n200);
+    }
+
+    .cite-controls-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--n500);
+      margin-bottom: 10px;
+    }
+
+    .cite-btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .cite-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 44px;
+      padding: 0 10px;
+      background: var(--pine-tint);
+      border: 1px solid var(--pine-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--pine);
+      cursor: pointer;
+      transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+    }
+
+    .cite-btn:hover,
+    .cite-btn.is-active {
+      background: var(--pine);
+      border-color: var(--pine);
+      color: var(--white);
+    }
+
+    .cite-btn:hover .cite-dot,
+    .cite-btn.is-active .cite-dot {
+      background: var(--white);
+    }
+
+    /* Section 3: How the weekly loop runs */
+    .loop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .loop-card {
+      background: var(--paper);
+      border: 1px solid var(--n200);
+      border-top: 2px solid var(--p500);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+    }
+
+    .loop-step {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--p600);
+      margin-bottom: 10px;
+    }
+
+    .loop-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .loop-card p {
+      font-size: 16px;
+      line-height: 1.56;
+      color: var(--n700);
+    }
+
+    .options-box {
+      margin-top: 28px;
+      background: var(--paper);
+      border: 1px solid var(--n200);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+    }
+
+    .options-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--n500);
+      margin-bottom: 16px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .option-item {
+      padding-left: 14px;
+      border-left: 2px solid var(--n200);
+    }
+
+    .option-item:first-child {
+      border-left-color: var(--p500);
+    }
+
+    .option-name {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .option-desc {
+      font-size: 14px;
+      line-height: 1.48;
+      color: var(--n600);
+    }
+
+    /* Section 4: Dark Navy Governance Band */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .trust-cell {
+      background: var(--ink);
+      padding: 26px 28px;
+    }
+
+    .trust-cell h3 {
+      color: var(--paper);
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .trust-cell p {
+      color: var(--n200);
+      font-size: 16px;
+      line-height: 1.56;
+      max-width: 48ch;
+    }
+
+    .trust-marker {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--p200);
+      margin-bottom: 10px;
+    }
+
+    /* Section 5: Getting started & Closing CTA */
+    .start-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+      gap: 48px;
+      align-items: center;
+    }
+
+    .step-list {
+      list-style: none;
+      margin: 24px 0 0;
+      padding: 0;
+      border-top: 1px solid var(--n200);
+    }
+
+    .step-list li {
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr);
+      gap: 12px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--n200);
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--n700);
+    }
+
+    .step-code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--p600);
+      padding-top: 4px;
+    }
+
+    .step-lead {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .cta-card {
+      background: var(--white);
+      border: 2px solid var(--p500);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      box-shadow: 0 8px 24px rgba(0, 130, 230, 0.07);
+    }
+
+    .cta-card h3 {
+      font-size: clamp(1.375rem, 1.9vw, 1.75rem);
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .cta-card p {
+      font-size: 16px;
+      line-height: 1.56;
+      color: var(--n700);
+      margin-bottom: 24px;
+    }
+
+    .cta-email {
+      display: block;
+      margin-top: 14px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--n600);
+      word-break: break-word;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: var(--white);
+      padding: 32px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px 24px;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 20px;
+    }
+
+    .footer-logo {
+      height: 20px;
+      width: auto;
+    }
+
+    .footer-copy {
+      font-size: 14px;
+      color: var(--n600);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px 16px;
+    }
+
+    .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 4px;
+      font-size: 14px;
+      color: var(--n600);
+      text-decoration: none;
+      transition: color 0.16s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--p600);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Responsive breakpoints */
+    @media (max-width: 1080px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 32px;
+      }
+
+      .hero-lead {
+        max-width: 60ch;
+      }
+
+      .pdf-grid,
+      .start-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 32px;
+      }
+
+      .options-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .diagram-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .connector-desktop {
+        display: none;
+      }
+
+      .connector-mobile {
+        display: flex;
+      }
+
+      .loop-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+      }
+
+      .trust-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      :root {
+        --gutter: 18px;
+      }
+
+      .hero {
+        padding: 24px 0 36px;
+      }
+
+      .hero-grid {
+        gap: 24px;
+      }
+
+      .hero-lead {
+        margin-top: 14px;
+        font-size: 16px;
+      }
+
+      .hero-actions {
+        margin-top: 20px;
+      }
+
+      .section {
+        padding: 38px 0;
+      }
+
+      .section-head {
+        margin-bottom: 20px;
+      }
+
+      .section-intro {
+        margin-top: 10px;
+        font-size: 16px;
+      }
+
+      .prose-stack {
+        gap: 12px;
+        font-size: 16px;
+      }
+
+      .pdf-grid,
+      .start-grid {
+        gap: 24px;
+      }
+
+      .compare-split {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+        padding: 12px;
+      }
+
+      .compare-meta,
+      .compare-question {
+        padding: 10px 14px;
+      }
+
+      .panel-generic,
+      .panel-vivo {
+        padding: 14px;
+      }
+
+      .diagram-shell {
+        padding: 14px;
+      }
+
+      .source-stack {
+        gap: 10px;
+      }
+
+      .source-node {
+        padding: 12px 14px;
+      }
+
+      .answer-node {
+        padding: 16px 14px;
+      }
+
+      .loop-grid {
+        gap: 12px;
+      }
+
+      .loop-card {
+        padding: 16px;
+      }
+
+      .options-box {
+        margin-top: 18px;
+        padding: 16px 14px;
+      }
+
+      .options-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+      }
+
+      .option-item {
+        padding: 0 0 10px;
+        border-left: 0;
+        border-bottom: 1px solid var(--n200);
+      }
+
+      .option-item:last-child {
+        padding-bottom: 0;
+        border-bottom: 0;
+      }
+
+      .trust-cell {
+        padding: 16px;
+      }
+
+      .quote-card {
+        padding: 18px 16px;
+      }
+
+      .quote-text {
+        font-size: 19px;
+      }
+
+      .step-list {
+        margin-top: 16px;
+      }
+
+      .step-list li {
+        padding: 12px 0;
+      }
+
+      .cta-card {
+        padding: 20px 18px;
+      }
+
+      .btn-primary {
+        width: 100%;
+      }
+
+      .site-footer {
+        padding: 24px 0;
+      }
+    }
+
+    @media (max-width: 390px) {
+      :root {
+        --gutter: 16px;
+      }
+
+      .brand-logo {
+        height: 21px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand-link" href="#" aria-label="Strapivo home">
+        <img class="brand-logo" src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="96" height="24">
+      </a>
+      <nav class="header-nav" aria-label="Account">
+        <a class="link-signin" href="https://strapivo.app">Sign in</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow eyebrow-azure">Strategic Design System</p>
+          <h1 id="hero-heading">
+            Any AI can answer a question.
+            <span class="h1-azure">Only Strapivo answers it as you.</span>
+          </h1>
+          <p class="hero-lead">
+            Strapivo is the Strategic Design System where a leadership team keeps its agreed strategy current. The Radar checks live market signals against your business model, and your team updates the plan in a 60-minute session.
+          </p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+            <p class="hero-audience">For CEOs, strategy chiefs and leadership teams.</p>
+          </div>
+        </div>
+
+        <figure class="compare-frame" aria-label="Comparison between a generic AI answer with an attached PDF and Vivo in Strapivo">
+          <div class="compare-meta">
+            <span>Illustrative example</span>
+            <span>Nordwerk Components</span>
+          </div>
+          <div class="compare-question">
+            <span class="compare-q-label">Strategic question</span>
+            <p class="compare-q-text">"Should we add a second European warehouse this year?"</p>
+          </div>
+          <div class="compare-split">
+            <div class="panel-generic">
+              <div class="panel-head">
+                <span>Generic AI with attached PDF</span>
+              </div>
+              <ul class="generic-list">
+                <li>Consider regional demand before committing capital.</li>
+                <li>Evaluate capital expenditure against expected delivery speed.</li>
+                <li>Align stakeholders on timing and operational risk.</li>
+              </ul>
+              <p class="panel-foot">No link to agreed strategy</p>
+            </div>
+
+            <div class="panel-vivo">
+              <div class="panel-head">
+                <svg class="omark-mini" viewBox="0 0 100 100" aria-hidden="true">
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="#0082E6" stroke-width="11"/>
+                </svg>
+                <span>Vivo in Strapivo</span>
+              </div>
+              <ul class="vivo-list">
+                <li>
+                  <span class="vivo-line">Checks Focus Area 2, 14% service margin target.</span>
+                  <span class="cite-tag"><span class="cite-dot" aria-hidden="true"></span>Focus Area 2</span>
+                </li>
+                <li>
+                  <span class="vivo-line">Flags Risk R-04, confirmed Monday from a primary supplier notice.</span>
+                  <span class="cite-tag"><span class="cite-dot" aria-hidden="true"></span>Risk R-04, primary source</span>
+                </li>
+                <li>
+                  <span class="vivo-line">Cites SDS-2026-009, expansion parked until the Q3 lead-time review.</span>
+                  <span class="cite-tag"><span class="cite-dot" aria-hidden="true"></span>Record SDS-2026-009</span>
+                </li>
+              </ul>
+              <p class="panel-foot">3 verified citations from strategic memory</p>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section section-white" aria-labelledby="pdf-heading">
+      <div class="wrap pdf-grid">
+        <div>
+          <p class="eyebrow">The PDF problem</p>
+          <h2 id="pdf-heading">Why attaching a PDF fails</h2>
+          <div class="prose-stack" style="margin-top: 20px;">
+            <p class="prose-lead">
+              A static strategy deck goes out of date the week after the offsite.
+            </p>
+            <p>
+              A general AI tool reads that file without knowing what your leadership team agreed last month or what it chose not to do. Its reply could belong to any company in your sector.
+            </p>
+            <p>
+              Strapivo is hardwired to your approved Business Model Canvas, your Ambition, your focus areas and your past decisions.
+            </p>
+          </div>
+        </div>
+
+        <aside class="quote-card" aria-label="What leadership teams tell us">
+          <p class="quote-label">What leadership teams tell us</p>
+          <blockquote class="quote-text">
+            "We restart the same argument every time a new analysis lands."
+          </blockquote>
+          <p class="quote-note">
+            Every new report reopens settled debates when past decisions sit in old slides.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section-paper" aria-labelledby="sources-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow eyebrow-azure">How Vivo answers</p>
+          <h2 id="sources-heading">Three sources behind every answer Vivo gives</h2>
+          <p class="section-intro">
+            You can buy monitoring and you can buy AI chat. Neither holds your approved strategy. Vivo reads all three sources together.
+          </p>
+        </div>
+
+        <div class="diagram-shell" role="region" aria-label="Diagram of the three sources behind every answer Vivo gives">
+          <div class="diagram-grid">
+            <div class="source-stack">
+              <div class="source-node" data-source="memory">
+                <div class="source-top">
+                  <span class="source-num">01 Strategic memory</span>
+                  <span class="cite-tag"><span class="cite-dot" aria-hidden="true"></span>Approved by Owners</span>
+                </div>
+                <p class="source-body">
+                  Strategic memory holds your Business Model Canvas, Ambition, 7 to 12 success criteria and up to 4 focus areas.
+                </p>
+              </div>
+
+              <div class="source-node" data-source="signals">
+                <div class="source-top">
+                  <span class="source-num">02 Confirmed signals</span>
+                  <span class="cite-tag"><span class="cite-dot" aria-hidden="true"></span>Primary source required</span>
+                </div>
+                <p class="source-body">
+                  The Radar logs dated signals on your focus areas. A person triages each signal, and high-risk moves require a primary source.
+                </p>
+              </div>
+
+              <div class="source-node" data-source="record">
+                <div class="source-top">
+                  <span class="source-num">03 Record of Decisions</span>
+                  <span class="cite-tag"><span class="cite-dot" aria-hidden="true"></span>Numbered trail</span>
+                </div>
+                <p class="source-body">
+                  Every decision carries a permanent number, named dissent and any trigger that returns a parked question.
+                </p>
+              </div>
+            </div>
+
+            <div class="connector-desktop" aria-hidden="true">
+              <svg viewBox="0 0 76 360" preserveAspectRatio="none">
+                <path class="flow-path" data-path="memory" d="M 0 60 H 38 V 180 H 76"/>
+                <path class="flow-path" data-path="signals" d="M 0 180 H 76"/>
+                <path class="flow-path" data-path="record" d="M 0 300 H 38 V 180 H 76"/>
+              </svg>
+              <span class="connector-hub"></span>
+            </div>
+
+            <div class="connector-mobile" aria-hidden="true">
+              <svg width="160" height="36" viewBox="0 0 160 36">
+                <path d="M 24 0 V 18 H 136 V 0" fill="none" stroke="#999FA6" stroke-width="1.75"/>
+                <path d="M 80 0 V 36" fill="none" stroke="#0082E6" stroke-width="2"/>
+                <circle cx="80" cy="18" r="3.5" fill="#0082E6"/>
+              </svg>
+            </div>
+
+            <div class="answer-node">
+              <div class="answer-head">
+                <svg class="omark-mini" viewBox="0 0 100 100" aria-hidden="true">
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="#0082E6" stroke-width="11"/>
+                </svg>
+                <span>Vivo in Strapivo</span>
+              </div>
+              <h3>Answers with citations</h3>
+              <p class="answer-copy">
+                Every recommendation cites the exact focus area, confirmed signal or decision number behind it. Select a citation to trace its source.
+              </p>
+              <div class="cite-controls">
+                <span class="cite-controls-label">Inspect citation source</span>
+                <div class="cite-btn-row">
+                  <button type="button" class="cite-btn" data-target="memory" aria-pressed="false">
+                    <span class="cite-dot" aria-hidden="true"></span>Focus Area 2
+                  </button>
+                  <button type="button" class="cite-btn" data-target="signals" aria-pressed="false">
+                    <span class="cite-dot" aria-hidden="true"></span>Risk R-04
+                  </button>
+                  <button type="button" class="cite-btn" data-target="record" aria-pressed="false">
+                    <span class="cite-dot" aria-hidden="true"></span>SDS-2026-009
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-white" aria-labelledby="loop-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow eyebrow-azure">Dynamic Strategy</p>
+          <h2 id="loop-heading">How the weekly loop runs</h2>
+          <p class="section-intro">
+            Most teams review strategy once a year, yet the market changes every week. Dynamic Strategy updates your plan in 60-minute sessions.
+          </p>
+        </div>
+
+        <div class="loop-grid">
+          <article class="loop-card">
+            <p class="loop-step">01 Signal</p>
+            <h3>Radar flags what moved</h3>
+            <p>
+              The Radar watches each focus area. A person marks signals relevant, unsure or dismissed. Dismissed signals teach Vivo what counts as noise.
+            </p>
+          </article>
+
+          <article class="loop-card">
+            <p class="loop-step">02 Discuss</p>
+            <h3>Sealed takes before debate</h3>
+            <p>
+              Vivo drafts the agenda 24 hours before the session from what changed. Each leader writes a sealed first take. All takes open together before discussion begins.
+            </p>
+          </article>
+
+          <article class="loop-card">
+            <p class="loop-step">03 Decide</p>
+            <h3>One of five outcomes</h3>
+            <p>
+              The room chooses one of five outcomes. Vivo reads back the decision and named dissent. The session lead confirms the permanent record.
+            </p>
+          </article>
+        </div>
+
+        <div class="options-box">
+          <p class="options-label">Five decision options</p>
+          <div class="options-grid">
+            <div class="option-item">
+              <span class="option-name">Hold</span>
+              <p class="option-desc">The criterion stays agreed and marked reviewed.</p>
+            </div>
+            <div class="option-item">
+              <span class="option-name">Adapt</span>
+              <p class="option-desc">Vivo drafts updates to objectives and activities.</p>
+            </div>
+            <div class="option-item">
+              <span class="option-name">Pivot</span>
+              <p class="option-desc">Vivo drafts revised wording for Owner confirmation.</p>
+            </div>
+            <div class="option-item">
+              <span class="option-name">Take advantage</span>
+              <p class="option-desc">The team adds detour activities without changing the criterion.</p>
+            </div>
+            <div class="option-item">
+              <span class="option-name">Not yet</span>
+              <p class="option-desc">The team parks the item with a return trigger, or lets it go.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-navy" aria-labelledby="chair-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow eyebrow-dark">Governance and trust</p>
+          <h2 id="chair-heading">The human stays in the chair</h2>
+          <p class="section-intro">
+            Leadership teams want help with strategy, not software that rewrites agreed truth on its own.
+          </p>
+        </div>
+
+        <div class="trust-grid">
+          <div class="trust-cell">
+            <span class="trust-marker">Approval rule</span>
+            <h3>Vivo proposes; people decide</h3>
+            <p>
+              Vivo drafts risk moves, agendas and wording changes, then waits. Nothing changes until a person with authority confirms it.
+            </p>
+          </div>
+
+          <div class="trust-cell">
+            <span class="trust-marker">Honest status</span>
+            <h3>No automatic light changes</h3>
+            <p>
+              When activities slip or a risk enters the top right, Vivo asks whether green still holds. Vivo never changes the light.
+            </p>
+          </div>
+
+          <div class="trust-cell">
+            <span class="trust-marker">Provenance</span>
+            <h3>Every claim traces back</h3>
+            <p>
+              Every recommendation points to your approved strategic memory, a confirmed signal or a numbered decision.
+            </p>
+          </div>
+
+          <div class="trust-cell">
+            <span class="trust-marker">Data residency</span>
+            <h3>EU-only infrastructure, GDPR by design</h3>
+            <p>
+              Strapivo hosts all board-level material on European Union servers under GDPR.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-paper" aria-labelledby="start-heading">
+      <div class="wrap start-grid">
+        <div>
+          <p class="eyebrow eyebrow-azure">Getting started</p>
+          <h2 id="start-heading">Four to five hours, and then you run it</h2>
+          <ol class="step-list">
+            <li>
+              <span class="step-code">01</span>
+              <p><span class="step-lead">We do the reading first.</span> Send your existing strategy documents, workshop reports or emails.</p>
+            </li>
+            <li>
+              <span class="step-code">02</span>
+              <p><span class="step-lead">Start with public and non-sensitive material.</span> Widen your strategic memory as trust grows.</p>
+            </li>
+            <li>
+              <span class="step-code">03</span>
+              <p><span class="step-lead">Correct a draft, not a blank page.</span> Walk into session one with a proposed structure. Fix what we missed and teach Vivo what matters.</p>
+            </li>
+            <li>
+              <span class="step-code">04</span>
+              <p><span class="step-lead">Use it once together.</span> Run one live session on real decisions, then run the cadence yourselves.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="cta-card">
+          <p class="eyebrow eyebrow-azure">First conversation</p>
+          <h3>Bring one live strategic question to the call</h3>
+          <p>
+            See how Strapivo answers using your business model, focus areas and past decisions.
+          </p>
+          <a class="btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+          <span class="cta-email">strategy@strapivo.com</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-left">
+        <img class="footer-logo" src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="80" height="20">
+        <span class="footer-copy">© 2026 Strapivo</span>
+      </div>
+      <nav class="footer-links" aria-label="Legal">
+        <a href="/imprint">Imprint</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var buttons = document.querySelectorAll('.cite-btn');
+      var nodes = document.querySelectorAll('.source-node');
+      var paths = document.querySelectorAll('.flow-path');
+      if (!buttons.length) return;
+
+      function setActive(target) {
+        buttons.forEach(function (btn) {
+          var match = btn.getAttribute('data-target') === target;
+          btn.classList.toggle('is-active', match);
+          btn.setAttribute('aria-pressed', match ? 'true' : 'false');
+        });
+        nodes.forEach(function (node) {
+          node.classList.toggle('is-active', node.getAttribute('data-source') === target);
+        });
+        paths.forEach(function (path) {
+          path.classList.toggle('is-active', path.getAttribute('data-path') === target);
+        });
+      }
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var target = btn.getAttribute('data-target');
+          var already = btn.classList.contains('is-active');
+          setActive(already ? '' : target);
+        });
+      });
+
+      nodes.forEach(function (node) {
+        node.addEventListener('mouseenter', function () {
+          setActive(node.getAttribute('data-source'));
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
