@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo · Twelve goals, one changed colour</title>
+<meta name="description" content="Strapivo is where a leadership team keeps its strategy and sees at a glance what needs attention.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:"Inter";src:url("../../fonts/Inter-Regular.otf") format("opentype");font-weight:400;font-display:swap}
+*,*::before,*::after{box-sizing:border-box}
+html{background:#171512;color:#efe6d6;-webkit-text-size-adjust:100%}
+body{margin:0;font:400 16px/1.55 "Inter",system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid #f2c46d;outline-offset:4px;border-radius:2px}
+.serif{font-family:"Fraunces",Georgia,serif;font-weight:300;font-variation-settings:"opsz" 36}
+
+/* the wall */
+.wall{position:relative;background:
+  radial-gradient(ellipse 70% 62% at var(--lx,38%) 46%,#3b342b 0%,#28231e 48%,#171512 100%)}
+.top{position:absolute;z-index:5;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:26px clamp(20px,3.2vw,48px)}
+.logo img{display:block;height:20px;width:auto}
+.signin{font-size:14px;color:#c9bda9;text-decoration:none;padding:6px 0;border-bottom:1px solid #6b6155}
+.signin:hover{color:#fff;border-color:#c9bda9}
+
+.hero{min-height:100vh;min-height:100svh;display:grid;align-items:center;justify-content:center;
+  grid-template-columns:auto minmax(220px,300px);gap:clamp(40px,5vw,88px);padding:96px clamp(24px,4vw,64px) 64px}
+
+/* the painting */
+.painting{position:relative;container-type:inline-size;width:min(62vw,calc((100svh - 170px) * 1.42));aspect-ratio:900/634;
+  background:#c3a675;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(2,1fr);
+  gap:3cqw 2.3cqw;padding:4.2cqw 4cqw;
+  box-shadow:0 1px 0 #d8c093 inset,-1px 0 0 #a88b5c inset,0 -2px 0 #9c7f52 inset,
+    0 40px 70px -20px rgba(0,0,0,.75),0 12px 24px rgba(0,0,0,.35),9px 0 0 -2px #6e5a3c;
+  transform-origin:50% 50%}
+.ground,.grain{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.grain{z-index:3;mix-blend-mode:multiply;opacity:.9}
+.field{position:relative;z-index:1;appearance:none;border:0;padding:0;margin:0;background:none;cursor:pointer;color:inherit;font:inherit;min-width:0}
+.paint{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.warm{opacity:0;animation:warm 7s cubic-bezier(.45,0,.3,1) 1.6s forwards}
+@keyframes warm{to{opacity:1}}
+.num{position:absolute;left:14%;bottom:11%;font-size:14px;letter-spacing:.06em;color:rgba(248,240,226,.78);z-index:2;opacity:var(--num,1)}
+.field:focus-visible{outline-offset:6px}
+.field:hover .num,.field:focus-visible .num{color:#fff}
+
+/* the wall label */
+.label{align-self:end;margin-bottom:6px;max-width:290px}
+.label h1,.end h2{text-wrap:balance}
+.label h1{font-size:clamp(28px,2.5vw,38px);line-height:1.12;margin:0 0 22px;letter-spacing:-.005em;color:#f3ebdc}
+.label p{margin:0 0 30px;color:#bdb19e;font-size:16px}
+.cta{display:inline-block;font-size:16px;color:#f2c46d;text-decoration:none;padding:10px 0 8px;border-bottom:1px solid #f2c46d}
+.cta:hover{color:#ffd88f;border-color:#ffd88f}
+
+/* tooltip */
+.tip{position:fixed;z-index:20;left:0;top:0;padding:7px 12px;background:#efe6d6;color:#1d1a16;font-size:14px;white-space:nowrap;pointer-events:none;
+  opacity:0;transition:opacity .2s;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+.tip.on{opacity:1}
+
+/* close view */
+.close{position:relative;height:100vh;height:100svh;overflow:hidden;background:#c3a675}
+.close .big{position:absolute;left:50%;top:-12%;width:min(90vw,58vh);height:124%;margin-left:calc(min(90vw,58vh) / -2);overflow:visible}
+.close .grain{position:absolute;opacity:.9}
+.say{position:absolute;inset:0;z-index:4;display:grid;place-content:center;text-align:center;padding:0 28px;color:#2a1707}
+.say h2{font-size:clamp(40px,5vw,76px);line-height:1;margin:0 0 26px;font-style:italic;letter-spacing:-.01em}
+.say p{margin:0 auto;max-width:25em;font-size:clamp(16px,1.35vw,19px);color:#2f1b09}
+
+/* end */
+.end{min-height:92vh;min-height:92svh;display:grid;align-content:center;justify-items:center;text-align:center;padding:120px 28px 0;gap:0}
+.end h2{font-size:clamp(30px,3.4vw,50px);line-height:1.12;margin:0 0 18px;max-width:15em}
+.end p{margin:0 0 40px;color:#bdb19e;max-width:24em}
+footer{padding:120px 28px 28px;text-align:center;font-size:13px;color:#958a79}
+footer a{color:#b8ad9b;margin-left:14px}
+
+/* scroll-driven version, only with JavaScript and motion */
+.motion .stage{height:360vh}
+.motion .pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.motion .close{position:absolute;inset:0;z-index:6;opacity:0;visibility:hidden;background:transparent}
+.motion .close .big{transform-origin:50% 50%;margin-left:0}
+.motion .say{opacity:0}
+
+@media (prefers-reduced-motion:reduce){.warm{animation:none;opacity:1}}
+
+@media (max-width:860px){
+  .top{padding:20px}
+  .logo img{height:17px}
+  .hero{grid-template-columns:1fr;gap:26px;padding:72px 16px 32px;align-content:start;justify-items:center}
+  .painting{width:100%;max-width:560px;aspect-ratio:auto;height:min(132vw,calc(100svh - 330px));min-height:400px;
+    grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(4,1fr);gap:4cqw 4.2cqw;padding:6cqw 6.5cqw}
+  .label{margin:0;max-width:560px;width:100%;padding:0 4px}
+  .label h1{font-size:27px;margin-bottom:12px}
+  .label p{font-size:15px;margin-bottom:14px}
+  .cta{padding-top:4px}
+  .num{left:12%;bottom:8%}
+}
+</style>
+</head>
+<body>
+<div class="tip" id="tip" aria-hidden="true"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<filter id="b1" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0300" numOctaves="3" seed="10"/>
+ <feDisplacementMap in="SourceGraphic" scale="26.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="8.0"/></filter>
+<filter id="e1" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0450" numOctaves="4" seed="11"/>
+ <feDisplacementMap in="SourceGraphic" scale="14.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="3.2"/></filter>
+<filter id="w1" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0140 0.0220" numOctaves="4" seed="12" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.6 0 0 0 -1.05" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0400" numOctaves="2" seed="13" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="10.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="4.0"/></filter>
+<filter id="s1" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0030 0.0750" numOctaves="3" seed="14" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.2 0 0 0 -1.4" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0500" numOctaves="2" seed="15" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="5.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="0.8"/></filter>
+<filter id="g1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14.0"/></filter>
+<filter id="b2" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0300" numOctaves="3" seed="17"/>
+ <feDisplacementMap in="SourceGraphic" scale="26.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="8.0"/></filter>
+<filter id="e2" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0450" numOctaves="4" seed="18"/>
+ <feDisplacementMap in="SourceGraphic" scale="14.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="3.2"/></filter>
+<filter id="w2" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0140 0.0220" numOctaves="4" seed="19" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.6 0 0 0 -1.05" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0400" numOctaves="2" seed="20" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="10.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="4.0"/></filter>
+<filter id="s2" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0030 0.0750" numOctaves="3" seed="21" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.2 0 0 0 -1.4" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0500" numOctaves="2" seed="22" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="5.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="0.8"/></filter>
+<filter id="g2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14.0"/></filter>
+<filter id="b3" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0300" numOctaves="3" seed="24"/>
+ <feDisplacementMap in="SourceGraphic" scale="26.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="8.0"/></filter>
+<filter id="e3" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0450" numOctaves="4" seed="25"/>
+ <feDisplacementMap in="SourceGraphic" scale="14.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="3.2"/></filter>
+<filter id="w3" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0140 0.0220" numOctaves="4" seed="26" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.6 0 0 0 -1.05" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0400" numOctaves="2" seed="27" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="10.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="4.0"/></filter>
+<filter id="s3" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0030 0.0750" numOctaves="3" seed="28" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.2 0 0 0 -1.4" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0500" numOctaves="2" seed="29" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="5.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="0.8"/></filter>
+<filter id="g3" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14.0"/></filter>
+<filter id="b4" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0300" numOctaves="3" seed="31"/>
+ <feDisplacementMap in="SourceGraphic" scale="26.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="8.0"/></filter>
+<filter id="e4" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0450" numOctaves="4" seed="32"/>
+ <feDisplacementMap in="SourceGraphic" scale="14.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="3.2"/></filter>
+<filter id="w4" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0140 0.0220" numOctaves="4" seed="33" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.6 0 0 0 -1.05" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0400" numOctaves="2" seed="34" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="10.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="4.0"/></filter>
+<filter id="s4" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0030 0.0750" numOctaves="3" seed="35" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.2 0 0 0 -1.4" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0500" numOctaves="2" seed="36" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="5.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="0.8"/></filter>
+<filter id="g4" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14.0"/></filter>
+<filter id="b5" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0300" numOctaves="3" seed="38"/>
+ <feDisplacementMap in="SourceGraphic" scale="26.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="8.0"/></filter>
+<filter id="e5" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0450" numOctaves="4" seed="39"/>
+ <feDisplacementMap in="SourceGraphic" scale="14.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="3.2"/></filter>
+<filter id="w5" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0140 0.0220" numOctaves="4" seed="40" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.6 0 0 0 -1.05" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0400" numOctaves="2" seed="41" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="10.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="4.0"/></filter>
+<filter id="s5" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0030 0.0750" numOctaves="3" seed="42" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.2 0 0 0 -1.4" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0500" numOctaves="2" seed="43" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="5.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="0.8"/></filter>
+<filter id="g5" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14.0"/></filter>
+<filter id="b6" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0300" numOctaves="3" seed="45"/>
+ <feDisplacementMap in="SourceGraphic" scale="26.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="8.0"/></filter>
+<filter id="e6" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0450" numOctaves="4" seed="46"/>
+ <feDisplacementMap in="SourceGraphic" scale="14.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="3.2"/></filter>
+<filter id="w6" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0140 0.0220" numOctaves="4" seed="47" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.6 0 0 0 -1.05" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0400" numOctaves="2" seed="48" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="10.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="4.0"/></filter>
+<filter id="s6" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0030 0.0750" numOctaves="3" seed="49" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.2 0 0 0 -1.4" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0500" numOctaves="2" seed="50" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="5.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="0.8"/></filter>
+<filter id="g6" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14.0"/></filter>
+<filter id="b7" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0300" numOctaves="3" seed="52"/>
+ <feDisplacementMap in="SourceGraphic" scale="26.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="8.0"/></filter>
+<filter id="e7" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0450" numOctaves="4" seed="53"/>
+ <feDisplacementMap in="SourceGraphic" scale="14.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="3.2"/></filter>
+<filter id="w7" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0140 0.0220" numOctaves="4" seed="54" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.6 0 0 0 -1.05" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0400" numOctaves="2" seed="55" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="10.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="4.0"/></filter>
+<filter id="s7" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0030 0.0750" numOctaves="3" seed="56" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.2 0 0 0 -1.4" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0500" numOctaves="2" seed="57" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="5.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="0.8"/></filter>
+<filter id="g7" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14.0"/></filter>
+<filter id="b13" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0300" numOctaves="3" seed="94"/>
+ <feDisplacementMap in="SourceGraphic" scale="26.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="8.0"/></filter>
+<filter id="e13" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0450" numOctaves="4" seed="95"/>
+ <feDisplacementMap in="SourceGraphic" scale="14.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="3.2"/></filter>
+<filter id="w13" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0140 0.0220" numOctaves="4" seed="96" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.6 0 0 0 -1.05" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0400" numOctaves="2" seed="97" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="10.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="4.0"/></filter>
+<filter id="s13" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0030 0.0750" numOctaves="3" seed="98" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.2 0 0 0 -1.4" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0500" numOctaves="2" seed="99" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="5.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="0.8"/></filter>
+<filter id="g13" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14.0"/></filter>
+<filter id="b8" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0300" numOctaves="3" seed="59"/>
+ <feDisplacementMap in="SourceGraphic" scale="26.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="8.0"/></filter>
+<filter id="e8" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0450" numOctaves="4" seed="60"/>
+ <feDisplacementMap in="SourceGraphic" scale="14.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="3.2"/></filter>
+<filter id="w8" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0140 0.0220" numOctaves="4" seed="61" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.6 0 0 0 -1.05" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0400" numOctaves="2" seed="62" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="10.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="4.0"/></filter>
+<filter id="s8" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0030 0.0750" numOctaves="3" seed="63" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.2 0 0 0 -1.4" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0500" numOctaves="2" seed="64" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="5.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="0.8"/></filter>
+<filter id="g8" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14.0"/></filter>
+<filter id="b9" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0300" numOctaves="3" seed="66"/>
+ <feDisplacementMap in="SourceGraphic" scale="26.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="8.0"/></filter>
+<filter id="e9" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0450" numOctaves="4" seed="67"/>
+ <feDisplacementMap in="SourceGraphic" scale="14.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="3.2"/></filter>
+<filter id="w9" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0140 0.0220" numOctaves="4" seed="68" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.6 0 0 0 -1.05" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0400" numOctaves="2" seed="69" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="10.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="4.0"/></filter>
+<filter id="s9" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0030 0.0750" numOctaves="3" seed="70" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.2 0 0 0 -1.4" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0500" numOctaves="2" seed="71" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="5.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="0.8"/></filter>
+<filter id="g9" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14.0"/></filter>
+<filter id="b10" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0300" numOctaves="3" seed="73"/>
+ <feDisplacementMap in="SourceGraphic" scale="26.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="8.0"/></filter>
+<filter id="e10" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0450" numOctaves="4" seed="74"/>
+ <feDisplacementMap in="SourceGraphic" scale="14.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="3.2"/></filter>
+<filter id="w10" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0140 0.0220" numOctaves="4" seed="75" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.6 0 0 0 -1.05" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0400" numOctaves="2" seed="76" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="10.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="4.0"/></filter>
+<filter id="s10" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0030 0.0750" numOctaves="3" seed="77" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.2 0 0 0 -1.4" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0500" numOctaves="2" seed="78" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="5.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="0.8"/></filter>
+<filter id="g10" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14.0"/></filter>
+<filter id="b11" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0300" numOctaves="3" seed="80"/>
+ <feDisplacementMap in="SourceGraphic" scale="26.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="8.0"/></filter>
+<filter id="e11" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0450" numOctaves="4" seed="81"/>
+ <feDisplacementMap in="SourceGraphic" scale="14.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="3.2"/></filter>
+<filter id="w11" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0140 0.0220" numOctaves="4" seed="82" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.6 0 0 0 -1.05" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0400" numOctaves="2" seed="83" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="10.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="4.0"/></filter>
+<filter id="s11" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0030 0.0750" numOctaves="3" seed="84" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.2 0 0 0 -1.4" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0500" numOctaves="2" seed="85" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="5.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="0.8"/></filter>
+<filter id="g11" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14.0"/></filter>
+<filter id="b12" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0300" numOctaves="3" seed="87"/>
+ <feDisplacementMap in="SourceGraphic" scale="26.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="8.0"/></filter>
+<filter id="e12" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0450" numOctaves="4" seed="88"/>
+ <feDisplacementMap in="SourceGraphic" scale="14.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="3.2"/></filter>
+<filter id="w12" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0140 0.0220" numOctaves="4" seed="89" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.6 0 0 0 -1.05" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0400" numOctaves="2" seed="90" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="10.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="4.0"/></filter>
+<filter id="s12" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0030 0.0750" numOctaves="3" seed="91" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.2 0 0 0 -1.4" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0500" numOctaves="2" seed="92" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="5.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="0.8"/></filter>
+<filter id="g12" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14.0"/></filter>
+<filter id="b20" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0094" numOctaves="3" seed="143"/>
+ <feDisplacementMap in="SourceGraphic" scale="83.2" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="25.6"/></filter>
+<filter id="e20" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0141" numOctaves="4" seed="144"/>
+ <feDisplacementMap in="SourceGraphic" scale="44.8" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="10.2"/></filter>
+<filter id="w20" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0044 0.0069" numOctaves="4" seed="145" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.6 0 0 0 -1.05" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0125" numOctaves="2" seed="146" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="32.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="12.8"/></filter>
+<filter id="s20" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.0009 0.0234" numOctaves="3" seed="147" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.2 0 0 0 -1.4" result="m"/>
+ <feComposite in="SourceGraphic" in2="m" operator="in" result="c"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.0156" numOctaves="2" seed="148" result="n2"/>
+ <feDisplacementMap in="c" in2="n2" scale="16.0" xChannelSelector="R" yChannelSelector="G"/>
+ <feGaussianBlur stdDeviation="2.6"/></filter>
+<filter id="g20" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="44.8"/></filter></defs></svg>
+<main class="wall">
+ <header class="top">
+  <a class="logo" href="#"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="80" height="20"></a>
+  <a class="signin" href="https://strapivo.app">Sign in</a>
+ </header>
+ <div class="stage" id="stage">
+  <div class="pin" id="pin">
+   <section class="hero" id="hero">
+    <div class="painting" id="painting" role="group" aria-label="A painting of twelve fields, one per goal. Ten are green, field 07 has turned amber and field 03 is deep red. Each field opens one line about it.">
+     <svg class="ground" aria-hidden="true" focusable="false">
+<filter id="gw" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency=".004 .012" numOctaves="4" seed="5" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 .55 0 0 0 0 .40 0 0 0 0 .24 0 0 0 1.6 -.62"/></filter>
+<filter id="gg" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="9" result="n"/>
+ <feColorMatrix in="n" type="matrix" values="0 0 0 0 .2 0 0 0 0 .15 0 0 0 0 .1 0 0 0 .55 -.2"/></filter>
+<rect width="100%" height="100%" filter="url(#gw)"/>
+</svg>
+     <button class="field f01" type="button" data-line="01 · green, held at the last session" aria-label="01 · green, held at the last session"><svg class="paint " aria-hidden="true" focusable="false">
+<rect x="-0.3%" y="2.8%" width="97.4%" height="98.5%" fill="#465941" opacity=".55" filter="url(#b1)"/>
+<rect x="6.3%" y="4.3%" width="90.3%" height="90.0%" fill="#637c5a" filter="url(#e1)"/>
+<rect x="9.7%" y="8.4%" width="83.4%" height="84.1%" fill="#899e7d" opacity=".7" filter="url(#w1)"/>
+<rect x="15.7%" y="14.8%" width="69.4%" height="42.9%" fill="#a4b19b" opacity=".34" filter="url(#g1)"/>
+<rect x="6.1%" y="4.9%" width="85.6%" height="86.6%" fill="#465941" opacity=".26" filter="url(#s1)"/>
+</svg><span class="num" aria-hidden="true">01</span></button>
+<button class="field f02" type="button" data-line="02 · green" aria-label="02 · green"><svg class="paint " aria-hidden="true" focusable="false">
+<rect x="2.6%" y="0.3%" width="98.2%" height="95.1%" fill="#324834" opacity=".55" filter="url(#b2)"/>
+<rect x="6.1%" y="2.3%" width="88.1%" height="92.1%" fill="#446445" filter="url(#e2)"/>
+<rect x="9.8%" y="7.5%" width="85.1%" height="85.8%" fill="#5f825c" opacity=".7" filter="url(#w2)"/>
+<rect x="18.1%" y="12.9%" width="65.9%" height="44.4%" fill="#75956f" opacity=".34" filter="url(#g2)"/>
+<rect x="7.0%" y="4.7%" width="84.1%" height="88.4%" fill="#324834" opacity=".26" filter="url(#s2)"/>
+</svg><span class="num" aria-hidden="true">02</span></button>
+<button class="field f03" type="button" data-line="03 · red for nine days, on the agenda" aria-label="03 · red for nine days, on the agenda"><svg class="paint " aria-hidden="true" focusable="false">
+<rect x="-0.1%" y="-0.1%" width="100.1%" height="99.1%" fill="#552119" opacity=".55" filter="url(#b3)"/>
+<rect x="3.5%" y="1.8%" width="91.0%" height="91.9%" fill="#792620" filter="url(#e3)"/>
+<rect x="9.1%" y="5.0%" width="85.9%" height="87.0%" fill="#9a3034" opacity=".7" filter="url(#w3)"/>
+<rect x="17.7%" y="12.0%" width="68.1%" height="45.5%" fill="#ae404b" opacity=".34" filter="url(#g3)"/>
+<rect x="5.0%" y="6.8%" width="86.2%" height="88.3%" fill="#552119" opacity=".26" filter="url(#s3)"/>
+</svg><span class="num" aria-hidden="true">03</span></button>
+<button class="field f04" type="button" data-line="04 · green, a focus area" aria-label="04 · green, a focus area"><svg class="paint " aria-hidden="true" focusable="false">
+<rect x="1.2%" y="1.1%" width="99.2%" height="96.7%" fill="#2d3e31" opacity=".55" filter="url(#b4)"/>
+<rect x="5.5%" y="5.2%" width="90.5%" height="91.0%" fill="#3d5742" filter="url(#e4)"/>
+<rect x="9.7%" y="9.1%" width="82.9%" height="84.6%" fill="#537156" opacity=".7" filter="url(#w4)"/>
+<rect x="15.1%" y="14.0%" width="68.0%" height="46.2%" fill="#638264" opacity=".34" filter="url(#g4)"/>
+<rect x="7.9%" y="6.3%" width="84.7%" height="87.9%" fill="#2d3e31" opacity=".26" filter="url(#s4)"/>
+</svg><span class="num" aria-hidden="true">04</span></button>
+<button class="field f05" type="button" data-line="05 · green" aria-label="05 · green"><svg class="paint " aria-hidden="true" focusable="false">
+<rect x="2.7%" y="1.7%" width="95.9%" height="96.1%" fill="#52614c" opacity=".55" filter="url(#b5)"/>
+<rect x="3.0%" y="4.2%" width="91.9%" height="93.5%" fill="#748768" filter="url(#e5)"/>
+<rect x="5.9%" y="8.6%" width="83.0%" height="87.8%" fill="#9daa93" opacity=".7" filter="url(#w5)"/>
+<rect x="15.4%" y="15.0%" width="68.1%" height="42.5%" fill="#bac1b3" opacity=".34" filter="url(#g5)"/>
+<rect x="7.0%" y="7.6%" width="85.7%" height="88.1%" fill="#52614c" opacity=".26" filter="url(#s5)"/>
+</svg><span class="num" aria-hidden="true">05</span></button>
+<button class="field f06" type="button" data-line="06 · green, two new signals" aria-label="06 · green, two new signals"><svg class="paint " aria-hidden="true" focusable="false">
+<rect x="0.7%" y="3.4%" width="96.6%" height="96.9%" fill="#444e33" opacity=".55" filter="url(#b6)"/>
+<rect x="6.2%" y="5.5%" width="89.5%" height="91.1%" fill="#616d46" filter="url(#e6)"/>
+<rect x="9.7%" y="5.6%" width="85.8%" height="87.8%" fill="#848d5e" opacity=".7" filter="url(#w6)"/>
+<rect x="13.8%" y="12.9%" width="66.6%" height="42.9%" fill="#999f76" opacity=".34" filter="url(#g6)"/>
+<rect x="7.5%" y="7.2%" width="85.9%" height="86.4%" fill="#444e33" opacity=".26" filter="url(#s6)"/>
+</svg><span class="num" aria-hidden="true">06</span></button>
+<button class="field f07" type="button" data-line="07 · amber since Monday, a person changed it" aria-label="07 · amber since Monday, a person changed it"><svg class="paint " aria-hidden="true" focusable="false">
+<rect x="-0.9%" y="0.5%" width="97.2%" height="95.4%" fill="#3c513b" opacity=".55" filter="url(#b7)"/>
+<rect x="3.4%" y="4.4%" width="89.7%" height="92.6%" fill="#557150" filter="url(#e7)"/>
+<rect x="9.4%" y="5.3%" width="82.4%" height="84.9%" fill="#76936c" opacity=".7" filter="url(#w7)"/>
+<rect x="17.3%" y="15.5%" width="66.5%" height="42.8%" fill="#90a488" opacity=".34" filter="url(#g7)"/>
+<rect x="6.6%" y="3.8%" width="85.5%" height="88.3%" fill="#3c513b" opacity=".26" filter="url(#s7)"/>
+</svg><svg class="paint warm" aria-hidden="true" focusable="false">
+<rect x="1.1%" y="3.5%" width="99.0%" height="98.9%" fill="#846128" opacity=".55" filter="url(#b13)"/>
+<rect x="4.5%" y="4.5%" width="91.1%" height="94.0%" fill="#bb7f35" filter="url(#e13)"/>
+<rect x="9.6%" y="8.8%" width="83.1%" height="85.5%" fill="#cf996d" opacity=".7" filter="url(#w13)"/>
+<rect x="16.1%" y="14.5%" width="69.3%" height="43.7%" fill="#d9b39b" opacity=".34" filter="url(#g13)"/>
+<rect x="8.9%" y="8.1%" width="87.6%" height="89.9%" fill="#846128" opacity=".26" filter="url(#s13)"/>
+</svg><span class="num" aria-hidden="true">07</span></button>
+<button class="field f08" type="button" data-line="08 · green" aria-label="08 · green"><svg class="paint " aria-hidden="true" focusable="false">
+<rect x="1.0%" y="1.4%" width="96.7%" height="95.7%" fill="#46584a" opacity=".55" filter="url(#b8)"/>
+<rect x="6.9%" y="2.8%" width="88.7%" height="92.6%" fill="#607b64" filter="url(#e8)"/>
+<rect x="8.8%" y="5.1%" width="85.3%" height="85.5%" fill="#859d86" opacity=".7" filter="url(#w8)"/>
+<rect x="17.2%" y="14.6%" width="70.2%" height="42.6%" fill="#a2b2a2" opacity=".34" filter="url(#g8)"/>
+<rect x="6.7%" y="6.2%" width="87.8%" height="89.2%" fill="#46584a" opacity=".26" filter="url(#s8)"/>
+</svg><span class="num" aria-hidden="true">08</span></button>
+<button class="field f09" type="button" data-line="09 · green, a focus area" aria-label="09 · green, a focus area"><svg class="paint " aria-hidden="true" focusable="false">
+<rect x="0.8%" y="3.3%" width="99.5%" height="98.6%" fill="#394530" opacity=".55" filter="url(#b9)"/>
+<rect x="7.2%" y="4.8%" width="90.7%" height="90.9%" fill="#516142" filter="url(#e9)"/>
+<rect x="10.1%" y="9.1%" width="83.8%" height="86.2%" fill="#6e7e59" opacity=".7" filter="url(#w9)"/>
+<rect x="15.0%" y="14.4%" width="68.0%" height="42.7%" fill="#84926b" opacity=".34" filter="url(#g9)"/>
+<rect x="5.9%" y="4.1%" width="85.5%" height="88.2%" fill="#394530" opacity=".26" filter="url(#s9)"/>
+</svg><span class="num" aria-hidden="true">09</span></button>
+<button class="field f10" type="button" data-line="10 · green, reviewed this week" aria-label="10 · green, reviewed this week"><svg class="paint " aria-hidden="true" focusable="false">
+<rect x="0.2%" y="2.6%" width="96.7%" height="94.8%" fill="#486049" opacity=".55" filter="url(#b10)"/>
+<rect x="4.0%" y="2.5%" width="89.3%" height="90.0%" fill="#658764" filter="url(#e10)"/>
+<rect x="6.7%" y="8.1%" width="82.9%" height="86.3%" fill="#91a88d" opacity=".7" filter="url(#w10)"/>
+<rect x="14.7%" y="12.9%" width="69.9%" height="45.5%" fill="#b1bfad" opacity=".34" filter="url(#g10)"/>
+<rect x="5.8%" y="6.1%" width="87.4%" height="89.9%" fill="#486049" opacity=".26" filter="url(#s10)"/>
+</svg><span class="num" aria-hidden="true">10</span></button>
+<button class="field f11" type="button" data-line="11 · green" aria-label="11 · green"><svg class="paint " aria-hidden="true" focusable="false">
+<rect x="1.7%" y="-0.6%" width="98.6%" height="95.9%" fill="#31402e" opacity=".55" filter="url(#b11)"/>
+<rect x="5.1%" y="6.1%" width="88.8%" height="91.9%" fill="#455a3f" filter="url(#e11)"/>
+<rect x="8.2%" y="7.5%" width="84.2%" height="87.7%" fill="#607555" opacity=".7" filter="url(#w11)"/>
+<rect x="15.7%" y="15.2%" width="67.6%" height="43.2%" fill="#738866" opacity=".34" filter="url(#g11)"/>
+<rect x="8.3%" y="6.1%" width="86.4%" height="86.2%" fill="#31402e" opacity=".26" filter="url(#s11)"/>
+</svg><span class="num" aria-hidden="true">11</span></button>
+<button class="field f12" type="button" data-line="12 · green, one activity at risk" aria-label="12 · green, one activity at risk"><svg class="paint " aria-hidden="true" focusable="false">
+<rect x="-0.3%" y="0.5%" width="96.0%" height="96.3%" fill="#3c4f43" opacity=".55" filter="url(#b12)"/>
+<rect x="6.7%" y="5.1%" width="91.2%" height="90.6%" fill="#536e5b" filter="url(#e12)"/>
+<rect x="9.9%" y="8.5%" width="82.7%" height="87.9%" fill="#709075" opacity=".7" filter="url(#w12)"/>
+<rect x="16.3%" y="15.1%" width="66.4%" height="42.6%" fill="#8aa28d" opacity=".34" filter="url(#g12)"/>
+<rect x="7.7%" y="4.4%" width="84.3%" height="89.1%" fill="#3c4f43" opacity=".26" filter="url(#s12)"/>
+</svg><span class="num" aria-hidden="true">12</span></button>
+     <svg class="grain" aria-hidden="true" focusable="false"><rect width="100%" height="100%" filter="url(#gg)"/></svg>
+    </div>
+    <div class="label" id="label">
+     <h1 class="serif">Twelve goals. One changed colour this week.</h1>
+     <p>Strapivo is where a leadership team keeps its strategy and sees at a glance what needs attention.</p>
+     <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </div>
+   </section>
+   <section class="close" id="close" aria-labelledby="ask">
+    <svg class="paint big" aria-hidden="true" focusable="false">
+<rect x="3.1%" y="2.8%" width="96.4%" height="97.2%" fill="#846128" opacity=".55" filter="url(#b20)"/>
+<rect x="5.5%" y="1.9%" width="90.2%" height="92.0%" fill="#bb7f35" filter="url(#e20)"/>
+<rect x="8.7%" y="6.4%" width="82.3%" height="83.8%" fill="#cf996d" opacity=".7" filter="url(#w20)"/>
+<rect x="14.8%" y="12.4%" width="67.2%" height="44.8%" fill="#d9b39b" opacity=".34" filter="url(#g20)"/>
+<rect x="5.6%" y="7.8%" width="85.2%" height="89.5%" fill="#846128" opacity=".26" filter="url(#s20)"/>
+</svg>
+    <svg class="grain" aria-hidden="true" focusable="false"><rect width="100%" height="100%" filter="url(#gg)"/></svg>
+    <div class="say">
+     <h2 class="serif" id="ask">Light still green?</h2>
+     <p>Vivo, the AI in Strapivo, asks when activities go off track or a risk turns serious. Only a person changes the light.</p>
+    </div>
+   </section>
+  </div>
+ </div>
+ <section class="end">
+  <h2 class="serif">This is Dynamic Strategy.</h2>
+  <p>Your team makes small corrections every week, while they are still cheap.</p>
+  <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+ </section>
+ <footer>© 2026 Strapivo <a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+</main>
+<script>
+(() => {
+  const tip = document.getElementById("tip");
+  const fields = [...document.querySelectorAll(".field")];
+  let shown = null;
+  const place = (el) => {
+    tip.textContent = el.dataset.line;
+    const r = el.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight;
+    let x = r.left + r.width / 2 - w / 2;
+    x = Math.max(10, Math.min(innerWidth - w - 10, x));
+    let y = r.bottom + 10;
+    if (y + h > innerHeight - 10) y = r.top - h - 10;
+    tip.style.transform = `translate(${x}px,${y}px)`;
+    tip.classList.add("on"); shown = el;
+  };
+  const hide = () => { tip.classList.remove("on"); shown = null; };
+  fields.forEach(f => {
+    f.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") place(f); });
+    f.addEventListener("pointerleave", e => { if (e.pointerType === "mouse") hide(); });
+    f.addEventListener("focus", () => place(f));
+    f.addEventListener("blur", hide);
+    f.addEventListener("click", () => { shown === f ? hide() : place(f); });
+  });
+  addEventListener("scroll", () => { if (shown && document.activeElement !== shown) hide(); else if (shown) place(shown); }, {passive: true});
+  addEventListener("keydown", e => { if (e.key === "Escape") hide(); });
+
+  const mq = matchMedia("(prefers-reduced-motion: reduce)");
+  if (mq.matches) return;
+  document.documentElement.classList.add("motion");
+  const stage = document.getElementById("stage"), pin = document.getElementById("pin");
+  const painting = document.getElementById("painting"), label = document.getElementById("label");
+  const close = document.getElementById("close"), big = close.querySelector(".big"), say = close.querySelector(".say");
+  const target = document.querySelector(".f07"), grain = painting.querySelector(".grain");
+  let geo = null, ticking = false, visible = true;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const span = (p, a, b) => clamp((p - a) / (b - a));
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+  function measure() {
+    painting.style.transform = "none";
+    const pr = painting.getBoundingClientRect(), fr = target.getBoundingClientRect(), qr = pin.getBoundingClientRect();
+    const fx = fr.left + fr.width / 2, fy = fr.top + fr.height / 2;
+    painting.style.transformOrigin = `${fx - pr.left}px ${fy - pr.top}px`;
+    const vw = qr.width, vh = qr.height;
+    const s = vh / fr.height * 1.06;
+    geo = { dx: vw / 2 - (fx - qr.left), dy: vh / 2 - (fy - qr.top), s };
+    const W = fr.width * s, H = fr.height * s;
+    Object.assign(big.style, { width: W + "px", height: H + "px", left: (vw - W) / 2 + "px", top: (vh - H) / 2 + "px" });
+    frame();
+  }
+  function frame() {
+    ticking = false;
+    if (!geo) return;
+    const r = stage.getBoundingClientRect();
+    const p = clamp(-r.top / (r.height - pin.offsetHeight));
+    const t = ease(span(p, .06, .56));
+    const s = Math.exp(Math.log(geo.s) * t);
+    painting.style.transform = t > 0 ? `translate(${geo.dx * t}px,${geo.dy * t}px) scale(${s})` : "none";
+    painting.style.willChange = t > 0 && t < 1 ? "transform" : "auto";
+    label.style.opacity = 1 - span(p, .02, .16);
+    const c = span(p, .34, .5);
+    close.style.opacity = c;
+    close.style.visibility = c > 0 ? "visible" : "hidden";
+    big.style.transform = `translate(${-geo.dx * (1 - t)}px,${-geo.dy * (1 - t)}px) scale(${(s / geo.s).toFixed(4)})`;
+    painting.style.setProperty("--num", 1 - span(t, 0, .12));
+    grain.style.opacity = .9 * (1 - span(t, 0, .3));
+    say.style.opacity = span(p, .58, .7);
+    say.style.transform = `translateY(${(1 - span(p, .58, .74)) * 24}px)`;
+  }
+  const req = () => { if (!ticking && visible) { ticking = true; requestAnimationFrame(frame); } };
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) req(); }).observe(stage);
+  addEventListener("scroll", req, { passive: true });
+  addEventListener("resize", () => { geo = null; requestAnimationFrame(measure); });
+  mq.addEventListener("change", () => location.reload());
+  if (document.fonts) document.fonts.ready.then(measure); else measure();
+  addEventListener("load", measure);
+})();
+</script>
+</body>
+</html>
