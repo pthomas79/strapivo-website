@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo · Twelve goals, four in focus</title>
+<meta name="description" content="Strapivo is where a leadership team keeps its strategy and agrees which goals get its attention this quarter.">
+<script>document.documentElement.classList.add("js")</script>
+<style>
+@font-face{font-family:"Inter";src:url("../../fonts/Inter-Regular.otf") format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"Inter";src:url("../../fonts/Inter-Medium.otf") format("opentype");font-weight:500;font-display:swap}
+:root{--ground:#0a0b0d;--ink:#efece6;--mute:#a7a39b;--line:rgba(239,236,230,.28)}
+*{box-sizing:border-box}
+html{background:var(--ground);color:var(--ink);font:400 16px/1.45 "Inter",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{margin:0;overflow-x:hidden}
+a{color:inherit}
+a:focus-visible{outline:2px solid #ffd27a;outline-offset:4px;border-radius:2px}
+
+/* The stage. With JS and motion it is a long scroll with a pinned lens. */
+.stage{position:relative;height:100vh;height:100svh}
+.js .stage{height:340vh}
+.frame{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;isolation:isolate}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:none}
+.js canvas{display:block}
+.vignette{position:absolute;inset:0;pointer-events:none;z-index:2;
+  background:
+   radial-gradient(120% 95% at 55% 42%,rgba(0,0,0,0) 45%,rgba(0,0,0,.55) 85%,rgba(0,0,0,.82) 100%),
+   linear-gradient(to top,rgba(5,5,7,.78),rgba(5,5,7,0) 38%)}
+.grain{position:absolute;inset:-50%;pointer-events:none;z-index:3;opacity:.16;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.1 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* Still for JS off: four sharp, eight soft. */
+.still{position:absolute;inset:0}
+.js .still{display:none}
+.still i{position:absolute;border-radius:50%;transform:translate(-50%,-50%);width:calc(var(--r)*2);height:calc(var(--r)*2);left:var(--x);top:var(--y);
+  background:radial-gradient(circle,var(--c) 0 62%,color-mix(in srgb,var(--c) 70%,#fff) 70%,var(--c) 74%);mix-blend-mode:screen}
+.still i.b{opacity:.34;filter:blur(calc(var(--r)*.22))}
+.still i.f{background:radial-gradient(circle at 42% 38%,color-mix(in srgb,var(--c) 70%,#fff),var(--c) 70%)}
+
+.top{position:absolute;z-index:5;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:28px clamp(20px,3.4vw,52px)}
+.logo img{display:block;height:22px;width:auto}
+.signin{font-size:14px;color:var(--mute);text-decoration:none}
+.signin:hover{color:var(--ink)}
+
+.copy{position:absolute;z-index:5;left:clamp(20px,3.4vw,52px);bottom:clamp(26px,6vh,64px);max-width:27rem}
+h1{font-weight:500;font-size:clamp(30px,3vw,44px);line-height:1.08;letter-spacing:-.02em;margin:0 0 18px}
+.plain{margin:0 0 26px;color:#d6d2ca;font-size:16px;max-width:24rem}
+.cta{display:inline-block;text-decoration:none;font-weight:500;font-size:15px;color:#0a0b0d;background:var(--ink);padding:13px 22px;border-radius:999px;transition:background .2s}
+.cta:hover{background:#ffd27a}
+
+.say{position:absolute;z-index:5;right:clamp(20px,3.4vw,52px);bottom:clamp(26px,6vh,64px);text-align:right;width:26rem}
+.say p{margin:0;font-size:15px;line-height:1.45;text-shadow:0 1px 14px rgba(0,0,0,.8)}
+.say .before{color:var(--mute);margin-bottom:6px}
+.say .after{color:var(--ink)}
+.say .note{color:var(--mute);font-size:14px;margin-top:6px}
+.js .say p{position:absolute;right:0;bottom:0;margin:0;white-space:nowrap}
+.js .say .after{bottom:28px}
+.js .say .note{bottom:0}
+
+.label{position:absolute;z-index:4;left:var(--lx);top:var(--ly);font-size:15px;font-weight:500;white-space:nowrap;letter-spacing:.005em;color:var(--ink);text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.label::before,.label.rev::after{content:"";display:inline-block;width:22px;height:1px;background:var(--line);vertical-align:middle;margin-right:10px}
+.label.rev::before{display:none}
+.label.rev::after{margin:0 0 0 10px}
+
+.end{min-height:78vh;display:grid;place-items:center;text-align:center;padding:18vh 24px 0;position:relative}
+.end h2{font-weight:500;font-size:clamp(28px,3vw,40px);letter-spacing:-.02em;margin:0 0 14px}
+.end p{color:var(--mute);margin:0 auto 30px;max-width:22rem}
+.end .dot{width:14px;height:14px;border-radius:50%;background:#ffb54d;margin:0 auto 34px;box-shadow:0 0 0 1px rgba(255,181,77,.2),0 0 40px rgba(255,181,77,.35)}
+footer{padding:15vh 24px 28px;text-align:center;font-size:12px;color:#8f8b84}
+footer a{color:#8f8b84;margin-left:14px}
+
+/* Portrait phone */
+@media (max-aspect-ratio:4/5){
+  .copy{right:20px;bottom:24px;max-width:none}
+  h1{font-size:clamp(28px,8.4vw,34px);margin-bottom:12px}
+  .plain{font-size:15px;margin-bottom:18px}
+  .cta{padding:12px 20px}
+  .say{left:20px;right:20px;width:auto;text-align:left;bottom:auto;top:66px}
+  .js .say p{left:0;right:auto;top:0;bottom:auto}
+  .js .say .after{top:0}
+  .js .say .note{top:24px}
+  .top{padding:20px}
+  .label{font-size:14px}
+  .still i:nth-child(1){--x:88%!important;--y:10%!important;--r:30vw!important}
+  .still i:nth-child(2){--x:10%!important;--y:76%!important;--r:36vw!important}
+  .still i:nth-child(3){--x:95%!important;--y:90%!important;--r:30vw!important}
+  .still i:nth-child(4){--x:8%!important;--y:10%!important;--r:24vw!important}
+  .still i:nth-child(5){--x:98%!important;--y:50%!important;--r:28vw!important}
+  .still i:nth-child(6){--x:2%!important;--y:40%!important;--r:26vw!important}
+  .still i:nth-child(7){--x:50%!important;--y:98%!important;--r:30vw!important}
+  .still i:nth-child(8){--x:55%!important;--y:12%!important;--r:20vw!important}
+  .still i:nth-child(9){--x:30%!important;--y:25%!important;--r:19vw!important}
+  .still i:nth-child(10){--x:71%!important;--y:35.5%!important;--r:17vw!important}
+  .still i:nth-child(11){--x:31%!important;--y:48%!important;--r:18vw!important}
+  .still i:nth-child(12){--x:71%!important;--y:58.5%!important;--r:16vw!important}
+  .label:nth-of-type(1){--lx:calc(49vw + 12px)!important;--ly:calc(25% - 11px)!important}
+  .label:nth-of-type(3){--lx:calc(49vw + 12px)!important;--ly:calc(48% - 11px)!important}
+  .label:nth-of-type(2),.label:nth-of-type(4){left:auto;right:calc(46vw + 12px);--ly:calc(35.5% - 11px)!important}
+  .label:nth-of-type(4){right:calc(45vw + 12px);--ly:calc(58.5% - 11px)!important}
+  .label:nth-of-type(2)::before,.label:nth-of-type(4)::before{display:none}
+  .js .label{right:auto}
+  .js .label.rev::before{display:none}
+  .js .label:not(.rev)::before{display:inline-block}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .js .stage{height:100vh;height:100svh}
+  .js .say p{position:static}
+  .say .before{text-decoration:line-through;text-decoration-color:rgba(167,163,155,.5)}
+}
+.no-motion .stage{height:100vh;height:100svh}
+.no-motion .say p{position:static!important}
+.no-motion .say .before{text-decoration:line-through;text-decoration-color:rgba(167,163,155,.5)}
+html:not(.js) .say .before{text-decoration:line-through;text-decoration-color:rgba(167,163,155,.5)}
+</style>
+</head>
+<body>
+<main>
+<section class="stage" id="stage">
+ <div class="frame">
+  <canvas id="lens" role="img" aria-label="Twelve discs of coloured light. As the lens pulls focus, eight drift back into soft blur and four come forward, sharp and labelled."></canvas>
+  <div class="still" aria-hidden="true">
+   <i class="b" style="--c:#ffe3bd;--x:16%;--y:22%;--r:20vmin"></i>
+   <i class="b" style="--c:#b9a6ff;--x:34%;--y:70%;--r:26vmin"></i>
+   <i class="b" style="--c:#58c7d6;--x:93%;--y:84%;--r:22vmin"></i>
+   <i class="b" style="--c:#ff9db4;--x:36%;--y:14%;--r:16vmin"></i>
+   <i class="b" style="--c:#ffd27a;--x:96%;--y:12%;--r:24vmin"></i>
+   <i class="b" style="--c:#8fb8ff;--x:8%;--y:60%;--r:22vmin"></i>
+   <i class="b" style="--c:#ffc89a;--x:72%;--y:96%;--r:18vmin"></i>
+   <i class="b" style="--c:#9fe0c3;--x:50%;--y:50%;--r:14vmin"></i>
+   <i class="f" style="--c:#3d8bff;--x:46%;--y:33%;--r:12vmin"></i>
+   <i class="f" style="--c:#ffb54d;--x:68%;--y:24%;--r:10vmin"></i>
+   <i class="f" style="--c:#ff6b5a;--x:79%;--y:58%;--r:13vmin"></i>
+   <i class="f" style="--c:#3fcf9e;--x:58%;--y:70%;--r:10.5vmin"></i>
+  </div>
+  <div class="vignette"></div>
+  <div class="grain"></div>
+
+  <span class="label" style="--lx:52%;--ly:40%">Service revenue</span>
+  <span class="label" style="--lx:72%;--ly:31%">Gross margin</span>
+  <span class="label" style="--lx:86%;--ly:66%">Repeat customers</span>
+  <span class="label" style="--lx:63%;--ly:77%">Export markets</span>
+
+  <header class="top">
+   <a class="logo" href="#"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="87" height="22"></a>
+   <a class="signin" href="https://strapivo.app">Sign in</a>
+  </header>
+
+  <div class="copy">
+   <h1>Twelve goals.<br>Four in focus.</h1>
+   <p class="plain">Strapivo is where a leadership team keeps its strategy and agrees which goals get its attention this quarter.</p>
+   <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+  </div>
+
+  <div class="say">
+   <p class="before">Everything matters equally, so nothing moves.</p>
+   <p class="after">The other eight stay on the plan, out of focus.</p>
+   <p class="note">Goal names are illustrative.</p>
+  </div>
+ </div>
+</section>
+
+<section class="end">
+ <div>
+  <div class="dot" aria-hidden="true"></div>
+  <h2>Choose your four.</h2>
+  <p>Flag a fifth goal and Strapivo asks if you really want to.</p>
+  <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+ </div>
+</section>
+</main>
+<footer>© 2026 Strapivo <a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+
+<script>
+(() => {
+  const cv = document.getElementById("lens"), ctx = cv.getContext("2d");
+  const stage = document.getElementById("stage");
+  const labels = [...document.querySelectorAll(".label")];
+  const before = document.querySelector(".say .before"), after = document.querySelector(".say .after"), note = document.querySelector(".say .note");
+  const mq = matchMedia("(prefers-reduced-motion: reduce)");
+  let still = mq.matches;
+
+  const hex = h => [1,3,5].map(i => parseInt(h.slice(i,i+2),16)/255);
+  // fg: comes forward. L = landscape end [x,y,r], P = portrait end. r in units of the short side.
+  const D = [
+    {c:"#3d8bff", fg:0, L:[.455,.33,.125], P:[.30,.25,.19]},
+    {c:"#ffb54d", fg:1, L:[.665,.235,.10], P:[.71,.355,.17]},
+    {c:"#ff6b5a", fg:2, L:[.785,.575,.135], P:[.31,.48,.18]},
+    {c:"#3fcf9e", fg:3, L:[.575,.70,.105], P:[.71,.585,.16]},
+    {c:"#ffe3bd", L:[.15,.20,.22], P:[.88,.10,.30]},
+    {c:"#b9a6ff", L:[.33,.72,.30], P:[.10,.76,.36]},
+    {c:"#58c7d6", L:[.95,.86,.26], P:[.95,.90,.30]},
+    {c:"#ff9db4", L:[.34,.10,.17], P:[.08,.10,.24]},
+    {c:"#ffd27a", L:[.97,.13,.28], P:[.98,.50,.28]},
+    {c:"#8fb8ff", L:[.06,.58,.24], P:[.02,.40,.26]},
+    {c:"#ffc89a", L:[.70,.98,.20], P:[.50,.98,.30]},
+    {c:"#9fe0c3", L:[.53,.48,.18], P:[.55,.12,.20]}
+  ].map((d,i) => Object.assign(d, {rgb:hex(d.c), i}));
+  // Start order: a loose even field, colours mixed so nothing groups.
+  const order = [7,0,11,4, 9,1,5,2, 8,10,3,6];
+
+  let W=0, H=0, dpr=1, portrait=false, p=0, running=false, visible=true, raf=0;
+
+  function size(){
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
+    portrait = W/H < .8;
+  }
+
+  const clamp = (v,a=0,b=1) => Math.max(a, Math.min(b, v));
+  const ease = x => x*x*(3-2*x);
+  const lerp = (a,b,k) => a + (b-a)*k;
+
+  function startPos(d){
+    const k = order.indexOf(d.i);
+    const cols = portrait ? 3 : 4, rows = portrait ? 4 : 3;
+    const cx = k % cols, cy = Math.floor(k / cols);
+    // field sits above the copy block
+    const x0 = portrait ? .17 : .40, x1 = portrait ? .83 : .86;
+    const y0 = portrait ? .17 : .22, y1 = portrait ? .60 : .70;
+    const jx = Math.sin(k*12.9898)*.018, jy = Math.cos(k*7.233)*(portrait ? .008 : .022);
+    return [lerp(x0,x1,cx/(cols-1)) + jx, lerp(y0,y1,cy/(rows-1)) + jy, portrait ? .085 : .062];
+  }
+
+  // One defocused light: three colour channels drawn additively, offset for fringing.
+  function light(x, y, r, blur, rgb, a, rimK, ox, oy){
+    const outer = r + blur*.5, inner = Math.max(0, r - blur*.5);
+    const tIn = inner/outer, tR = r/outer;
+    const centre = 1 - .12*rimK;
+    for (let ch = 0; ch < 3; ch++){
+      const s = ch - 1; // red out, blue in
+      const cx = x + ox*s, cy = y + oy*s;
+      const col = [0,0,0]; col[ch] = Math.round(rgb[ch]*255);
+      const c = k => `rgba(${col[0]},${col[1]},${col[2]},${clamp(a*k)})`;
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, outer);
+      g.addColorStop(0, c(centre));
+      g.addColorStop(Math.max(0, tIn*.8), c(centre + .05*rimK));
+      if (tIn > 0) g.addColorStop(tIn, c(1 + .9*rimK));
+      g.addColorStop(Math.min(.999, Math.max(tR, tIn + .001)), c(.5 + .2*rimK));
+      g.addColorStop(1, c(0));
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(cx, cy, outer, 0, Math.PI*2); ctx.fill();
+    }
+  }
+
+  // A light in focus: soft halation, an opaque body with a slightly brighter core, a hairline colour fringe.
+  function lamp(x, y, r, blur, rgb, f, dx, dy){
+    const C = (m, a) => `rgba(${rgb.map(v => Math.round(clamp(v*m)*255)).join(",")},${a})`;
+    const L = (w, a) => `rgba(${rgb.map(v => Math.round(clamp(lerp(v,1,w))*255)).join(",")},${a})`;
+    ctx.globalCompositeOperation = "lighter";
+    let g = ctx.createRadialGradient(x, y, r*.9, x, y, r*1.9);
+    g.addColorStop(0, C(1, .22*f)); g.addColorStop(.35, C(1, .07*f)); g.addColorStop(1, C(1, 0));
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r*1.9, 0, Math.PI*2); ctx.fill();
+    ctx.globalCompositeOperation = "source-over";
+    ctx.save(); ctx.globalAlpha = f;
+    const out = r + blur*.5, e0 = Math.max(0, r - blur*.5)/out;
+    g = ctx.createRadialGradient(x, y, 0, x, y, out);
+    g.addColorStop(0, L(.16, 1)); g.addColorStop(e0*.6, L(.05, 1)); g.addColorStop(e0*.94, C(.97, 1)); g.addColorStop(e0, L(.12, 1));
+    if (e0 < .995) g.addColorStop(1, L(.12, 0));
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, out, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+    ctx.globalCompositeOperation = "lighter";
+    ctx.lineWidth = .8;
+    ctx.strokeStyle = `rgba(255,70,40,${.3*f})`; ctx.beginPath(); ctx.arc(x + dx*1.6, y + dy*1.6, r + .4, 0, Math.PI*2); ctx.stroke();
+    ctx.strokeStyle = `rgba(40,120,255,${.28*f})`; ctx.beginPath(); ctx.arc(x - dx*1.6, y - dy*1.6, r - .6, 0, Math.PI*2); ctx.stroke();
+  }
+
+  function draw(){
+    const S = Math.min(W, H);
+    const q = ease(clamp((p - .08)/.62));          // focus pull
+    const breathe = 1 + .03*Math.sin(Math.PI*q);    // focus breathing
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = "#0a0b0d"; ctx.fillRect(0,0,W,H);
+    ctx.translate(W/2, H*.45); ctx.scale(breathe, breathe); ctx.translate(-W/2, -H*.45);
+    ctx.globalCompositeOperation = "lighter";
+    const mid = [];
+    const list = D.slice().sort((a,b) => (a.fg !== undefined) - (b.fg !== undefined));
+    for (const d of list){
+      const s0 = startPos(d), e = portrait ? d.P : d.L;
+      const fg = d.fg !== undefined;
+      // background drifts slightly faster than foreground, as depth would
+      const k = fg ? ease(clamp((p - .12)/.58)) : q;
+      const drift = fg ? 0 : Math.sin(d.i*1.7) * S*.008;
+      const x = lerp(s0[0], e[0], k)*W + drift, y = lerp(s0[1], e[1], k)*H + drift*.6;
+      const r = lerp(s0[2], e[2], k)*S;
+      // colour: muted at start, saturated in front, pale behind
+      const grey = (d.rgb[0]+d.rgb[1]+d.rgb[2])/3;
+      const mute = .38;
+      const sat = fg ? lerp(mute, -.12, k) : lerp(mute, -.05, k);
+      let rgb = d.rgb.map(v => clamp(lerp(v, grey, sat)));
+      if (!fg) rgb = rgb.map(v => lerp(v, 1, .3*k));
+      let blur, a, rim;
+      if (fg){ blur = 1.2 + S*.05*Math.sin(Math.PI*k)*.7; a = lerp(.78, 1, k); rim = .15*Math.sin(Math.PI*k); }
+      else   { blur = 1.2 + r*.62*k; a = lerp(.78, .3, k); rim = k*.8; }
+      const dx = (x - W/2)/(W/2), dy = (y - H*.45)/(H/2);
+      if (fg && k > .5){
+        // in focus: an opaque, lit disc that hides what is behind it
+        const f = clamp((k - .5)/.5);
+        lamp(x, y, r, blur, rgb, f, dx, dy);
+        if (f < 1) light(x, y, r, blur, rgb, a*(1-f), rim, dx*1.4, dy*1.4);
+      } else {
+        const ca = .6 + (fg ? .8 : blur*.06);
+        light(x, y, r, blur, rgb, a, rim, dx*ca, dy*ca);
+      }
+      if (fg) mid[d.fg] = [x, y, r, k];
+    }
+    ctx.setTransform(1,0,0,1,0,0);
+    // labels follow the four
+    mid.forEach((m, j) => {
+      const el = labels[j]; if (!el) return;
+      const [x, y, r, k] = m;
+      const sx = (x - W/2)*breathe + W/2, sy = (y - H*.45)*breathe + H*.45, sr = r*breathe;
+      const o = clamp((k - .78)/.2);
+      const left = portrait && sx > W/2;
+      el.classList.toggle("rev", left);
+      let lx = portrait ? (left ? sx - sr - 12 - el.offsetWidth : sx + sr + 12) : sx + sr*.72 + 8;
+      let ly = portrait ? sy - 11 : sy + sr*.72;
+      lx = clamp(lx, 12, W - el.offsetWidth - 12);
+      el.style.left = lx + "px"; el.style.top = ly + "px";
+      el.style.opacity = o;
+      el.style.filter = o < 1 ? `blur(${(1-o)*4}px)` : "none";
+    });
+    if (!still){
+      const b = clamp(1 - (p - .04)/.16), af = clamp((p - .66)/.12);
+      before.style.opacity = b; before.style.filter = b < 1 ? `blur(${(1-b)*6}px)` : "none";
+      after.style.opacity = af; note.style.opacity = af;
+      after.style.filter = af < 1 ? `blur(${(1-af)*6}px)` : "none";
+    } else {
+      [before, after, note].forEach(e => { e.style.opacity = 1; e.style.filter = "none"; });
+    }
+  }
+
+  function progress(){
+    if (still) return 1;
+    const r = stage.getBoundingClientRect();
+    const span = stage.offsetHeight - innerHeight;
+    return span > 0 ? clamp(-r.top / span) : 1;
+  }
+
+  // Draw only when the scroll position has changed; nothing runs while the page is still.
+  let lastP = -1, lastW = 0;
+  function frame(){
+    raf = 0;
+    p = progress();
+    if (p !== lastP || W !== lastW){ lastP = p; lastW = W; draw(); }
+  }
+  function kick(){ if (!raf) raf = requestAnimationFrame(frame); }
+  function setRun(){
+    running = !still && visible && !document.hidden;
+    if (running) kick();
+  }
+  function mode(){
+    still = mq.matches;
+    document.documentElement.classList.toggle("no-motion", still);
+    size(); p = progress(); lastP = p; draw(); setRun();
+  }
+
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; setRun(); }).observe(stage);
+  document.addEventListener("visibilitychange", setRun);
+  addEventListener("scroll", () => { if (running) kick(); }, {passive:true});
+  addEventListener("resize", () => { size(); lastP = -1; p = progress(); draw(); });
+  mq.addEventListener ? mq.addEventListener("change", mode) : mq.addListener(mode);
+  mode();
+  if (document.fonts) document.fonts.ready.then(() => draw());
+})();
+</script>
+</body>
+</html>
