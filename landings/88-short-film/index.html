@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A short film about a strategy | Strapivo</title>
+<meta name="description" content="A short film in five shots about a strategy after the offsite, and how Strapivo brings it back to the leadership team.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+:root{
+  --black:#000;--bone:#f1ece1;--dim:#a39c8f;--hud:#8d877b;--azure:#3FA0FA;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{background:#000}
+body{margin:0;background:#000;color:var(--bone);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11";overflow-x:hidden}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--azure);outline-offset:4px;border-radius:2px}
+h1,p,figure{margin:0}
+
+/* ---------- shared pieces ---------- */
+.signin{position:absolute;top:24px;right:clamp(16px,3vw,40px);font:400 14px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--hud);text-decoration:none;padding:6px 0;z-index:5}
+.signin:hover{color:var(--bone)}
+.cta{display:inline-block;font:500 15px/1 'Inter',sans-serif;letter-spacing:.01em;color:#000;background:var(--bone);text-decoration:none;padding:15px 24px;border-radius:2px;transition:background .3s}
+.cta:hover{background:#fff}
+.pic{position:relative;overflow:hidden;container-type:size;background:#0b0b0c}
+.pic svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.pic::after,.card::after{content:"";position:absolute;inset:-60%;pointer-events:none;opacity:.16;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.1 -.2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.card{position:relative;overflow:hidden;background:#0b0b0c}
+
+/* shot 5: the record */
+.cam5{position:absolute;inset:0}
+.entry{position:absolute;left:calc(50% - 50cqh);top:50%;display:flex;align-items:center;gap:6cqh;transform:translateY(-50%)}
+.entry .ln{width:56cqh;height:max(2px,.55cqh);background:#1b2230;border-radius:2px;transform-origin:0 50%}
+.entry .no{font:500 max(14px,6.2cqh)/1 var(--mono);letter-spacing:.02em;color:#0a58b0;white-space:nowrap}
+.entry.old .ln{background:#d4cdbd;height:max(2px,.45cqh)}
+.entry.old .no{width:24cqh;height:max(3px,1.3cqh);background:#ddd6c7}
+.entry.o1{top:calc(50% - 30cqh)}.entry.o2{top:calc(50% - 20cqh)}.entry.o3{top:calc(50% - 10cqh)}
+
+/* ---------- still: default, no JS, reduced motion ---------- */
+.stage{position:relative;max-width:1440px;margin:0 auto;padding:88px clamp(16px,3.4vw,48px) 40px;display:flex;flex-direction:column;align-items:center}
+.frame{display:contents}
+.hud,.scrub,.cue{display:none}
+.card.title{order:1;background:none;overflow:visible;text-align:center}
+.card.title::after{display:none}
+h1{font-weight:400;font-size:clamp(34px,4.4vw,66px);line-height:1.06;letter-spacing:-.03em;max-width:15ch;margin:0 auto;text-wrap:balance}
+.lede{order:2;margin-top:26px;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center}
+.lede p{font-size:clamp(16px,1.4vw,19px);line-height:1.5;color:var(--dim);max-width:34ch;text-wrap:balance}
+.reel{order:3;width:100%;margin-top:clamp(48px,6vh,72px);display:grid;grid-template-columns:repeat(5,1fr);gap:12px;background:#0d0d0e;padding:30px 12px 22px;position:relative}
+.reel::before,.reel::after{content:"";position:absolute;left:12px;right:12px;height:7px;background:repeating-linear-gradient(90deg,#242426 0 11px,transparent 11px 24px)}
+.reel::before{top:11px}.reel::after{bottom:9px}
+.shot .pic{aspect-ratio:2.39;width:100%}
+.shot figcaption{margin:12px 2px 14px;font-size:14px;line-height:1.4;color:#d9d3c7}
+.shot figcaption::before{content:attr(data-n);display:block;font:400 14px/1 var(--mono);color:#6f6a61;margin-bottom:6px;letter-spacing:.06em}
+.card.end{order:4;margin:200px 0 60px;background:none;display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center;overflow:visible}
+.card.end::after{display:none}
+.card.end img{width:clamp(170px,18vw,250px);height:auto;display:block}
+.card.end p{font-size:clamp(16px,1.3vw,19px);line-height:1.5;color:var(--dim);max-width:32ch}
+footer{padding:28px 16px 36px;text-align:center;font:400 12px/1.6 var(--mono);color:#77726a;letter-spacing:.04em}
+footer a{color:#a7a093;text-decoration:none;margin:0 6px}
+footer a:hover{color:var(--bone)}
+
+@media (max-width:760px){
+  .stage{padding-top:76px}
+  .reel{grid-template-columns:1fr;padding:12px 32px;gap:6px}
+  .reel::before,.reel::after{top:12px;bottom:12px;left:auto;right:auto;width:7px;height:auto;background:repeating-linear-gradient(180deg,#242426 0 11px,transparent 11px 24px)}
+  .reel::before{left:11px}.reel::after{right:11px}
+}
+
+/* ---------- play: scroll-driven film ---------- */
+.play .film{height:1150vh;position:relative}
+.play .stage{position:sticky;top:0;height:100vh;height:100svh;max-width:none;padding:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.play .frame{display:block;position:relative;width:min(92vw,calc((100svh - 250px) * 2.39));aspect-ratio:2.39;transform:translateY(-34px)}
+.play .card,.play .shot{position:absolute;inset:0;display:none;margin:0}
+.play .on{display:block}
+.play .shot .pic{position:absolute;inset:0;aspect-ratio:auto;width:auto}
+.play .shot figcaption{position:absolute;left:0;right:0;top:calc(100% + 46px);margin:0;text-align:center;font-size:clamp(17px,1.75vw,27px);line-height:1.35;color:#f6f1e6;letter-spacing:-.005em;padding:0 16px}
+.play .shot figcaption::before{display:none}
+.play .reel{display:contents}
+.play .reel::before,.play .reel::after{display:none}
+.play .card.title{display:none;align-items:center;justify-content:center;flex-direction:column;background:#0b0b0c;overflow:hidden}
+.play .card.title.on{display:flex}
+.play .card.title::after,.play .card.end::after{display:block}
+.play h1{font-size:clamp(28px,3.7vw,60px);max-width:16ch;padding:0 24px}
+.play .cue{display:block;position:absolute;bottom:7%;left:0;right:0;text-align:center;font:400 14px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--hud)}
+.play .cue::after{content:"";display:block;width:1px;height:26px;background:var(--hud);margin:12px auto 0;animation:cue 2.4s ease-in-out infinite;transform-origin:top}
+@keyframes cue{0%,100%{transform:scaleY(.3);opacity:.4}50%{transform:scaleY(1);opacity:1}}
+.play .lede{position:absolute;left:0;right:0;top:calc(100% + 34px);margin:0;gap:20px;transition:opacity .5s,visibility .5s}
+.play .lede.gone{opacity:0;visibility:hidden}
+.play .card.end{display:none;margin:0;justify-content:center;background:#0b0b0c;overflow:hidden;gap:clamp(16px,2.4vw,30px)}
+.play .card.end.on{display:flex}
+.play .hud{display:flex;justify-content:space-between;position:absolute;left:0;right:0;bottom:calc(100% + 14px);font:400 14px/1 var(--mono);letter-spacing:.08em;color:var(--hud)}
+.play .hud .rec{color:#c8463c}
+.play .scrub{display:block;position:absolute;left:0;right:0;top:calc(100% + 16px);height:1px;background:#2a2927}
+.play .scrub i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--bone)}
+.play .scrub b{position:absolute;top:-3px;width:1px;height:7px;background:#3c3a36}
+.play .pic::after,.play .card::after{animation:grain .5s steps(5) infinite}
+.play .film.off .pic::after,.play .film.off .card::after,.play .film.off .cue::after{animation-play-state:paused}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-7%,4%)}40%{transform:translate(5%,-6%)}60%{transform:translate(-4%,-3%)}80%{transform:translate(6%,5%)}100%{transform:translate(0,0)}}
+.play footer{position:relative}
+
+@media (max-width:760px){
+  .play .frame{width:min(100vw,calc((100svh - 300px) * .8));aspect-ratio:4/5;transform:translateY(-36px)}
+  .play .shot figcaption{top:calc(100% + 34px);font-size:19px}
+  .play .lede{top:calc(100% + 28px);gap:18px;padding:0 20px}
+  .play .lede p{font-size:16px}
+  .play .hud{bottom:calc(100% + 12px);padding:0 16px}
+  .play .scrub{top:calc(100% + 14px);left:16px;right:16px}
+  .play h1{font-size:clamp(28px,8.4vw,36px)}
+  .play .tbl{transform:rotate(90deg) scale(.6)}
+  .play .entry{left:calc(50% - 36cqh);flex-direction:column;align-items:flex-start;gap:3.4cqh}
+  .play .entry .ln{width:72cqh}
+  .play .entry.old .no{width:30cqh}
+  .play .entry.o1{top:calc(50% - 39cqh)}.play .entry.o2{top:calc(50% - 26cqh)}.play .entry.o3{top:calc(50% - 13cqh)}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<section class="film" id="film" aria-label="A short film in five shots about what happens to a strategy after it is agreed">
+  <div class="stage">
+    <a class="signin" href="https://strapivo.app">Sign in</a>
+    <div class="frame">
+      <div class="hud" aria-hidden="true"><span><span class="rec">&#9679;</span> <span id="tc">00:00:00:00</span></span><span id="sn">1/5</span></div>
+      <div class="scrub" aria-hidden="true"><i id="bar"></i></div>
+
+      <div class="card title" data-seg="0">
+        <h1>What happens to a strategy after it is agreed.</h1>
+        <p class="cue" aria-hidden="true">Scroll to play</p>
+      </div>
+
+      <div class="reel">
+        <!-- 1: the table in spring -->
+        <figure class="shot" data-seg="1" id="s1">
+          <div class="pic" role="img" aria-label="Seen from above, an empty meeting table in morning light, ten empty chairs and one sheet of paper.">
+            <svg viewBox="-1195 -500 2390 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <radialGradient id="v1" cx="0" cy="0" r="1300" gradientUnits="userSpaceOnUse"><stop offset=".45" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient>
+              </defs>
+              <rect x="-2400" y="-1600" width="4800" height="3200" fill="#33413a"/>
+              <g class="cam">
+                <g stroke="#3b4a42" stroke-width="3"><path d="M-1800-1600V1600M-1500-1600V1600M-1200-1600V1600M-900-1600V1600M-600-1600V1600M-300-1600V1600M0-1600V1600M300-1600V1600M600-1600V1600M900-1600V1600M1200-1600V1600M1500-1600V1600M1800-1600V1600"/></g>
+                <g class="tbl">
+                  <rect x="-542" y="-150" width="1120" height="350" rx="175" fill="#1d2621" opacity=".55"/>
+                  <rect x="-560" y="-175" width="1120" height="350" rx="175" fill="#c2b597"/>
+                  <g transform="rotate(-6)">
+                    <rect x="-72" y="-92" width="160" height="210" fill="#000" opacity=".18"/>
+                    <rect x="-80" y="-105" width="160" height="210" fill="#f7f3ea"/>
+                    <path d="M-52-62H50M-52-36H40M-52-10H52M-52 16H22M-52 42H44" stroke="#bdb3a0" stroke-width="7"/>
+                  </g>
+                  <g fill="none" stroke="#ece5d3" stroke-width="7">
+                    <circle cx="-375" cy="-265" r="54"/><circle cx="-125" cy="-265" r="54"/><circle cx="125" cy="-265" r="54"/><circle cx="375" cy="-265" r="54"/>
+                    <circle cx="690" cy="0" r="54"/>
+                    <circle cx="375" cy="265" r="54"/><circle cx="125" cy="265" r="54"/><circle cx="-125" cy="265" r="54"/><circle cx="-375" cy="265" r="54"/>
+                    <circle cx="-690" cy="0" r="54"/>
+                  </g>
+                </g>
+                <g class="win" fill="#fff4d8" opacity=".13">
+                  <polygon points="-1250,-1200 -800,-1200 200,1200 -250,1200"/>
+                  <polygon points="-700,-1200 -250,-1200 750,1200 300,1200"/>
+                </g>
+              </g>
+              <rect x="-2400" y="-1600" width="4800" height="3200" fill="url(#v1)"/>
+            </svg>
+          </div>
+          <figcaption data-n="1/5">In spring, the strategy is agreed.</figcaption>
+        </figure>
+
+        <!-- 2: the drawer -->
+        <figure class="shot" data-seg="2" id="s2">
+          <div class="pic" role="img" aria-label="A desk drawer slides shut over the sheet of paper and the light goes out.">
+            <svg viewBox="-1195 -500 2390 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <radialGradient id="lamp2" cx="0" cy="80" r="700" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffd9a0" stop-opacity=".22"/><stop offset="1" stop-color="#ffd9a0" stop-opacity="0"/></radialGradient>
+                <radialGradient id="v2" cx="0" cy="0" r="1300" gradientUnits="userSpaceOnUse"><stop offset=".4" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".7"/></radialGradient>
+              </defs>
+              <rect x="-2400" y="-1600" width="4800" height="3200" fill="#100c0a"/>
+              <g class="cam">
+                <g class="drawer" transform="translate(0,-210)">
+                  <rect x="-360" y="-160" width="720" height="545" fill="#3b2d22"/>
+                  <rect x="-330" y="-160" width="660" height="515" fill="#463527"/>
+                  <g transform="translate(0,170) rotate(3)">
+                    <rect x="-92" y="-118" width="190" height="250" fill="#000" opacity=".25"/>
+                    <rect x="-100" y="-128" width="190" height="250" fill="#f3ede1"/>
+                    <path d="M-68-84H58M-68-54H44M-68-24H62M-68 6H24M-68 36H50M-68 66H30" stroke="#bfb5a2" stroke-width="8"/>
+                  </g>
+                  <rect x="-392" y="380" width="784" height="56" fill="#5a4431"/>
+                  <rect x="-392" y="380" width="784" height="6" fill="#7a5e45"/>
+                  <rect x="-60" y="400" width="120" height="16" rx="3" fill="#9a7a58"/>
+                </g>
+                <rect x="-2400" y="-1600" width="4800" height="1480" fill="#2a1f18"/>
+                <rect x="-2400" y="-124" width="4800" height="5" fill="#5b4535"/>
+                <rect x="-2400" y="-1600" width="4800" height="3200" fill="url(#lamp2)"/>
+              </g>
+              <rect class="dark" x="-2400" y="-1600" width="4800" height="3200" fill="#000" opacity=".2"/>
+              <rect x="-2400" y="-1600" width="4800" height="3200" fill="url(#v2)"/>
+            </svg>
+          </div>
+          <figcaption data-n="2/5">Then it goes in a drawer.</figcaption>
+        </figure>
+
+        <!-- 3: something far away -->
+        <figure class="shot" data-seg="3" id="s3">
+          <div class="pic" role="img" aria-label="Night over a flat horizon. A single point of light, far away, grows larger.">
+            <svg viewBox="-1195 -500 2390 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <linearGradient id="sky3" x1="0" y1="-1000" x2="0" y2="120" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#03050a"/><stop offset=".75" stop-color="#0a1320"/><stop offset="1" stop-color="#1a2a3d"/></linearGradient>
+                <radialGradient id="halo3"><stop offset="0" stop-color="#f2b25e" stop-opacity=".55"/><stop offset=".35" stop-color="#e08a3a" stop-opacity=".18"/><stop offset="1" stop-color="#e08a3a" stop-opacity="0"/></radialGradient>
+                <linearGradient id="ref3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2b25e" stop-opacity=".4"/><stop offset="1" stop-color="#f2b25e" stop-opacity="0"/></linearGradient>
+              </defs>
+              <g class="cam">
+                <rect x="-2400" y="-1600" width="4800" height="1720" fill="url(#sky3)"/>
+                <rect x="-2400" y="120" width="4800" height="1600" fill="#05070a"/>
+                <rect x="-2400" y="119" width="4800" height="3" fill="#2c3b4e"/>
+                <circle class="halo" cx="200" cy="118" r="190" fill="url(#halo3)"/>
+                <rect class="refl" x="176" y="124" width="48" height="160" fill="url(#ref3)"/>
+                <circle class="pt" cx="200" cy="118" r="38" fill="#f4bb6c"/>
+                <rect x="-2400" y="122" width="4800" height="1600" fill="#05070a" opacity=".55"/>
+              </g>
+            </svg>
+          </div>
+          <figcaption data-n="3/5">Outside, something changes.</figcaption>
+        </figure>
+
+        <!-- 4: the table, full -->
+        <figure class="shot" data-seg="4" id="s4">
+          <div class="pic" role="img" aria-label="The same table at evening. One by one the chairs fill and a blue ring lights in the centre.">
+            <svg viewBox="-1195 -500 2390 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <radialGradient id="pool4" cx="0" cy="0" r="900" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffe2b0" stop-opacity=".2"/><stop offset=".6" stop-color="#ffe2b0" stop-opacity=".05"/><stop offset="1" stop-color="#ffe2b0" stop-opacity="0"/></radialGradient>
+                <radialGradient id="glow4" cx="0" cy="0" r="320" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#3FA0FA" stop-opacity=".75"/><stop offset=".45" stop-color="#3FA0FA" stop-opacity=".22"/><stop offset="1" stop-color="#3FA0FA" stop-opacity="0"/></radialGradient>
+                <radialGradient id="v4" cx="0" cy="0" r="1300" gradientUnits="userSpaceOnUse"><stop offset=".4" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".7"/></radialGradient>
+              </defs>
+              <rect x="-2400" y="-1600" width="4800" height="3200" fill="#12171b"/>
+              <g class="cam">
+                <g stroke="#171e23" stroke-width="3"><path d="M-1800-1600V1600M-1500-1600V1600M-1200-1600V1600M-900-1600V1600M-600-1600V1600M-300-1600V1600M0-1600V1600M300-1600V1600M600-1600V1600M900-1600V1600M1200-1600V1600M1500-1600V1600M1800-1600V1600"/></g>
+                <g class="tbl">
+                  <rect x="-542" y="-150" width="1120" height="350" rx="175" fill="#06090b" opacity=".6"/>
+                  <rect x="-560" y="-175" width="1120" height="350" rx="175" fill="#5e5342"/>
+                  <g class="chairs" stroke-width="7">
+                    <circle cx="-375" cy="-265" r="54" stroke="#e7dfcc" fill="#d8cdb8"/>
+                    <circle cx="-125" cy="-265" r="54" stroke="#e7dfcc" fill="#b98f69"/>
+                    <circle cx="125" cy="-265" r="54" stroke="#e7dfcc" fill="#8a9ea3"/>
+                    <circle cx="375" cy="-265" r="54" stroke="#e7dfcc" fill="#cbb48c"/>
+                    <circle cx="690" cy="0" r="54" stroke="#e7dfcc" fill="#9b7a62"/>
+                    <circle cx="375" cy="265" r="54" stroke="#e7dfcc" fill="#d6c6a8"/>
+                    <circle cx="125" cy="265" r="54" stroke="#e7dfcc" fill="#7f8f86"/>
+                    <circle cx="-125" cy="265" r="54" stroke="#e7dfcc" fill="#c79f7f"/>
+                    <circle cx="-375" cy="265" r="54" stroke="#e7dfcc" fill="#a9a08f"/>
+                    <circle cx="-690" cy="0" r="54" stroke="#e7dfcc" fill="#bf9a72"/>
+                  </g>
+                </g>
+                <rect x="-2400" y="-1600" width="4800" height="3200" fill="url(#pool4)"/>
+                <g class="ring">
+                  <circle r="320" fill="url(#glow4)"/>
+                  <circle r="78" fill="none" stroke="#3FA0FA" stroke-width="15"/>
+                </g>
+              </g>
+              <rect x="-2400" y="-1600" width="4800" height="3200" fill="url(#v4)"/>
+            </svg>
+          </div>
+          <figcaption data-n="4/5">Strapivo brings it to the next session.</figcaption>
+        </figure>
+
+        <!-- 5: the record -->
+        <figure class="shot" data-seg="5" id="s5">
+          <div class="pic" role="img" aria-label="A ledger page. Under three faded entries, a new line is drawn and a decision number lands beside it.">
+            <svg viewBox="-1195 -500 2390 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs><radialGradient id="v5" cx="0" cy="0" r="1300" gradientUnits="userSpaceOnUse"><stop offset=".35" stop-color="#3a3326" stop-opacity="0"/><stop offset="1" stop-color="#3a3326" stop-opacity=".45"/></radialGradient></defs>
+              <rect x="-2400" y="-1600" width="4800" height="3200" fill="#ebe5d8"/>
+              <rect x="-2400" y="-1600" width="4800" height="3200" fill="url(#v5)"/>
+            </svg>
+            <div class="cam5">
+              <div class="entry old o1" aria-hidden="true"><span class="ln"></span><span class="no"></span></div>
+              <div class="entry old o2" aria-hidden="true"><span class="ln"></span><span class="no"></span></div>
+              <div class="entry old o3" aria-hidden="true"><span class="ln"></span><span class="no"></span></div>
+              <div class="entry now"><span class="ln"></span><span class="no">SDS-2026-014</span></div>
+            </div>
+          </div>
+          <figcaption data-n="5/5">The team decides, and the decision gets a number.</figcaption>
+        </figure>
+      </div>
+
+      <div class="card end" data-seg="6">
+        <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo">
+        <p>Strapivo is where a leadership team keeps its strategy up to date between offsites.</p>
+        <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      </div>
+
+      <div class="lede">
+        <p>Strapivo is where a leadership team keeps its strategy up to date between offsites.</p>
+        <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer><p>&copy; 2026 Strapivo<a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></p></footer>
+
+<script>
+(function(){
+  var root=document.documentElement, film=document.getElementById('film');
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var segs=[].slice.call(film.querySelectorAll('[data-seg]'));
+  var lede=film.querySelector('.lede');
+  var tc=document.getElementById('tc'), sn=document.getElementById('sn'), bar=document.getElementById('bar');
+  // segment bounds: title, five shots, end card
+  var B=[0,.05,.215,.38,.545,.71,.875,1];
+  var scrub=film.querySelector('.scrub');
+  for(var i=1;i<B.length-1;i++){var b=document.createElement('b');b.style.left=(B[i]*100)+'%';scrub.appendChild(b)}
+
+  function cl(x){return x<0?0:x>1?1:x}
+  function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
+  function sm(a,b,t){return ease(cl((t-a)/(b-a)))}
+  function q(id,sel){return document.getElementById(id).querySelector(sel)}
+
+  var s1cam=q('s1','.cam'), s1win=q('s1','.win');
+  var s2cam=q('s2','.cam'), s2dr=q('s2','.drawer'), s2dark=q('s2','.dark');
+  var s3cam=q('s3','.cam'), s3pt=q('s3','.pt'), s3halo=q('s3','.halo'), s3refl=q('s3','.refl');
+  var s4cam=q('s4','.cam'), s4ring=q('s4','.ring'), s4chairs=[].slice.call(document.getElementById('s4').querySelectorAll('.chairs circle'));
+  var s5cam=q('s5','.cam5'), s5ln=q('s5','.now .ln'), s5no=q('s5','.now .no'), s5old=[].slice.call(document.getElementById('s5').querySelectorAll('.old'));
+  var caps=[].slice.call(film.querySelectorAll('.shot figcaption'));
+
+  function push(cx,cy,s,dx,dy){return 'translate('+(cx+dx)+','+(cy+dy)+') scale('+s+') translate('+(-cx)+','+(-cy)+')'}
+
+  var shots=[null,
+    function(t){ s1cam.setAttribute('transform',push(0,0,1+.12*ease(t),40-80*t,0)); s1win.setAttribute('transform','translate('+(-90+180*t)+',0)'); },
+    function(t){
+      var k=sm(.08,.7,t); s2dr.setAttribute('transform','translate(0,'+(-520*k)+')');
+      s2cam.setAttribute('transform',push(0,-60,1.02+.1*t,0,20-40*t));
+      s2dark.setAttribute('opacity',(.05+.85*sm(.55,.95,t)).toFixed(3));
+    },
+    function(t){
+      var g=Math.pow(ease(t),1.4), r=3+97*g;
+      s3pt.setAttribute('r',r.toFixed(2)); s3halo.setAttribute('r',(r*5+20).toFixed(2));
+      s3refl.setAttribute('x',(200-r*.6).toFixed(1)); s3refl.setAttribute('width',(r*1.2).toFixed(1)); s3refl.setAttribute('height',(r*4+10).toFixed(1));
+      s3cam.setAttribute('transform',push(200,118,1+.35*ease(t),-60*t,0));
+    },
+    function(t){
+      s4chairs.forEach(function(c,i){var a=sm(.06+i*.055,.1+i*.055,t);c.setAttribute('fill-opacity',a.toFixed(3));c.setAttribute('stroke-opacity',(.55+.45*a).toFixed(3))});
+      s4ring.setAttribute('opacity',sm(.7,.84,t).toFixed(3));
+      s4cam.setAttribute('transform',push(0,0,1.02+.1*ease(t),0,0));
+    },
+    function(t){
+      s5ln.style.transform='scaleX('+sm(.06,.5,t).toFixed(4)+')';
+      var k=sm(.56,.66,t); s5no.style.opacity=k.toFixed(3); s5no.style.transform='translateY('+((1-k)*-3)+'cqh) scale('+(1+(1-k)*.18).toFixed(3)+')';
+      s5cam.style.transform='scale('+(1+.06*t).toFixed(4)+')';
+    }
+  ];
+
+  function pad(n){return (n<10?'0':'')+n}
+  var raf=0;
+  function frame(){
+    raf=0;
+    if(!root.classList.contains('play')) return;
+    var r=film.getBoundingClientRect(), total=film.offsetHeight-window.innerHeight;
+    var p=cl(-r.top/(total||1)), k=0;
+    while(k<B.length-2 && p>=B[k+1]) k++;
+    var t=cl((p-B[k])/(B[k+1]-B[k]));
+    segs.forEach(function(el){el.classList.toggle('on',+el.dataset.seg===k)});
+    if(shots[k]) shots[k](t);
+    caps.forEach(function(c,i){ if(i+1===k) c.style.opacity=sm(.03,.09,t).toFixed(3); });
+    lede.classList.toggle('gone',k>0||p>.012);
+    var sec=p*84, f=Math.floor((sec%1)*24);
+    tc.textContent='00:'+pad(Math.floor(sec/60))+':'+pad(Math.floor(sec%60))+':'+pad(f);
+    sn.textContent=k===0?'0/5':k===6?'5/5':k+'/5';
+    bar.style.width=(p*100).toFixed(2)+'%';
+  }
+  function req(){ if(!raf) raf=requestAnimationFrame(frame) }
+
+  function setMode(){
+    if(rm.matches){
+      root.classList.remove('play');
+      segs.forEach(function(el){el.classList.remove('on')});
+      lede.classList.remove('gone');
+      caps.forEach(function(c){c.style.opacity=''});
+    } else { root.classList.add('play'); req(); }
+  }
+  setMode();
+  if(rm.addEventListener) rm.addEventListener('change',setMode);
+  window.addEventListener('scroll',req,{passive:true});
+  window.addEventListener('resize',req);
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(e){film.classList.toggle('off',!e[0].isIntersecting)}).observe(film);
+  }
+  document.addEventListener('visibilitychange',function(){film.classList.toggle('off',document.hidden)});
+})();
+</script>
+</body>
+</html>
