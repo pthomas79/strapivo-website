@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Keep your strategy. Give it a system that stays current. | Strapivo</title>
+  <meta name="description" content="Bring your workshop report, board pack, email, or plain prompt. Strapivo turns your existing strategy into a Dynamic Strategy updated in a 60-minute weekly session.">
+  <link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --ink: #141B24;
+      --n900: #050C14;
+      --n700: #2C343C;
+      --n600: #495158;
+      --n500: #6C727A;
+      --n400: #999FA6;
+      --n200: #E1E5EA;
+      --n100: #EFF2F6;
+      --paper: #F6F9FB;
+      --white: #FFFFFF;
+      --sky: #EEF6FF;
+      --sky2: #D4EBFF;
+      --p200: #A9D6FF;
+      --p400: #3FA0FA;
+      --p500: #0082E6;
+      --p600: #006FD1;
+      --p700: #005DBD;
+
+      --linen: #F2F4F7;
+      --linen-border: #D5DBE3;
+      --sage: #2F7057;
+      --sage-dark: #235843;
+      --sage-bg: #EEF6F2;
+      --sage-border: #BDD7CB;
+
+      --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --shadow-soft: 0 1px 2px rgba(20, 27, 36, 0.04), 0 8px 24px rgba(20, 27, 36, 0.04);
+      --container: 1240px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--ink);
+      background-color: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "ss01", "cv11";
+      overflow-x: clip;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    h1, h2, h3, p, ul, ol, figure {
+      margin: 0;
+    }
+
+    ul, ol {
+      padding: 0;
+      list-style: none;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--p500);
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 16px;
+      top: -64px;
+      background: var(--ink);
+      color: var(--white);
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 500;
+      z-index: 100;
+    }
+
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--n600);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--p500);
+      flex-shrink: 0;
+    }
+
+    .eyebrow-dot--sage {
+      background: var(--sage);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 12px 22px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.2;
+      text-decoration: none;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+    }
+
+    .btn-primary {
+      background: var(--p500);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--p600);
+    }
+
+    .btn-primary:active {
+      background: var(--p700);
+    }
+
+    .btn-header {
+      min-height: 44px;
+      padding: 10px 16px;
+      font-size: 15px;
+    }
+
+    /* Header */
+    .site-header {
+      background: var(--paper);
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 72px;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 6px 0;
+      text-decoration: none;
+    }
+
+    .brand-link img {
+      width: 124px;
+      height: auto;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-signin {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 8px 14px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--n700);
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      transition: color 150ms ease, background-color 150ms ease;
+    }
+
+    .nav-signin:hover {
+      color: var(--ink);
+      background: var(--n100);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 56px 0 68px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+      gap: 44px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      max-width: 500px;
+    }
+
+    .hero h1 {
+      margin-top: 16px;
+      font-size: clamp(34px, 3.4vw, 48px);
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+    }
+
+    .hero-lead {
+      margin-top: 20px;
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--n700);
+      max-width: 48ch;
+    }
+
+    .hero-lead + .hero-lead {
+      margin-top: 12px;
+    }
+
+    .hero-actions {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .hero-note {
+      font-size: 15px;
+      color: var(--n600);
+      line-height: 1.45;
+    }
+
+    /* Drawing 1: Intake-to-structure diagram */
+    .diagram-frame {
+      background: var(--white);
+      border: 1px solid var(--n200);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .diagram-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 16px;
+      padding: 12px 18px;
+      background: var(--linen);
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .diagram-title {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .diagram-badge {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--n600);
+    }
+
+    .intake-canvas {
+      padding: 22px 18px;
+      display: grid;
+      grid-template-columns: minmax(0, 0.88fr) 26px minmax(0, 1.24fr) 26px minmax(0, 1.06fr);
+      align-items: start;
+      gap: 0;
+    }
+
+    .stage-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .stage-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--n600);
+      white-space: nowrap;
+    }
+
+    .stage-label--azure {
+      color: var(--p700);
+    }
+
+    .stage-label--sage {
+      color: var(--sage);
+    }
+
+    .chip-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .input-chip {
+      width: 100%;
+      text-align: left;
+      background: var(--linen);
+      border: 1px solid var(--linen-border);
+      border-radius: var(--radius-md);
+      padding: 11px 12px;
+      min-height: 44px;
+      font-family: var(--font-sans);
+      color: var(--ink);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: border-color 150ms ease, background-color 150ms ease;
+    }
+
+    .input-chip:hover {
+      border-color: var(--p400);
+    }
+
+    .input-chip[aria-pressed="true"] {
+      background: var(--white);
+      border-color: var(--p500);
+      box-shadow: inset 3px 0 0 var(--p500);
+    }
+
+    .chip-name {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+
+    .chip-meta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.3;
+      color: var(--n600);
+    }
+
+    .flow-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      align-self: center;
+      padding-top: 24px;
+      color: var(--n500);
+    }
+
+    .flow-arrow svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .flow-arrow--down {
+      display: none;
+      padding-top: 0;
+    }
+
+    .vivo-card {
+      background: var(--sky);
+      border: 1px solid var(--p200);
+      border-left: 3px solid var(--p500);
+      border-radius: var(--radius-md);
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .vivo-source {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.35;
+      color: var(--p700);
+    }
+
+    .vivo-quote {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .owner-gate {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      width: 100%;
+      min-height: 44px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--sage-border);
+      background: var(--sage-bg);
+      color: var(--sage-dark);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background-color 150ms ease, border-color 150ms ease;
+    }
+
+    .owner-gate:hover {
+      background: #E2F0E9;
+      border-color: var(--sage);
+    }
+
+    .owner-gate[aria-pressed="false"] {
+      background: var(--white);
+      border-color: var(--p400);
+      color: var(--p700);
+    }
+
+    .structure-stack {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-left: 12px;
+    }
+
+    .structure-stack::before {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 14px;
+      bottom: 14px;
+      width: 2px;
+      background: var(--sage-border);
+    }
+
+    .structure-stack.is-draft::before {
+      background: var(--p200);
+    }
+
+    .struct-row {
+      position: relative;
+      background: var(--sage-bg);
+      border: 1px solid var(--sage-border);
+      border-left: 3px solid var(--sage);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: border-color 150ms ease, background-color 150ms ease;
+    }
+
+    .struct-row::before {
+      content: "";
+      position: absolute;
+      left: -12px;
+      top: 50%;
+      width: 9px;
+      height: 2px;
+      background: var(--sage-border);
+    }
+
+    .struct-row.is-draft {
+      background: var(--sky);
+      border-color: var(--p400);
+      border-left-color: var(--p500);
+      border-style: dashed;
+      border-left-style: solid;
+    }
+
+    .struct-row.is-draft::before {
+      background: var(--p200);
+    }
+
+    .struct-tier {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--sage-dark);
+    }
+
+    .struct-row.is-draft .struct-tier {
+      color: var(--p700);
+    }
+
+    .struct-val {
+      font-size: 13px;
+      line-height: 1.35;
+      color: var(--ink);
+    }
+
+    .diagram-legend {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 20px;
+      padding: 12px 18px;
+      background: var(--paper);
+      border-top: 1px solid var(--n200);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--n600);
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .swatch--linen {
+      background: var(--linen);
+      border: 1px solid var(--linen-border);
+    }
+
+    .swatch--azure {
+      background: var(--p500);
+    }
+
+    .swatch--sage {
+      background: var(--sage);
+    }
+
+    /* Sections */
+    .section {
+      padding: 76px 0;
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .section--white {
+      background: var(--white);
+    }
+
+    .section--paper {
+      background: var(--paper);
+    }
+
+    .section-head {
+      max-width: 68ch;
+    }
+
+    .section h2 {
+      margin-top: 12px;
+      font-size: clamp(26px, 2.8vw, 36px);
+      font-weight: 500;
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .section-lead {
+      margin-top: 14px;
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--n700);
+      max-width: 62ch;
+    }
+
+    /* Section 1: No proprietary framework */
+    .split-editorial {
+      display: grid;
+      grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+      gap: 48px;
+      align-items: start;
+    }
+
+    .editorial-copy p {
+      margin-top: 16px;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--n700);
+      max-width: 54ch;
+    }
+
+    .linen-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .doc-slip {
+      background: var(--linen);
+      border: 1px solid var(--linen-border);
+      border-top: 3px solid var(--linen-border);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .doc-slip-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .doc-slip-tag {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--n600);
+    }
+
+    .doc-slip-lines {
+      display: flex;
+      gap: 3px;
+    }
+
+    .doc-slip-lines span {
+      display: block;
+      width: 12px;
+      height: 2px;
+      background: var(--linen-border);
+    }
+
+    .doc-slip h3 {
+      margin-top: 2px;
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+
+    .doc-slip p {
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--n700);
+    }
+
+    /* Section 2: Drawing 2 (3-column onboarding) */
+    .onboarding-frame {
+      margin-top: 32px;
+    }
+
+    .onboarding-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .onboarding-step {
+      padding: 24px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border-right: 1px solid var(--n200);
+      border-top: 3px solid transparent;
+    }
+
+    .onboarding-step:last-child {
+      border-right: none;
+    }
+
+    .onboarding-step--linen {
+      border-top-color: var(--linen-border);
+      background: linear-gradient(180deg, #F9FAFC 0%, var(--white) 46%);
+    }
+
+    .onboarding-step--azure {
+      border-top-color: var(--p500);
+      background: linear-gradient(180deg, #F5FAFF 0%, var(--white) 46%);
+    }
+
+    .onboarding-step--sage {
+      border-top-color: var(--sage);
+      background: linear-gradient(180deg, #F4FAF7 0%, var(--white) 46%);
+    }
+
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--n600);
+    }
+
+    .onboarding-step--azure .step-num {
+      color: var(--p700);
+    }
+
+    .onboarding-step--sage .step-num {
+      color: var(--sage);
+    }
+
+    .onboarding-step h3 {
+      font-size: 19px;
+      font-weight: 500;
+      line-height: 1.28;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .onboarding-step p {
+      font-size: 16px;
+      line-height: 1.58;
+      color: var(--n700);
+      flex: 1;
+    }
+
+    .step-foot {
+      margin-top: 4px;
+      padding-top: 12px;
+      border-top: 1px solid var(--n200);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--n600);
+    }
+
+    .onboarding-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 20px;
+      padding: 14px 22px;
+      background: var(--sage-bg);
+      border-top: 1px solid var(--sage-border);
+      font-size: 15px;
+      color: var(--sage-dark);
+      font-weight: 500;
+    }
+
+    .onboarding-bar-note {
+      font-weight: 400;
+      color: var(--sage-dark);
+    }
+
+    /* Section 3: Drawing 3 (Weekly loop + decision record) */
+    .loop-frame {
+      margin-top: 32px;
+    }
+
+    .loop-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .loop-beat {
+      padding: 20px 18px;
+      border-right: 1px solid var(--n200);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .loop-beat:last-child {
+      border-right: none;
+    }
+
+    .loop-beat-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--p700);
+    }
+
+    .loop-beat--sage .loop-beat-num {
+      color: var(--sage);
+    }
+
+    .loop-beat h3 {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+
+    .loop-beat p {
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--n700);
+    }
+
+    .decision-strip {
+      background: var(--paper);
+      border-top: 1px solid var(--n200);
+      padding: 18px 20px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 14px 22px;
+      align-items: center;
+    }
+
+    .decision-id-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .decision-id {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .decision-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--n600);
+    }
+
+    .decision-body {
+      font-size: 15px;
+      line-height: 1.52;
+      color: var(--n700);
+    }
+
+    .decision-body strong {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .decision-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--sage-bg);
+      border: 1px solid var(--sage-border);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--sage-dark);
+      white-space: nowrap;
+    }
+
+    /* Section 4: Start small on data, stay in control */
+    .trust-grid {
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .trust-points {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .trust-item {
+      background: var(--white);
+      border: 1px solid var(--n200);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .trust-item h3 {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+
+    .trust-item p {
+      margin-top: 8px;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--n700);
+    }
+
+    .boundary-panel {
+      background: var(--white);
+      border: 1px solid var(--n200);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .boundary-panel h3 {
+      margin-top: 10px;
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .boundary-panel p {
+      margin-top: 10px;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--n700);
+    }
+
+    .boundary-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .boundary-row {
+      display: grid;
+      grid-template-columns: 82px minmax(0, 1fr);
+      gap: 12px;
+      align-items: baseline;
+      padding: 13px 14px;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      line-height: 1.48;
+    }
+
+    .boundary-row--azure {
+      background: var(--sky);
+      border: 1px solid var(--p200);
+      color: var(--ink);
+    }
+
+    .boundary-row--sage {
+      background: var(--sage-bg);
+      border: 1px solid var(--sage-border);
+      color: var(--ink);
+    }
+
+    .boundary-role {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .boundary-row--azure .boundary-role {
+      color: var(--p700);
+    }
+
+    .boundary-row--sage .boundary-role {
+      color: var(--sage-dark);
+    }
+
+    /* Section 5: Closing CTA */
+    .closing {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 80px 0 68px;
+    }
+
+    .closing-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: 36px;
+      align-items: center;
+    }
+
+    .closing .eyebrow {
+      color: var(--p200);
+    }
+
+    .closing h2 {
+      margin-top: 14px;
+      font-size: clamp(28px, 3.2vw, 42px);
+      font-weight: 500;
+      line-height: 1.14;
+      letter-spacing: -0.025em;
+      color: var(--white);
+      max-width: 18ch;
+    }
+
+    .closing-lead {
+      margin-top: 16px;
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--n200);
+      max-width: 52ch;
+    }
+
+    .closing-action-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(225, 229, 234, 0.16);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .closing-action-box .btn-primary {
+      width: 100%;
+    }
+
+    .closing-meta {
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--n200);
+    }
+
+    .closing-meta a {
+      color: var(--p200);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(225, 229, 234, 0.14);
+      padding: 28px 0;
+      color: var(--n400);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px 24px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand img {
+      width: 108px;
+      height: auto;
+    }
+
+    .footer-copy {
+      font-size: 14px;
+      color: var(--n400);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 18px;
+    }
+
+    .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 6px 4px;
+      font-size: 14px;
+      color: var(--n200);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1120px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .hero-copy {
+        max-width: 64ch;
+      }
+
+      .loop-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .loop-beat {
+        border-bottom: 1px solid var(--n200);
+      }
+
+      .loop-beat:nth-child(even) {
+        border-right: none;
+      }
+
+      .loop-beat:last-child {
+        grid-column: 1 / -1;
+        border-right: none;
+        border-bottom: none;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .split-editorial,
+      .trust-grid,
+      .closing-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .trust-points {
+        grid-template-rows: auto;
+        gap: 16px;
+      }
+
+      .onboarding-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .onboarding-step {
+        border-right: none;
+        border-bottom: 1px solid var(--n200);
+      }
+
+      .onboarding-step:last-child {
+        border-bottom: none;
+      }
+
+      .decision-strip {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        align-items: start;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        padding: 0 20px;
+      }
+
+      .header-cta {
+        display: none;
+      }
+
+      .hero {
+        padding: 32px 0 44px;
+      }
+
+      .section {
+        padding: 44px 0;
+      }
+
+      .closing {
+        padding: 48px 0 44px;
+      }
+
+      .hero-note,
+      .loop-beat p,
+      .decision-body,
+      .boundary-row,
+      .onboarding-bar,
+      .closing-meta {
+        font-size: 16px;
+      }
+
+      .intake-canvas {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .chip-stack {
+        gap: 8px;
+      }
+
+      .flow-arrow--right {
+        display: none;
+      }
+
+      .flow-arrow--down {
+        display: flex;
+      }
+
+      .linen-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .loop-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .loop-beat {
+        border-right: none;
+        border-bottom: 1px solid var(--n200);
+        padding: 16px;
+      }
+
+      .loop-beat:last-child {
+        border-bottom: none;
+      }
+
+      .boundary-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .hero-actions {
+        width: 100%;
+      }
+
+      .hero-actions .btn-primary {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      .brand-link img {
+        width: 110px;
+      }
+
+      .diagram-bar,
+      .diagram-legend {
+        padding: 10px 14px;
+      }
+
+      .onboarding-step,
+      .trust-item,
+      .boundary-panel,
+      .closing-action-box {
+        padding: 18px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand-link" href="#">
+        <img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="124" height="31">
+      </a>
+      <nav class="header-nav" aria-label="Primary">
+        <a class="nav-signin" href="https://strapivo.app">Sign in</a>
+        <a class="btn btn-primary btn-header header-cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Strategic Design System</p>
+          <h1 id="hero-heading">Keep your strategy. Give it a system that stays current.</h1>
+          <p class="hero-lead">Strapivo is the Strategic Design System for leadership teams that already have a strategy. Bring your workshop report, board pack, email, or plain prompt without rewriting it first.</p>
+          <p class="hero-lead">Strapivo turns your existing material into a Dynamic Strategy. The Radar checks market signals against it, and your team updates it in a 60-minute weekly session.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+            <p class="hero-note">Built for owner-managed SMEs and strategy leads.</p>
+          </div>
+        </div>
+
+        <figure class="diagram-frame" aria-label="Illustrative example of existing documents sorted by Vivo and accepted by an Owner into Ambition, 4 focus areas, Objectives, and Activities.">
+          <div class="diagram-bar">
+            <span class="diagram-title">Intake to structure</span>
+            <span class="diagram-badge">Illustrative example</span>
+          </div>
+
+          <div class="intake-canvas">
+            <div class="stage-col">
+              <span class="stage-label">01 Your files</span>
+              <div class="chip-stack" role="group" aria-label="Choose an input document example">
+                <button type="button" class="input-chip" data-source="report" aria-pressed="true">
+                  <span class="chip-name">Workshop report</span>
+                  <span class="chip-meta">Uploaded document</span>
+                </button>
+                <button type="button" class="input-chip" data-source="email" aria-pressed="false">
+                  <span class="chip-name">Board email</span>
+                  <span class="chip-meta">Pasted thread</span>
+                </button>
+                <button type="button" class="input-chip" data-source="prompt" aria-pressed="false">
+                  <span class="chip-name">Plain prompt</span>
+                  <span class="chip-meta">Written summary</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="flow-arrow flow-arrow--right" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 10h13"></path>
+                <path d="M12 6l4 4-4 4"></path>
+              </svg>
+            </div>
+            <div class="flow-arrow flow-arrow--down" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 3v13"></path>
+                <path d="M6 12l4 4 4-4"></path>
+              </svg>
+            </div>
+
+            <div class="stage-col">
+              <span class="stage-label stage-label--azure">02 Vivo sorts</span>
+              <div class="vivo-card">
+                <span class="vivo-source" id="vivo-source-label">From Workshop report</span>
+                <p class="vivo-quote" id="vivo-quote-text">"This reads like an activity, not an objective. Move it down?"</p>
+                <button type="button" class="owner-gate" id="owner-gate-btn" aria-pressed="true">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3.5 8.5L6.5 11.5L12.5 4.5"></path>
+                  </svg>
+                  <span id="owner-gate-text">Owner accepts</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="flow-arrow flow-arrow--right" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 10h13"></path>
+                <path d="M12 6l4 4-4 4"></path>
+              </svg>
+            </div>
+            <div class="flow-arrow flow-arrow--down" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 3v13"></path>
+                <path d="M6 12l4 4 4-4"></path>
+              </svg>
+            </div>
+
+            <div class="stage-col">
+              <span class="stage-label stage-label--sage" id="structure-status-label">03 Owner accepted</span>
+              <div class="structure-stack" id="structure-stack">
+                <div class="struct-row">
+                  <span class="struct-tier">Ambition</span>
+                  <span class="struct-val">2028 margin target</span>
+                </div>
+                <div class="struct-row">
+                  <span class="struct-tier">4 focus areas</span>
+                  <span class="struct-val">4 active of 9 criteria</span>
+                </div>
+                <div class="struct-row">
+                  <span class="struct-tier">Objectives</span>
+                  <span class="struct-val">3 under each criterion</span>
+                </div>
+                <div class="struct-row">
+                  <span class="struct-tier">Activities</span>
+                  <span class="struct-val">Action, result, person</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <figcaption class="diagram-legend">
+            <span class="legend-item"><span class="swatch swatch--linen" aria-hidden="true"></span>Existing files</span>
+            <span class="legend-item"><span class="swatch swatch--azure" aria-hidden="true"></span>Vivo proposal</span>
+            <span class="legend-item"><span class="swatch swatch--sage" aria-hidden="true"></span>Owner accepted</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section section--white" aria-labelledby="framework-heading">
+      <div class="container split-editorial">
+        <div class="editorial-copy">
+          <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Method-agnostic intake</p>
+          <h2 id="framework-heading">No proprietary framework required.</h2>
+          <p>Most companies already keep a written strategy in a workshop report, an annual board pack, or a two-page memo from the managing director.</p>
+          <p>Nothing needs tidying before you start. We do the reading first. Vivo proposes where each item belongs in Strapivo, and an Owner confirms or moves it.</p>
+        </div>
+
+        <div class="linen-grid">
+          <article class="doc-slip">
+            <div class="doc-slip-head">
+              <span class="doc-slip-tag">Offsite</span>
+              <span class="doc-slip-lines" aria-hidden="true"><span></span><span></span></span>
+            </div>
+            <h3>Workshop report</h3>
+            <p>Vivo sorts goals, initiatives, and workshop notes into criteria, objectives, and activities.</p>
+          </article>
+          <article class="doc-slip">
+            <div class="doc-slip-head">
+              <span class="doc-slip-tag">Board</span>
+              <span class="doc-slip-lines" aria-hidden="true"><span></span><span></span></span>
+            </div>
+            <h3>Annual board pack</h3>
+            <p>We extract your ambition, measurable targets, and main risks from your existing slides.</p>
+          </article>
+          <article class="doc-slip">
+            <div class="doc-slip-head">
+              <span class="doc-slip-tag">Memo</span>
+              <span class="doc-slip-lines" aria-hidden="true"><span></span><span></span></span>
+            </div>
+            <h3>Managing director email</h3>
+            <p>Vivo organises a two-page letter or pasted thread into up to four focus areas.</p>
+          </article>
+          <article class="doc-slip">
+            <div class="doc-slip-head">
+              <span class="doc-slip-tag">Prompt</span>
+              <span class="doc-slip-lines" aria-hidden="true"><span></span><span></span></span>
+            </div>
+            <h3>Plain prompt</h3>
+            <p>Write where you play and what must succeed in plain words to build the first draft.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--paper" aria-labelledby="onboarding-heading">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Onboarding</p>
+          <h2 id="onboarding-heading">How your material becomes a working system.</h2>
+          <p class="section-lead">Setup takes four to five hours. Then your leadership team runs Strapivo on its own.</p>
+        </div>
+
+        <div class="diagram-frame onboarding-frame" role="region" aria-label="Three onboarding steps over four to five hours">
+          <div class="diagram-bar">
+            <span class="diagram-title">Three onboarding steps</span>
+            <span class="diagram-badge">Four to five hours total</span>
+          </div>
+
+          <div class="onboarding-grid">
+            <div class="onboarding-step onboarding-step--linen">
+              <span class="step-num">Step 01</span>
+              <h3>Draft from your material</h3>
+              <p>You walk into session one with a draft to correct, not a blank page. We show you what we got wrong and fix it with you.</p>
+              <div class="step-foot">Input files</div>
+            </div>
+
+            <div class="onboarding-step onboarding-step--azure">
+              <span class="step-num">Step 02</span>
+              <h3>Teach Vivo what relevant means</h3>
+              <p>You review early market signals against your focus areas and mark each one relevant or noise. Dismissed signals teach Vivo what to ignore.</p>
+              <div class="step-foot">Human triage</div>
+            </div>
+
+            <div class="onboarding-step onboarding-step--sage">
+              <span class="step-num">Step 03</span>
+              <h3>Run your first real session together</h3>
+              <p>We run one live 60-minute strategic session on real decisions. Then your team runs the weekly session without us.</p>
+              <div class="step-foot">Owner-run from session two</div>
+            </div>
+          </div>
+
+          <div class="onboarding-bar">
+            <span>Four to five hours, and then you run it.</span>
+            <span class="onboarding-bar-note">You start from your own material, not a six-month methodology rollout.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--white" aria-labelledby="weekly-heading">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Weekly cadence</p>
+          <h2 id="weekly-heading">What runs every week once your strategy is in.</h2>
+          <p class="section-lead">Once your approved strategy is in Strapivo, the Radar matches market shifts to your focus areas and feeds a 60-minute weekly session. Every decision goes on record.</p>
+        </div>
+
+        <div class="diagram-frame loop-frame" role="region" aria-label="Five weekly Dynamic Strategy steps and an illustrative decision record">
+          <div class="diagram-bar">
+            <span class="diagram-title">The 60-minute weekly loop</span>
+            <span class="diagram-badge">Dynamic Strategy</span>
+          </div>
+
+          <ol class="loop-strip">
+            <li class="loop-beat">
+              <span class="loop-beat-num">01</span>
+              <h3>Radar</h3>
+              <p>The Radar monitors outside shifts for your focus areas and flags dated signals with sources.</p>
+            </li>
+            <li class="loop-beat">
+              <span class="loop-beat-num">02</span>
+              <h3>Agenda</h3>
+              <p>Vivo drafts the agenda 24 hours before the 60-minute session from what changed.</p>
+            </li>
+            <li class="loop-beat">
+              <span class="loop-beat-num">03</span>
+              <h3>Sealed first takes</h3>
+              <p>Each leader enters a position before discussion. Everyone sees all positions together so nobody anchors the room.</p>
+            </li>
+            <li class="loop-beat">
+              <span class="loop-beat-num">04</span>
+              <h3>Five options</h3>
+              <p>The team chooses Hold, Adapt, Pivot, Take advantage, or Not yet.</p>
+            </li>
+            <li class="loop-beat loop-beat--sage">
+              <span class="loop-beat-num">05</span>
+              <h3>Permanent record</h3>
+              <p>Each decision receives a permanent number such as SDS-2026-014, with dissent recorded by name.</p>
+            </li>
+          </ol>
+
+          <div class="decision-strip">
+            <div class="decision-id-block">
+              <span class="decision-id">SDS-2026-014</span>
+              <span class="decision-label">Illustrative example</span>
+            </div>
+            <p class="decision-body"><strong>Move two service hires into southern Germany before October.</strong> Vivo drafted the activity changes. The operations lead recorded dissent on onboarding capacity, with a review date set.</p>
+            <span class="decision-pill">Adapt, Owner confirmed</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--paper" aria-labelledby="control-heading">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow"><span class="eyebrow-dot eyebrow-dot--sage" aria-hidden="true"></span>Data and control</p>
+          <h2 id="control-heading">Start small on data. Stay in control.</h2>
+          <p class="section-lead">You do not have to hand over sensitive board folders on day one. Vivo never edits accepted strategy without an Owner.</p>
+        </div>
+
+        <div class="trust-grid">
+          <div class="trust-points">
+            <article class="trust-item">
+              <h3>Begin with non-sensitive material</h3>
+              <p>Start with public and non-sensitive documents. Widen what you include once your team has run a few sessions.</p>
+            </article>
+            <article class="trust-item">
+              <h3>EU-only infrastructure</h3>
+              <p>Strapivo runs on EU-only infrastructure with GDPR by design. Your strategy stays under European jurisdiction.</p>
+            </article>
+          </div>
+
+          <aside class="boundary-panel" aria-label="Human approval boundary">
+            <div>
+              <p class="eyebrow"><span class="eyebrow-dot eyebrow-dot--sage" aria-hidden="true"></span>Approval rule</p>
+              <h3>Vivo proposes. People decide.</h3>
+              <p>Every recommendation Vivo makes traces back to the strategic memory your team approved. Changes to accepted truth wait for an Owner.</p>
+            </div>
+
+            <div class="boundary-rows">
+              <div class="boundary-row boundary-row--azure">
+                <span class="boundary-role">Vivo</span>
+                <span>Vivo drafts structure, triages signals, prepares agendas, and suggests updates.</span>
+              </div>
+              <div class="boundary-row boundary-row--sage">
+                <span class="boundary-role">Owner</span>
+                <span>An Owner accepts placement, confirms risk moves, approves pivots, and confirms decisions.</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="closing-heading">
+      <div class="container closing-grid">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Next step</p>
+          <h2 id="closing-heading">Bring the strategy you already have.</h2>
+          <p class="closing-lead">Tell us what format your current strategy is in. We do the reading first so you walk into session one with a draft to correct.</p>
+        </div>
+
+        <div class="closing-action-box">
+          <a class="btn btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+          <p class="closing-meta">Write to <a href="mailto:strategy@strapivo.com">strategy@strapivo.com</a>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="108" height="27">
+        <span class="footer-copy">© 2026 Strapivo</span>
+      </div>
+      <nav class="footer-links" aria-label="Legal">
+        <a href="/imprint">Imprint</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var examples = {
+        report: {
+          label: 'From Workshop report',
+          quote: '"This reads like an activity, not an objective. Move it down?"'
+        },
+        email: {
+          label: 'From Board email',
+          quote: '"This margin risk repeats last quarter. Link it to Focus Area 2?"'
+        },
+        prompt: {
+          label: 'From Plain prompt',
+          quote: '"You listed six priorities. Keep four as focus areas and park two?"'
+        }
+      };
+
+      var chips = document.querySelectorAll('.input-chip');
+      var sourceLabel = document.getElementById('vivo-source-label');
+      var quoteText = document.getElementById('vivo-quote-text');
+      var gateBtn = document.getElementById('owner-gate-btn');
+      var gateText = document.getElementById('owner-gate-text');
+      var statusLabel = document.getElementById('structure-status-label');
+      var structureStack = document.getElementById('structure-stack');
+      var rows = document.querySelectorAll('#structure-stack .struct-row');
+
+      chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          var key = chip.getAttribute('data-source');
+          var item = examples[key];
+          if (!item) return;
+
+          chips.forEach(function (c) {
+            c.setAttribute('aria-pressed', c === chip ? 'true' : 'false');
+          });
+          sourceLabel.textContent = item.label;
+          quoteText.textContent = item.quote;
+        });
+      });
+
+      if (gateBtn) {
+        gateBtn.addEventListener('click', function () {
+          var accepted = gateBtn.getAttribute('aria-pressed') === 'true';
+          var next = !accepted;
+          gateBtn.setAttribute('aria-pressed', next ? 'true' : 'false');
+          gateText.textContent = next ? 'Owner accepts' : 'Awaiting Owner';
+          statusLabel.textContent = next ? '03 Owner accepted' : '03 Proposed draft';
+          statusLabel.classList.toggle('stage-label--sage', next);
+          statusLabel.classList.toggle('stage-label--azure', !next);
+          if (structureStack) {
+            structureStack.classList.toggle('is-draft', !next);
+          }
+          rows.forEach(function (row) {
+            row.classList.toggle('is-draft', !next);
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
