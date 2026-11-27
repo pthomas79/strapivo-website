@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo. Not yet is not no.</title>
+<meta name="description" content="Strapivo is where a leadership team decides its strategy questions and parks the rest with a way back.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#3B2A22;--cream:#EFE8DA;--azure:#0082E6;--g:1;--leaf:1;--fl:1;--frost:0;--may:1;--sky:#EFE8DA}
+*{box-sizing:border-box;margin:0}
+html{background:#3B2A22}
+body{font-family:Newsreader,Georgia,serif;color:var(--ink);overflow-x:hidden}
+.runway{height:100vh;height:100svh}
+.live .runway{height:380vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--sky)}
+.soil{position:absolute;left:0;right:0;top:44%;bottom:0;background:linear-gradient(#3B2A22,#32231C)}
+.frost{position:absolute;left:0;right:0;top:44%;height:3px;margin-top:-1px;background:#fff;opacity:var(--frost);box-shadow:0 -2px 8px rgba(255,255,255,.8)}
+.plant{position:absolute;top:0;bottom:0;left:50%;width:calc(100vh*1.6);transform:translateX(-50%)}
+.sc{position:absolute;inset:0;width:100%;height:100%}
+.sc.m{display:none}
+.shoot{stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--g))}
+.leaf,.flower{transform-box:fill-box;transform-origin:50% 100%}
+.leaf{transform:scale(var(--leaf));opacity:var(--leaf)}
+.flower{transform:scale(var(--fl));opacity:var(--fl)}
+header{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:28px 5vw 0}
+header img{height:22px;display:block}
+.months{display:flex;gap:clamp(14px,2.6vw,38px);align-items:baseline;font-size:14px;letter-spacing:.2em;font-weight:500;color:#6B5A4F;list-style:none;padding:0}
+.months li{position:relative;padding-bottom:8px}
+.months li.on{color:var(--ink)}
+.months li.on::after{content:"";position:absolute;left:0;right:.2em;bottom:0;height:3px;background:var(--ink);border-radius:2px}
+.months li.ill{font-style:italic;letter-spacing:.04em;text-transform:none;font-size:15px;margin-left:8px}
+a{color:inherit}
+.signin{font-size:15px;letter-spacing:.04em;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+a:focus-visible{outline:3px solid var(--azure);outline-offset:4px;border-radius:2px}
+.hero{position:absolute;z-index:2;left:5vw;top:13vh}
+h1{white-space:nowrap;font-weight:400;font-size:clamp(38px,7.4vh,68px);line-height:1;letter-spacing:-.015em}
+.lead{margin-top:2.2vh;font-size:clamp(17px,2.6vh,21px);line-height:1.4;max-width:42ch;text-wrap:balance}
+.btn{display:inline-block;margin-top:2.6vh;background:var(--ink);color:var(--cream);padding:14px 26px;border-radius:999px;text-decoration:none;font-size:17px;letter-spacing:.01em}
+.btn:hover{background:#000}
+.btn:focus-visible{outline-color:var(--azure)}
+.t{position:absolute;z-index:2;color:var(--cream)}
+.soiltext{left:5vw;top:56%;max-width:24ch;font-size:clamp(15px,2.3vh,19px);line-height:1.4;opacity:.92}
+.may{left:calc(50% + 27vh);top:14%;font-size:clamp(20px,3.4vh,30px);font-style:italic;color:var(--ink);opacity:var(--may)}
+.last{left:5vw;bottom:13vh;font-size:clamp(20px,3.6vh,32px);line-height:1.2;max-width:20ch;opacity:var(--may)}
+.last a{display:inline-block;margin-top:2.4vh;font-size:15px;letter-spacing:.04em}
+.last:focus-within{opacity:1}
+footer{position:absolute;z-index:3;right:5vw;bottom:20px;font-size:12.5px;color:#D9CDB8;display:flex;gap:16px;flex-wrap:wrap}
+footer a{text-decoration:none;border-bottom:1px solid rgba(217,205,184,.4)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:760px){
+  .plant{width:100%;left:0;transform:none}
+  .sc.d{display:none}.sc.m{display:block}
+  .soil,.frost{top:52%}
+  header{padding:20px 22px 0}
+  .months li:not(.on):not(.ill){display:none}
+  .months{position:absolute;top:64px;left:22px;gap:12px}
+  .months li.on{font-size:34px;letter-spacing:.12em;padding-bottom:6px}
+  .months li.ill{font-size:15px}
+  .hero{left:22px;right:22px;top:132px;max-width:none}
+  h1{font-size:36px}
+  .lead{font-size:16px;margin-top:10px;max-width:27ch}
+  .btn{margin-top:16px;padding:12px 22px;font-size:16px}
+  .soiltext{left:22px;top:68%;max-width:15ch;font-size:15px}
+  .may{left:22px;top:38%;font-size:19px}
+  .last{left:22px;bottom:9vh;font-size:22px;max-width:15ch}
+  footer{left:22px;right:22px;bottom:14px}
+}
+@media (prefers-reduced-motion:reduce){.stage *{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="runway" id="run">
+<div class="stage" id="stage" role="img" aria-label="A bulb under soil beside a label reading Nordic expansion, back in May. Over the months a green shoot rises and opens a blue tulip.">
+  <div class="soil"></div><div class="frost"></div>
+  <div class="plant"><svg class="sc d" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><ellipse cx="193" cy="825" rx="5.8" ry="2.4" fill="#5A4435" opacity="0.57"/><ellipse cx="647" cy="729" rx="5.9" ry="2.2" fill="#5A4435" opacity="0.36"/><ellipse cx="1204" cy="621" rx="5.8" ry="2.0" fill="#5A4435" opacity="0.55"/><ellipse cx="1039" cy="521" rx="6.7" ry="3.9" fill="#5A4435" opacity="0.36"/><ellipse cx="37" cy="674" rx="6.7" ry="3.0" fill="#5A4435" opacity="0.45"/><ellipse cx="608" cy="422" rx="3.1" ry="1.4" fill="#5A4435" opacity="0.57"/><ellipse cx="336" cy="522" rx="3.1" ry="1.4" fill="#5A4435" opacity="0.48"/><ellipse cx="31" cy="820" rx="4.8" ry="2.4" fill="#5A4435" opacity="0.43"/><ellipse cx="1429" cy="831" rx="2.6" ry="1.1" fill="#5A4435" opacity="0.67"/><ellipse cx="1024" cy="869" rx="4.1" ry="2.3" fill="#5A4435" opacity="0.65"/><ellipse cx="437" cy="697" rx="6.4" ry="3.6" fill="#5A4435" opacity="0.58"/><ellipse cx="848" cy="425" rx="3.2" ry="1.8" fill="#5A4435" opacity="0.54"/><ellipse cx="249" cy="678" rx="5.5" ry="2.9" fill="#5A4435" opacity="0.52"/><ellipse cx="632" cy="658" rx="5.9" ry="2.8" fill="#5A4435" opacity="0.53"/><ellipse cx="705" cy="423" rx="2.2" ry="1.2" fill="#5A4435" opacity="0.79"/><ellipse cx="854" cy="602" rx="2.9" ry="1.4" fill="#5A4435" opacity="0.79"/><ellipse cx="1110" cy="673" rx="6.3" ry="2.6" fill="#5A4435" opacity="0.58"/><ellipse cx="1372" cy="692" rx="4.3" ry="1.8" fill="#5A4435" opacity="0.60"/><ellipse cx="1378" cy="411" rx="5.9" ry="3.3" fill="#5A4435" opacity="0.75"/><ellipse cx="1066" cy="806" rx="4.6" ry="2.3" fill="#5A4435" opacity="0.54"/><ellipse cx="81" cy="836" rx="4.8" ry="1.9" fill="#5A4435" opacity="0.58"/><ellipse cx="698" cy="584" rx="3.7" ry="1.8" fill="#5A4435" opacity="0.63"/><ellipse cx="882" cy="633" rx="2.1" ry="0.9" fill="#5A4435" opacity="0.43"/><ellipse cx="842" cy="832" rx="6.0" ry="3.3" fill="#5A4435" opacity="0.72"/><ellipse cx="368" cy="822" rx="5.4" ry="2.0" fill="#5A4435" opacity="0.36"/><ellipse cx="21" cy="780" rx="3.2" ry="1.2" fill="#5A4435" opacity="0.63"/><ellipse cx="496" cy="442" rx="2.8" ry="1.3" fill="#5A4435" opacity="0.43"/><ellipse cx="393" cy="758" rx="4.3" ry="1.8" fill="#5A4435" opacity="0.56"/><ellipse cx="34" cy="598" rx="4.1" ry="1.6" fill="#5A4435" opacity="0.40"/><ellipse cx="1296" cy="659" rx="3.0" ry="1.5" fill="#5A4435" opacity="0.72"/><ellipse cx="30" cy="417" rx="2.7" ry="1.4" fill="#5A4435" opacity="0.42"/><ellipse cx="1015" cy="742" rx="4.7" ry="1.9" fill="#5A4435" opacity="0.79"/><ellipse cx="1149" cy="662" rx="3.1" ry="1.6" fill="#5A4435" opacity="0.53"/><ellipse cx="829" cy="566" rx="5.2" ry="1.9" fill="#5A4435" opacity="0.48"/><ellipse cx="1394" cy="839" rx="3.5" ry="2.0" fill="#5A4435" opacity="0.49"/><ellipse cx="1353" cy="774" rx="4.1" ry="1.7" fill="#5A4435" opacity="0.35"/><ellipse cx="1265" cy="427" rx="6.1" ry="3.6" fill="#5A4435" opacity="0.61"/><ellipse cx="247" cy="835" rx="6.9" ry="3.6" fill="#5A4435" opacity="0.58"/><ellipse cx="544" cy="579" rx="3.0" ry="1.6" fill="#5A4435" opacity="0.54"/><ellipse cx="280" cy="459" rx="5.3" ry="2.3" fill="#5A4435" opacity="0.57"/><ellipse cx="468" cy="837" rx="6.5" ry="2.3" fill="#5A4435" opacity="0.44"/><ellipse cx="472" cy="894" rx="5.9" ry="2.6" fill="#5A4435" opacity="0.45"/><ellipse cx="971" cy="820" rx="6.7" ry="2.9" fill="#5A4435" opacity="0.75"/><ellipse cx="989" cy="646" rx="6.9" ry="2.8" fill="#5A4435" opacity="0.68"/><ellipse cx="122" cy="491" rx="6.6" ry="2.6" fill="#5A4435" opacity="0.69"/><ellipse cx="864" cy="822" rx="3.8" ry="1.7" fill="#5A4435" opacity="0.48"/><ellipse cx="1249" cy="705" rx="6.8" ry="3.9" fill="#5A4435" opacity="0.41"/><ellipse cx="794" cy="459" rx="2.2" ry="0.8" fill="#5A4435" opacity="0.74"/><ellipse cx="1135" cy="816" rx="3.7" ry="1.9" fill="#5A4435" opacity="0.70"/><ellipse cx="544" cy="689" rx="3.1" ry="1.2" fill="#5A4435" opacity="0.47"/><ellipse cx="1283" cy="686" rx="6.6" ry="3.1" fill="#5A4435" opacity="0.47"/><ellipse cx="1133" cy="815" rx="2.1" ry="1.1" fill="#5A4435" opacity="0.39"/><ellipse cx="166" cy="843" rx="2.2" ry="0.9" fill="#5A4435" opacity="0.79"/><ellipse cx="606" cy="465" rx="2.8" ry="1.2" fill="#5A4435" opacity="0.68"/><ellipse cx="148" cy="856" rx="3.9" ry="2.3" fill="#5A4435" opacity="0.76"/><ellipse cx="423" cy="533" rx="4.4" ry="1.6" fill="#5A4435" opacity="0.64"/><ellipse cx="57" cy="413" rx="6.9" ry="2.9" fill="#5A4435" opacity="0.62"/><ellipse cx="648" cy="562" rx="2.3" ry="1.3" fill="#5A4435" opacity="0.79"/><ellipse cx="1397" cy="463" rx="3.1" ry="1.6" fill="#5A4435" opacity="0.79"/><ellipse cx="782" cy="747" rx="5.3" ry="2.2" fill="#5A4435" opacity="0.59"/><ellipse cx="443" cy="529" rx="2.4" ry="1.0" fill="#5A4435" opacity="0.79"/><ellipse cx="645" cy="729" rx="5.2" ry="3.1" fill="#5A4435" opacity="0.53"/><ellipse cx="442" cy="569" rx="3.6" ry="2.0" fill="#5A4435" opacity="0.75"/><ellipse cx="436" cy="572" rx="4.7" ry="2.3" fill="#5A4435" opacity="0.62"/><ellipse cx="353" cy="418" rx="3.2" ry="1.2" fill="#5A4435" opacity="0.60"/><ellipse cx="102" cy="445" rx="5.2" ry="2.2" fill="#5A4435" opacity="0.71"/><ellipse cx="710" cy="832" rx="2.8" ry="1.3" fill="#5A4435" opacity="0.71"/><ellipse cx="111" cy="875" rx="2.9" ry="1.6" fill="#5A4435" opacity="0.79"/><ellipse cx="1183" cy="565" rx="2.5" ry="1.2" fill="#5A4435" opacity="0.76"/><ellipse cx="423" cy="848" rx="2.7" ry="1.6" fill="#5A4435" opacity="0.36"/><ellipse cx="455" cy="852" rx="6.0" ry="3.5" fill="#5A4435" opacity="0.73"/><ellipse cx="1075" cy="747" rx="2.9" ry="1.3" fill="#5A4435" opacity="0.42"/><ellipse cx="1029" cy="737" rx="3.3" ry="1.2" fill="#5A4435" opacity="0.78"/><ellipse cx="1164" cy="678" rx="4.7" ry="2.6" fill="#5A4435" opacity="0.55"/><ellipse cx="570" cy="575" rx="3.3" ry="1.2" fill="#5A4435" opacity="0.64"/><ellipse cx="600" cy="689" rx="2.3" ry="1.0" fill="#5A4435" opacity="0.41"/><ellipse cx="180" cy="535" rx="6.1" ry="2.8" fill="#5A4435" opacity="0.53"/><ellipse cx="882" cy="523" rx="2.0" ry="1.0" fill="#5A4435" opacity="0.58"/><ellipse cx="934" cy="624" rx="5.4" ry="2.9" fill="#5A4435" opacity="0.46"/><ellipse cx="713" cy="644" rx="3.1" ry="1.4" fill="#5A4435" opacity="0.60"/><ellipse cx="1306" cy="860" rx="3.4" ry="1.7" fill="#5A4435" opacity="0.37"/><ellipse cx="103" cy="660" rx="6.4" ry="2.5" fill="#5A4435" opacity="0.69"/><ellipse cx="1272" cy="561" rx="5.5" ry="3.1" fill="#5A4435" opacity="0.52"/><ellipse cx="1010" cy="770" rx="5.0" ry="2.8" fill="#5A4435" opacity="0.75"/><ellipse cx="1383" cy="689" rx="2.9" ry="1.2" fill="#5A4435" opacity="0.45"/><ellipse cx="820" cy="781" rx="2.3" ry="1.2" fill="#5A4435" opacity="0.67"/><ellipse cx="501" cy="661" rx="2.8" ry="1.5" fill="#5A4435" opacity="0.37"/><ellipse cx="1413" cy="806" rx="5.1" ry="2.1" fill="#5A4435" opacity="0.76"/><ellipse cx="1382" cy="476" rx="5.9" ry="3.3" fill="#5A4435" opacity="0.65"/><ellipse cx="1009" cy="627" rx="6.6" ry="3.9" fill="#5A4435" opacity="0.52"/>
+<g transform="translate(900 474) scale(1)">
+  <g class="roots" fill="none" stroke="#B89B72" stroke-width="1.4" stroke-linecap="round" opacity=".75">
+    <path d="M-10 198 C-14 220 -30 236 -34 262"/><path d="M0 202 C2 228 -4 250 4 280"/>
+    <path d="M10 198 C16 218 32 232 40 258"/><path d="M-22 190 C-44 204 -58 214 -72 240"/>
+    <path d="M24 188 C46 198 62 208 80 226"/><path d="M-34 262 C-38 272 -50 278 -52 292"/>
+    <path d="M40 258 C46 270 58 272 64 288"/><path d="M4 280 C8 290 2 300 8 310"/>
+  </g>
+  <path d="M0 0 C30 50 75 100 75 140 C75 180 40 202 0 202 C-40 202 -75 180 -75 140 C-75 100 -30 50 0 0Z" fill="#D2B98F"/>
+  <path d="M0 0 C30 50 75 100 75 140 C75 180 40 202 0 202 C-40 202 -75 180 -75 140 C-75 100 -30 50 0 0Z" fill="none" stroke="#9C7C50" stroke-width="2"/>
+  <path d="M-8 40 C-44 90 -58 140 -34 192" fill="none" stroke="#A98A5C" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M12 56 C46 100 56 146 38 190" fill="none" stroke="#A98A5C" stroke-width="2.2" stroke-linecap="round"/>
+  <path class="shoot" d="M0 4 C-3 -74 6 -174 0 -308" pathLength="1" fill="none" stroke="#4F8A3A" stroke-width="5" stroke-linecap="round"/>
+  <path class="leaf" d="M1 -178 C-40 -188 -65 -218 -72 -250 C-32 -246 -4 -216 1 -178Z" fill="#69A247"/>
+  <path class="leaf" d="M2 -246 C40 -258 68 -286 75 -318 C35 -312 6 -282 2 -246Z" fill="#69A247"/>
+  <path class="flower" d="M-32 -364 C-32 -326 -18 -306 0 -304 C18 -306 32 -326 32 -364 L16 -348 L0 -372 L-16 -348 Z" fill="#0082E6"/>
+</g><g transform="rotate(-3 1146.0 400)">
+  <rect x="1140.0" y="394" width="12" height="120" fill="#B58F5E"/>
+  <rect x="1046" y="300" width="200" height="100" rx="4" fill="#CFA76F"/>
+  <rect x="1046" y="300" width="200" height="100" rx="4" fill="none" stroke="#8E6A3E" stroke-width="2"/>
+  <path d="M1054 333.0 H1238 M1054 366.0 H1238" stroke="#B8905A" stroke-width="1" opacity=".5"/>
+  <text x="1146.0" y="345.0" text-anchor="middle" font-family="Caveat,cursive" font-size="30" fill="#2E211A">Nordic expansion.</text>
+  <text x="1146.0" y="382.0" text-anchor="middle" font-family="Caveat,cursive" font-size="30" fill="#2E211A">Back in May.</text>
+</g></svg><svg class="sc m" viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><ellipse cx="373" cy="823" rx="2.3" ry="0.8" fill="#5A4435" opacity="0.73"/><ellipse cx="287" cy="714" rx="3.5" ry="1.8" fill="#5A4435" opacity="0.62"/><ellipse cx="227" cy="513" rx="4.2" ry="1.9" fill="#5A4435" opacity="0.68"/><ellipse cx="388" cy="824" rx="4.7" ry="2.2" fill="#5A4435" opacity="0.47"/><ellipse cx="14" cy="462" rx="4.3" ry="1.9" fill="#5A4435" opacity="0.52"/><ellipse cx="348" cy="658" rx="4.8" ry="2.0" fill="#5A4435" opacity="0.36"/><ellipse cx="127" cy="505" rx="4.6" ry="2.7" fill="#5A4435" opacity="0.65"/><ellipse cx="71" cy="802" rx="6.0" ry="3.2" fill="#5A4435" opacity="0.76"/><ellipse cx="298" cy="761" rx="3.8" ry="2.2" fill="#5A4435" opacity="0.78"/><ellipse cx="63" cy="747" rx="5.6" ry="2.6" fill="#5A4435" opacity="0.59"/><ellipse cx="191" cy="814" rx="4.5" ry="2.5" fill="#5A4435" opacity="0.51"/><ellipse cx="344" cy="805" rx="4.3" ry="2.1" fill="#5A4435" opacity="0.76"/><ellipse cx="282" cy="642" rx="3.1" ry="1.3" fill="#5A4435" opacity="0.66"/><ellipse cx="65" cy="808" rx="3.3" ry="1.9" fill="#5A4435" opacity="0.49"/><ellipse cx="373" cy="729" rx="4.5" ry="2.2" fill="#5A4435" opacity="0.64"/><ellipse cx="229" cy="574" rx="3.0" ry="1.5" fill="#5A4435" opacity="0.77"/><ellipse cx="243" cy="481" rx="6.1" ry="3.2" fill="#5A4435" opacity="0.76"/><ellipse cx="75" cy="744" rx="2.3" ry="1.2" fill="#5A4435" opacity="0.47"/><ellipse cx="88" cy="795" rx="2.5" ry="1.2" fill="#5A4435" opacity="0.73"/><ellipse cx="95" cy="534" rx="6.4" ry="2.9" fill="#5A4435" opacity="0.67"/><ellipse cx="12" cy="593" rx="2.9" ry="1.5" fill="#5A4435" opacity="0.39"/><ellipse cx="372" cy="461" rx="5.6" ry="2.0" fill="#5A4435" opacity="0.47"/><ellipse cx="317" cy="513" rx="2.9" ry="1.5" fill="#5A4435" opacity="0.52"/><ellipse cx="17" cy="840" rx="2.8" ry="1.0" fill="#5A4435" opacity="0.50"/><ellipse cx="240" cy="743" rx="2.6" ry="1.1" fill="#5A4435" opacity="0.36"/><ellipse cx="175" cy="752" rx="5.7" ry="3.3" fill="#5A4435" opacity="0.69"/><ellipse cx="336" cy="728" rx="4.4" ry="1.8" fill="#5A4435" opacity="0.65"/><ellipse cx="123" cy="491" rx="4.2" ry="2.4" fill="#5A4435" opacity="0.41"/><ellipse cx="228" cy="605" rx="4.6" ry="1.8" fill="#5A4435" opacity="0.78"/><ellipse cx="101" cy="689" rx="4.1" ry="1.5" fill="#5A4435" opacity="0.60"/><ellipse cx="55" cy="473" rx="2.2" ry="0.8" fill="#5A4435" opacity="0.39"/><ellipse cx="248" cy="651" rx="6.9" ry="4.0" fill="#5A4435" opacity="0.80"/><ellipse cx="91" cy="626" rx="3.3" ry="1.6" fill="#5A4435" opacity="0.63"/><ellipse cx="312" cy="730" rx="3.3" ry="1.5" fill="#5A4435" opacity="0.59"/><ellipse cx="2" cy="465" rx="4.0" ry="1.5" fill="#5A4435" opacity="0.68"/><ellipse cx="94" cy="490" rx="2.9" ry="1.2" fill="#5A4435" opacity="0.45"/><ellipse cx="203" cy="634" rx="3.5" ry="1.8" fill="#5A4435" opacity="0.45"/><ellipse cx="354" cy="830" rx="5.6" ry="2.6" fill="#5A4435" opacity="0.58"/><ellipse cx="227" cy="471" rx="4.1" ry="2.0" fill="#5A4435" opacity="0.43"/><ellipse cx="37" cy="766" rx="3.8" ry="1.8" fill="#5A4435" opacity="0.76"/>
+<g transform="translate(290 490) scale(0.8)">
+  <g class="roots" fill="none" stroke="#B89B72" stroke-width="1.4" stroke-linecap="round" opacity=".75">
+    <path d="M-10 198 C-14 220 -30 236 -34 262"/><path d="M0 202 C2 228 -4 250 4 280"/>
+    <path d="M10 198 C16 218 32 232 40 258"/><path d="M-22 190 C-44 204 -58 214 -72 240"/>
+    <path d="M24 188 C46 198 62 208 80 226"/><path d="M-34 262 C-38 272 -50 278 -52 292"/>
+    <path d="M40 258 C46 270 58 272 64 288"/><path d="M4 280 C8 290 2 300 8 310"/>
+  </g>
+  <path d="M0 0 C30 50 75 100 75 140 C75 180 40 202 0 202 C-40 202 -75 180 -75 140 C-75 100 -30 50 0 0Z" fill="#D2B98F"/>
+  <path d="M0 0 C30 50 75 100 75 140 C75 180 40 202 0 202 C-40 202 -75 180 -75 140 C-75 100 -30 50 0 0Z" fill="none" stroke="#9C7C50" stroke-width="2"/>
+  <path d="M-8 40 C-44 90 -58 140 -34 192" fill="none" stroke="#A98A5C" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M12 56 C46 100 56 146 38 190" fill="none" stroke="#A98A5C" stroke-width="2.2" stroke-linecap="round"/>
+  <path class="shoot" d="M0 4 C-3 -74 6 -174 0 -308" pathLength="1" fill="none" stroke="#4F8A3A" stroke-width="5" stroke-linecap="round"/>
+  <path class="leaf" d="M1 -178 C-40 -188 -65 -218 -72 -250 C-32 -246 -4 -216 1 -178Z" fill="#69A247"/>
+  <path class="leaf" d="M2 -246 C40 -258 68 -286 75 -318 C35 -312 6 -282 2 -246Z" fill="#69A247"/>
+  <path class="flower" d="M-32 -364 C-32 -326 -18 -306 0 -304 C18 -306 32 -326 32 -364 L16 -348 L0 -372 L-16 -348 Z" fill="#0082E6"/>
+</g><g transform="rotate(-3 109.0 446)">
+  <rect x="103.0" y="440" width="12" height="55" fill="#B58F5E"/>
+  <rect x="34" y="372" width="150" height="74" rx="4" fill="#CFA76F"/>
+  <rect x="34" y="372" width="150" height="74" rx="4" fill="none" stroke="#8E6A3E" stroke-width="2"/>
+  <path d="M42 396.42 H176 M42 420.84000000000003 H176" stroke="#B8905A" stroke-width="1" opacity=".5"/>
+  <text x="109.0" y="405.3" text-anchor="middle" font-family="Caveat,cursive" font-size="21" fill="#2E211A">Nordic expansion.</text>
+  <text x="109.0" y="432.68" text-anchor="middle" font-family="Caveat,cursive" font-size="21" fill="#2E211A">Back in May.</text>
+</g></svg>
+  </div>
+  <header>
+    <a href="#"><img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo"></a>
+    <ul class="months" id="months" aria-hidden="true"><li>NOV</li><li>DEC</li><li>JAN</li><li>FEB</li><li>MAR</li><li>APR</li><li class="on">MAY</li><li class="ill">Illustrative</li></ul>
+    <a class="signin" href="https://strapivo.app">Sign in</a>
+  </header>
+  <div class="hero">
+    <h1>Not yet is not no.</h1>
+    <p class="lead">Strapivo is where a leadership team decides its strategy questions and parks the rest with a way back.</p>
+    <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+  </div>
+  <p class="t soiltext">Parked with a trigger: a date, new evidence, or one person's view.</p>
+  <p class="t may">Back on the agenda.</p>
+  <p class="t last">So that it feels like parking, not losing.</p>
+  <footer><span>&copy; 2026 Strapivo</span><a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+</div>
+</div>
+<script>
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var root=document.documentElement,run=document.getElementById('run'),st=document.getElementById('stage'),
+      lis=document.querySelectorAll('#months li:not(.ill)');
+  root.classList.add('live');
+  var cool=[228,230,227],warm=[239,232,218],last=-1,tick=false;
+  function c(x){return Math.max(0,Math.min(1,x))}
+  function ease(x){return x*x*(3-2*x)}
+  function frame(){
+    tick=false;
+    var span=run.offsetHeight-innerHeight,p=span>0?c(-run.getBoundingClientRect().top/span):1;
+    var m=Math.min(6,Math.floor(p*7));
+    var f=ease(c((p-0.1)/0.08))*(1-ease(c((p-0.5)/0.08)));
+    var g=ease(c((p-0.5)/0.4)),
+        s=st.style;
+    s.setProperty('--g',g.toFixed(3));
+    s.setProperty('--leaf',ease(c((g-0.6)/0.25)).toFixed(3));
+    var fl=ease(c((g-0.85)/0.15));
+    s.setProperty('--fl',fl.toFixed(3));
+    s.setProperty('--may',fl.toFixed(3));
+    s.setProperty('--frost',f.toFixed(3));
+    var col=warm.map(function(w,i){return Math.round(w+(cool[i]-w)*f)});
+    s.setProperty('--sky','rgb('+col.join(',')+')');
+    if(m!==last){last=m;lis.forEach(function(l,i){l.classList.toggle('on',i===m)})}
+  }
+  function req(){if(!tick){tick=true;requestAnimationFrame(frame)}}
+  addEventListener('scroll',req,{passive:true});addEventListener('resize',req);frame();
+})();
+</script>
+<script src="/landings/prompt.js" defer></script>
+</body>
+</html>
