@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo: mark where the shadow was</title>
+<meta name="description" content="A post casts its shadow on a stone square, with a brass stud set for every strategy session. Strapivo records what moved between one session and the next.">
+<meta name="robots" content="noindex">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --stone:#EFE6D6; --ink:#24244A; --violet:#33346B; --muted:#5B5040; --brass:#B48A3E;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--stone);color:var(--ink)}
+body{font-family:'Jost',system-ui,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--violet);outline-offset:4px;border-radius:2px}
+
+.stage{position:relative;height:100vh;height:100svh}
+@media (prefers-reduced-motion:no-preference){.js .stage{height:350vh}}
+.pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.scene,.fallback{position:absolute;inset:0;width:100%;height:100%;display:block}
+.js .fallback{display:none}
+
+.top{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:30px 4.2vw;z-index:2}
+.top img{display:block;height:22px;width:auto}
+.signin{font-family:'DM Mono',monospace;font-size:14px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--muted);padding:6px 0}
+.signin:hover{color:var(--ink)}
+
+.hero::before{content:'';position:absolute;inset:-14% -12%;z-index:-1;background:radial-gradient(closest-side,rgba(250,244,232,.6),rgba(250,244,232,0));pointer-events:none}
+.hero{position:absolute;right:5vw;bottom:8vh;width:min(540px,40vw);z-index:2}
+h1{font-weight:300;font-size:clamp(30px,2.75vw,44px);line-height:1.08;letter-spacing:-.02em;color:var(--ink)}
+h1 span{display:block;text-wrap:balance}
+h1 span+span{color:var(--violet);margin-top:.12em}
+.lede{margin-top:22px;font-size:17px;line-height:1.5;color:#3E3A45;max-width:32em}
+.cta{display:inline-flex;align-items:center;gap:12px;margin-top:26px;padding:15px 22px 15px 20px;background:var(--violet);color:#F4EEE3;text-decoration:none;font-family:'DM Mono',monospace;font-size:14px;letter-spacing:.06em;text-transform:uppercase;border-radius:2px;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 10px 24px -12px rgba(36,36,74,.55);transition:background .3s}
+.cta:hover{background:#26275A}
+.cta i{display:block;width:9px;height:9px;transform:rotate(45deg);background:linear-gradient(135deg,#F6E2A6,#C49A4C 55%,#8C6A2C);box-shadow:0 0 0 1px rgba(0,0,0,.2)}
+
+.end{position:relative;overflow:hidden;min-height:78vh;display:flex;flex-direction:column;justify-content:center;padding:14vh 0 0}
+.end canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.end .inner::before{content:'';position:absolute;inset:-30% -14%;z-index:-1;background:radial-gradient(closest-side,rgba(250,244,232,.55),rgba(250,244,232,0))}
+.end .inner{position:relative;z-index:0;margin-left:30vw;max-width:640px;padding-right:6vw}
+.end h2{font-weight:300;font-size:clamp(30px,3.6vw,56px);line-height:1.08;letter-spacing:-.02em;color:var(--ink)}
+.foot{position:relative;margin-top:auto;padding:12vh 4.2vw 26px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.06em;color:var(--muted);display:flex;gap:22px;flex-wrap:wrap}
+.foot a{text-decoration:none}
+.foot a:hover{text-decoration:underline}
+
+@media (max-width:760px){
+  .top{padding:22px 6vw}
+  .top img{height:19px}
+  .hero{left:6vw;right:6vw;top:84px;bottom:auto;width:auto}
+  h1{font-size:clamp(27px,8vw,33px)}
+  .lede{font-size:16px;margin-top:14px}
+  .cta{margin-top:18px}
+  .end .inner{margin-left:6vw}
+}
+@media (max-width:760px) and (max-height:700px){
+  h1{font-size:26px}.lede{font-size:15px}
+}
+</style>
+</head>
+<body>
+<main>
+<section class="stage" id="stage">
+  <div class="pin">
+    <div role="img" aria-label="Illustrative example. Seen from above, a post on a sunlit stone square casts a long shadow. Six brass studs mark where the shadow's tip stood at six weekly sessions, 5 March to 9 April. Two measured arcs show the movement since the last session and since the start.">
+      <canvas class="scene" id="scene" aria-hidden="true"></canvas>
+      <svg class="fallback" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><filter id="fg" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .28 0 0 0 .22 0"/><feComposite in2="SourceGraphic" operator="in"/></filter><filter id="fb" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5"/></filter><linearGradient id="sun" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FFC07A" stop-opacity=".28"/><stop offset=".5" stop-color="#FFE2B0" stop-opacity="0"/><stop offset="1" stop-color="#38397A" stop-opacity=".16"/></linearGradient><linearGradient id="br" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#F3DC98"/><stop offset=".5" stop-color="#C9A253"/><stop offset="1" stop-color="#7D5D24"/></linearGradient></defs><rect width="1440" height="900" fill="#857257"/><rect x="-68.9" y="-39.0" width="214.0" height="214.0" fill="hsl(39.6,28.8%,87.0%)"/><rect x="147.1" y="-39.0" width="153.5" height="214.0" fill="hsl(37.1,28.9%,86.8%)"/><rect x="302.6" y="-39.0" width="153.5" height="214.0" fill="hsl(34.9,34.7%,85.4%)"/><rect x="458.1" y="-39.0" width="347.9" height="214.0" fill="hsl(34.0,41.2%,87.1%)"/><rect x="808.0" y="-39.0" width="214.0" height="214.0" fill="hsl(33.5,37.3%,88.2%)"/><rect x="1024.0" y="-39.0" width="347.9" height="214.0" fill="hsl(33.4,43.6%,87.0%)"/><rect x="1373.9" y="-39.0" width="214.0" height="214.0" fill="hsl(33.9,30.3%,86.4%)"/><rect x="-65.6" y="177.0" width="214.0" height="214.0" fill="hsl(34.5,37.1%,85.5%)"/><rect x="150.4" y="177.0" width="153.5" height="214.0" fill="hsl(33.5,29.0%,87.7%)"/><rect x="305.9" y="177.0" width="214.0" height="214.0" fill="hsl(39.2,36.5%,87.5%)"/><rect x="521.9" y="177.0" width="278.8" height="214.0" fill="hsl(35.4,35.3%,87.9%)"/><rect x="802.7" y="177.0" width="214.0" height="214.0" fill="hsl(37.6,31.9%,88.5%)"/><rect x="1018.7" y="177.0" width="347.9" height="214.0" fill="hsl(36.6,33.5%,87.5%)"/><rect x="1368.6" y="177.0" width="347.9" height="214.0" fill="hsl(36.3,29.9%,89.9%)"/><rect x="-162.5" y="393.0" width="214.0" height="214.0" fill="hsl(40.7,34.7%,89.7%)"/><rect x="53.5" y="393.0" width="153.5" height="214.0" fill="hsl(40.0,37.2%,88.8%)"/><rect x="209.0" y="393.0" width="214.0" height="214.0" fill="hsl(37.0,33.6%,86.7%)"/><rect x="425.0" y="393.0" width="278.8" height="214.0" fill="hsl(35.2,29.5%,85.3%)"/><rect x="705.8" y="393.0" width="153.5" height="214.0" fill="hsl(38.2,39.2%,85.3%)"/><rect x="861.3" y="393.0" width="278.8" height="214.0" fill="hsl(38.3,34.2%,86.4%)"/><rect x="1142.1" y="393.0" width="153.5" height="214.0" fill="hsl(37.9,33.7%,89.7%)"/><rect x="1297.6" y="393.0" width="278.8" height="214.0" fill="hsl(34.0,40.3%,85.3%)"/><rect x="-52.5" y="609.0" width="278.8" height="214.0" fill="hsl(34.3,35.9%,89.6%)"/><rect x="228.3" y="609.0" width="278.8" height="214.0" fill="hsl(39.6,42.1%,87.7%)"/><rect x="509.1" y="609.0" width="347.9" height="214.0" fill="hsl(35.9,34.6%,86.4%)"/><rect x="859.0" y="609.0" width="278.8" height="214.0" fill="hsl(34.4,30.4%,89.8%)"/><rect x="1139.8" y="609.0" width="214.0" height="214.0" fill="hsl(39.6,28.2%,88.3%)"/><rect x="1355.8" y="609.0" width="214.0" height="214.0" fill="hsl(36.4,28.1%,86.3%)"/><rect x="-78.8" y="825.0" width="347.9" height="214.0" fill="hsl(39.9,30.0%,86.6%)"/><rect x="271.2" y="825.0" width="347.9" height="214.0" fill="hsl(36.7,39.8%,88.3%)"/><rect x="621.1" y="825.0" width="347.9" height="214.0" fill="hsl(33.8,34.4%,87.0%)"/><rect x="971.0" y="825.0" width="278.8" height="214.0" fill="hsl(34.7,29.1%,85.3%)"/><rect x="1251.8" y="825.0" width="214.0" height="214.0" fill="hsl(33.8,37.6%,85.5%)"/><rect width="1440" height="900" fill="#fff" filter="url(#fg)"/><rect width="1440" height="900" fill="url(#sun)"/><path d="M849.7,166.1 A624.2,624.2 0 0 0 772.0,106.5 M844.3,172.1 L855.0,160.2 M767.6,113.2 L776.3,99.8" fill="none" stroke="#8E6B2C" stroke-width="3"/><path d="M849.7,166.1 A624.2,624.2 0 0 0 772.0,106.5 M844.3,172.1 L855.0,160.2 M767.6,113.2 L776.3,99.8" fill="none" stroke="#C9A253" stroke-width="1.9"/><path d="M991.7,511.0 A572.2,572.2 0 0 0 743.6,150.1 M983.9,512.7 L999.5,509.4 M739.3,156.8 L748.0,143.4" fill="none" stroke="#8E6B2C" stroke-width="3"/><path d="M991.7,511.0 A572.2,572.2 0 0 0 743.6,150.1 M983.9,512.7 L999.5,509.4 M739.3,156.8 L748.0,143.4" fill="none" stroke="#C9A253" stroke-width="1.9"/><path d="M1075.8,485.7 L1083.3,493.2 L1075.8,500.7 L1068.3,493.2Z" fill="url(#br)" stroke="#5C4418" stroke-width=".7"/><text x="1099.4" y="492.0" font-family="DM Mono,monospace" font-size="14" font-weight="500" letter-spacing="1.4" fill="#5A4D3B">5 MAR</text><path d="M1046.5,386.6 L1054.0,394.1 L1046.5,401.6 L1039.0,394.1Z" fill="url(#br)" stroke="#5C4418" stroke-width=".7"/><text x="1069.1" y="390.0" font-family="DM Mono,monospace" font-size="14" font-weight="500" letter-spacing="1.4" fill="#5A4D3B">12 MAR</text><path d="M1002.0,293.4 L1009.5,300.9 L1002.0,308.4 L994.5,300.9Z" fill="url(#br)" stroke="#5C4418" stroke-width=".7"/><text x="1023.3" y="293.9" font-family="DM Mono,monospace" font-size="14" font-weight="500" letter-spacing="1.4" fill="#5A4D3B">19 MAR</text><path d="M943.5,208.3 L951.0,215.8 L943.5,223.3 L936.0,215.8Z" fill="url(#br)" stroke="#5C4418" stroke-width=".7"/><text x="963.0" y="206.2" font-family="DM Mono,monospace" font-size="14" font-weight="500" letter-spacing="1.4" fill="#5A4D3B">26 MAR</text><path d="M872.4,133.4 L879.9,140.9 L872.4,148.4 L864.9,140.9Z" fill="url(#br)" stroke="#5C4418" stroke-width=".7"/><text x="889.8" y="129.0" font-family="DM Mono,monospace" font-size="14" font-weight="500" letter-spacing="1.4" fill="#5A4D3B">2 APR</text><path d="M790.5,70.5 L798.0,78.0 L790.5,85.5 L783.0,78.0Z" fill="url(#br)" stroke="#5C4418" stroke-width=".7"/><text x="805.4" y="64.2" font-family="DM Mono,monospace" font-size="14" font-weight="500" letter-spacing="1.4" fill="#5A4D3B">9 APR</text><text x="738.0" y="111.5" text-anchor="end" font-family="DM Mono,monospace" font-size="14" font-weight="500" letter-spacing="1.4" fill="#5A4D3B">SINCE THE LAST SESSION</text><text x="709.6" y="155.1" text-anchor="end" font-family="DM Mono,monospace" font-size="14" font-weight="500" letter-spacing="1.4" fill="#5A4D3B">SINCE THE START</text><g transform="translate(432,630) rotate(-57) scale(1,1.383)" style="mix-blend-mode:multiply"><rect x="0" y="-16" width="674.2" height="32" fill="#33346B" opacity=".6" filter="url(#fb)"/></g><rect x="416" y="614" width="32" height="32" fill="#2A2420"/><path d="M416,614 L432,630 L416,646Z" fill="#6A5C4C"/><path d="M416,646 L432,630 L448,646Z" fill="#4A4036"/><text x="416" y="677" font-family="DM Mono,monospace" font-size="14" font-weight="500" letter-spacing="1.4" fill="#5A4D3B">ILLUSTRATIVE</text></svg>
+    </div>
+    <header class="top">
+      <a href="#"><img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo"></a>
+      <a class="signin" href="https://strapivo.app">Sign in</a>
+    </header>
+    <div class="hero" id="hero">
+      <h1><span>You cannot watch a shadow move.</span><span>You can mark where it was.</span></h1>
+      <p class="lede">Strapivo is where a leadership team keeps its strategy and records what moved between one session and the next.</p>
+      <a class="cta" href="mailto:strategy@strapivo.com"><i aria-hidden="true"></i>Start the conversation</a>
+    </div>
+  </div>
+</section>
+<section class="end" id="end">
+  <canvas id="endstone" aria-hidden="true"></canvas>
+  <div class="inner">
+    <h2>Show the board what moved between meetings.</h2>
+    <a class="cta" href="mailto:strategy@strapivo.com"><i aria-hidden="true"></i>Start the conversation</a>
+  </div>
+  <footer class="foot">
+    <span>© 2026 Strapivo</span><a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a>
+  </footer>
+</section>
+</main>
+<script>
+(function(){
+'use strict';
+var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var DPR = Math.min(window.devicePixelRatio || 1, 2);
+var ANG = [12,21,30,39,48,57];
+var DATES = ['5 MAR','12 MAR','19 MAR','26 MAR','2 APR','9 APR'];
+var START = 33, END = 57;
+var scene = document.getElementById('scene'), ctx = scene.getContext('2d');
+var stage = document.getElementById('stage'), hero = document.getElementById('hero');
+var endC = document.getElementById('endstone');
+var W, H, G, bg, shadow, cur = RM ? END : START, curArc = RM ? 1 : 0, tgt = cur, tgtArc = curArc, raf = 0, visible = true;
+
+function rng(seed){ return function(){ seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function cv(w,h){ var c = document.createElement('canvas'); c.width = Math.max(1, Math.round(w)); c.height = Math.max(1, Math.round(h)); return c; }
+function clamp(v,a,b){ return v < a ? a : v > b ? b : v; }
+function sstep(a,b,x){ x = clamp((x-a)/(b-a),0,1); return x*x*(3-2*x); }
+function rad(d){ return d*Math.PI/180; }
+
+/* ---------- stone paving ---------- */
+function paving(w, h, seed, s){
+  var R = rng(seed), c = cv(w*DPR, h*DPR), g = c.getContext('2d');
+  g.scale(DPR, DPR);
+  var jw = Math.max(2, s*0.015);
+  g.fillStyle = '#857257'; g.fillRect(0,0,w,h);
+  var slabs = [], y = -Math.round(R()*s*0.6), W4 = [0.72,1,1,1.3,1.62];
+  while (y < h){
+    var x = -Math.round(R()*s);
+    while (x < w){ var sw = s*W4[Math.floor(R()*W4.length)]; slabs.push([x, y, sw, s]); x += sw; }
+    y += s;
+  }
+  slabs.forEach(function(r){
+    var x0 = r[0]+jw/2, y0 = r[1]+jw/2, sw = r[2]-jw, sh = r[3]-jw;
+    var l = 87.5 + (R()-0.5)*5.5, sat = 36 + (R()-0.5)*18, hu = 37 + (R()-0.5)*9;
+    g.fillStyle = 'hsl(' + hu.toFixed(1) + ',' + sat.toFixed(1) + '%,' + l.toFixed(1) + '%)';
+    g.fillRect(x0, y0, sw, sh);
+    for (var k = 0; k < 3; k++){
+      var gx = x0 + R()*sw, gy = y0 + R()*sh, rr = sw*(0.3 + R()*0.7);
+      var rg = g.createRadialGradient(gx, gy, 0, gx, gy, rr);
+      var tone = R() < 0.45 ? '255,250,238' : (R() < 0.5 ? '160,132,92' : '186,150,118');
+      rg.addColorStop(0, 'rgba(' + tone + ',' + (0.05 + R()*0.09).toFixed(3) + ')');
+      rg.addColorStop(1, 'rgba(' + tone + ',0)');
+      g.fillStyle = rg; g.fillRect(x0, y0, sw, sh);
+    }
+    // faint bedding lines in the stone, as limestone shows them
+    var nb = Math.floor(R()*4);
+    for (var b2 = 0; b2 < nb; b2++){
+      var by = y0 + R()*sh; g.fillStyle = 'rgba(150,124,88,' + (0.04 + R()*0.06).toFixed(3) + ')';
+      g.fillRect(x0, by, sw, 0.6 + R()*1.6);
+    }
+  });
+  // mottling at three scales
+  [[s*0.9,0.34],[s*0.3,0.24],[s*0.08,0.2]].forEach(function(o){
+    var cw = Math.ceil(w/o[0]) + 2, ch = Math.ceil(h/o[0]) + 2, m = cv(cw, ch), mg = m.getContext('2d');
+    var id = mg.createImageData(cw, ch);
+    for (var i = 0; i < id.data.length; i += 4){ var v = 128 + (R()-0.5)*120; id.data[i] = v; id.data[i+1] = v; id.data[i+2] = v; id.data[i+3] = 255; }
+    mg.putImageData(id, 0, 0);
+    g.save(); g.globalCompositeOperation = 'soft-light'; g.globalAlpha = o[1]; g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
+    g.drawImage(m, -o[0], -o[0], cw*o[0], ch*o[0]); g.restore();
+  });
+  // relief: a height field lit by a low sun from the lower left
+  var CW = c.width, CH = c.height, hc = cv(CW, CH), hg = hc.getContext('2d');
+  hg.fillStyle = '#808080'; hg.fillRect(0,0,CW,CH);
+  [[3.2,1],[1,0.55]].forEach(function(o){
+    var sc = o[0]*DPR, cw = Math.ceil(CW/sc) + 2, ch = Math.ceil(CH/sc) + 2, m = cv(cw, ch), mg = m.getContext('2d'), id = mg.createImageData(cw, ch);
+    for (var i = 0; i < id.data.length; i += 4){ var v = 128 + (R()-0.5)*200; id.data[i] = v; id.data[i+1] = v; id.data[i+2] = v; id.data[i+3] = 255; }
+    mg.putImageData(id, 0, 0);
+    hg.globalAlpha = o[1]; hg.imageSmoothingEnabled = o[0] > 1; hg.drawImage(m, 0, 0, cw*sc, ch*sc);
+  });
+  hg.globalAlpha = 1;
+  // slab edges: sun side lit, far side in shade
+  var gd = g.getImageData(0,0,CW,CH), d = gd.data, hd = hg.getImageData(0,0,CW,CH).data;
+  var off = (Math.round(DPR)*CW - Math.round(DPR))*4, q = (seed*9301 + 49297) | 0;
+  for (var i = 0, n = d.length; i < n; i += 4){
+    var j = i + off; if (j < 0 || j >= n) j = i;
+    var e = (hd[i] - hd[j])*0.16;
+    q = (q*1103515245 + 12345) | 0; e += (((q >>> 16) & 255) - 128)*0.03;
+    d[i] += e; d[i+1] += e*0.97; d[i+2] += e*0.92;
+  }
+  g.putImageData(gd, 0, 0);
+  var np = Math.round(w*h/5200);
+  for (var i = 0; i < np; i++){
+    var px = R()*w, py = R()*h, pr = 0.4 + Math.pow(R(),4)*1.8, ex = pr*(1.6 + R()*2.4);
+    g.fillStyle = 'rgba(255,250,236,.55)'; g.beginPath(); g.ellipse(px+.5, py-.5, ex, pr, 0, 0, 7); g.fill();
+    g.fillStyle = 'rgba(120,98,70,' + (0.22 + R()*0.26).toFixed(2) + ')'; g.beginPath(); g.ellipse(px, py, ex, pr, 0, 0, 7); g.fill();
+  }
+  slabs.forEach(function(r){
+    var x0 = r[0]+jw/2, y0 = r[1]+jw/2, x1 = r[0]+r[2]-jw/2, y1 = r[1]+r[3]-jw/2;
+    g.lineWidth = 1.2;
+    g.strokeStyle = 'rgba(255,248,230,.7)'; g.beginPath(); g.moveTo(x0+.6, y0+1); g.lineTo(x0+.6, y1-.6); g.lineTo(x1-1, y1-.6); g.stroke();
+    g.strokeStyle = 'rgba(96,76,50,.38)'; g.beginPath(); g.moveTo(x0+1, y0+.6); g.lineTo(x1-.6, y0+.6); g.lineTo(x1-.6, y1-1); g.stroke();
+    if (R() < 0.12){ // a chipped corner
+      var cx = R() < .5 ? x0 : x1, cy = R() < .5 ? y0 : y1, cs = s*(0.02 + R()*0.03), sx = cx === x0 ? 1 : -1, sy = cy === y0 ? 1 : -1;
+      g.fillStyle = 'rgba(150,128,96,.85)'; g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + sx*cs*(1+R()), cy); g.lineTo(cx + sx*cs*0.3, cy + sy*cs*0.5); g.lineTo(cx, cy + sy*cs*(0.8+R())); g.closePath(); g.fill();
+    }
+  });
+  // dirt settles into the joints
+  g.save(); g.filter = 'blur(' + (s*0.025).toFixed(1) + 'px)'; g.strokeStyle = 'rgba(120,96,64,.13)'; g.lineWidth = s*0.04;
+  g.beginPath(); slabs.forEach(function(r){ g.rect(r[0], r[1], r[2], r[3]); }); g.stroke(); g.restore();
+  // warm low sun from the lower left, cooler toward the upper right
+  var lg = g.createLinearGradient(0, h, w*0.9, -h*0.1);
+  lg.addColorStop(0, 'rgba(255,186,105,.55)'); lg.addColorStop(.45, 'rgba(255,222,170,.12)'); lg.addColorStop(1, 'rgba(56,58,120,.42)');
+  g.save(); g.globalCompositeOperation = 'soft-light'; g.fillStyle = lg; g.fillRect(0,0,w,h); g.restore();
+  var vg = g.createRadialGradient(w*0.4, h*0.6, Math.min(w,h)*0.25, w*0.45, h*0.55, Math.max(w,h)*0.8);
+  vg.addColorStop(0, 'rgba(110,84,56,0)'); vg.addColorStop(1, 'rgba(104,78,58,.3)');
+  g.save(); g.globalCompositeOperation = 'multiply'; g.fillStyle = vg; g.fillRect(0,0,w,h); g.restore();
+  return c;
+}
+
+/* ---------- the shadow: a sprite with a penumbra that widens toward the tip ---------- */
+function erf(x){ var t = 1/(1+0.3275911*Math.abs(x)); var y = 1 - (((((1.061405429*t - 1.453152027)*t) + 1.421413741)*t - 0.284496736)*t + 0.254829592)*t*Math.exp(-x*x); return x >= 0 ? y : -y; }
+function makeShadow(L, w){
+  var pad = Math.ceil(L*0.05 + 10), ox = w/2 + 4, lw = L + w/2 + pad + ox, lh = w + pad*2;
+  var c = cv(lw*DPR, lh*DPR), g = c.getContext('2d'), id = g.createImageData(c.width, c.height), d = id.data;
+  for (var py = 0; py < c.height; py++){
+    var yy = py/DPR - lh/2;
+    for (var px = 0; px < c.width; px++){
+      var xx = px/DPR - ox;
+      var sig = 0.5 + Math.max(0, xx)*0.017;
+      var s2 = sig*1.414;
+      var across = 0.5*(erf((w/2 - yy)/s2) + erf((w/2 + yy)/s2));
+      var along = 0.5*(1 + erf((L + w/2 - xx)/s2)) * (xx < 0 ? 0 : 1);
+      var a = across*along*(0.80 - 0.22*clamp(xx/L,0,1));
+      var o = (py*c.width + px)*4;
+      d[o] = 0x33; d[o+1] = 0x34; d[o+2] = 0x6B; d[o+3] = Math.round(a*255);
+    }
+  }
+  g.putImageData(id, 0, 0);
+  return {c:c, ox:ox, oy:lh/2, w:lw, h:lh};
+}
+
+/* ---------- objects ---------- */
+function diamond(g, x, y, r){ g.beginPath(); g.moveTo(x, y-r); g.lineTo(x+r, y); g.lineTo(x, y+r); g.lineTo(x-r, y); g.closePath(); }
+function stud(g, x, y, r, a, dirDeg){
+  if (a <= 0) return;
+  var sc = 1 + (1-a)*0.5;
+  g.save(); g.globalAlpha = a; g.translate(x, y); g.scale(sc, sc);
+  // cut in the stone
+  g.save(); g.filter = 'blur(0.8px)'; diamond(g, 0, 0, r+2.4); g.fillStyle = 'rgba(90,70,45,.45)'; g.fill(); g.restore();
+  // tiny cast shadow, away from the sun
+  var dx = Math.cos(rad(dirDeg))*1.8, dy = -Math.sin(rad(dirDeg))*1.8;
+  g.save(); g.filter = 'blur(1.2px)'; diamond(g, dx, dy, r); g.fillStyle = 'rgba(51,52,107,.45)'; g.fill(); g.restore();
+  // four facets of a shallow brass pyramid, lit from the lower left
+  var f = [['#D4B060',[0,-r],[-r,0]],['#7D5D24',[0,-r],[r,0]],['#A8823A',[r,0],[0,r]],['#F3DC98',[0,r],[-r,0]]];
+  f.forEach(function(t){ g.beginPath(); g.moveTo(0,0); g.lineTo(t[1][0],t[1][1]); g.lineTo(t[2][0],t[2][1]); g.closePath(); g.fillStyle = t[0]; g.fill(); });
+  diamond(g, 0, 0, r); g.lineWidth = 0.7; g.strokeStyle = 'rgba(70,48,14,.7)'; g.stroke();
+  g.beginPath(); g.moveTo(-r*0.85, r*0.1); g.lineTo(-r*0.1, r*0.85); g.strokeStyle = 'rgba(255,246,214,.9)'; g.lineWidth = 0.8; g.stroke();
+  g.beginPath(); g.arc(-r*0.32, r*0.3, r*0.16, 0, 7); g.fillStyle = 'rgba(255,255,240,.8)'; g.fill();
+  g.restore();
+}
+function post(g, x, y, s){
+  var h = s/2;
+  // contact darkness where the post meets the stone
+  var ao = g.createRadialGradient(x+2, y-2, h*0.6, x+2, y-2, s*1.25);
+  ao.addColorStop(0, 'rgba(40,34,60,.55)'); ao.addColorStop(1, 'rgba(40,34,60,0)');
+  g.fillStyle = ao; g.fillRect(x-s*1.4, y-s*1.4, s*2.8, s*2.8);
+  var F = [['#221E1A',[-h,-h],[h,-h]],['#15120F',[h,-h],[h,h]],['#4A4036',[h,h],[-h,h]],['#6A5C4C',[-h,h],[-h,-h]]];
+  F.forEach(function(t){ g.beginPath(); g.moveTo(x, y); g.lineTo(x+t[1][0], y+t[1][1]); g.lineTo(x+t[2][0], y+t[2][1]); g.closePath(); g.fillStyle = t[0]; g.fill(); });
+  // a flat top on the cap
+  g.fillStyle = '#2A2623'; g.fillRect(x-h*0.28, y-h*0.28, h*0.56, h*0.56);
+  g.strokeStyle = 'rgba(255,236,205,.28)'; g.lineWidth = 1;
+  g.beginPath(); g.moveTo(x-h+.5, y-h); g.lineTo(x-h+.5, y+h-.5); g.lineTo(x+h, y+h-.5); g.stroke();
+  g.strokeStyle = 'rgba(255,236,205,.12)'; g.beginPath(); g.moveTo(x-h, y+h); g.lineTo(x, y); g.moveTo(x-h, y-h); g.lineTo(x, y); g.moveTo(x+h, y+h); g.lineTo(x, y); g.stroke();
+}
+function engrave(g, txt, x, y, align, size){
+  g.font = '500 ' + size + 'px "DM Mono", monospace';
+  g.textAlign = align; g.textBaseline = 'middle';
+  if ('letterSpacing' in g) g.letterSpacing = '0.1em';
+  g.fillStyle = 'rgba(255,252,244,.8)'; g.fillText(txt, x+0.6, y+1);
+  g.fillStyle = '#5A4D3B'; g.fillText(txt, x, y);
+}
+function arcDim(g, P, R, a0, a1, t, tick){
+  if (t <= 0) return;
+  var e = a0 + (a1 - a0)*t, ends = [a0].concat(t >= 1 ? [a1] : []);
+  function path(dr, dt){
+    g.beginPath(); g.arc(P.x, P.y, R + dr, -rad(a0), -rad(e), true);
+    ends.forEach(function(a){
+      var c = Math.cos(rad(a)), s = Math.sin(rad(a)), x = -s*dt, y = -c*dt;
+      g.moveTo(P.x + (R - tick)*c + x, P.y - (R - tick)*s + y); g.lineTo(P.x + (R + tick)*c + x, P.y - (R + tick)*s + y);
+    });
+  }
+  g.save(); g.lineCap = 'butt';
+  path(1.4, 0); g.strokeStyle = 'rgba(70,52,28,.45)'; g.lineWidth = 3.6; g.stroke();   // the cut
+  path(0, 0); g.strokeStyle = '#8E6B2C'; g.lineWidth = 3; g.stroke();                   // brass edge
+  path(-0.2, 0); g.strokeStyle = '#C9A253'; g.lineWidth = 1.9; g.stroke();              // brass face
+  path(-0.75, 0); g.strokeStyle = 'rgba(255,240,196,.85)'; g.lineWidth = 0.7; g.stroke(); // sun on the inner edge
+  g.restore();
+}
+/* ---------- layout ---------- */
+function layout(){
+  W = innerWidth; H = scene.parentNode.getBoundingClientRect().height || innerHeight;
+  var phone = W < 761, s57 = Math.sin(rad(57)), P, L, ps;
+  if (!phone){
+    P = {x: W*0.30, y: H*0.70};
+    L = Math.min(W*0.48, (P.y - 78)/s57, (W - P.x - 110)/Math.cos(rad(12)));
+    ps = 32;
+  } else {
+    var hb = hero.getBoundingClientRect().bottom;
+    P = {x: Math.max(40, W*0.12), y: H - Math.max(64, H*0.09)};
+    L = Math.min(W*0.78, (P.y - hb - 48)/s57);
+    ps = 22;
+  }
+  G = {P:P, L:L, ps:ps, phone:phone, r: phone ? 6 : 7.5, font: 14};
+  scene.width = Math.round(W*DPR); scene.height = Math.round(H*DPR);
+  bg = paving(W, H, 1137, phone ? W*0.4 : W*0.15);
+  shadow = makeShadow(L, ps);
+  var eh = endC.getBoundingClientRect().height;
+  endC.width = Math.round(W*DPR); endC.height = Math.round(eh*DPR);
+  endC.getContext('2d').drawImage(paving(W, eh, 4211, phone ? W*0.4 : W*0.15), 0, 0);
+}
+
+function draw(){
+  var g = ctx, P = G.P, L = G.L;
+  g.setTransform(DPR,0,0,DPR,0,0);
+  g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1;
+  g.drawImage(bg, 0, 0, W, H);
+  // dimension arcs, engraved
+  var Rs = G.phone ? L - 22 : L - 34, Rl = G.phone ? L - 72 : L - 86;
+  var tick = G.phone ? 6 : 8;
+  arcDim(g, P, Rl, 12, 57, sstep(0, 0.75, curArc), tick);
+  arcDim(g, P, Rs, 48, 57, sstep(0.25, 1, curArc), tick);
+  if (curArc > 0.6){
+    g.save(); g.globalAlpha = sstep(0.6, 1, curArc);
+    var c57 = Math.cos(rad(57)), s57 = Math.sin(rad(57)), off = G.phone ? 26 : 34;
+    var lab = function(R, lines){
+      var x = P.x + R*c57 - off, y = P.y - R*s57, lh = 19;
+      lines.forEach(function(t, i){ engrave(g, t, x, y + (i - (lines.length-1)/2)*lh, 'right', G.font); });
+    };
+    lab(Rs, G.phone ? ['SINCE THE LAST','SESSION'] : ['SINCE THE LAST SESSION']);
+    lab(Rl, G.phone ? ['SINCE THE','START'] : ['SINCE THE START']);
+    g.restore();
+  }
+  // studs and their dates
+  ANG.forEach(function(a, i){
+    var v = sstep(a - 2.6, a - 0.05, cur);
+    if (v <= 0) return;
+    var c = Math.cos(rad(a)), s = Math.sin(rad(a));
+    stud(g, P.x + L*c, P.y - L*s, G.r, v, cur);
+    if (G.phone && i > 0 && i < 5) return;
+    g.save(); g.globalAlpha = sstep(a - 1.6, a, cur);
+    var lx = P.x + (L + (G.phone ? 14 : 20))*c + 4, ly = P.y - (L + (G.phone ? 14 : 20))*s - 2;
+    g.font = '500 ' + G.font + 'px "DM Mono", monospace';
+    if (lx + g.measureText(DATES[i]).width*1.12 > W - 10) engrave(g, DATES[i], P.x + L*c + G.r, P.y - L*s + G.r + 20, 'right', G.font);
+    else engrave(g, DATES[i], lx, ly, 'left', G.font);
+    g.restore();
+  });
+  // the shadow, laid over everything on the ground
+  g.save(); g.globalCompositeOperation = 'multiply';
+  g.translate(P.x, P.y); g.rotate(-rad(cur)); g.scale(1, Math.abs(Math.cos(rad(cur))) + Math.abs(Math.sin(rad(cur))));
+  g.drawImage(shadow.c, -shadow.ox, -shadow.oy, shadow.w, shadow.h);
+  g.restore();
+  post(g, P.x, P.y, G.ps);
+  g.save(); g.globalAlpha = 1;
+  engrave(g, 'ILLUSTRATIVE', P.x - G.ps/2, P.y + G.ps/2 + 26, 'left', G.font);
+  g.restore();
+}
+
+function targets(){
+  if (RM){ tgt = END; tgtArc = 1; return; }
+  var r = stage.getBoundingClientRect(), span = stage.offsetHeight - innerHeight;
+  var p = span > 0 ? clamp(-r.top/span, 0, 1) : 1;
+  var q = clamp(p/0.74, 0, 1); q = q < .5 ? 2*q*q : 1 - Math.pow(-2*q+2, 2)/2;
+  tgt = START + (END - START)*q;
+  tgtArc = clamp((p - 0.74)/0.16, 0, 1);
+  visible = r.bottom > 0 && r.top < innerHeight;
+}
+function tick(){
+  raf = 0;
+  var k = 0.09;
+  cur += (tgt - cur)*k; curArc += (tgtArc - curArc)*(k*1.2);
+  if (Math.abs(tgt-cur) < 0.005) cur = tgt;
+  if (Math.abs(tgtArc-curArc) < 0.002) curArc = tgtArc;
+  draw();
+  if ((cur !== tgt || curArc !== tgtArc) && visible && !document.hidden) raf = requestAnimationFrame(tick);
+}
+function kick(){ targets(); if (!raf && visible && !document.hidden) raf = requestAnimationFrame(tick); }
+
+var lastW = 0, lastH = 0, rt = 0;
+function init(){
+  layout(); lastW = W; lastH = H;
+  targets(); cur = tgt; curArc = tgtArc; draw();
+}
+init();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ layout(); draw(); });
+addEventListener('scroll', kick, {passive:true});
+document.addEventListener('visibilitychange', kick);
+addEventListener('resize', function(){
+  clearTimeout(rt);
+  rt = setTimeout(function(){
+    var h = scene.parentNode.getBoundingClientRect().height;
+    if (innerWidth === lastW && Math.abs(h - lastH) < 120) return;
+    layout(); lastW = W; lastH = H; targets(); draw();
+  }, 180);
+});
+})();
+</script>
+<script src="/landings/prompt.js" defer></script>
+</body>
+</html>
