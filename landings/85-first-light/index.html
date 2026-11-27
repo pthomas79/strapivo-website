@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Strapivo. First light</title>
+<meta name="description" content="Strapivo is where a leadership team keeps its strategy and corrects it every week.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@200;300;400&display=swap" rel="stylesheet">
+<script>
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { background: #07080d; color: #F4F2ED; -webkit-text-size-adjust: 100%; }
+  body { margin: 0; font-family: "Inter Tight", "Inter", system-ui, sans-serif; font-weight: 300; overflow-x: hidden; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid #ffd9a8; outline-offset: 4px; border-radius: 2px; }
+
+  :root { --hz: 70%; --r: min(13vw, 21svh); --sx: 70%; --ground: #090a10; }
+
+  .track { position: relative; }
+  .motion .track { height: 620svh; }
+  .stage {
+    position: relative; top: 0; height: 100svh; min-height: 520px; overflow: hidden;
+    /* the still, before or without JavaScript: first light */
+    background:
+      radial-gradient(ellipse 60% 34% at var(--sx) var(--hz), rgba(255,196,130,.55), rgba(255,196,130,0) 70%),
+      linear-gradient(to top, #f0b487 0%, #f0b487 30%, #b98a92 33%, #6c6192 40%, #3b5791 54%, #23417a 72%, #142b5e 100%);
+  }
+  .motion .stage { position: sticky; }
+  .js .stage { background: #020308; }
+
+  canvas { position: absolute; left: 0; top: 0; width: 100%; display: block; }
+  #stars { height: 100%; opacity: 0; }
+
+  .sun {
+    position: absolute; left: calc(var(--sx) - var(--r)); top: calc(var(--hz) - var(--r));
+    width: calc(var(--r) * 2); height: calc(var(--r) * 2); border-radius: 50%;
+    border: calc(var(--r) * .07) solid #fff6e6;
+    box-shadow: 0 0 calc(var(--r) * .12) rgba(255,232,196,.9), 0 0 calc(var(--r) * .6) rgba(255,190,120,.45),
+      inset 0 0 calc(var(--r) * .14) rgba(255,226,180,.7);
+    will-change: transform;
+  }
+
+  .ground { position: absolute; left: 0; right: 0; top: calc(var(--hz) - 28px); bottom: 0; }
+  .ground svg { display: block; width: 100%; height: 30px; }
+  .ground .fill { fill: var(--ground); }
+  .ground .rim { fill: none; stroke: #ffcf9e; stroke-width: 1; opacity: var(--rim, .55); vector-effect: non-scaling-stroke; }
+  .ground .earth { position: absolute; left: 0; right: 0; top: 29px; bottom: 0; background: var(--ground); }
+
+  .mast { position: absolute; z-index: 3; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 30px 6vw; }
+  .mast img { display: block; height: 20px; width: auto; }
+  .mast .signin { font-size: 14px; font-weight: 400; text-decoration: none; opacity: .82; }
+  .mast .signin:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+
+  .lines { position: absolute; z-index: 2; left: 6vw; bottom: calc(100% - var(--hz) + 64px); width: min(40vw, 30rem); margin: 0; }
+  .lines > * {
+    margin: 0 0 .9em; font-size: clamp(19px, 1.75vw, 27px); line-height: 1.28; font-weight: 300; letter-spacing: -.008em;
+    text-wrap: balance; text-shadow: 0 0 28px rgba(6,10,30,.55);
+  }
+  .lines > :last-child { margin-bottom: 0; }
+  .motion .lines > * { position: absolute; left: 0; bottom: 0; width: 100%; margin: 0; opacity: 0; }
+  .motion .lines > h1 { opacity: 1; }
+
+  .caption {
+    position: absolute; z-index: 3; left: 6vw; right: 6vw; top: calc(var(--hz) + 4px); bottom: 0;
+    display: flex; align-items: center; justify-content: space-between; gap: 32px;
+  }
+  .caption p { margin: 0; max-width: 31rem; font-size: 17px; line-height: 1.5; color: #dedbd3; font-weight: 300; }
+  .cta {
+    flex: none; display: inline-block; padding: 15px 26px; border: 1px solid rgba(244,242,237,.7); border-radius: 999px;
+    font-size: 15px; font-weight: 400; letter-spacing: .01em; text-decoration: none; color: #F4F2ED;
+    transition: background .3s, color .3s, border-color .3s;
+  }
+  .cta:hover { background: #F4F2ED; color: #0a0b12; border-color: #F4F2ED; }
+
+  footer { background: var(--ground); padding: 0 6vw 30px; font-size: 12px; color: #a3a097; }
+  .motion footer { padding-top: 30px; }
+  footer a { margin-left: 18px; text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 760px) {
+    :root { --hz: 69%; --r: min(34vw, 19svh); --sx: 50%; }
+    .mast { padding: 22px 24px; }
+    .mast img { height: 17px; }
+    .lines { left: 24px; right: 24px; width: auto; top: 13svh; bottom: auto; }
+    .lines > * { font-size: 19px; margin-bottom: .75em; }
+    .motion .lines > * { top: 0; bottom: auto; }
+    .caption { left: 24px; right: 24px; flex-direction: column; align-items: flex-start; justify-content: center; gap: 20px; }
+    .caption p { font-size: 16px; }
+    footer { padding: 0 24px 26px; }
+    footer a { margin-left: 14px; }
+  }
+  @media (max-width: 760px) and (max-height: 800px) {
+    .lines > * { font-size: 17px; }
+    .lines { top: 11svh; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <section class="track" id="track">
+    <div class="stage" id="stage">
+      <div role="img" aria-label="A night sky over a flat horizon turns to dawn, and the sun rises as a thin ring of light.">
+        <canvas id="sky" aria-hidden="true"></canvas>
+        <canvas id="stars" aria-hidden="true"></canvas>
+        <div class="sun" id="sun"></div>
+        <div class="ground" aria-hidden="true">
+          <svg viewBox="0 0 1000 30" preserveAspectRatio="none">
+            <path class="fill" d="M0 28 L90 28 C170 28 230 13 330 12 C420 11 470 28 560 28 L1000 28 L1000 30 L0 30 Z"/>
+            <path class="rim" d="M0 28 L90 28 C170 28 230 13 330 12 C420 11 470 28 560 28 L1000 28"/>
+          </svg>
+          <div class="earth"></div>
+        </div>
+      </div>
+
+      <header class="mast">
+        <a href="#"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="79" height="20"></a>
+        <a class="signin" href="https://strapivo.app">Sign in</a>
+      </header>
+
+      <div class="lines" id="lines">
+        <h1>A strategy goes dark the day after you agree it.</h1>
+        <p>The market moved. Nobody was looking.</p>
+        <p>Strapivo watches what moved and puts it on the agenda for your next session.</p>
+        <p>You decide while the correction is still small.</p>
+      </div>
+
+      <div class="caption">
+        <p>Strapivo is where a leadership team keeps its strategy and corrects it every week.</p>
+        <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>© 2026 Strapivo <a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  root.classList.add('js');
+  const motion = root.classList.contains('motion');
+  const STILL = 0.84;              // time of the still: first light, ring half risen
+
+  const stage = document.getElementById('stage');
+  const track = document.getElementById('track');
+  const sky = document.getElementById('sky');
+  const starsC = document.getElementById('stars');
+  const sun = document.getElementById('sun');
+  const lines = [...document.getElementById('lines').children];
+  const ctx = sky.getContext('2d');
+
+  // ---- colour helpers (linear light) ----
+  const toLin = c => { c /= 255; return c <= .04045 ? c / 12.92 : Math.pow((c + .055) / 1.055, 2.4); };
+  const hex = h => [1, 3, 5].map(i => toLin(parseInt(h.slice(i, i + 2), 16)));
+  const LUTN = 4096, LUT = new Float32Array(LUTN + 1);
+  for (let i = 0; i <= LUTN; i++) { const c = i / LUTN; LUT[i] = 255 * (c <= .0031308 ? c * 12.92 : 1.055 * Math.pow(c, 1 / 2.4) - .055); }
+
+  // keyframes: zenith, mid sky, low sky, horizon, horizon band (added), sun glow (added)
+  const K = [
+    [0.00, '#020308', '#03050c', '#04070f', '#060912', '#000000', '#000000'],
+    [0.22, '#03061a', '#060c26', '#0a1230', '#121a3a', '#040508', '#020203'],
+    [0.45, '#05102f', '#0d1f4e', '#213063', '#3c4170', '#2a1a1e', '#0a0604'],
+    [0.64, '#0a1a46', '#1a3672', '#423f7a', '#9a6a76', '#6a3a1e', '#26140a'],
+    [0.82, '#10265a', '#284a88', '#5c5288', '#dc9474', '#b0682a', '#5a3010'],
+    [1.00, '#163064', '#335a98', '#6c6292', '#f0b282', '#d8963e', '#8a5820'],
+  ].map(k => [k[0], ...k.slice(1).map(hex)]);
+
+  function palette(t) {
+    let i = 0; while (i < K.length - 2 && t > K[i + 1][0]) i++;
+    const a = K[i], b = K[i + 1];
+    let f = Math.min(1, Math.max(0, (t - a[0]) / (b[0] - a[0])));
+    f = f * f * (3 - 2 * f);
+    const out = [];
+    for (let j = 1; j < 7; j++) out.push([0, 1, 2].map(c => a[j][c] + (b[j][c] - a[j][c]) * f));
+    return out;
+  }
+
+  const smooth = (e0, e1, x) => { const f = Math.min(1, Math.max(0, (x - e0) / (e1 - e0))); return f * f * (3 - 2 * f); };
+  const mix = (a, b, f) => [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f];
+
+  // ---- dither noise (triangular, about one level) ----
+  const NN = 1 << 16, NOISE = new Float32Array(NN);
+  for (let i = 0; i < NN; i++) NOISE[i] = (Math.random() + Math.random() - 1) * 1.1;
+
+  let W = 0, H = 0, HZ = 0, R = 0, SX = 0, img = null;
+
+  function measure() {
+    const rect = stage.getBoundingClientRect();
+    W = Math.max(1, Math.round(rect.width)); H = Math.max(1, Math.round(rect.height));
+    const cs = getComputedStyle(sun);
+    R = parseFloat(cs.width) / 2;
+    HZ = Math.round(parseFloat(cs.top) + R);
+    SX = parseFloat(cs.left) + R;
+    const sh = HZ + 2;
+    sky.width = W; sky.height = sh; sky.style.height = sh + 'px';
+    img = ctx.createImageData(W, sh);
+    drawStars();
+  }
+
+  function drawStars() {
+    const dpr = Math.min(2, devicePixelRatio || 1);
+    starsC.width = Math.round(W * dpr); starsC.height = Math.round(H * dpr);
+    const s = starsC.getContext('2d');
+    s.setTransform(dpr, 0, 0, dpr, 0, 0);
+    let seed = 85;
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    const n = Math.round(W * HZ / 2400);
+    for (let i = 0; i < n; i++) {
+      const x = rnd() * W, v = Math.pow(rnd(), .7), y = HZ - 30 - v * (HZ - 30);
+      const big = rnd() < .06;
+      const a = (.3 + .7 * rnd()) * (.35 + .65 * v);
+      s.fillStyle = `rgba(232,236,255,${a.toFixed(3)})`;
+      s.beginPath(); s.arc(x, y, big ? 1.2 : .5 + rnd() * .5, 0, 6.2832); s.fill();
+    }
+  }
+
+  function render(t) {
+    if (!img) return;
+    const [zen, mid, low, hor, band, glow] = palette(t);
+    const d = img.data, w = W, h = HZ + 2;
+
+    // where the sun is: from far below the line to clear of it
+    const rise = motion ? smooth(.56, .97, t) : 1;
+    const sunCy = motion ? HZ + R * 1.15 - rise * (R * 2.15 + Math.max(14, R * .14)) : HZ;
+    sun.style.transform = `translateY(${(sunCy - HZ).toFixed(1)}px)`;
+    const glowY = Math.min(HZ, sunCy);
+
+    // per column
+    const gx = new Float32Array(w), hx = new Float32Array(w);
+    const sg = w * .2, sb = w * .55;
+    for (let x = 0; x < w; x++) {
+      const dx = x - SX;
+      gx[x] = Math.exp(-(dx * dx) / (sg * sg));
+      hx[x] = .3 + .7 * Math.exp(-(dx * dx) / (sb * sb));
+    }
+    const sgy = H * .2;
+    let p = 0;
+    for (let y = 0; y < h; y++) {
+      const v = Math.max(0, (HZ - y) / HZ);
+      let base;
+      if (v < .1) base = mix(hor, low, smooth(0, .1, v));
+      else if (v < .42) base = mix(low, mid, smooth(.1, .42, v));
+      else base = mix(mid, zen, Math.pow((v - .42) / .58, .8));
+      const b = Math.exp(-v / .03);
+      const dy = y - glowY, g = Math.exp(-(dy * dy) / (sgy * sgy));
+      const br = band[0] * b, bg = band[1] * b, bb = band[2] * b;
+      const gr = glow[0] * g, gg = glow[1] * g, gb = glow[2] * g;
+      const rowN = (y * 7919) & (NN - 1);
+      for (let x = 0; x < w; x++) {
+        const hv = hx[x], gv = gx[x];
+        let r = base[0] + br * hv + gr * gv, gr2 = base[1] + bg * hv + gg * gv, bl = base[2] + bb * hv + gb * gv;
+        r = r > 1 ? 1 : r; gr2 = gr2 > 1 ? 1 : gr2; bl = bl > 1 ? 1 : bl;
+        const n = NOISE[(rowN + x * 13) & (NN - 1)];
+        d[p] = LUT[(r * LUTN) | 0] + n + .5;
+        d[p + 1] = LUT[(gr2 * LUTN) | 0] + NOISE[(rowN + x * 17 + 99) & (NN - 1)] + .5;
+        d[p + 2] = LUT[(bl * LUTN) | 0] + NOISE[(rowN + x * 29 + 7) & (NN - 1)] + .5;
+        d[p + 3] = 255; p += 4;
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+
+    starsC.style.opacity = (1 - smooth(.12, .6, t)).toFixed(3);
+    const dawn = smooth(.3, 1, t);
+    root.style.setProperty('--rim', (.04 + .6 * dawn).toFixed(3));
+    const gc = mix([6, 7, 11], [11, 12, 19], dawn).map(Math.round);
+    root.style.setProperty('--ground', `rgb(${gc})`);
+    sun.style.opacity = motion ? smooth(.5, .62, t).toFixed(3) : '1';
+
+    if (motion) {
+      // one line at a time, the last one stays
+      const win = [[-1, -1, .17, .24], [.27, .32, .42, .47], [.5, .55, .66, .71], [.76, .82, 2, 2]];
+      lines.forEach((el, i) => {
+        const [a, b, c, e] = win[i];
+        const o = Math.min(smooth(a, b, t), 1 - smooth(c, e, t));
+        el.style.opacity = o.toFixed(3);
+        el.style.transform = `translateY(${((1 - o) * 6).toFixed(1)}px)`;
+        el.style.visibility = o < .01 ? 'hidden' : 'visible';
+      });
+    }
+  }
+
+  // ---- scroll drives time, one frame per change ----
+  let cur = motion ? 0 : STILL, raf = 0;
+  function progress() {
+    const span = track.offsetHeight - stage.offsetHeight;
+    return span > 0 ? Math.min(1, Math.max(0, -track.getBoundingClientRect().top / span)) : 0;
+  }
+  function update() { raf = 0; const t = progress(); if (Math.abs(t - cur) > .0004) { cur = t; render(cur); } }
+
+  measure();
+  if (motion) cur = progress();
+  render(cur);
+  if (motion) addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); update(); }, { passive: true });
+  let lastW = W;
+  addEventListener('resize', () => {
+    const r = stage.getBoundingClientRect();
+    if (Math.round(r.width) === lastW && Math.abs(Math.round(r.height) - H) < 2) return;
+    lastW = Math.round(r.width); measure(); if (motion) cur = progress(); render(cur);
+  });
+})();
+</script>
+</body>
+</html>
