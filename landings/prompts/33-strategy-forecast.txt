@@ -1,0 +1,28 @@
+# 33 · The forecast
+
+Range: Experimental (concept 33 of 40, ordered from conservative to a bit nuts)
+Audience: Executives who want a reading, not a report
+Colours: Paper and Sky, ink, Azure for isobars. Two additional colours: storm slate #4A5868 and warm front red #C9503C.
+
+## The task
+
+Build a complete landing page for Strapivo as a single `index.html` in this folder (`landings/33-strategy-forecast/`). It is one of 40 deliberately different concepts, so commit fully to this one and do not drift toward a generic software landing page.
+
+Read `../BRIEF.md` first. It holds the facts about Strapivo and Dynamic Strategy, the truth rules, the brand (fonts, colour tokens, logo), the build rules and the finishing steps. The brief decides what is true and what the brand allows. This prompt decides everything else.
+
+## The concept
+
+A weather forecast for a strategy. The product gives each risk a trend word, Easing, Stable or Worsening, and the team's notes speak of pressure points. The page presents a company's strategic situation as a synoptic chart and an outlook, with the sobriety of a national weather service, not a television presenter.
+
+Structure: the hero is a pressure chart drawn in SVG: isobars, a high and a low, fronts, with the company's four focus areas placed on it as stations. Each station shows its light, its trend word and the time its main risk has held position. Beside it, the 'Outlook': a row of panels, one per focus area, reading like a forecast ('Stable. One signal under watch. No decision needed.' 'Worsening. Top right for 27 days. On Thursday's agenda.'). Label all of it as an illustrative example.
+
+Then the explanation: where the readings come from (signals with sources, triage, confirmed moves), why pressure shows before anything moves (trend word and time held), what a warning is (a risk entering the top right, the red-line exception that interrupts the Monday and Thursday reports), and what the crew does with a forecast (the session and the five options). Close on the difference between a forecast and an annual climate report.
+
+Signature element: the chart. Fine isobars that drift slowly, clean station plots in mono, a legend. A toggle moves the chart between 'Since last session' and '30 days'. It must look like meteorology, with no cartoon suns or clouds.
+
+## Standards
+
+- Strapivo sells to SMEs and corporates. The result must be something a CEO would forward to their board: confident, well made, never playful for its own sake.
+- Fonts and base colours are those of the current site (Inter 400 and 500, JetBrains Mono, Paper, Navy, Azure). The additional colours above are yours to use with a clear role.
+- Craft matters more than volume. Spend your effort on the signature element and on the copy.
+- Finish with the two steps in section 9 of the brief: screenshot and fix, then the unslop pass using `.claude/skills/unslop/SKILL.md`.

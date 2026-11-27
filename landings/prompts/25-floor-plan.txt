@@ -1,0 +1,26 @@
+# 25 · The floor plan
+
+Range: Experimental (concept 25 of 40, ordered from conservative to a bit nuts)
+Audience: Visitors who want the whole system at a glance
+Colours: Paper, ink linework, Azure for the room in view. One additional colour: architect's red #C0503A for dimension lines and annotations.
+
+## The task
+
+Build a complete landing page for Strapivo as a single `index.html` in this folder (`landings/25-floor-plan/`). It is one of 40 deliberately different concepts, so commit fully to this one and do not drift toward a generic software landing page.
+
+Read `../BRIEF.md` first. It holds the facts about Strapivo and Dynamic Strategy, the truth rules, the brand (fonts, colour tokens, logo), the build rules and the finishing steps. The brief decides what is true and what the brand allows. This prompt decides everything else.
+
+## The concept
+
+"Strategy finally has a home." So draw the home. The page is an architectural floor plan in which every room is a part of Strapivo, and the visitor walks through it sideways.
+
+Rooms, in walking order: the Entrance (setup: bring any input, Vivo proposes where things belong, Owners accept); the Library (strategic memory: the business model and its environment, principles and guardrails, where you play and where you don't, decisions already made); the Observatory (the radar and market intelligence); the Sorting room (signal triage); the Strategy Room (the session: agenda, first takes, five options); the Archive (the Record of Decisions, parked and pending); the Hall (Mission Control: everything that matters, one screen). Each room has a plan drawing with furniture that hints at its use, a name in mono, and a short text.
+
+Signature element: horizontal travel through a continuous plan. On wide screens the page scrolls horizontally with scroll-snap between rooms, arrow-key navigation, and a small key plan in the corner showing where you are. On screens under 900 px it becomes a vertical sequence of room plans. Linework is fine and consistent: walls, door swings, dimension lines, a north arrow, a title block with scale. This is the one concept where horizontal scrolling is the point, so make it effortless.
+
+## Standards
+
+- Strapivo sells to SMEs and corporates. The result must be something a CEO would forward to their board: confident, well made, never playful for its own sake.
+- Fonts and base colours are those of the current site (Inter 400 and 500, JetBrains Mono, Paper, Navy, Azure). The additional colours above are yours to use with a clear role.
+- Craft matters more than volume. Spend your effort on the signature element and on the copy.
+- Finish with the two steps in section 9 of the brief: screenshot and fix, then the unslop pass using `.claude/skills/unslop/SKILL.md`.

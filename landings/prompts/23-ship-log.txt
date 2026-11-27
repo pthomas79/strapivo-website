@@ -1,0 +1,28 @@
+# 23 · The ship's log
+
+Range: Experimental (concept 23 of 40, ordered from conservative to a bit nuts)
+Audience: CEOs and chairs who think in terms of course and correction
+Colours: Chart cream #F3EEE2 ground, deep navy ink #0F2238, Azure for the plotted course. One additional colour: signal red #C8442E for the hazard and the correction marks.
+
+## The task
+
+Build a complete landing page for Strapivo as a single `index.html` in this folder (`landings/23-ship-log/`). It is one of 40 deliberately different concepts, so commit fully to this one and do not drift toward a generic software landing page.
+
+Read `../BRIEF.md` first. It holds the facts about Strapivo and Dynamic Strategy, the truth rules, the brand (fonts, colour tokens, logo), the build rules and the finishing steps. The brief decides what is true and what the brand allows. This prompt decides everything else.
+
+## The concept
+
+The spec's own image: "like steering a ship: small, early corrections, occasionally a change of course." The page is a nautical chart with a voyage plotted on it and a logbook kept beside it. Treat the image seriously and with craft, as a chart room would, with no pirate or holiday tone.
+
+Structure: a tall SVG chart runs down the page: depth contours, a compass rose, bearings, a destination marked 'Ambition'. A course line is drawn as the visitor scrolls. At six or seven points along it, a logbook entry in mono explains what happened: a signal sighted, a risk moving toward the danger area, a session held, a decision (Hold: course maintained; Adapt: two degrees to starboard; Pivot: new heading, confirmed by the Owner; Not yet: parked until the next sighting). Each entry then steps out of the image and says in plain words what Strapivo did.
+
+Contrast it once with the annual review: a dashed line that runs straight for a year and misses the destination by a wide margin.
+
+Signature element: the chart and the scroll-drawn course line with its small corrections, plus the logbook entries with dates and decision numbers. Fine linework, restrained labels in mono, chart symbols drawn simply. On mobile the chart narrows and the log entries sit over it.
+
+## Standards
+
+- Strapivo sells to SMEs and corporates. The result must be something a CEO would forward to their board: confident, well made, never playful for its own sake.
+- Fonts and base colours are those of the current site (Inter 400 and 500, JetBrains Mono, Paper, Navy, Azure). The additional colours above are yours to use with a clear role.
+- Craft matters more than volume. Spend your effort on the signature element and on the copy.
+- Finish with the two steps in section 9 of the brief: screenshot and fix, then the unslop pass using `.claude/skills/unslop/SKILL.md`.

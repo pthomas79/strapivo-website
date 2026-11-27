@@ -1,0 +1,28 @@
+# 31 · The model scan
+
+Range: Experimental (concept 31 of 40, ordered from conservative to a bit nuts)
+Audience: Business unit leaders who think in business models
+Colours: Paper, ink, Azure. Canvas note yellow #FFF3BF with a darker edge #E5C94A, plus status green #1E9E6A, yellow #D9A300 and red #D64545.
+
+## The task
+
+Build a complete landing page for Strapivo as a single `index.html` in this folder (`landings/31-model-scan/`). It is one of 40 deliberately different concepts, so commit fully to this one and do not drift toward a generic software landing page.
+
+Read `../BRIEF.md` first. It holds the facts about Strapivo and Dynamic Strategy, the truth rules, the brand (fonts, colour tokens, logo), the build rules and the finishing steps. The brief decides what is true and what the brand allows. This prompt decides everything else.
+
+## The concept
+
+"Almost like an antivirus for your business model." Use that line once, as the founders use it. The page shows a business model being watched: a Business Model Canvas for a fictional company, drawn in HTML and CSS, and signals from the outside world landing on the blocks they affect.
+
+Structure: the hero is the canvas with its nine blocks and a few notes in each. A slow scan passes across it. As it passes, signals attach to specific notes: a dated observation with a source and source class, and a one-line reason for why it touches that part of the model. Three or four signals in all. One touches nothing and is dismissed. One becomes 'Possible new risk?'. Selecting a signal shows what Strapivo does with it next: triage, a ghost move on the radar, an agenda line.
+
+Below: why the backbone matters ("Hardwired to the business model. Not a generic prompt with your PDF attached."), strategic memory, how the radar's search brief is built from your own criteria, objectives and risks, and the session where it ends in a decision. Include the Business Model Canvas credit line from the brief under the canvas.
+
+Signature element: the canvas and the scan. The canvas is the real nine-block layout, built with CSS grid, and it collapses into a readable stacked list on mobile. The scan is a thin Azure line, slow, and a Replay button reruns it. Reduced motion shows the end state.
+
+## Standards
+
+- Strapivo sells to SMEs and corporates. The result must be something a CEO would forward to their board: confident, well made, never playful for its own sake.
+- Fonts and base colours are those of the current site (Inter 400 and 500, JetBrains Mono, Paper, Navy, Azure). The additional colours above are yours to use with a clear role.
+- Craft matters more than volume. Spend your effort on the signature element and on the copy.
+- Finish with the two steps in section 9 of the brief: screenshot and fix, then the unslop pass using `.claude/skills/unslop/SKILL.md`.

@@ -1,0 +1,28 @@
+# 38 · The last deck
+
+Range: A bit nuts (concept 38 of 40, ordered from conservative to a bit nuts)
+Audience: Executives who have sat through a thousand strategy presentations
+Colours: Slides on Navy with Paper text and Azure, as in the house keynote style. One additional colour: correction red #D0432F for the strike-throughs.
+
+## The task
+
+Build a complete landing page for Strapivo as a single `index.html` in this folder (`landings/38-anti-deck/`). It is one of 40 deliberately different concepts, so commit fully to this one and do not drift toward a generic software landing page.
+
+Read `../BRIEF.md` first. It holds the facts about Strapivo and Dynamic Strategy, the truth rules, the brand (fonts, colour tokens, logo), the build rules and the finishing steps. The brief decides what is true and what the brand allows. This prompt decides everything else.
+
+## The concept
+
+"Most strategy sessions die in a deck." The page begins as a slide deck and then stops being one.
+
+It opens as a 16:9 presentation that fills the viewport: slide counter, arrow-key and click navigation, the expected first slides of a strategy deck done straight. A title slide. An agenda slide. A two-by-two. On the fourth slide the deck interrupts itself: a struck-through heading and the line, 'This is slide 4 of 120. You will see it once.' The remaining slides argue against the format they are in: a slide cannot notice that the world changed, cannot remember who disagreed, cannot return a parked question.
+
+Then the frame breaks. The slide scales down and settles into a corner as a thumbnail labelled 'Archived', and the page becomes a normal, scrolling, living page: the radar with something moving on it, the agenda with reasons, the five options, the record. The contrast between the dead rectangle and the moving page is the pitch. End with the call to action and the thumbnail still sitting in its corner.
+
+Signature element: the deck and the break. The deck must be a convincing keynote in the house style: sentence-case headlines at a shared upper-left anchor, mono eyebrows, one Azure takeaway per slide. Eight or nine slides. Navigation by arrow keys, space, click and swipe, with a visible 'Skip the deck' link. With JavaScript off or reduced motion, the slides stack as a vertical sequence followed by the page.
+
+## Standards
+
+- Strapivo sells to SMEs and corporates. The result must be something a CEO would forward to their board: confident, well made, never playful for its own sake.
+- Fonts and base colours are those of the current site (Inter 400 and 500, JetBrains Mono, Paper, Navy, Azure). The additional colours above are yours to use with a clear role.
+- Craft matters more than volume. Spend your effort on the signature element and on the copy.
+- Finish with the two steps in section 9 of the brief: screenshot and fix, then the unslop pass using `.claude/skills/unslop/SKILL.md`.

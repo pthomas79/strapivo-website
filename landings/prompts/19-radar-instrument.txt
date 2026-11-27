@@ -1,0 +1,28 @@
+# 19 · The radar
+
+Range: Confident (concept 19 of 40, ordered from conservative to a bit nuts)
+Audience: Strategy teams and risk-minded executives
+Colours: Navy #141B24 and #050C14 grounds, Paper text, Azure and p200 for the instrument. One additional colour: signal amber #F2A93B for the danger zone and ghosts.
+
+## The task
+
+Build a complete landing page for Strapivo as a single `index.html` in this folder (`landings/19-radar-instrument/`). It is one of 40 deliberately different concepts, so commit fully to this one and do not drift toward a generic software landing page.
+
+Read `../BRIEF.md` first. It holds the facts about Strapivo and Dynamic Strategy, the truth rules, the brand (fonts, colour tokens, logo), the build rules and the finishing steps. The brief decides what is true and what the brand allows. This prompt decides everything else.
+
+## The concept
+
+Dark, calm, instrument-grade. The hero is a working radar the visitor can operate, built in SVG. This is the product's central image: risks placed by impact and likelihood on a circular field with the danger zone at the top right.
+
+The radar shows about nine illustrative risks for a fictional company, labelled as an illustrative example. Controls: Now and Tracking views; in Tracking, a window switch (since last session, 30 days, since origin) that draws each risk's trail "like a radar shadow"; a business-model filter; a portfolio-risk toggle. Selecting a risk opens a side panel with its statement, trend word (Easing, Stable, Worsening), time held ("top right · 27 days"), its trail of confirmed moves with signal, date and confirmer, and one pending ghost with Vivo's one-line reason and Confirm and Reject buttons that work. One relevant signal sits beside the radar as "Possible new risk?".
+
+Below the instrument, on Navy, short sections explain the rules that make it trustworthy: signals with a source class, the primary-source rule for the top right, human confirmation of every move, the 14-day nudge, and how a risk entering the top right puts itself on the agenda.
+
+Signature element: the radar. Fine lines, mono labels, a slow sweep that respects reduced motion, restrained glow at most. Not a sci-fi HUD: an instrument a finance director would trust. On mobile the panel moves below the radar.
+
+## Standards
+
+- Strapivo sells to SMEs and corporates. The result must be something a CEO would forward to their board: confident, well made, never playful for its own sake.
+- Fonts and base colours are those of the current site (Inter 400 and 500, JetBrains Mono, Paper, Navy, Azure). The additional colours above are yours to use with a clear role.
+- Craft matters more than volume. Spend your effort on the signature element and on the copy.
+- Finish with the two steps in section 9 of the brief: screenshot and fix, then the unslop pass using `.claude/skills/unslop/SKILL.md`.

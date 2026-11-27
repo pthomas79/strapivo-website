@@ -1,0 +1,26 @@
+# 10 · Before and after
+
+Range: Conservative (concept 10 of 40, ordered from conservative to a bit nuts)
+Audience: Leadership teams comparing this with how they work today
+Colours: Left column in neutral greys on Paper, right column on Sky with Azure. One additional colour: a dull brick #A4533A for the 'before' markers.
+
+## The task
+
+Build a complete landing page for Strapivo as a single `index.html` in this folder (`landings/10-before-after/`). It is one of 40 deliberately different concepts, so commit fully to this one and do not drift toward a generic software landing page.
+
+Read `../BRIEF.md` first. It holds the facts about Strapivo and Dynamic Strategy, the truth rules, the brand (fonts, colour tokens, logo), the build rules and the finishing steps. The brief decides what is true and what the brand allows. This prompt decides everything else.
+
+## The concept
+
+One comparison, carried down the whole page. Left: the annual cycle as most companies run it. Right: Dynamic Strategy. Each row is one moment in the life of a strategy and shows both versions side by side.
+
+Rows, at least eight: after the offsite; when news arrives; before the meeting (who sets the agenda and from what); in the meeting (the loudest voice against sealed first takes); making the call (an action item against one of five named options); after the meeting (minutes against a numbered record with dissent); six months later (who remembers why); when the board asks what moved. Each cell is two or three sentences, concrete, no caricature. The 'before' column must be fair enough that a CSO nods instead of bristling.
+
+Signature element: the split. A sticky two-column header, a centre line with row markers, and a toggle that lets a visitor on a phone switch between Before and After instead of reading a squeezed table. As a row enters view, its right cell gains its Azure marker. Close with a short section on what does not change: your method, your people's authority, your strategy itself.
+
+## Standards
+
+- Strapivo sells to SMEs and corporates. The result must be something a CEO would forward to their board: confident, well made, never playful for its own sake.
+- Fonts and base colours are those of the current site (Inter 400 and 500, JetBrains Mono, Paper, Navy, Azure). The additional colours above are yours to use with a clear role.
+- Craft matters more than volume. Spend your effort on the signature element and on the copy.
+- Finish with the two steps in section 9 of the brief: screenshot and fix, then the unslop pass using `.claude/skills/unslop/SKILL.md`.

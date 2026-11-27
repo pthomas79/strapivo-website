@@ -1,0 +1,26 @@
+# 29 · Plain statement
+
+Range: Experimental (concept 29 of 40, ordered from conservative to a bit nuts)
+Audience: Executives who are tired of polished software marketing
+Colours: Paper, pure ink #050C14, Azure. One additional colour: hazard yellow #FFD600, used for one band and for marks.
+
+## The task
+
+Build a complete landing page for Strapivo as a single `index.html` in this folder (`landings/29-brutalist/`). It is one of 40 deliberately different concepts, so commit fully to this one and do not drift toward a generic software landing page.
+
+Read `../BRIEF.md` first. It holds the facts about Strapivo and Dynamic Strategy, the truth rules, the brand (fonts, colour tokens, logo), the build rules and the finishing steps. The brief decides what is true and what the brand allows. This prompt decides everything else.
+
+## The concept
+
+Controlled brutalism for a corporate audience. Enormous type, thick black rules, a raw exposed grid, no rounded corners, no shadows, no pictures, no animation except hard cuts. It says: we will not decorate this, here is what it does.
+
+Structure: a hero with one statement at the largest size the viewport allows; then blocks divided by heavy rules, each a blunt heading and a short paragraph: 'Your strategy is in a drawer.' 'The radar reads what you will not have time to read.' 'The agenda is built from what changed.' 'Write your position down first.' 'Five options. Pick one.' 'Every decision gets a number.' 'The AI does not hold the pen.' A specification table in mono lists the fixed numbers from the brief: 60 minutes, 24 hours, 14 days, up to 4 focus areas, 7 to 12 success criteria, 5 options. One full-width yellow band carries the focus warning: "You're diluting focus and creating noise. Do you really want to?"
+
+Signature element: scale and structure. Headlines at 16vw to 20vw that break across lines mid-phrase on purpose, 4 px to 8 px rules, cells with visible borders, mono labels in the corners of each cell like plate numbers. It must remain rigorous and legible, more engineering drawing than punk. Links and buttons are bordered rectangles that invert on hover and focus.
+
+## Standards
+
+- Strapivo sells to SMEs and corporates. The result must be something a CEO would forward to their board: confident, well made, never playful for its own sake.
+- Fonts and base colours are those of the current site (Inter 400 and 500, JetBrains Mono, Paper, Navy, Azure). The additional colours above are yours to use with a clear role.
+- Craft matters more than volume. Spend your effort on the signature element and on the copy.
+- Finish with the two steps in section 9 of the brief: screenshot and fix, then the unslop pass using `.claude/skills/unslop/SKILL.md`.

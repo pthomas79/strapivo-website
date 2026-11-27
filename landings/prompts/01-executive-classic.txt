@@ -1,0 +1,28 @@
+# 01 · The executive classic
+
+Range: Conservative (concept 1 of 40, ordered from conservative to a bit nuts)
+Audience: CEO and leadership team, SME or corporate
+Colours: House palette only: Paper, Navy, Azure. No additional colour.
+
+## The task
+
+Build a complete landing page for Strapivo as a single `index.html` in this folder (`landings/01-executive-classic/`). It is one of 40 deliberately different concepts, so commit fully to this one and do not drift toward a generic software landing page.
+
+Read `../BRIEF.md` first. It holds the facts about Strapivo and Dynamic Strategy, the truth rules, the brand (fonts, colour tokens, logo), the build rules and the finishing steps. The brief decides what is true and what the brand allows. This prompt decides everything else.
+
+## The concept
+
+The reference page: what a first-rate enterprise software company would publish. Quiet, spacious, exact. It wins on restraint and typography, not on tricks.
+
+Structure: a hero with one sentence that states the claim and one that states the mechanism; the problem in the executives' own words; the formula (strategic memory + market intelligence + strategic session = lasting advantage) set as a full-width typographic row; the Dynamic Strategy loop in eight plain steps; a trust section on human authority and EU-only infrastructure; a closing call to action.
+
+Signature element: one large, precise SVG diagram of the loop (watch, triage, move, agenda, session, decide, record, announce) drawn as a ring that echoes the O-mark. It is the only illustration on the page.
+
+Wide margins, a 12-column grid, large headlines at weight 500, hairline rules, mono eyebrows. No cards with icons. No animation beyond a slow draw of the ring.
+
+## Standards
+
+- Strapivo sells to SMEs and corporates. The result must be something a CEO would forward to their board: confident, well made, never playful for its own sake.
+- Fonts and base colours are those of the current site (Inter 400 and 500, JetBrains Mono, Paper, Navy, Azure). The additional colours above are yours to use with a clear role.
+- Craft matters more than volume. Spend your effort on the signature element and on the copy.
+- Finish with the two steps in section 9 of the brief: screenshot and fix, then the unslop pass using `.claude/skills/unslop/SKILL.md`.
