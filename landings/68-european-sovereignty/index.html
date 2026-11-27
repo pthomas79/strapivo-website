@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Strapivo. EU-only, human-approved strategy software</title>
+  <meta name="description" content="Strapivo is the Strategic Design System built for European governance. Run Dynamic Strategy on EU-only infrastructure with GDPR by design and named human approval at every step.">
+  <link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --ink: #141B24;
+      --prussian: #0D1B2A;
+      --steel: #5A6B7D;
+      --n900: #050C14;
+      --n700: #2C343C;
+      --n600: #495158;
+      --n500: #6C727A;
+      --n400: #999FA6;
+      --n200: #E1E5EA;
+      --n100: #EFF2F6;
+      --paper: #F6F9FB;
+      --white: #FFFFFF;
+      --sky: #EEF6FF;
+      --sky2: #D4EBFF;
+      --p200: #A9D6FF;
+      --p400: #3FA0FA;
+      --p500: #0082E6;
+      --p600: #006FD1;
+      --p700: #005DBD;
+      --rule: rgba(13, 27, 42, 0.16);
+      --rule-mid: rgba(13, 27, 42, 0.30);
+      --radius: 3px;
+      --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --container: 1180px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        transition-duration: 0.001ms !important;
+        animation-duration: 0.001ms !important;
+      }
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.62;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "ss01", "cv11";
+      overflow-x: clip;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    figure {
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--p600);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      padding: 12px 16px;
+      background: var(--prussian);
+      color: var(--paper);
+      font-size: 14px;
+      text-decoration: none;
+      z-index: 100;
+    }
+
+    .skip-link:focus {
+      left: 16px;
+      top: 16px;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--container);
+      margin-inline: auto;
+      padding-inline: clamp(18px, 4vw, 48px);
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 1.45;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .code-inline {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.9em;
+      color: var(--p600);
+      white-space: nowrap;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--steel);
+      margin: 0 0 18px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      display: inline-block;
+      width: 18px;
+      height: 1px;
+      background: var(--prussian);
+      flex: none;
+      margin-top: 0.7em;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-weight: 500;
+      color: var(--prussian);
+      letter-spacing: -0.024em;
+    }
+
+    h1 {
+      font-size: clamp(32px, 3.8vw, 48px);
+      line-height: 1.12;
+    }
+
+    h2 {
+      font-size: clamp(26px, 2.7vw, 36px);
+      line-height: 1.18;
+    }
+
+    h3 {
+      font-size: 19px;
+      line-height: 1.32;
+      letter-spacing: -0.015em;
+    }
+
+    p {
+      margin: 0;
+      color: var(--n700);
+    }
+
+    /* Header */
+    .site-header {
+      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 72px;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 6px 0;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .brand-link img {
+      height: 25px;
+      width: auto;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 14px;
+      color: var(--n600);
+      text-decoration: none;
+      transition: color 0.16s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--prussian);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .signin-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 14px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--prussian);
+      text-decoration: none;
+      border: 1px solid var(--rule-mid);
+      border-radius: var(--radius);
+      background: var(--white);
+      transition: border-color 0.16s ease, background-color 0.16s ease;
+      white-space: nowrap;
+    }
+
+    .signin-link:hover {
+      border-color: var(--prussian);
+      background: var(--n100);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 24px;
+      background: var(--p600);
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 1;
+      text-decoration: none;
+      border: 1px solid var(--p600);
+      border-radius: var(--radius);
+      transition: background-color 0.16s ease, border-color 0.16s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      background: var(--p700);
+      border-color: var(--p700);
+    }
+
+    /* Hero */
+    .hero {
+      padding: clamp(36px, 5vw, 60px) 0 clamp(48px, 6vw, 72px);
+      border-bottom: 1px solid var(--prussian);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.03fr) minmax(0, 0.97fr);
+      gap: clamp(32px, 4.5vw, 64px);
+      align-items: center;
+    }
+
+    .hero-copy {
+      max-width: 560px;
+    }
+
+    .hero-h1-accent {
+      color: var(--p600);
+    }
+
+    .hero-lead {
+      margin-top: 22px;
+      font-size: clamp(16px, 1.25vw, 18px);
+      line-height: 1.62;
+      color: var(--n700);
+      max-width: 56ch;
+    }
+
+    .hero-cta-row {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px 22px;
+    }
+
+    .hero-direct {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--steel);
+    }
+
+    .hero-boundary-note {
+      margin-top: 30px;
+      padding-top: 18px;
+      border-top: 1px solid var(--rule);
+      font-size: 14px;
+      line-height: 1.58;
+      color: var(--n600);
+      max-width: 52ch;
+    }
+
+    /* Drawing 1: Architectural Provenance Chain */
+    .provenance-plate {
+      background: var(--white);
+      border: 1px solid var(--prussian);
+      border-top: 3px solid var(--prussian);
+      border-radius: var(--radius);
+      box-shadow: 0 14px 36px rgba(13, 27, 42, 0.06);
+      overflow: hidden;
+    }
+
+    .plate-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      padding: 12px 18px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .plate-title {
+      color: var(--prussian);
+    }
+
+    .plate-tag {
+      padding: 3px 8px;
+      border: 1px solid var(--rule-mid);
+      border-radius: 2px;
+      background: var(--white);
+      color: var(--steel);
+    }
+
+    .chain-body {
+      padding: 18px 20px 20px;
+    }
+
+    .chain-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chain-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .chain-rail {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .rail-node {
+      width: 24px;
+      height: 24px;
+      border-radius: 2px;
+      border: 1px solid var(--prussian);
+      background: var(--white);
+      color: var(--prussian);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: none;
+      margin-top: 12px;
+      z-index: 1;
+    }
+
+    .rail-line {
+      width: 1px;
+      flex: 1;
+      background: var(--steel);
+      min-height: 16px;
+    }
+
+    .rail-chevron {
+      width: 10px;
+      height: 10px;
+      color: var(--steel);
+      flex: none;
+      margin-bottom: -4px;
+    }
+
+    .chain-card {
+      border: 1px solid var(--rule-mid);
+      border-radius: 2px;
+      padding: 12px 14px;
+      background: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .chain-item:last-child .chain-card {
+      margin-bottom: 0;
+    }
+
+    .chain-card-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 6px 10px;
+      flex-wrap: wrap;
+    }
+
+    .chain-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--prussian);
+      letter-spacing: -0.01em;
+    }
+
+    .chain-code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--steel);
+    }
+
+    .chain-sub {
+      margin-top: 4px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--steel);
+    }
+
+    .chain-meta {
+      margin-top: 4px;
+      font-size: 13px;
+      line-height: 1.48;
+      color: var(--n600);
+    }
+
+    .chain-item--gate .rail-node {
+      background: var(--p600);
+      border-color: var(--p600);
+      color: var(--white);
+    }
+
+    .chain-item--gate .chain-card {
+      background: var(--sky);
+      border-color: var(--p500);
+      border-left: 3px solid var(--p500);
+    }
+
+    .chain-item--gate .chain-code,
+    .chain-item--gate .chain-sub {
+      color: var(--p600);
+    }
+
+    .chain-item--record .rail-node {
+      background: var(--prussian);
+      border-color: var(--prussian);
+      color: var(--paper);
+    }
+
+    .chain-item--record .chain-card {
+      border-color: var(--prussian);
+      background: var(--paper);
+    }
+
+    .chain-item--record .chain-code {
+      color: var(--p600);
+    }
+
+    /* Sections */
+    .section {
+      padding: clamp(48px, 6vw, 80px) 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .section--white {
+      background: var(--white);
+    }
+
+    .section-head {
+      max-width: 680px;
+      margin-bottom: clamp(26px, 3.2vw, 38px);
+    }
+
+    .section-lead {
+      margin-top: 14px;
+      font-size: 17px;
+      line-height: 1.62;
+      color: var(--n700);
+      max-width: 62ch;
+    }
+
+    /* Section 1: Why teams hesitate */
+    .tension-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: clamp(28px, 4vw, 56px);
+      align-items: start;
+    }
+
+    .tension-prose {
+      font-size: 17px;
+      line-height: 1.64;
+      max-width: 58ch;
+    }
+
+    .tension-prose p + p {
+      margin-top: 16px;
+    }
+
+    .tension-frame {
+      background: var(--white);
+      border: 1px solid var(--prussian);
+      border-top: 3px solid var(--prussian);
+      border-radius: var(--radius);
+    }
+
+    .tension-row {
+      padding: 20px 22px;
+    }
+
+    .tension-row + .tension-row {
+      border-top: 1px solid var(--rule);
+    }
+
+    .tension-label {
+      color: var(--steel);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .tension-row h3 {
+      font-size: 17px;
+      margin-bottom: 6px;
+    }
+
+    .tension-row p {
+      font-size: 15px;
+      line-height: 1.56;
+      color: var(--n600);
+    }
+
+    /* Section 2: Start safely */
+    .stages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border: 1px solid var(--prussian);
+      border-top: 3px solid var(--prussian);
+      border-radius: var(--radius);
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .stage-cell {
+      padding: 24px 24px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .stage-cell + .stage-cell {
+      border-left: 1px solid var(--rule);
+    }
+
+    .stage-num {
+      color: var(--p600);
+    }
+
+    .stage-cell h3 {
+      font-size: 18px;
+    }
+
+    .stage-cell p {
+      font-size: 15px;
+      line-height: 1.58;
+      color: var(--n600);
+    }
+
+    .stage-boundary {
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--rule);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.45;
+      letter-spacing: 0.03em;
+      color: var(--steel);
+    }
+
+    /* Section 3: Drawing 2 (Weekly Loop + Roles + Exports) */
+    .loop-plate {
+      background: var(--white);
+      border: 1px solid var(--prussian);
+      border-top: 3px solid var(--prussian);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .loop-beats {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr) 28px minmax(0, 1fr);
+      align-items: stretch;
+      padding: 24px 22px;
+    }
+
+    .beat-card {
+      border: 1px solid var(--rule-mid);
+      border-radius: 2px;
+      padding: 18px 18px 20px;
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .beat-card--decide {
+      background: var(--sky);
+      border-color: var(--p500);
+    }
+
+    .beat-kicker {
+      color: var(--steel);
+    }
+
+    .beat-card--decide .beat-kicker {
+      color: var(--p600);
+    }
+
+    .beat-card h3 {
+      font-size: 18px;
+    }
+
+    .beat-card p {
+      font-size: 15px;
+      line-height: 1.56;
+      color: var(--n700);
+    }
+
+    .beat-options {
+      margin-top: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .option-chip {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      padding: 3px 8px;
+      background: var(--white);
+      border: 1px solid var(--rule-mid);
+      border-radius: 2px;
+      color: var(--prussian);
+    }
+
+    .beat-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--steel);
+    }
+
+    .beat-connector svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .roles-band {
+      border-top: 1px solid var(--prussian);
+      background: var(--paper);
+      padding: 20px 22px;
+    }
+
+    .roles-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .role-box {
+      background: var(--white);
+      border: 1px solid var(--rule-mid);
+      border-radius: 2px;
+      padding: 12px 14px;
+    }
+
+    .role-box--owner {
+      border-top: 2px solid var(--p500);
+    }
+
+    .role-name {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--prussian);
+      margin-bottom: 5px;
+    }
+
+    .role-box--owner .role-name {
+      color: var(--p600);
+    }
+
+    .role-box p {
+      font-size: 14px;
+      line-height: 1.48;
+      color: var(--n600);
+    }
+
+    .exports-bar {
+      border-top: 1px solid var(--rule);
+      padding: 14px 22px;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px 24px;
+      flex-wrap: wrap;
+    }
+
+    .exports-label {
+      color: var(--prussian);
+    }
+
+    .exports-text {
+      font-size: 14px;
+      color: var(--n600);
+    }
+
+    /* Section 4: Four non-negotiable rules */
+    .rules-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border: 1px solid var(--prussian);
+      border-top: 3px solid var(--prussian);
+      border-radius: var(--radius);
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .rule-row {
+      display: grid;
+      grid-template-columns: 84px minmax(0, 0.92fr) minmax(0, 1.35fr);
+      gap: 14px 24px;
+      align-items: baseline;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .rule-row:last-child {
+      border-bottom: none;
+    }
+
+    .rule-index {
+      color: var(--p600);
+    }
+
+    .rule-title {
+      font-size: 19px;
+      font-weight: 500;
+      color: var(--prussian);
+      letter-spacing: -0.015em;
+    }
+
+    .rule-desc {
+      font-size: 16px;
+      line-height: 1.58;
+      color: var(--n700);
+    }
+
+    /* Section 5: Closing CTA */
+    .closing {
+      background: var(--prussian);
+      color: var(--paper);
+      padding: clamp(52px, 6.5vw, 84px) 0;
+    }
+
+    .closing-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: 28px 48px;
+      align-items: center;
+    }
+
+    .closing .eyebrow {
+      color: var(--p200);
+    }
+
+    .closing .eyebrow::before {
+      background: var(--p400);
+    }
+
+    .closing h2 {
+      color: var(--paper);
+      font-size: clamp(28px, 3vw, 40px);
+      max-width: 22ch;
+    }
+
+    .closing p {
+      margin-top: 16px;
+      color: #C7D4E0;
+      font-size: 17px;
+      line-height: 1.62;
+      max-width: 54ch;
+    }
+
+    .closing-action {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      padding-left: 32px;
+      border-left: 1px solid rgba(169, 214, 255, 0.24);
+    }
+
+    .closing .btn-primary {
+      background: var(--p600);
+      border-color: var(--p400);
+      color: var(--white);
+      min-height: 50px;
+      padding: 0 28px;
+    }
+
+    .closing .btn-primary:hover {
+      background: var(--p700);
+      border-color: var(--p200);
+    }
+
+    .closing-meta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.65;
+      letter-spacing: 0.04em;
+      color: #B4C5D6;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: var(--paper);
+      border-top: 1px solid var(--rule);
+      padding: 26px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      height: 20px;
+      width: auto;
+    }
+
+    .footer-copy {
+      font-size: 14px;
+      color: var(--steel);
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 8px 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 14px;
+      color: var(--n600);
+      text-decoration: none;
+      transition: color 0.16s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--prussian);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px) {
+      .hero-grid,
+      .tension-layout,
+      .closing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        max-width: none;
+      }
+
+      .stages-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stage-cell + .stage-cell {
+        border-left: none;
+        border-top: 1px solid var(--rule);
+      }
+
+      .loop-beats {
+        grid-template-columns: 1fr;
+        padding: 18px 16px;
+      }
+
+      .beat-connector {
+        height: 26px;
+      }
+
+      .beat-connector svg {
+        transform: rotate(90deg);
+      }
+
+      .roles-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .rule-row {
+        grid-template-columns: 64px minmax(0, 1fr);
+        gap: 8px 14px;
+      }
+
+      .rule-desc {
+        grid-column: 2;
+      }
+
+      .closing-action {
+        padding-left: 0;
+        padding-top: 20px;
+        border-left: none;
+        border-top: 1px solid rgba(169, 214, 255, 0.24);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-links {
+        display: none;
+      }
+
+      .plate-bar {
+        padding: 12px 14px;
+      }
+
+      .chain-body {
+        padding: 14px;
+      }
+
+      .chain-item {
+        grid-template-columns: 24px minmax(0, 1fr);
+        gap: 10px;
+      }
+
+      .roles-band {
+        padding: 16px;
+      }
+
+      .roles-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .role-box {
+        padding: 10px 12px;
+      }
+
+      .exports-bar {
+        padding: 14px 16px;
+      }
+
+      .rule-row {
+        grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 5px;
+      }
+
+      .rule-desc {
+        grid-column: 1;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .brand-link img {
+        height: 22px;
+      }
+
+      .btn-primary {
+        width: 100%;
+      }
+
+      .hero-cta-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+
+      .chain-card {
+        padding: 11px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand-link" href="#" aria-label="Strapivo home">
+        <img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="100" height="25">
+      </a>
+      <nav class="header-nav" aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#hesitation">Governance</a></li>
+          <li><a href="#start-safely">Data boundary</a></li>
+          <li><a href="#weekly-loop">How it runs</a></li>
+          <li><a href="#four-rules">Four rules</a></li>
+        </ul>
+        <div class="header-actions">
+          <a class="signin-link" href="https://strapivo.app">Sign in</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow mono">EU-only infrastructure · Human-approved</p>
+          <h1 id="hero-title">Strategy software built for European governance. <span class="hero-h1-accent">Humans approve every move.</span></h1>
+          <p class="hero-lead">Strapivo is the Strategic Design System where leadership teams keep an agreed strategy current against live market shifts on EU-only infrastructure. Vivo, Strapivo's AI, flags signals and proposes updates while named people check the evidence and decide every step.</p>
+          <div class="hero-cta-row">
+            <a class="btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+            <span class="hero-direct">strategy@strapivo.com</span>
+          </div>
+          <p class="hero-boundary-note">Hosted in the EU with GDPR by design. Teams start with public material over four to five hours.</p>
+        </div>
+
+        <figure class="provenance-plate" aria-label="Illustrative example of a four-step Strapivo provenance chain showing approved strategic memory, a dated primary signal, a human confirmation gate, and a permanent decision record">
+          <div class="plate-bar">
+            <span class="plate-title mono">Provenance chain</span>
+            <span class="plate-tag mono">Illustrative example</span>
+          </div>
+          <div class="chain-body">
+            <ol class="chain-list">
+              <li class="chain-item">
+                <div class="chain-rail" aria-hidden="true">
+                  <span class="rail-node">01</span>
+                  <span class="rail-line"></span>
+                  <svg class="rail-chevron" viewBox="0 0 10 10" fill="none">
+                    <path d="M2 3.5L5 6.8L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="square"/>
+                  </svg>
+                </div>
+                <div class="chain-card">
+                  <div class="chain-card-head">
+                    <span class="chain-title">Approved strategic memory</span>
+                    <span class="chain-code">EU REGION</span>
+                  </div>
+                  <p class="chain-sub">EU-only infrastructure · GDPR by design</p>
+                  <p class="chain-meta">Owners approve the ambition, business model, and nine success criteria.</p>
+                </div>
+              </li>
+
+              <li class="chain-item">
+                <div class="chain-rail" aria-hidden="true">
+                  <span class="rail-node">02</span>
+                  <span class="rail-line"></span>
+                  <svg class="rail-chevron" viewBox="0 0 10 10" fill="none">
+                    <path d="M2 3.5L5 6.8L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="square"/>
+                  </svg>
+                </div>
+                <div class="chain-card">
+                  <div class="chain-card-head">
+                    <span class="chain-title">Dated primary signal</span>
+                    <span class="chain-code">PRIMARY SOURCE</span>
+                  </div>
+                  <p class="chain-sub">Source class verified · Triaged by Member</p>
+                  <p class="chain-meta">A Member links a primary notice to a focus area and dismisses secondary noise.</p>
+                </div>
+              </li>
+
+              <li class="chain-item chain-item--gate">
+                <div class="chain-rail" aria-hidden="true">
+                  <span class="rail-node">03</span>
+                  <span class="rail-line"></span>
+                  <svg class="rail-chevron" viewBox="0 0 10 10" fill="none">
+                    <path d="M2 3.5L5 6.8L8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="square"/>
+                  </svg>
+                </div>
+                <div class="chain-card">
+                  <div class="chain-card-head">
+                    <span class="chain-title">Human confirmation gate</span>
+                    <span class="chain-code">OWNER SIGN-OFF</span>
+                  </div>
+                  <p class="chain-sub">Owner confirms changes to accepted truth</p>
+                  <p class="chain-meta">Vivo proposes a risk move and wording. Nothing changes until an Owner confirms it.</p>
+                </div>
+              </li>
+
+              <li class="chain-item chain-item--record">
+                <div class="chain-rail" aria-hidden="true">
+                  <span class="rail-node">04</span>
+                </div>
+                <div class="chain-card">
+                  <div class="chain-card-head">
+                    <span class="chain-title">Permanent record</span>
+                    <span class="chain-code">SDS-2026-014</span>
+                  </div>
+                  <p class="chain-sub">Rationale and dissent by name</p>
+                  <p class="chain-meta">The session lead confirms the numbered entry with dated evidence for the board pack.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section section--white" id="hesitation" aria-labelledby="hesitation-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow mono">01 · The governance problem</p>
+          <h2 id="hesitation-title">Why European leadership teams hesitate on strategy AI</h2>
+        </div>
+        <div class="tension-layout">
+          <div class="tension-prose">
+            <p>Strategy holds a company's most sensitive thinking: margin targets, pricing assumptions, market bets, and where the business chooses not to play. Pasting that material into consumer AI tools or opaque platforms is unacceptable to European boards, owners, and legal counsel.</p>
+            <p>Leaving strategy in workshop slides carries its own cost. Markets move between offsites while external news arrives disconnected from agreed priorities. Teams then restart the same argument whenever a new report lands.</p>
+          </div>
+          <div class="tension-frame">
+            <div class="tension-row">
+              <span class="tension-label mono">First risk</span>
+              <h3>Opaque consumer AI tools</h3>
+              <p>Consumer AI tools give generic answers detached from your business model. They carry unclear data boundaries and rewrite strategic text without authority.</p>
+            </div>
+            <div class="tension-row">
+              <span class="tension-label mono">Second risk</span>
+              <h3>Annual slides left in a drawer</h3>
+              <p>Teams agree a deck once a year and review it too late for small course corrections. No clear record shows the board how strategy moved between meetings.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="start-safely" aria-labelledby="start-safely-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow mono">02 · Data boundary</p>
+          <h2 id="start-safely-title">Start safely, widen on your terms</h2>
+          <p class="section-lead">You do not upload confidential board papers on day one. Start with public and non-sensitive material over four to five hours. Widen your strategic memory only when leadership and legal counsel trust the workflow.</p>
+        </div>
+
+        <div class="stages-grid">
+          <article class="stage-cell">
+            <span class="stage-num mono">Stage 01</span>
+            <h3>Public material first</h3>
+            <p>We do the reading first using published reports and non-sensitive documents. You walk into session one with a working draft you can correct.</p>
+            <div class="stage-boundary">Public and non-sensitive input only.</div>
+          </article>
+
+          <article class="stage-cell">
+            <span class="stage-num mono">Stage 02</span>
+            <h3>Four to five hours together</h3>
+            <p>We show you what Vivo got wrong, and your team teaches it what counts as relevant. Together we set your focus areas and run one live strategy session.</p>
+            <div class="stage-boundary">Your team runs the cadence after setup.</div>
+          </article>
+
+          <article class="stage-cell">
+            <span class="stage-num mono">Stage 03</span>
+            <h3>Widen when ready</h3>
+            <p>Add internal plans, risk registers, and business models to strategic memory only after Owners approve the workflow.</p>
+            <div class="stage-boundary">Owners control every expansion.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--white" id="weekly-loop" aria-labelledby="weekly-loop-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow mono">03 · Weekly discipline</p>
+          <h2 id="weekly-loop-title">How Dynamic Strategy runs each week</h2>
+          <p class="section-lead">Leadership teams run Dynamic Strategy on a weekly, fortnightly, or monthly cadence. Vivo prepares the evidence and drafts the agenda. Named people debate the trade-offs and confirm every entry.</p>
+        </div>
+
+        <figure class="loop-plate" aria-label="Weekly governance loop in three steps: Signal, Session, and Record, followed by four user role boundaries and Markdown and CSV export formats">
+          <div class="plate-bar">
+            <span class="plate-title mono">Weekly governance loop</span>
+            <span class="plate-tag mono">60-minute session · Named authority</span>
+          </div>
+
+          <div class="loop-beats">
+            <div class="beat-card">
+              <span class="beat-kicker mono">01 · Signal</span>
+              <h3>Radar on focus areas</h3>
+              <p>The Radar monitors external sources against your focus criteria, objectives, and risks. A risk move into the top right needs at least one primary source. A delegated Member marks each signal relevant, watching, or dismissed.</p>
+            </div>
+
+            <div class="beat-connector" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M3 12H19M14 7L19 12L14 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
+              </svg>
+            </div>
+
+            <div class="beat-card">
+              <span class="beat-kicker mono">02 · Session</span>
+              <h3>Sealed first takes</h3>
+              <p>Vivo drafts the agenda 24 hours before the 60-minute session from what changed. Each leader submits a sealed first take before discussion. All positions appear together so the loudest voice cannot anchor the room.</p>
+            </div>
+
+            <div class="beat-connector" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M3 12H19M14 7L19 12L14 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
+              </svg>
+            </div>
+
+            <div class="beat-card beat-card--decide">
+              <span class="beat-kicker mono">03 · Record</span>
+              <h3>Five formal options</h3>
+              <p>The session lead confirms one of five options for each item under a permanent number such as <span class="code-inline">SDS-2026-014</span>. Each record logs the rationale and any dissent by name.</p>
+              <div class="beat-options" aria-label="Five decision options">
+                <span class="option-chip">Hold</span>
+                <span class="option-chip">Adapt</span>
+                <span class="option-chip">Pivot</span>
+                <span class="option-chip">Take advantage</span>
+                <span class="option-chip">Not yet</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="roles-band">
+            <div class="roles-head">
+              <span class="mono" style="color: var(--prussian);">Role boundaries</span>
+              <span class="mono" style="color: var(--steel);">Clear separation of authority</span>
+            </div>
+            <div class="roles-grid">
+              <div class="role-box role-box--owner">
+                <span class="role-name">Owner</span>
+                <p>Confirms strategy pivots and any change to accepted truth.</p>
+              </div>
+              <div class="role-box">
+                <span class="role-name">Admin</span>
+                <p>Manages workspace access, structure, and session cadence.</p>
+              </div>
+              <div class="role-box">
+                <span class="role-name">Member</span>
+                <p>Triages signals, submits sealed first takes, and debates.</p>
+              </div>
+              <div class="role-box">
+                <span class="role-name">Contributor</span>
+                <p>Reports activity status, results, and asks before sessions.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="exports-bar">
+            <span class="exports-label mono">Portable records</span>
+            <span class="exports-text">Export board packs and escalation memos as Markdown, and the plan as CSV.</span>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="four-rules" aria-labelledby="four-rules-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow mono">04 · Architectural guarantees</p>
+          <h2 id="four-rules-title">Four non-negotiable rules</h2>
+        </div>
+
+        <ol class="rules-list">
+          <li class="rule-row">
+            <span class="rule-index mono">Rule 01</span>
+            <h3 class="rule-title">EU-only infrastructure</h3>
+            <p class="rule-desc">Your strategic memory and Strategy Room run on European Union infrastructure built for European corporate governance.</p>
+          </li>
+          <li class="rule-row">
+            <span class="rule-index mono">Rule 02</span>
+            <h3 class="rule-title">GDPR by design</h3>
+            <p class="rule-desc">Strapivo enforces GDPR by design through role boundaries, data minimisation, and a public-material start.</p>
+          </li>
+          <li class="rule-row">
+            <span class="rule-index mono">Rule 03</span>
+            <h3 class="rule-title">Humans decide, humans validate</h3>
+            <p class="rule-desc">Vivo proposes agendas, risk moves, and revised wording. Only named people confirm updates to accepted truth or record a decision.</p>
+          </li>
+          <li class="rule-row">
+            <span class="rule-index mono">Rule 04</span>
+            <h3 class="rule-title">Every recommendation traces back to approved strategic memory</h3>
+            <p class="rule-desc">Each proposal points to the strategic memory your team approved and the dated sources it reviewed, so boards can audit every decision.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="closing-title">
+      <div class="wrap closing-grid">
+        <div>
+          <p class="eyebrow mono">05 · Getting started</p>
+          <h2 id="closing-title">Keep your strategy current without giving up control</h2>
+          <p>Speak with our team to review EU hosting, role authority, and a four-to-five-hour first session built from your public and non-sensitive material.</p>
+        </div>
+        <div class="closing-action">
+          <a class="btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+          <div class="closing-meta">
+            strategy@strapivo.com<br>
+            EU-only infrastructure · GDPR by design
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-left">
+        <img class="footer-logo" src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="80" height="20">
+        <span class="footer-copy">&copy; 2026 Strapivo</span>
+      </div>
+      <ul class="footer-links" aria-label="Legal">
+        <li><a href="/imprint">Imprint</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="/terms">Terms</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
