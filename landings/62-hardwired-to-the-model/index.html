@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Strapivo | Hardwired to your business model</title>
+  <meta name="description" content="Strapivo is the Strategic Design System built on the Business Model Canvas. It links live market shifts to your business model and prepares weekly 60-minute leadership sessions.">
+  <link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --ink: #141B24;
+      --n900: #050C14;
+      --n700: #2C343C;
+      --n600: #495158;
+      --n500: #6C727A;
+      --n400: #999FA6;
+      --n200: #E1E5EA;
+      --n100: #EFF2F6;
+      --paper: #F6F9FB;
+      --white: #FFFFFF;
+      --sky: #EEF6FF;
+      --sky2: #D4EBFF;
+      --p200: #A9D6FF;
+      --p400: #3FA0FA;
+      --p500: #0082E6;
+      --p600: #006FD1;
+      --p700: #005DBD;
+      --blueprint: #DCE6F2;
+      --blueprint-strong: #C2D4E8;
+      --copper: #B35C37;
+      --copper-text: #944625;
+      --copper-bg: #FBF2EE;
+      --copper-border: #E5C4B5;
+      --navy-rule: #253242;
+      --navy-card: #1A2330;
+      --navy-muted: #B8C4D0;
+      --radius-sm: 3px;
+      --radius-md: 6px;
+      --max-w: 1240px;
+      --gutter: clamp(16px, 3vw, 40px);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.58;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "ss01", "cv11";
+      overflow-x: clip;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--p500);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+
+    .eyebrow {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 1.4;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--p600);
+      margin: 0 0 12px;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 3.15vw, 3rem);
+      line-height: 1.09;
+      letter-spacing: -0.028em;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 2.35vw, 2.15rem);
+      line-height: 1.15;
+      letter-spacing: -0.022em;
+    }
+
+    h3 {
+      font-size: 1.08rem;
+      line-height: 1.3;
+      letter-spacing: -0.015em;
+    }
+
+    p {
+      margin: 0;
+      color: var(--n700);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 22px;
+      background: var(--p500);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--p600);
+      transition: background-color 160ms ease, border-color 160ms ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--p600);
+      border-color: var(--p700);
+    }
+
+    .btn-primary:active {
+      background: var(--p700);
+    }
+
+    .btn-primary svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 14px;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+    }
+
+    .btn-ghost:hover {
+      background: var(--white);
+      border-color: var(--blueprint);
+      color: var(--p600);
+    }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(246, 249, 251, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--blueprint);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 64px;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 6px 0;
+      text-decoration: none;
+    }
+
+    .brand-link img {
+      height: 25px;
+      width: auto;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-cta {
+      display: none;
+    }
+
+    @media (min-width: 720px) {
+      .header-cta {
+        display: inline-flex;
+        min-height: 44px;
+        padding: 0 18px;
+        font-size: 14px;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      padding: clamp(28px, 4vw, 52px) 0 clamp(36px, 4.8vw, 62px);
+      border-bottom: 1px solid var(--blueprint);
+      background-image:
+        linear-gradient(to right, rgba(220, 230, 242, 0.36) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(220, 230, 242, 0.36) 1px, transparent 1px);
+      background-size: 40px 40px;
+      background-position: -1px -1px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (min-width: 1020px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.22fr);
+        gap: 44px;
+        align-items: center;
+      }
+    }
+
+    .hero-copy {
+      max-width: 540px;
+    }
+
+    .hero-lead {
+      margin-top: 18px;
+      font-size: 17px;
+      line-height: 1.56;
+      color: var(--n700);
+      max-width: 52ch;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 20px;
+    }
+
+    .hero-audience {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      color: var(--n600);
+    }
+
+    /* Drawing 1: Architectural 9-Block BMC Schematic */
+    .schematic-wrap {
+      width: 100%;
+    }
+
+    .schematic-sheet {
+      background: var(--white);
+      border: 1px solid var(--blueprint-strong);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      box-shadow: 0 2px 12px rgba(20, 27, 36, 0.04);
+    }
+
+    @media (min-width: 640px) {
+      .schematic-sheet {
+        padding: 18px 20px;
+      }
+    }
+
+    .sheet-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px 12px;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--blueprint);
+    }
+
+    .sheet-title {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .sheet-tag {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--n600);
+    }
+
+    .signal-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 9px 12px;
+      background: var(--copper-bg);
+      border: 1px solid var(--copper-border);
+      border-left: 3px solid var(--copper);
+      border-radius: var(--radius-sm);
+    }
+
+    .signal-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--copper-text);
+    }
+
+    .copper-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--copper);
+      flex-shrink: 0;
+    }
+
+    .signal-text {
+      font-size: 13px;
+      line-height: 1.38;
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    /* Non-stretched HTML/SVG connector strips */
+    .connector-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-left: 18px;
+      min-height: 26px;
+    }
+
+    .connector-arrow {
+      width: 14px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .connector-caption {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      line-height: 1.3;
+      color: var(--copper-text);
+    }
+
+    .connector-caption--azure {
+      color: var(--p700);
+    }
+
+    /* 9-Block Business Model Canvas Grid */
+    .bmc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--blueprint-strong);
+      border: 1px solid var(--blueprint-strong);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .bmc-cell {
+      background: var(--white);
+      padding: 9px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-height: 60px;
+    }
+
+    /* Mobile clean pairing: 6 cells (3 rows of 2) + VP full width + Cost & Revenue (1 row of 2) */
+    .bmc-cell--kp { order: 1; }
+    .bmc-cell--ka { order: 2; }
+    .bmc-cell--kr { order: 3; }
+    .bmc-cell--cr { order: 4; }
+    .bmc-cell--ch { order: 5; }
+    .bmc-cell--cs { order: 6; }
+    .bmc-cell--vp { order: 7; grid-column: 1 / -1; min-height: 52px; }
+    .bmc-cell--c  { order: 8; }
+    .bmc-cell--r  { order: 9; }
+
+    .bmc-cell--hit {
+      background: var(--sky);
+      box-shadow: inset 0 0 0 1.5px var(--p500);
+      border-left: 3px solid var(--copper);
+    }
+
+    .bmc-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      line-height: 1.24;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .bmc-cell--hit .bmc-label {
+      color: var(--p700);
+    }
+
+    .bmc-note {
+      font-size: 12px;
+      line-height: 1.3;
+      color: var(--n600);
+    }
+
+    .bmc-cell--hit .bmc-note {
+      color: var(--ink);
+    }
+
+    @media (min-width: 680px) {
+      .bmc-grid {
+        grid-template-columns: repeat(10, minmax(0, 1fr));
+        grid-template-rows: minmax(78px, auto) minmax(78px, auto) minmax(60px, auto);
+      }
+
+      .bmc-cell {
+        order: 0;
+        min-height: 0;
+        padding: 9px 9px 10px;
+      }
+
+      .bmc-cell--kp { grid-column: 1 / 3; grid-row: 1 / 3; }
+      .bmc-cell--ka { grid-column: 3 / 5; grid-row: 1; }
+      .bmc-cell--kr { grid-column: 3 / 5; grid-row: 2; }
+      .bmc-cell--vp { grid-column: 5 / 7; grid-row: 1 / 3; }
+      .bmc-cell--cr { grid-column: 7 / 9; grid-row: 1; }
+      .bmc-cell--ch { grid-column: 7 / 9; grid-row: 2; }
+      .bmc-cell--cs { grid-column: 9 / 11; grid-row: 1 / 3; }
+      .bmc-cell--c  { grid-column: 1 / 6; grid-row: 3; }
+      .bmc-cell--r  { grid-column: 6 / 11; grid-row: 3; }
+    }
+
+    .trace-readout {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 14px;
+      padding: 10px 13px;
+      background: var(--paper);
+      border: 1px solid var(--p500);
+      border-radius: var(--radius-sm);
+    }
+
+    .trace-focus {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .trace-kicker {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--p700);
+    }
+
+    .trace-goal {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .risk-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      background: var(--copper-bg);
+      border: 1px solid var(--copper-border);
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--copper-text);
+      white-space: nowrap;
+    }
+
+    .bmc-credit {
+      margin-top: 9px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--n600);
+    }
+
+    /* Sections */
+    .section {
+      padding: clamp(36px, 5vw, 72px) 0;
+      border-bottom: 1px solid var(--blueprint);
+    }
+
+    .section--white {
+      background: var(--white);
+    }
+
+    .section--navy {
+      background: var(--ink);
+      color: var(--paper);
+      border-bottom-color: var(--navy-rule);
+    }
+
+    .section--navy h2,
+    .section--navy h3 {
+      color: var(--paper);
+    }
+
+    .section--navy p {
+      color: var(--navy-muted);
+    }
+
+    .section--navy .eyebrow {
+      color: var(--p400);
+    }
+
+    .section-head {
+      max-width: 66ch;
+      margin-bottom: clamp(22px, 3vw, 34px);
+    }
+
+    .section-lead {
+      margin-top: 12px;
+      font-size: 16px;
+      line-height: 1.58;
+      max-width: 60ch;
+    }
+
+    @media (min-width: 720px) {
+      .section-lead {
+        font-size: 17px;
+      }
+    }
+
+    /* Section 1: Structure vs Prose */
+    .contrast-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      border: 1px solid var(--blueprint-strong);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--blueprint-strong);
+      gap: 1px;
+    }
+
+    @media (min-width: 820px) {
+      .contrast-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .contrast-col {
+      background: var(--white);
+      padding: clamp(18px, 2.8vw, 30px);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contrast-col--model {
+      background: var(--paper);
+      border-top: 3px solid var(--p500);
+    }
+
+    @media (min-width: 820px) {
+      .contrast-col--model {
+        border-top: 0;
+        border-left: 3px solid var(--p500);
+      }
+    }
+
+    .contrast-label {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--n600);
+    }
+
+    .contrast-col--model .contrast-label {
+      color: var(--p700);
+    }
+
+    .contrast-list {
+      margin: 2px 0 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contrast-list li {
+      position: relative;
+      padding-left: 16px;
+      color: var(--n700);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .contrast-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 7px;
+      height: 1.5px;
+      background: var(--n400);
+    }
+
+    .contrast-col--model .contrast-list li::before {
+      background: var(--p500);
+      height: 2px;
+    }
+
+    .principle-bar {
+      margin-top: 18px;
+      padding: 14px 18px;
+      background: var(--sky);
+      border: 1px solid var(--blueprint-strong);
+      border-left: 3px solid var(--p500);
+      border-radius: var(--radius-sm);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 6px 20px;
+    }
+
+    .principle-quote {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .principle-tag {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      color: var(--p700);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* Section 2: Drawing 2 Structural Bridge */
+    .bridge-frame {
+      background: var(--white);
+      border: 1px solid var(--blueprint-strong);
+      border-radius: var(--radius-md);
+      padding: clamp(16px, 2.4vw, 24px);
+    }
+
+    .bridge-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px 16px;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--blueprint);
+    }
+
+    .bridge-track {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .bridge-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 20px;
+      color: var(--p500);
+    }
+
+    .bridge-arrow svg {
+      width: 16px;
+      height: 16px;
+      transform: rotate(90deg);
+    }
+
+    @media (min-width: 980px) {
+      .bridge-track {
+        grid-template-columns: minmax(0, 1fr) 22px minmax(0, 1fr) 22px minmax(0, 1fr) 22px minmax(0, 1fr) 22px minmax(0, 1fr);
+      }
+
+      .bridge-arrow {
+        height: auto;
+      }
+
+      .bridge-arrow svg {
+        transform: none;
+      }
+    }
+
+    .bridge-node {
+      padding: 14px 15px;
+      background: var(--paper);
+      border: 1px solid var(--blueprint-strong);
+      border-radius: var(--radius-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .bridge-node--anchor {
+      background: var(--sky);
+      border-color: var(--p500);
+    }
+
+    .bridge-node--radar {
+      background: var(--copper-bg);
+      border-color: var(--copper-border);
+    }
+
+    .bridge-step {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--n600);
+    }
+
+    .bridge-node--anchor .bridge-step {
+      color: var(--p700);
+    }
+
+    .bridge-node--radar .bridge-step {
+      color: var(--copper-text);
+    }
+
+    .bridge-title {
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+
+    .bridge-metric {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      color: var(--p700);
+    }
+
+    .bridge-node--radar .bridge-metric {
+      color: var(--copper-text);
+    }
+
+    .bridge-desc {
+      font-size: 14px;
+      line-height: 1.44;
+      color: var(--n700);
+    }
+
+    .bridge-loop {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--blueprint-strong);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 6px 16px;
+    }
+
+    .bridge-loop-label {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--copper-text);
+    }
+
+    .bridge-loop-label .copper-dot {
+      margin-top: 5px;
+    }
+
+    .bridge-loop-note {
+      font-size: 14px;
+      color: var(--n600);
+    }
+
+    /* Section 3: Weekly Session Cadence & Drawing 3 */
+    .cadence-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: var(--blueprint-strong);
+      border: 1px solid var(--blueprint-strong);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    @media (min-width: 680px) {
+      .cadence-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1080px) {
+      .cadence-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    .cadence-step {
+      background: var(--white);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .cadence-num {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--p600);
+    }
+
+    .cadence-step p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .options-strip {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px 8px;
+    }
+
+    .options-label {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--n600);
+      margin-right: 4px;
+    }
+
+    .option-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      background: var(--white);
+      border: 1px solid var(--blueprint-strong);
+      border-radius: var(--radius-sm);
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      color: var(--ink);
+    }
+
+    .option-chip--active {
+      background: var(--sky);
+      border-color: var(--p500);
+      color: var(--p700);
+    }
+
+    /* Drawing 3: Record of Decisions card */
+    .record-card {
+      margin-top: 18px;
+      background: var(--white);
+      border: 1px solid var(--blueprint-strong);
+      border-left: 3px solid var(--p500);
+      border-radius: var(--radius-md);
+      padding: clamp(16px, 2.2vw, 24px);
+    }
+
+    .record-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--blueprint);
+    }
+
+    .record-id {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+    }
+
+    .record-badges {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .record-pill {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      padding: 3px 9px;
+      border-radius: var(--radius-sm);
+      background: var(--sky);
+      border: 1px solid var(--p500);
+      color: var(--p700);
+    }
+
+    .record-body {
+      margin-top: 12px;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.45;
+      color: var(--ink);
+      max-width: 68ch;
+    }
+
+    .record-meta {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px 18px;
+      padding-top: 12px;
+      border-top: 1px solid var(--blueprint);
+    }
+
+    @media (min-width: 720px) {
+      .record-meta {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .record-field {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .record-field-key {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--n600);
+    }
+
+    .record-field-val {
+      font-size: 14px;
+      line-height: 1.42;
+      color: var(--ink);
+    }
+
+    /* Section 4: Governance & Practice (Navy) */
+    .gov-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: var(--navy-rule);
+      border: 1px solid var(--navy-rule);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    @media (min-width: 860px) {
+      .gov-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .gov-col {
+      background: var(--navy-card);
+      padding: clamp(18px, 2.5vw, 28px);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .gov-tag {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--p400);
+    }
+
+    .gov-col p {
+      font-size: 16px;
+      line-height: 1.54;
+    }
+
+    /* Section 5: Onboarding + Closing CTA */
+    .closing-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (min-width: 920px) {
+      .closing-grid {
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+        gap: 44px;
+        align-items: stretch;
+      }
+    }
+
+    .onboard-steps {
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--blueprint-strong);
+    }
+
+    .onboard-steps li {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 12px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--blueprint);
+      align-items: start;
+    }
+
+    .onboard-num {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 13px;
+      color: var(--p600);
+      padding-top: 2px;
+    }
+
+    .onboard-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    .onboard-text {
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--n700);
+    }
+
+    .cta-panel {
+      background: var(--white);
+      border: 1px solid var(--blueprint-strong);
+      border-top: 3px solid var(--p500);
+      border-radius: var(--radius-md);
+      padding: clamp(22px, 2.8vw, 34px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .cta-panel h3 {
+      font-size: clamp(1.3rem, 1.9vw, 1.65rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-panel p {
+      font-size: 16px;
+      line-height: 1.54;
+    }
+
+    .cta-panel-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .cta-email {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 13px;
+      color: var(--n600);
+    }
+
+    /* Footer */
+    .site-footer {
+      background: var(--paper);
+      padding: 24px 0 32px;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px 24px;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 18px;
+    }
+
+    .footer-brand img {
+      height: 21px;
+      width: auto;
+    }
+
+    .footer-copy {
+      font-size: 14px;
+      color: var(--n600);
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .footer-nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 10px;
+      font-size: 14px;
+      color: var(--n600);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+    }
+
+    .footer-nav a:hover {
+      color: var(--p600);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand-link" href="#" aria-label="Strapivo home">
+        <img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="100" height="25">
+      </a>
+      <nav class="header-actions" aria-label="Primary">
+        <a class="btn-ghost" href="https://strapivo.app">Sign in</a>
+        <a class="btn-primary header-cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Strategic Design System</p>
+          <h1 id="hero-heading">Hardwired to your business model. Not a prompt with your PDF attached.</h1>
+          <p class="hero-lead">Strapivo is the Strategic Design System built on the Business Model Canvas. It connects your strategy to live market shifts and prepares each weekly 60-minute leadership session.</p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="mailto:strategy@strapivo.com">
+              Start the conversation
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <span class="hero-audience">For leadership teams and business unit heads.</span>
+          </div>
+        </div>
+
+        <div class="schematic-wrap">
+          <figure style="margin: 0;">
+            <div class="schematic-sheet" aria-label="Illustrative 9-block Business Model Canvas schematic linking an external supplier signal to Key Partners, Cost Structure, Focus criterion 02, and Risk R-02">
+              <div class="sheet-bar">
+                <span class="sheet-title">Business Model Canvas</span>
+                <span class="sheet-tag">Illustrative example · Nordwerk</span>
+              </div>
+
+              <div class="signal-bar">
+                <span class="signal-kicker">
+                  <span class="copper-dot" aria-hidden="true"></span>
+                  External signal · Primary source
+                </span>
+                <span class="signal-text">Sole European controller supplier changes lead times and terms.</span>
+              </div>
+
+              <div class="connector-row">
+                <svg class="connector-arrow" viewBox="0 0 14 24" fill="none" aria-hidden="true">
+                  <path d="M7 0V21M7 21L2.5 16.5M7 21L11.5 16.5" stroke="#B35C37" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="connector-caption">Affects Key Partners and Cost Structure</span>
+              </div>
+
+              <div class="bmc-grid">
+                <div class="bmc-cell bmc-cell--kp bmc-cell--hit">
+                  <span class="bmc-label"><span class="copper-dot" aria-hidden="true"></span>Key Partners</span>
+                  <span class="bmc-note">Single-source controller supply</span>
+                </div>
+
+                <div class="bmc-cell bmc-cell--ka">
+                  <span class="bmc-label">Key Activities</span>
+                  <span class="bmc-note">Precision assembly</span>
+                </div>
+
+                <div class="bmc-cell bmc-cell--kr">
+                  <span class="bmc-label">Key Resources</span>
+                  <span class="bmc-note">Plant capacity</span>
+                </div>
+
+                <div class="bmc-cell bmc-cell--vp">
+                  <span class="bmc-label">Value Propositions</span>
+                  <span class="bmc-note">Industrial drive units</span>
+                </div>
+
+                <div class="bmc-cell bmc-cell--cr">
+                  <span class="bmc-label">Customer Relationships</span>
+                  <span class="bmc-note">Multi-year OEM supply</span>
+                </div>
+
+                <div class="bmc-cell bmc-cell--ch">
+                  <span class="bmc-label">Channels</span>
+                  <span class="bmc-note">Direct accounts</span>
+                </div>
+
+                <div class="bmc-cell bmc-cell--cs">
+                  <span class="bmc-label">Customer Segments</span>
+                  <span class="bmc-note">European machinery OEMs</span>
+                </div>
+
+                <div class="bmc-cell bmc-cell--c bmc-cell--hit">
+                  <span class="bmc-label"><span class="copper-dot" aria-hidden="true"></span>Cost Structure</span>
+                  <span class="bmc-note">Component spend and buffer</span>
+                </div>
+
+                <div class="bmc-cell bmc-cell--r">
+                  <span class="bmc-label">Revenue Streams</span>
+                  <span class="bmc-note">Unit sales and service</span>
+                </div>
+              </div>
+
+              <div class="connector-row">
+                <svg class="connector-arrow" viewBox="0 0 14 24" fill="none" aria-hidden="true">
+                  <path d="M7 0V21M7 21L2.5 16.5M7 21L11.5 16.5" stroke="#0082E6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="connector-caption connector-caption--azure">Links to focus criterion</span>
+              </div>
+
+              <div class="trace-readout">
+                <div class="trace-focus">
+                  <span class="trace-kicker">Focus criterion 02</span>
+                  <span class="trace-goal">Protect European delivery margin</span>
+                </div>
+                <span class="risk-badge">
+                  <span class="copper-dot" aria-hidden="true"></span>
+                  Risk R-02 · Worsening
+                </span>
+              </div>
+            </div>
+            <figcaption class="bmc-credit">Business Model Canvas adapted from Strategyzer.com, licensed under CC BY-SA 3.0.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--white" aria-labelledby="prose-heading">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Why structure beats prose</p>
+          <h2 id="prose-heading">A 60-page strategy document cannot show what a shift breaks</h2>
+          <p class="section-lead">Teams review strategy once a year while markets move every week. Slides record intent, yet they never link outside events to the blocks carrying risk.</p>
+        </div>
+
+        <div class="contrast-grid">
+          <div class="contrast-col">
+            <span class="contrast-label">Prose and generic prompts</span>
+            <h3>Your PDF sits in a drawer</h3>
+            <ul class="contrast-list">
+              <li>Supplier changes and competitor moves arrive as loose news with no link to your model.</li>
+              <li>A general AI with an attached PDF misses how you earn margin, so teams restart the same argument.</li>
+            </ul>
+          </div>
+
+          <div class="contrast-col contrast-col--model">
+            <span class="contrast-label">Hardwired in Strapivo</span>
+            <h3>External shifts mark exposed blocks</h3>
+            <ul class="contrast-list">
+              <li>Strapivo stores your Business Model Canvas as structure and links live signals to exposed blocks and risks.</li>
+              <li>Vivo reads your approved strategic memory before it proposes an agenda item.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="principle-bar">
+          <p class="principle-quote">Any AI can answer a question. Only Strapivo answers it as you.</p>
+          <span class="principle-tag">Strategic memory and Radar</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="bridge-heading">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Structural bridge</p>
+          <h2 id="bridge-heading">How your business model connects to Dynamic Strategy</h2>
+          <p class="section-lead">Strapivo connects your Business Model Canvas to one Ambition, focus criteria, activities, and Radar risks.</p>
+        </div>
+
+        <div class="bridge-frame" role="region" aria-label="Structural bridge connecting Business Model Canvas, Ambition, Success criteria, Objectives and activities, and Radar risks">
+          <div class="bridge-header">
+            <span class="sheet-title">Structural bridge</span>
+            <span class="sheet-tag">Objectives, activities, and results</span>
+          </div>
+
+          <div class="bridge-track">
+            <div class="bridge-node bridge-node--anchor">
+              <span class="bridge-step">01 · Backbone</span>
+              <span class="bridge-title">Business Model Canvas</span>
+              <span class="bridge-metric">9 approved blocks</span>
+              <p class="bridge-desc">It maps how your company creates and captures value.</p>
+            </div>
+
+            <div class="bridge-arrow" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M2 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+
+            <div class="bridge-node">
+              <span class="bridge-step">02 · Direction</span>
+              <span class="bridge-title">Ambition</span>
+              <span class="bridge-metric">1 per portfolio</span>
+              <p class="bridge-desc">It sets optional turnover, margin, and year targets.</p>
+            </div>
+
+            <div class="bridge-arrow" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M2 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+
+            <div class="bridge-node bridge-node--anchor">
+              <span class="bridge-step">03 · Focus</span>
+              <span class="bridge-title">Success criteria</span>
+              <span class="bridge-metric">7 to 12, up to 4 in focus</span>
+              <p class="bridge-desc">Each carries a green, yellow, or red light.</p>
+            </div>
+
+            <div class="bridge-arrow" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M2 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+
+            <div class="bridge-node">
+              <span class="bridge-step">04 · Delivery</span>
+              <span class="bridge-title">Objectives and activities</span>
+              <span class="bridge-metric">2 to 4 objectives each</span>
+              <p class="bridge-desc">Each activity sets a result, timeframe, and owner.</p>
+            </div>
+
+            <div class="bridge-arrow" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M2 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+
+            <div class="bridge-node bridge-node--radar">
+              <span class="bridge-step">05 · Outside world</span>
+              <span class="bridge-title">Radar and risks</span>
+              <span class="bridge-metric">Impact against likelihood</span>
+              <p class="bridge-desc">Each risk covers one model or the portfolio.</p>
+            </div>
+          </div>
+
+          <div class="bridge-loop">
+            <span class="bridge-loop-label">
+              <span class="copper-dot" aria-hidden="true"></span>
+              Verified signals link back to exposed blocks and focus criteria.
+            </span>
+            <span class="bridge-loop-note">A fifth focus area triggers a dilution warning.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--white" aria-labelledby="session-heading">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Weekly session</p>
+          <h2 id="session-heading">One 60-minute weekly session built on your model</h2>
+          <p class="section-lead">You do not rewrite strategy every week, and you do not wait until December.</p>
+        </div>
+
+        <div class="cadence-grid">
+          <div class="cadence-step">
+            <span class="cadence-num">01 · Triage</span>
+            <h3>People filter the signal</h3>
+            <p>Radar watches your focus areas. Vivo scores relevance; people confirm signals or dismiss noise. Top-right moves need a primary source.</p>
+          </div>
+
+          <div class="cadence-step">
+            <span class="cadence-num">02 · Agenda</span>
+            <h3>Drafted 24 hours ahead</h3>
+            <p>Vivo drafts the agenda from moved risks, signals, and off-track activities. The lead edits it and the room approves it.</p>
+          </div>
+
+          <div class="cadence-step">
+            <span class="cadence-num">03 · Session</span>
+            <h3>Sealed first takes</h3>
+            <p>Leaders enter positions before debate starts. Views reveal together so the loudest voice cannot anchor the room.</p>
+          </div>
+
+          <div class="cadence-step">
+            <span class="cadence-num">04 · Record</span>
+            <h3>Numbered decisions</h3>
+            <p>Vivo reads back each call and named dissent with its reason. Confirmed calls join the Record of Decisions.</p>
+          </div>
+        </div>
+
+        <div class="options-strip" aria-label="Five decision options">
+          <span class="options-label">Five options:</span>
+          <span class="option-chip">Hold</span>
+          <span class="option-chip option-chip--active">Adapt</span>
+          <span class="option-chip">Pivot</span>
+          <span class="option-chip">Take advantage</span>
+          <span class="option-chip">Not yet</span>
+        </div>
+
+        <div class="record-card" role="region" aria-label="Illustrative Record of Decisions entry SDS-2026-014">
+          <div class="record-head">
+            <span class="record-id">Record of Decisions · SDS-2026-014</span>
+            <div class="record-badges">
+              <span class="sheet-tag">Illustrative example</span>
+              <span class="record-pill">Adapt</span>
+            </div>
+          </div>
+          <p class="record-body">Qualify a second European controller supplier before Q3 renewal to protect margin.</p>
+          <div class="record-meta">
+            <div class="record-field">
+              <span class="record-field-key">Exposed blocks</span>
+              <span class="record-field-val">Key Partners, Cost Structure</span>
+            </div>
+            <div class="record-field">
+              <span class="record-field-key">Dissent</span>
+              <span class="record-field-val">Operations lead prefers short-term buffer stock.</span>
+            </div>
+            <div class="record-field">
+              <span class="record-field-key">Confirmation</span>
+              <span class="record-field-val">Confirmed by session lead. Review in 14 days.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--navy" aria-labelledby="governance-heading">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Practice and governance</p>
+          <h2 id="governance-heading">Grounded in real practice and European governance</h2>
+          <p class="section-lead">Senior teams want help with reading and synthesis, not an AI editing the strategy.</p>
+        </div>
+
+        <div class="gov-grid">
+          <div class="gov-col">
+            <span class="gov-tag">Business model lineage</span>
+            <h3>Built with the canvas creator</h3>
+            <p>Dr. Alex Osterwalder is co-founder and advisor, creator of the Business Model Canvas. Strapivo encodes that structure directly.</p>
+          </div>
+
+          <div class="gov-col">
+            <span class="gov-tag">Human authority</span>
+            <h3>Vivo proposes; people decide</h3>
+            <p>The human stays in the chair. Vivo drafts agendas and challenges assumptions, yet never changes a light or approves a pivot.</p>
+          </div>
+
+          <div class="gov-col">
+            <span class="gov-tag">European governance</span>
+            <h3>EU-only infrastructure</h3>
+            <p>Strapivo runs on EU-only infrastructure with GDPR by design. Every recommendation traces to approved memory. Start with public, non-sensitive material.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="onboarding-heading">
+      <div class="container closing-grid">
+        <div>
+          <p class="eyebrow">Onboarding</p>
+          <h2 id="onboarding-heading">Four to five hours, and then you run it</h2>
+          <p class="section-lead">We do the reading first. You enter session one with a draft to correct, not a blank page.</p>
+
+          <ol class="onboard-steps">
+            <li>
+              <span class="onboard-num">01</span>
+              <div>
+                <p class="onboard-title">We draft your model first</p>
+                <p class="onboard-text">Share public material or existing documents. Strapivo maps them onto your Business Model Canvas.</p>
+              </div>
+            </li>
+            <li>
+              <span class="onboard-num">02</span>
+              <div>
+                <p class="onboard-title">You calibrate relevance</p>
+                <p class="onboard-text">We review what we got wrong, lock focus criteria, and teach Vivo what counts as noise.</p>
+              </div>
+            </li>
+            <li>
+              <span class="onboard-num">03</span>
+              <div>
+                <p class="onboard-title">One live session together</p>
+                <p class="onboard-text">Your team works through real signals in the Strategy Room, then runs the weekly cadence.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <aside class="cta-panel" aria-labelledby="cta-heading">
+          <div>
+            <p class="eyebrow">Next step</p>
+            <h3 id="cta-heading">Use your business model every week</h3>
+            <p style="margin-top: 10px;">Speak with Strapivo about structuring your Business Model Canvas and running your first session.</p>
+          </div>
+          <div class="cta-panel-actions">
+            <a class="btn-primary" href="mailto:strategy@strapivo.com">
+              Start the conversation
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <span class="cta-email">strategy@strapivo.com</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand-link" href="#" aria-label="Strapivo top">
+          <img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="84" height="21">
+        </a>
+        <span class="footer-copy">&copy; 2026 Strapivo</span>
+      </div>
+      <nav class="footer-nav" aria-label="Legal">
+        <a href="/imprint">Imprint</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </nav>
+    </div>
+  </footer>
+
+</body>
+</html>
