@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo. Every strategic question gets an answer</title>
+<meta name="description" content="Strapivo is where a leadership team decides its open strategy questions and keeps a record of every answer.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:"Inter";src:url("../../fonts/Inter-Regular.otf") format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"Inter";src:url("../../fonts/Inter-Medium.otf") format("opentype");font-weight:500;font-display:swap}
+:root{
+  --wall:#e3ded4;--ink:#141414;--mute:#4a4741;
+  --flap:#ebe5d6;--amber:#f3aa3c;
+  --pad:44px;--g:3px;
+  --w:clamp(17px, calc((100vw - 270px) / 32), 34px);
+  --h:calc(var(--w) * 1.42);
+  --G:calc(var(--w) * 1.25);
+  --f:calc(var(--w) * 1.2);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;background:var(--wall);color:var(--ink);font:400 17px/1.5 "Inter",system-ui,sans-serif;overflow-x:hidden;
+  background-image:radial-gradient(120% 70% at 50% -10%, #f1ede5 0%, rgba(241,237,229,0) 60%),linear-gradient(#e3ded4,#d9d3c7)}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit}
+a:focus-visible{outline:3px solid var(--ink);outline-offset:4px;border-radius:2px}
+.page{min-height:100vh;display:grid;grid-template-rows:auto auto auto 1fr auto;grid-template-columns:minmax(0,max-content);justify-content:center;padding:0 clamp(20px,4vw,64px)}
+header{display:flex;justify-content:space-between;align-items:center;padding:28px 0 0}
+.logo{display:block;line-height:0}
+.logo img{height:22px;width:auto}
+.signin{font-size:15px;text-decoration:none;color:var(--mute)}
+.signin:hover{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+h1{font-weight:500;font-size:clamp(30px,3.3vw,48px);line-height:1.08;letter-spacing:-.025em;margin:clamp(26px,4.4vh,50px) 0 clamp(20px,3.2vh,32px);max-width:22ch}
+
+/* the board */
+.board{justify-self:center;width:max-content;max-width:100%;background:linear-gradient(#171716,#0f0f0e);border-radius:10px;padding:calc(var(--pad)*.55) var(--pad) var(--pad);
+  box-shadow:inset 0 0 0 1px #2b2a27,inset 0 1px 0 #3a3934,0 2px 3px rgba(0,0,0,.25),0 30px 60px -24px rgba(40,30,15,.55),0 70px 120px -60px rgba(40,30,15,.5);position:relative}
+.board::before,.board::after{content:"";position:absolute;top:14px;width:7px;height:7px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#55534d,#1c1c1a 70%);box-shadow:0 1px 0 rgba(255,255,255,.06)}
+.board::before{left:14px}.board::after{right:14px}
+.hd{display:flex;justify-content:space-between;align-items:baseline;gap:20px;font:600 calc(var(--w)*.56)/1 "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.22em;color:#cfc9ba;
+  padding:0 2px calc(var(--pad)*.42);margin-bottom:calc(var(--pad)*.5);border-bottom:1px solid #2c2b28;font-size:max(15px,calc(var(--w)*.56))}
+.hd .nx{color:var(--amber)}
+.rows{display:grid;gap:calc(var(--h)*.26)}
+.row{display:grid;grid-template-columns:auto auto auto;column-gap:var(--G);align-items:center}
+.q,.s{display:flex;gap:var(--g)}
+.led{width:9px;height:9px;border-radius:50%;background:#2a2824;box-shadow:inset 0 1px 1px rgba(0,0,0,.6);margin-left:calc(var(--G)*-.35)}
+.led.on{background:var(--amber);box-shadow:0 0 10px rgba(243,170,60,.55),0 0 2px rgba(243,170,60,.9)}
+
+.c{position:relative;display:block;width:var(--w);height:var(--h);font:600 var(--f)/var(--h) "Barlow Condensed","Arial Narrow",sans-serif;color:var(--flap);text-align:center;border-radius:3px;
+  box-shadow:0 1px 0 rgba(255,255,255,.035),0 2px 3px rgba(0,0,0,.6)}
+.s .c{color:var(--amber)}
+.row.wait .s .c{color:#8d877b}
+.h{position:absolute;left:0;right:0;height:50%;overflow:hidden;backface-visibility:hidden}
+.t{top:0;border-radius:3px 3px 0 0;background:linear-gradient(#262624,#1d1d1b)}
+.b{bottom:0;border-radius:0 0 3px 3px;background:linear-gradient(#1a1a18,#141413)}
+.h i{position:absolute;left:0;right:0;height:200%;font-style:normal;padding-top:calc(var(--h)*.04)}
+.t i{top:0}.b i{bottom:0}
+.c::after{content:"";position:absolute;left:0;right:0;top:calc(50% - 1px);height:2px;background:linear-gradient(#000 50%,rgba(255,255,255,.05) 50%);z-index:6}
+.c::before{content:"";position:absolute;left:-1px;right:-1px;top:calc(50% - 2px);height:4px;z-index:7;
+  background:linear-gradient(90deg,#3a3833 0 2px,transparent 2px calc(100% - 2px),#3a3833 calc(100% - 2px))}
+.fl{z-index:4;will-change:transform}
+.fl.t{transform-origin:50% 100%}
+.fl.b{transform-origin:50% 0}
+
+.foot{display:grid;grid-template-columns:1fr auto;gap:24px 48px;align-items:end;margin:clamp(24px,4vh,44px) 0 0;padding:0 4px}
+.lede{font-size:clamp(17px,1.35vw,19px);max-width:34ch;margin:0 0 18px;color:#2c2a26}
+.cta{display:inline-block;background:var(--ink);color:#f3efe6;text-decoration:none;font-weight:500;font-size:16px;padding:15px 24px;border-radius:2px;
+  box-shadow:inset 0 -3px 0 var(--amber)}
+.cta:hover{background:#2a2925}
+.note{margin:0;font-size:15px;line-height:1.45;color:var(--mute);max-width:36ch;text-align:right}
+.note em{font-style:normal;color:var(--ink);font-weight:500}
+footer{padding:26px 0 18px;font-size:12px;color:#5a564f;display:flex;gap:16px;flex-wrap:wrap}
+footer a{text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+@media (max-width:860px){
+  :root{--pad:14px;--g:2px;--w:min(32px, calc((100vw - 2 * var(--pad) - 15 * var(--g) - 2 * var(--edge)) / 16));--h:calc(var(--w)*1.38);--f:calc(var(--w)*1.2);--edge:0px}
+  .page{padding:0 20px}
+  .board{margin:0 -20px;width:calc(100% + 40px);max-width:none;border-radius:0;padding:18px var(--pad) 22px;display:flex;flex-direction:column;align-items:center}
+  .board::before,.board::after{display:none}
+  .hd,.rows{width:calc(16 * var(--w) + 15 * var(--g))}
+  .hd{letter-spacing:.14em;padding-bottom:12px;margin-bottom:16px}
+  .rows{gap:16px}
+  .row{grid-template-columns:auto 1fr;grid-template-areas:"q q" "s l";row-gap:var(--g);column-gap:0}
+  .q{grid-area:q}.s{grid-area:s}
+  .led{grid-area:l;justify-self:end;margin:0 4px 0 0}
+  .foot{grid-template-columns:1fr;gap:22px;margin-top:26px}
+  .note{text-align:left}
+  h1{margin:26px 0 22px;font-size:clamp(27px,7.6vw,40px)}
+  header{padding-top:20px}
+}
+@media (min-width:600px) and (max-width:860px){ :root{--edge:40px} .board{margin:0;width:auto;justify-self:stretch;border-radius:8px} }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <a class="logo" href="#"><img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo"></a>
+    <a class="signin" href="https://strapivo.app">Sign in</a>
+  </header>
+  <h1>No strategic question stays on "no decision".</h1>
+  <div class="board" role="img" aria-label="A departure board of strategy questions, each with its decision. Supplier prices: adapt. New entrant: hold. Nordic expansion: not yet. Partner offer: take advantage. Core segment: pivot.">
+    <div aria-hidden="true">
+      <div class="hd"><span>STRATEGY</span><span class="nx">NEXT SESSION THU 09:00</span></div>
+      <div class="rows">
+<div class="row" data-q="SUPPLIER PRICES" data-a="ADAPT"><span class="q"><span class="c"><span class="h t"><i>S</i></span><span class="h b"><i>S</i></span></span><span class="c"><span class="h t"><i>U</i></span><span class="h b"><i>U</i></span></span><span class="c"><span class="h t"><i>P</i></span><span class="h b"><i>P</i></span></span><span class="c"><span class="h t"><i>P</i></span><span class="h b"><i>P</i></span></span><span class="c"><span class="h t"><i>L</i></span><span class="h b"><i>L</i></span></span><span class="c"><span class="h t"><i>I</i></span><span class="h b"><i>I</i></span></span><span class="c"><span class="h t"><i>E</i></span><span class="h b"><i>E</i></span></span><span class="c"><span class="h t"><i>R</i></span><span class="h b"><i>R</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>P</i></span><span class="h b"><i>P</i></span></span><span class="c"><span class="h t"><i>R</i></span><span class="h b"><i>R</i></span></span><span class="c"><span class="h t"><i>I</i></span><span class="h b"><i>I</i></span></span><span class="c"><span class="h t"><i>C</i></span><span class="h b"><i>C</i></span></span><span class="c"><span class="h t"><i>E</i></span><span class="h b"><i>E</i></span></span><span class="c"><span class="h t"><i>S</i></span><span class="h b"><i>S</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span></span><span class="s"><span class="c"><span class="h t"><i>A</i></span><span class="h b"><i>A</i></span></span><span class="c"><span class="h t"><i>D</i></span><span class="h b"><i>D</i></span></span><span class="c"><span class="h t"><i>A</i></span><span class="h b"><i>A</i></span></span><span class="c"><span class="h t"><i>P</i></span><span class="h b"><i>P</i></span></span><span class="c"><span class="h t"><i>T</i></span><span class="h b"><i>T</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span></span><span class="led on"></span></div>
+<div class="row" data-q="NEW ENTRANT" data-a="HOLD"><span class="q"><span class="c"><span class="h t"><i>N</i></span><span class="h b"><i>N</i></span></span><span class="c"><span class="h t"><i>E</i></span><span class="h b"><i>E</i></span></span><span class="c"><span class="h t"><i>W</i></span><span class="h b"><i>W</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>E</i></span><span class="h b"><i>E</i></span></span><span class="c"><span class="h t"><i>N</i></span><span class="h b"><i>N</i></span></span><span class="c"><span class="h t"><i>T</i></span><span class="h b"><i>T</i></span></span><span class="c"><span class="h t"><i>R</i></span><span class="h b"><i>R</i></span></span><span class="c"><span class="h t"><i>A</i></span><span class="h b"><i>A</i></span></span><span class="c"><span class="h t"><i>N</i></span><span class="h b"><i>N</i></span></span><span class="c"><span class="h t"><i>T</i></span><span class="h b"><i>T</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span></span><span class="s"><span class="c"><span class="h t"><i>H</i></span><span class="h b"><i>H</i></span></span><span class="c"><span class="h t"><i>O</i></span><span class="h b"><i>O</i></span></span><span class="c"><span class="h t"><i>L</i></span><span class="h b"><i>L</i></span></span><span class="c"><span class="h t"><i>D</i></span><span class="h b"><i>D</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span></span><span class="led on"></span></div>
+<div class="row" data-q="NORDIC EXPANSION" data-a="NOT YET"><span class="q"><span class="c"><span class="h t"><i>N</i></span><span class="h b"><i>N</i></span></span><span class="c"><span class="h t"><i>O</i></span><span class="h b"><i>O</i></span></span><span class="c"><span class="h t"><i>R</i></span><span class="h b"><i>R</i></span></span><span class="c"><span class="h t"><i>D</i></span><span class="h b"><i>D</i></span></span><span class="c"><span class="h t"><i>I</i></span><span class="h b"><i>I</i></span></span><span class="c"><span class="h t"><i>C</i></span><span class="h b"><i>C</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>E</i></span><span class="h b"><i>E</i></span></span><span class="c"><span class="h t"><i>X</i></span><span class="h b"><i>X</i></span></span><span class="c"><span class="h t"><i>P</i></span><span class="h b"><i>P</i></span></span><span class="c"><span class="h t"><i>A</i></span><span class="h b"><i>A</i></span></span><span class="c"><span class="h t"><i>N</i></span><span class="h b"><i>N</i></span></span><span class="c"><span class="h t"><i>S</i></span><span class="h b"><i>S</i></span></span><span class="c"><span class="h t"><i>I</i></span><span class="h b"><i>I</i></span></span><span class="c"><span class="h t"><i>O</i></span><span class="h b"><i>O</i></span></span><span class="c"><span class="h t"><i>N</i></span><span class="h b"><i>N</i></span></span></span><span class="s"><span class="c"><span class="h t"><i>N</i></span><span class="h b"><i>N</i></span></span><span class="c"><span class="h t"><i>O</i></span><span class="h b"><i>O</i></span></span><span class="c"><span class="h t"><i>T</i></span><span class="h b"><i>T</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>Y</i></span><span class="h b"><i>Y</i></span></span><span class="c"><span class="h t"><i>E</i></span><span class="h b"><i>E</i></span></span><span class="c"><span class="h t"><i>T</i></span><span class="h b"><i>T</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span></span><span class="led on"></span></div>
+<div class="row" data-q="PARTNER OFFER" data-a="TAKE ADVANTAGE"><span class="q"><span class="c"><span class="h t"><i>P</i></span><span class="h b"><i>P</i></span></span><span class="c"><span class="h t"><i>A</i></span><span class="h b"><i>A</i></span></span><span class="c"><span class="h t"><i>R</i></span><span class="h b"><i>R</i></span></span><span class="c"><span class="h t"><i>T</i></span><span class="h b"><i>T</i></span></span><span class="c"><span class="h t"><i>N</i></span><span class="h b"><i>N</i></span></span><span class="c"><span class="h t"><i>E</i></span><span class="h b"><i>E</i></span></span><span class="c"><span class="h t"><i>R</i></span><span class="h b"><i>R</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>O</i></span><span class="h b"><i>O</i></span></span><span class="c"><span class="h t"><i>F</i></span><span class="h b"><i>F</i></span></span><span class="c"><span class="h t"><i>F</i></span><span class="h b"><i>F</i></span></span><span class="c"><span class="h t"><i>E</i></span><span class="h b"><i>E</i></span></span><span class="c"><span class="h t"><i>R</i></span><span class="h b"><i>R</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span></span><span class="s"><span class="c"><span class="h t"><i>T</i></span><span class="h b"><i>T</i></span></span><span class="c"><span class="h t"><i>A</i></span><span class="h b"><i>A</i></span></span><span class="c"><span class="h t"><i>K</i></span><span class="h b"><i>K</i></span></span><span class="c"><span class="h t"><i>E</i></span><span class="h b"><i>E</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>A</i></span><span class="h b"><i>A</i></span></span><span class="c"><span class="h t"><i>D</i></span><span class="h b"><i>D</i></span></span><span class="c"><span class="h t"><i>V</i></span><span class="h b"><i>V</i></span></span><span class="c"><span class="h t"><i>A</i></span><span class="h b"><i>A</i></span></span><span class="c"><span class="h t"><i>N</i></span><span class="h b"><i>N</i></span></span><span class="c"><span class="h t"><i>T</i></span><span class="h b"><i>T</i></span></span><span class="c"><span class="h t"><i>A</i></span><span class="h b"><i>A</i></span></span><span class="c"><span class="h t"><i>G</i></span><span class="h b"><i>G</i></span></span><span class="c"><span class="h t"><i>E</i></span><span class="h b"><i>E</i></span></span></span><span class="led on"></span></div>
+<div class="row" data-q="CORE SEGMENT" data-a="PIVOT"><span class="q"><span class="c"><span class="h t"><i>C</i></span><span class="h b"><i>C</i></span></span><span class="c"><span class="h t"><i>O</i></span><span class="h b"><i>O</i></span></span><span class="c"><span class="h t"><i>R</i></span><span class="h b"><i>R</i></span></span><span class="c"><span class="h t"><i>E</i></span><span class="h b"><i>E</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>S</i></span><span class="h b"><i>S</i></span></span><span class="c"><span class="h t"><i>E</i></span><span class="h b"><i>E</i></span></span><span class="c"><span class="h t"><i>G</i></span><span class="h b"><i>G</i></span></span><span class="c"><span class="h t"><i>M</i></span><span class="h b"><i>M</i></span></span><span class="c"><span class="h t"><i>E</i></span><span class="h b"><i>E</i></span></span><span class="c"><span class="h t"><i>N</i></span><span class="h b"><i>N</i></span></span><span class="c"><span class="h t"><i>T</i></span><span class="h b"><i>T</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span></span><span class="s"><span class="c"><span class="h t"><i>P</i></span><span class="h b"><i>P</i></span></span><span class="c"><span class="h t"><i>I</i></span><span class="h b"><i>I</i></span></span><span class="c"><span class="h t"><i>V</i></span><span class="h b"><i>V</i></span></span><span class="c"><span class="h t"><i>O</i></span><span class="h b"><i>O</i></span></span><span class="c"><span class="h t"><i>T</i></span><span class="h b"><i>T</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span><span class="c"><span class="h t"><i>&nbsp;</i></span><span class="h b"><i>&nbsp;</i></span></span></span><span class="led on"></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>
+      <p class="lede">Strapivo is where a leadership team decides its open strategy questions and keeps a record of every answer.</p>
+      <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </div>
+    <p class="note">Five possible answers, one per question. <em>Not yet</em> parks the question until a trigger brings it back, such as a date or new evidence.</p>
+  </div>
+  <div></div>
+  <footer><span>© 2026 Strapivo</span><a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+</div>
+<script>
+(() => {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const DRUM = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  const QW = 16, SW = 14;
+  const board = document.querySelector(".board");
+  const rows = [...document.querySelectorAll(".row")].map(r => ({
+    el: r, led: r.querySelector(".led"), q: r.dataset.q, a: r.dataset.a,
+    qc: [...r.querySelectorAll(".q .c")].map(mk), sc: [...r.querySelectorAll(".s .c")].map(mk)
+  }));
+  function mk(el) {
+    const t = el.querySelector(".t i"), b = el.querySelector(".b i");
+    const ft = document.createElement("span"); ft.className = "h t fl"; ft.innerHTML = "<i></i>"; ft.hidden = true;
+    const fb = document.createElement("span"); fb.className = "h b fl"; fb.innerHTML = "<i></i>"; fb.hidden = true;
+    el.append(ft, fb);
+    return { t, b, ft, fb, ftI: ft.firstChild, fbI: fb.firstChild, cur: t.textContent.replace(/ /, " "), busy: Promise.resolve() };
+  }
+  const show = ch => ch === " " ? " " : ch;
+  function set(c, ch) { c.cur = ch; c.t.textContent = c.b.textContent = show(ch); }
+
+  // time that only runs while the board is on screen and the tab is visible
+  let onScreen = true;
+  const active = () => onScreen && !document.hidden;
+  new IntersectionObserver(e => { onScreen = e[0].isIntersecting; }).observe(board);
+  function sleep(ms) {
+    return new Promise(res => {
+      let left = ms, last = performance.now();
+      (function tick() {
+        const now = performance.now();
+        if (active()) left -= now - last;
+        last = now;
+        left <= 0 ? res() : setTimeout(tick, Math.min(100, Math.max(16, left)));
+      })();
+    });
+  }
+  const D = 64;
+  // one timer-driven ticker moves every flap that is falling
+  const live = new Set();
+  let ticking = false;
+  function tick() {
+    const now = performance.now();
+    for (const j of live) {
+      const p = Math.min(1, (now - j.t0) / D);
+      j.step(p);
+      if (p >= 1) { live.delete(j); j.done(); }
+    }
+    if (live.size) setTimeout(tick, 16); else ticking = false;
+  }
+  function tween(step) {
+    return new Promise(done => {
+      live.add({ t0: performance.now(), step, done });
+      if (!ticking) { ticking = true; setTimeout(tick, 16); }
+    });
+  }
+  const easeIn = p => p * p, easeOut = p => 1 - Math.pow(1 - p, 2) + Math.sin(p * Math.PI) * 0.08;
+  async function flipOnce(c, nx) {
+    c.ftI.textContent = show(c.cur); c.fbI.textContent = show(nx);
+    c.t.textContent = show(nx);
+    c.ft.style.transform = "perspective(260px) rotateX(0deg)"; c.ft.style.filter = "";
+    c.ft.hidden = false;
+    await tween(p => { const e = easeIn(p); c.ft.style.transform = `perspective(260px) rotateX(${-90 * e}deg)`; c.ft.style.filter = `brightness(${1 - .55 * e})`; });
+    c.ft.hidden = true;
+    c.fb.style.transform = "perspective(260px) rotateX(90deg)"; c.fb.hidden = false;
+    await tween(p => { const e = Math.min(easeOut(p), 1.06); c.fb.style.transform = `perspective(260px) rotateX(${90 - 90 * e}deg)`; c.fb.style.filter = `brightness(${1.5 - .5 * Math.min(e, 1)})`; });
+    c.b.textContent = show(nx); c.cur = nx; c.fb.hidden = true;
+  }
+  function flipTo(c, target, delay) {
+    c.busy = c.busy.then(async () => {
+      if (c.cur === target) return;
+      await sleep(delay);
+      const n = 2 + Math.floor(Math.random() * 4);
+      let i = DRUM.indexOf(c.cur);
+      for (let k = 0; k < n; k++) {
+        i = (i + 1 + Math.floor(Math.random() * 3)) % DRUM.length;
+        let ch = DRUM[i]; if (ch === target) ch = DRUM[(i + 1) % DRUM.length];
+        await flipOnce(c, ch);
+      }
+      await flipOnce(c, target);
+    });
+    return c.busy;
+  }
+  const flipRow = (cs, text, w, base) => Promise.all(cs.map((c, i) => flipTo(c, text.padEnd(w)[i], base + i * 28 + Math.random() * 50)));
+
+  // start from a blank board
+  rows.forEach(r => { r.qc.forEach(c => set(c, " ")); r.sc.forEach(c => set(c, " ")); r.led.classList.remove("on"); r.el.classList.add("wait"); });
+
+  (async function run() {
+    await sleep(350);
+    await Promise.all(rows.map((r, k) => Promise.all([flipRow(r.qc, r.q, QW, k * 110), flipRow(r.sc, "NO DECISION", SW, k * 110 + 200)])));
+    for (;;) {
+      await sleep(900);
+      for (const r of rows) {
+        r.el.classList.remove("wait");
+        flipRow(r.sc, r.a, SW, 0).then(() => r.led.classList.add("on"));
+        await sleep(1000);
+      }
+      await sleep(11000);
+      for (const r of rows) {
+        r.led.classList.remove("on"); r.el.classList.add("wait");
+        flipRow(r.sc, "NO DECISION", SW, 0);
+        await sleep(260);
+      }
+      await sleep(2600);
+    }
+  })();
+})();
+</script>
+</body>
+</html>
