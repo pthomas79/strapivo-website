@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo. Everything turns around one ambition.</title>
+<meta name="description" content="Strapivo is strategy software for leadership teams. It keeps your goals in view and calls a session when a risk comes close.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:"Inter";src:url("../../fonts/Inter-Regular.otf") format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"Inter";src:url("../../fonts/Inter-Medium.otf") format("opentype");font-weight:500;font-display:swap}
+:root{
+  --navy:#08101f;--black:#020307;--brass:#C8A96A;--brass-hi:#E6CF97;--paper:#F4F2ED;--mute:#AEB6C6;
+  --azure:#0082E6;--azure-hi:#6FBDFF;
+  --serif:"Cormorant Garamond","Cormorant",Georgia,serif;--sans:"Inter",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{background:var(--black)}
+body{margin:0;color:var(--paper);font-family:var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  background:radial-gradient(120% 80% at 50% 38%,#10203d 0%,#0a1428 32%,#050912 62%,var(--black) 100%) no-repeat;background-attachment:scroll}
+a{color:inherit}
+a:focus-visible{outline:1px solid var(--brass-hi);outline-offset:6px;border-radius:2px}
+
+.stage{position:relative;height:100vh;height:100svh;min-height:620px;overflow:hidden}
+#orrery{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:hidden}
+
+/* the instrument */
+#orrery{--cx:50vw;--cy:42vh;--s:1.18;--tilt:.32;--hc:66;--Hc:123}
+.world{transform:translate(var(--cx),var(--cy)) scale(var(--s))}
+.plane{transform:scale(1,var(--tilt))}
+.armplane{transform:translate(0px,calc(var(--hc)*1px)) scale(1,var(--tilt))}
+.baseplane{transform:translate(0px,calc(var(--Hc)*1px)) scale(1,var(--tilt))}
+.plane *,.armplane *,.baseplane *,.rod,.pillar{vector-effect:non-scaling-stroke}
+.orbits circle{fill:none;stroke:url(#depth);stroke-width:1}
+.ticks line{stroke:var(--brass);stroke-width:1;opacity:.42}
+.ticks line.lt{opacity:.8}
+.dial{fill:none;stroke:var(--brass);stroke-width:1;opacity:.55}
+.dial.in{opacity:.22}
+.cpath{fill:none;stroke:var(--azure-hi);stroke-width:1;stroke-dasharray:2 7;opacity:.32}
+.arm{stroke:var(--brass);stroke-width:1;opacity:.55;transform:rotate(var(--a))}
+.hub{fill:none;stroke:var(--brass);stroke-width:1;opacity:.6}
+.pillar{stroke:var(--brass);stroke-width:1.2;opacity:.75;transform:scale(1,var(--Hc))}
+.rod{stroke:var(--brass);stroke-width:1;opacity:.5;transform:scale(1,var(--hc))}
+.pos{transform:translate(calc(var(--r)*cos(var(--a))*1px),calc(var(--r)*sin(var(--a))*var(--tilt)*1px))}
+.inv{transform:scale(calc(1 / var(--s)))}
+.body>.inv:first-child{transform:scale(calc((1 + sin(var(--a))*.16) / var(--s)))}
+.fb{fill:var(--brass-hi)}
+.halo{fill:none;stroke:var(--brass);stroke-width:1;opacity:.55}
+.sb{fill:#D9DEE8;opacity:.8}
+.sun-glow{fill:url(#sunglow)}
+.sun{fill:var(--brass-hi)}
+.sun-ring{fill:none;stroke:var(--brass);stroke-width:1;opacity:.7}
+.cpos{transform:translate(calc(var(--x)*1px),calc(var(--z)*var(--tilt)*1px))}
+.tail{stroke:url(#tailg);stroke-linecap:round}
+.tail.w{stroke-width:7;opacity:.22}
+.tail.n{stroke-width:1.6}
+.pulse{fill:none;stroke:var(--azure);stroke-width:1.6}
+.pulse2{fill:none;stroke:var(--azure-hi);stroke-width:1;opacity:.35}
+.lab{font:500 14px/1 var(--sans);letter-spacing:.26em;text-transform:uppercase;fill:var(--brass-hi)}
+.lab.az{fill:var(--azure-hi)}
+.lab.risk{fill:#CFE7FF}
+#callLab{--r:205;--a:118deg}
+.legend{display:none}
+
+/* words */
+.top{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:34px 48px;z-index:2}
+.logo img{display:block;height:22px;width:auto}
+.signin{font:500 14px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;text-decoration:none;color:var(--mute);padding:8px 0}
+.signin:hover{color:var(--paper)}
+.copy{position:absolute;left:48px;right:48px;bottom:56px;display:flex;justify-content:space-between;align-items:flex-end;gap:48px;z-index:2}
+h1{margin:0;font:300 clamp(48px,5.6vw,92px)/.98 var(--serif);letter-spacing:-.012em;max-width:9.6em}
+h1 em{font-style:italic;color:var(--brass-hi)}
+.act{max-width:360px;padding-bottom:10px}
+.act p{margin:0 0 26px;font:400 17px/1.55 var(--sans);color:var(--mute)}
+.act p b{font-weight:500;color:var(--paper)}
+.cta{display:inline-block;white-space:nowrap;font:500 14px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;text-decoration:none;color:var(--paper);
+  padding:17px 26px;border:1px solid var(--brass);border-radius:999px;transition:background .3s,color .3s}
+.cta:hover{background:var(--brass);color:var(--black)}
+
+.end{position:relative;min-height:78vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 140px}
+.end svg{width:132px;height:132px;margin-bottom:44px;overflow:visible}
+.end svg circle{fill:none;stroke:var(--brass);stroke-width:1}
+.end h2{margin:0 0 18px;font:300 clamp(40px,4.4vw,64px)/1.05 var(--serif)}
+.end p{margin:0 0 40px;max-width:30em;font:400 17px/1.55 var(--sans);color:var(--mute)}
+footer{position:absolute;left:0;right:0;bottom:28px;font:400 12px/1.6 var(--sans);color:#8790A3;letter-spacing:.04em}
+footer a{text-decoration:none;margin-left:14px}
+footer a:hover{color:var(--paper)}
+
+@media (max-width:759px){
+  #orrery{--s:.44;--cy:32vh;--tilt:.56;--hc:58;--Hc:108}
+  .stage{min-height:700px}
+  .top{padding:24px 22px}
+  .logo img{height:19px}
+  .copy{left:22px;right:22px;bottom:34px;flex-direction:column;align-items:flex-start;gap:20px}
+  h1{font-size:clamp(40px,11.4vw,48px);line-height:1}
+  .act p{font-size:16px;margin-bottom:22px}
+  .act{padding-bottom:0}
+  .end{min-height:88vh}
+  .dk{display:none}
+  #callLab{--a:270deg}
+  #callLab text{text-anchor:middle;transform:translate(16px,-44px)}
+  .legend{display:flex;flex-wrap:wrap;gap:12px 22px;margin:0 0 26px;padding:0;list-style:none}
+  .legend li{display:flex;align-items:center;gap:10px;font:500 14px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--brass-hi)}
+  .legend li.r{color:#CFE7FF}
+  .legend svg{width:14px;height:14px;flex:none}
+}
+@media (max-width:759px) and (max-height:800px){
+  .copy{bottom:26px}
+  h1{font-size:40px}
+}
+</style>
+</head>
+<body>
+<main>
+<section class="stage" id="stage">
+  <svg id="orrery" role="img" aria-label="A brass orrery seen at an angle. One ambition at the centre, twelve goals on four orbits. Four larger goals are the focus. A blue comet, a risk, swings in from the edge. As it crosses the inner orbits a blue ring pulses around the centre.">
+    <defs>
+      <linearGradient id="depth" gradientUnits="userSpaceOnUse" x1="0" y1="-600" x2="0" y2="600">
+        <stop offset="0" stop-color="#C8A96A" stop-opacity=".16"/>
+        <stop offset=".55" stop-color="#C8A96A" stop-opacity=".5"/>
+        <stop offset="1" stop-color="#E6CF97" stop-opacity=".85"/>
+      </linearGradient>
+      <radialGradient id="sunglow">
+        <stop offset="0" stop-color="#E6CF97" stop-opacity=".38"/>
+        <stop offset=".35" stop-color="#C8A96A" stop-opacity=".1"/>
+        <stop offset="1" stop-color="#C8A96A" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="cglow">
+        <stop offset="0" stop-color="#6FBDFF" stop-opacity=".7"/>
+        <stop offset="1" stop-color="#0082E6" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="tailg" gradientUnits="userSpaceOnUse" x1="262.6" y1="265" x2="473.8" y2="478.1">
+        <stop offset="0" stop-color="#9FD3FF" stop-opacity=".95"/>
+        <stop offset=".3" stop-color="#0082E6" stop-opacity=".5"/>
+        <stop offset="1" stop-color="#0082E6" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <g class="world" id="world">
+      <g class="baseplane"><circle class="hub" r="58"/><circle class="hub" r="30" opacity=".35"/></g>
+      <line class="pillar" y2="1"/>
+      <g class="armplane"><circle class="hub" r="9"/><line class="arm" x2="150" data-r="150" data-a0="200" style="--r:150;--a:200deg"/><line class="arm" x2="240" data-r="240" data-a0="75" style="--r:240;--a:75deg"/><line class="arm" x2="340" data-r="340" data-a0="345" style="--r:340;--a:345deg"/><line class="arm" x2="460" data-r="460" data-a0="318" style="--r:460;--a:318deg"/></g>
+      <g class="pos" data-r="150" data-a0="200" style="--r:150;--a:200deg"><line class="rod" y2="1"/></g><g class="pos" data-r="240" data-a0="75" style="--r:240;--a:75deg"><line class="rod" y2="1"/></g><g class="pos" data-r="340" data-a0="345" style="--r:340;--a:345deg"><line class="rod" y2="1"/></g><g class="pos" data-r="460" data-a0="318" style="--r:460;--a:318deg"><line class="rod" y2="1"/></g>
+      <g class="plane">
+        <circle class="dial" r="560"/>
+        <circle class="dial in" r="548"/>
+        <g class="ticks"><line x1="560" y1="0" x2="586" y2="0" class="lt"/><line x1="557.9" y1="48.8" x2="568.8" y2="49.8"/><line x1="551.5" y1="97.2" x2="562.3" y2="99.2"/><line x1="540.9" y1="144.9" x2="551.5" y2="147.8"/><line x1="526.2" y1="191.5" x2="536.6" y2="195.3"/><line x1="507.5" y1="236.7" x2="517.5" y2="241.3"/><line x1="485" y1="280" x2="507.5" y2="293" class="lt"/><line x1="458.7" y1="321.2" x2="467.7" y2="327.5"/><line x1="429" y1="360" x2="437.4" y2="367"/><line x1="396" y1="396" x2="403.8" y2="403.8"/><line x1="360" y1="429" x2="367" y2="437.4"/><line x1="321.2" y1="458.7" x2="327.5" y2="467.7"/><line x1="280" y1="485" x2="293" y2="507.5" class="lt"/><line x1="236.7" y1="507.5" x2="241.3" y2="517.5"/><line x1="191.5" y1="526.2" x2="195.3" y2="536.6"/><line x1="144.9" y1="540.9" x2="147.8" y2="551.5"/><line x1="97.2" y1="551.5" x2="99.2" y2="562.3"/><line x1="48.8" y1="557.9" x2="49.8" y2="568.8"/><line x1="0" y1="560" x2="0" y2="586" class="lt"/><line x1="-48.8" y1="557.9" x2="-49.8" y2="568.8"/><line x1="-97.2" y1="551.5" x2="-99.2" y2="562.3"/><line x1="-144.9" y1="540.9" x2="-147.8" y2="551.5"/><line x1="-191.5" y1="526.2" x2="-195.3" y2="536.6"/><line x1="-236.7" y1="507.5" x2="-241.3" y2="517.5"/><line x1="-280" y1="485" x2="-293" y2="507.5" class="lt"/><line x1="-321.2" y1="458.7" x2="-327.5" y2="467.7"/><line x1="-360" y1="429" x2="-367" y2="437.4"/><line x1="-396" y1="396" x2="-403.8" y2="403.8"/><line x1="-429" y1="360" x2="-437.4" y2="367"/><line x1="-458.7" y1="321.2" x2="-467.7" y2="327.5"/><line x1="-485" y1="280" x2="-507.5" y2="293" class="lt"/><line x1="-507.5" y1="236.7" x2="-517.5" y2="241.3"/><line x1="-526.2" y1="191.5" x2="-536.6" y2="195.3"/><line x1="-540.9" y1="144.9" x2="-551.5" y2="147.8"/><line x1="-551.5" y1="97.2" x2="-562.3" y2="99.2"/><line x1="-557.9" y1="48.8" x2="-568.8" y2="49.8"/><line x1="-560" y1="0" x2="-586" y2="0" class="lt"/><line x1="-557.9" y1="-48.8" x2="-568.8" y2="-49.8"/><line x1="-551.5" y1="-97.2" x2="-562.3" y2="-99.2"/><line x1="-540.9" y1="-144.9" x2="-551.5" y2="-147.8"/><line x1="-526.2" y1="-191.5" x2="-536.6" y2="-195.3"/><line x1="-507.5" y1="-236.7" x2="-517.5" y2="-241.3"/><line x1="-485" y1="-280" x2="-507.5" y2="-293" class="lt"/><line x1="-458.7" y1="-321.2" x2="-467.7" y2="-327.5"/><line x1="-429" y1="-360" x2="-437.4" y2="-367"/><line x1="-396" y1="-396" x2="-403.8" y2="-403.8"/><line x1="-360" y1="-429" x2="-367" y2="-437.4"/><line x1="-321.2" y1="-458.7" x2="-327.5" y2="-467.7"/><line x1="-280" y1="-485" x2="-293" y2="-507.5" class="lt"/><line x1="-236.7" y1="-507.5" x2="-241.3" y2="-517.5"/><line x1="-191.5" y1="-526.2" x2="-195.3" y2="-536.6"/><line x1="-144.9" y1="-540.9" x2="-147.8" y2="-551.5"/><line x1="-97.2" y1="-551.5" x2="-99.2" y2="-562.3"/><line x1="-48.8" y1="-557.9" x2="-49.8" y2="-568.8"/><line x1="-0" y1="-560" x2="-0" y2="-586" class="lt"/><line x1="48.8" y1="-557.9" x2="49.8" y2="-568.8"/><line x1="97.2" y1="-551.5" x2="99.2" y2="-562.3"/><line x1="144.9" y1="-540.9" x2="147.8" y2="-551.5"/><line x1="191.5" y1="-526.2" x2="195.3" y2="-536.6"/><line x1="236.7" y1="-507.5" x2="241.3" y2="-517.5"/><line x1="280" y1="-485" x2="293" y2="-507.5" class="lt"/><line x1="321.2" y1="-458.7" x2="327.5" y2="-467.7"/><line x1="360" y1="-429" x2="367" y2="-437.4"/><line x1="396" y1="-396" x2="403.8" y2="-403.8"/><line x1="429" y1="-360" x2="437.4" y2="-367"/><line x1="458.7" y1="-321.2" x2="467.7" y2="-327.5"/><line x1="485" y1="-280" x2="507.5" y2="-293" class="lt"/><line x1="507.5" y1="-236.7" x2="517.5" y2="-241.3"/><line x1="526.2" y1="-191.5" x2="536.6" y2="-195.3"/><line x1="540.9" y1="-144.9" x2="551.5" y2="-147.8"/><line x1="551.5" y1="-97.2" x2="562.3" y2="-99.2"/><line x1="557.9" y1="-48.8" x2="568.8" y2="-49.8"/></g>
+        <g class="orbits"><circle r="150"/><circle r="240"/><circle r="340"/><circle r="460"/></g>
+        <ellipse class="cpath" cx="-1062.5" rx="1250" ry="658.5" transform="rotate(140)"/>
+        <circle class="pulse2" id="pulse2" r="205" style="opacity:.0"/>
+        <circle class="pulse" id="pulse" r="205" style="opacity:.8"/>
+        <line class="tail w" id="tailw" x1="262.6" y1="265" x2="473.8" y2="478.1"/>
+        <line class="tail n" id="tailn" x1="262.6" y1="265" x2="473.8" y2="478.1"/>
+      </g>
+      <g class="inv"><circle class="sun-glow" r="90"/><circle class="sun-ring" r="16"/><circle class="sun" r="8"/><text class="lab dk" x="30" y="-14">Ambition</text></g>
+      <g class="pos body" data-r="150" data-a0="200" style="--r:150;--a:200deg"><g class="inv"><circle class="halo" r="12"/><circle class="fb" r="5.5"/></g></g><g class="pos body" data-r="150" data-a0="20" style="--r:150;--a:20deg"><g class="inv"><circle class="sb" r="2.6"/></g></g><g class="pos body" data-r="240" data-a0="300" style="--r:240;--a:300deg"><g class="inv"><circle class="sb" r="2.6"/></g></g><g class="pos body" data-r="240" data-a0="75" style="--r:240;--a:75deg"><g class="inv"><circle class="halo" r="12"/><circle class="fb" r="5.5"/></g></g><g class="pos body" data-r="240" data-a0="175" style="--r:240;--a:175deg"><g class="inv"><circle class="sb" r="2.6"/></g></g><g class="pos body" data-r="340" data-a0="130" style="--r:340;--a:130deg"><g class="inv"><circle class="sb" r="2.6"/></g></g><g class="pos body" data-r="340" data-a0="250" style="--r:340;--a:250deg"><g class="inv"><circle class="sb" r="2.6"/></g></g><g class="pos body" data-r="340" data-a0="345" style="--r:340;--a:345deg"><g class="inv"><circle class="halo" r="12"/><circle class="fb" r="5.5"/></g><g class="inv"><text class="lab dk" id="focusLab" x="20" y="5">Four in focus</text></g></g><g class="pos body" data-r="460" data-a0="35" style="--r:460;--a:35deg"><g class="inv"><circle class="sb" r="2.6"/></g></g><g class="pos body" data-r="460" data-a0="120" style="--r:460;--a:120deg"><g class="inv"><circle class="sb" r="2.6"/></g></g><g class="pos body" data-r="460" data-a0="220" style="--r:460;--a:220deg"><g class="inv"><circle class="sb" r="2.6"/></g></g><g class="pos body" data-r="460" data-a0="318" style="--r:460;--a:318deg"><g class="inv"><circle class="halo" r="12"/><circle class="fb" r="5.5"/></g></g>
+      <g class="pos" id="callLab" style="opacity:1"><g class="inv"><text class="lab az" x="-16" y="26" text-anchor="end">Session called</text></g></g>
+      <g class="cpos" id="comet" style="--x:262.6;--z:265"><g class="inv">
+        <circle r="26" fill="url(#cglow)"/><circle r="4.2" fill="#9FD3FF"/><circle r="2" fill="#fff"/>
+        <text class="lab risk dk" id="riskLab" x="18" y="-16">Risk, approaching</text>
+      </g></g>
+    </g>
+  </svg>
+
+  <header class="top">
+    <a class="logo" href="#"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="88" height="22"></a>
+    <a class="signin" href="https://strapivo.app">Sign in</a>
+  </header>
+
+  <div class="copy">
+    <div>
+    <ul class="legend" aria-hidden="true">
+      <li><svg viewBox="-7 -7 14 14"><circle r="5" fill="#E6CF97"/></svg>Ambition</li>
+      <li><svg viewBox="-7 -7 14 14"><circle r="6" fill="none" stroke="#C8A96A"/><circle r="3" fill="#E6CF97"/></svg>Four in focus</li>
+      <li class="r"><svg viewBox="-7 -7 14 14"><circle r="3.5" fill="#9FD3FF"/></svg>Risk, approaching</li>
+    </ul>
+    <h1>Everything turns around <em>one ambition.</em></h1>
+    </div>
+    <div class="act">
+      <p><b>Strapivo is strategy software for leadership teams.</b> It keeps your goals in view and calls a session when a risk comes close.</p>
+      <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </div>
+  </div>
+</section>
+
+<section class="end">
+  <svg viewBox="-66 -66 132 132" aria-hidden="true">
+    <circle r="64" opacity=".35"/><circle r="46" opacity=".5"/><circle r="30" opacity=".7"/><circle r="15"/>
+    <circle r="4" style="fill:#E6CF97;stroke:none"/>
+    <circle cx="-30" cy="0" r="3.5" style="fill:#0082E6;stroke:none"/>
+  </svg>
+  <h2>Make small corrections early.</h2>
+  <p>Every week, your team checks its goals against what changed outside. Vivo proposes and people decide.</p>
+  <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+  <footer>© 2026 Strapivo <a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+</section>
+</main>
+
+<script>
+(() => {
+  const svg = document.getElementById('orrery');
+  const stage = document.getElementById('stage');
+  const A = 1250, ECC = .85, B = A * Math.sqrt(1 - ECC * ECC), W0 = 140 * Math.PI / 180;
+  const E_STILL = -0.6, RING_STILL = 205;
+  const GAMMA = .55, PERIOD = 40;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const bodies = [...svg.querySelectorAll('[data-r]')].map(el => ({el, r:+el.dataset.r, a0:+el.dataset.a0, p:46 * Math.pow(+el.dataset.r / 150, 1.5)}));
+  const comet = document.getElementById('comet');
+  const tails = [document.getElementById('tailw'), document.getElementById('tailn')];
+  const tg = document.getElementById('tailg');
+  const pulse = document.getElementById('pulse'), pulse2 = document.getElementById('pulse2');
+  const callLab = document.getElementById('callLab'), riskLab = document.getElementById('riskLab');
+  const focusLab = document.getElementById('focusLab');
+  const focusBody = focusLab.closest('[data-r]');
+  let phone = false, s = 1, W = innerWidth;
+  const widths = new Map();
+  function fit(el, sx) {
+    if (!widths.has(el)) widths.set(el, el.getComputedTextLength());
+    const wd = widths.get(el), gap = 20;
+    const right = W / 2 + sx + gap + wd < W - 14 || (sx < 0 && W / 2 + sx - gap - wd < 14);
+    el.setAttribute('text-anchor', right ? 'start' : 'end');
+    el.setAttribute('x', right ? gap : -gap);
+  }
+
+  // speed profile: dE/dt = k / (1 - e cos E)^g, normalised to one period
+  const f = E => Math.pow(1 - ECC * Math.cos(E), GAMMA);
+  let acc = 0; const N = 2000;
+  for (let i = 0; i < N; i++) acc += f(-Math.PI + 2 * Math.PI * (i + .5) / N);
+  const K = acc * 2 * Math.PI / N / PERIOD;
+
+  function layout() {
+    const w = innerWidth, h = stage.clientHeight;
+    phone = w < 760;
+    const tilt = phone ? .56 : .32, cphi = Math.sqrt(1 - tilt * tilt);
+    s = phone ? w / 880 : Math.min(w / 1160, h / 760);
+    W = w;
+    const st = svg.style;
+    st.setProperty('--s', s.toFixed(4));
+    st.setProperty('--tilt', tilt);
+    st.setProperty('--cx', (w / 2) + 'px');
+    st.setProperty('--cy', (h * (phone ? .32 : .42)) + 'px');
+    st.setProperty('--hc', (70 * cphi).toFixed(2));
+    st.setProperty('--Hc', (130 * cphi).toFixed(2));
+  }
+
+  function cometAt(E) {
+    const p = A * (Math.cos(E) - ECC), q = B * Math.sin(E);
+    return [p * Math.cos(W0) - q * Math.sin(W0), p * Math.sin(W0) + q * Math.cos(W0)];
+  }
+
+  function placeComet(E) {
+    const [x, z] = cometAt(E), r = Math.hypot(x, z);
+    comet.style.setProperty('--x', x.toFixed(1));
+    comet.style.setProperty('--z', z.toFixed(1));
+    fit(riskLab, x * s);
+    const tx = x + x / r * 300, tz = z + z / r * 300;
+    for (const el of [...tails, tg]) {
+      el.setAttribute('x1', x.toFixed(1)); el.setAttribute('y1', z.toFixed(1));
+      el.setAttribute('x2', tx.toFixed(1)); el.setAttribute('y2', tz.toFixed(1));
+    }
+    return r;
+  }
+
+  function placeBodies(t) {
+    for (const b of bodies) b.el.style.setProperty('--a', (b.a0 + 360 * t / b.p).toFixed(3) + 'deg');
+    const fr = +focusBody.dataset.r;
+    const a = (+focusBody.dataset.a0 + 360 * t / (46 * Math.pow(fr / 150, 1.5))) * Math.PI / 180;
+    fit(focusLab, fr * Math.cos(a) * s);
+  }
+
+  function still() {
+    placeBodies(0);
+    placeComet(E_STILL);
+    pulse.setAttribute('r', RING_STILL); pulse.style.opacity = .8;
+    pulse2.style.opacity = 0;
+    callLab.style.opacity = 1; riskLab.style.opacity = 1;
+  }
+
+  // motion
+  let E = -1.85, t = 0, last = 0, raf = 0, fired = false, pulseT = -1, visible = true;
+  const ease = x => 1 - Math.pow(1 - x, 3);
+  function frame(now) {
+    const dt = Math.min(.05, last ? (now - last) / 1000 : 0); last = now;
+    t += dt;
+    E += dt * K / f(E);
+    if (E > Math.PI) E -= 2 * Math.PI;
+    placeBodies(t);
+    const r = placeComet(E);
+    if (!fired && E < 0 && r < 245) { fired = true; pulseT = 0; }
+    if (r > 1100) fired = false;
+    riskLab.style.opacity = E < 0 ? Math.min(1, (1100 - r) / 200 + .2) : Math.max(0, 1 - E * 2.2);
+    if (pulseT >= 0) {
+      pulseT += dt;
+      const k = Math.min(1, pulseT / 3.2), k2 = Math.min(1, Math.max(0, pulseT - .35) / 3.2);
+      pulse.setAttribute('r', (18 + 300 * ease(k)).toFixed(1));
+      pulse.style.opacity = (k < 1 ? .95 * (1 - k * k) : 0).toFixed(3);
+      pulse2.setAttribute('r', (18 + 300 * ease(k2)).toFixed(1));
+      pulse2.style.opacity = (k2 > 0 && k2 < 1 ? .45 * (1 - k2) : 0).toFixed(3);
+      const lo = pulseT < .5 ? pulseT / .5 : pulseT < 4.5 ? 1 : Math.max(0, 1 - (pulseT - 4.5) / 1.2);
+      callLab.style.opacity = lo.toFixed(3);
+      if (pulseT > 6) pulseT = -1;
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  function run() {
+    const go = visible && !document.hidden && !reduce.matches;
+    if (go && !raf) { last = 0; raf = requestAnimationFrame(frame); }
+    if (!go && raf) { cancelAnimationFrame(raf); raf = 0; }
+  }
+  function startMotion() {
+    pulse.style.opacity = 0; pulse2.style.opacity = 0; callLab.style.opacity = 0;
+    placeBodies(t); placeComet(E);
+  }
+
+  layout();
+  if (reduce.matches) still(); else startMotion();
+  addEventListener('resize', layout);
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; run(); }).observe(stage);
+  document.addEventListener('visibilitychange', run);
+  reduce.addEventListener('change', () => { if (reduce.matches) { run(); still(); } else { startMotion(); run(); } });
+  run();
+})();
+</script>
+</body>
+</html>
