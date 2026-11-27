@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo. Five lines, one note a week.</title>
+<meta name="description" content="Strapivo is software where a leadership team reviews its strategy every week. Each question ends with one of five answers.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBF6E9; --ink:#16130e; --ink2:#4a4235; --blue:#1D3F8F;
+  --serif:"EB Garamond", Garamond, "Times New Roman", serif;
+  --disp:"Bodoni Moda", "Didot", "Bodoni 72", serif;
+}
+*{box-sizing:border-box}
+html{background:var(--paper);color:var(--ink)}
+body{margin:0;font-family:var(--serif);-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  background-color:var(--paper);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .25 0 0 0 0 .14 .5 0 0 0 -.19'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:4px;border-radius:2px}
+
+/* light falling across the sheet */
+.light{position:fixed;inset:0;pointer-events:none;z-index:5;
+  background:
+    radial-gradient(120% 90% at 18% 8%, rgba(255,252,240,.55), rgba(255,252,240,0) 55%),
+    radial-gradient(140% 120% at 85% 110%, rgba(92,66,28,.16), rgba(92,66,28,0) 60%),
+    linear-gradient(100deg, rgba(70,50,20,.05), rgba(70,50,20,0) 22%, rgba(70,50,20,0) 80%, rgba(70,50,20,.07));
+  mix-blend-mode:multiply}
+.light::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(70% 60% at 22% 12%, rgba(255,250,232,.5), transparent 70%);mix-blend-mode:screen}
+
+/* the score: pinned stage */
+.score{position:relative;height:100vh;height:100svh}
+html.anim .score{height:300vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.plate{position:absolute;inset:22px;border-radius:7px;pointer-events:none;
+  background:
+    radial-gradient(90% 80% at 50% 50%, rgba(255,253,246,.35), rgba(120,96,58,.05) 100%);
+  box-shadow:
+    inset 2px 3px 2px -1px rgba(74,52,20,.26),
+    inset 6px 9px 14px -6px rgba(74,52,20,.16),
+    inset -2px -2px 1px -1px rgba(255,255,255,.95),
+    inset -5px -6px 10px -6px rgba(255,255,255,.7),
+    1px 1px 0 rgba(255,255,255,.85),
+    -1px -1px 0 rgba(90,66,30,.10)}
+.inner{position:absolute;inset:22px;display:grid;
+  grid-template-rows:auto 1fr auto 1fr;padding:30px 42px 0}
+header{display:flex;justify-content:space-between;align-items:center}
+.logo{display:block;line-height:0}
+.logo img{height:24px;width:auto;display:block}
+.signin{font-size:16px;text-decoration:none;color:var(--ink2);letter-spacing:.02em;border-bottom:1px solid rgba(22,19,14,.25);padding-bottom:1px}
+.signin:hover{color:var(--ink);border-color:var(--ink)}
+.copy{align-self:end;padding:0 0 10px 18px}
+h1{font-family:var(--disp);font-weight:500;font-size:clamp(40px,4.3vw,64px);line-height:1;letter-spacing:-.012em;margin:0 0 22px;font-variation-settings:"opsz" 40;
+  text-shadow:0 .6px .6px rgba(58,42,18,.18)}
+h1 i{font-style:italic}
+.lead{font-size:21px;line-height:1.42;margin:0;max-width:560px;color:#2b261d}
+.sv{display:block;width:100%;height:auto;overflow:visible}
+.vis{margin:0 -64px}
+.sv-m{display:none}
+.sv text{font-family:var(--serif);fill:var(--ink)}
+.sv .ln{font-size:18px;font-variant-caps:all-small-caps;letter-spacing:.1em;font-weight:500}
+.sv .wk{font-size:16px;font-style:italic;fill:#3d362b}
+.sv .tempo{font-size:21px;font-style:italic;font-weight:500}
+.sv .illus{font-size:16px;font-variant-caps:all-small-caps;letter-spacing:.14em;fill:#4a4235}
+.sv .mark{font-size:19px;font-style:italic;fill:var(--blue)}
+.act{align-self:start;padding:6px 0 0 18px}
+.btn{display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;font-size:19px;letter-spacing:.02em;
+  padding:15px 30px 16px;border-radius:2px;
+  box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 1px 1px rgba(40,28,10,.35),0 6px 16px -8px rgba(40,28,10,.6);
+  transition:background .2s, transform .2s}
+.btn:hover{background:var(--blue);transform:translateY(-1px)}
+
+/* moving parts, only with JavaScript and motion */
+.ph{opacity:0}
+html.anim .ph{opacity:1;transition:opacity .4s}
+html.anim .ph.off{opacity:0}
+.n{transform-box:fill-box;transform-origin:50% 70%}
+html.anim .n{transition:opacity .35s ease-out, transform .5s cubic-bezier(.2,.8,.2,1)}
+html.anim .n.wait{opacity:0;transform:translateY(-6px) scale(1.12)}
+html.anim .mark{transition:opacity .6s}
+html.anim .mark.wait{opacity:0}
+.sweep{position:absolute;top:0;bottom:0;width:46vw;left:0;pointer-events:none;opacity:0;z-index:1;
+  background:radial-gradient(50% 45% at 50% 50%, rgba(255,251,236,.55), transparent 70%);mix-blend-mode:screen;transform:translateX(-50%)}
+html.anim .sweep{opacity:1}
+.inner{z-index:2}
+
+/* coda */
+.coda{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12vh 24px 0;text-align:center}
+.coda>*:not(.plate){position:relative;z-index:1}
+.sv-f{width:min(420px,84vw);height:auto;display:block;margin:0 auto 34px}
+.coda p{font-family:var(--disp);font-weight:500;font-size:clamp(30px,3.3vw,46px);line-height:1.15;margin:0 0 40px;max-width:16em;font-variation-settings:"opsz" 30}
+.coda p i{font-style:italic}
+footer{margin-top:auto;padding:12vh 0 44px;font-size:13px;color:#5b5246;letter-spacing:.02em}
+footer a{text-decoration:none;margin-left:14px}
+footer a:hover{text-decoration:underline}
+
+@media (max-width:960px){
+  .sv-d{display:none}
+  .sv-m{display:block;max-width:560px}
+  .vis{margin:0 -14px}
+  .plate,.inner{inset:10px}
+  .inner{grid-template-rows:auto auto auto auto;align-content:start;padding:18px 14px 0}
+  .logo img{height:20px}
+  .signin{font-size:15px}
+  .copy{padding:0 6px;margin-top:7vh}
+  h1{font-size:clamp(38px,10.6vw,52px);line-height:1.02;margin-bottom:16px}
+  .lead{font-size:18px;line-height:1.4}
+  .sv-m{margin-top:5vh}
+  .sv .ln{font-size:16px;letter-spacing:.06em}
+  .sv .wk,.sv .illus{font-size:15px}
+  .sv .tempo{font-size:16px}
+  .sv .mark{font-size:16px}
+  .act{padding:3.5vh 6px 0}
+  .btn{font-size:18px;padding:14px 24px 15px}
+  .sweep{width:110vw}
+}
+@media (max-width:370px){
+  h1{font-size:36px}
+  .lead{font-size:17px}
+  .copy{margin-top:4vh}
+}
+@media (prefers-reduced-motion:reduce){
+  .btn{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="light" aria-hidden="true"></div>
+<main>
+<section class="score" aria-labelledby="t">
+  <div class="stage">
+    <div class="plate" aria-hidden="true"></div>
+    <div class="sweep" aria-hidden="true"></div>
+    <div class="inner">
+      <header>
+        <a class="logo" href="#"><img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="95" height="24"></a>
+        <a class="signin" href="https://strapivo.app">Sign in</a>
+      </header>
+      <div class="copy">
+        <h1 id="t">Five lines. <i>One note a week.</i></h1>
+        <p class="lead">Strapivo is software where a leadership team reviews its strategy every week. Each question ends with one of five answers.</p>
+      </div>
+      <div class="vis">
+<svg class="sv sv-d" viewBox="0 -60 1440 396" data-x0="222" data-bw="95.17" role="img" aria-label="A musical stave whose five lines are named Pivot, Take advantage, Adapt, Hold and Not yet. Twelve bars, one per week. Each holds one note on the line of that week&#39;s answer. The week 5 note, Not yet, is hollow and tied in blue to week 10, when the question returns as Adapt."><defs>
+<filter id="inkD" x="-2%" y="-10%" width="104%" height="120%" color-interpolation-filters="sRGB">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="n"/>
+<feDisplacementMap in="SourceGraphic" in2="n" scale="1.3" xChannelSelector="R" yChannelSelector="G" result="d"/>
+<feGaussianBlur in="d" stdDeviation="0.35" result="sp"/>
+<feComposite in="sp" in2="d" operator="arithmetic" k2="0.45" k3="0.75" result="ink"/>
+<feGaussianBlur in="SourceAlpha" stdDeviation="0.9" result="sb"/>
+<feOffset in="sb" dx="0.4" dy="1.1" result="so"/>
+<feFlood flood-color="#3a2a12" flood-opacity="0.22"/>
+<feComposite in2="so" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="ink"/></feMerge>
+</filter>
+</defs><g filter="url(#inkD)" fill="#16130e"><rect x="222" y="69.18" width="1156" height="1.63"/><rect x="222" y="103.18" width="1156" height="1.63"/><rect x="222" y="137.18" width="1156" height="1.63"/><rect x="222" y="171.18" width="1156" height="1.63"/><rect x="222" y="205.18" width="1156" height="1.63"/><rect x="222" y="69.18" width="2.04" height="137.63"/><rect x="1371.2" y="69.18" width="6.8" height="137.63"/><rect x="1361.68" y="69.18" width="2.04" height="137.63"/><rect x="316.15" y="69.18" width="2.04" height="137.63"/><rect x="411.31" y="69.18" width="2.04" height="137.63"/><rect x="506.48" y="69.18" width="2.04" height="137.63"/><rect x="601.65" y="69.18" width="2.04" height="137.63"/><rect x="696.81" y="69.18" width="2.04" height="137.63"/><rect x="791.98" y="69.18" width="2.04" height="137.63"/><rect x="887.15" y="69.18" width="2.04" height="137.63"/><rect x="982.31" y="69.18" width="2.04" height="137.63"/><rect x="1077.48" y="69.18" width="2.04" height="137.63"/><rect x="1172.65" y="69.18" width="2.04" height="137.63"/><rect x="1267.81" y="69.18" width="2.04" height="137.63"/><text class="ln" x="200" y="76" text-anchor="end">Pivot</text><text class="ln" x="200" y="110" text-anchor="end">Take advantage</text><text class="ln" x="200" y="144" text-anchor="end">Adapt</text><text class="ln" x="200" y="178" text-anchor="end">Hold</text><text class="ln" x="200" y="212" text-anchor="end">Not yet</text><g class="notes"><g class="n" data-i="1"><ellipse cx="269.58" cy="172" rx="21.76" ry="14.96" transform="rotate(-20 269.58 172)"/><rect x="286.93" y="53" width="2.89" height="117"/></g><g class="n" data-i="2"><ellipse cx="364.75" cy="172" rx="21.76" ry="14.96" transform="rotate(-20 364.75 172)"/><rect x="382.1" y="53" width="2.89" height="117"/></g><g class="n" data-i="3"><ellipse cx="459.92" cy="138" rx="21.76" ry="14.96" transform="rotate(-20 459.92 138)"/><rect x="477.26" y="19" width="2.89" height="117"/></g><g class="n" data-i="4"><ellipse cx="555.08" cy="172" rx="21.76" ry="14.96" transform="rotate(-20 555.08 172)"/><rect x="572.43" y="53" width="2.89" height="117"/></g><g class="n" data-i="5"><path fill-rule="evenodd" d="M670.7 198.56 L671.19 200.46 L671.33 202.45 L671.1 204.5 L670.52 206.58 L669.59 208.65 L668.33 210.68 L666.76 212.62 L664.9 214.45 L662.8 216.14 L660.48 217.65 L657.99 218.97 L655.37 220.06 L652.65 220.91 L649.9 221.51 L647.15 221.84 L644.46 221.9 L641.86 221.68 L639.41 221.2 L637.14 220.46 L635.1 219.47 L633.32 218.26 L631.82 216.83 L630.65 215.21 L629.8 213.44 L629.31 211.54 L629.17 209.55 L629.4 207.5 L629.98 205.42 L630.91 203.35 L632.17 201.32 L633.74 199.38 L635.6 197.55 L637.7 195.86 L640.02 194.35 L642.51 193.03 L645.13 191.94 L647.85 191.09 L650.6 190.49 L653.35 190.16 L656.04 190.1 L658.64 190.32 L661.09 190.8 L663.36 191.54 L665.4 192.53 L667.18 193.74 L668.68 195.17 L669.85 196.79Z M663.28 196.54 L663.74 197.41 L663.97 198.42 L663.97 199.57 L663.73 200.83 L663.26 202.17 L662.57 203.59 L661.67 205.04 L660.57 206.51 L659.3 207.97 L657.87 209.4 L656.31 210.76 L654.65 212.05 L652.91 213.24 L651.13 214.29 L649.33 215.21 L647.54 215.97 L645.81 216.56 L644.15 216.97 L642.59 217.19 L641.17 217.22 L639.9 217.06 L638.8 216.71 L637.91 216.17 L637.22 215.46 L636.76 214.59 L636.53 213.58 L636.53 212.43 L636.77 211.17 L637.24 209.83 L637.93 208.41 L638.83 206.96 L639.93 205.49 L641.2 204.03 L642.63 202.6 L644.19 201.24 L645.85 199.95 L647.59 198.76 L649.37 197.71 L651.17 196.79 L652.96 196.03 L654.69 195.44 L656.35 195.03 L657.91 194.81 L659.33 194.78 L660.6 194.94 L661.7 195.29 L662.59 195.83Z"/><rect x="667.6" y="87" width="2.89" height="117"/></g><g class="n" data-i="6"><ellipse cx="745.42" cy="172" rx="21.76" ry="14.96" transform="rotate(-20 745.42 172)"/><rect x="762.76" y="53" width="2.89" height="117"/></g><g class="n" data-i="7"><ellipse cx="840.58" cy="138" rx="21.76" ry="14.96" transform="rotate(-20 840.58 138)"/><rect x="857.93" y="19" width="2.89" height="117"/></g><g class="n" data-i="8"><ellipse cx="935.75" cy="104" rx="21.76" ry="14.96" transform="rotate(-20 935.75 104)"/><rect x="915.51" y="106" width="2.89" height="117"/></g><g class="n" data-i="9"><ellipse cx="1030.92" cy="172" rx="21.76" ry="14.96" transform="rotate(-20 1030.92 172)"/><rect x="1048.26" y="53" width="2.89" height="117"/></g><g class="n" data-i="10"><ellipse cx="1126.08" cy="138" rx="21.76" ry="14.96" transform="rotate(-20 1126.08 138)"/><rect x="1143.43" y="19" width="2.89" height="117"/></g><g class="n" data-i="11"><ellipse cx="1221.25" cy="172" rx="21.76" ry="14.96" transform="rotate(-20 1221.25 172)"/><rect x="1238.6" y="53" width="2.89" height="117"/></g><g class="n" data-i="12"><ellipse cx="1316.42" cy="70" rx="21.76" ry="14.96" transform="rotate(-20 1316.42 70)"/><rect x="1296.18" y="72" width="2.89" height="117"/></g></g><text class="wk" x="269.58" y="252" text-anchor="middle">Week 1</text><text class="wk" x="1316.42" y="252" text-anchor="middle">Week 12</text><text class="tempo" x="222" y="36">Weekly, sixty minutes.</text><text class="illus" x="1378" y="36" text-anchor="end">Illustrative</text></g><g filter="url(#inkD)"><mask id="tmD" maskUnits="userSpaceOnUse" x="0" y="-60" width="1440" height="420"><path class="tm" d="M646.25 227.08 C710.25 327.5 1056.08 329.5 1120.08 158.4" fill="none" stroke="#fff" stroke-width="40" stroke-linecap="butt"/></mask><path class="tie" d="M646.25 227.08 C710.25 324 1056.08 326 1120.08 158.4 C1056.08 333 710.25 331 646.25 227.08Z" fill="#1D3F8F" mask="url(#tmD)"/><text class="mark" x="896.17" y="342" text-anchor="middle">Parked. Returns in week 10.</text></g><g class="ph"><rect x="-0.75" y="48" width="1.5" height="180" fill="#1D3F8F"/><circle cx="0" cy="48" r="2.6" fill="#1D3F8F"/><circle cx="0" cy="228" r="2.6" fill="#1D3F8F"/></g></svg>
+<svg class="sv sv-m" viewBox="0 0 390 418" data-sys="138,38.67,66;20,57,226" role="img" aria-label="A musical stave whose five lines are named Pivot, Take advantage, Adapt, Hold and Not yet. Twelve bars, one per week. Each holds one note on the line of that week&#39;s answer. The week 5 note, Not yet, is hollow and tied in blue to week 10, when the question returns as Adapt."><defs>
+<filter id="inkM" x="-2%" y="-10%" width="104%" height="120%" color-interpolation-filters="sRGB">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="n"/>
+<feDisplacementMap in="SourceGraphic" in2="n" scale="0.9" xChannelSelector="R" yChannelSelector="G" result="d"/>
+<feGaussianBlur in="d" stdDeviation="0.35" result="sp"/>
+<feComposite in="sp" in2="d" operator="arithmetic" k2="0.45" k3="0.75" result="ink"/>
+<feGaussianBlur in="SourceAlpha" stdDeviation="0.6" result="sb"/>
+<feOffset in="sb" dx="0.4" dy="0.8" result="so"/>
+<feFlood flood-color="#3a2a12" flood-opacity="0.22"/>
+<feComposite in2="so" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="ink"/></feMerge>
+</filter>
+</defs><g filter="url(#inkM)" fill="#16130e"><rect x="138" y="65.4" width="234" height="1.2"/><rect x="138" y="87.4" width="234" height="1.2"/><rect x="138" y="109.4" width="234" height="1.2"/><rect x="138" y="131.4" width="234" height="1.2"/><rect x="138" y="153.4" width="234" height="1.2"/><rect x="138" y="65.4" width="1.6" height="89.2"/><rect x="370.4" y="65.4" width="1.6" height="89.2"/><rect x="175.87" y="65.4" width="1.6" height="89.2"/><rect x="214.53" y="65.4" width="1.6" height="89.2"/><rect x="253.2" y="65.4" width="1.6" height="89.2"/><rect x="291.87" y="65.4" width="1.6" height="89.2"/><rect x="330.53" y="65.4" width="1.6" height="89.2"/><g class="n" data-i="1"><ellipse cx="157.33" cy="132" rx="14.08" ry="9.68" transform="rotate(-20 157.33 132)"/><rect x="168.23" y="55" width="2.2" height="75"/></g><g class="n" data-i="2"><ellipse cx="196" cy="132" rx="14.08" ry="9.68" transform="rotate(-20 196 132)"/><rect x="206.89" y="55" width="2.2" height="75"/></g><g class="n" data-i="3"><ellipse cx="234.67" cy="110" rx="14.08" ry="9.68" transform="rotate(-20 234.67 110)"/><rect x="245.56" y="33" width="2.2" height="75"/></g><g class="n" data-i="4"><ellipse cx="273.33" cy="132" rx="14.08" ry="9.68" transform="rotate(-20 273.33 132)"/><rect x="284.23" y="55" width="2.2" height="75"/></g><g class="n" data-i="5"><path fill-rule="evenodd" d="M325.23 149.18 L325.55 150.41 L325.64 151.7 L325.49 153.03 L325.11 154.38 L324.51 155.72 L323.7 157.03 L322.68 158.28 L321.48 159.47 L320.12 160.56 L318.62 161.54 L317.01 162.39 L315.31 163.1 L313.56 163.65 L311.77 164.03 L310 164.25 L308.25 164.29 L306.57 164.15 L304.99 163.84 L303.52 163.36 L302.2 162.72 L301.04 161.93 L300.08 161.01 L299.31 159.96 L298.77 158.82 L298.45 157.59 L298.36 156.3 L298.51 154.97 L298.89 153.62 L299.49 152.28 L300.3 150.97 L301.32 149.72 L302.52 148.53 L303.88 147.44 L305.38 146.46 L306.99 145.61 L308.69 144.9 L310.44 144.35 L312.23 143.97 L314 143.75 L315.75 143.71 L317.43 143.85 L319.01 144.16 L320.48 144.64 L321.8 145.28 L322.96 146.07 L323.92 146.99 L324.69 148.04Z M320.43 147.88 L320.73 148.44 L320.88 149.1 L320.88 149.84 L320.72 150.65 L320.42 151.52 L319.97 152.44 L319.39 153.38 L318.68 154.33 L317.85 155.27 L316.93 156.2 L315.92 157.08 L314.84 157.92 L313.72 158.68 L312.57 159.37 L311.4 159.96 L310.25 160.45 L309.13 160.83 L308.05 161.1 L307.04 161.24 L306.12 161.26 L305.3 161.16 L304.59 160.93 L304.01 160.58 L303.57 160.12 L303.27 159.56 L303.12 158.9 L303.12 158.16 L303.28 157.35 L303.58 156.48 L304.03 155.56 L304.61 154.62 L305.32 153.67 L306.15 152.73 L307.07 151.8 L308.08 150.92 L309.16 150.08 L310.28 149.32 L311.43 148.63 L312.6 148.04 L313.75 147.55 L314.87 147.17 L315.95 146.9 L316.96 146.76 L317.88 146.74 L318.7 146.84 L319.41 147.07 L319.99 147.42Z"/><rect x="322.89" y="77" width="2.2" height="75"/></g><g class="n" data-i="6"><ellipse cx="350.67" cy="132" rx="14.08" ry="9.68" transform="rotate(-20 350.67 132)"/><rect x="361.56" y="55" width="2.2" height="75"/></g><rect x="20" y="225.4" width="352" height="1.2"/><rect x="20" y="247.4" width="352" height="1.2"/><rect x="20" y="269.4" width="352" height="1.2"/><rect x="20" y="291.4" width="352" height="1.2"/><rect x="20" y="313.4" width="352" height="1.2"/><rect x="20" y="225.4" width="1.6" height="89.2"/><rect x="367.6" y="225.4" width="4.4" height="89.2"/><rect x="361.16" y="225.4" width="1.6" height="89.2"/><rect x="76.2" y="225.4" width="1.6" height="89.2"/><rect x="133.2" y="225.4" width="1.6" height="89.2"/><rect x="190.2" y="225.4" width="1.6" height="89.2"/><rect x="247.2" y="225.4" width="1.6" height="89.2"/><rect x="304.2" y="225.4" width="1.6" height="89.2"/><g class="n" data-i="7"><ellipse cx="48.5" cy="270" rx="14.08" ry="9.68" transform="rotate(-20 48.5 270)"/><rect x="59.39" y="193" width="2.2" height="75"/></g><g class="n" data-i="8"><ellipse cx="105.5" cy="248" rx="14.08" ry="9.68" transform="rotate(-20 105.5 248)"/><rect x="92.41" y="250" width="2.2" height="75"/></g><g class="n" data-i="9"><ellipse cx="162.5" cy="292" rx="14.08" ry="9.68" transform="rotate(-20 162.5 292)"/><rect x="173.39" y="215" width="2.2" height="75"/></g><g class="n" data-i="10"><ellipse cx="219.5" cy="270" rx="14.08" ry="9.68" transform="rotate(-20 219.5 270)"/><rect x="230.39" y="193" width="2.2" height="75"/></g><g class="n" data-i="11"><ellipse cx="276.5" cy="292" rx="14.08" ry="9.68" transform="rotate(-20 276.5 292)"/><rect x="287.39" y="215" width="2.2" height="75"/></g><g class="n" data-i="12"><ellipse cx="333.5" cy="226" rx="14.08" ry="9.68" transform="rotate(-20 333.5 226)"/><rect x="320.41" y="228" width="2.2" height="75"/></g><text class="ln" x="126" y="71" text-anchor="end">Pivot</text><text class="ln" x="126" y="93" text-anchor="end">Take advantage</text><text class="ln" x="126" y="115" text-anchor="end">Adapt</text><text class="ln" x="126" y="137" text-anchor="end">Hold</text><text class="ln" x="126" y="159" text-anchor="end">Not yet</text><text class="wk" x="157.33" y="188" text-anchor="middle">Week 1</text><text class="wk" x="333.5" y="348" text-anchor="end" dx="16">Week 12</text><text class="tempo" x="134" y="20">Weekly, sixty minutes.</text><text class="illus" x="372" y="406" text-anchor="end">Illustrative</text></g><g filter="url(#inkM)"><mask id="tmM1" maskUnits="userSpaceOnUse" x="-20" y="0" width="430" height="420"><path class="tm" d="M309 167.64 C326 204.3 322 206.3 380 204" fill="none" stroke="#fff" stroke-width="26" stroke-linecap="butt"/></mask><mask id="tmM2" maskUnits="userSpaceOnUse" x="-20" y="0" width="430" height="420"><path class="tm" d="M12 364 C90 366.3 189.5 370.3 215.5 283.2" fill="none" stroke="#fff" stroke-width="26" stroke-linecap="butt"/></mask><path class="tie" d="M309 167.64 C326 202 322 204 380 204 C322 208.6 326 206.6 309 167.64Z" fill="#1D3F8F" mask="url(#tmM1)"/><path class="tie" d="M12 364 C90 364 189.5 368 215.5 283.2 C189.5 372.6 90 368.6 12 364Z" fill="#1D3F8F" mask="url(#tmM2)"/><text class="mark" x="125.75" y="406" text-anchor="middle">Parked. Returns in week 10.</text></g><g class="ph"><rect x="-0.6" y="-16" width="1.2" height="120" fill="#1D3F8F"/><circle cx="0" cy="-16" r="2" fill="#1D3F8F"/><circle cx="0" cy="104" r="2" fill="#1D3F8F"/></g></svg>
+      </div>
+      <div class="act"><a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a></div>
+    </div>
+  </div>
+</section>
+<section class="coda" aria-label="Hold">
+  <div class="plate" aria-hidden="true"></div>
+  <svg class="sv-f" viewBox="0 30 420 240" aria-hidden="true"><defs>
+<filter id="inkF" x="-2%" y="-10%" width="104%" height="120%" color-interpolation-filters="sRGB">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="n"/>
+<feDisplacementMap in="SourceGraphic" in2="n" scale="1.1" xChannelSelector="R" yChannelSelector="G" result="d"/>
+<feGaussianBlur in="d" stdDeviation="0.35" result="sp"/>
+<feComposite in="sp" in2="d" operator="arithmetic" k2="0.45" k3="0.75" result="ink"/>
+<feGaussianBlur in="SourceAlpha" stdDeviation="0.8" result="sb"/>
+<feOffset in="sb" dx="0.4" dy="1" result="so"/>
+<feFlood flood-color="#3a2a12" flood-opacity="0.22"/>
+<feComposite in2="so" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="ink"/></feMerge>
+</filter>
+</defs><g filter="url(#inkF)" fill="#16130e"><rect x="20" y="119.28" width="380" height="1.44"/><rect x="20" y="149.28" width="380" height="1.44"/><rect x="20" y="179.28" width="380" height="1.44"/><rect x="20" y="209.28" width="380" height="1.44"/><rect x="20" y="239.28" width="380" height="1.44"/><rect x="20" y="119.28" width="1.8" height="121.44"/><rect x="394" y="119.28" width="6" height="121.44"/><rect x="385.6" y="119.28" width="1.8" height="121.44"/><g class="n" data-i="0"><ellipse cx="203" cy="210" rx="19.2" ry="13.2" transform="rotate(-20 203 210)"/><rect x="218.31" y="105" width="2.55" height="103"/></g><path d="M173 90 A30 30 0 0 1 233 90 L231 90 A28 23 0 0 0 175 90Z"/><circle cx="203" cy="86" r="4.6"/></g></svg>
+  <p>Most weeks the answer is Hold.<br> <i>That is a decision too.</i></p>
+  <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+  <footer>© 2026 Strapivo <a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+</section>
+</main>
+<script>
+(function(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var R = document.documentElement; R.classList.add('anim');
+  var score = document.querySelector('.score'), sweep = document.querySelector('.sweep');
+  var svD = document.querySelector('.sv-d'), svM = document.querySelector('.sv-m');
+  function setup(sv){
+    var o = {sv:sv, notes:[].slice.call(sv.querySelectorAll('.n')), ph:sv.querySelector('.ph'),
+      tm:[].slice.call(sv.querySelectorAll('.tm')), mark:sv.querySelector('.mark')};
+    o.len = o.tm.map(function(p){var l=p.getTotalLength(); p.style.strokeDasharray=l+' '+(l+60); return l;});
+    if (sv.dataset.sys) o.sys = sv.dataset.sys.split(';').map(function(s){var a=s.split(',').map(Number);return {x0:a[0],bw:a[1],y1:a[2]};});
+    else o.sys=[{x0:+sv.dataset.x0,bw:+sv.dataset.bw,y1:0}];
+    return o;
+  }
+  var D = setup(svD), M = setup(svM);
+  function cl(v){return v<0?0:v>1?1:v}
+  var last=-1, ticking=false;
+  function draw(){
+    ticking=false;
+    var mob = getComputedStyle(svM).display!=='none', o = mob?M:D;
+    var h = score.offsetHeight - innerHeight;
+    var p = cl((scrollY - score.offsetTop)/(h||1));
+    var b = 4 + cl(p/0.82)*8;
+    o.notes.forEach(function(n){ n.classList.toggle('wait', b < +n.dataset.i - 0.5); });
+    var x, sy;
+    if (mob){ var s = b<6?o.sys[0]:o.sys[1]; x = s.x0 + (b - (b<6?0:6))*s.bw; sy = s.y1; }
+    else { x = o.sys[0].x0 + b*o.sys[0].bw; sy = 0; }
+    if (b>=12) x -= mob?10:14;
+    o.ph.setAttribute('transform','translate('+x.toFixed(1)+' '+sy+')');
+    o.ph.classList.toggle('off', p>0.9);
+    var segs = mob ? [[4.5,6],[6,9.5]] : [[4.5,9.5]];
+    o.tm.forEach(function(t,k){ var q = cl((b-segs[k][0])/(segs[k][1]-segs[k][0])); t.style.strokeDashoffset = (o.len[k]*(1-q)).toFixed(1); t.parentNode.parentNode.querySelectorAll('.tie')[k].style.opacity = q>0?1:0; });
+    o.mark.classList.toggle('wait', b < 9.6);
+    var r = o.sv.getBoundingClientRect(), vb = o.sv.viewBox.baseVal;
+    sweep.style.left = (r.left + (x - vb.x)/vb.width*r.width).toFixed(1)+'px';
+  }
+  function req(){ if(!ticking){ticking=true;requestAnimationFrame(draw);} }
+  addEventListener('scroll', req, {passive:true});
+  addEventListener('resize', req);
+  draw();
+})();
+</script>
+<script src="/landings/prompt.js" defer></script>
+</body>
+</html>
