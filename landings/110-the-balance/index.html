@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo · One blog post cannot raise an alarm</title>
+<meta name="description" content="Strapivo is where a leadership team watches the risks to its strategy, with a dated source behind every signal.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Cormorant+SC:wght@600&display=swap" rel="stylesheet">
+<script>
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('anim');
+</script>
+<style>
+  :root {
+    --teal: #123F45;
+    --cream: #F2E8D2;
+    --cream-2: #D8CCB0;
+    --brass: #C9A24A;
+    --brass-lt: #E8CD86;
+  }
+  * { box-sizing: border-box; }
+  html { background: #0A2528; }
+  body {
+    margin: 0;
+    color: var(--cream);
+    font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  a:focus-visible { outline: 2px solid var(--cream); outline-offset: 4px; border-radius: 2px; }
+
+  .grain {
+    position: fixed; inset: 0; z-index: 5; pointer-events: none;
+    opacity: .5; mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .run { position: relative; height: 100vh; height: 100svh; }
+  .anim .run { height: 360vh; }
+  .stage {
+    position: sticky; top: 0;
+    height: 100vh; height: 100svh;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 30% 40% at 65% 30%, rgba(255, 226, 160, .13), rgba(255, 226, 160, 0) 72%),
+      radial-gradient(ellipse 70% 82% at 64% 30%, #1D575D 0%, #123F45 42%, #0A2427 78%, #071B1E 100%);
+  }
+
+  .top {
+    position: absolute; z-index: 3; left: 6vw; right: 6vw; top: 4.6vh;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .logo { display: block; line-height: 0; }
+  .logo img { height: 24px; width: auto; display: block; }
+  .signin {
+    font-family: "Cormorant SC", Georgia, serif; font-weight: 600;
+    font-size: 17px; letter-spacing: .08em; text-decoration: none; color: var(--cream-2);
+    padding: 6px 0;
+  }
+  .signin:hover { color: var(--cream); }
+
+  .fig {
+    position: absolute; z-index: 1; margin: 0;
+    height: 70vh; aspect-ratio: 3 / 2;
+    left: calc(65vw - 52.5vh);
+    bottom: 3vh;
+  }
+  .fig svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .tags { display: none; }
+
+  .copy {
+    position: absolute; z-index: 2; left: 6vw; top: 15.5vh;
+    width: min(27vw, 410px);
+  }
+  h1 {
+    margin: 0; font-weight: 500;
+    font-size: clamp(40px, 4.15vw, 66px); line-height: 1.02; letter-spacing: -.012em;
+    color: var(--cream);
+  }
+  .lede {
+    margin: 26px 0 30px; font-size: clamp(19px, 1.45vw, 22px); line-height: 1.38;
+    color: var(--cream-2); max-width: 24em;
+  }
+  .btn {
+    display: inline-block; text-decoration: none;
+    font-family: "Cormorant SC", Georgia, serif; font-weight: 600;
+    font-size: 18px; letter-spacing: .07em;
+    color: #10292D; padding: 13px 24px 14px;
+    background: linear-gradient(180deg, #ECD48F 0%, #C9A24A 55%, #A9832F 100%);
+    border-radius: 2px;
+    box-shadow: 0 1px 0 rgba(255,245,210,.5) inset, 0 10px 24px -10px rgba(0,0,0,.6);
+  }
+  .btn:hover { background: linear-gradient(180deg, #F4DFA2 0%, #D3AE56 55%, #B08A33 100%); }
+
+  .coda {
+    position: absolute; z-index: 2; left: 6vw; bottom: 14vh; margin: 0;
+    width: min(27vw, 400px);
+    font-style: italic; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.3; color: var(--cream);
+  }
+  .coda::before {
+    content: ""; display: block; width: 36px; height: 1px; background: var(--brass); margin-bottom: 16px;
+  }
+
+  footer {
+    position: relative; z-index: 2;
+    padding: 22px 6vw 26px; background: #071C1F;
+    font-size: 13px; color: #A9BCB8; font-family: Georgia, serif;
+  }
+  footer a { color: #A9BCB8; margin-left: 14px; }
+  footer a:hover { color: var(--cream); }
+
+  .svt { font-family: "Cormorant SC", Georgia, serif; font-weight: 600; }
+
+  @media (max-width: 1100px) and (min-width: 761px) {
+    .fig { height: auto; width: 74vw; left: 22vw; bottom: 4vh; }
+    .copy { width: 40vw; }
+    .coda { width: 34vw; }
+  }
+
+  @media (max-width: 760px) {
+    .stage { display: flex; flex-direction: column; padding: 0 22px; }
+    .top { position: relative; left: 0; right: 0; top: 0; padding-top: 20px; }
+    .logo img { height: 21px; }
+    .fig {
+      position: relative; left: auto; bottom: auto; height: auto; aspect-ratio: auto;
+      width: calc(100% + 8px); margin: 8vh -4px 0;
+    }
+    .fig svg { height: auto; aspect-ratio: 3 / 2; }
+    .svt { display: none; }
+    .tags {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-top: 8px; font-family: "Cormorant SC", Georgia, serif; font-weight: 600;
+      font-size: 15px; line-height: 1.2; letter-spacing: .04em; color: var(--cream-2);
+    }
+    .tags .r { text-align: right; max-width: 58%; }
+    .tags b { display: block; font-weight: 600; color: var(--brass-lt); margin-top: 3px; }
+    .stage { padding-bottom: 30px; }
+    .copy { position: relative; left: auto; top: auto; width: auto; margin-top: auto; padding-top: 20px; }
+    h1 { font-size: 35px; line-height: 1.04; text-wrap: balance; }
+    h1 br { display: none; }
+    .lede { font-size: 18px; margin: 12px 0 18px; line-height: 1.34; }
+    .btn { font-size: 17px; padding: 11px 20px 12px; }
+    .coda { position: relative; left: auto; bottom: auto; width: auto; margin-top: 20px; font-size: 18px; }
+    .coda::before { margin-bottom: 10px; width: 28px; }
+    footer a { margin-left: 10px; }
+  }
+  @media (max-width: 370px) {
+    h1 { font-size: 31px; }
+    .lede { font-size: 17px; }
+    .fig { margin-top: 3vh; }
+    .coda { margin-top: 14px; font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<main>
+<section class="run" id="run">
+  <div class="stage">
+    <div class="top">
+      <a class="logo" href="#"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="99" height="25"></a>
+      <a class="signin" href="https://strapivo.app">Sign in</a>
+    </div>
+
+    <figure class="fig">
+      <svg viewBox="60 0 1080 720" role="img" aria-label="A brass beam balance. On one tray sits an iron block marked alarm. On the other, five paper slips pile up, a blog post, a repost, a rumour, an opinion and another repost, and the beam does not move. One small brass weight marked primary source is set on the pile, the beam swings, and the alarm rises.">
+        <defs>
+          <linearGradient id="gCol" x1="0" x2="1">
+            <stop offset="0" stop-color="#3A290B"/><stop offset=".13" stop-color="#755519"/>
+            <stop offset=".33" stop-color="#C39C45"/><stop offset=".45" stop-color="#F7E6AC"/>
+            <stop offset=".53" stop-color="#DDBB63"/><stop offset=".74" stop-color="#94702A"/>
+            <stop offset="1" stop-color="#36260A"/>
+          </linearGradient>
+          <linearGradient id="gBar" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FCEFC4"/><stop offset=".22" stop-color="#E0BE68"/>
+            <stop offset=".56" stop-color="#A47D2E"/><stop offset=".86" stop-color="#674B17"/>
+            <stop offset="1" stop-color="#3B2A0B"/>
+          </linearGradient>
+          <linearGradient id="gFace" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#D9B663"/><stop offset=".35" stop-color="#A9822F"/>
+            <stop offset="1" stop-color="#4E3810"/>
+          </linearGradient>
+          <linearGradient id="gFaceL" x1="0" x2="1">
+            <stop offset="0" stop-color="#000" stop-opacity=".45"/><stop offset=".3" stop-color="#000" stop-opacity="0"/>
+            <stop offset=".5" stop-color="#FFF6D0" stop-opacity=".22"/><stop offset=".7" stop-color="#000" stop-opacity="0"/>
+            <stop offset="1" stop-color="#000" stop-opacity=".5"/>
+          </linearGradient>
+          <linearGradient id="gTop" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#C9A653"/><stop offset="1" stop-color="#FBEAB4"/>
+          </linearGradient>
+          <linearGradient id="gIn" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#4C370F"/><stop offset=".55" stop-color="#8E6C27"/>
+            <stop offset="1" stop-color="#D8B867"/>
+          </linearGradient>
+          <radialGradient id="gBoss" cx=".36" cy=".3" r=".8">
+            <stop offset="0" stop-color="#FFF6D2"/><stop offset=".28" stop-color="#E6C875"/>
+            <stop offset=".72" stop-color="#8D6A26"/><stop offset="1" stop-color="#3F2D0B"/>
+          </radialGradient>
+          <linearGradient id="gIron" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#36434A"/><stop offset=".45" stop-color="#1E282C"/>
+            <stop offset="1" stop-color="#0E1315"/>
+          </linearGradient>
+          <linearGradient id="gIronTop" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2B363B"/><stop offset="1" stop-color="#55646B"/>
+          </linearGradient>
+          <linearGradient id="gPaper" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FBF5E6"/><stop offset="1" stop-color="#EADFC6"/>
+          </linearGradient>
+          <linearGradient id="gTable" gradientUnits="userSpaceOnUse" x1="0" y1="628" x2="0" y2="1200">
+            <stop offset="0" stop-color="#0C3035"/><stop offset=".22" stop-color="#0E3439"/><stop offset=".5" stop-color="#0A2629"/>
+            <stop offset="1" stop-color="#061A1D"/>
+          </linearGradient>
+          <radialGradient id="gPool" cx=".5" cy=".5" r=".5">
+            <stop offset="0" stop-color="#FFE3A6" stop-opacity=".16"/><stop offset="1" stop-color="#FFE3A6" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="gSteel" x1="0" x2="1">
+            <stop offset="0" stop-color="#0D1214"/><stop offset=".5" stop-color="#3E4A4F"/><stop offset="1" stop-color="#0D1214"/>
+          </linearGradient>
+
+          <filter id="fStatic" x="-30%" y="-15%" width="170%" height="140%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency=".9 .035" numOctaves="2" seed="4" result="n"/>
+            <feColorMatrix in="n" type="saturate" values="0" result="g"/>
+            <feComponentTransfer in="g" result="g2">
+              <feFuncR type="linear" slope=".42" intercept=".78"/><feFuncG type="linear" slope=".42" intercept=".78"/>
+              <feFuncB type="linear" slope=".42" intercept=".78"/><feFuncA type="linear" slope="0" intercept="1"/>
+            </feComponentTransfer>
+            <feBlend in="SourceGraphic" in2="g2" mode="multiply" result="t"/>
+            <feComposite in="t" in2="SourceAlpha" operator="in" result="tex"/>
+            <feGaussianBlur in="SourceAlpha" stdDeviation="9" result="b"/>
+            <feOffset in="b" dx="16" dy="8" result="o"/>
+            <feFlood flood-color="#021316" flood-opacity=".55"/>
+            <feComposite in2="o" operator="in" result="sh"/>
+            <feMerge><feMergeNode in="sh"/><feMergeNode in="tex"/></feMerge>
+          </filter>
+          <filter id="fMove" x="-20%" y="-30%" width="150%" height="180%" color-interpolation-filters="sRGB">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="8" result="b"/>
+            <feOffset in="b" dx="16" dy="9" result="o"/>
+            <feFlood flood-color="#021316" flood-opacity=".5"/>
+            <feComposite in2="o" operator="in" result="sh"/>
+            <feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="fPaper" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="3" seed="9" result="t"/>
+            <feDiffuseLighting in="t" surfaceScale="1.1" lighting-color="#FFFFFF" result="d">
+              <feDistantLight azimuth="225" elevation="62"/>
+            </feDiffuseLighting>
+            <feComponentTransfer in="d" result="d2">
+              <feFuncR type="linear" slope=".55" intercept=".5"/><feFuncG type="linear" slope=".55" intercept=".5"/>
+              <feFuncB type="linear" slope=".55" intercept=".5"/>
+            </feComponentTransfer>
+            <feBlend in="SourceGraphic" in2="d2" mode="multiply" result="m"/>
+            <feComposite in="m" in2="SourceAlpha" operator="in"/>
+          </filter>
+          <filter id="fIron" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency=".55" numOctaves="4" seed="2" result="t"/>
+            <feDiffuseLighting in="t" surfaceScale="2.2" lighting-color="#FFFFFF" result="d">
+              <feDistantLight azimuth="235" elevation="55"/>
+            </feDiffuseLighting>
+            <feComponentTransfer in="d" result="d2">
+              <feFuncR type="linear" slope=".7" intercept=".55"/><feFuncG type="linear" slope=".7" intercept=".55"/>
+              <feFuncB type="linear" slope=".7" intercept=".55"/>
+            </feComponentTransfer>
+            <feBlend in="SourceGraphic" in2="d2" mode="multiply" result="m"/>
+            <feComposite in="m" in2="SourceAlpha" operator="in"/>
+          </filter>
+          <filter id="fB3" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+          <filter id="fB8" x="-30%" y="-200%" width="160%" height="500%"><feGaussianBlur stdDeviation="8"/></filter>
+          <filter id="fB14" x="-30%" y="-300%" width="160%" height="700%"><feGaussianBlur stdDeviation="14"/></filter>
+        </defs>
+
+        <!-- table -->
+        <rect x="-3000" y="628" width="7200" height="2400" fill="url(#gTable)"/>
+        <rect x="-3000" y="628" width="7200" height="1.2" fill="#E9D7A6" opacity=".08"/>
+        <ellipse cx="600" cy="680" rx="600" ry="80" fill="url(#gPool)"/>
+
+        <!-- shadows on the table -->
+        <ellipse id="shL" cx="175" cy="690" rx="120" ry="9" fill="#021013" opacity=".32" filter="url(#fB14)"/>
+        <ellipse id="shR" cx="1025" cy="690" rx="105" ry="8" fill="#021013" opacity=".42" filter="url(#fB14)"/>
+        <ellipse cx="612" cy="680" rx="180" ry="8" fill="#010B0D" opacity=".7" filter="url(#fB8)"/>
+
+        <!-- column and base -->
+        <g filter="url(#fStatic)">
+          <!-- base tier 3 -->
+          <path d="M462 630 L738 630 L728 621 L472 621 Z" fill="url(#gTop)"/>
+          <rect x="462" y="630" width="276" height="46" fill="url(#gFace)"/>
+          <rect x="462" y="630" width="276" height="46" fill="url(#gFaceL)"/>
+          <rect x="462" y="630" width="276" height="1.5" fill="#FFF1C4" opacity=".8"/>
+          <rect x="462" y="668" width="276" height="8" fill="#2E2108" opacity=".55"/>
+          <!-- tier 2 -->
+          <path d="M512 606 L688 606 L680 599 L520 599 Z" fill="url(#gTop)"/>
+          <rect x="512" y="606" width="176" height="24" fill="url(#gFace)"/>
+          <rect x="512" y="606" width="176" height="24" fill="url(#gFaceL)"/>
+          <rect x="512" y="606" width="176" height="1.3" fill="#FFF1C4" opacity=".8"/>
+          <!-- tier 1 -->
+          <path d="M548 590 L652 590 L646 585 L554 585 Z" fill="url(#gTop)"/>
+          <rect x="548" y="590" width="104" height="16" fill="url(#gFace)"/>
+          <rect x="548" y="590" width="104" height="16" fill="url(#gFaceL)"/>
+          <!-- lower moulding -->
+          <rect x="566" y="568" width="68" height="17" rx="8.5" fill="url(#gCol)"/>
+          <rect x="574" y="561" width="52" height="9" rx="4.5" fill="url(#gCol)"/>
+          <!-- shaft -->
+          <path d="M583 250 L617 250 L620 562 L580 562 Z" fill="url(#gCol)"/>
+          <g stroke="#3F2D0B" stroke-width="1" opacity=".35">
+            <line x1="589" y1="256" x2="587.5" y2="558"/><line x1="595" y1="256" x2="594.5" y2="558"/>
+            <line x1="605" y1="256" x2="605.5" y2="558"/><line x1="611" y1="256" x2="612.5" y2="558"/>
+          </g>
+          <!-- capital -->
+          <rect x="574" y="248" width="52" height="9" rx="4.5" fill="url(#gCol)"/>
+          <rect x="568" y="238" width="64" height="12" rx="6" fill="url(#gCol)"/>
+          <path d="M578 238 L578 206 Q578 198 586 198 L590 198 L590 220 Q600 228 610 220 L610 198 L614 198 Q622 198 622 206 L622 238 Z" fill="url(#gCol)"/>
+          <!-- index plate -->
+          <path d="M572.4 286.1 A100 100 0 0 0 627.6 286.1 L620.4 261.1 A74 74 0 0 1 579.6 261.1 Z" fill="#EDE3C9" stroke="#8A6A28" stroke-width="1.5"/>
+          <g stroke="#1B2326" stroke-width="1.2" stroke-linecap="round">
+            <line x1="582.5" y1="272.2" x2="580.5" y2="281.9"/><line x1="586.9" y1="273" x2="585.3" y2="282.8"/>
+            <line x1="591.2" y1="273.5" x2="590.2" y2="283.5"/><line x1="595.6" y1="273.9" x2="595.1" y2="283.9"/>
+            <line x1="600" y1="268" x2="600" y2="288" stroke="#8C2F1E" stroke-width="1.6"/>
+            <line x1="604.4" y1="273.9" x2="604.9" y2="283.9"/><line x1="608.8" y1="273.5" x2="609.8" y2="283.5"/>
+            <line x1="613.1" y1="273" x2="614.7" y2="282.8"/><line x1="617.5" y1="272.2" x2="619.5" y2="281.9"/>
+          </g>
+        </g>
+
+        <!-- beam -->
+        <g filter="url(#fMove)">
+          <g id="beam" transform="rotate(9 600 190)">
+            <g id="bar">
+            <path d="M166 186.5 Q380 182 600 175 Q820 182 1034 186.5 L1034 193.5 Q820 198 600 207 Q380 198 166 193.5 Z" fill="url(#gBar)"/>
+            <path d="M170 186.6 Q380 182.2 600 175.4 Q820 182.2 1030 186.6" fill="none" stroke="#FFF6D6" stroke-width="1" opacity=".75"/>
+            <circle cx="166" cy="190" r="7" fill="url(#gBoss)"/>
+            <circle cx="1034" cy="190" r="7" fill="url(#gBoss)"/>
+            </g>
+            <path d="M560 191 Q600 158 640 191 Q600 214 560 191 Z" fill="url(#gBar)"/>
+            <circle cx="600" cy="190" r="19" fill="url(#gBoss)"/>
+            <circle cx="600" cy="190" r="19" fill="none" stroke="#3F2D0B" stroke-width="1" opacity=".6"/>
+            <circle cx="600" cy="190" r="5.5" fill="url(#gSteel)"/>
+            <path d="M596.6 206 L600 286 L603.4 206 Z" fill="#141B1E"/>
+            <path d="M600 206 L600 284" stroke="#6A7A80" stroke-width=".6"/>
+          </g>
+        </g>
+
+        <!-- left tray: the alarm -->
+        <g id="trayL" transform="translate(175.3 122.7)">
+          <g filter="url(#fMove)">
+            <path d="M0 -3 C9 -3 9 10 0 12 C-7 14 -7 26 0 27" fill="none" stroke="#D8B663" stroke-width="2.6" stroke-linecap="round"/>
+            <circle cx="0" cy="30" r="3.2" fill="url(#gBoss)"/>
+            <g stroke="#CDAA58" stroke-width="1.15" fill="none" opacity=".95">
+              <line x1="0" y1="31" x2="-100" y2="300"/><line x1="0" y1="31" x2="100" y2="300"/><line x1="0" y1="31" x2="20" y2="288.4"/>
+            </g>
+            <ellipse cx="0" cy="300" rx="100" ry="12" fill="url(#gIn)"/>
+            <path d="M-100 300 A100 12 0 0 1 100 300" fill="none" stroke="#6C4F19" stroke-width="2"/>
+            <!-- iron block -->
+            <ellipse cx="0" cy="304" rx="74" ry="5" fill="#120C02" opacity=".7" filter="url(#fB3)"/>
+            <path d="M-66 226 L66 226 L60 217 L-60 217 Z" fill="url(#gIronTop)"/>
+            <rect x="-66" y="226" width="132" height="78" fill="url(#gIron)" filter="url(#fIron)"/>
+            <rect x="-66" y="226" width="132" height="1.3" fill="#9FB0B6" opacity=".55"/>
+            <rect x="-66" y="226" width="3" height="78" fill="#000" opacity=".25"/>
+            <rect x="63" y="226" width="3" height="78" fill="#000" opacity=".35"/>
+            <text class="svt" x="2.5" y="272.2" text-anchor="middle" font-size="24" letter-spacing="5" fill="#000" opacity=".8">ALARM</text>
+            <text class="svt" x="2.5" y="273" text-anchor="middle" font-size="24" letter-spacing="5" fill="#CFC4A8" opacity=".9">ALARM</text>
+            <!-- pan body -->
+            <path d="M-100 300 C-96 318 -80 323 -64 325 L64 325 C80 323 96 318 100 300 A100 12 0 0 1 -100 300 Z" fill="url(#gCol)"/>
+            <path d="M-100 300 A100 12 0 0 0 100 300" fill="none" stroke="#FBE9B0" stroke-width="2.4"/>
+            <rect x="-24" y="324" width="48" height="7" rx="3.5" fill="url(#gCol)"/>
+          </g>
+        </g>
+
+        <!-- right tray: the slips and the weight -->
+        <g id="trayR" transform="translate(1024.7 257.3)">
+          <g filter="url(#fMove)">
+            <path d="M0 -3 C9 -3 9 10 0 12 C-7 14 -7 26 0 27" fill="none" stroke="#D8B663" stroke-width="2.6" stroke-linecap="round"/>
+            <circle cx="0" cy="30" r="3.2" fill="url(#gBoss)"/>
+            <g stroke="#CDAA58" stroke-width="1.15" fill="none" opacity=".95">
+              <line x1="0" y1="31" x2="-100" y2="300"/><line x1="0" y1="31" x2="100" y2="300"/><line x1="0" y1="31" x2="20" y2="288.4"/>
+            </g>
+            <ellipse cx="0" cy="300" rx="100" ry="12" fill="url(#gIn)"/>
+            <path d="M-100 300 A100 12 0 0 1 100 300" fill="none" stroke="#6C4F19" stroke-width="2"/>
+
+            <g id="pile">
+              <g transform="translate(-4 290) rotate(-2.5)">
+                <rect x="-76" y="-6" width="152" height="22" fill="#120C02" opacity=".55" filter="url(#fB3)"/>
+                <rect x="-80" y="-13" width="160" height="25" rx="1" fill="url(#gPaper)" filter="url(#fPaper)"/>
+                <rect x="-80" y="10.5" width="160" height="1.6" fill="#B9A67E"/>
+                <text class="svt" x="0" y="5" text-anchor="middle" font-size="19" letter-spacing="1" fill="#3A3226">Blog post</text>
+              </g>
+              <g transform="translate(7 263.5) rotate(3.5)">
+                <rect x="-66" y="-6" width="132" height="22" fill="#120C02" opacity=".5" filter="url(#fB3)"/>
+                <rect x="-70" y="-13" width="140" height="25" rx="1" fill="url(#gPaper)" filter="url(#fPaper)"/>
+                <rect x="-70" y="10.5" width="140" height="1.6" fill="#B9A67E"/>
+                <text class="svt" x="0" y="5" text-anchor="middle" font-size="19" letter-spacing="1" fill="#3A3226">Repost</text>
+              </g>
+              <g transform="translate(-7 237.5) rotate(-4.5)">
+                <rect x="-69" y="-6" width="138" height="22" fill="#120C02" opacity=".5" filter="url(#fB3)"/>
+                <rect x="-73" y="-13" width="146" height="25" rx="1" fill="url(#gPaper)" filter="url(#fPaper)"/>
+                <rect x="-73" y="10.5" width="146" height="1.6" fill="#B9A67E"/>
+                <text class="svt" x="0" y="5" text-anchor="middle" font-size="19" letter-spacing="1" fill="#3A3226">Rumour</text>
+              </g>
+              <g transform="translate(5 211.5) rotate(2.8)"><g id="s4">
+                <rect x="-71" y="-6" width="142" height="22" fill="#120C02" opacity=".5" filter="url(#fB3)"/>
+                <rect x="-75" y="-13" width="150" height="25" rx="1" fill="url(#gPaper)" filter="url(#fPaper)"/>
+                <rect x="-75" y="10.5" width="150" height="1.6" fill="#B9A67E"/>
+                <text class="svt" x="0" y="5" text-anchor="middle" font-size="19" letter-spacing="1" fill="#3A3226">Opinion</text>
+              </g></g>
+              <g transform="translate(-3 185.5) rotate(-2)"><g id="s5">
+                <rect x="-84" y="-6" width="168" height="22" fill="#120C02" opacity=".5" filter="url(#fB3)"/>
+                <rect x="-88" y="-13" width="176" height="25" rx="1" fill="url(#gPaper)" filter="url(#fPaper)"/>
+                <rect x="-88" y="10.5" width="176" height="1.6" fill="#B9A67E"/>
+                <text class="svt" x="0" y="5" text-anchor="middle" font-size="19" letter-spacing="1" fill="#3A3226">Another repost</text>
+              </g></g>
+            </g>
+
+            <g id="wt">
+              <ellipse cx="0" cy="171" rx="34" ry="5" fill="#120C02" opacity=".6" filter="url(#fB3)"/>
+              <path d="M-27 120 L-27 166 A27 5.5 0 0 0 27 166 L27 120 Z" fill="url(#gCol)"/>
+              <ellipse cx="0" cy="120" rx="27" ry="5.5" fill="url(#gTop)"/>
+              <path d="M-27 166 A27 5.5 0 0 0 27 166" fill="none" stroke="#3B2A0B" stroke-width="1.2" opacity=".7"/>
+              <path d="M-6.5 104 L6.5 104 L7.5 120 L-7.5 120 Z" fill="url(#gCol)"/>
+              <ellipse cx="0" cy="97" rx="13.5" ry="9.5" fill="url(#gBoss)"/>
+            </g>
+
+            <!-- pan front -->
+            <path d="M-100 300 C-96 318 -80 323 -64 325 L64 325 C80 323 96 318 100 300 A100 12 0 0 1 -100 300 Z" fill="url(#gCol)"/>
+            <path d="M-100 300 A100 12 0 0 0 100 300" fill="none" stroke="#FBE9B0" stroke-width="2.4"/>
+            <rect x="-24" y="324" width="48" height="7" rx="3.5" fill="url(#gCol)"/>
+          </g>
+          <g id="plab">
+            <path class="svt" id="lead" d="M-31 136 L-98 64 L-114 64" fill="none" stroke="#EADBB0" stroke-width="1" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"/>
+            <circle class="svt" id="leadDot" cx="-31" cy="136" r="2.6" fill="#EADBB0"/>
+            <text class="svt" x="-120" y="70" text-anchor="end" font-size="21" letter-spacing="1.2" fill="#ECD38E">Primary source</text>
+          </g>
+        </g>
+      </svg>
+      <div class="tags" aria-hidden="true">
+        <span class="l">Alarm</span>
+        <span class="r">Blog post, repost, rumour<span id="t4">, opinion</span><span id="t5">, another repost</span><b id="t6">Primary source</b></span>
+      </div>
+    </figure>
+
+    <div class="copy">
+      <h1>One blog post <br class="d">cannot raise <br class="d">an alarm.</h1>
+      <p class="lede">Strapivo is where a leadership team watches the risks to its strategy, with a dated source behind every signal.</p>
+      <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </div>
+
+    <p class="coda" id="coda">A risk enters the danger zone only with a primary source, and only when a person confirms.</p>
+  </div>
+</section>
+</main>
+<footer>© 2026 Strapivo <a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var animOn = root.classList.contains('anim');
+  var $ = function (id) { return document.getElementById(id); };
+  var svg = document.querySelector('.fig svg'), bar = $('bar'), L = 430;
+  var run = $('run'), beam = $('beam'), trayL = $('trayL'), trayR = $('trayR');
+  var shL = $('shL'), shR = $('shR'), s4 = $('s4'), s5 = $('s5'), wt = $('wt');
+  var lead = $('lead'), dot = $('leadDot'), plab = $('plab'), coda = $('coda');
+  var t4 = $('t4'), t5 = $('t5'), t6 = $('t6');
+  var clamp = function (v) { return v < 0 ? 0 : v > 1 ? 1 : v; };
+  var seg = function (p, a, b) { return clamp((p - a) / (b - a)); };
+  var easeOut = function (t) { return 1 - Math.pow(1 - t, 3); };
+  var easeIO = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+
+  function shadow(el, x, endY) {
+    var d = 682 - (endY + 332);
+    el.setAttribute('cx', x.toFixed(1));
+    el.setAttribute('rx', (78 + d * .22).toFixed(1));
+    el.setAttribute('opacity', Math.max(.12, .62 - d * .0022).toFixed(3));
+  }
+
+  function drift(el, t, side) {
+    var u = 1 - easeOut(t);
+    var x = Math.sin(u * 6.5) * 34 * u * side;
+    var y = -380 * u;
+    var r = Math.sin(u * 5) * 14 * u * side;
+    el.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ') rotate(' + r.toFixed(2) + ')');
+    el.style.opacity = Math.min(1, t * 2.5).toFixed(3);
+  }
+
+  function render(p) {
+    var a4 = seg(p, .05, .27), a5 = seg(p, .2, .42);
+    drift(s4, a4, 1); drift(s5, a5, -1);
+    t4.style.opacity = a4 > .95 ? 1 : .0; t5.style.opacity = a5 > .95 ? 1 : 0;
+
+    var w = seg(p, .44, .56), we = easeOut(w);
+    wt.setAttribute('transform', 'translate(0 ' + (-(1 - we) * 64).toFixed(1) + ')');
+    wt.style.opacity = Math.min(1, w * 2.2).toFixed(3);
+
+    var l = seg(p, .55, .64);
+    lead.setAttribute('stroke-dashoffset', (1 - l).toFixed(3));
+    dot.style.opacity = l > 0 ? 1 : 0;
+    plab.querySelector('text').style.opacity = seg(p, .6, .66).toFixed(3);
+    t6.style.opacity = seg(p, .58, .64).toFixed(3);
+
+    var b = easeIO(seg(p, .64, .9));
+    var th = -9 + 18 * b, rad = th * Math.PI / 180;
+    var c = Math.cos(rad) * L, s = Math.sin(rad) * L;
+    beam.setAttribute('transform', 'rotate(' + th.toFixed(3) + ' 600 190)');
+    trayL.setAttribute('transform', 'translate(' + (600 - c).toFixed(2) + ' ' + (190 - s).toFixed(2) + ')');
+    trayR.setAttribute('transform', 'translate(' + (600 + c).toFixed(2) + ' ' + (190 + s).toFixed(2) + ')');
+    shadow(shL, 600 - c, 190 - s); shadow(shR, 600 + c, 190 + s);
+
+    var k = seg(p, .88, .97);
+    coda.style.opacity = k.toFixed(3);
+    coda.style.transform = 'translateY(' + ((1 - k) * 12).toFixed(1) + 'px)';
+  }
+
+  var phone = matchMedia('(max-width: 760px)');
+  function geometry() {
+    L = phone.matches ? 340 : 430;
+    svg.setAttribute('viewBox', phone.matches ? '150 96 900 600' : '60 0 1080 720');
+    bar.setAttribute('transform', phone.matches ? 'translate(600 0) scale(' + (L / 430).toFixed(4) + ' 1) translate(-600 0)' : '');
+  }
+  geometry();
+
+  var queued = false;
+  function update() {
+    queued = false;
+    if (!animOn) { render(1); return; }
+    var r = run.getBoundingClientRect();
+    var span = run.offsetHeight - window.innerHeight;
+    render(span > 0 ? clamp(-r.top / span) : 1);
+  }
+  function req() { if (!queued) { queued = true; requestAnimationFrame(update); } }
+  addEventListener('scroll', req, { passive: true });
+  addEventListener('resize', function () { geometry(); req(); });
+  update();
+})();
+</script>
+<script src="/landings/prompt.js" defer></script>
+</body>
+</html>
