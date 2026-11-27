@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en-GB" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo. Five answers to every strategic question</title>
+<meta name="description" content="Strapivo is where a leadership team brings a strategic question, decides it in one of five ways, and keeps the record.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0c0c0b; --paper:#efece5; --red:#c62f17; --grey:#5e5b55; --grey2:#a9a59c;
+  --m:clamp(20px,3.4vw,52px);
+  --vh:100svh;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--paper);color:var(--ink);-webkit-text-size-adjust:100%}
+body{font-family:"Archivo","Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.4;overflow-x:hidden}
+a{color:inherit}
+a:focus-visible{outline:3px solid var(--red);outline-offset:4px}
+.big{font-weight:900;text-transform:uppercase;line-height:.8;letter-spacing:-.01em;white-space:nowrap;font-variation-settings:"wdth" 100,"wght" 900}
+.small{font-size:15px;letter-spacing:.01em}
+.n{font-variant-numeric:tabular-nums;font-variation-settings:"wdth" 100,"wght" 600;margin-right:1.4em}
+
+/* top bar */
+.bar{position:absolute;z-index:5;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:var(--m)}
+.bar img{display:block;height:24px;width:auto}
+.bar .signin{font-size:15px;text-decoration:none;font-variation-settings:"wdth" 100,"wght" 500;padding:6px 0;border-bottom:1px solid currentColor}
+
+/* opening poster */
+.intro{position:relative;min-height:var(--vh);display:grid;grid-template-columns:minmax(240px,290px) minmax(0,1fr);gap:0 clamp(24px,3.4vw,56px);padding:calc(var(--m) + 70px) var(--m) var(--m);overflow:hidden}
+.copy{display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding-top:4px}
+h1{font-size:clamp(26px,2.3vw,34px);line-height:1.08;font-weight:800;font-variation-settings:"wdth" 88,"wght" 800;letter-spacing:-.01em}
+.lede{font-size:17px;line-height:1.45;color:#2b2a27;max-width:30ch;margin-top:18px}
+.cta{display:inline-flex;align-items:center;gap:.7em;background:var(--ink);color:var(--paper);text-decoration:none;font-size:16px;font-variation-settings:"wdth" 100,"wght" 650;padding:17px 24px;border-radius:0;transition:background .2s}
+.cta:hover{background:var(--red)}
+.cta span{display:inline-block;transition:transform .2s}
+.cta:hover span{transform:translateX(4px)}
+
+.poster{--fs:min(15vh,8.9vw);position:relative;font-size:var(--fs);align-self:end;height:calc(var(--fs)*5.15)}
+.poster .l{position:absolute;left:0}
+.l1{top:0}
+.l2{top:1.03em}
+.l3{top:2.06em;width:100%}
+.l4{top:3.09em}
+.l5{top:4.12em}
+.l1,.l2,.l4,.l5{height:.8em}
+.ad i{font-style:normal;display:inline-block}
+.ad i:nth-child(1){font-variation-settings:"wdth" 125,"wght" 120}
+.ad i:nth-child(2){font-variation-settings:"wdth" 110,"wght" 300}
+.ad i:nth-child(3){font-variation-settings:"wdth" 94,"wght" 520}
+.ad i:nth-child(4){font-variation-settings:"wdth" 78,"wght" 720}
+.ad i:nth-child(5){font-variation-settings:"wdth" 62,"wght" 900}
+.l3 .route{position:absolute;left:0;top:.8em;height:3px;background:var(--red);width:var(--px)}
+.l3 .route.v{left:var(--px);width:3px;top:auto;bottom:-.8em;height:2.7em;transform:translateX(-3px)}
+.poster{--px:4.35em}
+.l3 .pv{position:absolute;left:var(--px);top:0;transform-origin:0 .8em;transform:rotate(-90deg)}
+.l4{left:.95em!important;transform:translateY(-.2em)}
+.l4 .ta{font-variation-settings:"wdth" 62,"wght" 900}
+.l4 .ghost{position:absolute;left:-.95em;top:1em;width:.95em;height:1px;background:var(--ink);opacity:.35}
+.out{color:var(--paper);-webkit-text-stroke:.045em var(--ink);paint-order:stroke fill}
+.l5{left:auto!important;right:0}
+.tag{position:absolute;display:inline-flex;align-items:center;gap:9px;background:var(--red);color:#fff;font-size:15px;line-height:1;font-variation-settings:"wdth" 100,"wght" 600;padding:9px 13px 9px 10px;white-space:nowrap;text-transform:none;letter-spacing:.01em}
+.tag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--paper)}
+.l5 .tag{right:0;top:-46px;transform:rotate(-3deg)}
+
+/* word sections */
+.w{position:relative}
+.stage{position:relative;height:var(--vh);overflow:hidden}
+.cap{position:absolute;z-index:3;font-size:15px;display:flex}
+.dark{background:var(--ink);color:var(--paper)}
+.dark .out{color:var(--ink);-webkit-text-stroke-color:var(--paper)}
+
+/* 1 hold */
+.hold{background:var(--ink) repeating-linear-gradient(180deg,transparent 0 47px,rgba(239,236,229,.13) 47px 48px)}
+.hold .stage{display:grid;place-items:center}
+.hold .big{font-size:min(25.5vw,62vh);font-variation-settings:"wdth" 125,"wght" 900;transform:translateY(.04em)}
+.hold .cap{left:var(--m);bottom:var(--m)}
+.hold .m2{display:none}
+
+/* 2 adapt */
+.adapt .stage{display:grid;place-items:center}
+.adapt .big{font-size:20vw}
+.adapt .big i{font-style:normal;display:inline-block}
+.adapt .cap{right:var(--m);top:var(--m)}
+.adapt .rule{position:absolute;top:50%;height:1px;background:var(--ink);opacity:.18;left:var(--m);right:var(--m)}
+
+/* 3 pivot */
+.pivot .stage{--fs:min(26vh,15vw)}
+.pivot .pw{position:absolute;left:0;top:0;font-size:var(--fs);transform-origin:0 .8em;will-change:transform}
+.pivot .rt{position:absolute;background:var(--red)}
+.pivot .cap{right:var(--m);bottom:var(--m)}
+
+/* 4 take advantage */
+.take .frame{position:absolute;left:var(--m);top:34%;width:52%;bottom:var(--m);
+  background:linear-gradient(rgba(12,12,11,.2) 1px,transparent 1px) 0 0/var(--lh) var(--lh),
+             linear-gradient(90deg,rgba(12,12,11,.2) 1px,transparent 1px) 0 0/var(--lh) var(--lh);
+  border:1.5px solid var(--ink)}
+.take .stage{--lh:min(7vh,52px)}
+.take .tw{position:absolute;left:0;top:0;will-change:transform}
+.take .tw .big{display:block;font-variation-settings:"wdth" 72,"wght" 900}
+.take .cap{left:var(--m);top:var(--m)}
+
+/* 5 not yet */
+.notyet .nw{position:absolute;left:var(--m);bottom:var(--m);font-size:min(17vh,24vw);transform-origin:0 0;will-change:transform}
+.notyet .nw .big{display:block;font-variation-settings:"wdth" 62,"wght" 900;transform:rotate(-90deg) translateX(-0.03em);transform-origin:0 0;position:absolute;left:0;top:0}
+.notyet .tag{z-index:4}
+.notyet .out::after{content:attr(data-t);position:absolute;left:0;top:0;color:var(--paper);-webkit-text-stroke:0;clip-path:inset(0 0 0 var(--drain,100%))}
+.notyet .string{position:absolute;height:1px;background:rgba(239,236,229,.55);transform-origin:0 50%}
+.notyet .cap{right:var(--m);bottom:var(--m)}
+
+/* end */
+.end{min-height:var(--vh);display:flex;flex-direction:column;justify-content:space-between;padding:var(--m)}
+.end .five{display:flex;gap:.28em;flex-wrap:wrap;font-size:15px;color:var(--grey)}
+.end h2{font-size:clamp(44px,8vw,128px);line-height:.9;font-weight:900;font-variation-settings:"wdth" 82,"wght" 900;letter-spacing:-.015em;max-width:11ch;margin-bottom:40px}
+.end .row{display:flex;flex-wrap:wrap;gap:22px 28px;align-items:center}
+.end .signin2{font-size:15px}
+footer{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;color:var(--grey);margin-top:56px}
+footer a{text-decoration:none}
+footer a:hover{text-decoration:underline}
+.mb{display:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* stills without script */
+html:not(.js) .pivot .pw{left:44%;top:calc(var(--vh)*.84 - .8em);transform:rotate(-90deg)}
+html:not(.js) .pivot .rh{left:0;width:44%;top:calc(var(--vh)*.84);height:3px}
+html:not(.js) .pivot .rv{left:calc(44% - 3px);width:3px;top:20%;height:calc(var(--vh)*.64)}
+html:not(.js) .take .tw{left:auto;right:var(--m);top:12%;font-size:min(11vw,16vh)}
+html:not(.js) .notyet .nw .big{font-size:min(16vh,30vw);top:auto;bottom:-.1em}
+html:not(.js) .notyet .tag{left:calc(var(--m) + 2.5em);top:30%;font-size:15px}
+
+/* motion mode: sections get scroll length, stages pin */
+.mo .w{height:calc(var(--vh) * var(--len,2.4))}
+.mo .stage{position:sticky;top:0}
+.mo .hold{--len:2.2}
+
+/* phone */
+@media (max-width:760px){
+  .intro{grid-template-columns:1fr;grid-template-rows:auto 1fr;padding-top:calc(var(--m) + 56px)}
+  .copy{gap:22px}
+  h1{font-size:27px}
+  .lede{font-size:16px;margin-top:12px}
+  .copy .cta{align-self:flex-start}
+  .poster{--fs:min(18.6vw,8.4vh);--px:100%;margin-top:clamp(40px,8vh,72px);height:calc(var(--fs)*6.15)}
+  .mb{display:inline}
+  .l4{left:.55em!important;line-height:.83}
+  .l4 .ghost{left:-.55em;width:.55em;top:1.85em}
+  .l5{top:5.15em}
+  .l5 .tag{top:-34px}
+  .hold .m1{display:none}
+  .hold .m2{display:block;font-size:min(43vw,30vh);line-height:.82;text-align:center}
+  .adapt .cap,.pivot .cap{left:var(--m);right:auto}
+  .notyet .cap{max-width:52%;top:var(--m);bottom:auto}
+  .take .frame{width:auto;right:var(--m);top:46%}
+  .notyet .nw{font-size:min(22vh,30vw)}
+}
+@media (max-width:760px) and (max-height:700px){ .poster{--fs:min(17vw,8vh)} }
+</style>
+</head>
+<body>
+<header class="bar">
+  <a href="#" aria-label="Strapivo, back to top"><img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="95" height="24"></a>
+  <a class="signin" href="https://strapivo.app">Sign in</a>
+</header>
+
+<main>
+<section class="intro">
+  <div class="copy">
+    <div>
+      <h1>Every strategic question ends in one of five answers.</h1>
+      <p class="lede">Strapivo is where a leadership team brings the question, decides, and keeps the record.</p>
+    </div>
+    <div><a class="cta" href="mailto:strategy@strapivo.com">Start the conversation <span aria-hidden="true">&#8594;</span></a></div>
+  </div>
+  <div class="poster" role="img" aria-label="The five answers set in very large type, each in its own pose. Hold stands still, Adapt changes weight letter by letter, Pivot turns upright on its first letter, Take advantage steps off its line, and Not yet is an outline parked at the side with a tag that says it returns in May.">
+    <div class="l l1 big" aria-hidden="true">Hold</div>
+    <div class="l l2 big ad" aria-hidden="true"><i>A</i><i>d</i><i>a</i><i>p</i><i>t</i></div>
+    <div class="l l3 big" aria-hidden="true"><span class="route"></span><span class="route v"></span><span class="pv">Pivot</span></div>
+    <div class="l l4 big" aria-hidden="true"><span class="ghost"></span><span class="ta">Take <br class="mb">advantage</span></div>
+    <div class="l l5 big" aria-hidden="true"><span class="out">Not yet</span><span class="tag">Returns in May.</span></div>
+  </div>
+</section>
+
+<section class="w hold dark" aria-labelledby="w1">
+  <div class="stage">
+    <h2 id="w1" class="big"><span class="m1">Hold</span><span class="m2" aria-hidden="true">Ho<br>ld</span></h2>
+  </div>
+  <p class="cap small"><span class="n">01</span>Reviewed and dated. Nothing changes.</p>
+</section>
+
+<section class="w adapt" aria-labelledby="w2">
+  <div class="stage">
+    <span class="rule" aria-hidden="true"></span>
+    <h2 id="w2" class="big ad" aria-label="Adapt"><i>A</i><i>d</i><i>a</i><i>p</i><i>t</i></h2>
+    <p class="cap small"><span class="n">02</span>Same goal, new route.</p>
+  </div>
+</section>
+
+<section class="w pivot dark" aria-labelledby="w3">
+  <div class="stage">
+    <span class="rt rh" aria-hidden="true"></span><span class="rt rv" aria-hidden="true"></span>
+    <h2 id="w3" class="big pw">Pivot</h2>
+    <p class="cap small"><span class="n">03</span>The goal itself changes.</p>
+  </div>
+</section>
+
+<section class="w take" aria-labelledby="w4">
+  <div class="stage">
+    <div class="frame" aria-hidden="true"></div>
+    <h2 id="w4" class="tw"><span class="big">Take</span><span class="big">advantage</span></h2>
+    <p class="cap small"><span class="n">04</span>A detour for an opening. The goal stays.</p>
+  </div>
+</section>
+
+<section class="w notyet dark" aria-labelledby="w5">
+  <div class="stage">
+    <span class="string" aria-hidden="true"></span>
+    <div class="nw"><h2 id="w5" class="big out" data-t="Not yet">Not yet</h2></div>
+    <span class="tag">Returns in May.</span>
+    <p class="cap small"><span class="n">05</span>Parked, with a date to return.</p>
+  </div>
+</section>
+
+<section class="end" aria-labelledby="end">
+  <span></span>
+  <div>
+    <h2 id="end">Bring the next question.</h2>
+    <div class="row">
+      <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation <span aria-hidden="true">&#8594;</span></a>
+    </div>
+    <footer>
+      <span>&copy; 2026 Strapivo</span>
+      <a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a>
+    </footer>
+  </div>
+</section>
+</main>
+
+<script>
+(function(){
+  var d=document, root=d.documentElement; root.classList.add('js');
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)');
+  var cl=function(x){return x<0?0:x>1?1:x};
+  var ease=function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2};
+  var lerp=function(a,b,t){return a+(b-a)*t};
+  var W,H,M,isPhone;
+
+  var adapt=d.querySelector('.adapt'), aW=adapt.querySelector('.big'), aL=aW.querySelectorAll('i');
+  var pivot=d.querySelector('.pivot'), pW=pivot.querySelector('.pw'), rh=pivot.querySelector('.rh'), rv=pivot.querySelector('.rv');
+  var take=d.querySelector('.take'), tW=take.querySelector('.tw'), frame=take.querySelector('.frame');
+  var ny=d.querySelector('.notyet'), nW=ny.querySelector('.nw'), nO=ny.querySelector('.out'), nTag=ny.querySelector('.tag'), str=ny.querySelector('.string');
+  var secs=[adapt,pivot,take,ny];
+
+  function prog(el){
+    if(!root.classList.contains('mo')) return -1;
+    var r=el.getBoundingClientRect(), span=r.height-H;
+    return span>0?cl(-r.top/span):0;
+  }
+
+  /* 2. adapt: weight and width travel through the letters; the word keeps its width */
+  function drawAdapt(p){
+    var still=p<0; if(still) p=.5;
+    for(var i=0;i<aL.length;i++){
+      var t=still? i/4 : ease(cl(p*1.9-.45-(i-2)*.2));
+      aL[i].style.fontVariationSettings='"wdth" '+lerp(125,62,t).toFixed(1)+',"wght" '+Math.round(lerp(110,900,t));
+    }
+    aW.style.fontSize='100px';
+    var w=aW.getBoundingClientRect().width||1;
+    var target=W-2*M*(isPhone?1:1.6);
+    var fs=Math.min(100*target/w, H*.95);
+    aW.style.fontSize=fs+'px';
+  }
+
+  /* 3. pivot: runs right, turns ninety degrees on its P, carries on upward */
+  function drawPivot(p){
+    var still=p<0; if(still) p=.62;
+    var fs=parseFloat(getComputedStyle(pW).fontSize), len=pW.getBoundingClientRect().width;
+    if(still||p>=0){ pW.style.transform='none'; len=pW.offsetWidth; }
+    var by=isPhone? H*.9 : H*.84;        /* baseline */
+    var x0=isPhone? -len*.55 : -len*.35, x1=isPhone? W*.42 : W*.5;
+    var a=ease(cl(p/.36)), b=ease(cl((p-.36)/.26)), c=cl((p-.62)/.38);
+    var px=lerp(x0,x1,a), rise=lerp(0,by+len*.15,c*c*.9+c*.1)*(isPhone?.62:.55);
+    if(still) rise=isPhone? H*.03 : H*.05;
+    var py=by-rise, ang=-90*b;
+    pW.style.transform='translate('+px.toFixed(1)+'px,'+(py-fs*.8).toFixed(1)+'px) rotate('+ang.toFixed(2)+'deg)';
+    var lw=Math.max(2,fs*.018);
+    rh.style.cssText='left:0;top:'+(by).toFixed(1)+'px;height:'+lw+'px;width:'+Math.max(0,px).toFixed(1)+'px';
+    rv.style.cssText='left:'+(px-lw).toFixed(1)+'px;top:'+(py).toFixed(1)+'px;width:'+lw+'px;height:'+(by-py+lw).toFixed(1)+'px';
+  }
+
+  /* 4. take advantage: sits on its line inside the grid, then steps out ahead of it */
+  function drawTake(p){
+    var still=p<0; if(still) p=1;
+    var fr=frame.getBoundingClientRect(), st=take.querySelector('.stage').getBoundingClientRect();
+    var fx=fr.left-st.left, fy=fr.top-st.top;
+    var fs=Math.min((isPhone? (W-2*fx)*.84 : fr.width*.98)/4.62, H*.3);
+    tW.style.fontSize=fs+'px';
+    var lh=Math.min(H*.07,52);
+    var sx=fx+fs*.02, sy=fy+lh*1.0;
+    var ex=isPhone? W-M-tW.offsetWidth : W-tW.offsetWidth-M;
+    var ey=isPhone? fy-tW.offsetHeight-lh*.9 : fy-tW.offsetHeight*.62;
+    var t=ease(cl((p-.18)/.64));
+    tW.style.transform='translate('+lerp(sx,ex,t).toFixed(1)+'px,'+lerp(sy,ey,t).toFixed(1)+'px) rotate('+(lerp(0,-2.5,Math.sin(t*Math.PI)))+'deg)';
+  }
+
+  /* 5. not yet: drives in, drains to an outline, parks on the side, gets its tag */
+  function drawNotYet(p){
+    var still=p<0; if(still) p=1;
+    nW.style.fontSize='100px';
+    var fs=Math.min(100*(H-2*M-(isPhone?150:40))/nO.offsetWidth, W*.4);
+    nW.style.fontSize=fs+'px';
+    var len=nO.offsetWidth, m=M;
+    var t=ease(cl(p/.55));
+    var dx=lerp(W*.55,0,t);
+    nW.style.transform='translateX('+dx.toFixed(1)+'px)';
+    nO.style.setProperty('--drain',(cl((p-.3)/.32)*100).toFixed(2)+'%');
+    var k=cl((p-.62)/.22);
+    var capx=m+dx+fs*.72, topY=H-m-len;
+    var tx=isPhone? m+fs*1.1 : m+fs*1.9, ty=isPhone? topY+len*.18 : topY+len*.32;
+    nTag.style.left=tx+'px'; nTag.style.top=ty+'px';
+    nTag.style.opacity=k; nTag.style.transform='rotate('+lerp(14,-4,ease(k))+'deg)';
+    nTag.style.transformOrigin='0 50%';
+    var sx=capx, sy=topY+fs*.25, ddx=tx-sx, ddy=(ty+16)-sy;
+    str.style.left=sx+'px'; str.style.top=sy+'px';
+    str.style.width=Math.hypot(ddx,ddy)*k+'px';
+    str.style.transform='rotate('+Math.atan2(ddy,ddx)+'rad)';
+    str.style.opacity=k;
+  }
+
+  function on(el){ var r=el.getBoundingClientRect(); return r.bottom>0&&r.top<H; }
+  function draw(){
+    raf=0;
+    if(on(adapt)) drawAdapt(prog(adapt));
+    if(on(pivot)) drawPivot(prog(pivot));
+    if(on(take)) drawTake(prog(take));
+    if(on(ny)) drawNotYet(prog(ny));
+  }
+  var raf=0;
+  function req(){ if(!raf) raf=requestAnimationFrame(draw); }
+  function measure(){
+    W=root.clientWidth; H=innerHeight; isPhone=W<=760; M=Math.min(52,Math.max(20,W*.034));
+    drawAdapt(prog(adapt)); drawPivot(prog(pivot)); drawTake(prog(take)); drawNotYet(prog(ny));
+  }
+  function mode(){
+    root.classList.toggle('mo',!reduce.matches);
+    measure();
+  }
+  addEventListener('scroll',function(){ if(root.classList.contains('mo')) req(); },{passive:true});
+  addEventListener('resize',function(){ measure(); });
+  if(reduce.addEventListener) reduce.addEventListener('change',mode);
+  mode();
+  if(d.fonts&&d.fonts.ready) d.fonts.ready.then(measure);
+})();
+</script>
+</body>
+</html>
