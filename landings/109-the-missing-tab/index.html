@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo. Strategy finally has a home.</title>
+<meta name="description" content="Strapivo is software where a leadership team keeps its strategy and works on it every week.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Courier+Prime&display=swap">
+<script>
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('anim');
+</script>
+<style>
+:root{
+  --ink:#17181a;
+  --paper:#fbfaf5;
+  --board:#d9d6cf;
+  --azure:#0082e6;
+  --tabh:7vh;
+  --step:9vh;
+  --top0:17vh;
+  --tabw:18vw;
+  --tabx:19vw;
+  --rise:6vh;
+  --tab0:3vw;
+  --rad:1vw;
+  --speck:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .22 0 0 0 0 .17 0 0 0 0 .11 3.2 0 0 0 -1.85'/%3E%3C/filter%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .42' numOctaves='3' seed='8' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .24 0 0 0 0 .16 0 0 0 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 .05 .12'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='1' seed='21' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 3 0 0 0 -1.9'/%3E%3C/filter%3E%3Crect width='360' height='360' filter='url(%23b)'/%3E%3Crect width='360' height='360' filter='url(%23a)' opacity='.55'/%3E%3Crect width='360' height='360' filter='url(%23c)' opacity='.5'/%3E%3C/svg%3E");
+  --mottle:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 900' preserveAspectRatio='none'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.004 .006' numOctaves='3' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .25 0 0 0 0 .2 0 0 0 0 .12 0 0 0 .5 -.18'/%3E%3C/filter%3E%3Crect width='900' height='900' filter='url(%23m)'/%3E%3C/svg%3E");
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)' opacity='.55'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#141210;-webkit-text-size-adjust:100%}
+body{font-family:"Archivo",system-ui,sans-serif;color:var(--ink);overflow-x:hidden;background:#141210}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--azure);outline-offset:4px;border-radius:3px}
+
+/* stage */
+.wrap{position:relative}
+.anim .wrap{height:300vh}
+.stage{position:relative;height:100vh;min-height:600px;overflow:hidden;
+  background:
+    radial-gradient(70% 55% at 22% 0%, rgba(255,226,180,.16), rgba(255,226,180,0) 70%),
+    radial-gradient(120% 90% at 50% 10%, #2a241d 0%, #171410 55%, #0e0d0b 100%);
+}
+.anim .stage{position:sticky;top:0}
+.stage::before{content:"";position:absolute;inset:0;background:var(--mottle) 0 0/100% 100% no-repeat;opacity:.6;mix-blend-mode:multiply;pointer-events:none}
+
+.top{position:absolute;z-index:20;left:var(--tab0);right:3vw;top:4.2vh;display:flex;justify-content:space-between;align-items:center}
+.logo img{display:block;height:24px;width:auto}
+.signin{font-size:14px;color:#e9e2d4;text-decoration:none;letter-spacing:.02em;padding:6px 2px;border-bottom:1px solid rgba(233,226,212,.35)}
+.signin:hover{border-color:#e9e2d4}
+
+.index{position:absolute;inset:0}
+.card{position:absolute;left:-3vw;right:-3vw;bottom:-14vh;
+  top:calc(var(--top0) + var(--k) * var(--step));
+  z-index:calc(var(--k) + 1);
+  transform-origin:50% 0;
+  filter:drop-shadow(0 -1px 1.5px rgba(0,0,0,.42)) drop-shadow(0 -9px 16px rgba(0,0,0,.32));
+}
+.card .body,.card .tab{background-color:var(--c);
+  background-image:var(--speck),var(--mottle),linear-gradient(180deg,rgba(255,250,240,.26),rgba(255,255,255,0) 2.4vh),var(--ao,none);
+  background-blend-mode:multiply,multiply,normal,normal;
+  background-size:360px 360px,100% 100%,100% 100%,100% 100%;background-repeat:repeat,no-repeat,no-repeat,no-repeat;
+  box-shadow:inset 0 0 0 100vmax rgba(26,17,8,var(--d)),inset 0 1.5px 0 rgba(255,255,255,.55),inset 0 3px 0 rgba(255,255,255,.12);
+}
+.card .body{position:absolute;inset:0;--ao:linear-gradient(180deg,rgba(0,0,0,0) calc(var(--step) - 5vh),rgba(12,8,4,.2) calc(var(--step) - .3vh),rgba(0,0,0,0) calc(var(--step) + .2vh))}
+.front .body{--ao:none}
+.card .tab{position:absolute;bottom:calc(100% - 1px);height:var(--tabh);width:var(--tabw);
+  left:calc(3vw + var(--tab0) + var(--k) * var(--tabx));
+  border-radius:var(--rad) var(--rad) 0 0;
+  display:flex;align-items:center;padding:0 1.25vw;
+}
+.label{font-weight:850;font-stretch:96%;font-size:clamp(14px,1.5vw,28px);letter-spacing:.06em;line-height:1;
+  color:#1a1712;opacity:.9;mix-blend-mode:multiply;text-shadow:0 0 .6px rgba(20,14,6,.55);white-space:nowrap}
+
+.k0{--k:0;--c:#e6d3a3;--d:.30;--fc:#a69878;transform:rotate(-.12deg)}
+.k1{--k:1;--c:#efa58e;--d:.22;--fc:#bf8574;transform:rotate(.1deg)}
+.k2{--k:2;--c:#a8d4c0;--d:.15;--fc:#91b6a5;transform:rotate(-.07deg)}
+.k3{--k:3;--c:#a9c7e8;--d:.08;--fc:#9cb8d6;transform:rotate(.05deg)}
+
+/* lamp falloff over the back dividers */
+.lamp{position:absolute;inset:0;z-index:5;pointer-events:none;
+  background:radial-gradient(85% 75% at 18% 8%, rgba(255,236,200,.10), rgba(0,0,0,0) 55%, rgba(8,6,4,.32) 100%);
+  mix-blend-mode:multiply}
+.lamp::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 20% 10%, rgba(255,240,215,.14), transparent 70%);mix-blend-mode:screen}
+
+/* front divider */
+.front{--k:4;--w:1;z-index:10;
+  --fcol:color-mix(in srgb, var(--paper) calc(var(--w) * 100%), var(--board));
+  --tcol:color-mix(in srgb, var(--azure) calc(var(--w) * 100%), var(--board));
+  filter:drop-shadow(0 -1px 1.5px rgba(0,0,0,.45)) drop-shadow(0 -12px 22px rgba(0,0,0,.36));
+}
+.front .body{--c:var(--fcol);--d:0}
+.front .tab{--c:var(--tcol);--d:0;--fc:var(--tcol);height:calc(var(--tabh) + var(--w) * var(--rise));
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,calc(.55 - var(--w) * .25)),inset 0 3px 0 rgba(255,255,255,.1)}
+.front .tab .label{color:color-mix(in srgb,#fff calc(var(--w) * 100%), #1a1712);mix-blend-mode:normal;opacity:1;text-shadow:none;font-size:clamp(19px,1.5vw,28px)}
+.l{display:inline}
+.anim .l{display:none}
+.anim .l.on{display:inline}
+.caret{display:none;width:.12em;height:1.05em;margin-left:.08em;background:#1a1712;vertical-align:-.12em}
+.anim .typing .caret{display:inline-block;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+.face{position:absolute;inset:0;bottom:14vh;padding:5vh 0 0 calc(3vw + var(--tab0) + 2vw);display:grid;grid-template-columns:minmax(0,44vw) 1fr;column-gap:6vw}
+h1{font-weight:800;font-stretch:86%;font-size:clamp(34px,3.3vw,60px);line-height:1;letter-spacing:-.015em;word-spacing:.06em;max-width:15ch;text-wrap:balance}
+.lede{margin-top:2.6vh;font-size:clamp(16px,1.25vw,21px);line-height:1.4;max-width:30em;color:#2b2a27}
+.btn{display:inline-block;margin-top:3.4vh;background:var(--ink);color:#fbfaf5;text-decoration:none;font-weight:600;font-size:16px;letter-spacing:.01em;padding:15px 24px 16px;border-radius:3px;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 2px 0 rgba(0,0,0,.15),0 8px 18px -8px rgba(0,0,0,.45)}
+.btn:hover{background:#000}
+
+.entries{list-style:none;align-self:start;margin-top:5.4vh;margin-right:calc(3vw + 6vw);position:relative;font-family:"Courier Prime",ui-monospace,monospace;font-size:clamp(17px,1.35vw,23px);color:#1e2b3b}
+.entries::before{content:"";position:absolute;left:-1.2em;top:-1.4vh;bottom:-1vh;width:1.5px;background:#e2675a;opacity:calc(var(--m,1) * .75)}
+.entries li{--e:1;position:relative;height:clamp(42px,5.6vh,58px);display:flex;align-items:flex-end;padding:0 0 7px .1em;opacity:var(--e)}
+.entries li span{transform:translateY(calc((1 - var(--e)) * 8px));display:block}
+.entries li::after{content:"";position:absolute;left:-2.4em;right:0;bottom:0;height:1px;background:#8fb7df;transform-origin:0 0;transform:scaleX(var(--e))}
+.anim .entries li{--e:0}
+
+/* end: the rest of the white card */
+.end{position:relative;z-index:2;background-color:var(--paper);background-image:var(--speck),var(--mottle);background-blend-mode:multiply;background-size:360px 360px,100% 100%;background-repeat:repeat,no-repeat;
+  padding:20vh calc(3vw + var(--tab0) + 2vw) 0;min-height:100vh;display:flex;flex-direction:column}
+.end h2{font-weight:850;font-stretch:88%;font-size:clamp(44px,8vw,150px);line-height:.92;letter-spacing:-.025em;max-width:11ch}
+.end h2 em{font-style:normal;color:var(--azure)}
+.end p{margin-top:4vh;font-size:clamp(16px,1.3vw,21px);line-height:1.45;max-width:31em;color:#2b2a27}
+.end .btn{align-self:flex-start}
+footer{margin-top:auto;padding:16vh 0 4vh;font-size:12px;color:#5d5a53;display:flex;gap:18px;flex-wrap:wrap}
+footer a{text-decoration:none;border-bottom:1px solid rgba(0,0,0,.2)}
+footer a:hover{border-color:currentColor}
+
+.grain{position:fixed;inset:-50%;z-index:50;pointer-events:none;background:var(--grain);opacity:.07;mix-blend-mode:overlay}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@media (max-width:760px){
+  :root{--tabh:5.8vh;--step:7.4vh;--top0:14.6vh;--tabw:40vw;--tabx:14vw;--tab0:2vw;--rad:2.6vw;--rise:1vh}
+  .stage{min-height:620px}
+  .top{top:3.6vh;left:5vw;right:5vw}
+  .logo img{height:20px}
+  .card .tab{padding:0 3.4vw}
+  .label{font-size:14px;letter-spacing:.07em}
+  .front .tab .label{font-size:19px}
+  .face{display:block;padding:4.4vh 6vw 0}
+  h1{font-size:clamp(26px,7.1vw,32px);max-width:none}
+  .lede{font-size:15px;margin-top:12px}
+  .btn{margin-top:16px;font-size:15px;padding:13px 20px 14px}
+  .entries{margin:3.2vh 0 0 1.4em;font-size:15px}
+  .entries li{height:clamp(25px,3.6vh,32px);padding-bottom:4px}
+  .entries::before{top:-4px;bottom:-4px}
+  .end{padding:14vh 6vw 0}
+  footer{padding-top:12vh}
+}
+@media (max-width:760px) and (max-height:800px){
+  .face{padding-top:3.4vh}
+  .entries{margin-top:2.4vh}
+}
+</style>
+</head>
+<body>
+<main>
+  <section class="wrap" id="wrap">
+    <div class="stage">
+      <div class="top">
+        <a class="logo" href="#"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="96" height="24"></a>
+        <a class="signin" href="https://strapivo.app">Sign in</a>
+      </div>
+
+      <div class="index" role="img" aria-label="A card index seen from the front. Four coloured dividers are labelled finance, sales, people and operations. The front divider is labelled strategy.">
+        <div class="card k0"><div class="body"></div><div class="tab"><span class="label">FINANCE</span></div></div>
+        <div class="card k1"><div class="body"></div><div class="tab"><span class="label">SALES</span></div></div>
+        <div class="card k2"><div class="body"></div><div class="tab"><span class="label">PEOPLE</span></div></div>
+        <div class="card k3"><div class="body"></div><div class="tab"><span class="label">OPERATIONS</span></div></div>
+        <div class="lamp"></div>
+      </div>
+
+      <div class="card front typing" id="front">
+        <div class="body"></div>
+        <div class="tab" aria-hidden="true"><span class="label"><span class="l">S</span><span class="l">T</span><span class="l">R</span><span class="l">A</span><span class="l">T</span><span class="l">E</span><span class="l">G</span><span class="l">Y</span><span class="caret"></span></span></div>
+        <div class="face">
+          <div>
+            <h1>Every other function got software. Strategy never did.</h1>
+            <p class="lede">Strapivo is software where a leadership team keeps its strategy and works on it every week.</p>
+            <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+          </div>
+          <ol class="entries" aria-label="What the strategy divider holds">
+            <li><span>Ambition</span></li>
+            <li><span>Success criteria</span></li>
+            <li><span>Objectives</span></li>
+            <li><span>Activities</span></li>
+            <li><span>Risks</span></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="end">
+    <h2>Strategy finally has <em>a home.</em></h2>
+    <p>Vivo, the AI in Strapivo, checks the news against your success criteria and drafts each session's agenda. Your team decides.</p>
+    <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    <footer>
+      <span>© 2026 Strapivo</span>
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </footer>
+  </section>
+</main>
+<div class="grain" aria-hidden="true"></div>
+<script>
+(function(){
+  var root = document.documentElement;
+  if (!root.classList.contains('anim')) return;
+  var wrap = document.getElementById('wrap');
+  var front = document.getElementById('front');
+  var letters = front.querySelectorAll('.l');
+  var items = front.querySelectorAll('.entries li');
+  var list = front.querySelector('.entries');
+  var queued = false;
+  function c(x){ return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function ease(x){ return x * x * (3 - 2 * x); }
+  function update(){
+    queued = false;
+    var span = wrap.offsetHeight - innerHeight;
+    var p = span > 0 ? c(-wrap.getBoundingClientRect().top / span) : 1;
+    var n = Math.floor(c((p - 0.03) / 0.3) * letters.length + 0.0001);
+    for (var i = 0; i < letters.length; i++) letters[i].classList.toggle('on', i < n);
+    front.classList.toggle('typing', n < letters.length);
+    front.style.setProperty('--w', ease(c((p - 0.37) / 0.16)).toFixed(3));
+    for (var j = 0; j < items.length; j++) {
+      items[j].style.setProperty('--e', ease(c((p - 0.56 - j * 0.06) / 0.1)).toFixed(3));
+    }
+    list.style.setProperty('--m', ease(c((p - 0.53) / 0.08)).toFixed(3));
+  }
+  function ask(){ if (!queued) { queued = true; requestAnimationFrame(update); } }
+  addEventListener('scroll', ask, {passive:true});
+  addEventListener('resize', ask);
+  update();
+})();
+</script>
+<script src="/landings/prompt.js" defer></script>
+</body>
+</html>
