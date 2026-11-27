@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo: five views before anyone speaks</title>
+<meta name="description" content="Strapivo is where a leadership team runs its strategy sessions. Each member answers in private before the discussion starts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet">
+<style>
+:root{--baize:#1F5C45;--cream:#F3EBDD;--cream2:#E4D8C0;--wax:#A3231F;--ink:#2A2118}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--baize)}
+body{background:var(--baize);color:var(--cream);font-family:'Fraunces',Georgia,serif;overflow-x:hidden}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--cream);outline-offset:4px}
+.track{position:relative;height:300vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;
+  --s:1;--a:1;--b:1;--c:1}
+.stage::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:multiply;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23f)'/%3E%3C/svg%3E")}
+.stage::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 50%,transparent 62%,rgba(0,0,0,.38) 100%)}
+.logo{position:absolute;left:5vw;top:28px;z-index:5;display:block}
+.logo img{display:block;height:22px;width:auto}
+.signin{position:absolute;right:5vw;top:26px;z-index:5;font:400 14px 'Courier Prime',monospace;letter-spacing:.04em}
+.head{position:absolute;left:5vw;top:clamp(70px,11vh,120px);z-index:5;max-width:min(46vw,640px)}
+h1{font-weight:400;font-size:clamp(34px,4.6vw,72px);line-height:1.02;letter-spacing:-.02em;font-optical-sizing:auto}
+.lede{margin-top:18px;font-size:clamp(16px,1.25vw,19px);line-height:1.5;max-width:34em;opacity:.9}
+.act{margin-top:24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.btn{display:inline-block;background:var(--cream);color:var(--ink);text-decoration:none;padding:14px 24px;border-radius:2px;font:700 15px 'Courier Prime',monospace;letter-spacing:.02em}
+.btn:hover{background:#fff}
+.btn:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.then{font:400 15px 'Courier Prime',monospace;opacity:.85}
+.q{position:absolute;z-index:4;right:7vw;top:15vh;width:min(24vw,340px);padding:22px 22px 26px;background:var(--cream);color:var(--ink);
+  transform:rotate(2.5deg);box-shadow:0 14px 30px rgba(0,0,0,.35),0 2px 4px rgba(0,0,0,.3);font:400 18px/1.35 'Courier Prime',monospace}
+.q small{display:block;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#6b5f4d;margin-bottom:12px}
+.row{position:absolute;left:0;right:0;top:57vh;z-index:3;display:flex;justify-content:center;gap:2.4vw;padding:0 2vw}
+.tilt{width:15vw;height:10vw;transform:rotate(var(--r))}
+.env{position:relative;width:100%;height:100%;perspective:900px}
+.body{position:absolute;inset:0;z-index:2;background:linear-gradient(160deg,#F7F0E3,#EADFC8);box-shadow:0 1.2vw 2.2vw rgba(0,0,0,.4),0 .15vw .3vw rgba(0,0,0,.35);border-radius:2px}
+.body svg{position:absolute;inset:0;width:100%;height:100%}
+.flap{position:absolute;left:0;top:0;width:100%;height:56%;z-index:0;transform-origin:50% 0;transform-style:preserve-3d;
+  transform:rotateX(calc(var(--a)*-180deg))}
+.flap i{position:absolute;inset:0;clip-path:polygon(0 0,100% 0,50% 100%);backface-visibility:hidden}
+.flap .f{background:linear-gradient(180deg,#F8F1E4,#EDE2CC)}
+.flap .k{background:linear-gradient(0deg,#DCCFB4,#E8DDC6);transform:rotateX(180deg)}
+.flap.over{z-index:3}
+.seal{position:absolute;z-index:4;left:50%;top:56%;width:3.4vw;height:3.4vw;margin:-1.7vw 0 0 -1.7vw;opacity:calc(1 - var(--s))}
+.seal i{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#C9392F,var(--wax) 60%,#7C1814);box-shadow:0 .2vw .4vw rgba(0,0,0,.4)}
+.seal i:first-child{clip-path:inset(0 50% 0 0);transform:translateX(calc(var(--s)*-1.4vw)) rotate(calc(var(--s)*-14deg))}
+.seal i:last-child{clip-path:inset(0 0 0 50%);transform:translateX(calc(var(--s)*1.4vw)) rotate(calc(var(--s)*14deg))}
+.card{position:absolute;left:8%;width:84%;height:92%;top:4%;z-index:1;background:#FFFCF5;color:var(--ink);
+  transform:translateY(calc(var(--b)*-60%));box-shadow:0 .2vw .5vw rgba(0,0,0,.3);padding:1vw 0 0;text-align:center;
+  font:700 clamp(14px,1.9vw,30px)/1 'Courier Prime',monospace;letter-spacing:.02em}
+.card::before{content:"";display:block;width:40%;height:2px;background:var(--wax);margin:0 auto .8vw;opacity:.8}
+.cap{position:absolute;left:0;right:0;top:calc(57vh + 14vw);z-index:5;text-align:center;font:400 clamp(15px,1.3vw,19px)/1.5 'Fraunces',serif;
+  padding:0 6vw;opacity:var(--c)}
+.cap span{text-wrap:balance;display:block;max-width:34em;margin:0 auto}
+.foot{position:absolute;left:5vw;right:5vw;bottom:16px;z-index:5;font:400 12px 'Courier Prime',monospace;opacity:.8;display:flex;gap:18px;flex-wrap:wrap}
+.foot a{padding:4px 0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(max-width:760px){
+  .logo{top:20px}.signin{top:18px}
+  .head{top:56px;max-width:none;right:5vw}
+  h1{font-size:34px}
+  .lede{font-size:15px;margin-top:12px;line-height:1.45}
+  .act{margin-top:16px;gap:14px}
+  .btn{padding:12px 18px}
+  .q{position:absolute;right:auto;left:5vw;top:calc(56px + 270px);width:auto;max-width:78vw;padding:12px 16px 14px;font-size:15px;transform:rotate(-1.5deg)}
+  .q small{margin-bottom:6px;font-size:14px}
+  .row{top:calc(56px + 270px + 140px);flex-wrap:wrap;gap:19vw 4vw;padding:0 3vw}
+  .tilt{flex:none}
+  .tilt{width:28vw;height:18.7vw}
+  .seal{width:6.4vw;height:6.4vw;margin:-3.2vw 0 0 -3.2vw}
+  .seal i:first-child{transform:translateX(calc(var(--s)*-2.6vw)) rotate(calc(var(--s)*-14deg))}
+  .seal i:last-child{transform:translateX(calc(var(--s)*2.6vw)) rotate(calc(var(--s)*14deg))}
+  .body{box-shadow:0 2.2vw 4vw rgba(0,0,0,.4),0 .3vw .6vw rgba(0,0,0,.35)}
+  .card{font-size:15px;padding-top:2.2vw}
+  .card::before{margin-bottom:1.6vw}
+  .cap{top:auto;bottom:46px;font-size:15px;line-height:1.4}
+  .foot{bottom:12px}
+}
+@media(max-width:760px) and (max-height:760px){.cap{display:none}.cap.js-hide{display:none}}
+@media(prefers-reduced-motion:reduce){.track{height:auto}.stage{position:relative;height:100vh;height:100svh;min-height:640px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<g id="seams" fill="none" stroke="rgba(120,100,70,.35)" stroke-width="0.7"><path d="M0 100 L75 52 L150 100"/></g></defs></svg>
+
+<div class="track" id="track">
+<div class="stage" id="stage" role="img" aria-label="Five sealed envelopes on a green table. They open together, and a card rises from each one: Adapt, Hold, Adapt, Pivot, Not yet. An illustrative question lies above them: supplier prices are up, what do we do?">
+  <a class="logo" href="#"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo"></a>
+  <a class="signin" href="https://strapivo.app">Sign in</a>
+
+  <div class="head">
+    <h1>Five views, before anyone speaks.</h1>
+    <p class="lede">Strapivo is where a leadership team runs its strategy sessions. Each member answers before the discussion starts.</p>
+    <div class="act"><a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a><span class="then">Then you talk. Then you decide.</span></div>
+  </div>
+
+  <div class="q" aria-hidden="true"><small>Illustrative</small>Supplier prices are up. What do we do?</div>
+
+  <div class="row" aria-hidden="true">
+    <div class="tilt" style="--r:-4deg"><div class="env"><div class="card">Adapt</div><div class="body"><svg viewBox="0 0 150 100" preserveAspectRatio="none"><use href="#seams"/></svg></div><div class="flap"><i class="f"></i><i class="k"></i></div><div class="seal"><i></i><i></i></div></div></div>
+    <div class="tilt" style="--r:3deg"><div class="env"><div class="card">Hold</div><div class="body"><svg viewBox="0 0 150 100" preserveAspectRatio="none"><use href="#seams"/></svg></div><div class="flap"><i class="f"></i><i class="k"></i></div><div class="seal"><i></i><i></i></div></div></div>
+    <div class="tilt" style="--r:-1.5deg"><div class="env"><div class="card">Adapt</div><div class="body"><svg viewBox="0 0 150 100" preserveAspectRatio="none"><use href="#seams"/></svg></div><div class="flap"><i class="f"></i><i class="k"></i></div><div class="seal"><i></i><i></i></div></div></div>
+    <div class="tilt" style="--r:5deg"><div class="env"><div class="card">Pivot</div><div class="body"><svg viewBox="0 0 150 100" preserveAspectRatio="none"><use href="#seams"/></svg></div><div class="flap"><i class="f"></i><i class="k"></i></div><div class="seal"><i></i><i></i></div></div></div>
+    <div class="tilt" style="--r:-3deg"><div class="env"><div class="card">Not yet</div><div class="body"><svg viewBox="0 0 150 100" preserveAspectRatio="none"><use href="#seams"/></svg></div><div class="flap"><i class="f"></i><i class="k"></i></div><div class="seal"><i></i><i></i></div></div></div>
+  </div>
+
+  <p class="cap"><span>Sealed first takes, revealed together. The loudest voice cannot sway the room.</span></p>
+
+  <div class="foot"><span>© 2026 Strapivo</span><a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+</div>
+</div>
+
+<script>
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var track=document.getElementById('track'),stage=document.getElementById('stage');
+  var flaps=stage.querySelectorAll('.flap');for(var j=0;j<flaps.length;j++)flaps[j].classList.add('over');
+  var cl=function(x){return x<0?0:x>1?1:x};
+  var ez=function(t){return t*t*(3-2*t)};
+  var ticking=false;
+  function upd(){
+    ticking=false;
+    var r=track.getBoundingClientRect();
+    var p=cl(-r.top/(r.height-innerHeight));
+    var s=ez(cl(p/.2)),a=ez(cl((p-.18)/.3)),b=ez(cl((p-.55)/.3)),c=cl((p-.82)/.1);
+    var st=stage.style;
+    st.setProperty('--s',s);st.setProperty('--a',a);st.setProperty('--b',b);st.setProperty('--c',c);
+    for(var i=0;i<flaps.length;i++)flaps[i].classList.toggle('over',a<=.5);
+  }
+  function req(){if(!ticking){ticking=true;requestAnimationFrame(upd)}}
+  addEventListener('scroll',req,{passive:true});addEventListener('resize',req);
+  upd();
+})();
+</script>
+<noscript><style>.track{height:auto}.stage{position:relative}</style></noscript>
+<script src="/landings/prompt.js" defer></script>
+</body>
+</html>
