@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo. Strategy finally has a home.</title>
+<meta name="description" content="Strapivo is the room where a leadership team keeps its strategy and returns to it every week.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<script>
+(function(){var d=document.documentElement;d.className+=" js";if(!matchMedia("(prefers-reduced-motion: reduce)").matches)d.className+=" motion";})();
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#04070e;color:#cfd8e8;-webkit-text-size-adjust:100%}
+body{font:300 16px/1.55 Jost,system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit}
+a:focus-visible{outline:2px solid #ffc27f;outline-offset:4px;border-radius:2px}
+.serif{font-family:"Cormorant Garamond",Georgia,serif;font-weight:300;letter-spacing:-.005em}
+
+.stage{position:relative;height:100vh;height:100svh;min-height:520px;overflow:hidden}
+.scene{position:absolute;inset:0;width:100%;height:100%;display:block}
+.scene-P{display:none}
+@media (max-aspect-ratio:4/5){.scene-L{display:none}.scene-P{display:block}}
+.grain{position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+.top{position:absolute;z-index:3;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:28px clamp(20px,4vw,56px)}
+.logo{display:block;line-height:0}
+.logo img{height:17px;width:auto;opacity:.92}
+.signin{font-size:14px;letter-spacing:.04em;text-decoration:none;color:#9fadc6;padding:6px 0}
+.signin:hover{color:#e8eef8}
+
+.t{position:absolute;z-index:2}
+.intro{left:clamp(20px,6.5vw,110px);top:50%;transform:translateY(-58%);max-width:min(30vw,420px)}
+h1{font-size:clamp(40px,4.6vw,74px);line-height:1.02;color:#eef2f8;margin-bottom:26px}
+.intro p{font-size:16px;color:#aab6cb;max-width:330px;margin-bottom:30px}
+.cta{display:inline-flex;align-items:center;gap:12px;font-size:15px;letter-spacing:.03em;text-decoration:none;color:#ffd6a3;padding:8px 0;border-bottom:1px solid rgba(255,198,130,.45)}
+.cta:hover{color:#fff0db;border-color:#ffd6a3}
+.cta i{display:inline-block;width:22px;height:1px;background:currentColor;position:relative}
+.cta i::after{content:"";position:absolute;right:0;top:-3px;width:7px;height:7px;border-top:1px solid currentColor;border-right:1px solid currentColor;transform:rotate(45deg);transform-origin:100% 0}
+
+.mid{right:clamp(20px,6.5vw,110px);top:28%;max-width:340px;text-align:right}
+.mid .serif{font-size:clamp(34px,3.4vw,54px);line-height:1.05;color:#eef2f8;margin-bottom:16px}
+.mid p{font-size:16px;color:#aab6cb}
+
+.come{text-align:center;color:#1a1208}
+.come .serif{font-size:clamp(34px,3vw,52px);line-height:1;margin-bottom:20px;color:#1b130a}
+.btn{display:inline-block;font-size:15px;letter-spacing:.03em;text-decoration:none;color:#fff3e2;background:#141b2c;padding:14px 22px;border-radius:999px;white-space:nowrap;box-shadow:0 10px 30px -12px rgba(80,40,0,.6)}
+.btn:hover{background:#0a0f1a}
+.btn:focus-visible{outline:2px solid #141b2c;outline-offset:4px}
+
+/* still layout: no motion or no script */
+.coda{position:relative;padding:18vh 24px 16vh;text-align:center;background:radial-gradient(closest-side at 50% 100%,rgba(120,70,30,.35),rgba(4,7,14,0)) 50% 100%/min(1100px,140%) 70% no-repeat,#04070e}
+.coda .mid,.coda .come{position:static;max-width:520px;margin:0 auto;text-align:center}
+.coda .mid{margin-bottom:12vh}
+.coda .vivo{margin:0 auto 12vh;max-width:420px}
+.coda .come .serif{color:#eef2f8}
+.coda .btn{background:#ffd6a3;color:#141b2c}
+.coda .btn:hover{background:#fff0db}
+.coda .btn:focus-visible{outline-color:#ffd6a3}
+.vivo p{font-size:16px;color:#aab6cb}
+.halo{display:block;width:64px;height:64px;margin:0 auto 28px;border-radius:50%;border:5px solid #e08a3e;box-shadow:0 0 40px 6px rgba(255,170,90,.35),inset 0 0 24px rgba(255,170,90,.3)}
+.motion .halo{display:none}
+
+footer{position:relative;z-index:2;padding:22px clamp(20px,4vw,56px);font-size:12px;color:#7d8aa3;display:flex;gap:18px;flex-wrap:wrap;background:#04070e}
+footer a{text-decoration:none}
+footer a:hover{color:#cfd8e8}
+
+/* motion layout */
+.motion .scroller{height:480vh;position:relative}
+.motion .stage{position:sticky;top:0}
+.motion .coda{position:absolute;inset:0;padding:0;background:none;z-index:2;pointer-events:none}
+.motion .t,.motion .coda .mid,.motion .coda .come,.motion .coda .vivo{position:absolute;margin:0;transition:none}
+.motion .coda .mid{right:clamp(20px,6.5vw,110px);left:auto;top:30%;text-align:right;max-width:360px}
+.motion .coda .vivo{right:clamp(20px,6.5vw,110px);top:30%;text-align:right;max-width:340px}
+.motion .coda .vivo p{font-size:17px;color:#c3cde0}
+.motion .coda .come{left:0;top:0;width:0;text-align:center}
+.motion .coda .come .serif{color:#1b130a}
+.motion .coda .btn{background:#141b2c;color:#fff3e2}
+.motion .coda .btn:focus-visible{outline-color:#141b2c}
+.motion .coda>*{pointer-events:auto}
+.motion .fade{opacity:0;visibility:hidden}
+.motion .come-in{position:absolute;left:0;transform:translateX(-50%);white-space:nowrap}
+
+@media (max-aspect-ratio:4/5){
+ .top{padding:20px 22px}
+ .intro{left:22px;right:22px;top:72px;transform:none;max-width:none}
+ h1{font-size:clamp(34px,10vw,44px);margin-bottom:12px}
+ .intro p{font-size:15px;line-height:1.45;margin-bottom:12px;max-width:340px}
+ .cta{font-size:14px;padding:4px 0}
+ .motion .coda .mid,.motion .coda .vivo{left:22px;right:22px;top:76px;text-align:left;max-width:none}
+ .mid .serif{font-size:38px;margin-bottom:10px}
+ .motion .coda .vivo p{font-size:16px}
+ .mid p{font-size:15px}
+ .come .serif{font-size:34px;margin-bottom:14px}
+ .btn{font-size:14px;padding:12px 18px}
+}
+@media (max-width:380px){ .intro p{font-size:14px} h1{font-size:33px} }
+</style>
+</head>
+<body>
+<main class="scroller" id="scroller">
+ <div class="stage" id="stage">
+  <div role="img" aria-label="A dark wall with a tall door standing ajar. Warm light comes through the gap and falls across the floor. As the door opens, a bright room appears with a ring inside it.">
+   <svg class="scene scene-L" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><defs><radialGradient id="L-gWallV" cx="50%" cy="46%" r="70%"><stop offset="0" stop-color="#16213a"/><stop offset=".55" stop-color="#0b1222"/><stop offset="1" stop-color="#04070e"/></radialGradient><linearGradient id="L-gFloor" y1="732" y2="1000" x1="0" x2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0a1120"/><stop offset=".35" stop-color="#070c18"/><stop offset="1" stop-color="#03050a"/></linearGradient><linearGradient id="L-gWedge" y1="732" y2="1000" x1="0" x2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffe4b8"/><stop offset=".12" stop-color="#ffc27a" stop-opacity=".92"/><stop offset=".55" stop-color="#e98a3c" stop-opacity=".5"/><stop offset="1" stop-color="#b85a24" stop-opacity=".16"/></linearGradient><linearGradient id="L-gWedgeSoft" y1="732" y2="1000" x1="0" x2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffb56a" stop-opacity=".7"/><stop offset=".5" stop-color="#d9772f" stop-opacity=".28"/><stop offset="1" stop-color="#8f4319" stop-opacity=".1"/></linearGradient><linearGradient id="L-gRefl" y1="732" y2="805.5" x1="0" x2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffcf8f"/><stop offset="1" stop-color="#ffcf8f" stop-opacity="0"/></linearGradient><radialGradient id="L-gRoom" cx="808.6" cy="386.8" r="650" fx="808.6" fy="386.8" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fffdf7"/><stop offset=".35" stop-color="#fff1d6"/><stop offset=".75" stop-color="#ffd59a"/><stop offset="1" stop-color="#f6ae5e"/></radialGradient><linearGradient id="L-gRev" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2b36a"/><stop offset="1" stop-color="#ffd8a1"/></linearGradient><linearGradient id="L-gDoor" x1="1" y1="0" x2="0" y2="0"><stop id="L-gDoor0" stop-color="rgb(9,14,27)" offset="0"/><stop id="L-gDoor1" stop-color="rgb(20,29,50)" offset="1"/></linearGradient><radialGradient id="L-gGlow"><stop offset="0" stop-color="#ffc27a" stop-opacity=".5"/><stop offset=".45" stop-color="#d98a3c" stop-opacity=".12"/><stop offset="1" stop-color="#c46a2c" stop-opacity="0"/></radialGradient><radialGradient id="L-gHot"><stop offset="0" stop-color="#fff4dd"/><stop offset=".5" stop-color="#ffd193" stop-opacity=".5"/><stop offset="1" stop-color="#ffb466" stop-opacity="0"/></radialGradient><linearGradient id="L-gHaze" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd8a0" stop-opacity=".0"/><stop offset=".25" stop-color="#ffd8a0" stop-opacity=".7"/><stop offset="1" stop-color="#ffb466" stop-opacity="0"/></linearGradient><filter id="L-b2" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2"/></filter><filter id="L-b8" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9"/></filter><filter id="L-b30" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="34"/></filter><filter id="L-b4" x="-40%" y="-10%" width="180%" height="120%"><feGaussianBlur stdDeviation="4"/></filter><clipPath id="L-cOpen"><polygon id="L-clipOpen" points="667.5,732 932.5,732 932.5,119.5 667.5,119.5"/></clipPath><mask id="L-mWedge" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="1000"><polygon id="L-wedgeMask" points="684.6,732 844.6,732 31254.5,6052 17415.7,6052" fill="#fff" filter="url(#L-b8)"/></mask></defs><rect width="1600" height="1000" fill="url(#L-gWallV)"/><ellipse id="L-wallGlow" cx="800" cy="457" rx="600" ry="500" opacity="0.059000000000000004" fill="url(#L-gGlow)"/><rect id="L-floor" y="732" height="270" x="0" width="1600" fill="url(#L-gFloor)"/><line id="L-skirt" y1="732" y2="732" x1="0" x2="1600" stroke="#02040a" stroke-width="3" opacity=".9"/><rect id="L-refl" x="663.5" y="732" width="53.3" height="73.5" opacity="0.134" fill="url(#L-gRefl)" filter="url(#L-b4)"/><polygon id="L-wedgeSoft" points="684.6,732 844.6,732 31254.5,6052 17415.7,6052" fill="url(#L-gWedgeSoft)" filter="url(#L-b30)"/><polygon id="L-wedgeCore" points="684.6,732 844.6,732 31254.5,6052 17415.7,6052" fill="url(#L-gWedge)" filter="url(#L-b8)"/><path id="L-seams" d="M-700 732L-29200 6052M-652.5 732L-28250 6052M-605 732L-27300 6052M-557.5 732L-26350 6052M-510 732L-25400 6052M-462.5 732L-24450 6052M-415 732L-23500 6052M-367.5 732L-22550 6052M-320 732L-21600 6052M-272.5 732L-20650 6052M-225 732L-19700 6052M-177.5 732L-18750 6052M-130 732L-17800 6052M-82.5 732L-16850 6052M-35 732L-15900 6052M12.5 732L-14950 6052M60 732L-14000 6052M107.5 732L-13050 6052M155 732L-12100 6052M202.5 732L-11150 6052M250 732L-10200 6052M297.5 732L-9250 6052M345 732L-8300 6052M392.5 732L-7350 6052M440 732L-6400 6052M487.5 732L-5450 6052M535 732L-4500 6052M582.5 732L-3550 6052M630 732L-2600 6052M677.5 732L-1650 6052M725 732L-700 6052M772.5 732L250 6052M820 732L1200 6052M867.5 732L2150 6052M915 732L3100 6052M962.5 732L4050 6052M1010 732L5000 6052M1057.5 732L5950 6052M1105 732L6900 6052M1152.5 732L7850 6052M1200 732L8800 6052M1247.5 732L9750 6052M1295 732L10700 6052M1342.5 732L11650 6052M1390 732L12600 6052M1437.5 732L13550 6052M1485 732L14500 6052M1532.5 732L15450 6052M1580 732L16400 6052M1627.5 732L17350 6052M1675 732L18300 6052M1722.5 732L19250 6052M1770 732L20200 6052M1817.5 732L21150 6052M1865 732L22100 6052M1912.5 732L23050 6052M1960 732L24000 6052M2007.5 732L24950 6052M2055 732L25900 6052M2102.5 732L26850 6052M2150 732L27800 6052M2197.5 732L28750 6052M2245 732L29700 6052M2292.5 732L30650 6052M-105.2 789.9L-47.8 789.9M-246.3 869L-175.5 869M-242 897.5L-166.5 897.5M-528.9 1064.5L-425 1064.5M-1160 1432L-993.8 1432M211.9 773.3L266.4 773.3M149 844L215.5 844M30.9 967.8L118.4 967.8M60 1012L155 1012M-181.5 1304.2L-37 1304.2M450 808.4L510.5 808.4M499.5 821.8L562.3 821.8M492.7 930L573.8 930M480.2 1127.9L594.8 1127.9M571.2 1205.8L699 1205.8M754.7 789.9L812.1 789.9M814.9 869L885.6 869M891.5 897.5L967 897.5M1029.7 1064.5L1133.6 1064.5M1333.7 1432L1500 1432M1029.5 773.3L1084 773.3M1146.5 844L1213 844M1343.4 967.8L1430.9 967.8M1485 1012L1580 1012M1987 1304.2L2131.5 1304.2M1356.8 808.4L1417.3 808.4M1440.6 821.8L1503.3 821.8M1709.1 930L1790.2 930M2200 1127.9L2314.7 1127.9M2489.4 1205.8L2617.3 1205.8M1614.7 789.9L1672 789.9M1876.1 869L1946.8 869" stroke="#3a1c08" stroke-opacity=".38" stroke-width="1.3" fill="none" mask="url(#L-mWedge)"/><ellipse id="L-hot" cx="776" cy="744.5" rx="95" ry="11.3" opacity="0.9" fill="url(#L-gHot)"/><polygon id="L-frame" points="642.5,732 642.5,94.5 957.5,94.5 957.5,732 932.5,732 932.5,119.5 667.5,119.5 667.5,732" fill="#0f182b" fill-rule="evenodd"/><polygon id="L-opening" points="667.5,732 932.5,732 932.5,119.5 667.5,119.5" fill="url(#L-gRoom)"/><polygon id="L-revL" points="667.5,732 667.5,119.5 669.7,125.1 669.7,727.3" fill="url(#L-gRev)" opacity=".85"/><polygon id="L-revR" points="932.5,732 932.5,119.5 930.3,125.1 930.3,727.3" fill="#e79c55"/><polygon id="L-revT" points="667.5,119.5 932.5,119.5 930.3,125.1 669.7,125.1" fill="#d98d4a"/><polygon id="L-sill" points="667.5,732 932.5,732 930.3,727.3 669.7,727.3" fill="#ffe2b4"/><g clip-path="url(#L-cOpen)"><circle id="L-ring" cx="781.8" cy="364.5" r="45.6" stroke-width="9.1" opacity="0" fill="none" stroke="#b8621f"/><polygon id="L-outer" points="932.5,732 719.6,710.1 719.6,145.5 932.5,119.5" fill="url(#L-gDoor)"/><line id="L-rim" x1="719.6" y1="710.1" x2="719.6" y2="145.5" opacity="0.695" stroke="#ffe0b0" stroke-width="3" filter="url(#L-b2)"/><line id="L-stem" x1="733.6" y1="484.4" x2="725.3" y2="484.7" stroke-width="3.7" opacity="0.9009999999999999" stroke="#5a4428" stroke-linecap="round"/><ellipse id="L-rose" cx="731.9" cy="484.5" rx="5" ry="6" opacity="0.9009999999999999" fill="#7a5c37"/><line id="L-lever" x1="725.3" y1="484.7" x2="751.2" y2="487.4" stroke-width="4.6" opacity="0.9009999999999999" stroke="#6e5331" stroke-linecap="round"/><line id="L-leverHi" x1="725.3" y1="483.3" x2="751.2" y2="486" stroke-width="1.4" opacity="0.8059999999999999" stroke="#d9b37a" stroke-linecap="round"/></g><polyline id="L-frameEdge" points="667.5,732 667.5,119.5 932.5,119.5 932.5,732" opacity="0.455" fill="none" stroke="#ffc27f" stroke-width="2" filter="url(#L-b2)"/></svg>
+   <svg class="scene scene-P" viewBox="0 0 900 1800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><defs><radialGradient id="P-gWallV" cx="50%" cy="46%" r="70%"><stop offset="0" stop-color="#16213a"/><stop offset=".55" stop-color="#0b1222"/><stop offset="1" stop-color="#04070e"/></radialGradient><linearGradient id="P-gFloor" y1="1480" y2="1800" x1="0" x2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0a1120"/><stop offset=".35" stop-color="#070c18"/><stop offset="1" stop-color="#03050a"/></linearGradient><linearGradient id="P-gWedge" y1="1480" y2="1800" x1="0" x2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffe4b8"/><stop offset=".12" stop-color="#ffc27a" stop-opacity=".92"/><stop offset=".55" stop-color="#e98a3c" stop-opacity=".5"/><stop offset="1" stop-color="#b85a24" stop-opacity=".16"/></linearGradient><linearGradient id="P-gWedgeSoft" y1="1480" y2="1800" x1="0" x2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffb56a" stop-opacity=".7"/><stop offset=".5" stop-color="#d9772f" stop-opacity=".28"/><stop offset="1" stop-color="#8f4319" stop-opacity=".1"/></linearGradient><linearGradient id="P-gRefl" y1="1480" y2="1585" x1="0" x2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffcf8f"/><stop offset="1" stop-color="#ffcf8f" stop-opacity="0"/></linearGradient><radialGradient id="P-gRoom" cx="462.3" cy="986.9" r="928.6" fx="462.3" fy="986.9" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fffdf7"/><stop offset=".35" stop-color="#fff1d6"/><stop offset=".75" stop-color="#ffd59a"/><stop offset="1" stop-color="#f6ae5e"/></radialGradient><linearGradient id="P-gRev" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2b36a"/><stop offset="1" stop-color="#ffd8a1"/></linearGradient><linearGradient id="P-gDoor" x1="1" y1="0" x2="0" y2="0"><stop id="P-gDoor0" stop-color="rgb(9,14,27)" offset="0"/><stop id="P-gDoor1" stop-color="rgb(20,29,50)" offset="1"/></linearGradient><radialGradient id="P-gGlow"><stop offset="0" stop-color="#ffc27a" stop-opacity=".5"/><stop offset=".45" stop-color="#d98a3c" stop-opacity=".12"/><stop offset="1" stop-color="#c46a2c" stop-opacity="0"/></radialGradient><radialGradient id="P-gHot"><stop offset="0" stop-color="#fff4dd"/><stop offset=".5" stop-color="#ffd193" stop-opacity=".5"/><stop offset="1" stop-color="#ffb466" stop-opacity="0"/></radialGradient><linearGradient id="P-gHaze" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd8a0" stop-opacity=".0"/><stop offset=".25" stop-color="#ffd8a0" stop-opacity=".7"/><stop offset="1" stop-color="#ffb466" stop-opacity="0"/></linearGradient><filter id="P-b2" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2"/></filter><filter id="P-b8" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9"/></filter><filter id="P-b30" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="34"/></filter><filter id="P-b4" x="-40%" y="-10%" width="180%" height="120%"><feGaussianBlur stdDeviation="4"/></filter><clipPath id="P-cOpen"><polygon id="P-clipOpen" points="260.7,1480 639.3,1480 639.3,605 260.7,605"/></clipPath><mask id="P-mWedge" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="1800"><polygon id="P-wedgeMask" points="285.1,1480 513.7,1480 43956.4,9080 24186.7,9080" fill="#fff" filter="url(#P-b8)"/></mask></defs><rect width="900" height="1800" fill="url(#P-gWallV)"/><ellipse id="P-wallGlow" cx="450" cy="1087.1" rx="857.1" ry="714.3" opacity="0.059000000000000004" fill="url(#P-gGlow)"/><rect id="P-floor" y="1480" height="322" x="0" width="900" fill="url(#P-gFloor)"/><line id="P-skirt" y1="1480" y2="1480" x1="0" x2="900" stroke="#02040a" stroke-width="3" opacity=".9"/><rect id="P-refl" x="256.7" y="1480" width="72.7" height="105" opacity="0.134" fill="url(#P-gRefl)" filter="url(#P-b4)"/><polygon id="P-wedgeSoft" points="285.1,1480 513.7,1480 43956.4,9080 24186.7,9080" fill="url(#P-gWedgeSoft)" filter="url(#P-b30)"/><polygon id="P-wedgeCore" points="285.1,1480 513.7,1480 43956.4,9080 24186.7,9080" fill="url(#P-gWedge)" filter="url(#P-b8)"/><path id="P-seams" d="M-1692.9 1480L-42407.1 9080M-1625 1480L-41050 9080M-1557.1 1480L-39692.9 9080M-1489.3 1480L-38335.7 9080M-1421.4 1480L-36978.6 9080M-1353.6 1480L-35621.4 9080M-1285.7 1480L-34264.3 9080M-1217.9 1480L-32907.1 9080M-1150 1480L-31550 9080M-1082.1 1480L-30192.9 9080M-1014.3 1480L-28835.7 9080M-946.4 1480L-27478.6 9080M-878.6 1480L-26121.4 9080M-810.7 1480L-24764.3 9080M-742.9 1480L-23407.1 9080M-675 1480L-22050 9080M-607.1 1480L-20692.9 9080M-539.3 1480L-19335.7 9080M-471.4 1480L-17978.6 9080M-403.6 1480L-16621.4 9080M-335.7 1480L-15264.3 9080M-267.9 1480L-13907.1 9080M-200 1480L-12550 9080M-132.1 1480L-11192.9 9080M-64.3 1480L-9835.7 9080M3.6 1480L-8478.6 9080M71.4 1480L-7121.4 9080M139.3 1480L-5764.3 9080M207.1 1480L-4407.1 9080M275 1480L-3050 9080M342.9 1480L-1692.9 9080M410.7 1480L-335.7 9080M478.6 1480L1021.4 9080M546.4 1480L2378.6 9080M614.3 1480L3735.7 9080M682.1 1480L5092.9 9080M750 1480L6450 9080M817.9 1480L7807.1 9080M885.7 1480L9164.3 9080M953.6 1480L10521.4 9080M1021.4 1480L11878.6 9080M1089.3 1480L13235.7 9080M1157.1 1480L14592.9 9080M1225 1480L15950 9080M1292.9 1480L17307.1 9080M1360.7 1480L18664.3 9080M1428.6 1480L20021.4 9080M1496.4 1480L21378.6 9080M1564.3 1480L22735.7 9080M1632.1 1480L24092.9 9080M1700 1480L25450 9080M1767.9 1480L26807.1 9080M1835.7 1480L28164.3 9080M1903.6 1480L29521.4 9080M1971.4 1480L30878.6 9080M2039.3 1480L32235.7 9080M2107.1 1480L33592.9 9080M2175 1480L34950 9080M2242.9 1480L36307.1 9080M2310.7 1480L37664.3 9080M2378.6 1480L39021.4 9080M2446.4 1480L40378.6 9080M2514.3 1480L41735.7 9080M2582.1 1480L43092.9 9080M-843.1 1562.8L-761.2 1562.8M-1044.7 1675.7L-943.6 1675.7M-1038.6 1716.4L-930.7 1716.4M-1448.4 1955L-1300 1955M-2350 2480L-2112.5 2480M-390.2 1539L-312.3 1539M-480 1640L-385 1640M-648.7 1816.8L-523.7 1816.8M-607.1 1880L-471.4 1880M-952.2 2297.4L-745.7 2297.4M-50 1589.1L36.4 1589.1M20.8 1608.3L110.4 1608.3M11 1762.9L126.8 1762.9M-6.9 2045.5L156.9 2045.5M123.1 2156.9L305.8 2156.9M385.3 1562.8L467.2 1562.8M471.3 1675.7L572.3 1675.7M580.7 1716.4L688.6 1716.4M778.1 1955L926.6 1955M1212.5 2480L1450 2480M777.9 1539L855.7 1539M945 1640L1040 1640M1226.3 1816.8L1351.3 1816.8M1428.6 1880L1564.3 1880M2145.7 2297.4L2352.2 2297.4M1245.5 1589.1L1331.8 1589.1M1365.1 1608.3L1454.7 1608.3M1748.8 1762.9L1864.6 1762.9M2450 2045.5L2613.8 2045.5M2863.5 2156.9L3046.2 2156.9M1613.8 1562.8L1695.7 1562.8M1987.2 1675.7L2088.3 1675.7" stroke="#3a1c08" stroke-opacity=".38" stroke-width="1.3" fill="none" mask="url(#P-mWedge)"/><ellipse id="P-hot" cx="415.8" cy="1497.9" rx="135.7" ry="16.1" opacity="0.9" fill="url(#P-gHot)"/><polygon id="P-frame" points="225,1480 225,569.3 675,569.3 675,1480 639.3,1480 639.3,605 260.7,605 260.7,1480" fill="#0f182b" fill-rule="evenodd"/><polygon id="P-opening" points="260.7,1480 639.3,1480 639.3,605 260.7,605" fill="url(#P-gRoom)"/><polygon id="P-revL" points="260.7,1480 260.7,605 263.9,613 263.9,1473.3" fill="url(#P-gRev)" opacity=".85"/><polygon id="P-revR" points="639.3,1480 639.3,605 636.1,613 636.1,1473.3" fill="#e79c55"/><polygon id="P-revT" points="260.7,605 639.3,605 636.1,613 263.9,613" fill="#d98d4a"/><polygon id="P-sill" points="260.7,1480 639.3,1480 636.1,1473.3 263.9,1473.3" fill="#ffe2b4"/><g clip-path="url(#P-cOpen)"><circle id="P-ring" cx="424" cy="955" r="65.1" stroke-width="13" opacity="0" fill="none" stroke="#b8621f"/><polygon id="P-outer" points="639.3,1480 335.2,1448.8 335.2,642.1 639.3,605" fill="url(#P-gDoor)"/><line id="P-rim" x1="335.2" y1="1448.8" x2="335.2" y2="642.1" opacity="0.695" stroke="#ffe0b0" stroke-width="3" filter="url(#P-b2)"/><line id="P-stem" x1="355.1" y1="1126.4" x2="343.3" y2="1126.7" stroke-width="5.3" opacity="0.9009999999999999" stroke="#5a4428" stroke-linecap="round"/><ellipse id="P-rose" cx="352.8" cy="1126.4" rx="7.1" ry="8.6" opacity="0.9009999999999999" fill="#7a5c37"/><line id="P-lever" x1="343.3" y1="1126.7" x2="380.3" y2="1130.5" stroke-width="6.6" opacity="0.9009999999999999" stroke="#6e5331" stroke-linecap="round"/><line id="P-leverHi" x1="343.3" y1="1124.7" x2="380.3" y2="1128.6" stroke-width="2" opacity="0.8059999999999999" stroke="#d9b37a" stroke-linecap="round"/></g><polyline id="P-frameEdge" points="260.7,1480 260.7,605 639.3,605 639.3,1480" opacity="0.455" fill="none" stroke="#ffc27f" stroke-width="2" filter="url(#P-b2)"/></svg>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="top">
+   <a class="logo" href="#"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="68" height="17"></a>
+   <a class="signin" href="https://strapivo.app">Sign in</a>
+  </div>
+  <div class="t intro" id="t-intro">
+   <h1 class="serif">Strategy finally has a&nbsp;home.</h1>
+   <p>Strapivo is the room where a leadership team keeps its strategy and returns to it every week.</p>
+   <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation <i aria-hidden="true"></i></a>
+  </div>
+ </div>
+  <div class="coda" id="coda">
+  <div class="mid fade" id="t-mid">
+   <p class="serif">Someone is in.</p>
+   <p>Each week the team reads what changed outside the company and decides what to adjust.</p>
+  </div>
+  <div class="vivo fade" id="t-vivo">
+   <p>Vivo, the AI, drafts the agenda. People decide, and Vivo records each decision with its reason.</p>
+  </div>
+  <div class="come fade" id="t-come">
+   <div class="come-in" id="t-come-in">
+    <span class="halo" aria-hidden="true"></span>
+    <p class="serif">Come in.</p>
+    <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+   </div>
+  </div>
+ </div>
+</main>
+<footer>
+ <span>© 2026 Strapivo</span><a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a>
+</footer>
+<script>
+// Door scene: pure geometry -> SVG attributes. Shared by build (static still) and runtime.
+var DOORSCENE = (function () {
+  var D = { xH: -0.53, xR: 0.53, H: 2.45, t: 0.12, d: 0.055, W: 1.06, fr: 0.1 };
+  var LIGHT = { x: -1.6, z: -2.0 };
+  var LAY = {
+    L: { VW: 1600, VH: 1000, f: 1750, cx: 800, cy: 452, camY: 1.12 },
+    P: { VW: 900, VH: 1800, f: 2500, cx: 450, cy: 1080, camY: 1.12 }
+  };
+  function r(n) { return Math.round(n * 10) / 10; }
+  function mk(lay, camZ) {
+    return function (x, y, z) {
+      var dep = Math.max(camZ - z, 0.25);
+      return [lay.cx + lay.f * x / dep, lay.cy - lay.f * (y - lay.camY) / dep];
+    };
+  }
+  function pts(P, list) {
+    return list.map(function (p) { var s = P(p[0], p[1], p[2]); return r(s[0]) + "," + r(s[1]); }).join(" ");
+  }
+  function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+
+  // th: door angle in degrees, camZ: camera distance, open: 0..1 for the ring and wash
+  function compute(key, th, camZ, open) {
+    var lay = LAY[key], P = mk(lay, camZ), A = {};
+    var t = th * Math.PI / 180, c = Math.cos(t), s = Math.sin(t);
+    var H = D.H, xH = D.xH, xR = D.xR;
+    var base = P(0, 0, 0)[1];
+    var open01 = clamp((th - 8) / 76, 0, 1);
+
+    // panel swings inward, hinged on the right jamb; gap opens on the left
+    function pc(u, v, y) { return [xR - u * c - v * s, y, -u * s + v * c]; }
+    var E = pc(D.W, 0, 0);
+    var Lx = LIGHT.x, Lz = LIGHT.z;
+    var qE = Lx + (E[0] - Lx) * (-Lz) / (E[2] - Lz);
+    var qJ = Lx + (xH - Lx) * (-Lz) / (-D.t - Lz);
+    var qR = Math.min(qE, xR), qL = Math.min(Math.max(qJ, xH), qR - 0.004);
+    var zf = camZ - 0.35;
+    function ray(q, z) { return q + (q - Lx) * z / (-Lz); }
+    var wedge = [[qL, 0, 0], [qR, 0, 0], [ray(qR, zf), 0, zf], [ray(qL, zf), 0, zf]];
+    var wp = pts(P, wedge);
+    A.wedgeSoft = { points: wp };
+    A.wedgeCore = { points: wp };
+    A.wedgeMask = { points: wp };
+    var gap = qR - qL;
+    // threshold hotspot
+    var hs0 = P((qL + qR) / 2 + 0.05, 0, 0.3);
+    A.hot = { cx: r(hs0[0]), cy: r(hs0[1]), rx: r(lay.f * (gap * 0.5 + 0.06) / camZ), ry: r(lay.f * 0.045 / camZ), opacity: r(clamp(0.35 + gap, 0, 0.9) * 10) / 10 };
+    A.gWedge = { y1: r(base), y2: lay.VH };
+    A.gWedgeSoft = { y1: r(base), y2: lay.VH };
+    // floor
+    A.floor = { y: r(base), height: r(lay.VH - base + 2) };
+    A.gFloor = { y1: r(base), y2: lay.VH };
+    A.skirt = { y1: r(base), y2: r(base) };
+    // reflection of the bright gap on a polished floor
+    var g0 = P(xH, 0, 0), g1 = P(Math.max(E[0], xH + 0.02), 0, 0), gt = P(xH, H, 0);
+    var hgt = (g0[1] - gt[1]) * 0.12;
+    A.refl = { x: r(g0[0] - 4), y: r(base), width: r(Math.max(g1[0] - g0[0] + 8, 4)), height: r(hgt), opacity: r((0.1 + open01 * 0.1) * 100) / 100 };
+    A.gRefl = { y1: r(base), y2: r(base + hgt) };
+
+    // opening, reveals, frame
+    var oL = P(xH, 0, 0), oT = P(xR, H, 0);
+    A.opening = { points: pts(P, [[xH, 0, 0], [xR, 0, 0], [xR, H, 0], [xH, H, 0]]) };
+    A.clipOpen = { points: A.opening.points };
+    var ctr = P(0.05, 1.5, -3.2);
+    A.gRoom = { cx: r(ctr[0]), cy: r(ctr[1]), r: r(lay.f * 2.6 / camZ), fx: r(ctr[0]), fy: r(ctr[1]) };
+    A.revL = { points: pts(P, [[xH, 0, 0], [xH, H, 0], [xH, H, -D.t], [xH, 0, -D.t]]) };
+    A.revR = { points: pts(P, [[xR, 0, 0], [xR, H, 0], [xR, H, -D.t], [xR, 0, -D.t]]) };
+    A.revT = { points: pts(P, [[xH, H, 0], [xR, H, 0], [xR, H, -D.t], [xH, H, -D.t]]) };
+    A.sill = { points: pts(P, [[xH, 0, 0], [xR, 0, 0], [xR, 0, -D.t], [xH, 0, -D.t]]) };
+    var f = D.fr;
+    A.frame = { points: pts(P, [[xH - f, 0, 0], [xH - f, H + f, 0], [xR + f, H + f, 0], [xR + f, 0, 0], [xR, 0, 0], [xR, H, 0], [xH, H, 0], [xH, 0, 0]]) };
+    A.frameEdge = { points: pts(P, [[xH, 0, 0], [xH, H, 0], [xR, H, 0], [xR, 0, 0]]) , opacity: r((0.25 + open01 * 0.6) * 100) / 100 };
+    // wall glow around the opening
+    var oc = P(0, 1.1, 0);
+    A.wallGlow = { cx: r(oc[0]), cy: r(oc[1]), rx: r(lay.f * 2.4 / camZ), ry: r(lay.f * 2.0 / camZ), opacity: r(open01 * open01 * 0.5 * 100) / 100 };
+
+    // ring, deep in the room
+    var rc = P(-0.1, 1.6, -2.6);
+    A.ring = { cx: r(rc[0]), cy: r(rc[1]), r: r(lay.f * 0.25 / (camZ + 2.6)), "stroke-width": r(lay.f * 0.05 / (camZ + 2.6)), opacity: r(clamp(open, 0, 1) * 100) / 100 };
+
+    // panel: outer face only (edge points away from the viewer)
+    var o = [pc(0, 0, 0), pc(D.W, 0, 0), pc(D.W, 0, H), pc(0, 0, H)];
+    var n = [-s, c], tl = [Lx - (o[0][0] + o[1][0]) / 2, Lz - (o[0][2] + o[1][2]) / 2];
+    var tlen = Math.hypot(tl[0], tl[1]);
+    var lit = Math.pow(clamp((n[0] * tl[0] + n[1] * tl[1]) / tlen, 0, 1), 2.2);
+    function mix(a, b, k) { return "rgb(" + a.map(function (x, i) { return Math.round(x + (b[i] - x) * k); }).join(",") + ")"; }
+    A.outer = { points: pts(P, o) };
+    A.gDoor0 = { "stop-color": mix([9, 14, 27], [196, 128, 70], lit * 0.9) };
+    A.gDoor1 = { "stop-color": mix([20, 29, 50], [240, 178, 110], lit) };
+    var eTop = P(o[2][0], o[2][1], o[2][2]), eBot = P(o[1][0], o[1][1], o[1][2]);
+    A.rim = { x1: r(eBot[0]), y1: r(eBot[1]), x2: r(eTop[0]), y2: r(eTop[1]), opacity: r((0.9 - 0.6 * open01) * 100) / 100 };
+    var showO = true;
+    var fe = P(E[0], 0.9, E[2]), lj = P(xH, 0.9, 0);
+    A.meta = { mid: (Math.max(lj[0], 0) + Math.min(fe[0], P(xR, 0.9, 0)[0])) / 2 };
+    // handle: rose + lever on outer face
+    var hu = D.W - 0.075, hy = 0.98;
+    var rose = P.apply(null, pc(hu, 0.012, hy));
+    var hl = 0.35 + 0.65 * lit;
+    var l0 = P.apply(null, pc(hu, 0.06, hy)), l1 = P.apply(null, pc(hu - 0.14, 0.065, hy - 0.01));
+    var stem0 = P.apply(null, pc(hu, 0.0, hy));
+    var sc = lay.f / (camZ - pc(hu, 0, hy)[2]);
+    A.rose = { cx: r(rose[0]), cy: r(rose[1]), rx: r(Math.max(Math.abs(c) * 0.026 * sc, 0.5)), ry: r(0.026 * sc), opacity: r((1 - open01 * open01 * 0.85) * 100) / 100 };
+    A.stem = { x1: r(stem0[0]), y1: r(stem0[1]), x2: r(l0[0]), y2: r(l0[1]), "stroke-width": r(0.016 * sc), opacity: r((1 - open01 * open01 * 0.85) * 100) / 100 };
+    A.lever = { x1: r(l0[0]), y1: r(l0[1]), x2: r(l1[0]), y2: r(l1[1]), "stroke-width": r(0.02 * sc), opacity: r((1 - open01 * open01 * 0.85) * 100) / 100 };
+    A.leverHi = { x1: r(l0[0]), y1: r(l0[1] - 0.006 * sc), x2: r(l1[0]), y2: r(l1[1] - 0.006 * sc), "stroke-width": r(0.006 * sc), opacity: r((0.9 - open01 * open01 * 0.8) * 100) / 100 };
+
+    // haze: light in the air through the gap
+    var hz = [[qL, H * 0.98, 0], [qR, H * 0.98, 0], [ray(qR, 2.4), 0.05, 2.4], [ray(qL, 2.4), 0.05, 2.4]];
+    A.haze = { points: pts(P, hz), opacity: r((0.10 + open01 * 0.10) * 100) / 100 };
+    A.wash = { opacity: r(open01 * open01 * 0.12 * 100) / 100 };
+    return A;
+  }
+
+  function seams(key, camZ) {
+    var lay = LAY[key], P = mk(lay, camZ), out = [];
+    for (var x = -6; x <= 6.01; x += 0.19) {
+      var a = P(x, 0, 0), b = P(x, 0, camZ - 0.35);
+      out.push("M" + r(a[0]) + " " + r(a[1]) + "L" + r(b[0]) + " " + r(b[1]));
+    }
+    // a few end joints, staggered
+    var zs = [0.9, 1.7, 2.6, 3.5, 4.4];
+    var k = 0;
+    for (var x2 = -3; x2 <= 3; x2 += 0.19) {
+      var z = zs[k++ % zs.length] + (k % 3) * 0.3;
+      if (z > camZ - 0.6) continue;
+      var c0 = P(x2, 0, z), c1 = P(x2 + 0.19, 0, z);
+      out.push("M" + r(c0[0]) + " " + r(c0[1]) + "L" + r(c1[0]) + " " + r(c1[1]));
+    }
+    return out.join("");
+  }
+
+  function svg(key, th, camZ, open) {
+    var lay = LAY[key], A = compute(key, th, camZ, open), K = key;
+    function at(id, tag, extra, close) {
+      var o = A[id] || {}, s = "<" + tag + ' id="' + K + "-" + id + '"';
+      for (var k in o) s += " " + k + '="' + String(o[k]).replace(/K-/g, K + "-") + '"';
+      return s + (extra ? " " + extra.replace(/K-/g, K + "-") : "") + (close === false ? ">" : "/>");
+    }
+    var VW = lay.VW, VH = lay.VH;
+    return '<svg class="scene scene-' + K + '" viewBox="0 0 ' + VW + " " + VH + '" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">' +
+      "<defs>" +
+      '<radialGradient id="' + K + '-gWallV" cx="50%" cy="46%" r="70%"><stop offset="0" stop-color="#16213a"/><stop offset=".55" stop-color="#0b1222"/><stop offset="1" stop-color="#04070e"/></radialGradient>' +
+      at("gFloor", "linearGradient", 'x1="0" x2="0" gradientUnits="userSpaceOnUse"', false) + '<stop offset="0" stop-color="#0a1120"/><stop offset=".35" stop-color="#070c18"/><stop offset="1" stop-color="#03050a"/></linearGradient>' +
+      at("gWedge", "linearGradient", 'x1="0" x2="0" gradientUnits="userSpaceOnUse"', false) + '<stop offset="0" stop-color="#ffe4b8"/><stop offset=".12" stop-color="#ffc27a" stop-opacity=".92"/><stop offset=".55" stop-color="#e98a3c" stop-opacity=".5"/><stop offset="1" stop-color="#b85a24" stop-opacity=".16"/></linearGradient>' +
+      at("gWedgeSoft", "linearGradient", 'x1="0" x2="0" gradientUnits="userSpaceOnUse"', false) + '<stop offset="0" stop-color="#ffb56a" stop-opacity=".7"/><stop offset=".5" stop-color="#d9772f" stop-opacity=".28"/><stop offset="1" stop-color="#8f4319" stop-opacity=".1"/></linearGradient>' +
+      at("gRefl", "linearGradient", 'x1="0" x2="0" gradientUnits="userSpaceOnUse"', false) + '<stop offset="0" stop-color="#ffcf8f"/><stop offset="1" stop-color="#ffcf8f" stop-opacity="0"/></linearGradient>' +
+      at("gRoom", "radialGradient", 'gradientUnits="userSpaceOnUse"', false) + '<stop offset="0" stop-color="#fffdf7"/><stop offset=".35" stop-color="#fff1d6"/><stop offset=".75" stop-color="#ffd59a"/><stop offset="1" stop-color="#f6ae5e"/></radialGradient>' +
+      '<linearGradient id="' + K + '-gRev" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2b36a"/><stop offset="1" stop-color="#ffd8a1"/></linearGradient>' +
+      '<linearGradient id="' + K + '-gDoor" x1="1" y1="0" x2="0" y2="0">' + at("gDoor0", "stop", 'offset="0"') + at("gDoor1", "stop", 'offset="1"') + '</linearGradient>' +
+      '<radialGradient id="' + K + '-gGlow"><stop offset="0" stop-color="#ffc27a" stop-opacity=".5"/><stop offset=".45" stop-color="#d98a3c" stop-opacity=".12"/><stop offset="1" stop-color="#c46a2c" stop-opacity="0"/></radialGradient>' +
+      '<radialGradient id="' + K + '-gHot"><stop offset="0" stop-color="#fff4dd"/><stop offset=".5" stop-color="#ffd193" stop-opacity=".5"/><stop offset="1" stop-color="#ffb466" stop-opacity="0"/></radialGradient>' +
+      '<linearGradient id="' + K + '-gHaze" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd8a0" stop-opacity=".0"/><stop offset=".25" stop-color="#ffd8a0" stop-opacity=".7"/><stop offset="1" stop-color="#ffb466" stop-opacity="0"/></linearGradient>' +
+      '<filter id="' + K + '-b2" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2"/></filter>' +
+      '<filter id="' + K + '-b8" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>' +
+      '<filter id="' + K + '-b30" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="34"/></filter>' +
+      '<filter id="' + K + '-b4" x="-40%" y="-10%" width="180%" height="120%"><feGaussianBlur stdDeviation="4"/></filter>' +
+      '<clipPath id="' + K + '-cOpen">' + at("clipOpen", "polygon") + "</clipPath>" +
+      '<mask id="' + K + '-mWedge" maskUnits="userSpaceOnUse" x="0" y="0" width="' + VW + '" height="' + VH + '">' + at("wedgeMask", "polygon", 'fill="#fff" filter="url(#K-b8)"') + "</mask>" +
+      "</defs>" +
+      '<rect width="' + VW + '" height="' + VH + '" fill="url(#' + K + '-gWallV)"/>' +
+      at("wallGlow", "ellipse", 'fill="url(#K-gGlow)"') +
+      at("floor", "rect", 'x="0" width="' + VW + '" fill="url(#K-gFloor)"') +
+      at("skirt", "line", 'x1="0" x2="' + VW + '" stroke="#02040a" stroke-width="3" opacity=".9"') +
+      at("refl", "rect", 'fill="url(#K-gRefl)" filter="url(#K-b4)"') +
+      at("wedgeSoft", "polygon", 'fill="url(#K-gWedgeSoft)" filter="url(#K-b30)"') +
+      at("wedgeCore", "polygon", 'fill="url(#K-gWedge)" filter="url(#K-b8)"') +
+      '<path id="' + K + '-seams" d="' + seams(K, camZ) + '" stroke="#3a1c08" stroke-opacity=".38" stroke-width="1.3" fill="none" mask="url(#' + K + '-mWedge)"/>' +
+      at("hot", "ellipse", 'fill="url(#K-gHot)"') +
+      at("frame", "polygon", 'fill="#0f182b" fill-rule="evenodd"') +
+      at("opening", "polygon", 'fill="url(#K-gRoom)"') +
+      at("revL", "polygon", 'fill="url(#K-gRev)" opacity=".85"') +
+      at("revR", "polygon", 'fill="#e79c55"') +
+      at("revT", "polygon", 'fill="#d98d4a"') +
+      at("sill", "polygon", 'fill="#ffe2b4"') +
+      '<g clip-path="url(#' + K + '-cOpen)">' + at("ring", "circle", 'fill="none" stroke="#b8621f"') +
+      at("outer", "polygon", 'fill="url(#K-gDoor)"') +
+      at("rim", "line", 'stroke="#ffe0b0" stroke-width="3" filter="url(#K-b2)"') +
+      at("stem", "line", 'stroke="#5a4428" stroke-linecap="round"') +
+      at("rose", "ellipse", 'fill="#7a5c37"') +
+      at("lever", "line", 'stroke="#6e5331" stroke-linecap="round"') +
+      at("leverHi", "line", 'stroke="#d9b37a" stroke-linecap="round"') + "</g>" +
+      at("frameEdge", "polyline", 'fill="none" stroke="#ffc27f" stroke-width="2" filter="url(#K-b2)"') +
+      "</svg>";
+  }
+
+  return { compute: compute, seams: seams, svg: svg, LAY: LAY };
+})();
+</script>
+<script>
+(function () {
+  var root = document.documentElement;
+  if (!/\bmotion\b/.test(root.className)) return;
+  var S = DOORSCENE, stage = document.getElementById("stage"), scroller = document.getElementById("scroller");
+  stage.appendChild(document.getElementById("coda"));
+  var tIntro = document.getElementById("t-intro"), tMid = document.getElementById("t-mid"),
+    tVivo = document.getElementById("t-vivo"), tCome = document.getElementById("t-come"),
+    comeIn = document.getElementById("t-come-in");
+  var portrait = matchMedia("(max-aspect-ratio:4/5)");
+  var cache = {}, lastSeam = {};
+  function $(id) { return cache[id] || (cache[id] = document.getElementById(id)); }
+  function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+  function smooth(x) { x = clamp(x, 0, 1); return x * x * (3 - 2 * x); }
+  function band(p, a, b, c, d) { return d === undefined ? smooth((p - a) / (b - a)) : Math.min(smooth((p - a) / (b - a)), 1 - smooth((p - c) / (d - c))); }
+  function show(el, o) {
+    el.style.opacity = o.toFixed(3);
+    el.style.visibility = o < 0.02 ? "hidden" : "visible";
+    el.style.transform = el === tIntro ? "" : "translateY(" + ((1 - o) * 14).toFixed(1) + "px)";
+  }
+  function progress() {
+    var r = scroller.getBoundingClientRect(), tot = scroller.offsetHeight - innerHeight;
+    return tot > 0 ? clamp(-r.top / tot, 0, 1) : 0;
+  }
+  function render(p) {
+    var K = portrait.matches ? "P" : "L";
+    var a = smooth(clamp((p - 0.04) / 0.78, 0, 1));
+    var th = 14 + a * 72, camZ = 7 - a * 1.15, open = smooth((p - 0.7) / 0.16);
+    var A = S.compute(K, th, camZ, open);
+    for (var id in A) {
+      var e = $(K + "-" + id); if (!e) continue;
+      var o = A[id];
+      for (var k in o) e.setAttribute(k, String(o[k]).replace(/K-/g, K + "-"));
+    }
+    if (Math.abs((lastSeam[K] || 0) - camZ) > 0.004) { $(K + "-seams").setAttribute("d", S.seams(K, camZ)); lastSeam[K] = camZ; }
+    // words
+    if (portrait.matches) show(tIntro, 1 - smooth((p - 0.03) / 0.08));
+    else { tIntro.style.opacity = (1 - smooth((p - 0.06) / 0.1)).toFixed(3); tIntro.style.visibility = p > 0.17 ? "hidden" : "visible"; }
+    show(tMid, band(p, 0.2, 0.27, 0.42, 0.48));
+    show(tVivo, band(p, 0.5, 0.56, 0.66, 0.71));
+    show(tCome, smooth((p - 0.8) / 0.08));
+    // place "Come in." inside the doorway, under the ring
+    var L = S.LAY[K], w = stage.clientWidth, h = stage.clientHeight;
+    var s = Math.max(w / L.VW, h / L.VH), ox = (w - L.VW * s) / 2, oy = (h - L.VH * s) / 2;
+    var ring = A.ring, y = (ring.cy + ring.r * 1.9) * s + oy;
+    comeIn.style.left = (A.meta.mid * s + ox).toFixed(1) + "px";
+    comeIn.style.top = y.toFixed(1) + "px";
+  }
+  var last = -1;
+  function kick() { var p = progress(); if (p !== last) { last = p; render(p); } }
+  addEventListener("scroll", kick, { passive: true });
+  addEventListener("resize", function () { lastSeam = {}; last = -1; kick(); });
+  if (portrait.addEventListener) portrait.addEventListener("change", function () { lastSeam = {}; render(progress()); });
+    // keyboard: bring focused words into view in the pinned stage
+  function jump(p) { scrollTo(0, scroller.offsetTop + p * (scroller.offsetHeight - innerHeight)); }
+  tCome.addEventListener("focusin", function () { if (progress() < 0.88) jump(0.95); });
+  kick();
+})();
+</script>
+</body>
+</html>
