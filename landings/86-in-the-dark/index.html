@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo: what moved while nobody was looking?</title>
+<meta name="description" content="Strapivo watches the market against your strategy and puts what changed on the leadership team's agenda.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#030303;
+  --ink:#EEE7DB;      /* warm white, lit text */
+  --soft:#A9A196;     /* secondary text */
+  --line:rgba(238,231,219,.42);
+  --faint:rgba(238,231,219,.14);
+  --azure:#3FA0FA;
+  --amber:#F0C24B;
+  --green:#6CC08A;
+  --r:360px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font-family:'Inter Tight',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--azure);outline-offset:4px;border-radius:3px}
+ul{list-style:none;margin:0;padding:0}
+p{margin:0}
+
+/* ---------- the torch ---------- */
+.torch,.grain{position:fixed;pointer-events:none;display:none}
+.js .torch{display:block}
+.torch{
+  left:0;top:0;width:320vmax;height:320vmax;margin:-160vmax 0 0 -160vmax;z-index:5;
+  will-change:transform,opacity;
+  transform:translate3d(50vw,50vh,0);
+  background:radial-gradient(circle at center,
+    rgba(255,190,115,.13) 0,
+    rgba(255,170,90,.05) calc(var(--r)*.38),
+    rgba(3,3,3,.30) calc(var(--r)*.62),
+    rgba(3,3,3,.80) calc(var(--r)*.84),
+    rgba(3,3,3,.99) var(--r),
+    rgba(3,3,3,.99) 100%);
+}
+.grain{
+  display:block;inset:0;z-index:6;opacity:.07;mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .9 0 0 0 0 .8 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- always lit ---------- */
+.lit{position:relative;z-index:10}
+.top{display:flex;justify-content:space-between;align-items:center}
+.top .logo img{display:block;height:22px;width:auto}
+.signin{font-size:15px;color:var(--soft);text-decoration:none;padding:6px 2px}
+.signin:hover{color:var(--ink)}
+h1{font-weight:300;letter-spacing:-.035em;line-height:.98;margin:0;font-size:clamp(44px,5.6vw,96px);text-wrap:balance}
+.say{color:var(--soft);font-size:clamp(16px,1.25vw,19px);line-height:1.5;max-width:27em;margin-top:28px;font-weight:400}
+.cta{
+  display:inline-flex;align-items:center;gap:12px;margin-top:32px;
+  background:var(--ink);color:#0b0907;text-decoration:none;font-weight:500;font-size:16px;
+  padding:15px 22px;border-radius:999px;
+  box-shadow:0 0 0 1px rgba(255,220,170,.25),0 0 60px rgba(255,196,128,.18);
+}
+.cta:hover{background:#fff}
+
+/* ---------- the things in the dark ---------- */
+.thing{color:var(--ink)}
+.t-date .k{font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+.t-date .v{font-weight:200;letter-spacing:-.04em;line-height:.9;margin-top:10px;font-size:clamp(40px,4.4vw,76px)}
+.t-date .v b{font-weight:200;font-size:2.3em;letter-spacing:-.06em;display:block}
+.t-comp p{font-weight:200;letter-spacing:-.035em;line-height:1;font-size:clamp(34px,3.5vw,62px)}
+.t-comp p + p{margin-top:.25em;color:var(--soft)}
+.t-risk svg,.t-light svg{display:block;width:100%;height:auto;overflow:visible}
+.t-light{display:flex;flex-direction:column}
+.t-light .labels{display:flex;justify-content:space-between;font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-top:14px}
+.ring{stroke-dasharray:1;stroke-dashoffset:0}
+.js .ring{stroke-dashoffset:var(--ring,1)}
+
+/* ---------- desktop: one pinned stage ---------- */
+@media (min-width:900px) and (min-height:600px){
+  .js .track{height:300vh}
+  .stage{position:sticky;top:0;height:100vh;min-height:600px;overflow:hidden}
+  .top{position:absolute;left:5vw;right:5vw;top:4.5vh}
+  .hero{position:absolute;left:5vw;top:19vh;width:46vw}
+  .thing{position:absolute}
+  .t-risk{right:6vw;top:10vh;width:min(58vh,36vw)}
+  .t-date{left:5vw;bottom:7vh}
+  .t-light{left:41vw;bottom:11vh;width:min(15vw,210px)}
+  .t-comp{right:6vw;bottom:8vh;text-align:right}
+}
+
+/* ---------- phone and small windows: a column in the dark ---------- */
+@media not all and (min-width:900px) and (min-height:600px){
+  :root{--r:250px}
+  .stage{padding:0 24px}
+  .top{padding-top:22px}
+  .top .logo img{height:19px}
+  .hero{padding:15svh 0 0}
+  h1{font-size:clamp(40px,11.6vw,52px)}
+  .scene{display:flex;flex-direction:column;gap:22svh;padding:13svh 0 26svh}
+  .t-risk{width:min(86vw,400px);align-self:center}
+  .t-date .v{font-size:44px}
+  .t-light{width:min(56vw,240px);align-self:flex-end;margin-right:4vw}
+  .t-comp p{font-size:clamp(34px,10.4vw,44px)}
+}
+
+/* ---------- the end ---------- */
+.end{position:relative;z-index:10;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:12vh 24px 0}
+.end h2{font-weight:300;letter-spacing:-.035em;line-height:1;margin:0;font-size:clamp(40px,5vw,84px);text-wrap:balance}
+.end .say{margin-left:auto;margin-right:auto}
+footer{position:relative;z-index:10;text-align:center;padding:12vh 24px 36px;font-size:13px;color:#8C857B}
+footer a{text-decoration:none;margin-left:14px}
+footer a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+<main>
+  <div class="track">
+    <section class="stage" aria-labelledby="h">
+      <div class="torch" aria-hidden="true"></div>
+      <div class="grain" aria-hidden="true"></div>
+
+      <header class="top lit">
+        <a class="logo" href="#"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="88" height="22"></a>
+        <a class="signin" href="https://strapivo.app">Sign in</a>
+      </header>
+
+      <div class="hero lit">
+        <h1 id="h">What moved while nobody was looking?</h1>
+        <p class="say">Strapivo watches the market against your strategy and puts what changed on the leadership team's agenda.</p>
+        <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      </div>
+
+      <ul class="scene" aria-label="Four things that changed while nobody was looking">
+        <li class="thing t-date" data-thing>
+          <p class="k">Last reviewed</p>
+          <p class="v"><b>214</b> days ago.</p>
+        </li>
+
+        <li class="thing t-risk" data-thing data-fx=".845" data-fy=".16">
+          <svg viewBox="0 0 400 400" role="img" aria-label="A risk dot that has crept into the top right corner of its square">
+            <rect x="10" y="10" width="380" height="380" fill="none" stroke="var(--line)" stroke-width="1"/>
+            <path d="M200 10V390M10 200H390" stroke="var(--faint)" stroke-width="1"/>
+            <rect x="200.5" y="10.5" width="189" height="189" fill="rgba(238,231,219,.025)"/>
+            <path d="M92 322 C140 300 150 250 196 226 S270 150 300 118 S332 82 338 64" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 7" stroke-linecap="round"/>
+            <circle cx="92" cy="322" r="4" fill="var(--ink)" opacity=".16"/>
+            <circle cx="196" cy="226" r="4.5" fill="var(--ink)" opacity=".26"/>
+            <circle cx="300" cy="118" r="5" fill="var(--ink)" opacity=".42"/>
+            <circle cx="338" cy="64" r="9" fill="var(--ink)"/>
+            <circle class="ring" cx="338" cy="64" r="34" fill="none" stroke="var(--azure)" stroke-width="2.5" pathLength="1" transform="rotate(-90 338 64)"/>
+          </svg>
+        </li>
+
+        <li class="thing t-light" data-thing data-fx=".6" data-fy=".42">
+          <svg viewBox="0 0 200 140" role="img" aria-label="A status light that was green and is now yellow">
+            <defs><filter id="glow" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="16"/></filter></defs>
+            <circle cx="62" cy="70" r="52" fill="none" stroke="var(--green)" stroke-width="1.2" opacity=".8"/>
+            <circle cx="134" cy="70" r="54" fill="var(--amber)" filter="url(#glow)" opacity=".55"/>
+            <circle cx="134" cy="70" r="52" fill="var(--amber)"/>
+          </svg>
+          <p class="labels"><span>Was green</span></p>
+        </li>
+
+        <li class="thing t-comp" data-thing>
+          <p>A new competitor.</p>
+          <p>Cheaper.</p>
+        </li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="end" aria-labelledby="e">
+    <h2 id="e">Strapivo keeps the lights on.</h2>
+    <p class="say">Vivo, the AI in Strapivo, reads outside signals against what your team said must succeed. People decide what changes.</p>
+    <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+  </section>
+</main>
+<footer>© 2026 Strapivo <a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const rm = matchMedia('(prefers-reduced-motion: reduce)');
+  if (rm.matches) return;
+  root.classList.add('js');
+
+  const torch = document.querySelector('.torch');
+  const track = document.querySelector('.track');
+  const stage = document.querySelector('.stage');
+  const end = document.querySelector('.end');
+  const things = [...document.querySelectorAll('[data-thing]')];
+  const ring = document.querySelector('.ring');
+  const wide = matchMedia('(min-width:900px) and (min-height:600px)');
+
+  const clamp = v => Math.max(0, Math.min(1, v));
+  const ease = v => v * v * (3 - 2 * v);
+  let W = innerWidth, H = innerHeight;
+  let x = W * .72, y = H * .3, gx = x, gy = y;
+  let px = 0, py = 0, lastPointer = -1e9;
+  let idx = -1, nextSwitch = 0, raf = 0, last = 0, onScreen = true;
+
+  const point = (cx, cy) => { px = cx; py = cy; lastPointer = performance.now(); wake(); };
+  addEventListener('pointermove', e => point(e.clientX, e.clientY), { passive: true });
+  addEventListener('touchstart', e => point(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+  addEventListener('touchmove', e => point(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+  addEventListener('resize', () => { W = innerWidth; H = innerHeight; wake(); });
+  addEventListener('scroll', wake, { passive: true });
+  document.addEventListener('visibilitychange', wake);
+  new IntersectionObserver(es => { onScreen = es[0].isIntersecting; wake(); }).observe(stage);
+
+  function litNow() {
+    if (wide.matches) {
+      const r = track.getBoundingClientRect();
+      const p = clamp(-r.top / Math.max(1, r.height - H));
+      return ease(clamp((p - .5) / .42));
+    }
+    const t = end.getBoundingClientRect().top;
+    return ease(clamp((H * .95 - t) / (H * .6)));
+  }
+
+  function visibleThings() {
+    const out = [];
+    for (const el of things) {
+      const r = el.getBoundingClientRect();
+      const cy = r.top + r.height / 2;
+      if (cy > H * .08 && cy < H * .92) out.push([r.left + r.width * (+el.dataset.fx || .5), r.top + r.height * (+el.dataset.fy || .5)]);
+    }
+    return out;
+  }
+
+  function frame(now) {
+    raf = 0;
+    const dt = Math.min(64, now - (last || now)); last = now;
+    const lit = litNow();
+    const pointerLive = now - lastPointer < 2600;
+
+    if (pointerLive) { gx = px; gy = py; }
+    else {
+      const vis = visibleThings();
+      if (now > nextSwitch) { idx++; nextSwitch = now + 3800; }
+      if (vis.length) {
+        const [tx, ty] = vis[idx % vis.length];
+        gx = tx + Math.sin(now * .0006) * 34;
+        gy = ty + Math.cos(now * .0005) * 26;
+      } else {
+        gx = W * (.5 + .38 * Math.sin(now * .00017));
+        gy = H * (.62 + .25 * Math.sin(now * .00023 + 1));
+      }
+    }
+    const k = 1 - Math.pow(1 - (pointerLive ? .2 : .028), dt / 16.7);
+    x += (gx - x) * k; y += (gy - y) * k;
+
+    torch.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0)`;
+    torch.style.opacity = (1 - lit).toFixed(3);
+    ring.style.setProperty('--ring', (1 - ease(clamp((lit - .55) / .45))).toFixed(3));
+
+    const settled = lit >= .999;
+    if (!document.hidden && onScreen && !settled) raf = requestAnimationFrame(frame);
+  }
+  function wake() { if (!raf && !document.hidden) { last = 0; raf = requestAnimationFrame(frame); } }
+  wake();
+})();
+</script>
+</body>
+</html>
