@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Strapivo | Nothing stays dangerous and undiscussed</title>
+  <meta name="description" content="Strapivo is the Strategic Design System that tracks live risks against your agreed strategy and escalates unresolved danger-zone threats after 14 days.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --ink: #141B24;
+      --n900: #050C14;
+      --n700: #2C343C;
+      --n600: #495158;
+      --n500: #6C727A;
+      --n400: #999FA6;
+      --n200: #E1E5EA;
+      --n100: #EFF2F6;
+      --paper: #F6F9FB;
+      --white: #FFFFFF;
+      --sky: #EEF6FF;
+      --sky2: #D4EBFF;
+      --p200: #A9D6FF;
+      --p400: #3FA0FA;
+      --p500: #0082E6;
+      --p600: #006FD1;
+      --p700: #005DBD;
+      --amber: #D4911C;
+      --amber-soft: #FBF4E6;
+      --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --radius: 3px;
+      --max-w: 1180px;
+      --gutter: 32px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "ss01", "cv11";
+      overflow-x: clip;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    figure {
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--p400);
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: var(--p600);
+      color: var(--white);
+      padding: 12px 16px;
+      z-index: 100;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      left: 16px;
+      top: 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 1.4;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .mono-regular {
+      font-family: var(--font-mono);
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 12px 24px;
+      background: var(--p600);
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 1.2;
+      text-decoration: none;
+      border: 1px solid var(--p500);
+      border-radius: var(--radius);
+      transition: background-color 160ms ease, border-color 160ms ease;
+    }
+    .btn-primary:hover {
+      background: var(--p700);
+      border-color: var(--p400);
+    }
+
+    /* Header */
+    .site-header {
+      background: var(--n900);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 72px;
+    }
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      text-decoration: none;
+    }
+    .brand-logo {
+      height: 24px;
+      width: auto;
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 14px;
+      font-weight: 400;
+      color: #C4CDD6;
+      text-decoration: none;
+      transition: color 150ms ease;
+    }
+    .nav-link:hover {
+      color: var(--white);
+    }
+    .nav-signin {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--paper);
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: var(--radius);
+      transition: border-color 150ms ease, background-color 150ms ease;
+    }
+    .nav-signin:hover {
+      border-color: var(--p400);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Hero */
+    .hero {
+      background: var(--n900);
+      color: var(--paper);
+      padding: 44px 0 56px;
+      border-bottom: 1px solid var(--ink);
+    }
+    .hero-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 48px;
+      align-items: end;
+      margin-bottom: 36px;
+    }
+    .hero-eyebrow {
+      color: var(--p200);
+      margin: 0 0 16px;
+    }
+    h1 {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(36px, 4.4vw, 56px);
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      color: var(--paper);
+      max-width: 14ch;
+    }
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    .hero-lead {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.58;
+      color: #D2DAE3;
+      max-width: 48ch;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px 24px;
+    }
+    .hero-meta {
+      color: #9AA5B1;
+    }
+
+    /* Drawing 1: 14-day horizontal escalation bar */
+    .escalation-panel {
+      background: var(--ink);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 4px;
+      padding: 24px 28px 26px;
+    }
+    .panel-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 22px;
+    }
+    .panel-title-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px 16px;
+    }
+    .panel-tag {
+      color: #9AA5B1;
+    }
+    .panel-risk-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--paper);
+    }
+    .panel-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--amber);
+    }
+    .amber-square {
+      width: 8px;
+      height: 8px;
+      background: var(--amber);
+      border-radius: 1px;
+      flex-shrink: 0;
+    }
+
+    .escalation-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.85fr) minmax(280px, 1fr);
+      gap: 0;
+      align-items: stretch;
+    }
+    .ticks-zone {
+      padding-right: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .ticks-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+    }
+    .day1-callout {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .day1-badge {
+      color: var(--p200);
+    }
+    .day1-text {
+      font-size: 14px;
+      color: var(--paper);
+    }
+    .elapsed-callout {
+      text-align: right;
+      color: #A7B2BE;
+    }
+
+    .tick-bar {
+      display: grid;
+      grid-template-columns: repeat(13, 1fr);
+      gap: 6px;
+      align-items: end;
+      padding: 12px 0 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    }
+    .day-tick {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .tick-stem {
+      width: 2px;
+      height: 36px;
+      background: #465464;
+      border-radius: 1px;
+    }
+    .day-tick.is-start .tick-stem {
+      width: 3px;
+      height: 48px;
+      background: var(--p400);
+    }
+    .day-tick.is-mid .tick-stem {
+      height: 36px;
+      background: #5C6D80;
+    }
+    .day-tick.is-late .tick-stem {
+      height: 42px;
+      background: #8B7349;
+    }
+    .day-tick.is-d13 .tick-stem {
+      width: 3px;
+      height: 46px;
+      background: var(--amber);
+    }
+    .tick-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1;
+      color: #9AA5B1;
+    }
+    .day-tick.is-start .tick-num {
+      color: var(--p200);
+    }
+    .day-tick.is-d13 .tick-num {
+      color: var(--amber);
+    }
+
+    .ticks-footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px 16px;
+      font-size: 13px;
+      color: #B4BEC9;
+    }
+    .ticks-footer-mono {
+      color: #D2DAE3;
+    }
+
+    /* Day 14 Amber-bordered Azure Card */
+    .day14-card {
+      background: var(--p600);
+      border: 2px solid var(--amber);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      position: relative;
+    }
+    .day14-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .day14-pill {
+      display: inline-block;
+      background: var(--amber);
+      color: var(--n900);
+      padding: 3px 8px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+    .day14-num {
+      color: var(--sky2);
+      white-space: nowrap;
+    }
+    .day14-headline {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.38;
+      color: var(--white);
+    }
+    .day14-meta {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--sky);
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    /* Main light sections */
+    .section {
+      padding: 76px 0;
+      background: var(--paper);
+      border-bottom: 1px solid var(--n200);
+    }
+    .section.is-white {
+      background: var(--white);
+    }
+
+    .eyebrow {
+      color: var(--p700);
+      margin: 0 0 14px;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-weight: 500;
+      font-size: clamp(28px, 3vw, 38px);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    p {
+      margin: 0 0 16px;
+      color: var(--n700);
+      max-width: 64ch;
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Section 1: Quiet failure mode */
+    .failure-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      gap: 56px;
+      align-items: start;
+      margin-bottom: 48px;
+    }
+    .quote-block {
+      margin: 0;
+      padding: 4px 0 4px 24px;
+      border-left: 3px solid var(--p500);
+    }
+    .quote-text {
+      margin: 0 0 14px;
+      font-size: clamp(24px, 2.5vw, 31px);
+      font-weight: 500;
+      line-height: 1.24;
+      letter-spacing: -0.018em;
+      color: var(--ink);
+      max-width: 24ch;
+    }
+    .quote-source {
+      font-size: 14px;
+      color: var(--n600);
+    }
+    .failure-body p {
+      font-size: 17px;
+      line-height: 1.62;
+    }
+
+    .ledger-strip {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px;
+      padding-top: 28px;
+      border-top: 1px solid var(--n200);
+    }
+    .ledger-item {
+      padding-left: 16px;
+      border-left: 2px solid var(--n200);
+    }
+    .ledger-label {
+      color: var(--n600);
+      margin-bottom: 6px;
+    }
+    .ledger-item p {
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--n700);
+    }
+
+    /* Section 2: How a risk earns the danger zone + Drawing 2 */
+    .split-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 56px;
+      align-items: center;
+    }
+    .rule-list {
+      list-style: none;
+      margin: 28px 0 0;
+      padding: 0;
+      border-top: 1px solid var(--n200);
+    }
+    .rule-list li {
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr);
+      gap: 14px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--n200);
+      align-items: baseline;
+    }
+    .rule-num {
+      color: var(--p700);
+    }
+    .rule-list h3 {
+      font-size: 17px;
+      margin: 0 0 4px;
+    }
+    .rule-list p {
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--n600);
+    }
+
+    /* Drawing 2: Radar Quadrant */
+    .drawing-card {
+      background: var(--paper);
+      border: 1px solid var(--n200);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .drawing-card.is-white-bg {
+      background: var(--white);
+    }
+    .drawing-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 16px;
+      padding: 14px 20px;
+      background: var(--n100);
+      border-bottom: 1px solid var(--n200);
+    }
+    .drawing-bar-left {
+      color: var(--ink);
+    }
+    .drawing-bar-right {
+      color: var(--n600);
+    }
+    .radar-stage {
+      padding: 20px 20px 14px;
+      background: var(--white);
+    }
+    .radar-svg {
+      width: 100%;
+      height: auto;
+    }
+    .radar-provenance {
+      padding: 16px 20px 18px;
+      background: var(--paper);
+      border-top: 1px solid var(--n200);
+    }
+    .radar-prov-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px 16px;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--n200);
+    }
+    .radar-risk-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .threshold-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 10px;
+      background: var(--amber-soft);
+      border: 1.5px solid var(--amber);
+      border-radius: 2px;
+      color: var(--ink);
+    }
+    .prov-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px 16px;
+    }
+    .prov-cell-label {
+      color: var(--n600);
+      margin-bottom: 3px;
+    }
+    .prov-cell-val {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.35;
+    }
+    .prov-sub {
+      font-size: 12px;
+      color: var(--n600);
+      margin-top: 2px;
+    }
+
+    /* Section 3: Needs you -> Session -> Decision (Drawing 3) */
+    .session-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      gap: 56px;
+      align-items: start;
+    }
+    .session-intro {
+      margin-bottom: 40px;
+      max-width: 68ch;
+    }
+    .session-intro p {
+      font-size: 17px;
+    }
+
+    /* Drawing 3: Session & Decision Card */
+    .session-artifact {
+      background: var(--white);
+      border: 1px solid var(--n200);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .artifact-block {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--n200);
+    }
+    .agenda-highlight {
+      border-left: 3px solid var(--amber);
+      padding-left: 14px;
+    }
+    .agenda-meta {
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .agenda-title {
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--ink);
+      margin: 0 0 4px;
+    }
+    .agenda-reason {
+      font-size: 14px;
+      color: var(--n600);
+      margin: 0;
+    }
+
+    .takes-label {
+      color: var(--n600);
+      margin-bottom: 10px;
+    }
+    .takes-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .take-box {
+      background: var(--paper);
+      border: 1px solid var(--n200);
+      border-radius: 2px;
+      padding: 10px 10px;
+    }
+    .take-role {
+      color: var(--n600);
+      margin-bottom: 4px;
+    }
+    .take-pos {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .decision-group-label {
+      color: var(--n600);
+      margin-bottom: 10px;
+    }
+    .decision-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .decision-btn {
+      min-height: 44px;
+      padding: 8px 14px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid var(--n200);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+    }
+    .decision-btn:hover {
+      border-color: var(--p500);
+    }
+    .decision-btn[aria-pressed="true"] {
+      background: var(--p600);
+      border-color: var(--p600);
+      color: var(--white);
+    }
+    .decision-note {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--n700);
+      margin: 0;
+    }
+
+    .record-strip {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 18px 22px;
+    }
+    .record-id {
+      color: var(--p200);
+      margin-bottom: 6px;
+    }
+    .record-entry {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--paper);
+      margin: 0;
+    }
+
+    .session-steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--n200);
+    }
+    .session-steps li {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--n200);
+    }
+    .step-kicker {
+      color: var(--p700);
+      margin-bottom: 6px;
+    }
+    .session-steps h3 {
+      font-size: 17px;
+      margin: 0 0 6px;
+    }
+    .session-steps p {
+      font-size: 16px;
+      line-height: 1.58;
+      color: var(--n700);
+    }
+
+    /* Section 4: Governance & Onboarding */
+    .authority-head {
+      margin-bottom: 40px;
+      max-width: 62ch;
+    }
+    .authority-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 48px;
+      align-items: start;
+    }
+    .gov-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--n200);
+    }
+    .gov-list li {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--n200);
+    }
+    .gov-kicker {
+      color: var(--p700);
+      margin-bottom: 6px;
+    }
+    .gov-list h3 {
+      font-size: 17px;
+      margin-bottom: 6px;
+    }
+    .gov-list p {
+      font-size: 16px;
+      line-height: 1.58;
+      color: var(--n700);
+    }
+
+    .onboarding-box {
+      background: var(--paper);
+      border: 1px solid var(--n200);
+      border-radius: 4px;
+      padding: 26px 28px;
+    }
+    .onboarding-kicker {
+      color: var(--n600);
+      margin-bottom: 8px;
+    }
+    .onboarding-title {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--ink);
+      margin: 0 0 18px;
+    }
+    .onboarding-steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--n200);
+    }
+    .onboarding-steps li {
+      display: grid;
+      grid-template-columns: 32px minmax(0, 1fr);
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--n200);
+      align-items: baseline;
+    }
+    .onboarding-steps li:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+    .ob-num {
+      color: var(--p700);
+    }
+    .ob-heading {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .ob-copy {
+      font-size: 16px;
+      line-height: 1.52;
+      color: var(--n600);
+      margin: 0;
+    }
+
+    /* Section 5: Closing Navy CTA */
+    .closing-band {
+      background: var(--n900);
+      color: var(--paper);
+      padding: 76px 0 84px;
+    }
+    .closing-ticks {
+      display: grid;
+      grid-template-columns: repeat(14, 1fr);
+      gap: 8px;
+      align-items: end;
+      margin-bottom: 40px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .c-tick {
+      height: 12px;
+      border-left: 1px solid rgba(255, 255, 255, 0.24);
+    }
+    .c-tick.is-final {
+      height: 20px;
+      border-left: 2px solid var(--amber);
+    }
+    .closing-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+      gap: 48px;
+      align-items: end;
+    }
+    .closing-eyebrow {
+      color: var(--p200);
+      margin: 0 0 14px;
+    }
+    .closing-heading {
+      margin: 0;
+      font-weight: 500;
+      font-size: clamp(30px, 3.6vw, 44px);
+      line-height: 1.1;
+      letter-spacing: -0.022em;
+      color: var(--paper);
+      max-width: 16ch;
+    }
+    .closing-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 22px;
+    }
+    .closing-copy {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.58;
+      color: #D2DAE3;
+      max-width: 46ch;
+    }
+    .closing-note {
+      color: #9AA5B1;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: var(--n900);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 28px 0;
+      color: #B4BEC9;
+    }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px 28px;
+    }
+    .footer-left {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px 24px;
+    }
+    .footer-logo {
+      height: 20px;
+      width: auto;
+    }
+    .footer-copy {
+      font-size: 14px;
+      color: #9AA5B1;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 24px;
+    }
+    .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 14px;
+      color: #C4CDD6;
+      text-decoration: none;
+      transition: color 150ms ease;
+    }
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    /* Tablet & Mobile */
+    @media (max-width: 980px) {
+      .hero-top,
+      .failure-grid,
+      .split-grid,
+      .session-grid,
+      .authority-grid,
+      .closing-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .escalation-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .ticks-zone {
+        padding-right: 0;
+      }
+      .ledger-strip {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .closing-heading,
+      h1 {
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 680px) {
+      :root {
+        --gutter: 20px;
+      }
+      .header-inner {
+        min-height: 64px;
+      }
+      .nav-link {
+        display: none;
+      }
+      .brand-logo {
+        height: 21px;
+      }
+      .hero {
+        padding: 36px 0 44px;
+      }
+      .hero-top {
+        gap: 22px;
+        margin-bottom: 28px;
+      }
+      .hero-lead {
+        font-size: 16px;
+      }
+      .escalation-panel {
+        padding: 18px 16px 20px;
+      }
+      .panel-head {
+        margin-bottom: 16px;
+        padding-bottom: 14px;
+      }
+      .ticks-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .elapsed-callout {
+        text-align: left;
+      }
+      .tick-bar {
+        gap: 3px;
+      }
+      .day-tick .tick-num {
+        font-size: 11px;
+      }
+      .day-tick:nth-child(even):not(.is-d13) .tick-num {
+        visibility: hidden;
+      }
+      .section {
+        padding: 44px 0;
+      }
+      .failure-grid {
+        gap: 24px;
+        margin-bottom: 28px;
+      }
+      .split-grid,
+      .session-grid,
+      .authority-grid,
+      .closing-grid {
+        gap: 24px;
+      }
+      .session-intro,
+      .authority-head {
+        margin-bottom: 24px;
+      }
+      .rule-list li,
+      .session-steps li,
+      .gov-list li {
+        padding: 14px 0;
+      }
+      .ledger-strip {
+        padding-top: 24px;
+        gap: 16px;
+      }
+      .quote-block {
+        padding-left: 16px;
+      }
+      .prov-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 16px;
+      }
+      .prov-grid > div:last-child {
+        grid-column: 1 / -1;
+      }
+      .takes-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .artifact-block,
+      .record-strip {
+        padding: 16px;
+      }
+      .onboarding-box {
+        padding: 18px 16px;
+      }
+      .closing-band {
+        padding: 44px 0 48px;
+      }
+      .closing-ticks {
+        margin-bottom: 24px;
+      }
+      .btn-primary {
+        width: 100%;
+      }
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand-link" href="#" aria-label="Strapivo home">
+        <img class="brand-logo" src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="96" height="24">
+      </a>
+      <nav class="header-nav" aria-label="Primary">
+        <a class="nav-link" href="#quiet-failure">The drift</a>
+        <a class="nav-link" href="#danger-zone">The radar</a>
+        <a class="nav-link" href="#needs-you">The session</a>
+        <a class="nav-link" href="#authority">Getting started</a>
+        <a class="nav-signin" href="https://strapivo.app">Sign in</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero-top">
+          <div>
+            <p class="mono hero-eyebrow">Dynamic Strategy · 14-day escalation rule</p>
+            <h1 id="hero-title">Nothing stays dangerous and undiscussed.</h1>
+          </div>
+          <div class="hero-right">
+            <p class="hero-lead">Strapivo is the Strategic Design System that tracks live risks against your agreed strategy. Unresolved threats in the danger zone move to a weekly 60-minute leadership decision.</p>
+            <div class="hero-actions">
+              <a class="btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+              <span class="mono-regular hero-meta">For CEOs and general managers</span>
+            </div>
+          </div>
+        </div>
+
+        <figure class="escalation-panel" aria-label="14-day horizontal escalation bar tracking a confirmed risk from day 1 to day 14 escalation">
+          <div class="panel-head">
+            <div class="panel-title-group">
+              <span class="mono panel-tag">Illustrative example</span>
+              <span class="panel-risk-name">EU component tariff expansion</span>
+            </div>
+            <div class="mono panel-status">
+              <span class="amber-square" aria-hidden="true"></span>
+              <span>Top right · 14 days · Worsening</span>
+            </div>
+          </div>
+
+          <div class="escalation-grid">
+            <div class="ticks-zone">
+              <div class="ticks-header">
+                <div class="day1-callout">
+                  <span class="mono day1-badge">Day 1</span>
+                  <span class="day1-text">Confirmed primary source, top right</span>
+                </div>
+                <div class="mono-regular elapsed-callout">Days 2 to 13</div>
+              </div>
+
+              <div class="tick-bar" aria-hidden="true">
+                <div class="day-tick is-start"><span class="tick-stem"></span><span class="tick-num">01</span></div>
+                <div class="day-tick"><span class="tick-stem"></span><span class="tick-num">02</span></div>
+                <div class="day-tick"><span class="tick-stem"></span><span class="tick-num">03</span></div>
+                <div class="day-tick"><span class="tick-stem"></span><span class="tick-num">04</span></div>
+                <div class="day-tick"><span class="tick-stem"></span><span class="tick-num">05</span></div>
+                <div class="day-tick is-mid"><span class="tick-stem"></span><span class="tick-num">06</span></div>
+                <div class="day-tick is-mid"><span class="tick-stem"></span><span class="tick-num">07</span></div>
+                <div class="day-tick is-mid"><span class="tick-stem"></span><span class="tick-num">08</span></div>
+                <div class="day-tick is-mid"><span class="tick-stem"></span><span class="tick-num">09</span></div>
+                <div class="day-tick is-late"><span class="tick-stem"></span><span class="tick-num">10</span></div>
+                <div class="day-tick is-late"><span class="tick-stem"></span><span class="tick-num">11</span></div>
+                <div class="day-tick is-late"><span class="tick-stem"></span><span class="tick-num">12</span></div>
+                <div class="day-tick is-d13"><span class="tick-stem"></span><span class="tick-num">13</span></div>
+              </div>
+
+              <div class="ticks-footer">
+                <span class="mono-regular ticks-footer-mono">top right · 13 days · worsening</span>
+                <span>No decision recorded.</span>
+              </div>
+            </div>
+
+            <div class="day14-card">
+              <div class="day14-top">
+                <span class="mono day14-pill">Threshold reached</span>
+                <span class="mono day14-num">Day 14</span>
+              </div>
+              <p class="day14-headline">Day 14: Escalated to Needs you. Added to Thursday agenda.</p>
+              <p class="day14-meta">Agenda drafted 24 hours ahead with reason attached.</p>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="quiet-failure" aria-labelledby="failure-title">
+      <div class="container">
+        <p class="mono eyebrow">01 / The quiet failure mode</p>
+        <div class="failure-grid">
+          <blockquote class="quote-block">
+            <p class="quote-text">"I know there's a threat coming. I don't know what it costs us to wait."</p>
+            <footer class="quote-source">What leadership teams tell us.</footer>
+          </blockquote>
+
+          <div class="failure-body">
+            <h2 id="failure-title">Known risks wait in the inbox.</h2>
+            <p>Leadership teams agree on a strategy in a workshop and leave it in a drawer. Early warnings sit in email threads unconnected to the success criteria the team agreed.</p>
+            <p>Each unreviewed week narrows your options. Strapivo puts a 14-day clock on every confirmed danger-zone risk so the team reviews it before options close.</p>
+          </div>
+        </div>
+
+        <div class="ledger-strip">
+          <div class="ledger-item">
+            <div class="mono ledger-label">Inertia</div>
+            <p>Threats linger in email threads until the quarterly review, after cheap corrections have passed.</p>
+          </div>
+          <div class="ledger-item">
+            <div class="mono ledger-label">Thrash</div>
+            <p>Meetings react to the loudest headline without checking it against the business model.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section is-white" id="danger-zone" aria-labelledby="radar-title">
+      <div class="container">
+        <div class="split-grid">
+          <div>
+            <p class="mono eyebrow">02 / How a risk earns the danger zone</p>
+            <h2 id="radar-title">One blog post cannot raise an alarm.</h2>
+            <p>The Radar monitors outside signals for each focus area. When evidence shifts, Vivo proposes a ghost move on the radar with a one-line reason.</p>
+
+            <ol class="rule-list">
+              <li>
+                <span class="mono rule-num">01</span>
+                <div>
+                  <h3>Primary source required</h3>
+                  <p>Entering the top right requires at least one primary source. Commentary stays watching or dismissed.</p>
+                </div>
+              </li>
+              <li>
+                <span class="mono rule-num">02</span>
+                <div>
+                  <h3>Named confirmation</h3>
+                  <p>Vivo proposes; people decide. A person confirms or rejects the move. Dismissed signals train Vivo on noise.</p>
+                </div>
+              </li>
+              <li>
+                <span class="mono rule-num">03</span>
+                <div>
+                  <h3>Trend and clock</h3>
+                  <p>Every confirmed move logs its signal, date, confirmer, days held and trend: Easing, Stable or Worsening.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <figure class="drawing-card" aria-label="Risk radar quadrant showing a ghost move confirmed by H. Lindqvist into the danger zone on a primary source">
+            <div class="drawing-bar">
+              <span class="mono drawing-bar-left">Radar · Tracking view</span>
+              <span class="mono drawing-bar-right">Illustrative example</span>
+            </div>
+
+            <div class="radar-stage">
+              <svg class="radar-svg" viewBox="0 0 460 300" role="img" aria-label="Risk radar plotting impact against likelihood, with a ghost move confirmed in the top-right danger zone">
+                <!-- Background grid -->
+                <rect x="44" y="16" width="398" height="240" fill="#F6F9FB" stroke="#D5DCE4" stroke-width="1"/>
+                <!-- Top right danger zone -->
+                <rect x="243" y="16" width="199" height="120" fill="#FBF4E6" stroke="#D4911C" stroke-width="1.5"/>
+                <!-- Quadrant dividers -->
+                <line x1="243" y1="16" x2="243" y2="256" stroke="#C5CED8" stroke-width="1" stroke-dasharray="4 4"/>
+                <line x1="44" y1="136" x2="442" y2="136" stroke="#C5CED8" stroke-width="1" stroke-dasharray="4 4"/>
+
+                <!-- Danger zone label -->
+                <text x="430" y="36" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="13" font-weight="500" fill="#141B24" letter-spacing="0.8">DANGER ZONE</text>
+
+                <!-- Axis labels -->
+                <text x="20" y="136" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="500" fill="#495158" letter-spacing="1" transform="rotate(-90 20 136)">IMPACT</text>
+                <text x="243" y="284" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" font-weight="500" fill="#495158" letter-spacing="1">LIKELIHOOD</text>
+
+                <!-- Secondary stable risk for spatial context -->
+                <circle cx="96" cy="226" r="6" fill="#999FA6"/>
+                <text x="110" y="231" font-family="Inter, sans-serif" font-size="13" font-weight="400" fill="#495158">Supplier lead times · Stable</text>
+
+                <!-- Movement trail: Origin -> Ghost -> Confirmed -->
+                <line x1="164" y1="176" x2="346" y2="76" stroke="#0082E6" stroke-width="2" stroke-dasharray="5 4"/>
+
+                <!-- Origin dot -->
+                <circle cx="164" cy="176" r="7" fill="#FFFFFF" stroke="#6C727A" stroke-width="2"/>
+                <text x="164" y="200" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="400" fill="#495158">Prior position</text>
+
+                <!-- Ghost ring proposed by Vivo -->
+                <circle cx="292" cy="106" r="14" fill="none" stroke="#0082E6" stroke-width="2" stroke-dasharray="3 3"/>
+                <line x1="274" y1="106" x2="228" y2="106" stroke="#006FD1" stroke-width="1"/>
+                <text x="220" y="110" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#005DBD">Ghost proposal</text>
+
+                <!-- Confirmed risk dot at Day 14 -->
+                <circle cx="354" cy="72" r="16" fill="none" stroke="#D4911C" stroke-width="2.5"/>
+                <circle cx="354" cy="72" r="9" fill="#006FD1"/>
+                <text x="354" y="108" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#141B24">Confirmed</text>
+              </svg>
+            </div>
+
+            <div class="radar-provenance">
+              <div class="radar-prov-head">
+                <span class="radar-risk-title">EU component tariff expansion</span>
+                <span class="mono threshold-chip">
+                  <span class="amber-square" aria-hidden="true"></span>
+                  top right · 14 days
+                </span>
+              </div>
+              <div class="prov-grid">
+                <div>
+                  <div class="mono prov-cell-label">Trend</div>
+                  <div class="prov-cell-val">Worsening</div>
+                  <div class="prov-sub">Easing / Stable / Worsening</div>
+                </div>
+                <div>
+                  <div class="mono prov-cell-label">Confirmed by</div>
+                  <div class="prov-cell-val">H. Lindqvist</div>
+                  <div class="prov-sub">12 Nov</div>
+                </div>
+                <div>
+                  <div class="mono prov-cell-label">Primary source</div>
+                  <div class="prov-cell-val">EU Official Journal</div>
+                  <div class="prov-sub">Tariff filing</div>
+                </div>
+              </div>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="needs-you" aria-labelledby="session-title">
+      <div class="container">
+        <div class="session-intro">
+          <p class="mono eyebrow">03 / When it hits Needs you</p>
+          <h2 id="session-title">Sixty minutes, one decision, one record.</h2>
+          <p>At day 14 with no decision, the risk lands in the session lead's Needs you list for the next 60-minute session.</p>
+        </div>
+
+        <div class="session-grid">
+          <figure class="session-artifact" aria-label="Thursday strategy session agenda item showing sealed first takes, five decision options, and recorded decision SDS-2026-014">
+            <div class="drawing-bar">
+              <span class="mono drawing-bar-left">Thursday session · 60 min</span>
+              <span class="mono drawing-bar-right">Illustrative example</span>
+            </div>
+
+            <div class="artifact-block">
+              <div class="agenda-highlight">
+                <div class="mono agenda-meta">Needs you · Top right 14 days</div>
+                <div class="agenda-title">EU component tariff expansion</div>
+                <p class="agenda-reason">Primary filing confirmed, trend worsening, 14 days without a decision.</p>
+              </div>
+            </div>
+
+            <div class="artifact-block">
+              <div class="mono takes-label">Sealed first takes</div>
+              <div class="takes-row">
+                <div class="take-box">
+                  <div class="mono take-role">CEO</div>
+                  <div class="take-pos">Adapt</div>
+                </div>
+                <div class="take-box">
+                  <div class="mono take-role">CFO</div>
+                  <div class="take-pos">Adapt</div>
+                </div>
+                <div class="take-box">
+                  <div class="mono take-role">VP Ops</div>
+                  <div class="take-pos">Pivot</div>
+                </div>
+                <div class="take-box">
+                  <div class="mono take-role">VP Sales</div>
+                  <div class="take-pos">Hold</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="artifact-block">
+              <div class="mono decision-group-label">Five decisions</div>
+              <div class="decision-options" role="group" aria-label="Inspect Strapivo decision outcomes">
+                <button type="button" class="decision-btn" data-outcome="hold" aria-pressed="false">Hold</button>
+                <button type="button" class="decision-btn" data-outcome="adapt" aria-pressed="true">Adapt</button>
+                <button type="button" class="decision-btn" data-outcome="pivot" aria-pressed="false">Pivot</button>
+                <button type="button" class="decision-btn" data-outcome="advantage" aria-pressed="false">Take advantage</button>
+                <button type="button" class="decision-btn" data-outcome="notyet" aria-pressed="false">Not yet</button>
+              </div>
+              <p class="decision-note" id="decision-note">Adapt drafts updates to objectives and activities for owner confirmation.</p>
+            </div>
+
+            <div class="record-strip">
+              <div class="mono record-id">SDS-2026-014 · Record of Decisions</div>
+              <p class="record-entry" id="record-entry">Adapt Q2 supplier activities to qualify a second EU partner. VP Sales logged dissent and favoured Hold.</p>
+            </div>
+          </figure>
+
+          <ol class="session-steps">
+            <li>
+              <div class="mono step-kicker">24 hours ahead</div>
+              <h3>Vivo drafts the agenda</h3>
+              <p>Vivo puts old business first, then top-right risks, new signals, returning parked items and off-track activities. Each carries a one-line reason. The lead edits it; the room approves it first.</p>
+            </li>
+            <li>
+              <div class="mono step-kicker">Before debate</div>
+              <h3>Sealed first takes</h3>
+              <p>Leaders submit positions privately before discussion. All takes reveal together so the loudest voice cannot anchor the room.</p>
+            </li>
+            <li>
+              <div class="mono step-kicker">In the room</div>
+              <h3>Test the cost of waiting</h3>
+              <p>Ask Vivo to test scenarios, challenge assumptions or weigh the cost of doing nothing against your approved strategy.</p>
+            </li>
+            <li>
+              <div class="mono step-kicker">Close the loop</div>
+              <h3>Record the decision and dissent</h3>
+              <p>Choose Hold, Adapt, Pivot, Take advantage or Not yet. Vivo reads back the decision and named dissent under a permanent number such as SDS-2026-014.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section is-white" id="authority" aria-labelledby="authority-title">
+      <div class="container">
+        <div class="authority-head">
+          <p class="mono eyebrow">04 / Authority and getting started</p>
+          <h2 id="authority-title">The human stays in the chair.</h2>
+        </div>
+
+        <div class="authority-grid">
+          <ul class="gov-list">
+            <li>
+              <div class="mono gov-kicker">Human authority</div>
+              <h3>Humans validate every change</h3>
+              <p>Vivo proposes; people decide. It never changes a status light, moves a risk or edits accepted strategy without confirmation.</p>
+            </li>
+            <li>
+              <div class="mono gov-kicker">EU infrastructure</div>
+              <h3>GDPR by design</h3>
+              <p>Strapivo runs on European Union infrastructure. Start with public and non-sensitive material, then widen scope at your pace.</p>
+            </li>
+            <li>
+              <div class="mono gov-kicker">Exports</div>
+              <h3>Take the record to the board</h3>
+              <p>Export the plan as Markdown or CSV, pull escalation memos, or export a board pack showing what moved.</p>
+            </li>
+          </ul>
+
+          <div class="onboarding-box">
+            <div class="mono onboarding-kicker">Onboarding · Four to five hours</div>
+            <h3 class="onboarding-title">We do the reading first.</h3>
+            <ol class="onboarding-steps">
+              <li>
+                <span class="mono ob-num">01</span>
+                <div>
+                  <div class="ob-heading">Bring existing material</div>
+                  <p class="ob-copy">Share a workshop report, document, email or prompt. Session one starts with a draft to correct.</p>
+                </div>
+              </li>
+              <li>
+                <span class="mono ob-num">02</span>
+                <div>
+                  <div class="ob-heading">Show what we got wrong</div>
+                  <p class="ob-copy">Sharpen your ambition, success criteria, up to four focus areas and active risks.</p>
+                </div>
+              </li>
+              <li>
+                <span class="mono ob-num">03</span>
+                <div>
+                  <div class="ob-heading">Teach the radar</div>
+                  <p class="ob-copy">Dismiss noise and confirm primary sources so signals match your business model.</p>
+                </div>
+              </li>
+              <li>
+                <span class="mono ob-num">04</span>
+                <div>
+                  <div class="ob-heading">Run one session together</div>
+                  <p class="ob-copy">Four to five hours total, then your leadership team runs the Strategy Room.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing-band" aria-labelledby="closing-title">
+      <div class="container">
+        <div class="closing-ticks" aria-hidden="true">
+          <span class="c-tick"></span>
+          <span class="c-tick"></span>
+          <span class="c-tick"></span>
+          <span class="c-tick"></span>
+          <span class="c-tick"></span>
+          <span class="c-tick"></span>
+          <span class="c-tick"></span>
+          <span class="c-tick"></span>
+          <span class="c-tick"></span>
+          <span class="c-tick"></span>
+          <span class="c-tick"></span>
+          <span class="c-tick"></span>
+          <span class="c-tick"></span>
+          <span class="c-tick is-final"></span>
+        </div>
+
+        <div class="closing-grid">
+          <div>
+            <p class="mono closing-eyebrow">Strategy finally has a home</p>
+            <h2 class="closing-heading" id="closing-title">Put a 14-day clock on every known threat.</h2>
+          </div>
+          <div class="closing-right">
+            <p class="closing-copy">Any AI can answer a question. Only Strapivo answers it as you, tied to the strategy your team approved.</p>
+            <a class="btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+            <span class="mono-regular closing-note">strategy@strapivo.com · Weekly, fortnightly or monthly</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <img class="footer-logo" src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="80" height="20">
+        <span class="footer-copy">© 2026 Strapivo</span>
+      </div>
+      <nav class="footer-links" aria-label="Legal">
+        <a href="/imprint">Imprint</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var outcomes = {
+        hold: {
+          note: 'Hold marks the criterion reviewed on today\'s date and resets the 14-day clock.',
+          entry: 'Hold current sourcing plan and review again on 26 Nov. VP Ops recorded dissent over rising port lead times.'
+        },
+        adapt: {
+          note: 'Adapt drafts updates to objectives and activities for owner confirmation.',
+          entry: 'Adapt Q2 supplier activities to qualify a second EU partner. VP Sales logged dissent and favoured Hold.'
+        },
+        pivot: {
+          note: 'Pivot instructs Vivo to draft revised wording for the criterion. It takes effect only when an Owner confirms it.',
+          entry: 'Pivot regional supply criterion to require dual-region capacity. The revision waits for Owner confirmation before updating accepted strategy.'
+        },
+        advantage: {
+          note: 'Take advantage adds detour activities to capture an opening without changing the criterion.',
+          entry: 'Take advantage by offering fixed-tariff European contracts to competing accounts during Q2. Detour activities are assigned.'
+        },
+        notyet: {
+          note: 'Not yet parks the item with a named return trigger, or lets it go with a written rationale.',
+          entry: 'Parked pending the European Commission committee vote on 4 Dec. The item returns to Needs you once published.'
+        }
+      };
+
+      var buttons = document.querySelectorAll('.decision-btn');
+      var noteEl = document.getElementById('decision-note');
+      var entryEl = document.getElementById('record-entry');
+
+      if (!buttons.length || !noteEl || !entryEl) return;
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var key = btn.getAttribute('data-outcome');
+          if (!outcomes[key]) return;
+          buttons.forEach(function (b) {
+            b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+          });
+          noteEl.textContent = outcomes[key].note;
+          entryEl.textContent = outcomes[key].entry;
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
