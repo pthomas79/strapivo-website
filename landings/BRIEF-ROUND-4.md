@@ -1,4 +1,4 @@
-# Round four: concepts 71 to 90
+# Round four: concepts 71 to 100
 
 Seventy pages exist. They follow the brand and they explain. This round does neither. The owner's instruction, in their words: break the design, set yourself free from constraints, less is more, no noise, not lots of text, highly visual.
 
@@ -34,11 +34,11 @@ One image, one sentence, one button.
 - **Taste.** The reader is a chief executive or a board member. Bold, strange and beautiful are welcome. Cute, jokey, gamer and science-fiction cockpit are not. No emoji, no mascots, no stock imagery.
 - **Copy.** British English, sentence case, no em dashes or en dashes, plain words.
 
-## 4. The other nineteen
+## 4. The others
 
 Yours must not look like any of these.
 
-71 one ring that changes meaning. 72 a field of drifting lines. 73 a sentence whose ink fades. 74 five words that behave as they mean. 75 a single pulse line. 76 one continuous line drawing. 77 an ink tree that gets pruned. 78 growth rings, one per decision. 79 one large switch that turns the page on. 80 three glass layers pulled apart. 81 a transit map. 82 two-ink print posters. 83 a triangle, a circle and a square. 84 a quiet page of large serif type. 85 a sky that goes from night to dawn. 86 a dark page and a torch. 87 a split-flap departure board. 88 a letterboxed film in five shots. 89 an orrery. 90 a poster that fits one screen with no scrolling.
+71 one ring that changes meaning. 72 a field of drifting lines. 73 a sentence whose ink fades. 74 five words that behave as they mean. 75 a single pulse line. 76 one continuous line drawing. 77 an ink tree that gets pruned. 78 growth rings, one per decision. 79 one large switch that turns the page on. 80 three glass layers pulled apart. 81 a transit map. 82 two-ink print posters. 83 a triangle, a circle and a square. 84 a quiet page of large serif type. 85 a sky that goes from night to dawn. 86 a dark page and a torch. 87 a split-flap departure board. 88 a letterboxed film in five shots. 89 an orrery. 90 a poster that fits one screen with no scrolling. 91 a door ajar with light spilling out. 92 twelve discs of light and a focus pull. 93 a cloth woven row by row. 94 a chart whose coast keeps moving. 95 an hourglass. 96 an isometric wall and staircase. 97 twelve painted colour fields. 98 a ring made of characters. 99 a pen sketch on a paper napkin. 100 a folded sheet that opens.
 
 ## 5. Looking at your page
 
