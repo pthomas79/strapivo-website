@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo: three things, only useful together</title>
+<meta name="description" content="Strapivo holds a company's approved strategy, watches the market against it, and brings the two into one session.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#06080b;
+  --paper:#e8ecf1;
+  --mute:#9aa5b3;
+  --azure:#0082e6;
+  --glowc:79,176,255;
+  /* scene state, driven by scroll when motion is allowed */
+  --g:1;          /* separation, 0 closed, 1 exploded */
+  --rz:-44deg;
+  --rx:60deg;
+  --l0:1;--l1:1;--l2:1;
+  --hero:1;
+  --glow:0;
+  --fin:0;
+  --sheen:30%;
+  /* geometry */
+  --S:min(360px, 30vw);
+  --T:12px;
+  --gap:clamp(120px, 16vh, 168px);
+  --closed:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink);color:var(--paper);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
+body{overflow-x:hidden;min-height:100vh;
+  background:
+    radial-gradient(70% 55% at 50% 38%, #1a2029 0%, #0d1117 45%, var(--ink) 80%) fixed;
+}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit}
+a:focus-visible{outline:1px solid rgb(var(--glowc));outline-offset:6px;border-radius:2px}
+
+.top{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:32px 48px}
+.top img{height:20px;width:auto;display:block;opacity:.92}
+.top .in{font-size:14px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--mute);transition:color .3s}
+.top .in:hover{color:var(--paper)}
+
+/* stage */
+.run{position:relative}
+.stage{position:relative;height:100vh;min-height:640px;overflow:hidden}
+.anim .run{height:560vh}
+.anim .stage{position:sticky;top:0}
+
+.hero{position:absolute;left:48px;bottom:56px;max-width:460px;z-index:5;opacity:var(--hero);transform:translateY(calc((1 - var(--hero)) * -24px))}
+h1{font-weight:200;font-size:clamp(30px,3vw,44px);line-height:1.15;letter-spacing:.01em}
+.hero p{margin-top:18px;font-size:15px;line-height:1.6;color:var(--mute);max-width:360px}
+.cta{display:inline-flex;align-items:center;gap:14px;margin-top:28px;padding:14px 22px 14px 24px;border:1px solid rgba(232,236,241,.32);border-radius:999px;font-size:14px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;font-weight:400;background:rgba(255,255,255,.02);transition:border-color .3s,background .3s}
+.cta::after{content:"";width:22px;height:1px;background:currentColor;opacity:.7}
+.cta:hover{border-color:rgba(var(--glowc),.8);background:rgba(var(--glowc),.08)}
+
+/* scene */
+.scene{position:absolute;inset:0;perspective:2600px;perspective-origin:50% 40%}
+.halo{position:absolute;left:52%;top:50%;width:900px;height:620px;margin:-310px 0 0 -450px;pointer-events:none;
+  background:radial-gradient(closest-side, rgba(var(--glowc),.30), rgba(var(--glowc),.09) 45%, transparent 75%);
+  opacity:var(--glow);filter:blur(8px)}
+.obj{position:absolute;left:52%;top:50%;width:0;height:0;transform-style:preserve-3d;
+  transform:translateY(calc(var(--S) * .08)) rotateX(var(--rx)) rotateZ(var(--rz))}
+.floor{position:absolute;width:calc(var(--S) * 1.9);height:calc(var(--S) * 1.9);left:calc(var(--S) * -.95);top:calc(var(--S) * -.95);
+  transform:translateZ(calc(var(--gap) * -1.3 * var(--g) - 70px));
+  background:radial-gradient(closest-side, rgba(0,0,0,.75), rgba(0,0,0,.35) 50%, transparent 72%)}
+.slab{position:absolute;width:var(--S);height:var(--S);left:calc(var(--S) / -2);top:calc(var(--S) / -2);transform-style:preserve-3d;
+  transform:translateZ(calc(var(--i) * (var(--closed) + (var(--gap) - var(--closed)) * var(--g))))}
+.f{position:absolute}
+.face{inset:0;border-radius:3px}
+.top-f{transform:translateZ(calc(var(--T) / 2));
+  background:
+    linear-gradient(135deg, rgba(200,218,240,.17), rgba(110,130,160,.05) 52%, rgba(210,228,250,.11));
+  border:1px solid rgba(228,238,252,.42);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.04), inset 0 0 60px rgba(150,180,220,.08), 0 0 calc(60px * var(--glow)) rgba(var(--glowc),calc(.18 * var(--glow)))}
+.top-f::after{content:"";position:absolute;inset:0;border-radius:inherit;
+  background:linear-gradient(118deg, transparent 38%, rgba(255,255,255,.16) 48%, rgba(255,255,255,.04) 53%, transparent 62%);
+  background-size:300% 300%;background-position:var(--sheen) 50%}
+.bot-f{transform:translateZ(calc(var(--T) / -2)) rotateY(180deg);background:rgba(20,28,40,.35);border:1px solid rgba(200,215,235,.10)}
+.ex{left:0;width:100%;height:var(--T);top:calc(50% - var(--T) / 2)}
+.ey{top:0;height:100%;width:var(--T);left:calc(50% - var(--T) / 2)}
+.e1{transform:translateY(calc(var(--S) / 2)) rotateX(90deg);background:linear-gradient(90deg, rgba(235,243,255,.62), rgba(160,185,215,.30) 60%, rgba(220,235,255,.50))}
+.e2{transform:translateY(calc(var(--S) / -2)) rotateX(90deg);background:rgba(160,180,210,.12)}
+.e3{transform:translateX(calc(var(--S) / 2)) rotateY(90deg);background:linear-gradient(180deg, rgba(150,172,205,.34), rgba(90,110,140,.22))}
+.e4{transform:translateX(calc(var(--S) / -2)) rotateY(90deg);background:rgba(160,180,210,.12)}
+.ex::after,.ey::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(190,225,255,.5),rgba(var(--glowc),.3));opacity:var(--glow)}
+.pat{position:absolute;inset:7%;width:86%;height:86%;overflow:visible}
+
+/* labels: flat overlay, pinned to 3D anchors by script */
+.tag{position:absolute;width:1px;height:1px;transform:translateZ(calc(var(--T) / 2))}
+.tag.r{left:100%;top:100%}
+.tag.n{left:0;top:100%}
+.labs{position:absolute;inset:0;pointer-events:none}
+.lab{position:absolute;left:calc(52% + var(--S) * .73);display:flex;align-items:center;white-space:nowrap;transform:translateY(-50%);opacity:var(--l)}
+.L0{--l:var(--l0);top:calc(50% + var(--S) * .40)}.L1{--l:var(--l1);top:calc(50% + var(--S) * .075)}.L2{--l:var(--l2);top:calc(50% - var(--S) * .27)}
+.lab i{position:relative;display:block;width:calc(var(--lw, 84px) * (.55 + .45 * var(--l)));height:1px;margin-right:26px;flex:none;
+  background:linear-gradient(90deg, rgba(232,236,241,.95), rgba(232,236,241,.4))}
+.lab i::before{content:"";position:absolute;left:-4px;top:-4px;width:9px;height:9px;border-radius:50%;background:var(--ink);border:1px solid rgba(232,236,241,.95);box-shadow:0 0 10px rgba(var(--glowc),.7)}
+.lab b{display:block;font-weight:400;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:var(--paper)}
+.lab span{display:block;margin-top:9px;font-size:15px;color:var(--mute);letter-spacing:.01em}
+
+.fin{position:absolute;left:0;right:0;top:calc(50% + var(--S) * .62 + 24px);text-align:center;font-size:14px;letter-spacing:.32em;text-transform:uppercase;font-weight:400;
+  opacity:var(--fin);transform:translateY(calc((1 - var(--fin)) * 12px));text-shadow:0 0 18px rgba(var(--glowc),.6)}
+.fin::before{content:"";display:block;width:1px;height:44px;margin:0 auto 18px;background:linear-gradient(transparent, rgba(232,236,241,.8))}
+html:not(.anim) .fin{display:none}
+
+/* end */
+.end{position:relative;min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 0}
+.end h2{font-weight:200;font-size:clamp(28px,3.4vw,52px);letter-spacing:.01em;line-height:1.15}
+.end .cta{margin-top:40px}
+.still-fin{display:none;font-size:14px;letter-spacing:.32em;text-transform:uppercase;font-weight:400;margin-bottom:36px;color:var(--paper)}
+html:not(.anim) .still-fin{display:block}
+footer{position:absolute;left:0;right:0;bottom:0;padding:28px 48px;display:flex;justify-content:center;gap:28px;font-size:12px;color:var(--mute);letter-spacing:.06em}
+footer a{text-decoration:none}
+footer a:hover{color:var(--paper)}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* phone */
+@media (max-width:760px){
+  :root{--S:min(162px, 42vw);--T:8px;--gap:clamp(214px, 29vh, 236px);--closed:12px;--rx:64deg}
+  .top{padding:22px 22px}
+  .top img{height:17px}
+  .top .in{font-size:14px;letter-spacing:.14em}
+  .hero{left:22px;right:22px;bottom:auto;top:84px;max-width:none}
+  h1{font-size:28px}
+  .hero p{font-size:15px;margin-top:12px}
+  .cta{margin-top:20px;padding:13px 18px 13px 20px;letter-spacing:.13em}
+  .scene{perspective:4200px}
+  .obj{transform:translateY(calc(140px + var(--hero) * 0px)) rotateX(var(--rx)) rotateZ(var(--rz))}
+  .anim .obj{transform:translateY(calc(30px + var(--hero) * 180px - var(--g) * 30px)) rotateX(var(--rx)) rotateZ(var(--rz))}
+  .lab{flex-direction:column;align-items:center;text-align:center;transform:translate(-50%,0);left:50%}
+  .L0{top:calc(47% + var(--S) * 1.56)}.L1{top:calc(47% + var(--S) * .26)}.L2{top:calc(47% - var(--S) * 1.04)}
+  .obj,.halo{left:50%}
+  .lab i{width:1px;height:calc(var(--lw, 20px) * (.5 + .5 * var(--l)));margin:0 0 10px}
+  .lab i{background:linear-gradient(rgba(232,236,241,.95), rgba(232,236,241,.35))}
+  .lab b{font-size:14px;letter-spacing:.18em;text-shadow:0 0 12px var(--ink),0 0 4px var(--ink)}
+  .lab span{margin-top:5px;font-size:14px;text-shadow:0 0 12px var(--ink),0 0 4px var(--ink)}
+  .halo{width:520px;height:520px;margin:-260px 0 0 -260px}
+  footer{flex-wrap:wrap;gap:10px 22px;padding:24px 22px}
+  html:not(.anim) .stage{height:auto;min-height:0;overflow:visible}
+  html:not(.anim) .hero{position:relative;top:auto;left:auto;right:auto;padding:96px 22px 0}
+  html:not(.anim) .scene{position:relative;inset:auto;height:720px}
+  html:not(.anim) .obj{top:47%;transform:rotateX(var(--rx)) rotateZ(var(--rz))}
+}
+</style>
+<script>
+(function(){
+  var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!rm) document.documentElement.className = 'anim';
+})();
+</script>
+</head>
+<body>
+<header class="top">
+  <a href="#" aria-label="Strapivo"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="80" height="20"></a>
+  <a class="in" href="https://strapivo.app">Sign in</a>
+</header>
+
+<main>
+<section class="run" id="run">
+  <div class="stage">
+    <div class="hero">
+      <h1>Three things.<br> Only useful together.</h1>
+      <p>Strapivo holds a company's approved strategy, watches the market against it, and brings the two into one session.</p>
+      <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </div>
+
+    <figure class="scene" role="group" aria-label="Exploded view of three glass layers. Strategic memory at the bottom, market intelligence in the middle, the strategic session on top. Closed together they make one object: lasting advantage.">
+      <div class="halo" aria-hidden="true"></div>
+      <div class="obj">
+        <div class="floor" aria-hidden="true"></div>
+
+        <!-- bottom: strategic memory, engraved grid -->
+        <div class="slab s0" style="--i:-1">
+          <div class="f face bot-f" aria-hidden="true"></div>
+          <div class="f ex e1" aria-hidden="true"></div><div class="f ex e2" aria-hidden="true"></div>
+          <div class="f ey e3" aria-hidden="true"></div><div class="f ey e4" aria-hidden="true"></div>
+          <div class="f face top-f" aria-hidden="true">
+            <svg class="pat" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <pattern id="gd" width="6.25" height="6.25" patternUnits="userSpaceOnUse">
+                  <path d="M6.25 0V6.25H0" fill="none" stroke="rgba(0,0,0,.55)" stroke-width=".35"/>
+                </pattern>
+                <pattern id="gl" width="6.25" height="6.25" patternUnits="userSpaceOnUse" x=".35" y=".35">
+                  <path d="M6.25 0V6.25H0" fill="none" stroke="rgba(225,236,250,.22)" stroke-width=".22"/>
+                </pattern>
+              </defs>
+              <rect width="100" height="100" fill="url(#gd)"/>
+              <rect width="100" height="100" fill="url(#gl)"/>
+              <g fill="none" stroke-width=".4">
+                <g stroke="rgba(0,0,0,.6)">
+                  <rect x="0" y="0" width="100" height="100"/>
+                  <path d="M37.5 0V62.5M62.5 0V100M0 62.5H62.5M37.5 31.25H62.5M62.5 50H100M81.25 0V50"/>
+                </g>
+                <g stroke="rgba(235,243,255,.5)" transform="translate(.45 .45)">
+                  <rect x="0" y="0" width="100" height="100"/>
+                  <path d="M37.5 0V62.5M62.5 0V100M0 62.5H62.5M37.5 31.25H62.5M62.5 50H100M81.25 0V50"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <span class="tag r"></span><span class="tag n"></span>
+        </div>
+
+        <!-- middle: market intelligence, dot matrix -->
+        <div class="slab s1" style="--i:0">
+          <div class="f face bot-f" aria-hidden="true"></div>
+          <div class="f ex e1" aria-hidden="true"></div><div class="f ex e2" aria-hidden="true"></div>
+          <div class="f ey e3" aria-hidden="true"></div><div class="f ey e4" aria-hidden="true"></div>
+          <div class="f face top-f" aria-hidden="true">
+            <svg class="pat" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <defs>
+                <pattern id="dm" width="5" height="5" patternUnits="userSpaceOnUse">
+                  <circle cx="2.5" cy="2.5" r=".42" fill="rgba(225,236,250,.42)"/>
+                </pattern>
+                <radialGradient id="lit">
+                  <stop offset="0" stop-color="#e9f5ff"/>
+                  <stop offset=".18" stop-color="#7cc4ff"/>
+                  <stop offset=".45" stop-color="rgba(79,176,255,.35)"/>
+                  <stop offset="1" stop-color="rgba(79,176,255,0)"/>
+                </radialGradient>
+              </defs>
+              <rect width="100" height="100" fill="url(#dm)"/>
+              <g fill="url(#lit)">
+                <circle cx="27.5" cy="17.5" r="4.6"/>
+                <circle cx="72.5" cy="32.5" r="4.6"/>
+                <circle cx="42.5" cy="57.5" r="5.4"/>
+                <circle cx="82.5" cy="77.5" r="4.2"/>
+                <circle cx="12.5" cy="82.5" r="3.8"/>
+              </g>
+            </svg>
+          </div>
+          <span class="tag r"></span><span class="tag n"></span>
+        </div>
+
+        <!-- top: strategic session, one ring -->
+        <div class="slab s2" style="--i:1">
+          <div class="f face bot-f" aria-hidden="true"></div>
+          <div class="f ex e1" aria-hidden="true"></div><div class="f ex e2" aria-hidden="true"></div>
+          <div class="f ey e3" aria-hidden="true"></div><div class="f ey e4" aria-hidden="true"></div>
+          <div class="f face top-f" aria-hidden="true">
+            <svg class="pat" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(79,176,255,.22)" stroke-width="3.2"/>
+              <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(150,205,255,.45)" stroke-width="1.2"/>
+              <circle cx="50" cy="50" r="30" fill="none" stroke="#f2f7ff" stroke-width=".45"/>
+            </svg>
+          </div>
+          <span class="tag r"></span><span class="tag n"></span>
+        </div>
+      </div>
+      <div class="labs">
+        <div class="lab L0"><i></i><div><b>Strategic memory</b><span>What is true inside your company.</span></div></div>
+        <div class="lab L1"><i></i><div><b>Market intelligence</b><span>What changed outside it.</span></div></div>
+        <div class="lab L2"><i></i><div><b>Strategic session</b><span>The hour where the two meet.</span></div></div>
+      </div>
+    </figure>
+
+    <p class="fin" aria-hidden="true">Lasting advantage</p>
+  </div>
+</section>
+
+<section class="end">
+  <p class="still-fin">Lasting advantage</p>
+  <h2>Strategy finally has a home.</h2>
+  <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+  <footer>
+    <span>© 2026 Strapivo</span>
+    <a href="/imprint">Imprint</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+  </footer>
+</section>
+</main>
+
+<script>
+(function(){
+  var root = document.documentElement, st = root.style;
+  var run = document.getElementById('run');
+  var anim = root.classList.contains('anim');
+  var stage = run.querySelector('.scene');
+  var slabs = [].slice.call(run.querySelectorAll('.slab'));
+  var labs = [].slice.call(run.querySelectorAll('.lab'));
+  var ticking = false;
+  function cl(x){return x<0?0:x>1?1:x}
+  function ss(a,b,x){x=cl((x-a)/(b-a));return x*x*(3-2*x)}
+  function eio(a,b,x){x=cl((x-a)/(b-a));return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2}
+  function place(){
+    var phone = innerWidth <= 760, sr = stage.getBoundingClientRect();
+    var rightEdge = 0;
+    slabs.forEach(function(sl){ var r = sl.querySelector('.tag.r').getBoundingClientRect(); if(r.left > rightEdge) rightEdge = r.left; });
+    slabs.forEach(function(sl, k){
+      var lab = labs[k], a;
+      if(phone){
+        a = sl.querySelector('.tag.n').getBoundingClientRect();
+        lab.style.left = (a.left - sr.left) + 'px';
+        lab.style.top = (a.top - sr.top) + 'px';
+        lab.style.setProperty('--lw', '18px');
+      } else {
+        a = sl.querySelector('.tag.r').getBoundingClientRect();
+        lab.style.left = (a.left - sr.left) + 'px';
+        lab.style.top = (a.top - sr.top) + 'px';
+        lab.style.setProperty('--lw', Math.round(rightEdge - a.left + 72) + 'px');
+      }
+    });
+  }
+  function frame(){
+    ticking = false;
+    if(anim){
+      var r = run.getBoundingClientRect();
+      var span = run.offsetHeight - innerHeight;
+      var p = span > 0 ? cl(-r.top / span) : 0;
+      var open = eio(.04,.28,p), shut = eio(.70,.86,p);
+      var g = open * (1 - shut);
+      var labOut = 1 - ss(.64,.71,p);
+      st.setProperty('--g', g.toFixed(4));
+      st.setProperty('--hero', (1 - ss(.02,.12,p)).toFixed(4));
+      st.setProperty('--l0', (ss(.18,.26,p)*labOut).toFixed(4));
+      st.setProperty('--l1', (ss(.22,.30,p)*labOut).toFixed(4));
+      st.setProperty('--l2', (ss(.26,.34,p)*labOut).toFixed(4));
+      st.setProperty('--glow', ss(.82,.94,p).toFixed(4));
+      st.setProperty('--fin', ss(.86,.96,p).toFixed(4));
+      st.setProperty('--rz', (-52 + 14*p).toFixed(3) + 'deg');
+      st.setProperty('--rx', ((innerWidth <= 760 ? 64 : 60) - 4*g).toFixed(3) + 'deg');
+      st.setProperty('--sheen', (110 - 100*p).toFixed(2) + '%');
+    }
+    place();
+  }
+  function req(){ if(!ticking){ ticking = true; requestAnimationFrame(frame); } }
+  if(anim) addEventListener('scroll', req, {passive:true});
+  addEventListener('resize', req);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(req);
+  frame();
+})();
+</script>
+</body>
+</html>
