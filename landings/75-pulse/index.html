@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en-GB" class="still-mode">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo: give your strategy a pulse</title>
+<meta name="description" content="Strapivo is software where a leadership team reviews and corrects its strategy every week, not once a year.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var m = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!m) { document.documentElement.className = "motion"; }
+  })();
+</script>
+<style>
+  :root {
+    --ground: #040d0a;
+    --ink: #f3ecdf;
+    --trace: #fff3df;
+    --glow: rgba(255, 196, 128, .55);
+    --muted: #93a69c;
+    --line-dim: rgba(243, 236, 223, .26);
+    --serif: "Instrument Serif", "Times New Roman", serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+    --pad: clamp(20px, 3.9vw, 56px);
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--ground); color: var(--ink); -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; font-family: var(--mono); font-size: 16px; line-height: 1.5;
+    background:
+      radial-gradient(120% 70% at 50% 62%, rgba(24, 58, 44, .55), rgba(4, 13, 10, 0) 70%),
+      var(--ground);
+    overflow-x: hidden;
+  }
+  body::after {
+    /* fine grain */
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  a { color: inherit; }
+  a:focus-visible { outline: 2px solid var(--trace); outline-offset: 4px; border-radius: 2px; }
+
+  .pin { position: relative; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; padding: 0 0 28px; }
+  .bar { display: flex; justify-content: space-between; align-items: center; padding: 34px var(--pad) 0; position: relative; z-index: 3; }
+  .logo img { display: block; height: 22px; width: auto; }
+  .signin { font-size: 14px; color: var(--muted); text-decoration: none; padding: 6px 0; }
+  .signin:hover { color: var(--ink); }
+
+  .hero { padding: clamp(40px, 9vh, 110px) var(--pad) 0; position: relative; z-index: 3; max-width: 980px; }
+  h1 {
+    font-family: var(--serif); font-weight: 400; margin: 0;
+    font-size: clamp(46px, 6vw, 92px); line-height: .98; letter-spacing: -.01em;
+  }
+  .lede { margin: 26px 0 0; max-width: 40ch; font-size: clamp(15px, 1.2vw, 17px); color: var(--ink); opacity: .86; }
+  .cta {
+    display: inline-flex; align-items: center; gap: 12px; margin-top: 32px;
+    font-family: var(--mono); font-size: 15px; font-weight: 500; text-decoration: none;
+    color: var(--ink); border: 1px solid rgba(243, 236, 223, .55); border-radius: 999px; padding: 13px 22px 13px 18px;
+    transition: background .25s, color .25s, border-color .25s;
+  }
+  .cta::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--trace); box-shadow: 0 0 10px 2px var(--glow); }
+  .cta:hover { background: var(--trace); color: var(--ground); border-color: var(--trace); }
+  .cta:hover::before { background: var(--ground); box-shadow: none; }
+
+  /* the visual, still version */
+  .still { margin: auto 0 0; padding-top: 40px; position: relative; z-index: 2; }
+  .trace { position: relative; }
+  .trace svg { display: block; width: 100%; overflow: visible; }
+  .trace .m { display: none; }
+  .t1 svg.d { height: 150px; }
+  .t2 svg.d { height: 230px; }
+  .t1 svg.m { height: 80px; }
+  .t2 svg.m { height: 290px; }
+  .trace path { fill: none; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  .dim { stroke: var(--line-dim); stroke-width: 1.4; }
+  .lit { stroke-width: 2; }
+  .trace svg { filter: drop-shadow(0 0 5px rgba(255, 196, 128, .45)); }
+  .head {
+    position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%;
+    background: #fff; box-shadow: 0 0 8px 3px rgba(255, 236, 200, .9), 0 0 40px 14px rgba(255, 190, 120, .28);
+  }
+  .lab {
+    position: absolute; font-size: 14px; letter-spacing: .02em; color: var(--ink); white-space: nowrap;
+    transform: translateX(-50%);
+  }
+  .lab.tag { border: 1px solid rgba(243, 236, 223, .5); padding: 2px 8px; border-radius: 3px; background: rgba(4, 13, 10, .7); }
+  .cap { margin: 6px 0 0; padding: 0 var(--pad); color: var(--muted); font-size: 15px; }
+  .t2 { margin-top: 26px; }
+
+  .end { padding: 18vh var(--pad) 14vh; text-align: left; }
+  .end a {
+    font-family: var(--serif); font-size: clamp(40px, 5vw, 76px); line-height: 1.05; text-decoration: none;
+    border-bottom: 1px solid rgba(243, 236, 223, .4); padding-bottom: 6px; transition: border-color .25s;
+  }
+  .end a:hover { border-color: var(--trace); }
+  .end p { margin: 0 0 22px; color: var(--muted); font-size: 15px; }
+
+  footer { padding: 22px var(--pad) 30px; font-size: 12px; color: var(--muted); display: flex; gap: 22px; flex-wrap: wrap; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+
+  canvas { display: none; }
+
+  /* motion version: pinned stage */
+  .motion #stage { height: 520vh; }
+  .motion .pin { position: sticky; top: 0; height: 100vh; min-height: 0; overflow: hidden; display: block; padding: 0; }
+  .motion canvas { display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+  .motion .still, .motion .trace { position: static; margin: 0; padding: 0; }
+  .motion .trace svg, .motion .head { display: none !important; }
+  .motion .lab, .motion .cap, .motion .end { position: absolute; top: 0; left: 0; margin: 0; z-index: 3; will-change: transform, opacity; opacity: 0; }
+  .motion .lab { transform: none; }
+  .motion .cap { padding: 0; }
+  .motion .end { padding: 0; }
+  .motion .hero, .motion .bar { will-change: opacity; }
+
+  @media (max-width: 719px) {
+    .bar { padding-top: 24px; }
+    .logo img { height: 19px; }
+    .hero { padding-top: 54px; }
+    h1 { font-size: clamp(42px, 12.4vw, 54px); }
+    .lede { margin-top: 20px; font-size: 15px; }
+    .cta { margin-top: 26px; }
+    .trace .d { display: none; }
+    .trace .m { display: block; }
+    .cap { font-size: 14px; }
+    .still { padding-top: 34px; }
+    .t2 { margin-top: 18px; }
+    .end { padding: 14vh var(--pad) 12vh; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<main>
+<section id="stage">
+  <div class="pin">
+    <canvas id="pulse" aria-hidden="true"></canvas>
+    <div class="bar">
+      <a class="logo" href="#"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="138" height="35"></a>
+      <a class="signin" href="https://strapivo.app">Sign in</a>
+    </div>
+    <div class="hero">
+      <h1>Give your strategy <br class="pb">a pulse.</h1>
+      <p class="lede">Strapivo is software where a leadership team reviews and corrects its strategy every week, not once a year.</p>
+      <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </div>
+
+    <div class="still" role="img" aria-label="Two traces of one year. The first is flat, with a single blip for the annual review. The second beats once a week, fifty-two times, and one beat is a larger recorded decision.">
+      <div class="trace t1">
+        <svg class="d" viewBox="0 0 1440 150" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="gd1" gradientUnits="userSpaceOnUse" x1="105" x2="607" y1="0" y2="0"><stop offset="0" stop-color="#fff3df" stop-opacity="0"/><stop offset=".996" stop-color="#fff3df"/><stop offset="1" stop-color="#fff3df" stop-opacity="0"/></linearGradient></defs>
+          <path class="dim" d="M0.0 105.0 L1334.8 105.0 L1340.3 112.2 L1343.1 45.0 L1346.3 123.0 L1348.6 105.0 L1351.4 99.0 L1354.2 95.4 L1356.9 99.0 L1359.7 105.0 L1440.0 105.0"/>
+          <path class="lit" stroke="url(#gd1)" d="M0.0 105.0 L1334.8 105.0 L1340.3 112.2 L1343.1 45.0 L1346.3 123.0 L1348.6 105.0 L1351.4 99.0 L1354.2 95.4 L1356.9 99.0 L1359.7 105.0 L1440.0 105.0"/>
+        </svg>
+        <svg class="m" viewBox="0 0 390 80" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="gm1" gradientUnits="userSpaceOnUse" x1="0" x2="165" y1="0" y2="0"><stop offset="0" stop-color="#fff3df" stop-opacity="0"/><stop offset=".99" stop-color="#fff3df"/><stop offset="1" stop-color="#fff3df" stop-opacity="0"/></linearGradient></defs>
+          <path class="dim" d="M0.0 56.0 L361.5 56.0 L363.0 59.6 L363.8 26.0 L364.6 65.0 L365.2 56.0 L366.0 53.0 L366.8 51.2 L367.5 53.0 L368.2 56.0 L390.0 56.0"/>
+          <path class="lit" stroke="url(#gm1)" d="M0.0 56.0 L361.5 56.0 L363.0 59.6 L363.8 26.0 L364.6 65.0 L365.2 56.0 L366.0 53.0 L366.8 51.2 L367.5 53.0 L368.2 56.0 L390.0 56.0"/>
+        </svg>
+        <span class="head hd" style="left:42%;top:105px"></span>
+        <span class="head hm" style="left:42%;top:56px"></span>
+        <span class="lab l-annual" aria-hidden="true">Annual review</span>
+        <p class="cap cap1">Agreed in spring. Reviewed next spring.</p>
+      </div>
+      <div class="trace t2">
+        <svg class="d" viewBox="0 0 1440 230" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="gd2" gradientUnits="userSpaceOnUse" x1="535" x2="1137" y1="0" y2="0"><stop offset="0" stop-color="#fff3df" stop-opacity="0"/><stop offset=".996" stop-color="#fff3df"/><stop offset="1" stop-color="#fff3df" stop-opacity="0"/></linearGradient></defs>
+          <path class="dim" d="M0.0 160.0 L5.5 160.0 L11.1 167.9 L13.8 94.0 L17.1 179.8 L19.4 160.0 L22.2 153.4 L24.9 149.4 L27.7 153.4 L30.5 160.0 L33.2 160.0 L38.8 167.9 L41.5 94.0 L44.8 179.8 L47.1 160.0 L49.8 153.4 L52.6 149.4 L55.4 153.4 L58.2 160.0 L60.9 160.0 L66.5 167.9 L69.2 94.0 L72.5 179.8 L74.8 160.0 L77.5 153.4 L80.3 149.4 L83.1 153.4 L85.8 160.0 L88.6 160.0 L94.2 167.9 L96.9 94.0 L100.2 179.8 L102.5 160.0 L105.2 153.4 L108.0 149.4 L110.8 153.4 L113.5 160.0 L116.3 160.0 L121.8 167.9 L124.6 94.0 L127.8 179.8 L130.2 160.0 L132.9 153.4 L135.7 149.4 L138.5 153.4 L141.2 160.0 L144.0 160.0 L149.5 167.9 L152.3 94.0 L155.5 179.8 L157.8 160.0 L160.6 153.4 L163.4 149.4 L166.2 153.4 L168.9 160.0 L171.7 160.0 L177.2 167.9 L180.0 94.0 L183.2 179.8 L185.5 160.0 L188.3 153.4 L191.1 149.4 L193.8 153.4 L196.6 160.0 L199.4 160.0 L204.9 167.9 L207.7 94.0 L210.9 179.8 L213.2 160.0 L216.0 153.4 L218.8 149.4 L221.5 153.4 L224.3 160.0 L227.1 160.0 L232.6 167.9 L235.4 94.0 L238.6 179.8 L240.9 160.0 L243.7 153.4 L246.5 149.4 L249.2 153.4 L252.0 160.0 L254.8 160.0 L260.3 167.9 L263.1 94.0 L266.3 179.8 L268.6 160.0 L271.4 153.4 L274.2 149.4 L276.9 153.4 L279.7 160.0 L282.5 160.0 L288.0 167.9 L290.8 94.0 L294.0 179.8 L296.3 160.0 L299.1 153.4 L301.8 149.4 L304.6 153.4 L307.4 160.0 L310.2 160.0 L315.7 167.9 L318.5 94.0 L321.7 179.8 L324.0 160.0 L326.8 153.4 L329.5 149.4 L332.3 153.4 L335.1 160.0 L337.8 160.0 L343.4 167.9 L346.2 94.0 L349.4 179.8 L351.7 160.0 L354.5 153.4 L357.2 149.4 L360.0 153.4 L362.8 160.0 L365.5 160.0 L371.1 167.9 L373.8 94.0 L377.1 179.8 L379.4 160.0 L382.2 153.4 L384.9 149.4 L387.7 153.4 L390.5 160.0 L393.2 160.0 L398.8 167.9 L401.5 94.0 L404.8 179.8 L407.1 160.0 L409.8 153.4 L412.6 149.4 L415.4 153.4 L418.2 160.0 L420.9 160.0 L426.5 167.9 L429.2 94.0 L432.5 179.8 L434.8 160.0 L437.5 153.4 L440.3 149.4 L443.1 153.4 L445.8 160.0 L448.6 160.0 L454.2 167.9 L456.9 94.0 L460.2 179.8 L462.5 160.0 L465.2 153.4 L468.0 149.4 L470.8 153.4 L473.5 160.0 L476.3 160.0 L481.8 167.9 L484.6 94.0 L487.8 179.8 L490.2 160.0 L492.9 153.4 L495.7 149.4 L498.5 153.4 L501.2 160.0 L504.0 160.0 L509.5 167.9 L512.3 94.0 L515.5 179.8 L517.8 160.0 L520.6 153.4 L523.4 149.4 L526.2 153.4 L528.9 160.0 L531.7 160.0 L537.2 167.9 L540.0 94.0 L543.2 179.8 L545.5 160.0 L548.3 153.4 L551.1 149.4 L553.8 153.4 L556.6 160.0 L559.4 160.0 L564.9 167.9 L567.7 94.0 L570.9 179.8 L573.2 160.0 L576.0 153.4 L578.8 149.4 L581.5 153.4 L584.3 160.0 L587.1 160.0 L592.6 167.9 L595.4 94.0 L598.6 179.8 L600.9 160.0 L603.7 153.4 L606.5 149.4 L609.2 153.4 L612.0 160.0 L614.8 160.0 L620.3 167.9 L623.1 94.0 L626.3 179.8 L628.6 160.0 L631.4 153.4 L634.2 149.4 L636.9 153.4 L639.7 160.0 L642.5 160.0 L648.0 167.9 L650.8 94.0 L654.0 179.8 L656.3 160.0 L659.1 153.4 L661.8 149.4 L664.6 153.4 L667.4 160.0 L670.2 160.0 L675.7 167.9 L678.5 94.0 L681.7 179.8 L684.0 160.0 L686.8 153.4 L689.5 149.4 L692.3 153.4 L695.1 160.0 L697.8 160.0 L703.4 167.9 L706.2 94.0 L709.4 179.8 L711.7 160.0 L714.5 153.4 L717.2 149.4 L720.0 153.4 L722.8 160.0 L725.5 160.0 L731.1 167.9 L733.8 94.0 L737.1 179.8 L739.4 160.0 L742.2 153.4 L744.9 149.4 L747.7 153.4 L750.5 160.0 L753.2 160.0 L758.8 167.9 L761.5 94.0 L764.8 179.8 L767.1 160.0 L769.8 153.4 L772.6 149.4 L775.4 153.4 L778.2 160.0 L780.9 160.0 L786.5 167.9 L789.2 94.0 L792.5 179.8 L794.8 160.0 L797.5 153.4 L800.3 149.4 L803.1 153.4 L805.8 160.0 L808.6 160.0 L814.2 167.9 L816.9 94.0 L820.2 179.8 L822.5 160.0 L825.2 153.4 L828.0 149.4 L830.8 153.4 L833.5 160.0 L836.3 160.0 L841.8 167.9 L844.6 94.0 L847.8 179.8 L850.2 160.0 L852.9 153.4 L855.7 149.4 L858.5 153.4 L861.2 160.0 L864.0 160.0 L869.5 167.9 L872.3 94.0 L875.5 179.8 L877.8 160.0 L880.6 153.4 L883.4 149.4 L886.2 153.4 L888.9 160.0 L891.7 160.0 L897.2 167.9 L900.0 94.0 L903.2 179.8 L905.5 160.0 L908.3 153.4 L911.1 149.4 L913.8 153.4 L916.6 160.0 L919.4 160.0 L924.9 175.0 L927.7 35.0 L930.9 197.5 L933.2 160.0 L936.0 147.5 L938.8 140.0 L941.5 147.5 L944.3 160.0 L947.1 160.0 L952.6 167.9 L955.4 94.0 L958.6 179.8 L960.9 160.0 L963.7 153.4 L966.5 149.4 L969.2 153.4 L972.0 160.0 L974.8 160.0 L980.3 167.9 L983.1 94.0 L986.3 179.8 L988.6 160.0 L991.4 153.4 L994.2 149.4 L996.9 153.4 L999.7 160.0 L1002.5 160.0 L1008.0 167.9 L1010.8 94.0 L1014.0 179.8 L1016.3 160.0 L1019.1 153.4 L1021.8 149.4 L1024.6 153.4 L1027.4 160.0 L1030.2 160.0 L1035.7 167.9 L1038.5 94.0 L1041.7 179.8 L1044.0 160.0 L1046.8 153.4 L1049.5 149.4 L1052.3 153.4 L1055.1 160.0 L1057.8 160.0 L1063.4 167.9 L1066.2 94.0 L1069.4 179.8 L1071.7 160.0 L1074.5 153.4 L1077.2 149.4 L1080.0 153.4 L1082.8 160.0 L1085.5 160.0 L1091.1 167.9 L1093.8 94.0 L1097.1 179.8 L1099.4 160.0 L1102.2 153.4 L1104.9 149.4 L1107.7 153.4 L1110.5 160.0 L1113.2 160.0 L1118.8 167.9 L1121.5 94.0 L1124.8 179.8 L1127.1 160.0 L1129.8 153.4 L1132.6 149.4 L1135.4 153.4 L1138.2 160.0 L1140.9 160.0 L1146.5 167.9 L1149.2 94.0 L1152.5 179.8 L1154.8 160.0 L1157.5 153.4 L1160.3 149.4 L1163.1 153.4 L1165.8 160.0 L1168.6 160.0 L1174.2 167.9 L1176.9 94.0 L1180.2 179.8 L1182.5 160.0 L1185.2 153.4 L1188.0 149.4 L1190.8 153.4 L1193.5 160.0 L1196.3 160.0 L1201.8 167.9 L1204.6 94.0 L1207.8 179.8 L1210.2 160.0 L1212.9 153.4 L1215.7 149.4 L1218.5 153.4 L1221.2 160.0 L1224.0 160.0 L1229.5 167.9 L1232.3 94.0 L1235.5 179.8 L1237.8 160.0 L1240.6 153.4 L1243.4 149.4 L1246.2 153.4 L1248.9 160.0 L1251.7 160.0 L1257.2 167.9 L1260.0 94.0 L1263.2 179.8 L1265.5 160.0 L1268.3 153.4 L1271.1 149.4 L1273.8 153.4 L1276.6 160.0 L1279.4 160.0 L1284.9 167.9 L1287.7 94.0 L1290.9 179.8 L1293.2 160.0 L1296.0 153.4 L1298.8 149.4 L1301.5 153.4 L1304.3 160.0 L1307.1 160.0 L1312.6 167.9 L1315.4 94.0 L1318.6 179.8 L1320.9 160.0 L1323.7 153.4 L1326.5 149.4 L1329.2 153.4 L1332.0 160.0 L1334.8 160.0 L1340.3 167.9 L1343.1 94.0 L1346.3 179.8 L1348.6 160.0 L1351.4 153.4 L1354.2 149.4 L1356.9 153.4 L1359.7 160.0 L1362.5 160.0 L1368.0 167.9 L1370.8 94.0 L1374.0 179.8 L1376.3 160.0 L1379.1 153.4 L1381.8 149.4 L1384.6 153.4 L1387.4 160.0 L1390.2 160.0 L1395.7 167.9 L1398.5 94.0 L1401.7 179.8 L1404.0 160.0 L1406.8 153.4 L1409.5 149.4 L1412.3 153.4 L1415.1 160.0 L1417.8 160.0 L1423.4 167.9 L1426.2 94.0 L1429.4 179.8 L1431.7 160.0 L1434.5 153.4 L1437.2 149.4 L1440.0 153.4 L1442.8 160.0 L1440.0 160.0"/>
+          <path class="lit" stroke="url(#gd2)" d="M0.0 160.0 L5.5 160.0 L11.1 167.9 L13.8 94.0 L17.1 179.8 L19.4 160.0 L22.2 153.4 L24.9 149.4 L27.7 153.4 L30.5 160.0 L33.2 160.0 L38.8 167.9 L41.5 94.0 L44.8 179.8 L47.1 160.0 L49.8 153.4 L52.6 149.4 L55.4 153.4 L58.2 160.0 L60.9 160.0 L66.5 167.9 L69.2 94.0 L72.5 179.8 L74.8 160.0 L77.5 153.4 L80.3 149.4 L83.1 153.4 L85.8 160.0 L88.6 160.0 L94.2 167.9 L96.9 94.0 L100.2 179.8 L102.5 160.0 L105.2 153.4 L108.0 149.4 L110.8 153.4 L113.5 160.0 L116.3 160.0 L121.8 167.9 L124.6 94.0 L127.8 179.8 L130.2 160.0 L132.9 153.4 L135.7 149.4 L138.5 153.4 L141.2 160.0 L144.0 160.0 L149.5 167.9 L152.3 94.0 L155.5 179.8 L157.8 160.0 L160.6 153.4 L163.4 149.4 L166.2 153.4 L168.9 160.0 L171.7 160.0 L177.2 167.9 L180.0 94.0 L183.2 179.8 L185.5 160.0 L188.3 153.4 L191.1 149.4 L193.8 153.4 L196.6 160.0 L199.4 160.0 L204.9 167.9 L207.7 94.0 L210.9 179.8 L213.2 160.0 L216.0 153.4 L218.8 149.4 L221.5 153.4 L224.3 160.0 L227.1 160.0 L232.6 167.9 L235.4 94.0 L238.6 179.8 L240.9 160.0 L243.7 153.4 L246.5 149.4 L249.2 153.4 L252.0 160.0 L254.8 160.0 L260.3 167.9 L263.1 94.0 L266.3 179.8 L268.6 160.0 L271.4 153.4 L274.2 149.4 L276.9 153.4 L279.7 160.0 L282.5 160.0 L288.0 167.9 L290.8 94.0 L294.0 179.8 L296.3 160.0 L299.1 153.4 L301.8 149.4 L304.6 153.4 L307.4 160.0 L310.2 160.0 L315.7 167.9 L318.5 94.0 L321.7 179.8 L324.0 160.0 L326.8 153.4 L329.5 149.4 L332.3 153.4 L335.1 160.0 L337.8 160.0 L343.4 167.9 L346.2 94.0 L349.4 179.8 L351.7 160.0 L354.5 153.4 L357.2 149.4 L360.0 153.4 L362.8 160.0 L365.5 160.0 L371.1 167.9 L373.8 94.0 L377.1 179.8 L379.4 160.0 L382.2 153.4 L384.9 149.4 L387.7 153.4 L390.5 160.0 L393.2 160.0 L398.8 167.9 L401.5 94.0 L404.8 179.8 L407.1 160.0 L409.8 153.4 L412.6 149.4 L415.4 153.4 L418.2 160.0 L420.9 160.0 L426.5 167.9 L429.2 94.0 L432.5 179.8 L434.8 160.0 L437.5 153.4 L440.3 149.4 L443.1 153.4 L445.8 160.0 L448.6 160.0 L454.2 167.9 L456.9 94.0 L460.2 179.8 L462.5 160.0 L465.2 153.4 L468.0 149.4 L470.8 153.4 L473.5 160.0 L476.3 160.0 L481.8 167.9 L484.6 94.0 L487.8 179.8 L490.2 160.0 L492.9 153.4 L495.7 149.4 L498.5 153.4 L501.2 160.0 L504.0 160.0 L509.5 167.9 L512.3 94.0 L515.5 179.8 L517.8 160.0 L520.6 153.4 L523.4 149.4 L526.2 153.4 L528.9 160.0 L531.7 160.0 L537.2 167.9 L540.0 94.0 L543.2 179.8 L545.5 160.0 L548.3 153.4 L551.1 149.4 L553.8 153.4 L556.6 160.0 L559.4 160.0 L564.9 167.9 L567.7 94.0 L570.9 179.8 L573.2 160.0 L576.0 153.4 L578.8 149.4 L581.5 153.4 L584.3 160.0 L587.1 160.0 L592.6 167.9 L595.4 94.0 L598.6 179.8 L600.9 160.0 L603.7 153.4 L606.5 149.4 L609.2 153.4 L612.0 160.0 L614.8 160.0 L620.3 167.9 L623.1 94.0 L626.3 179.8 L628.6 160.0 L631.4 153.4 L634.2 149.4 L636.9 153.4 L639.7 160.0 L642.5 160.0 L648.0 167.9 L650.8 94.0 L654.0 179.8 L656.3 160.0 L659.1 153.4 L661.8 149.4 L664.6 153.4 L667.4 160.0 L670.2 160.0 L675.7 167.9 L678.5 94.0 L681.7 179.8 L684.0 160.0 L686.8 153.4 L689.5 149.4 L692.3 153.4 L695.1 160.0 L697.8 160.0 L703.4 167.9 L706.2 94.0 L709.4 179.8 L711.7 160.0 L714.5 153.4 L717.2 149.4 L720.0 153.4 L722.8 160.0 L725.5 160.0 L731.1 167.9 L733.8 94.0 L737.1 179.8 L739.4 160.0 L742.2 153.4 L744.9 149.4 L747.7 153.4 L750.5 160.0 L753.2 160.0 L758.8 167.9 L761.5 94.0 L764.8 179.8 L767.1 160.0 L769.8 153.4 L772.6 149.4 L775.4 153.4 L778.2 160.0 L780.9 160.0 L786.5 167.9 L789.2 94.0 L792.5 179.8 L794.8 160.0 L797.5 153.4 L800.3 149.4 L803.1 153.4 L805.8 160.0 L808.6 160.0 L814.2 167.9 L816.9 94.0 L820.2 179.8 L822.5 160.0 L825.2 153.4 L828.0 149.4 L830.8 153.4 L833.5 160.0 L836.3 160.0 L841.8 167.9 L844.6 94.0 L847.8 179.8 L850.2 160.0 L852.9 153.4 L855.7 149.4 L858.5 153.4 L861.2 160.0 L864.0 160.0 L869.5 167.9 L872.3 94.0 L875.5 179.8 L877.8 160.0 L880.6 153.4 L883.4 149.4 L886.2 153.4 L888.9 160.0 L891.7 160.0 L897.2 167.9 L900.0 94.0 L903.2 179.8 L905.5 160.0 L908.3 153.4 L911.1 149.4 L913.8 153.4 L916.6 160.0 L919.4 160.0 L924.9 175.0 L927.7 35.0 L930.9 197.5 L933.2 160.0 L936.0 147.5 L938.8 140.0 L941.5 147.5 L944.3 160.0 L947.1 160.0 L952.6 167.9 L955.4 94.0 L958.6 179.8 L960.9 160.0 L963.7 153.4 L966.5 149.4 L969.2 153.4 L972.0 160.0 L974.8 160.0 L980.3 167.9 L983.1 94.0 L986.3 179.8 L988.6 160.0 L991.4 153.4 L994.2 149.4 L996.9 153.4 L999.7 160.0 L1002.5 160.0 L1008.0 167.9 L1010.8 94.0 L1014.0 179.8 L1016.3 160.0 L1019.1 153.4 L1021.8 149.4 L1024.6 153.4 L1027.4 160.0 L1030.2 160.0 L1035.7 167.9 L1038.5 94.0 L1041.7 179.8 L1044.0 160.0 L1046.8 153.4 L1049.5 149.4 L1052.3 153.4 L1055.1 160.0 L1057.8 160.0 L1063.4 167.9 L1066.2 94.0 L1069.4 179.8 L1071.7 160.0 L1074.5 153.4 L1077.2 149.4 L1080.0 153.4 L1082.8 160.0 L1085.5 160.0 L1091.1 167.9 L1093.8 94.0 L1097.1 179.8 L1099.4 160.0 L1102.2 153.4 L1104.9 149.4 L1107.7 153.4 L1110.5 160.0 L1113.2 160.0 L1118.8 167.9 L1121.5 94.0 L1124.8 179.8 L1127.1 160.0 L1129.8 153.4 L1132.6 149.4 L1135.4 153.4 L1138.2 160.0 L1140.9 160.0 L1146.5 167.9 L1149.2 94.0 L1152.5 179.8 L1154.8 160.0 L1157.5 153.4 L1160.3 149.4 L1163.1 153.4 L1165.8 160.0 L1168.6 160.0 L1174.2 167.9 L1176.9 94.0 L1180.2 179.8 L1182.5 160.0 L1185.2 153.4 L1188.0 149.4 L1190.8 153.4 L1193.5 160.0 L1196.3 160.0 L1201.8 167.9 L1204.6 94.0 L1207.8 179.8 L1210.2 160.0 L1212.9 153.4 L1215.7 149.4 L1218.5 153.4 L1221.2 160.0 L1224.0 160.0 L1229.5 167.9 L1232.3 94.0 L1235.5 179.8 L1237.8 160.0 L1240.6 153.4 L1243.4 149.4 L1246.2 153.4 L1248.9 160.0 L1251.7 160.0 L1257.2 167.9 L1260.0 94.0 L1263.2 179.8 L1265.5 160.0 L1268.3 153.4 L1271.1 149.4 L1273.8 153.4 L1276.6 160.0 L1279.4 160.0 L1284.9 167.9 L1287.7 94.0 L1290.9 179.8 L1293.2 160.0 L1296.0 153.4 L1298.8 149.4 L1301.5 153.4 L1304.3 160.0 L1307.1 160.0 L1312.6 167.9 L1315.4 94.0 L1318.6 179.8 L1320.9 160.0 L1323.7 153.4 L1326.5 149.4 L1329.2 153.4 L1332.0 160.0 L1334.8 160.0 L1340.3 167.9 L1343.1 94.0 L1346.3 179.8 L1348.6 160.0 L1351.4 153.4 L1354.2 149.4 L1356.9 153.4 L1359.7 160.0 L1362.5 160.0 L1368.0 167.9 L1370.8 94.0 L1374.0 179.8 L1376.3 160.0 L1379.1 153.4 L1381.8 149.4 L1384.6 153.4 L1387.4 160.0 L1390.2 160.0 L1395.7 167.9 L1398.5 94.0 L1401.7 179.8 L1404.0 160.0 L1406.8 153.4 L1409.5 149.4 L1412.3 153.4 L1415.1 160.0 L1417.8 160.0 L1423.4 167.9 L1426.2 94.0 L1429.4 179.8 L1431.7 160.0 L1434.5 153.4 L1437.2 149.4 L1440.0 153.4 L1442.8 160.0 L1440.0 160.0"/>
+        </svg>
+        <svg class="m" viewBox="0 0 390 290" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="gm2" gradientUnits="userSpaceOnUse" x1="0" x2="272" y1="0" y2="0"><stop offset="0" stop-color="#fff3df" stop-opacity="0"/><stop offset=".996" stop-color="#fff3df"/><stop offset="1" stop-color="#fff3df" stop-opacity="0"/></linearGradient></defs>
+          <path class="dim" d="M0.0 70.0 L6.0 70.0 L12.0 73.1 L15.0 44.0 L18.5 77.8 L21.0 70.0 L24.0 67.4 L27.0 65.8 L30.0 67.4 L33.0 70.0 L36.0 70.0 L42.0 73.1 L45.0 44.0 L48.5 77.8 L51.0 70.0 L54.0 67.4 L57.0 65.8 L60.0 67.4 L63.0 70.0 L66.0 70.0 L72.0 73.1 L75.0 44.0 L78.5 77.8 L81.0 70.0 L84.0 67.4 L87.0 65.8 L90.0 67.4 L93.0 70.0 L96.0 70.0 L102.0 73.1 L105.0 44.0 L108.5 77.8 L111.0 70.0 L114.0 67.4 L117.0 65.8 L120.0 67.4 L123.0 70.0 L126.0 70.0 L132.0 73.1 L135.0 44.0 L138.5 77.8 L141.0 70.0 L144.0 67.4 L147.0 65.8 L150.0 67.4 L153.0 70.0 L156.0 70.0 L162.0 73.1 L165.0 44.0 L168.5 77.8 L171.0 70.0 L174.0 67.4 L177.0 65.8 L180.0 67.4 L183.0 70.0 L186.0 70.0 L192.0 73.1 L195.0 44.0 L198.5 77.8 L201.0 70.0 L204.0 67.4 L207.0 65.8 L210.0 67.4 L213.0 70.0 L216.0 70.0 L222.0 75.0 L225.0 28.0 L228.5 82.6 L231.0 70.0 L234.0 65.8 L237.0 63.3 L240.0 65.8 L243.0 70.0 L246.0 70.0 L252.0 73.1 L255.0 44.0 L258.5 77.8 L261.0 70.0 L264.0 67.4 L267.0 65.8 L270.0 67.4 L273.0 70.0 L276.0 70.0 L282.0 73.1 L285.0 44.0 L288.5 77.8 L291.0 70.0 L294.0 67.4 L297.0 65.8 L300.0 67.4 L303.0 70.0 L306.0 70.0 L312.0 73.1 L315.0 44.0 L318.5 77.8 L321.0 70.0 L324.0 67.4 L327.0 65.8 L330.0 67.4 L333.0 70.0 L336.0 70.0 L342.0 73.1 L345.0 44.0 L348.5 77.8 L351.0 70.0 L354.0 67.4 L357.0 65.8 L360.0 67.4 L363.0 70.0 L366.0 70.0 L372.0 73.1 L375.0 44.0 L378.5 77.8 L381.0 70.0 L384.0 67.4 L387.0 65.8 L390.0 67.4 L393.0 70.0 L390.0 70.0"/>
+          <path class="dim" d="M0.0 130.0 L6.0 130.0 L12.0 133.1 L15.0 104.0 L18.5 137.8 L21.0 130.0 L24.0 127.4 L27.0 125.8 L30.0 127.4 L33.0 130.0 L36.0 130.0 L42.0 133.1 L45.0 104.0 L48.5 137.8 L51.0 130.0 L54.0 127.4 L57.0 125.8 L60.0 127.4 L63.0 130.0 L66.0 130.0 L72.0 133.1 L75.0 104.0 L78.5 137.8 L81.0 130.0 L84.0 127.4 L87.0 125.8 L90.0 127.4 L93.0 130.0 L96.0 130.0 L102.0 133.1 L105.0 104.0 L108.5 137.8 L111.0 130.0 L114.0 127.4 L117.0 125.8 L120.0 127.4 L123.0 130.0 L126.0 130.0 L132.0 133.1 L135.0 104.0 L138.5 137.8 L141.0 130.0 L144.0 127.4 L147.0 125.8 L150.0 127.4 L153.0 130.0 L156.0 130.0 L162.0 133.1 L165.0 104.0 L168.5 137.8 L171.0 130.0 L174.0 127.4 L177.0 125.8 L180.0 127.4 L183.0 130.0 L186.0 130.0 L192.0 133.1 L195.0 104.0 L198.5 137.8 L201.0 130.0 L204.0 127.4 L207.0 125.8 L210.0 127.4 L213.0 130.0 L216.0 130.0 L222.0 133.1 L225.0 104.0 L228.5 137.8 L231.0 130.0 L234.0 127.4 L237.0 125.8 L240.0 127.4 L243.0 130.0 L246.0 130.0 L252.0 133.1 L255.0 104.0 L258.5 137.8 L261.0 130.0 L264.0 127.4 L267.0 125.8 L270.0 127.4 L273.0 130.0 L276.0 130.0 L282.0 133.1 L285.0 104.0 L288.5 137.8 L291.0 130.0 L294.0 127.4 L297.0 125.8 L300.0 127.4 L303.0 130.0 L306.0 130.0 L312.0 133.1 L315.0 104.0 L318.5 137.8 L321.0 130.0 L324.0 127.4 L327.0 125.8 L330.0 127.4 L333.0 130.0 L336.0 130.0 L342.0 133.1 L345.0 104.0 L348.5 137.8 L351.0 130.0 L354.0 127.4 L357.0 125.8 L360.0 127.4 L363.0 130.0 L366.0 130.0 L372.0 133.1 L375.0 104.0 L378.5 137.8 L381.0 130.0 L384.0 127.4 L387.0 125.8 L390.0 127.4 L393.0 130.0 L390.0 130.0"/>
+          <path class="dim" d="M0.0 190.0 L6.0 190.0 L12.0 193.1 L15.0 164.0 L18.5 197.8 L21.0 190.0 L24.0 187.4 L27.0 185.8 L30.0 187.4 L33.0 190.0 L36.0 190.0 L42.0 193.1 L45.0 164.0 L48.5 197.8 L51.0 190.0 L54.0 187.4 L57.0 185.8 L60.0 187.4 L63.0 190.0 L66.0 190.0 L72.0 193.1 L75.0 164.0 L78.5 197.8 L81.0 190.0 L84.0 187.4 L87.0 185.8 L90.0 187.4 L93.0 190.0 L96.0 190.0 L102.0 193.1 L105.0 164.0 L108.5 197.8 L111.0 190.0 L114.0 187.4 L117.0 185.8 L120.0 187.4 L123.0 190.0 L126.0 190.0 L132.0 193.1 L135.0 164.0 L138.5 197.8 L141.0 190.0 L144.0 187.4 L147.0 185.8 L150.0 187.4 L153.0 190.0 L156.0 190.0 L162.0 193.1 L165.0 164.0 L168.5 197.8 L171.0 190.0 L174.0 187.4 L177.0 185.8 L180.0 187.4 L183.0 190.0 L186.0 190.0 L192.0 193.1 L195.0 164.0 L198.5 197.8 L201.0 190.0 L204.0 187.4 L207.0 185.8 L210.0 187.4 L213.0 190.0 L216.0 190.0 L222.0 193.1 L225.0 164.0 L228.5 197.8 L231.0 190.0 L234.0 187.4 L237.0 185.8 L240.0 187.4 L243.0 190.0 L246.0 190.0 L252.0 193.1 L255.0 164.0 L258.5 197.8 L261.0 190.0 L264.0 187.4 L267.0 185.8 L270.0 187.4 L273.0 190.0 L276.0 190.0 L282.0 193.1 L285.0 164.0 L288.5 197.8 L291.0 190.0 L294.0 187.4 L297.0 185.8 L300.0 187.4 L303.0 190.0 L306.0 190.0 L312.0 193.1 L315.0 164.0 L318.5 197.8 L321.0 190.0 L324.0 187.4 L327.0 185.8 L330.0 187.4 L333.0 190.0 L336.0 190.0 L342.0 193.1 L345.0 164.0 L348.5 197.8 L351.0 190.0 L354.0 187.4 L357.0 185.8 L360.0 187.4 L363.0 190.0 L366.0 190.0 L372.0 193.1 L375.0 164.0 L378.5 197.8 L381.0 190.0 L384.0 187.4 L387.0 185.8 L390.0 187.4 L393.0 190.0 L390.0 190.0"/>
+          <path class="dim" d="M0.0 250.0 L6.0 250.0 L12.0 253.1 L15.0 224.0 L18.5 257.8 L21.0 250.0 L24.0 247.4 L27.0 245.8 L30.0 247.4 L33.0 250.0 L36.0 250.0 L42.0 253.1 L45.0 224.0 L48.5 257.8 L51.0 250.0 L54.0 247.4 L57.0 245.8 L60.0 247.4 L63.0 250.0 L66.0 250.0 L72.0 253.1 L75.0 224.0 L78.5 257.8 L81.0 250.0 L84.0 247.4 L87.0 245.8 L90.0 247.4 L93.0 250.0 L96.0 250.0 L102.0 253.1 L105.0 224.0 L108.5 257.8 L111.0 250.0 L114.0 247.4 L117.0 245.8 L120.0 247.4 L123.0 250.0 L126.0 250.0 L132.0 253.1 L135.0 224.0 L138.5 257.8 L141.0 250.0 L144.0 247.4 L147.0 245.8 L150.0 247.4 L153.0 250.0 L156.0 250.0 L162.0 253.1 L165.0 224.0 L168.5 257.8 L171.0 250.0 L174.0 247.4 L177.0 245.8 L180.0 247.4 L183.0 250.0 L186.0 250.0 L192.0 253.1 L195.0 224.0 L198.5 257.8 L201.0 250.0 L204.0 247.4 L207.0 245.8 L210.0 247.4 L213.0 250.0 L216.0 250.0 L222.0 253.1 L225.0 224.0 L228.5 257.8 L231.0 250.0 L234.0 247.4 L237.0 245.8 L240.0 247.4 L243.0 250.0 L246.0 250.0 L252.0 253.1 L255.0 224.0 L258.5 257.8 L261.0 250.0 L264.0 247.4 L267.0 245.8 L270.0 247.4 L273.0 250.0 L276.0 250.0 L282.0 253.1 L285.0 224.0 L288.5 257.8 L291.0 250.0 L294.0 247.4 L297.0 245.8 L300.0 247.4 L303.0 250.0 L306.0 250.0 L312.0 253.1 L315.0 224.0 L318.5 257.8 L321.0 250.0 L324.0 247.4 L327.0 245.8 L330.0 247.4 L333.0 250.0 L336.0 250.0 L342.0 253.1 L345.0 224.0 L348.5 257.8 L351.0 250.0 L354.0 247.4 L357.0 245.8 L360.0 247.4 L363.0 250.0 L366.0 250.0 L372.0 253.1 L375.0 224.0 L378.5 257.8 L381.0 250.0 L384.0 247.4 L387.0 245.8 L390.0 247.4 L393.0 250.0 L390.0 250.0"/>
+          <path class="lit" stroke="url(#gm2)" d="M0.0 190.0 L6.0 190.0 L12.0 193.1 L15.0 164.0 L18.5 197.8 L21.0 190.0 L24.0 187.4 L27.0 185.8 L30.0 187.4 L33.0 190.0 L36.0 190.0 L42.0 193.1 L45.0 164.0 L48.5 197.8 L51.0 190.0 L54.0 187.4 L57.0 185.8 L60.0 187.4 L63.0 190.0 L66.0 190.0 L72.0 193.1 L75.0 164.0 L78.5 197.8 L81.0 190.0 L84.0 187.4 L87.0 185.8 L90.0 187.4 L93.0 190.0 L96.0 190.0 L102.0 193.1 L105.0 164.0 L108.5 197.8 L111.0 190.0 L114.0 187.4 L117.0 185.8 L120.0 187.4 L123.0 190.0 L126.0 190.0 L132.0 193.1 L135.0 164.0 L138.5 197.8 L141.0 190.0 L144.0 187.4 L147.0 185.8 L150.0 187.4 L153.0 190.0 L156.0 190.0 L162.0 193.1 L165.0 164.0 L168.5 197.8 L171.0 190.0 L174.0 187.4 L177.0 185.8 L180.0 187.4 L183.0 190.0 L186.0 190.0 L192.0 193.1 L195.0 164.0 L198.5 197.8 L201.0 190.0 L204.0 187.4 L207.0 185.8 L210.0 187.4 L213.0 190.0 L216.0 190.0 L222.0 193.1 L225.0 164.0 L228.5 197.8 L231.0 190.0 L234.0 187.4 L237.0 185.8 L240.0 187.4 L243.0 190.0 L246.0 190.0 L252.0 193.1 L255.0 164.0 L258.5 197.8 L261.0 190.0 L264.0 187.4 L267.0 185.8 L270.0 187.4 L273.0 190.0 L276.0 190.0 L282.0 193.1 L285.0 164.0 L288.5 197.8 L291.0 190.0 L294.0 187.4 L297.0 185.8 L300.0 187.4 L303.0 190.0 L306.0 190.0 L312.0 193.1 L315.0 164.0 L318.5 197.8 L321.0 190.0 L324.0 187.4 L327.0 185.8 L330.0 187.4 L333.0 190.0 L336.0 190.0 L342.0 193.1 L345.0 164.0 L348.5 197.8 L351.0 190.0 L354.0 187.4 L357.0 185.8 L360.0 187.4 L363.0 190.0 L366.0 190.0 L372.0 193.1 L375.0 164.0 L378.5 197.8 L381.0 190.0 L384.0 187.4 L387.0 185.8 L390.0 187.4 L393.0 190.0 L390.0 190.0"/>
+        </svg>
+        <span class="head hd" style="left:78.85%;top:160px"></span>
+        <span class="head hm" style="left:69.23%;top:190px"></span>
+        <span class="lab l-session" aria-hidden="true">Session, 60 minutes</span>
+        <span class="lab tag l-tag" aria-hidden="true">SDS-2026-014</span>
+        <p class="cap cap2">Something changed. The team decided that week.</p>
+      </div>
+    </div>
+
+    <div class="end">
+      <p>Every decision gets a number. You can find it next year.</p>
+      <a href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <span>&copy; 2026 Strapivo</span>
+  <a href="/imprint">Imprint</a>
+  <a href="/privacy">Privacy</a>
+  <a href="/terms">Terms</a>
+</footer>
+
+<style>
+  /* label positions in the still version, desktop then phone */
+  .hm { display: none; }
+  .pb { display: none; }
+  .l-annual { left: 93.27%; top: 14px; }
+  .l-tag { left: 64.42%; top: 2px; }
+  .l-session { left: 18.27%; top: 196px; }
+  @media (max-width: 719px) {
+    .hd { display: none; }
+    .hm { display: block; }
+    .pb { display: inline; }
+    .l-annual { left: auto; right: 10px; top: -4px; transform: none; }
+    .l-tag { left: 57.69%; top: -2px; }
+    .l-session { left: 50%; top: 264px; }
+  }
+</style>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  if (root.className !== "motion") return;
+
+  var cv = document.getElementById("pulse");
+  var ctx = cv.getContext("2d");
+  var stage = document.getElementById("stage");
+  var pin = stage.querySelector(".pin");
+  var hero = pin.querySelector(".hero");
+  var bar = pin.querySelector(".bar");
+  var el = {
+    annual: pin.querySelector(".l-annual"),
+    session: pin.querySelector(".l-session"),
+    tag: pin.querySelector(".l-tag"),
+    cap1: pin.querySelector(".cap1"),
+    cap2: pin.querySelector(".cap2"),
+    end: pin.querySelector(".end")
+  };
+
+  var N = 52, BLIP = 48;
+  var SHAPE = [[-9,0],[-3,.12],[0,-1],[3.5,.3],[6,0],[9,-.1],[12,-.16],[15,-.1],[18,0]];
+  var W = 0, H = 0, dpr = 1, phone = false, R = 1;
+  var running = false, visible = true, raf = 0, t0 = performance.now();
+  var p = 0;
+
+  function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+  function sm(v) { v = clamp(v, 0, 1); return v * v * (3 - 2 * v); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function resize() {
+    W = pin.clientWidth; H = pin.clientHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    phone = W < 720; R = phone ? 4 : 1;
+    readScroll();
+    if (!running) frame(performance.now());
+  }
+
+  function readScroll() {
+    var r = stage.getBoundingClientRect();
+    var span = r.height - H;
+    p = span > 0 ? clamp(-r.top / span, 0, 1) : 0;
+  }
+
+  function layout() {
+    var q2 = sm((p - .10) / .25);
+    var ys = [], A, gap;
+    if (!phone) {
+      A = clamp(H * .085, 40, 82);
+      ys = [lerp(H * .74, H * .47, q2)];
+    } else {
+      A = 30;
+      var g1 = clamp(H * .092, 64, 82), g2 = clamp(H * .118, 80, 104);
+      var heroLast = H - 62;
+      var y0f = H * .5 - 1.5 * g2 + 6;
+      for (var i = 0; i < 4; i++) ys.push(lerp(heroLast - (3 - i) * g1, y0f + i * g2, q2));
+    }
+    return { ys: ys, A: A };
+  }
+
+  function amps(A) {
+    var q = (p - .14) / .42;
+    var big = sm((p - .58) / .08);
+    var tagK = phone ? 7 : 33;
+    var a = new Array(N);
+    for (var k = 0; k < N; k++) {
+      var s = sm((q * 60 - k) / 8) * A;
+      if (k === tagK) s *= 1 + (phone ? .7 : .9) * big;
+      a[k] = s;
+    }
+    a[BLIP] = Math.max(a[BLIP], A * .95);
+    return a;
+  }
+
+  // points of one row, in px
+  function rowPts(r, y, a) {
+    var per = N / R, cell = W / per, sc = Math.min(1, cell / 30);
+    var pts = [[0, y]];
+    for (var j = 0; j < per; j++) {
+      var k = r * per + j, amp = a[k];
+      if (amp < .3) continue;
+      var c = (j + .5) * cell;
+      for (var i = 0; i < SHAPE.length; i++) pts.push([c + SHAPE[i][0] * sc, y + SHAPE[i][1] * amp]);
+    }
+    pts.push([W, y]);
+    return pts;
+  }
+
+  function yAt(pts, x) {
+    for (var i = 1; i < pts.length; i++) {
+      if (pts[i][0] >= x) {
+        var a = pts[i - 1], b = pts[i], f = b[0] === a[0] ? 0 : (x - a[0]) / (b[0] - a[0]);
+        return a[1] + (b[1] - a[1]) * f;
+      }
+    }
+    return pts[pts.length - 1][1];
+  }
+
+  function stroke(pts) {
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.stroke();
+  }
+
+  function beatX(k) { var per = N / R; return ((k % per) + .5) * (W / per); }
+  function rowOf(k) { return Math.floor(k / (N / R)); }
+
+  function place(node, x, y, o) {
+    node.style.transform = "translate(" + Math.round(x) + "px," + Math.round(y) + "px)";
+    node.style.opacity = o.toFixed(3);
+    node.style.pointerEvents = o < .02 ? "none" : "auto";
+  }
+
+  function frame(now) {
+    var L = layout(), A = L.A, ys = L.ys, a = amps(A);
+    var LAP = 1.08, period = phone ? 9000 : 7200, TRAIL = phone ? .3 : .42;
+    var h = ((now - t0) % period) / period * LAP - .03;
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineJoin = "round"; ctx.lineCap = "round";
+
+    var headPt = null;
+    for (var r = 0; r < R; r++) {
+      var pts = rowPts(r, ys[r], a);
+      var ta = r / R, tb = (r + 1) / R;
+      // dim full trace
+      ctx.shadowBlur = 0;
+      ctx.strokeStyle = "rgba(243,236,223,.32)"; ctx.lineWidth = 1.3;
+      stroke(pts);
+      // lit trail
+      var g = ctx.createLinearGradient(0, 0, W, 0), stops = [];
+      for (var i = 0; i <= 28; i++) stops.push(i / 28);
+      var fh = (h - ta) / (tb - ta);
+      if (fh > 0 && fh < 1) { stops.push(fh); stops.push(Math.min(1, fh + .002)); }
+      stops.sort(function (m, n) { return m - n; });
+      var any = false;
+      for (var s = 0; s < stops.length; s++) {
+        var f = stops[s], t = ta + (tb - ta) * f, d = h - t;
+        if (d < 0) d += LAP;
+        if (fh > 0 && fh < 1 && f > fh) d = Math.max(d, 1);
+        var al = d <= TRAIL ? Math.pow(1 - d / TRAIL, 1.6) : 0;
+        if (al > 0) any = true;
+        g.addColorStop(f, "rgba(255,243,223," + al.toFixed(3) + ")");
+      }
+      if (any) {
+        ctx.strokeStyle = g; ctx.lineWidth = 2;
+        ctx.shadowColor = "rgba(255,196,128,.85)"; ctx.shadowBlur = 12;
+        stroke(pts);
+        ctx.shadowBlur = 0;
+      }
+      if (fh >= 0 && fh <= 1) headPt = [fh * W, yAt(pts, fh * W)];
+    }
+    if (headPt) {
+      var rg = ctx.createRadialGradient(headPt[0], headPt[1], 0, headPt[0], headPt[1], 46);
+      rg.addColorStop(0, "rgba(255,226,180,.5)"); rg.addColorStop(1, "rgba(255,190,120,0)");
+      ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(headPt[0], headPt[1], 46, 0, 6.2832); ctx.fill();
+      ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(headPt[0], headPt[1], 2.6, 0, 6.2832); ctx.fill();
+    }
+
+    // words
+    var heroO = 1 - sm((p - .03) / .1);
+    hero.style.opacity = heroO.toFixed(3);
+    hero.style.visibility = heroO < .02 ? "hidden" : "visible";
+    bar.style.opacity = (1 - sm((p - .05) / .1) * .65).toFixed(3);
+
+    var pad = parseFloat(getComputedStyle(hero).paddingLeft) || 24;
+    var bx = phone ? beatX(BLIP) : beatX(BLIP);
+    var by = ys[rowOf(BLIP)];
+    place(el.annual, bx - el.annual.offsetWidth / 2, by - A * .95 - 30, 1 - sm((p - .13) / .08));
+    if (!phone) place(el.cap1, pad, ys[0] + 34, heroO);
+    else place(el.cap1, pad, ys[0] - A - 46, heroO);
+
+    var sK = phone ? 45 : 9, tK = phone ? 7 : 33;
+    var sy = ys[rowOf(sK)] + A * .3 + 14;
+    var sx = clamp(beatX(sK) - el.session.offsetWidth / 2, 12, W - el.session.offsetWidth - 12);
+    place(el.session, sx, sy, sm((p - .60) / .07));
+    var bigA = a[tK];
+    var tx = clamp(beatX(tK) - el.tag.offsetWidth / 2, 12, W - el.tag.offsetWidth - 12);
+    place(el.tag, tx, ys[rowOf(tK)] - bigA - 36, sm((p - .64) / .07));
+
+    if (!phone) {
+      place(el.cap2, pad, ys[0] + A * .3 + 92, sm((p - .70) / .07));
+      place(el.end, pad, ys[0] + A * .3 + 150, sm((p - .80) / .08));
+    } else {
+      place(el.cap2, pad, ys[0] - A * 1.7 - 96, sm((p - .70) / .07));
+      place(el.end, pad, ys[3] + A * .3 + 64, sm((p - .80) / .08));
+    }
+
+    if (running) raf = requestAnimationFrame(frame);
+  }
+
+  function start() { if (!running && visible && !document.hidden) { running = true; raf = requestAnimationFrame(frame); } }
+  function stop() { running = false; cancelAnimationFrame(raf); }
+
+  window.addEventListener("scroll", function () { readScroll(); if (!running) frame(performance.now()); }, { passive: true });
+  window.addEventListener("resize", resize);
+  document.addEventListener("visibilitychange", function () { document.hidden ? stop() : start(); });
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (e) { visible = e[0].isIntersecting; visible ? start() : stop(); }).observe(stage);
+  }
+  var mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (mq.addEventListener) mq.addEventListener("change", function (e) { if (e.matches) location.reload(); });
+
+  // keyboard users who tab to the final link get scrolled to it
+  el.end.querySelector("a").addEventListener("focus", function () {
+    if (p < .85) window.scrollTo(0, stage.offsetTop + (stage.offsetHeight - H) * .92);
+  });
+
+  resize();
+  start();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { frame(performance.now()); });
+})();
+</script>
+</body>
+</html>
