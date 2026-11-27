@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo. A strategy is made one row at a time.</title>
+<meta name="description" content="Strapivo is where a leadership team keeps its strategy and works on it every week.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('motion');</script>
+<style>
+:root{
+  --linen:#E9E3D6; --ink:#1B2140; --soft:#4A4C5C; --indigo:#233263; --madder:#A3352B; --azure:#0072CC;
+  --top:56px; --hemgap:150px; --band:0px;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background-color:var(--linen);
+  background-image:
+    repeating-linear-gradient(0deg, rgba(120,100,70,.035) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(120,100,70,.03) 0 1px, transparent 1px 4px);
+  color:var(--ink);
+  font:400 19px/1.45 "EB Garamond", Garamond, "Iowan Old Style", Georgia, serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit}
+a:focus-visible{outline:3px solid var(--azure);outline-offset:4px;border-radius:2px}
+
+.top{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:28px 36px;z-index:5;pointer-events:none}
+.top a{pointer-events:auto}
+.logo img{display:block;height:20px;width:auto}
+.signin{font-size:16px;text-decoration:none;color:var(--soft);padding:6px 2px}
+.signin:hover{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+
+.loom{position:relative}
+.hero{position:sticky;top:0;height:100vh;height:100svh;z-index:3;pointer-events:none}
+.hero-in{position:absolute;left:calc(30vw + min(560px, 37vw) + 64px);right:48px;top:22vh;max-width:430px;pointer-events:auto}
+h1{font-weight:400;font-size:clamp(40px,3.7vw,56px);line-height:1.04;letter-spacing:-.012em;margin:0 0 26px}
+.lede{margin:0 0 34px;font-size:20px;max-width:24em;color:var(--ink)}
+.cta{
+  display:inline-block;position:relative;text-decoration:none;
+  background:var(--indigo);color:#F3EEE3;font-size:18px;letter-spacing:.01em;
+  padding:15px 28px 16px;border-radius:3px;
+  box-shadow:0 1px 0 rgba(0,0,0,.25), 0 8px 20px -10px rgba(27,33,64,.6);
+}
+.cta::before{content:"";position:absolute;inset:5px;border:1.5px dashed rgba(243,238,227,.55);border-radius:2px;pointer-events:none}
+.cta:hover{background:#1A2650}
+.cta:focus-visible{outline:3px solid var(--azure);outline-offset:4px}
+
+.stage{position:relative;height:100vh;height:100svh;margin-top:-100vh;margin-top:-100svh}
+.motion .stage{height:560vh;height:560svh}
+.pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+canvas#cloth{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+.cap{position:absolute;margin:0;font-size:20px;line-height:1.3;text-align:right;width:min(280px,24vw);right:calc(70vw + 30px)}
+.cap::after{content:"";position:absolute;right:-24px;top:.68em;width:16px;height:1.5px;background:currentColor}
+.cap.f{color:var(--madder);top:calc(var(--top) + (100svh - var(--top) - var(--hemgap)) * .52 - .65em)}
+.cap.m{color:var(--azure);top:calc(var(--top) + (100svh - var(--top) - var(--hemgap)) * .52 + 1.5em)}
+.cap.p{color:var(--ink);top:calc(var(--top) + (100svh - var(--top) - var(--hemgap)) * .86 - .65em)}
+.cap.p::after{display:none}
+.motion .cap{opacity:0;transform:translateX(8px);transition:opacity .6s ease, transform .6s ease}
+.motion .cap.on{opacity:1;transform:none}
+
+.fallback{display:none}
+html:not(.js) canvas#cloth{display:none}
+html:not(.js) .fallback{
+  display:block;position:absolute;left:30vw;width:min(560px,37vw);top:var(--top);bottom:var(--hemgap);
+  background:
+    linear-gradient(transparent calc(52% - 3px), #A3352B calc(52% - 3px) calc(52% + 3px), transparent calc(52% + 3px)),
+    linear-gradient(90deg, transparent 18%, #A3352B 18% calc(18% + 12px), transparent calc(18% + 12px) 39%, #C58B2C 39% calc(39% + 12px), transparent calc(39% + 12px) 61%, #5A78AB 61% calc(61% + 12px), transparent calc(61% + 12px) 82%, #8E2F35 82% calc(82% + 12px), transparent calc(82% + 12px)),
+    repeating-linear-gradient(0deg, rgba(0,0,0,.25) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.3) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(45deg, #DCCFB3 0 3px, #233263 3px 9px);
+}
+
+.close{text-align:center;padding:18vh 24px 0}
+.close p{margin:0 auto 30px;font-size:24px;line-height:1.3;max-width:20em}
+footer{text-align:center;font-size:13px;color:var(--soft);padding:16vh 24px 36px}
+footer a{margin:0 0 0 14px;text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+@media (max-width:899px){
+  :root{--band:120px}
+  .top{padding:20px 22px}
+  .hero{position:relative;height:auto;margin:0;padding:104px 24px 36px}
+  .stage{margin-top:0}
+  .hero-in{position:static;max-width:none}
+  h1{font-size:clamp(36px,10.4vw,44px);margin-bottom:20px}
+  .lede{font-size:19px;margin-bottom:28px}
+  .cap{position:absolute;left:24px;right:24px;width:auto;bottom:0;top:auto;text-align:center;font-size:20px;height:var(--band);display:flex;align-items:center;justify-content:center}
+  .cap.f,.cap.m,.cap.p{top:auto}
+  .cap::after{display:none}
+  .motion .cap{transform:translateY(6px)}
+  .motion .cap.on{transform:none}
+  html:not(.motion) .pin{height:auto;position:relative}
+  html:not(.motion) .stage{height:auto}
+  html:not(.motion) canvas#cloth{position:relative;height:80svh}
+  html:not(.motion) .cap{position:static;height:auto;display:block;padding:6px 0}
+  html:not(.motion) .caps{padding:18px 24px 0}
+  html:not(.js) .fallback{position:relative;left:auto;top:auto;bottom:auto;width:auto;height:70svh;margin:20px 24px}
+  .close{padding-top:14vh}
+  .close p{font-size:22px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="logo" href="#"><img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="80" height="20"></a>
+  <a class="signin" href="https://strapivo.app">Sign in</a>
+</header>
+
+<main>
+<div class="loom">
+  <section class="hero">
+    <div class="hero-in">
+      <h1>A strategy is made one row at a time.</h1>
+      <p class="lede">Strapivo is where a leadership team keeps its strategy and works on it every week.</p>
+      <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </div>
+  </section>
+
+  <section class="stage" aria-label="The cloth">
+    <div class="pin">
+      <canvas id="cloth" role="img" aria-label="A length of indigo cloth woven row by row, one row a week. Halfway down a red thread slips out of place, and blue stitches mend it in the next row. Below that the diamond pattern runs on to a fringed hem with a small label."></canvas>
+      <div class="fallback" aria-hidden="true"></div>
+      <div class="caps">
+        <p class="cap f">Something slipped.</p>
+        <p class="cap m">Caught the week after,<br>not the year after.</p>
+        <p class="cap p">The pattern only shows over time.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="close">
+  <p>Bring the strategy you have. We do the reading first.</p>
+  <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+</section>
+</main>
+
+<footer>© 2026 Strapivo <a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+
+<script>
+(() => {
+  const cv = document.getElementById('cloth');
+  const ctx = cv.getContext('2d');
+  const stage = document.querySelector('.stage');
+  const pin = document.querySelector('.pin');
+  const caps = { f: document.querySelector('.cap.f'), m: document.querySelector('.cap.m'), p: document.querySelector('.cap.p') };
+  const motion = document.documentElement.classList.contains('motion');
+
+  /* ---------- colour ---------- */
+  const hex = h => [1,3,5].map(i => parseInt(h.slice(i,i+2),16));
+  const shade = (c, f) => {
+    const [r,g,b] = hex(c);
+    const m = v => Math.max(0, Math.min(255, Math.round(f > 1 ? v + (255 - v) * (f - 1) * .9 : v * f)));
+    return `rgb(${m(r)},${m(g)},${m(b)})`;
+  };
+  const COL = {
+    indigo: ['#1F2D5C', '#243466', '#1B2752', '#283A6E'],
+    natural: ['#E3D8BF', '#DACDB0', '#E8DEC8'],
+    ochre: ['#C58B2C', '#BC8227'],
+    madder: ['#A8372B'],
+    azure: '#0A84E8',
+    focus: ['#A8372B', '#C58B2C', '#5A78AB', '#8E2F35']
+  };
+  const GAP = '#14131A';
+
+  /* ---------- deterministic noise ---------- */
+  let seed = 7;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+  /* ---------- sprites ---------- */
+  const sprites = new Map();
+  function sprite(orient, col, under, endA, endB, w, h, v) {
+    const key = orient + col + under + (endA ? 1 : 0) + (endB ? 1 : 0) + w + 'x' + h + v;
+    let c = sprites.get(key);
+    if (c) return c;
+    c = document.createElement('canvas'); c.width = w; c.height = h;
+    const g = c.getContext('2d');
+    g.fillStyle = GAP; g.fillRect(0, 0, w, h);
+    g.fillStyle = shade(under, .42);
+    if (orient === 'v') g.fillRect(0, h * .14, w, h * .72); else g.fillRect(w * .14, 0, w * .72, h);
+    g.save();
+    if (orient === 'h') { g.translate(w, 0); g.rotate(Math.PI / 2); }
+    const T = orient === 'v' ? w : h, L = orient === 'v' ? h : w;
+    const t0 = T * .06, tw = T * .88;
+    const a0 = endA ? L * .08 : 0, a1 = endB ? L * .92 : L;
+    const gr = g.createLinearGradient(t0, 0, t0 + tw, 0);
+    gr.addColorStop(0, shade(col, .48));
+    gr.addColorStop(.26, shade(col, .92));
+    gr.addColorStop(.42, shade(col, 1.16));
+    gr.addColorStop(.64, shade(col, 1));
+    gr.addColorStop(1, shade(col, .52));
+    g.beginPath();
+    const ra = endA ? tw / 2 : 0, rb = endB ? tw / 2 : 0;
+    g.roundRect(t0, a0, tw, a1 - a0, [ra, ra, rb, rb]);
+    g.fillStyle = gr; g.fill();
+    g.clip();
+    // twist of the yarn
+    g.lineWidth = Math.max(1, T * .12);
+    const step = T * .78, off = (v * .37 % 1) * step;
+    for (let s = -T + off; s < L + T; s += step) {
+      g.strokeStyle = 'rgba(255,250,235,.10)';
+      g.beginPath(); g.moveTo(t0, s); g.lineTo(t0 + tw, s + T * .55); g.stroke();
+      g.strokeStyle = 'rgba(0,0,0,.10)';
+      g.beginPath(); g.moveTo(t0, s + step * .5); g.lineTo(t0 + tw, s + step * .5 + T * .55); g.stroke();
+    }
+    // where it dives under
+    const sh = (y0, y1) => {
+      const e = g.createLinearGradient(0, y0, 0, y1);
+      e.addColorStop(0, 'rgba(8,6,12,.62)'); e.addColorStop(1, 'rgba(8,6,12,0)');
+      g.fillStyle = e; g.fillRect(0, Math.min(y0, y1), T, Math.abs(y1 - y0));
+    };
+    if (endA) sh(a0, a0 + L * .42);
+    if (endB) sh(a1, a1 - L * .42);
+    g.restore();
+    sprites.set(key, c);
+    return c;
+  }
+
+  /* ---------- geometry and weave ---------- */
+  let G = null;
+
+  function build() {
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const vw = pin.clientWidth, vh = window.innerHeight;
+    const mobile = vw < 900;
+    const band = mobile && motion ? 120 : 0;
+    const pinH = mobile && !motion ? Math.round(vh * .8) : vh;
+    cv.width = Math.round(vw * dpr); cv.height = Math.round(pinH * dpr);
+
+    let cw, cx, top, hem, fringe;
+    if (mobile) {
+      cw = Math.min(vw - 48, 440); cx = (vw - cw) / 2;
+      top = 18; fringe = 58; hem = pinH - band - fringe - 22;
+    } else {
+      cw = Math.min(560, vw * .37); cx = vw * .30;
+      top = 56; hem = vh - 150; fringe = 70;
+    }
+    const P = Math.max(5, Math.round((mobile ? 5 : 6) * dpr));
+    const nS = Math.floor(cw * dpr / P);
+    const N = Math.floor((hem - top) * dpr / P);
+    const X = Math.round(cx * dpr), Y = Math.round(top * dpr);
+    const W = nS * P, H = N * P;
+
+    // ends
+    const focusAt = [.18, .39, .61, .82].map(f => Math.round(nS * f));
+    const ends = [];
+    seed = 11;
+    for (let s = 0, k = 0; s < nS; s++) {
+      const fi = focusAt.indexOf(s);
+      if (fi >= 0 && s + 1 < nS) {
+        ends.push({ x: s * P, w: 2 * P, col: COL.focus[fi], focus: true, k, v: fi });
+        s++; k += 2; continue;
+      }
+      const sel = s < 3 || s >= nS - 3;
+      const ci = rnd() < .5 ? 0 : (rnd() < .5 ? 1 : (rnd() < .6 ? 2 : 3));
+      ends.push({ x: s * P, w: P, col: COL.indigo[ci], sel, k: k++, v: Math.floor(rnd() * 3) });
+    }
+    // picks
+    const F = Math.round(N * .52);
+    const picks = [];
+    for (let j = 0; j < N; j++) {
+      let col = COL.natural[Math.floor(rnd() * 3)], plain = j < 5 || j >= N - 5;
+      const fromEnd = N - 1 - j;
+      if ((j >= 8 && j <= 10) || (fromEnd >= 8 && fromEnd <= 10)) col = COL.ochre[j % 2];
+      if (j === 12 || fromEnd === 12) col = COL.ochre[0];
+      if (j === F) col = COL.madder[0];
+      picks.push({ col, plain, v: Math.floor(rnd() * 3) });
+    }
+    // the flaw: a long float across the middle of row F
+    const fa = Math.round(ends.length * .36), fb = Math.round(ends.length * .7);
+    const K = 13, PER = 2 * K - 2;
+    const tri = n => { const t = ((n % PER) + PER) % PER; return t < K ? t : PER - t; };
+    const over = (e, j) => {
+      if (j < 0 || j >= N || e < 0 || e >= ends.length) return null;
+      const d = ends[e];
+      if (j === F && e >= fa && e <= fb) return false;
+      if (d.focus) return j % 4 !== 1;
+      if (d.sel || picks[j].plain) return (d.k + j) % 2 === 0;
+      return (tri(d.k) + tri(j - 5)) % 4 < 2;
+    };
+
+    // woven cloth
+    const cloth = document.createElement('canvas'); cloth.width = W; cloth.height = H;
+    const c = cloth.getContext('2d');
+    c.fillStyle = GAP; c.fillRect(0, 0, W, H);
+    for (let j = 0; j < N; j++) {
+      const pk = picks[j];
+      for (let e = 0; e < ends.length; e++) {
+        const d = ends[e], o = over(e, j);
+        let img;
+        if (o) {
+          const up = over(e, j - 1), dn = over(e, j + 1);
+          img = sprite('v', d.col, pk.col, up !== true, dn !== true, d.w, P, d.v);
+        } else {
+          const l = over(e - 1, j), r = over(e + 1, j);
+          img = sprite('h', pk.col, d.col, l !== false, r !== false, d.w, P, pk.v + e % 2);
+        }
+        c.drawImage(img, d.x, j * P);
+      }
+    }
+    // irregular yarn: each crossing a touch lighter or darker
+    for (let j = 0; j < N; j++) for (let e = 0; e < ends.length; e++) {
+      const a = rnd();
+      c.fillStyle = a < .5 ? `rgba(8,6,14,${(.5 - a) * .22})` : `rgba(255,248,230,${(a - .5) * .08})`;
+      c.fillRect(ends[e].x, j * P, ends[e].w, P);
+    }
+    // light falling across a hanging cloth: soft folds
+    const fold = c.createLinearGradient(0, 0, W, 0);
+    [[0, .16], [.08, 0], [.22, .06], [.36, -.05], [.5, .08], [.66, -.04], [.8, .07], [.93, 0], [1, .2]].forEach(([p, a]) =>
+      fold.addColorStop(p, a >= 0 ? `rgba(10,8,20,${a})` : `rgba(255,248,230,${-a})`));
+    c.fillStyle = fold; c.fillRect(0, 0, W, H);
+    const vert = c.createLinearGradient(0, 0, 0, H);
+    vert.addColorStop(0, 'rgba(10,8,20,.18)'); vert.addColorStop(.06, 'rgba(10,8,20,0)');
+    vert.addColorStop(.94, 'rgba(10,8,20,0)'); vert.addColorStop(1, 'rgba(10,8,20,.12)');
+    c.fillStyle = vert; c.fillRect(0, 0, W, H);
+
+    // bare warps, full canvas height
+    const warps = document.createElement('canvas'); warps.width = W + 4 * dpr; warps.height = cv.height;
+    const wg = warps.getContext('2d');
+    ends.forEach(d => {
+      const tw = d.focus ? d.w * .7 : d.w * .62, x0 = d.x + (d.w - tw) / 2;
+      wg.fillStyle = 'rgba(60,45,25,.10)'; wg.fillRect(x0 + 2 * dpr, 0, tw, warps.height);
+      const gr = wg.createLinearGradient(x0, 0, x0 + tw, 0);
+      gr.addColorStop(0, shade(d.col, .55)); gr.addColorStop(.4, shade(d.col, 1.12)); gr.addColorStop(1, shade(d.col, .6));
+      wg.fillStyle = gr; wg.fillRect(x0, 0, tw, warps.height);
+    });
+
+    // fringe: bundles knotted under the hem
+    const FL = Math.round(fringe * dpr);
+    const fr = document.createElement('canvas'); fr.width = W + 8 * dpr; fr.height = FL;
+    const fg = fr.getContext('2d');
+    fg.lineCap = 'round';
+    seed = 29;
+    const knots = [];
+    for (let i = 0; i < ends.length;) {
+      const grp = []; let wsum = 0;
+      while (i < ends.length && wsum < 5) { grp.push(ends[i]); wsum += ends[i].focus ? 2 : 1; i++; }
+      const kx = grp.reduce((a, d) => a + d.x + d.w / 2, 0) / grp.length, ky = FL * .26;
+      grp.forEach((d, n) => {
+        const sx = d.x + d.w / 2, len = FL * (.82 + rnd() * .16);
+        const ex = kx + (n - (grp.length - 1) / 2) * P * .9 + (rnd() - .5) * P;
+        const lw = (d.focus ? d.w * .55 : d.w * .6);
+        fg.strokeStyle = 'rgba(60,45,25,.12)'; fg.lineWidth = lw;
+        fg.beginPath(); fg.moveTo(sx + 2 * dpr, 0); fg.quadraticCurveTo(kx + 2 * dpr, ky, ex + 2 * dpr, len); fg.stroke();
+        fg.strokeStyle = shade(d.col, 1.02); fg.lineWidth = lw;
+        fg.beginPath(); fg.moveTo(sx, 0); fg.quadraticCurveTo(kx, ky, ex, len); fg.stroke();
+        fg.strokeStyle = 'rgba(255,250,235,.16)'; fg.lineWidth = lw * .3;
+        fg.beginPath(); fg.moveTo(sx - lw * .15, 0); fg.quadraticCurveTo(kx - lw * .15, ky, ex - lw * .15, len); fg.stroke();
+      });
+      knots.push([kx, ky, grp[Math.floor(grp.length / 2)].col]);
+    }
+    knots.forEach(([kx, ky, col]) => {
+      const r = P * .95;
+      const gr = fg.createRadialGradient(kx - r * .3, ky - r * .3, r * .1, kx, ky, r * 1.1);
+      gr.addColorStop(0, shade(col, 1.2)); gr.addColorStop(1, shade(col, .45));
+      fg.fillStyle = gr; fg.beginPath(); fg.ellipse(kx, ky, r * 1.05, r * .85, 0, 0, 7); fg.fill();
+    });
+
+    // flaw geometry, device px on the main canvas
+    const fx0 = X + ends[fa].x, fx1 = X + ends[fb].x + ends[fb].w, fy = Y + F * P + P / 2;
+    const stitches = [];
+    for (let e = fa + 1; e < fb; e += 3) stitches.push(X + ends[e].x + P / 2);
+
+    // scroll timeline in units of one row
+    const D1 = 12, MEND = 12, HOLD = 16;
+    const total = N + D1 + MEND - 1 + HOLD;
+
+    G = { dpr, vw, vh, mobile, P, N, F, X, Y, W, H, cloth, warps, fr, FL, fx0, fx1, fy, stitches, D1, MEND, total, hemY: Y + H, top, cw, cx };
+    placeCaptions();
+    last = -1;
+    draw(motion ? progress() * total : total);
+  }
+
+  function placeCaptions() {
+    if (G.mobile) return;
+    const rowY = r => (G.Y + r * G.P) / G.dpr;
+    const fy = rowY(G.F + .5);
+    const right = G.vw - G.cx + 30;
+    caps.f.style.top = (fy - 13) + 'px';
+    caps.m.style.top = (fy + 30) + 'px';
+    caps.p.style.top = (rowY(G.N * .86) - 13) + 'px';
+    for (const k in caps) { caps[k].style.right = right + 'px'; caps[k].style.width = Math.min(300, G.cx - 70) + 'px'; }
+  }
+
+  function progress() {
+    const r = stage.getBoundingClientRect();
+    const span = r.height - pin.clientHeight;
+    return span > 0 ? Math.max(0, Math.min(1, -r.top / span)) : 1;
+  }
+
+  // unit -> state
+  function state(u) {
+    const { F, N, D1, MEND } = G;
+    let rows, mend = 0, loop = 0;
+    if (u <= F + 1) rows = u;
+    else if (u <= F + 1 + D1) { rows = F + 1; loop = 1; }
+    else if (u <= F + 1 + D1 + MEND) { mend = (u - F - 1 - D1) / MEND; rows = F + 1 + mend; loop = 1 - mend; }
+    else { rows = Math.min(N, F + 2 + (u - (F + 1 + D1 + MEND))); mend = 1; }
+    if (rows >= F + 1 && u > F + 1 && loop === 0 && mend === 0) loop = 1;
+    return { rows: Math.min(rows, N), mend, loop };
+  }
+
+  let last = -1;
+  function draw(u) {
+    if (!G) return;
+    if (Math.abs(u - last) < .01) return;
+    last = u;
+    const { P, N, F, X, Y, W, H, dpr } = G;
+    const s = state(u);
+    const full = Math.floor(s.rows + 1e-6), frac = s.rows - full;
+    const done = s.rows >= N - 1e-6;
+    ctx.clearRect(0, 0, cv.width, cv.height);
+
+    // warps from the top edge down to where the cloth begins
+    ctx.drawImage(G.warps, 0, 0, G.warps.width, Y, X, 0, G.warps.width, Y);
+    const fell = Y + full * P;
+    if (!done) {
+      const bottom = cv.height - (G.mobile && motion ? 120 * dpr : 0);
+      if (bottom > fell) ctx.drawImage(G.warps, 0, fell, G.warps.width, bottom - fell, X, fell, G.warps.width, bottom - fell);
+    } else {
+      ctx.drawImage(G.fr, X, Y + H - 1);
+    }
+    if (full > 0) ctx.drawImage(G.cloth, 0, 0, W, full * P, X, Y, W, full * P);
+    if (frac > 0 && full < N) {
+      const pw = Math.max(1, Math.round(W * frac));
+      const sx = full % 2 === 0 ? 0 : W - pw;
+      ctx.drawImage(G.cloth, sx, full * P, pw, P, X + sx, fell, pw, P);
+      // shuttle
+      const hx = X + (full % 2 === 0 ? pw : W - pw), hy = fell + P / 2, L = 46 * dpr, T = 9 * dpr;
+      const dir = full % 2 === 0 ? 1 : -1;
+      ctx.save(); ctx.translate(hx + dir * L * .2, hy);
+      ctx.fillStyle = 'rgba(40,28,14,.25)'; ctx.beginPath(); ctx.ellipse(2 * dpr, 3 * dpr, L / 2, T / 2, 0, 0, 7); ctx.fill();
+      const sg = ctx.createLinearGradient(0, -T / 2, 0, T / 2);
+      sg.addColorStop(0, '#D9B98A'); sg.addColorStop(.5, '#B88A55'); sg.addColorStop(1, '#7C5630');
+      ctx.fillStyle = sg; ctx.beginPath(); ctx.ellipse(0, 0, L / 2, T / 2, 0, 0, 7); ctx.fill();
+      ctx.fillStyle = '#4A3018'; ctx.fillRect(-L * .18, -T * .14, L * .36, T * .28);
+      ctx.restore();
+    }
+
+    // the slipped thread: a loose loop of madder hanging from the float
+    if (s.loop > 0 && full >= F + 1) {
+      const a = s.loop, { fx0, fx1, fy } = G, mx = (fx0 + fx1) / 2, span = fx1 - fx0;
+      const drop = (90 * a + 6) * dpr;
+      const loopPath = () => {
+        ctx.beginPath();
+        ctx.moveTo(fx0 + span * .18, fy);
+        ctx.bezierCurveTo(fx0 + span * .05, fy + drop * .9, mx - span * .05, fy + drop * 1.25, mx + span * .12, fy + drop * .8);
+        ctx.bezierCurveTo(mx + span * .3, fy + drop * .4, mx - span * .1, fy + drop * .2, fx1 - span * .2, fy);
+      };
+      ctx.lineCap = 'round';
+      ctx.save(); ctx.translate(3 * dpr, 5 * dpr); loopPath(); ctx.strokeStyle = 'rgba(30,20,10,.22)'; ctx.lineWidth = P * .9; ctx.stroke(); ctx.restore();
+      loopPath(); ctx.strokeStyle = shade(COL.madder[0], .7); ctx.lineWidth = P * .85; ctx.stroke();
+      loopPath(); ctx.strokeStyle = COL.madder[0]; ctx.lineWidth = P * .55; ctx.stroke();
+      ctx.save(); ctx.translate(-P * .12, -P * .12); loopPath(); ctx.strokeStyle = 'rgba(255,220,200,.35)'; ctx.lineWidth = P * .14; ctx.stroke(); ctx.restore();
+    }
+
+    // the mend: azure stitches catching the float
+    if (s.mend > 0) {
+      const n = G.stitches.length, shown = s.mend * n;
+      ctx.lineCap = 'round';
+      G.stitches.forEach((x, i) => {
+        const t = Math.max(0, Math.min(1, shown - i));
+        if (t <= 0) return;
+        const x0 = x, y0 = G.fy - P * 1.6, x1 = x + P * 1.4, y1 = G.fy + P * 1.6;
+        const xe = x0 + (x1 - x0) * t, ye = y0 + (y1 - y0) * t;
+        const seg = (w, col, ox = 0, oy = 0) => { ctx.strokeStyle = col; ctx.lineWidth = w; ctx.beginPath(); ctx.moveTo(x0 + ox, y0 + oy); ctx.lineTo(xe + ox, ye + oy); ctx.stroke(); };
+        seg(P * .72, 'rgba(5,5,15,.55)', dpr, 2 * dpr);
+        seg(P * .62, shade(COL.azure, .62));
+        seg(P * .4, COL.azure);
+        seg(P * .12, 'rgba(220,240,255,.7)', -P * .1, -P * .06);
+      });
+    }
+
+    // woven label with a ring, sewn over the hem
+    if (done) {
+      const lw = 58 * dpr, lh = 40 * dpr, lx = X + W - lw - 7 * P, ly = Y + H - lh * .55;
+      ctx.save(); ctx.translate(lx + lw / 2, ly + lh / 2); ctx.rotate(-.025);
+      ctx.fillStyle = 'rgba(10,8,20,.35)'; ctx.fillRect(-lw / 2 + 2 * dpr, -lh / 2 + 3 * dpr, lw, lh);
+      ctx.fillStyle = '#EFE8D8'; ctx.fillRect(-lw / 2, -lh / 2, lw, lh);
+      ctx.fillStyle = 'rgba(120,100,70,.16)';
+      for (let y = -lh / 2; y < lh / 2; y += 2 * dpr) ctx.fillRect(-lw / 2, y, lw, dpr * .8);
+      ctx.strokeStyle = 'rgba(120,100,70,.5)'; ctx.setLineDash([2 * dpr, 2 * dpr]); ctx.lineWidth = dpr;
+      ctx.strokeRect(-lw / 2 + 3 * dpr, -lh / 2 + 3 * dpr, lw - 6 * dpr, lh - 6 * dpr);
+      ctx.setLineDash([1.6 * dpr, 1.1 * dpr]); ctx.strokeStyle = COL.azure; ctx.lineWidth = 2.6 * dpr;
+      ctx.beginPath(); ctx.arc(0, 0, 10 * dpr, 0, 7); ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  /* ---------- captions in motion ---------- */
+  function captions(u) {
+    if (!motion || !G) return;
+    const s = state(u);
+    const flaw = s.rows >= G.F + 1 && u > G.F + 1;
+    const mended = s.mend >= .5;
+    const late = s.rows >= G.N * .9;
+    if (G.mobile) {
+      caps.f.classList.toggle('on', flaw && !mended);
+      caps.m.classList.toggle('on', mended && !late);
+      caps.p.classList.toggle('on', late);
+    } else {
+      caps.f.classList.toggle('on', flaw);
+      caps.m.classList.toggle('on', mended);
+      caps.p.classList.toggle('on', late);
+    }
+  }
+
+  let raf = 0;
+  function tick() {
+    raf = 0;
+    const u = progress() * G.total;
+    draw(u); captions(u);
+  }
+  if (motion) {
+    addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(tick); }, { passive: true });
+  }
+  let rt = 0, lastW = 0, lastH = 0;
+  addEventListener('resize', () => {
+    clearTimeout(rt);
+    rt = setTimeout(() => {
+      if (pin.clientWidth === lastW && Math.abs(innerHeight - lastH) < 80) { if (motion) tick(); return; }
+      lastW = pin.clientWidth; lastH = innerHeight; build(); if (motion) tick();
+    }, 150);
+  });
+  const start = () => { lastW = pin.clientWidth; lastH = innerHeight; build(); if (motion) tick(); };
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(start); else start();
+})();
+</script>
+</body>
+</html>
