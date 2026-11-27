@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo. Five independent views before anyone speaks.</title>
+<meta name="description" content="Strapivo is the Strategic Design System where leadership teams keep an agreed strategy current, capture sealed first takes before debate and record every decision and dissent.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+
+:root{
+  --ink:#141B24;
+  --n900:#050C14;
+  --n800:#0D1622;
+  --n700:#2C343C;
+  --n600:#495158;
+  --n500:#6C727A;
+  --n400:#999FA6;
+  --n200:#E1E5EA;
+  --n100:#EFF2F6;
+  --paper:#F6F9FB;
+  --white:#FFFFFF;
+  --sky:#EEF6FF;
+  --sky2:#D4EBFF;
+  --p200:#A9D6FF;
+  --p400:#3FA0FA;
+  --p500:#0082E6;
+  --p600:#006FD1;
+  --p700:#005DBD;
+  --bronze:#C28B37;
+  --bronze-dark:#855915;
+  --bronze-light:#E2B366;
+  --bronze-tint-dark:rgba(194,139,55,0.14);
+  --bronze-tint-light:#FBF6EC;
+  --line-dark:#1F2B3A;
+  --line-dark-strong:#2E3E52;
+  --r:4px;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  font-family:var(--sans);
+  font-weight:400;
+  font-size:16px;
+  line-height:1.55;
+  color:var(--ink);
+  background:var(--paper);
+  -webkit-font-smoothing:antialiased;
+  font-feature-settings:"ss01","cv11";
+  overflow-x:clip;
+}
+img,svg{display:block;max-width:100%}
+h1,h2,h3,p,ul,ol{margin:0}
+a{color:inherit}
+
+.skip-link{
+  position:absolute;
+  left:-9999px;
+  top:0;
+  padding:12px 16px;
+  background:var(--p600);
+  color:var(--white);
+  font-weight:500;
+  z-index:100;
+}
+.skip-link:focus{left:12px;top:12px;border-radius:var(--r)}
+
+:focus-visible{
+  outline:2px solid var(--p500);
+  outline-offset:2px;
+}
+.dark-band :focus-visible{
+  outline-color:var(--p400);
+}
+
+.wrap{
+  width:100%;
+  max-width:1180px;
+  margin:0 auto;
+  padding:0 32px;
+}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-weight:500;
+  font-size:12px;
+  line-height:1.4;
+  letter-spacing:0.09em;
+  text-transform:uppercase;
+  color:var(--p600);
+  margin-bottom:14px;
+}
+.dark-band .eyebrow{color:var(--bronze-light)}
+
+h1,h2,h3{
+  font-weight:500;
+  letter-spacing:-0.025em;
+  line-height:1.12;
+}
+h1{font-size:clamp(34px,4vw,52px)}
+h2{font-size:clamp(28px,3vw,38px);letter-spacing:-0.02em}
+h3{font-size:19px;letter-spacing:-0.015em;line-height:1.25}
+
+.lead{
+  font-size:18px;
+  line-height:1.58;
+  color:var(--n600);
+  max-width:60ch;
+}
+.dark-band .lead{color:#C5CFD9}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:46px;
+  padding:11px 22px;
+  border-radius:var(--r);
+  font-family:var(--sans);
+  font-weight:500;
+  font-size:15px;
+  line-height:1.2;
+  text-decoration:none;
+  border:1px solid transparent;
+  cursor:pointer;
+  transition:background-color 140ms ease,border-color 140ms ease,color 140ms ease;
+}
+.btn-primary{
+  background:var(--p600);
+  color:var(--white);
+  border-color:var(--p600);
+}
+.btn-primary:hover{
+  background:var(--p700);
+  border-color:var(--p700);
+}
+
+/* Header */
+.site-header{
+  background:var(--n900);
+  border-bottom:1px solid var(--line-dark);
+}
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  min-height:72px;
+}
+.brand-link{
+  display:inline-flex;
+  align-items:center;
+  min-height:44px;
+  padding:4px 0;
+  text-decoration:none;
+}
+.brand-link img{
+  height:24px;
+  width:auto;
+}
+.header-nav{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.nav-link{
+  display:inline-flex;
+  align-items:center;
+  min-height:44px;
+  padding:8px 14px;
+  font-size:15px;
+  font-weight:500;
+  color:#D0D9E2;
+  text-decoration:none;
+  border-radius:var(--r);
+  transition:color 140ms ease,background-color 140ms ease;
+}
+.nav-link:hover{
+  color:var(--white);
+  background:rgba(246,249,251,0.06);
+}
+.header-cta{
+  min-height:44px;
+  padding:9px 16px;
+  font-size:14px;
+}
+
+/* Hero */
+.hero{
+  background:var(--n900);
+  color:var(--paper);
+  padding:64px 0 76px;
+  border-bottom:1px solid var(--line-dark);
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);
+  gap:48px;
+  align-items:center;
+}
+.hero-copy h1{
+  color:var(--white);
+  margin-bottom:20px;
+}
+.hero-copy .lead{
+  margin-bottom:28px;
+  max-width:52ch;
+}
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:14px 20px;
+  margin-bottom:24px;
+}
+.hero-meta{
+  font-family:var(--mono);
+  font-size:12px;
+  line-height:1.5;
+  color:#99A6B5;
+  letter-spacing:0.02em;
+  padding-top:18px;
+  border-top:1px solid var(--line-dark);
+}
+
+/* Drawing 1: Five-card simultaneous reveal frame */
+.reveal-frame{
+  background:var(--ink);
+  border:1px solid var(--line-dark-strong);
+  border-radius:var(--r);
+  overflow:hidden;
+}
+.reveal-topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 16px;
+  background:var(--n800);
+  border-bottom:1px solid var(--line-dark);
+}
+.frame-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:#A9B5C2;
+}
+.frame-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--bronze);
+  flex:0 0 auto;
+}
+.reveal-toggle{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  min-height:44px;
+  padding:8px 14px;
+  background:var(--n900);
+  color:var(--white);
+  border:1px solid var(--p400);
+  border-radius:var(--r);
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:background-color 140ms ease,border-color 140ms ease,color 140ms ease;
+}
+.reveal-toggle:hover{
+  background:var(--p600);
+  border-color:var(--p600);
+}
+.reveal-toggle[data-state="sealed"]{
+  border-color:var(--bronze);
+  color:var(--bronze-light);
+}
+.reveal-toggle[data-state="sealed"]:hover{
+  background:var(--bronze);
+  color:var(--n900);
+  border-color:var(--bronze);
+}
+.toggle-icon{
+  width:14px;
+  height:14px;
+  flex:0 0 auto;
+}
+
+.evidence-strip{
+  padding:13px 16px;
+  background:#0B131E;
+  border-bottom:1px solid var(--line-dark);
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:6px 14px;
+}
+.evidence-kicker{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--p400);
+}
+.evidence-text{
+  font-size:14px;
+  color:#E5ECF3;
+  font-weight:500;
+}
+
+.takes-list{
+  list-style:none;
+  padding:14px 16px;
+  display:grid;
+  gap:10px;
+}
+.take-card{
+  display:grid;
+  grid-template-columns:162px 84px minmax(0,1fr);
+  align-items:center;
+  gap:12px;
+  padding:11px 14px;
+  background:var(--n800);
+  border:1px solid var(--line-dark);
+  border-left:3px solid var(--p500);
+  border-radius:var(--r);
+  transition:border-color 140ms ease,background-color 140ms ease;
+}
+.take-card[data-stance="hold"]{border-left-color:#7A8A9C}
+.take-card[data-stance="pivot"]{border-left-color:var(--bronze)}
+.take-card.is-sealed{
+  background:#11171F;
+  border-color:#2D281E;
+  border-left-color:var(--bronze);
+}
+.take-role{
+  font-size:14px;
+  font-weight:500;
+  color:var(--white);
+  line-height:1.3;
+}
+.take-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  padding:4px 8px;
+  border-radius:var(--r);
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.badge-adapt{
+  background:rgba(0,130,230,0.18);
+  color:#8BC8FF;
+  border:1px solid rgba(63,160,250,0.42);
+}
+.badge-hold{
+  background:rgba(153,159,166,0.14);
+  color:#D0D7DF;
+  border:1px solid rgba(153,159,166,0.38);
+}
+.badge-pivot{
+  background:var(--bronze-tint-dark);
+  color:var(--bronze-light);
+  border:1px solid rgba(194,139,55,0.45);
+}
+.badge-sealed{
+  background:var(--bronze-tint-dark);
+  color:var(--bronze-light);
+  border:1px solid rgba(194,139,55,0.5);
+}
+.take-note{
+  font-size:14px;
+  line-height:1.35;
+  color:#C9D3DE;
+}
+.take-card.is-sealed .take-note{
+  font-family:var(--mono);
+  font-size:12px;
+  color:#C4AD85;
+  letter-spacing:0.02em;
+}
+.seal-icon{
+  width:13px;
+  height:13px;
+  flex:0 0 auto;
+}
+
+.reveal-footer{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px 16px;
+  padding:12px 16px;
+  background:var(--n800);
+  border-top:1px solid var(--line-dark);
+  font-family:var(--mono);
+  font-size:12px;
+  color:#A9B5C2;
+}
+.tally-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+}
+.tally-item{color:#E5ECF3}
+.tally-adapt{color:#8BC8FF}
+.tally-pivot{color:var(--bronze-light)}
+
+/* Light sections on Paper */
+.band{
+  padding:80px 0;
+  border-bottom:1px solid var(--n200);
+}
+.band-alt{
+  background:var(--n100);
+}
+
+/* Section 1: Problem */
+.problem-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr);
+  gap:48px;
+  align-items:start;
+}
+.section-head{
+  max-width:64ch;
+  margin-bottom:36px;
+}
+.section-head h2{margin-bottom:16px}
+.section-head-tight{margin-bottom:20px}
+.prose p{
+  font-size:17px;
+  line-height:1.62;
+  color:var(--n700);
+  max-width:56ch;
+}
+.prose p + p{margin-top:16px}
+
+.contrast-stack{
+  display:grid;
+  gap:16px;
+}
+.contrast-card{
+  background:var(--n100);
+  border:1px solid var(--n200);
+  border-radius:var(--r);
+  padding:22px 24px;
+  border-left:4px solid var(--n400);
+}
+.contrast-card-active{
+  border-left-color:var(--bronze);
+  border-color:#D5DCE4;
+  border-left-width:4px;
+  background:var(--white);
+}
+.contrast-label{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--n600);
+  margin-bottom:8px;
+}
+.contrast-card-active .contrast-label{color:var(--bronze-dark)}
+.contrast-card h3{
+  margin-bottom:8px;
+  color:var(--ink);
+}
+.contrast-card p{
+  font-size:16px;
+  line-height:1.55;
+  color:var(--n600);
+}
+
+/* Section 2: Drawing 2 - 4-step sequence */
+.steps-drawing{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:16px;
+  margin-bottom:24px;
+}
+.step-card{
+  position:relative;
+  background:var(--white);
+  border:1px solid var(--n200);
+  border-top:3px solid var(--n500);
+  border-radius:var(--r);
+  padding:22px 20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.step-card-sealed{
+  border-top-color:var(--bronze);
+  background:var(--white);
+}
+.step-card-vivo{border-top-color:var(--p500)}
+.step-card-decide{border-top-color:var(--ink)}
+
+.step-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.step-num{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  color:var(--n600);
+}
+.step-card-sealed .step-num{color:var(--bronze-dark)}
+.step-card-vivo .step-num{color:var(--p600)}
+.step-card-decide .step-num{color:var(--ink)}
+
+.step-arrow{
+  width:18px;
+  height:14px;
+  color:var(--n400);
+}
+.step-card h3{
+  font-size:18px;
+  color:var(--ink);
+}
+.step-card p{
+  font-size:15px;
+  line-height:1.52;
+  color:var(--n600);
+}
+
+.outcomes-panel{
+  background:var(--white);
+  border:1px solid var(--n200);
+  border-radius:var(--r);
+  padding:20px 22px;
+}
+.outcomes-title{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--n600);
+  margin-bottom:14px;
+}
+.outcomes-grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:14px;
+}
+.outcome-item{
+  padding-left:12px;
+  border-left:2px solid var(--n200);
+}
+.outcome-item:nth-child(2){border-left-color:var(--p500)}
+.outcome-item:nth-child(3){border-left-color:var(--bronze)}
+.outcome-name{
+  font-size:15px;
+  font-weight:500;
+  color:var(--ink);
+  margin-bottom:4px;
+}
+.outcome-desc{
+  font-size:14px;
+  line-height:1.45;
+  color:var(--n600);
+}
+
+/* Section 3: Record + Drawing 3 */
+.record-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);
+  gap:48px;
+  align-items:start;
+}
+.record-card{
+  background:var(--white);
+  border:1px solid #CFD8E3;
+  border-left:4px solid var(--ink);
+  border-radius:var(--r);
+  overflow:hidden;
+}
+.record-head{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px 12px;
+  padding:13px 18px;
+  background:var(--n100);
+  border-bottom:1px solid var(--n200);
+  font-family:var(--mono);
+  font-size:12px;
+}
+.record-id-group{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+}
+.record-title{
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  color:var(--n600);
+}
+.record-id{
+  font-weight:500;
+  color:var(--ink);
+  letter-spacing:0.04em;
+  padding:2px 7px;
+  background:var(--white);
+  border:1px solid var(--n200);
+  border-radius:var(--r);
+}
+.record-example{
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  color:var(--n600);
+}
+.record-body{
+  padding:20px 18px;
+  display:grid;
+  gap:16px;
+}
+.record-meta{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:12px 20px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--n200);
+}
+.meta-k{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--n600);
+  margin-bottom:4px;
+}
+.meta-v{
+  font-size:15px;
+  font-weight:500;
+  color:var(--ink);
+}
+.meta-v-azure{
+  color:var(--p600);
+}
+.record-trigger{
+  font-family:var(--mono);
+  font-size:12px;
+  line-height:1.45;
+  color:var(--n600);
+  padding:9px 12px;
+  background:var(--paper);
+  border:1px solid var(--n200);
+  border-radius:var(--r);
+}
+.record-decision{
+  font-size:16px;
+  line-height:1.5;
+  color:var(--ink);
+}
+.dissent-box{
+  background:var(--bronze-tint-light);
+  border:1px solid #E8D5B3;
+  border-left:3px solid var(--bronze);
+  border-radius:var(--r);
+  padding:14px 16px;
+}
+.dissent-head{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:6px 12px;
+  margin-bottom:6px;
+}
+.dissent-label{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.07em;
+  text-transform:uppercase;
+  color:var(--bronze-dark);
+}
+.dissent-author{
+  font-size:14px;
+  font-weight:500;
+  color:var(--ink);
+}
+.dissent-box p{
+  font-size:14px;
+  line-height:1.5;
+  color:var(--n700);
+}
+.record-foot{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px 14px;
+  padding:12px 18px;
+  background:var(--paper);
+  border-top:1px solid var(--n200);
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--n600);
+}
+
+/* Section 4: Governance and onboarding */
+.pillars-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:20px;
+}
+.pillar-card{
+  background:var(--white);
+  border:1px solid var(--n200);
+  border-radius:var(--r);
+  padding:24px;
+}
+.pillar-num{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--p600);
+  margin-bottom:10px;
+}
+.pillar-tag{color:var(--n600)}
+.pillar-card h3{
+  margin-bottom:10px;
+  color:var(--ink);
+}
+.pillar-card p{
+  font-size:16px;
+  line-height:1.58;
+  color:var(--n600);
+}
+
+/* Section 5: Closing Navy CTA */
+.closing-band{
+  background:var(--n900);
+  color:var(--paper);
+  padding:80px 0;
+  border-bottom:1px solid var(--line-dark);
+}
+.closing-inner{
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) auto;
+  gap:32px 48px;
+  align-items:center;
+}
+.closing-copy h2{
+  color:var(--white);
+  margin-bottom:16px;
+}
+.closing-copy .lead{
+  max-width:58ch;
+}
+.closing-action{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+}
+.closing-action .btn{
+  min-width:228px;
+}
+.closing-email{
+  font-family:var(--mono);
+  font-size:13px;
+  color:#A9B5C2;
+  text-decoration:none;
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+}
+.closing-email:hover{color:var(--white)}
+
+/* Footer */
+.site-footer{
+  background:var(--n900);
+  color:#A9B5C2;
+  padding:32px 0;
+}
+.footer-inner{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px 24px;
+}
+.footer-left{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:14px 24px;
+}
+.footer-logo{
+  height:20px;
+  width:auto;
+}
+.footer-copy{
+  font-family:var(--mono);
+  font-size:12px;
+  color:#9BA7B6;
+}
+.footer-links{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:6px 18px;
+}
+.footer-links a{
+  display:inline-flex;
+  align-items:center;
+  min-height:44px;
+  padding:4px 6px;
+  font-size:14px;
+  color:#C5CFD9;
+  text-decoration:none;
+}
+.footer-links a:hover{color:var(--white);text-decoration:underline}
+
+@media (max-width:1024px){
+  .hero-grid,
+  .problem-grid,
+  .record-grid,
+  .closing-inner{
+    grid-template-columns:1fr;
+    gap:32px;
+  }
+  .closing-action{align-items:flex-start}
+  .steps-drawing{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .outcomes-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media (max-width:720px){
+  .wrap{padding:0 16px}
+  .header-inner{min-height:64px}
+  .brand-link img{height:21px}
+  .header-nav{gap:6px}
+  .nav-link{padding:8px 10px;font-size:15px}
+  .header-cta{padding:8px 12px;font-size:13px}
+  .hero{padding:36px 0 44px}
+  .hero-copy h1{margin-bottom:14px}
+  .hero-copy .lead{font-size:16px;margin-bottom:20px}
+  .hero-actions{margin-bottom:18px}
+  .reveal-topbar{padding:10px 12px}
+  .reveal-toggle{padding:8px 11px;font-size:12px}
+  .evidence-strip{padding:11px 12px}
+  .takes-list{padding:12px;gap:8px}
+  .take-card{
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:6px 10px;
+    padding:10px 12px;
+  }
+  .take-note{
+    grid-column:1 / -1;
+    font-size:14px;
+  }
+  .reveal-footer{padding:10px 12px}
+  .band{padding:48px 0}
+  .section-head{margin-bottom:24px}
+  .lead{font-size:16px}
+  .prose p{font-size:16px}
+  .contrast-card{padding:18px 16px}
+  .steps-drawing{
+    grid-template-columns:1fr;
+    gap:12px;
+    margin-bottom:18px;
+  }
+  .step-card{
+    padding:16px;
+    border-top:1px solid var(--n200);
+    border-left:4px solid var(--n500);
+  }
+  .step-card-sealed{border-left-color:var(--bronze)}
+  .step-card-vivo{border-left-color:var(--p500)}
+  .step-card-decide{border-left-color:var(--ink)}
+  .step-arrow{display:none}
+  .step-card p{font-size:16px}
+  .outcomes-panel{padding:16px}
+  .outcomes-grid{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+  .outcome-desc{font-size:15px}
+  .record-head,.record-body,.record-foot{padding-left:14px;padding-right:14px}
+  .record-meta{grid-template-columns:1fr;gap:10px}
+  .pillars-grid{
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+  .pillar-card{padding:18px 16px}
+  .closing-band{padding:48px 0}
+  .site-footer{padding:24px 0}
+  .footer-inner{gap:10px}
+}
+
+@media (max-width:520px){
+  .header-cta{display:none}
+  .reveal-topbar{flex-wrap:wrap}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none !important}
+}
+</style>
+<noscript><style>.js-only{display:none !important}</style></noscript>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header dark-band">
+  <div class="wrap header-inner">
+    <a class="brand-link" href="#" aria-label="Strapivo home">
+      <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="119" height="30">
+    </a>
+    <nav class="header-nav" aria-label="Primary">
+      <a class="nav-link" href="https://strapivo.app">Sign in</a>
+      <a class="btn btn-primary header-cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero dark-band" aria-labelledby="hero-heading">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Strategic Design System</p>
+        <h1 id="hero-heading">Five independent views. Revealed before anyone speaks.</h1>
+        <p class="lead">Strapivo is the Strategic Design System where leadership teams keep an agreed strategy current. Verified market shifts enter a 60-minute session where every executive commits a sealed position before debate begins.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+        </div>
+        <p class="hero-meta">For executive teams and boards. Human approval on every change.</p>
+      </div>
+
+      <div class="reveal-frame" role="region" aria-label="Illustrative example of five executive first takes">
+        <div class="reveal-topbar">
+          <span class="frame-tag"><span class="frame-dot" aria-hidden="true"></span>Illustrative example</span>
+          <button type="button" class="reveal-toggle js-only" id="revealToggle" aria-pressed="true" data-state="revealed">
+            <svg class="toggle-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="1.2" stroke="currentColor" stroke-width="1.3"/><path d="M2 4L8 8.5L14 4" stroke="currentColor" stroke-width="1.3"/></svg>
+            <span id="toggleLabel">Show sealed</span>
+          </button>
+        </div>
+        <div class="evidence-strip">
+          <span class="evidence-kicker">Shared evidence</span>
+          <span class="evidence-text">Risk R-03 entered top right. Primary source confirmed.</span>
+        </div>
+        <ul class="takes-list" id="takesList">
+          <li class="take-card" data-stance="adapt" data-badge="Adapt" data-note="Revise carrier terms this quarter.">
+            <span class="take-role">Chief Executive</span>
+            <span class="take-badge badge-adapt">Adapt</span>
+            <span class="take-note">Revise carrier terms this quarter.</span>
+          </li>
+          <li class="take-card" data-stance="hold" data-badge="Hold" data-note="Margin buffer covers six months.">
+            <span class="take-role">Chief Financial Officer</span>
+            <span class="take-badge badge-hold">Hold</span>
+            <span class="take-note">Margin buffer covers six months.</span>
+          </li>
+          <li class="take-card" data-stance="adapt" data-badge="Adapt" data-note="Reallocate regional route capacity.">
+            <span class="take-role">Chief Operating Officer</span>
+            <span class="take-badge badge-adapt">Adapt</span>
+            <span class="take-note">Reallocate regional route capacity.</span>
+          </li>
+          <li class="take-card" data-stance="pivot" data-badge="Pivot" data-note="Exit fixed-rate long-haul tier.">
+            <span class="take-role">Commercial Director</span>
+            <span class="take-badge badge-pivot">Pivot</span>
+            <span class="take-note">Exit fixed-rate long-haul tier.</span>
+          </li>
+          <li class="take-card" data-stance="adapt" data-badge="Adapt" data-note="Tighten pricing guardrail by Friday.">
+            <span class="take-role">Strategy Lead</span>
+            <span class="take-badge badge-adapt">Adapt</span>
+            <span class="take-note">Tighten pricing guardrail by Friday.</span>
+          </li>
+        </ul>
+        <div class="reveal-footer" id="revealFooter" aria-live="polite">
+          <span>Simultaneous reveal</span>
+          <span class="tally-group">
+            <span class="tally-item tally-adapt">3 Adapt</span>
+            <span class="tally-item">1 Hold</span>
+            <span class="tally-item tally-pivot">1 Pivot</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="problem-heading">
+    <div class="wrap problem-grid">
+      <div>
+        <p class="eyebrow">The problem in senior rooms</p>
+        <div class="section-head section-head-tight">
+          <h2 id="problem-heading">One early opinion anchors the whole room</h2>
+        </div>
+        <div class="prose">
+          <p>Most strategy meetings lose independent judgement in minute two. The loudest or most senior voice opens first, and four capable executives hold back their disagreement before they speak.</p>
+          <p>An annual review leaves no way to catch that drift early. Between offsites, nothing moves. Teams restart the same argument whenever a new analysis lands. Months later, nobody can find what the room decided or who disagreed.</p>
+        </div>
+      </div>
+
+      <div class="contrast-stack" aria-label="Comparison of open floor meetings and sealed first takes">
+        <div class="contrast-card">
+          <p class="contrast-label">Open floor first</p>
+          <h3>First voice sets the anchor</h3>
+          <p>Four executives react to one confident opinion instead of the shared evidence. Polite consensus forms fast and breaks down weeks later.</p>
+        </div>
+        <div class="contrast-card contrast-card-active">
+          <p class="contrast-label">Sealed first takes</p>
+          <h3>Five positions open together</h3>
+          <p>Every executive commits a view in private against the same evidence. All five open together so real disagreement enters the debate.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-alt" aria-labelledby="session-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">The 60-minute session</p>
+        <h2 id="session-heading">Four fixed steps inside every session</h2>
+        <p class="lead">Leadership teams meet weekly, fortnightly or monthly, with extra sessions when a risk escalates. Every agenda item runs through four steps so discussion stays tied to approved strategy.</p>
+      </div>
+
+      <div class="steps-drawing" role="list" aria-label="Four steps of a Strapivo 60-minute strategy session">
+        <article class="step-card" role="listitem">
+          <div class="step-top">
+            <span class="step-num">STEP 01</span>
+            <svg class="step-arrow" viewBox="0 0 18 14" fill="none" aria-hidden="true">
+              <path d="M1 7H16M11 2L16 7L11 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
+            </svg>
+          </div>
+          <h3>Evidence</h3>
+          <p>The room reviews verified signals and risk movement before opinions begin.</p>
+        </article>
+
+        <article class="step-card step-card-sealed" role="listitem">
+          <div class="step-top">
+            <span class="step-num">
+              <svg class="seal-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="1.2" stroke="currentColor" stroke-width="1.3"/><path d="M2 4L8 8.5L14 4" stroke="currentColor" stroke-width="1.3"/></svg>
+              STEP 02
+            </span>
+            <svg class="step-arrow" viewBox="0 0 18 14" fill="none" aria-hidden="true">
+              <path d="M1 7H16M11 2L16 7L11 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
+            </svg>
+          </div>
+          <h3>Sealed first takes</h3>
+          <p>Each executive submits a position in private. All five open together.</p>
+        </article>
+
+        <article class="step-card step-card-vivo" role="listitem">
+          <div class="step-top">
+            <span class="step-num">STEP 03</span>
+            <svg class="step-arrow" viewBox="0 0 18 14" fill="none" aria-hidden="true">
+              <path d="M1 7H16M11 2L16 7L11 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
+            </svg>
+          </div>
+          <h3>Conversation with Vivo</h3>
+          <p>Vivo estimates the cost of doing nothing and models scenarios. It challenges assumptions against approved guardrails.</p>
+        </article>
+
+        <article class="step-card step-card-decide" role="listitem">
+          <div class="step-top">
+            <span class="step-num">STEP 04</span>
+          </div>
+          <h3>Decision</h3>
+          <p>The room selects one of five outcomes. People decide while Vivo prepares the follow-up.</p>
+        </article>
+      </div>
+
+      <div class="outcomes-panel">
+        <p class="outcomes-title">Five decision outcomes</p>
+        <div class="outcomes-grid">
+          <div class="outcome-item">
+            <p class="outcome-name">Hold</p>
+            <p class="outcome-desc">Mark the success criterion reviewed today.</p>
+          </div>
+          <div class="outcome-item">
+            <p class="outcome-name">Adapt</p>
+            <p class="outcome-desc">Update objectives and activities under the criterion.</p>
+          </div>
+          <div class="outcome-item">
+            <p class="outcome-name">Pivot</p>
+            <p class="outcome-desc">Draft revised criterion wording for an Owner to confirm.</p>
+          </div>
+          <div class="outcome-item">
+            <p class="outcome-name">Take advantage</p>
+            <p class="outcome-desc">Add detour activities without changing the criterion.</p>
+          </div>
+          <div class="outcome-item">
+            <p class="outcome-name">Not yet</p>
+            <p class="outcome-desc">Park with a return trigger, or let go with a written reason.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="record-heading">
+    <div class="wrap record-grid">
+      <div>
+        <p class="eyebrow">Permanent record and next loop</p>
+        <div class="section-head section-head-tight">
+          <h2 id="record-heading">Nothing vanishes when the meeting ends</h2>
+        </div>
+        <div class="prose">
+          <p>Vivo reads back each decision and every named dissent with its reason. The session lead confirms the entry, and Strapivo assigns a permanent record number such as SDS-2026-014.</p>
+          <p>Between sessions, Radar tracks external shifts against your focus areas. A move into the top right danger zone requires at least one primary source so one blog post cannot raise an alarm.</p>
+          <p>Twenty-four hours before the next session, Vivo drafts the agenda from what changed. Old business comes first, followed by escalated risks and off-track activities. Every item carries a one-line reason. The room approves the agenda as step one.</p>
+        </div>
+      </div>
+
+      <article class="record-card" aria-label="Illustrative example of permanent decision record SDS-2026-014">
+        <div class="record-head">
+          <span class="record-id-group">
+            <span class="record-title">Record of decisions</span>
+            <span class="record-id">SDS-2026-014</span>
+          </span>
+          <span class="record-example">Illustrative example</span>
+        </div>
+        <div class="record-body">
+          <div class="record-meta">
+            <div>
+              <p class="meta-k">Focus area</p>
+              <p class="meta-v">Regional freight margin</p>
+            </div>
+            <div>
+              <p class="meta-k">Outcome</p>
+              <p class="meta-v meta-v-azure">Adapt</p>
+            </div>
+          </div>
+          <p class="record-trigger">Risk R-03 entered top right. Primary source confirmed.</p>
+          <p class="record-decision">Revise carrier terms and reallocate regional route capacity before quarter close.</p>
+          <div class="dissent-box">
+            <div class="dissent-head">
+              <span class="dissent-label">Named dissent</span>
+              <span class="dissent-author">Commercial Director</span>
+            </div>
+            <p>Preferred Pivot to exit the fixed-rate tier. Recorded for review if first-quarter unit cost exceeds target.</p>
+          </div>
+        </div>
+        <div class="record-foot">
+          <span>Confirmed by Session Lead</span>
+          <span>Next agenda drafted 24 hours before session</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="band band-alt" aria-labelledby="trust-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Governance and setup</p>
+        <h2 id="trust-heading">Built for senior scrutiny, live in four to five hours</h2>
+      </div>
+      <div class="pillars-grid">
+        <article class="pillar-card">
+          <p class="pillar-num"><span>01</span><span class="pillar-tag">Authority</span></p>
+          <h3>The human stays in the chair</h3>
+          <p>Vivo proposes and people decide. Signal triage, risk moves and wording revisions wait for human confirmation. Every recommendation traces back to the strategic memory you approved.</p>
+        </article>
+        <article class="pillar-card">
+          <p class="pillar-num"><span>02</span><span class="pillar-tag">Sovereignty</span></p>
+          <h3>EU-only infrastructure</h3>
+          <p>Strapivo runs on EU-only infrastructure with GDPR built into the architecture. Start with public and non-sensitive material, then widen access once your team sees how the room runs.</p>
+        </article>
+        <article class="pillar-card">
+          <p class="pillar-num"><span>03</span><span class="pillar-tag">Intake</span></p>
+          <h3>We do the reading first</h3>
+          <p>Bring a workshop report, a strategy document or pasted emails. You walk into session one with a structured draft to correct instead of a blank page.</p>
+        </article>
+        <article class="pillar-card">
+          <p class="pillar-num"><span>04</span><span class="pillar-tag">Handover</span></p>
+          <h3>Four to five hours, then you run it</h3>
+          <p>We show you what we got wrong, and you teach Strapivo what counts as relevant. Then we run one real session together. After that, your leadership team runs Dynamic Strategy.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing-band dark-band" aria-labelledby="closing-heading">
+    <div class="wrap closing-inner">
+      <div class="closing-copy">
+        <p class="eyebrow">Dynamic Strategy</p>
+        <h2 id="closing-heading">Hear every view before the room decides</h2>
+        <p class="lead">Any AI can answer a question. Only Strapivo answers it as you. Keep agreed strategy current between offsites and record independent judgement on every major call.</p>
+      </div>
+      <div class="closing-action">
+        <a class="btn btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+        <a class="closing-email" href="mailto:strategy@strapivo.com">strategy@strapivo.com</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer dark-band">
+  <div class="wrap footer-inner">
+    <div class="footer-left">
+      <img class="footer-logo" src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="100" height="25">
+      <span class="footer-copy">&copy; 2026 Strapivo</span>
+    </div>
+    <nav class="footer-links" aria-label="Legal">
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var btn = document.getElementById('revealToggle');
+  var label = document.getElementById('toggleLabel');
+  var list = document.getElementById('takesList');
+  var footer = document.getElementById('revealFooter');
+  if (!btn || !label || !list || !footer) return;
+
+  var sealSvg = '<svg class="seal-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="1.2" stroke="currentColor" stroke-width="1.3"/><path d="M2 4L8 8.5L14 4" stroke="currentColor" stroke-width="1.3"/></svg>';
+  var revealed = true;
+
+  function render(){
+    var cards = list.querySelectorAll('.take-card');
+    for (var i = 0; i < cards.length; i++){
+      var card = cards[i];
+      var badge = card.querySelector('.take-badge');
+      var note = card.querySelector('.take-note');
+      var stance = card.getAttribute('data-stance');
+      var badgeLabel = card.getAttribute('data-badge');
+      var noteText = card.getAttribute('data-note');
+
+      if (revealed){
+        card.classList.remove('is-sealed');
+        badge.className = 'take-badge badge-' + stance;
+        badge.textContent = badgeLabel;
+        note.textContent = noteText;
+      } else {
+        card.classList.add('is-sealed');
+        badge.className = 'take-badge badge-sealed';
+        badge.innerHTML = sealSvg + '<span>Sealed</span>';
+        note.textContent = 'Hidden until all five submit';
+      }
+    }
+
+    btn.setAttribute('aria-pressed', revealed ? 'true' : 'false');
+    btn.setAttribute('data-state', revealed ? 'revealed' : 'sealed');
+    label.textContent = revealed ? 'Show sealed' : 'Reveal first takes';
+
+    if (revealed){
+      footer.innerHTML = '<span>Simultaneous reveal</span><span class="tally-group"><span class="tally-item tally-adapt">3 Adapt</span><span class="tally-item">1 Hold</span><span class="tally-item tally-pivot">1 Pivot</span></span>';
+    } else {
+      footer.innerHTML = '<span>5 of 5 sealed</span><span class="tally-group"><span class="tally-item tally-pivot">Ready to open together</span></span>';
+    }
+  }
+
+  btn.addEventListener('click', function(){
+    revealed = !revealed;
+    render();
+  });
+})();
+</script>
+</body>
+</html>
