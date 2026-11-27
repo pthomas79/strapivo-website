@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo. Two halves do not make an arch.</title>
+<meta name="description" content="Strapivo is software where a leadership team puts what it knows next to what has changed, and decides.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#17212A;--ink2:#2C3843;--sky:#D5E4EC;--hz:77%;--base:82%}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:#A79A7E;color:var(--ink);font-family:"Newsreader",Georgia,serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.pin{position:relative;height:100vh;height:100svh}
+.anim .pin{height:350vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;
+ background:linear-gradient(180deg,#BED4E0 0%,#CCDEE8 30%,#D5E4EC 55%,#E3EBEC var(--hz))}
+.glow{position:absolute;left:calc(66vw - 40vw);width:80vw;top:calc(var(--hz) - 40vh);height:60vh;pointer-events:none;
+ background:radial-gradient(closest-side,rgba(250,240,222,.85),rgba(250,240,222,0))}
+.stage:before{content:"";position:absolute;left:-20vw;top:-30vh;width:90vw;height:90vh;
+ background:radial-gradient(closest-side,rgba(255,250,238,.55),rgba(255,250,238,0));pointer-events:none}
+.ground{position:absolute;left:0;right:0;top:var(--hz);bottom:0;
+ background:linear-gradient(180deg,#DCD3BE 0%,#CDC1A6 18%,#BEB094 55%,#A79A7E 100%)}
+.ground svg{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:multiply;opacity:.55}
+.grain{position:absolute;inset:0;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
+ background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .32  0 0 0 0 .28  0 0 0 .5 -.12'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>")}
+.arch{position:absolute;--w:min(46vw,70.5vh);width:var(--w);aspect-ratio:1000/880;
+ left:calc(66vw - var(--w)/2);bottom:calc(100% - var(--base));
+ --lab:26px;--cap:25px}
+.lay{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ins text{font-family:"Cinzel",serif;font-weight:600}
+.ins .lab{font-size:var(--lab);letter-spacing:.1em}
+.ins .cap{font-family:"Newsreader",serif;font-style:italic;font-weight:400;font-size:var(--cap);letter-spacing:0}
+.ins .lip{fill:#FFF9EC;opacity:.75}
+.ins .cut{fill:#4D4232}
+.kins .lip{fill:#F7A28F;opacity:.55}
+.kins .cut{fill:#FFF8F0}
+.ins .m{display:none}
+.la{font-family:"Newsreader",serif;font-style:italic;font-size:62px;fill:var(--ink)}
+.timber,.rope{display:none}
+.anim .timber,.anim .rope{display:inline}
+.anim .ksT{transform:translateY(-160px)}
+.anim .la{opacity:0}
+.top{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;
+ padding:34px 5vw 0;z-index:3}
+.logo{display:block;line-height:0}
+.logo svg{height:24px;width:auto;display:block}
+.signin{font-size:16px;text-decoration:none;color:var(--ink2);padding:6px 0;border-bottom:1px solid rgba(23,33,42,.35)}
+.signin:hover{border-color:var(--ink)}
+.copy{position:absolute;left:6vw;bottom:calc(100% - var(--hz) + 4vh);width:min(36vw,560px);z-index:2}
+h1{font-weight:500;font-size:clamp(40px,4.5vw,78px);line-height:1.0;letter-spacing:-.018em;margin:0 0 .42em;
+ font-variation-settings:"opsz" 72}
+.lede{font-size:clamp(17px,1.35vw,20px);line-height:1.45;color:var(--ink2);margin:0 0 30px;max-width:25em}
+.btn{display:inline-block;background:#B3301E;color:#fff;text-decoration:none;font-size:17px;font-weight:500;
+ padding:15px 26px 16px;border-radius:2px;box-shadow:0 1px 0 rgba(0,0,0,.12),0 10px 24px -12px rgba(120,30,15,.55);transition:background .2s}
+.btn:hover{background:#8F2516}
+.end{position:relative;padding:30vh 6vw 0;color:#F3EEE4;background:linear-gradient(180deg,#A79A7E 0,#7F725D 16vh,#5E5345 42vh,#4F463B 100%)}
+.end .btn{background:#C9402B}.end .btn:hover{background:#A93222}
+.end :focus-visible{outline-color:#F3EEE4}
+.end .inner{max-width:640px}
+.end h2{font-weight:400;font-size:clamp(28px,3vw,44px);line-height:1.15;margin:0 0 32px;letter-spacing:-.01em}
+.list{list-style:none;margin:0 0 16vh;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 4vw;max-width:1100px}
+.list li{padding:18px 0 0;border-top:1px solid rgba(243,238,228,.3);font-size:18px;line-height:1.4}
+.list b{display:block;font-family:"Cinzel",serif;font-weight:600;font-size:15px;letter-spacing:.09em;margin-bottom:4px}
+.list .k b{color:#F4A08E}
+footer{margin-top:18vh;padding:22px 0 26px;border-top:1px solid rgba(243,238,228,.25);font-size:13px;color:#E6DFD2;
+ display:flex;gap:22px;flex-wrap:wrap}
+footer a{text-decoration:none}
+footer a:hover{text-decoration:underline}
+@media (max-width:760px){
+ :root{--hz:50%;--base:52%}
+ .arch{--w:86vw;left:7vw;--lab:42px}
+ .ins .d{display:none}
+ .ins .m{display:inline}
+ .la{font-size:66px}
+ .top{padding:22px 6vw 0}
+ .logo svg{height:21px}
+ .signin{font-size:15px}
+ .copy{left:6vw;right:6vw;width:auto;top:calc(var(--base) + 12vw);bottom:auto}
+ h1{font-size:clamp(30px,8.4vw,36px);margin-bottom:.35em}
+ .lede{font-size:16px;margin-bottom:20px}
+ .btn{font-size:16px;padding:13px 20px 14px}
+ .end{padding-top:22vh}
+ .list{display:block;margin-bottom:12vh}
+ .list li{padding:16px 0;font-size:17px;line-height:1.35}
+ .end h2{font-size:28px}
+}
+@media (max-width:760px) and (max-height:700px){ h1{font-size:28px} .lede{font-size:15px} }
+</style>
+</head>
+<body>
+<main>
+<section class="pin" id="pin">
+ <div class="stage">
+  <div class="glow"></div>
+  <div class="ground"><svg viewBox="0 0 1600 400" preserveAspectRatio="none" aria-hidden="true" focusable="false"><filter id="fG" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".0025 .05" numOctaves="4" seed="2"/><feColorMatrix values="0 0 0 0 .58  0 0 0 0 .52  0 0 0 0 .43  0 0 0 1.1 -.35"/></filter><rect width="1600" height="400" filter="url(#fG)"/></svg></div>
+  <header class="top">
+   <a class="logo" href="#" aria-label="Strapivo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3974.49 1000" aria-hidden="true" focusable="false">
+  
+  
+  <path d="M 572.57 263.78 L 468.52 263.78 Q 462.94 213.35 422.44 185.48 Q 381.94 157.60 320.49 157.60 L 320.49 157.60 Q 276.51 157.60 244.39 171.63 Q 212.27 185.65 194.64 209.98 Q 177.00 234.30 177.00 265.20 L 177.00 265.20 Q 177.00 291.12 189.05 309.94 Q 201.10 328.76 220.82 341.37 Q 240.54 353.98 263.24 362.32 Q 285.93 370.67 306.88 375.99 L 306.88 375.99 L 376.71 394.46 Q 410.92 402.98 446.88 417.54 Q 482.84 432.10 513.56 455.89 Q 544.28 479.69 563.32 514.84 Q 582.34 550.00 582.34 599.01 L 582.34 599.01 Q 582.34 660.80 551.10 708.74 Q 519.84 756.68 460.67 784.38 Q 401.49 812.07 317.70 812.07 L 317.70 812.07 Q 237.41 812.07 178.75 786.15 Q 120.10 760.23 86.93 712.46 Q 53.77 664.70 50.28 599.01 L 50.28 599.01 L 158.50 599.01 Q 161.65 638.42 183.82 664.52 Q 205.99 690.63 240.72 703.23 Q 275.45 715.84 317.00 715.84 L 317.00 715.84 Q 362.74 715.84 398.52 701.10 Q 434.31 686.36 454.91 659.91 Q 475.50 633.45 475.50 597.94 L 475.50 597.94 Q 475.50 565.63 457.53 545.03 Q 439.55 524.43 409.00 510.94 Q 378.45 497.44 340.05 487.14 L 340.05 487.14 L 255.56 463.71 Q 169.68 439.91 119.58 393.75 Q 69.48 347.59 69.48 271.59 L 69.48 271.59 Q 69.48 208.74 102.99 161.86 Q 136.51 114.99 193.77 88.88 Q 251.02 62.78 322.94 62.78 L 322.94 62.78 Q 395.55 62.78 451.24 88.71 Q 506.93 114.63 539.05 159.91 Q 571.17 205.18 572.57 263.78 L 572.57 263.78 Z M 809.71 254.55 L 919.68 254.55 L 919.68 339.77 L 809.71 339.77 L 809.71 639.84 Q 809.71 670.74 818.78 686.19 Q 827.87 701.63 842.35 707.14 Q 856.84 712.64 873.95 712.64 L 873.95 712.64 Q 886.51 712.64 895.94 710.87 Q 905.37 709.09 910.61 708.03 L 910.61 708.03 L 929.45 795.74 Q 920.38 799.29 903.63 803.02 Q 886.86 806.75 861.73 807.10 L 861.73 807.10 Q 820.53 807.81 784.92 792.19 Q 749.30 776.56 727.31 743.89 Q 705.32 711.22 705.32 661.86 L 705.32 661.86 L 705.32 339.77 L 626.77 339.77 L 626.77 254.55 L 705.32 254.55 L 705.32 123.86 L 809.71 123.86 L 809.71 254.55 Z M 1105.86 800.00 L 1001.47 800.00 L 1001.47 254.55 L 1102.37 254.55 L 1102.37 341.19 L 1107.95 341.19 Q 1122.61 297.16 1159.79 271.77 Q 1196.97 246.38 1244.11 246.38 L 1244.11 246.38 Q 1253.88 246.38 1267.33 247.09 Q 1280.77 247.80 1288.45 248.86 L 1288.45 248.86 L 1288.45 350.43 Q 1282.16 348.65 1266.10 346.34 Q 1250.04 344.03 1233.98 344.03 L 1233.98 344.03 Q 1196.97 344.03 1168.17 359.84 Q 1139.37 375.64 1122.61 403.52 Q 1105.86 431.39 1105.86 466.90 L 1105.86 466.90 L 1105.86 800.00 Z M 1501.85 812.07 L 1501.85 812.07 Q 1450.88 812.07 1409.68 792.72 Q 1368.48 773.37 1344.57 736.43 Q 1320.65 699.50 1320.65 645.88 L 1320.65 645.88 Q 1320.65 599.72 1338.11 569.89 Q 1355.56 540.06 1385.24 522.66 Q 1414.92 505.26 1451.58 496.38 Q 1488.24 487.50 1526.28 482.88 L 1526.28 482.88 Q 1574.47 477.20 1604.49 473.47 Q 1634.52 469.74 1648.13 461.22 Q 1661.75 452.70 1661.75 433.52 L 1661.75 433.52 L 1661.75 431.04 Q 1661.75 384.52 1636.09 358.95 Q 1610.43 333.38 1559.81 333.38 L 1559.81 333.38 Q 1507.08 333.38 1476.89 357.00 Q 1446.69 380.61 1435.17 409.38 L 1435.17 409.38 L 1337.06 386.65 Q 1354.52 336.93 1388.21 306.21 Q 1421.91 275.50 1465.89 261.47 Q 1509.88 247.44 1558.40 247.44 L 1558.40 247.44 Q 1590.53 247.44 1626.66 255.08 Q 1662.79 262.71 1694.39 282.95 Q 1725.99 303.20 1746.24 340.66 Q 1766.48 378.13 1766.48 437.78 L 1766.48 437.78 L 1766.48 800.00 L 1664.54 800.00 L 1664.54 725.43 L 1660.35 725.43 Q 1650.23 746.02 1629.98 765.91 Q 1609.73 785.80 1577.96 798.93 Q 1546.19 812.07 1501.85 812.07 Z M 1524.54 726.85 L 1524.54 726.85 Q 1567.83 726.85 1598.73 709.45 Q 1629.63 692.05 1645.86 663.81 Q 1662.09 635.58 1662.09 603.27 L 1662.09 603.27 L 1662.09 532.95 Q 1656.51 538.64 1640.62 543.43 Q 1624.75 548.22 1604.49 551.60 Q 1584.24 554.97 1565.04 557.63 Q 1545.84 560.30 1532.92 562.07 L 1532.92 562.07 Q 1502.55 565.98 1477.59 575.21 Q 1452.63 584.45 1437.78 601.67 Q 1422.95 618.89 1422.95 647.30 L 1422.95 647.30 Q 1422.95 686.72 1451.58 706.78 Q 1480.21 726.85 1524.54 726.85 Z M 1976.40 1004.55 L 1872.01 1004.55 L 1872.01 254.55 L 1973.95 254.55 L 1973.95 342.97 L 1982.68 342.97 Q 1991.76 325.92 2008.87 303.55 Q 2025.97 281.18 2056.35 264.31 Q 2086.72 247.44 2136.64 247.44 L 2136.64 247.44 Q 2201.59 247.44 2252.55 280.82 Q 2303.53 314.20 2332.68 377.06 Q 2361.83 439.91 2361.83 528.34 L 2361.83 528.34 Q 2361.83 616.76 2332.86 679.79 Q 2303.87 742.83 2253.25 776.74 Q 2202.63 810.65 2137.70 810.65 L 2137.70 810.65 Q 2088.81 810.65 2057.92 793.96 Q 2027.02 777.27 2009.56 754.90 Q 1992.11 732.53 1982.68 715.13 L 1982.68 715.13 L 1976.40 715.13 L 1976.40 1004.55 Z M 1974.31 527.27 L 1974.31 527.27 Q 1974.31 584.80 1990.72 628.13 Q 2007.13 671.45 2038.19 695.77 Q 2069.27 720.10 2114.31 720.10 L 2114.31 720.10 Q 2161.08 720.10 2192.50 694.71 Q 2223.93 669.32 2240.17 625.64 Q 2256.40 581.96 2256.40 527.27 L 2256.40 527.27 Q 2256.40 473.30 2240.51 430.33 Q 2224.62 387.36 2193.03 362.50 Q 2161.44 337.64 2114.31 337.64 L 2114.31 337.64 Q 2068.92 337.64 2037.67 361.43 Q 2006.43 385.23 1990.36 427.84 Q 1974.31 470.45 1974.31 527.27 Z M 2549.75 800.00 L 2445.37 800.00 L 2445.37 254.55 L 2549.75 254.55 L 2549.75 800.00 Z M 2498.08 170.38 L 2498.08 170.38 Q 2470.85 170.38 2451.47 151.74 Q 2432.09 133.10 2432.09 107.17 L 2432.09 107.17 Q 2432.09 80.89 2451.47 62.25 Q 2470.85 43.61 2498.08 43.61 L 2498.08 43.61 Q 2525.31 43.61 2544.69 62.25 Q 2564.06 80.89 2564.06 107.17 L 2564.06 107.17 Q 2564.06 133.10 2544.69 151.74 Q 2525.31 170.38 2498.08 170.38 Z M 3003.35 254.55 L 3115.42 254.55 L 2920.96 800.00 L 2809.23 800.00 L 2614.43 254.55 L 2726.49 254.55 L 2862.30 674.29 L 2867.89 674.29 L 3003.35 254.55 Z" fill="#1A1A1F"></path>
+  <circle cx="3542.05" cy="580" r="345.15" fill="none" stroke="#1A1A1F" stroke-width="73.98"></circle>
+</svg></a>
+   <a class="signin" href="https://strapivo.app">Sign in</a>
+  </header>
+  <div class="arch" id="arch">
+   <svg class="lay" viewBox="0 0 1000 880" aria-hidden="true" focusable="false">
+<defs><filter id="fShadow2" x="-30%" y="-30%" width="200%" height="160%"><feGaussianBlur stdDeviation="6 2"/></filter><filter id="fSoft2" x="-50%" y="-300%" width="200%" height="700%"><feGaussianBlur stdDeviation="12 3"/></filter></defs>
+<g opacity=".34" fill="#5E5139" filter="url(#fShadow2)"><g transform="matrix(1 0 -0.62 0.075 545.6 814.0)"><use href="#sil"/><g class="ksT"><use href="#ks"/></g></g></g>
+<g fill="#4B4030" opacity=".5" filter="url(#fSoft2)"><rect x="14" y="872" width="196" height="12" rx="6"/><rect x="788" y="872" width="196" height="12" rx="6"/></g>
+</svg>
+   <svg class="lay" viewBox="0 0 1000 880" role="img" aria-labelledby="archT">
+<title id="archT">A stone arch. The left stones are marked strategic memory, the right stones market intelligence. A vermilion keystone marked the session locks them together, and the arch stands on its own.</title>
+<defs>
+<filter id="fStone" x="-3%" y="-3%" width="106%" height="106%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.011 0.02" numOctaves="5" seed="7" result="n1"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.45" numOctaves="3" seed="3" result="n2"/>
+ <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="b"/>
+ <feComposite in="n1" in2="b" operator="arithmetic" k2="0.10" k3="1" result="h1"/>
+ <feMorphology in="SourceAlpha" operator="erode" radius="10" result="inner0"/>
+ <feGaussianBlur in="inner0" stdDeviation="1.5" result="inner"/>
+ <feComposite in="n2" in2="inner" operator="in" result="n2i"/>
+ <feComposite in="n2" in2="h1" operator="arithmetic" k2="0.05" k3="1" result="h2"/>
+ <feComposite in="n2i" in2="h2" operator="arithmetic" k2="0.16" k3="1" result="h"/>
+ <feDiffuseLighting in="h" surfaceScale="10" diffuseConstant="1.24" lighting-color="#fff8ec" result="lit"><feDistantLight azimuth="215" elevation="48"/></feDiffuseLighting>
+ <feColorMatrix in="n1" type="matrix" values="0.16 0 0 0 0.92  0.16 0 0 0 0.915  0.18 0 0 0 0.9  0 0 0 0 1" result="mot"/>
+ <feComposite in="lit" in2="mot" operator="arithmetic" k1="1" result="lm"/>
+ <feComposite in="lm" in2="SourceGraphic" operator="arithmetic" k1="1" result="col"/>
+ <feComposite in="col" in2="SourceAlpha" operator="in"/>
+</filter>
+<filter id="fKey" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.02 0.035" numOctaves="4" seed="21" result="n1"/>
+ <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" seed="5" result="n2"/>
+ <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="b"/>
+ <feComposite in="n1" in2="b" operator="arithmetic" k2="0.14" k3="1" result="h1"/>
+ <feComposite in="n2" in2="h1" operator="arithmetic" k2="0.08" k3="1" result="h"/>
+ <feDiffuseLighting in="h" surfaceScale="9" diffuseConstant="1.25" lighting-color="#fff4ea" result="lit"><feDistantLight azimuth="225" elevation="50"/></feDiffuseLighting>
+ <feColorMatrix in="n1" type="matrix" values="0.14 0 0 0 0.93  0.14 0 0 0 0.92  0.14 0 0 0 0.92  0 0 0 0 1" result="mot"/>
+ <feComposite in="lit" in2="mot" operator="arithmetic" k1="1" result="lm"/>
+ <feComposite in="lm" in2="SourceGraphic" operator="arithmetic" k1="1" result="col"/>
+ <feComposite in="col" in2="SourceAlpha" operator="in"/>
+</filter>
+<filter id="fWood" x="-3%" y="-3%" width="106%" height="106%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.006 0.22" numOctaves="3" seed="4" result="n1"/>
+ <feGaussianBlur in="SourceAlpha" stdDeviation="2.2" result="b"/>
+ <feComposite in="n1" in2="b" operator="arithmetic" k2="0.05" k3="1" result="h"/>
+ <feDiffuseLighting in="h" surfaceScale="5" diffuseConstant="1.2" lighting-color="#fff6ea" result="lit"><feDistantLight azimuth="225" elevation="50"/></feDiffuseLighting>
+ <feColorMatrix in="n1" type="matrix" values="0.7 0 0 0 0.66  0.7 0 0 0 0.64  0.7 0 0 0 0.62  0 0 0 0 1" result="mot"/>
+ <feComposite in="lit" in2="mot" operator="arithmetic" k1="1" result="lm"/>
+ <feComposite in="lm" in2="SourceGraphic" operator="arithmetic" k1="1" result="col"/>
+ <feComposite in="col" in2="SourceAlpha" operator="in"/>
+</filter>
+<filter id="fSide" x="-3%" y="-3%" width="106%" height="106%" color-interpolation-filters="sRGB">
+ <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="9" result="n1"/>
+ <feColorMatrix in="n1" type="matrix" values="0.3 0 0 0 0.85  0.3 0 0 0 0.85  0.3 0 0 0 0.85  0 0 0 0 1" result="mot"/>
+ <feComposite in="mot" in2="SourceGraphic" operator="arithmetic" k1="1" result="col"/>
+ <feComposite in="col" in2="SourceAlpha" operator="in"/>
+</filter>
+<filter id="fShadow" x="-20%" y="-20%" width="160%" height="140%"><feGaussianBlur stdDeviation="5 2.2"/></filter>
+<filter id="fSoft" x="-50%" y="-200%" width="200%" height="500%"><feGaussianBlur stdDeviation="10 3"/></filter>
+<linearGradient id="gSide" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="880"><stop offset="0" stop-color="#D2C4A6"/><stop offset=".5" stop-color="#B9AA8C"/><stop offset="1" stop-color="#A39478"/></linearGradient>
+<linearGradient id="gSideK" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="200"><stop offset="0" stop-color="#B53A27"/><stop offset="1" stop-color="#86251A"/></linearGradient>
+<linearGradient id="gLight" gradientUnits="userSpaceOnUse" x1="80" y1="60" x2="980" y2="880"><stop offset="0" stop-color="#FFFDF8"/><stop offset=".55" stop-color="#F1EADF"/><stop offset="1" stop-color="#D9CFBF"/></linearGradient>
+<pattern id="pRope" patternUnits="userSpaceOnUse" width="9" height="9" patternTransform="rotate(-35)"><rect width="9" height="9" fill="#9B7548"/><rect width="9" height="3.4" fill="#6F5131"/><rect y="4.5" width="9" height="1.4" fill="#BC9867"/></pattern><path id="v0" d="M800.0 517.4L970.0 517.4A470.0 470.0 0 0 0 945.9 371.4L784.9 426.0A300.0 300.0 0 0 1 800.0 517.4Z"/><path id="v1" d="M783.2 421.1L944.2 366.5A470.0 470.0 0 0 0 874.5 235.9L739.6 339.4A300.0 300.0 0 0 1 783.2 421.1Z"/><path id="v2" d="M736.4 335.3L871.3 231.8A470.0 470.0 0 0 0 763.3 130.7L668.8 272.0A300.0 300.0 0 0 1 736.4 335.3Z"/><path id="v3" d="M664.5 269.1L759.0 127.8A470.0 470.0 0 0 0 624.2 66.7L580.2 230.9A300.0 300.0 0 0 1 664.5 269.1Z"/><path id="v4" d="M419.8 230.9L375.8 66.7A470.0 470.0 0 0 0 241.0 127.8L335.5 269.1A300.0 300.0 0 0 1 419.8 230.9Z"/><path id="v5" d="M331.2 272.0L236.7 130.7A470.0 470.0 0 0 0 128.7 231.8L263.6 335.3A300.0 300.0 0 0 1 331.2 272.0Z"/><path id="v6" d="M260.4 339.4L125.5 235.9A470.0 470.0 0 0 0 55.8 366.5L216.8 421.1A300.0 300.0 0 0 1 260.4 339.4Z"/><path id="v7" d="M215.1 426.0L54.1 371.4A470.0 470.0 0 0 0 30.0 517.4L200.0 517.4A300.0 300.0 0 0 1 215.1 426.0Z"/><path id="p00" d="M18.0 522.6H212.0V573.4H18.0Z"/><path id="p01" d="M30.0 578.6H200.0V677.4H30.0Z"/><path id="p02" d="M30.0 682.6H200.0V781.4H30.0Z"/><path id="p03" d="M23.0 786.6H207.0V880.0H23.0Z"/><path id="p10" d="M788.0 522.6H982.0V573.4H788.0Z"/><path id="p11" d="M800.0 578.6H970.0V677.4H800.0Z"/><path id="p12" d="M800.0 682.6H970.0V781.4H800.0Z"/><path id="p13" d="M793.0 786.6H977.0V880.0H793.0Z"/><path id="ks" d="M575.1 229.6L630.2 24.0L369.8 24.0L424.9 229.6A300.0 300.0 0 0 1 575.1 229.6Z"/><g id="sil"><use href="#v0"/><use href="#v1"/><use href="#v2"/><use href="#v3"/><use href="#v4"/><use href="#v5"/><use href="#v6"/><use href="#v7"/><use href="#p00"/><use href="#p01"/><use href="#p02"/><use href="#p03"/><use href="#p10"/><use href="#p11"/><use href="#p12"/><use href="#p13"/></g><path id="tl" d="M124.1 513.4A376 376 0 0 1 396.4 158.6"/><path id="tr" d="M603.6 158.6A376 376 0 0 1 875.9 513.4"/><path id="tlc" d="M149.3 489.3A352 352 0 0 1 379.6 189.2"/><path id="trc" d="M620.4 189.2A352 352 0 0 1 850.7 489.3"/><path id="tlm1" d="M80.6 498.0A420 420 0 0 1 370.2 120.6"/><path id="tlm2" d="M148.9 495.4A352 352 0 0 1 385.4 187.2"/><path id="trm1" d="M629.8 120.6A420 420 0 0 1 919.4 498.0"/><path id="trm2" d="M614.6 187.2A352 352 0 0 1 851.1 495.4"/><path id="rib" d="M565.7 268.4L575.6 231.7A298.0 298.0 0 0 0 424.4 231.7L434.3 268.4A260.0 260.0 0 0 1 565.7 268.4Z"/></defs>
+<g fill="url(#gSide)"><use href="#sil" transform="translate(17.00 -12.00)"/><use href="#sil" transform="translate(15.79 -11.14)"/><use href="#sil" transform="translate(14.57 -10.29)"/><use href="#sil" transform="translate(13.36 -9.43)"/><use href="#sil" transform="translate(12.14 -8.57)"/><use href="#sil" transform="translate(10.93 -7.71)"/><use href="#sil" transform="translate(9.71 -6.86)"/><use href="#sil" transform="translate(8.50 -6.00)"/><use href="#sil" transform="translate(7.29 -5.14)"/><use href="#sil" transform="translate(6.07 -4.29)"/><use href="#sil" transform="translate(4.86 -3.43)"/><use href="#sil" transform="translate(3.64 -2.57)"/><use href="#sil" transform="translate(2.43 -1.71)"/><use href="#sil" transform="translate(1.21 -0.86)"/></g>
+<path d="M800.0 518.4L970.0 517.5A470.0 470.0 0 0 0 626.4 67.3L580.7 231.1A300.0 300.0 0 0 1 800.0 518.4ZM419.3 231.1L373.6 67.3A470.0 470.0 0 0 0 30.0 517.5L200.0 518.4A300.0 300.0 0 0 1 419.3 231.1ZM19 521.0H211V575.0H19ZM31 577.0H199V679.0H31ZM31 681.0H199V783.0H31ZM24 785.0H206V879.0H24ZM789 521.0H981V575.0H789ZM801 577.0H969V679.0H801ZM801 681.0H969V783.0H801ZM794 785.0H976V879.0H794Z" fill="#9C8E72"/>
+<g filter="url(#fStone)"><use href="#v0" fill="#E9DFCB"/><use href="#v1" fill="#E4D9C2"/><use href="#v2" fill="#EEE6D4"/><use href="#v3" fill="#E9DFCB"/><use href="#v4" fill="#E4D9C2"/><use href="#v5" fill="#EEE6D4"/><use href="#v6" fill="#E9DFCB"/><use href="#v7" fill="#E4D9C2"/><use href="#p00" fill="#ECE3D0"/><use href="#p01" fill="#E6DBC5"/><use href="#p02" fill="#E8DDC8"/><use href="#p03" fill="#ECE3D0"/><use href="#p10" fill="#EEE6D4"/><use href="#p11" fill="#E4D9C2"/><use href="#p12" fill="#E9DFCB"/><use href="#p13" fill="#EEE6D4"/></g>
+<g style="mix-blend-mode:multiply"><use href="#sil" fill="url(#gLight)"/></g>
+<g class="ins" aria-hidden="true"><g class="d"><g class="lip" transform="translate(1.3 1.7)"><text class="lab"><textPath href="#tl" startOffset="50%" text-anchor="middle">Strategic memory</textPath></text><text class="lab"><textPath href="#tr" startOffset="50%" text-anchor="middle">Market intelligence</textPath></text></g><g class="cut"><text class="lab"><textPath href="#tl" startOffset="50%" text-anchor="middle">Strategic memory</textPath></text><text class="lab"><textPath href="#tr" startOffset="50%" text-anchor="middle">Market intelligence</textPath></text></g></g><g class="m"><g class="lip" transform="translate(1.3 1.7)"><text class="lab"><textPath href="#tlm1" startOffset="50%" text-anchor="middle">Strategic</textPath></text><text class="lab"><textPath href="#tlm2" startOffset="50%" text-anchor="middle">memory</textPath></text><text class="lab"><textPath href="#trm1" startOffset="50%" text-anchor="middle">Market</textPath></text><text class="lab"><textPath href="#trm2" startOffset="50%" text-anchor="middle">intelligence</textPath></text></g><g class="cut"><text class="lab"><textPath href="#tlm1" startOffset="50%" text-anchor="middle">Strategic</textPath></text><text class="lab"><textPath href="#tlm2" startOffset="50%" text-anchor="middle">memory</textPath></text><text class="lab"><textPath href="#trm1" startOffset="50%" text-anchor="middle">Market</textPath></text><text class="lab"><textPath href="#trm2" startOffset="50%" text-anchor="middle">intelligence</textPath></text></g></g></g>
+</svg>
+   <svg class="lay" viewBox="0 0 1000 880" aria-hidden="true" focusable="false">
+<g class="timber"><g class="tmb">
+<g opacity=".55" fill="#6E5132" transform="translate(9 -6)"><g transform="rotate(75.0 500.0 520.0)"><use href="#rib" data-f="#BB8C57"/></g><g transform="rotate(45.0 500.0 520.0)"><use href="#rib" data-f="#B4844F"/></g><g transform="rotate(15.0 500.0 520.0)"><use href="#rib" data-f="#BF9360"/></g><g transform="rotate(-15.0 500.0 520.0)"><use href="#rib" data-f="#BB8C57"/></g><g transform="rotate(-45.0 500.0 520.0)"><use href="#rib" data-f="#B4844F"/></g><g transform="rotate(-75.0 500.0 520.0)"><use href="#rib" data-f="#BF9360"/></g><g transform="rotate(-30 500.0 520.0)"><rect x="534.0" y="509.0" width="228.0" height="22" data-f="#B98A55"/></g><g transform="rotate(-60 500.0 520.0)"><rect x="534.0" y="509.0" width="228.0" height="22" data-f="#B3824C"/></g><g transform="rotate(-90 500.0 520.0)"><rect x="534.0" y="509.0" width="228.0" height="22" data-f="#BE915D"/></g><g transform="rotate(-120 500.0 520.0)"><rect x="534.0" y="509.0" width="228.0" height="22" data-f="#B98A55"/></g><g transform="rotate(-150 500.0 520.0)"><rect x="534.0" y="509.0" width="228.0" height="22" data-f="#B3824C"/></g><path d="M454.0 520.0A46 46 0 0 1 546.0 520.0Z" data-f="#A9783F"/><rect x="203" y="521.0" width="594" height="34" data-f="#B6874F"/><g transform="rotate(90 241 726.0)"><rect x="87.0" y="711.0" width="308.0" height="30" data-f="#B5864F"/></g><path d="M220 555.0H262L262 564.0Z" data-f="#A47442"/><path d="M220 564.0L220 572.0H262Z" data-f="#9C6C3B"/><g transform="rotate(90 759 726.0)"><rect x="605.0" y="711.0" width="308.0" height="30" data-f="#B5864F"/></g><path d="M738 555.0H780L780 564.0Z" data-f="#A47442"/><path d="M738 564.0L738 572.0H780Z" data-f="#9C6C3B"/></g>
+<g filter="url(#fWood)"><g transform="rotate(75.0 500.0 520.0)"><use href="#rib" fill="#BB8C57"/></g><g transform="rotate(45.0 500.0 520.0)"><use href="#rib" fill="#B4844F"/></g><g transform="rotate(15.0 500.0 520.0)"><use href="#rib" fill="#BF9360"/></g><g transform="rotate(-15.0 500.0 520.0)"><use href="#rib" fill="#BB8C57"/></g><g transform="rotate(-45.0 500.0 520.0)"><use href="#rib" fill="#B4844F"/></g><g transform="rotate(-75.0 500.0 520.0)"><use href="#rib" fill="#BF9360"/></g><g transform="rotate(-30 500.0 520.0)"><rect x="534.0" y="509.0" width="228.0" height="22" fill="#B98A55"/></g><g transform="rotate(-60 500.0 520.0)"><rect x="534.0" y="509.0" width="228.0" height="22" fill="#B3824C"/></g><g transform="rotate(-90 500.0 520.0)"><rect x="534.0" y="509.0" width="228.0" height="22" fill="#BE915D"/></g><g transform="rotate(-120 500.0 520.0)"><rect x="534.0" y="509.0" width="228.0" height="22" fill="#B98A55"/></g><g transform="rotate(-150 500.0 520.0)"><rect x="534.0" y="509.0" width="228.0" height="22" fill="#B3824C"/></g><path d="M454.0 520.0A46 46 0 0 1 546.0 520.0Z" fill="#A9783F"/><rect x="203" y="521.0" width="594" height="34" fill="#B6874F"/><g transform="rotate(90 241 726.0)"><rect x="87.0" y="711.0" width="308.0" height="30" fill="#B5864F"/></g><path d="M220 555.0H262L262 564.0Z" fill="#A47442"/><path d="M220 564.0L220 572.0H262Z" fill="#9C6C3B"/><g transform="rotate(90 759 726.0)"><rect x="605.0" y="711.0" width="308.0" height="30" fill="#B5864F"/></g><path d="M738 555.0H780L780 564.0Z" fill="#A47442"/><path d="M738 564.0L738 572.0H780Z" fill="#9C6C3B"/></g>
+</g></g>
+<text class="la" x="500.0" y="608.0" text-anchor="middle">Lasting advantage</text>
+<g class="ksT">
+<g class="rope"><g class="ropeT"><rect x="495.0" y="-3200" width="10" height="3194" fill="url(#pRope)"/>
+<path d="M483.0 26.0C483.0 -14.0 517.0 -14.0 517.0 26.0" fill="none" stroke="#3B3A38" stroke-width="7"/>
+<rect x="491.0" y="20.0" width="18" height="10" fill="#2F2E2C"/></g></g>
+<g fill="url(#gSideK)"><use href="#ks" transform="translate(17.00 -12.00)"/><use href="#ks" transform="translate(15.79 -11.14)"/><use href="#ks" transform="translate(14.57 -10.29)"/><use href="#ks" transform="translate(13.36 -9.43)"/><use href="#ks" transform="translate(12.14 -8.57)"/><use href="#ks" transform="translate(10.93 -7.71)"/><use href="#ks" transform="translate(9.71 -6.86)"/><use href="#ks" transform="translate(8.50 -6.00)"/><use href="#ks" transform="translate(7.29 -5.14)"/><use href="#ks" transform="translate(6.07 -4.29)"/><use href="#ks" transform="translate(4.86 -3.43)"/><use href="#ks" transform="translate(3.64 -2.57)"/><use href="#ks" transform="translate(2.43 -1.71)"/><use href="#ks" transform="translate(1.21 -0.86)"/></g>
+<use href="#ks" fill="#D2402D" filter="url(#fKey)"/>
+<g class="ins kins"><g class="d kl"><g class="lip" transform="translate(1.3 1.7)"><text class="lab" x="500.0" y="90.0" text-anchor="middle">The</text><text class="lab" x="500.0" y="134.0" text-anchor="middle">session</text></g><g class="cut"><text class="lab" x="500.0" y="90.0" text-anchor="middle">The</text><text class="lab" x="500.0" y="134.0" text-anchor="middle">session</text></g></g><g class="m kl"><g class="lip" transform="translate(1.3 1.7)"><text class="lab" x="500.0" y="73.0" text-anchor="middle">The</text><text class="lab" x="500.0" y="122.0" text-anchor="middle">session</text></g><g class="cut"><text class="lab" x="500.0" y="73.0" text-anchor="middle">The</text><text class="lab" x="500.0" y="122.0" text-anchor="middle">session</text></g></g></g>
+</g>
+</svg>
+  </div>
+  <div class="copy">
+   <h1>Two halves do not make an arch.</h1>
+   <p class="lede">Strapivo is software where a leadership team puts what it knows next to what has changed, and decides.</p>
+   <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+  </div>
+  <div class="grain"></div>
+ </div>
+</section>
+<section class="end">
+ <ul class="list">
+   <li><b>Strategic memory</b>What is true inside your company.</li>
+   <li><b>Market intelligence</b>What is changing outside it.</li>
+   <li class="k"><b>The session</b>Where both meet, and your team decides.</li>
+  </ul>
+ <div class="inner">
+  <h2>We do the reading first. Onboarding takes four to five hours, then your team runs it.</h2>
+  <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+ </div>
+ <footer><span>© 2026 Strapivo</span><a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+</section>
+</main>
+<script>
+(function(){
+ var arch=document.getElementById('arch'),pin=document.getElementById('pin'),de=document.documentElement;
+ var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ var s=1,vh=innerHeight;
+ function fit(){
+  s=arch.getBoundingClientRect().width/1000||1;vh=innerHeight;
+  var phone=innerWidth<=760;
+  arch.style.setProperty('--lab',((phone?14:16.5)/s).toFixed(1)+'px');
+  arch.style.setProperty('--cap',(15.5/s).toFixed(1)+'px');
+ }
+ fit();addEventListener('resize',function(){fit();if(de.classList.contains('anim'))draw();});
+ if(reduce)return;
+ de.classList.add('anim');
+ var ks=[].slice.call(document.querySelectorAll('.ksT')),tm=document.querySelector('.tmb'),
+     rope=document.querySelector('.ropeT'),la=document.querySelector('.la');
+ function cl(x){return x<0?0:x>1?1:x}
+ function io(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2}
+ var p=0,t0=performance.now(),vis=true,raf=0;
+ function read(){var r=pin.getBoundingClientRect(),tot=pin.offsetHeight-innerHeight;p=tot>0?cl(-r.top/tot):1;}
+ function draw(){
+  var k=io(cl(p/.46)),hang=1-k,tt=(performance.now()-t0)/1000;
+  var sw=hang*(Math.sin(tt*1.15)*0.7+Math.sin(tt*.53)*0.25);
+  var y=-160*(1-k);
+  ks.forEach(function(g){g.style.transform='translateY('+y.toFixed(2)+'px) rotate('+sw.toFixed(3)+'deg)';g.style.transformOrigin='500px 24px';});
+  var t=cl((p-.52)/.32),te=io(t);
+  tm.style.transform='translateY('+(te*.12*vh/s).toFixed(1)+'px)';
+  tm.style.opacity=(1-cl(t*1.15)).toFixed(3);
+  rope.style.transform='translateY('+(-cl((p-.47)/.2)*900).toFixed(1)+'px)';
+  la.style.opacity=io(cl((p-.78)/.16)).toFixed(3);
+ }
+ function loop(){raf=0;read();draw();if(vis&&!document.hidden&&p<.47)raf=requestAnimationFrame(loop);}
+ function kick(){if(!raf)raf=requestAnimationFrame(loop);}
+ addEventListener('scroll',kick,{passive:true});
+ document.addEventListener('visibilitychange',kick);
+ if('IntersectionObserver' in window)new IntersectionObserver(function(e){vis=e[0].isIntersecting;kick();}).observe(pin);
+ kick();
+})();
+</script>
+<script src="/landings/prompt.js" defer></script>
+</body>
+</html>
