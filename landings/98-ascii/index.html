@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo: most of it is noise</title>
+<meta name="description" content="Strapivo is strategy software. It shows your leadership team only the news that bears on your goals.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0a08; --amber:#ffb45e; --amber-d:#c99a62; --text:#efe5d4; --dim:#a8987f;
+  --pad:clamp(20px,5vw,72px); --cx:60vw; --cy:50vh; --hw:380px; --rp:170px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;color:var(--text);font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;font-weight:400;
+  background:radial-gradient(ellipse 60% 55% at var(--cx) var(--cy),#1a130b 0%,#0b0a08 70%) fixed;overflow-x:hidden}
+canvas#field{position:fixed;inset:0;width:100vw;height:100vh;display:block;z-index:0}
+.still{position:fixed;left:var(--cx);top:var(--cy);transform:translate(-50%,-50%);margin:0;z-index:0;
+  font:400 min(13px,2.05vw)/1.25 'JetBrains Mono',ui-monospace,monospace;color:var(--amber);opacity:.9;white-space:pre;font-variant-ligatures:none;font-feature-settings:'calt' 0,'liga' 0;
+  text-shadow:0 0 8px rgba(255,170,80,.45)}
+main,footer{position:relative;z-index:1}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--amber);outline-offset:4px;border-radius:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+section{position:relative;height:100vh;height:100svh;min-height:540px}
+.top{position:absolute;top:28px;left:var(--pad);right:var(--pad);display:flex;justify-content:space-between;align-items:center}
+.top img{display:block;height:20px;width:auto}
+.top .in{font-size:14px;color:var(--dim);text-decoration:none;letter-spacing:.04em;padding:6px 0}
+.top .in:hover{color:var(--text)}
+
+h1{position:absolute;left:var(--pad);top:15vh;margin:0;max-width:10ch;
+  font-weight:300;font-size:clamp(44px,6.1vw,96px);line-height:1.02;letter-spacing:-.035em;color:var(--text)}
+.lede{position:absolute;left:var(--pad);bottom:11vh;width:min(36ch,30vw)}
+.lede p{margin:0 0 28px;font-size:16px;line-height:1.6;color:var(--text)}
+.cta{display:inline-block;font-size:15px;letter-spacing:.02em;text-decoration:none;color:var(--bg);background:var(--amber);
+  padding:14px 20px;border-radius:2px;transition:background .3s}
+.cta:hover{background:#ffd29a}
+.cta:focus-visible{outline-color:var(--text)}
+
+.hole{position:absolute;left:var(--cx);top:var(--cy);transform:translate(-50%,-50%);text-align:center;width:var(--hw)}
+.hole h2{margin:0;text-wrap:balance;font-weight:300;font-size:clamp(22px,2.2vw,32px);line-height:1.25;letter-spacing:-.02em}
+.hole h2 span{color:var(--amber)}
+.note{position:absolute;left:var(--pad);bottom:11vh;width:min(36ch,30vw);margin:0;font-size:15px;line-height:1.65;color:var(--dim)}
+.note p{margin:0 0 12px}
+.note b{font-weight:400;color:var(--text)}
+.close .hole h2{margin-bottom:26px}
+
+footer{position:absolute;left:var(--pad);right:var(--pad);bottom:22px;font-size:12px;color:var(--dim);display:flex;gap:18px;flex-wrap:wrap}
+footer a{text-decoration:none}
+footer a:hover{color:var(--text)}
+
+@media (max-width:899px){
+  :root{--cx:50vw;--cy:52vh}
+  .top{top:20px}
+  .top img{height:17px}
+  h1{top:76px;font-size:clamp(38px,11.5vw,56px)}
+  .lede{width:auto;right:var(--pad);bottom:28px}
+  .lede p{font-size:15px;margin-bottom:18px;max-width:34ch}
+  .note{width:auto;right:var(--pad);bottom:36px}
+  :root{--hw:62vw}
+  .hole h2{font-size:clamp(17px,5vw,22px)}
+  .close .hole h2{margin-bottom:0}
+  .close .hole .cta{position:absolute;left:50%;top:calc(50% + var(--rp,170px) * 0.98);transform:translateX(-50%);white-space:nowrap}
+  .cta{padding:12px 14px;font-size:14px}
+  footer{bottom:16px;gap:14px}
+}
+@media (max-width:899px) and (max-height:700px){h1{font-size:34px}}
+</style>
+</head>
+<body>
+<canvas id="field" role="img" aria-label="A field of random characters thins out until one ring, drawn in characters, is left turning in the middle. Now and then one bright character travels in from the edge and joins the ring."></canvas>
+<noscript><pre class="still" aria-hidden="true">                       @@@@@@@@@@@@%%%%%%%%%%%%%#########*
+                   @@@@@@@@@@@%%%%%%%%###################****+
+                @@@@@@@@@@%%%%%###############*****************++
+             @@@@@@@@@%%%%###########**************************++++
+           @@@@@@@%%%%#%%#####*****++++++++++++++++++++++++*++++++++=
+         @@@@@@@%%%%%%###****+++=====------------======+++++++++++++==-
+       @@@@@@%%%%%###****++===---::::.........::::-----=====++++++++===-
+      @@@@@%%%%%###**++===--::.........     .......:::----======+++=====-
+    %@@@@%%%%###***++=--::.....                    ...::----============--
+   %@@@%%%%###**++==-::....                            .::---===========--:
+  %@@%%%%###***+==-:....                                 ::---==========--:
+  %%%%%%##**++==-:....                                    ----==========--:.
+ %%%%%###**++=--:...                                       -============--::
+#%%%%##***++=-::...                                         ============--::
+%%%%##**+++=-::...                                          ++++++++====--:.
+%%%##**+++=--:...                                           *++++++++===--:.
+####***++==-:....                                           #*****++++==--:.
+####**+++=--:...                                           ####****+++==--:.
+###**+++==--:...                                          #%%###***+++==-:.
+*#***+++==--:....                                        %%%%%###**+++=--..
+*****+++==--::....                                      %@@%%%###**++==-:.
+ ***++++===--::.:::                                   %@@@@%%%##**++==-:.
+  **++++===---:::::::                              %@@@@@@%%%%##*++==-:.
+  ++++++====------------                        %@@@@@@@@%%%%##*++==:..
+   =+++++=====-----======+++               #%@@@@@@@@@@%%%%##**++=-:.
+     =++===============++++*****#####%%%%@@@@@@@@@@@@%%%%%#***+=--..
+      ===============+++++****#####%%%%%@@@@@@@@@%%%%%%##***+=-:..
+        =============++++++****#####%%%%%%%%%%%%##%%###**++=-:..
+          --=========+++++++******##################**++=--:.
+             ---========+++++*******##########****++==-:..
+                :-----======++++++++*****++++++==--::.
+                    .:::------============---::...
+                            ..............</pre></noscript>
+
+<main>
+  <section class="hero" aria-labelledby="h">
+    <div class="top">
+      <a href="#" class="m"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo"></a>
+      <a class="in m" href="https://strapivo.app">Sign in</a>
+    </div>
+    <h1 id="h" class="m">Most of it is noise.</h1>
+    <div class="lede m">
+      <p>Strapivo is strategy software. It shows your leadership team only the news that bears on your goals.</p>
+      <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </div>
+  </section>
+
+  <section class="signal" aria-labelledby="h2a">
+    <div class="hole m"><h2 id="h2a">One signal.<br><span>Tied to a goal you named.</span></h2></div>
+    <div class="note m"><p>Strapivo reads over 4,000 sources a day. Its AI keeps what bears on a goal and says why in one line.</p><p><b>Your team decides what changes.</b></p></div>
+  </section>
+
+  <section class="close" aria-labelledby="h2b">
+    <div class="hole m">
+      <h2 id="h2b">We do the reading first.</h2>
+      <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </div>
+    <footer class="m">
+      <span>© 2026 Strapivo</span>
+      <a href="/imprint">Imprint</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </footer>
+  </section>
+</main>
+
+<script>
+(() => {
+const cvs = document.getElementById('field');
+const ctx = cvs.getContext('2d');
+const root = document.documentElement;
+const RM = matchMedia('(prefers-reduced-motion: reduce)');
+const FONT = "'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace";
+const RAMP = '.:-=+*#%@';
+const NOISE = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHJKLMNPQRSTUVWXYZ/\\|()[]{}<>?!;:,.-=+*#%&$~^';
+const GLYPHS = Array.from(new Set((RAMP + NOISE).split(''))).join('');
+const GI = {}; for (let i = 0; i < GLYPHS.length; i++) GI[GLYPHS[i]] = i;
+const RAMPI = RAMP.split('').map(c => GI[c]);
+const LEVELS = 10;          // amber alpha levels 0..9, level 10 = white hot
+const AMBER = [255, 180, 94];
+
+let W, H, dpr, fs, cw, ch, cols, rows, N, cwD, chD;
+let atlas, glow, gctx;
+let lum, zb, hot, mask, rev, nr, nch, nl, edge, colX, rowY;
+let cx, cy, Rpx, K1, K2 = 6, RT = 0.24;
+let phiN, thN, cphi, sphi, cth, sth;
+let start = 0, ready = false, running = false, last = 0;
+const sig = { on: false, t0: 0, phi: 0, sx: 0, sy: 0, trail: [] };
+let joins = [];
+let nextSig = 4.6;
+const L = (() => { const v = [-0.45, -0.55, -0.7], n = Math.hypot(...v); return v.map(x => x / n); })();
+const rnd = Math.random;
+const smooth = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+function layout() {
+  W = innerWidth; H = innerHeight;
+  dpr = Math.min(2, devicePixelRatio || 1);
+  const mobile = W < 900;
+  fs = mobile ? 13 : (W > 1700 ? 13 : 12);
+  ctx.font = `400 ${fs}px ${FONT}`;
+  cw = ctx.measureText('M').width || fs * 0.6;
+  ch = Math.round(fs * 1.25);
+  cols = Math.ceil(W / cw) + 1; rows = Math.ceil(H / ch) + 1; N = cols * rows;
+  cvs.width = Math.round(W * dpr); cvs.height = Math.round(H * dpr);
+  cvs.style.width = W + 'px'; cvs.style.height = H + 'px';
+  if (mobile) { cx = W * 0.5; cy = H * 0.52; Rpx = Math.min(W * 0.45, H * 0.27); }
+  else { cx = W * 0.6; cy = H * 0.5; Rpx = 0.36 * Math.min(H, W * 0.6); }
+  root.style.setProperty('--cx', cx + 'px'); root.style.setProperty('--cy', cy + 'px'); root.style.setProperty('--rp', Math.round(Rpx) + 'px');
+  root.style.setProperty('--hw', Math.round(Rpx * 2 * (1 - RT) / (1 + RT) * 0.84) + 'px');
+  K1 = Rpx * K2 / (1 + RT);
+  // samples
+  const step = Math.min(cw, ch);
+  phiN = Math.ceil(2 * Math.PI * Rpx / step * 2.4);
+  thN = Math.max(28, Math.ceil(2 * Math.PI * RT / (1 + RT) * Rpx / step * 2.6));
+  cphi = new Float32Array(phiN); sphi = new Float32Array(phiN);
+  for (let i = 0; i < phiN; i++) { const a = i / phiN * Math.PI * 2; cphi[i] = Math.cos(a); sphi[i] = Math.sin(a); }
+  cth = new Float32Array(thN); sth = new Float32Array(thN);
+  for (let i = 0; i < thN; i++) { const a = i / thN * Math.PI * 2; cth[i] = Math.cos(a); sth[i] = Math.sin(a); }
+  // buffers
+  lum = new Float32Array(N); zb = new Float32Array(N); hot = new Float32Array(N); mask = new Uint8Array(N);
+  rev = new Float32Array(N); nr = new Float32Array(N); nch = new Uint8Array(N); nl = new Uint8Array(N); edge = new Float32Array(N);
+  colX = new Int32Array(cols); rowY = new Int32Array(rows);
+  for (let c = 0; c < cols; c++) colX[c] = Math.round(c * cw * dpr);
+  for (let r = 0; r < rows; r++) rowY[r] = Math.round(r * ch * dpr);
+  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+    const i = r * cols + c;
+    rev[i] = rnd(); nr[i] = rnd(); nch[i] = GI[NOISE[(rnd() * NOISE.length) | 0]]; nl[i] = 1 + (rnd() * 4) | 0;
+    const dx = Math.abs((c * cw) / W - .5) * 2, dy = Math.abs((r * ch) / H - .5) * 2;
+    const d = Math.max(dx, dy);
+    edge[i] = 0.002 + 0.06 * smooth(0.72, 1.02, d);
+  }
+  // atlas
+  cwD = Math.ceil(cw * dpr) + 1; chD = Math.ceil(ch * dpr);
+  atlas = document.createElement('canvas');
+  atlas.width = cwD * GLYPHS.length; atlas.height = chD * (LEVELS + 1);
+  const a = atlas.getContext('2d');
+  a.font = `400 ${fs * dpr}px ${FONT}`; a.textBaseline = 'middle';
+  for (let l = 0; l <= LEVELS; l++) {
+    if (l === LEVELS) a.fillStyle = '#fff6e6';
+    else { const al = 0.1 + 0.9 * Math.pow(l / (LEVELS - 1), 1.15); a.fillStyle = `rgba(${AMBER[0]},${AMBER[1]},${AMBER[2]},${al.toFixed(3)})`; }
+    for (let g = 0; g < GLYPHS.length; g++) a.fillText(GLYPHS[g], g * cwD, l * chD + chD / 2);
+  }
+  glow = document.createElement('canvas');
+  glow.width = Math.max(1, Math.round(W / 6)); glow.height = Math.max(1, Math.round(H / 6));
+  gctx = glow.getContext('2d');
+}
+
+function angles(t) {
+  const sy = RM.matches ? 0 : scrollY / H;
+  return {
+    A: 0.5 + 0.2 * Math.sin(t * 0.19),
+    B: -0.22 + 0.3 * Math.sin(t * 0.13) + sy * 0.35,
+    spin: t * 0.6
+  };
+}
+
+function project(phi, th, an) {
+  const cA = Math.cos(an.A), sA = Math.sin(an.A), cB = Math.cos(an.B), sB = Math.sin(an.B);
+  const ct = Math.cos(th), st = Math.sin(th), cp = Math.cos(phi), sp = Math.sin(phi);
+  const x = (1 + RT * ct) * cp, y = (1 + RT * ct) * sp, z = RT * st;
+  const y1 = y * cA - z * sA, z1 = y * sA + z * cA;
+  const x2 = x * cB + z1 * sB, z2 = -x * sB + z1 * cB;
+  const oz = 1 / (z2 + K2);
+  return [cx + K1 * x2 * oz, cy + K1 * y1 * oz];
+}
+
+function ring(an, t) {
+  lum.fill(-1); zb.fill(0); hot.fill(0);
+  const cA = Math.cos(an.A), sA = Math.sin(an.A), cB = Math.cos(an.B), sB = Math.sin(an.B);
+  const jl = joins.map(j => ({ phi: j.phi, k: j.k }));
+  for (let p = 0; p < phiN; p++) {
+    const cp = cphi[p], sp = sphi[p];
+    const phi = p / phiN * Math.PI * 2;
+    const band = 0.06 * Math.sin(phi * 5 - an.spin);
+    let h = 0;
+    for (const j of jl) { let d = Math.abs(phi - j.phi); d = Math.min(d, 2 * Math.PI - d); if (d < 0.16) h = Math.max(h, j.k * (1 - d / 0.16)); }
+    for (let q = 0; q < thN; q++) {
+      const ct = cth[q], st = sth[q];
+      const rr = 1 + RT * ct;
+      const x = rr * cp, y = rr * sp, z = RT * st;
+      const nx = ct * cp, ny = ct * sp, nz = st;
+      const y1 = y * cA - z * sA, z1 = y * sA + z * cA;
+      const ny1 = ny * cA - nz * sA, nz1 = ny * sA + nz * cA;
+      const x2 = x * cB + z1 * sB, z2 = -x * sB + z1 * cB;
+      const nx2 = nx * cB + nz1 * sB, nz2 = -nx * sB + nz1 * cB;
+      const oz = 1 / (z2 + K2);
+      const c = ((cx + K1 * x2 * oz) / cw) | 0, r = ((cy + K1 * y1 * oz) / ch) | 0;
+      if (c < 0 || c >= cols || r < 0 || r >= rows) continue;
+      const i = r * cols + c;
+      if (oz > zb[i]) {
+        zb[i] = oz;
+        let l = nx2 * L[0] + ny1 * L[1] + nz2 * L[2];
+        l = Math.max(0.05, (l + 0.25) / 1.25 + band);
+        lum[i] = Math.min(1, l + h * 0.5);
+        hot[i] = h;
+      }
+    }
+  }
+}
+
+function buildMask() {
+  mask.fill(0);
+  document.querySelectorAll('.m').forEach(el => {
+    const b = el.getBoundingClientRect();
+    if (b.bottom < -ch || b.top > H + ch || b.width === 0) return;
+    const c0 = Math.max(0, Math.floor((b.left - cw * 1.2) / cw)), c1 = Math.min(cols - 1, Math.ceil((b.right + cw * 1.2) / cw));
+    const r0 = Math.max(0, Math.floor((b.top - ch * 0.6) / ch)), r1 = Math.min(rows - 1, Math.ceil((b.bottom + ch * 0.4) / ch));
+    for (let r = r0; r <= r1; r++) mask.fill(1, r * cols + c0, r * cols + c1 + 1);
+  });
+}
+
+function put(g, l, i) {
+  const c = i % cols, r = (i / cols) | 0;
+  ctx.drawImage(atlas, g * cwD, l * chD, cwD, chD, colX[c], rowY[r], cwD, chD);
+}
+
+function signalStep(t, an, still) {
+  // spawn
+  if (!sig.on && !still && t > nextSig) spawn(t, an);
+  if (!sig.on) return;
+  const e = t - sig.t0;
+  const [tx, ty] = project(sig.phi, 0, an);
+  const WAIT = 1.6, MOVE = 2.6;
+  let x = sig.sx, y = sig.sy, lvl;
+  if (e < WAIT) { lvl = Math.min(LEVELS, 3 + Math.floor(e / WAIT * 8)); if (!still && (Math.floor(e * 9) % 3 === 0) && e < WAIT * .6) lvl = 2; }
+  else if (e < WAIT + MOVE) { const k = ease((e - WAIT) / MOVE); x = sig.sx + (tx - sig.sx) * k; y = sig.sy + (ty - sig.sy) * k; lvl = LEVELS; }
+  else { sig.on = false; joins.push({ phi: sig.phi, t0: t, k: 1 }); nextSig = t + 5 + rnd() * 4; return; }
+  const c = Math.min(cols - 1, Math.max(0, Math.round(x / cw))), r = Math.min(rows - 1, Math.max(0, Math.round(y / ch)));
+  const i = r * cols + c;
+  const tr = sig.trail;
+  if (!tr.length || tr[tr.length - 1] !== i) { tr.push(i); if (tr.length > 26) tr.shift(); }
+  for (let k = 0; k < tr.length - 1; k++) { const j = tr[k]; if (!mask[j] && lum[j] < 0) { const f = (k + 1) / tr.length; put(GI[RAMP[Math.min(7, (f * 8) | 0)]], f > 0.86 ? LEVELS : Math.max(1, Math.round(f * 9)), j); }; }
+  if (!mask[i]) put(GI[e < WAIT ? sig.ch : '@'], lvl, i);
+}
+
+function spawn(t, an) {
+  for (let tries = 0; tries < 12; tries++) {
+    const phi = rnd() * Math.PI * 2;
+    const [tx, ty] = project(phi, 0, an);
+    const dx = tx - cx, dy = ty - cy, d = Math.hypot(dx, dy) || 1;
+    const ux = dx / d, uy = dy / d;
+    const kx = ux > 0 ? (W - cw * 2 - cx) / ux : ux < 0 ? (cw * 2 - cx) / ux : 1e9;
+    const ky = uy > 0 ? (H - ch * 2 - cy) / uy : uy < 0 ? (ch * 2 - cy) / uy : 1e9;
+    const k = Math.min(kx, ky) * (0.86 + rnd() * 0.1);
+    const sx = cx + ux * k, sy = cy + uy * k;
+    const c = Math.round(sx / cw), r = Math.round(sy / ch);
+    if (c < 0 || r < 0 || c >= cols || r >= rows || mask[r * cols + c]) continue;
+    if (Math.hypot(sx - tx, sy - ty) < Rpx * 0.35) continue;
+    Object.assign(sig, { on: true, t0: t, phi, sx, sy, trail: [], ch: NOISE[(rnd() * 26) | 0] });
+    return;
+  }
+  nextSig = t + 1;
+}
+
+function draw(t, clarity, still) {
+  const an = angles(t);
+  joins = joins.filter(j => (j.k = Math.max(0, 1 - (t - j.t0) / 4)) > 0);
+  ring(an, t);
+  buildMask();
+  ctx.clearRect(0, 0, cvs.width, cvs.height);
+  const noiseP = Math.pow(1 - clarity, 1.6) * 0.92;
+  if (!still) {
+    // re-roll a slice of the noise each frame: that is the flicker
+    const n = (N * (0.05 + 0.25 * (1 - clarity))) | 0;
+    for (let k = 0; k < n; k++) {
+      const i = (rnd() * N) | 0;
+      nr[i] = rnd(); nch[i] = GI[NOISE[(rnd() * NOISE.length) | 0]]; nl[i] = 1 + (rnd() * 4) | 0;
+    }
+  }
+  for (let i = 0; i < N; i++) {
+    if (mask[i]) continue;
+    const l = lum[i];
+    if (l >= 0) {
+      if (rev[i] < clarity) {
+        const gi = RAMPI[Math.min(RAMP.length - 1, (l * RAMP.length) | 0)];
+        let lv = Math.min(LEVELS - 1, 1 + Math.round(Math.pow(l, 1.35) * (LEVELS - 2)));
+        if (hot[i] > 0.55) lv = LEVELS;
+        put(gi, lv, i);
+      } else put(nch[i], Math.min(LEVELS - 1, nl[i] + 3), i);
+      continue;
+    }
+    if (nr[i] < noiseP + edge[i]) put(nch[i], nl[i], i);
+  }
+  signalStep(t, an, still);
+  // phosphor bloom: draw a small copy back on top, blurred by upscaling
+  gctx.clearRect(0, 0, glow.width, glow.height);
+  gctx.drawImage(cvs, 0, 0, glow.width, glow.height);
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = 0.55; ctx.imageSmoothingEnabled = true;
+  ctx.drawImage(glow, 0, 0, cvs.width, cvs.height); ctx.restore();
+}
+
+function stillFrame() {
+  joins = [];
+  // a composed still: clean ring, thin scatter, one signal on its way in
+  const an = angles(0);
+  if (!sig.on) {
+    const mob = W < 900;
+    sig.on = true; sig.phi = mob ? -1.15 : -0.3; sig.trail = []; sig.ch = 'k';
+    sig.sx = mob ? W - cw * 2.5 : W - cw * 5;
+    sig.sy = mob ? cy - Rpx * 1.25 : cy - Rpx * 1.15;
+  }
+  // replay the trail into a frozen position
+  sig.trail = [];
+  for (let e = 0; e <= 0.56; e += 0.01) {
+    const kk = ease(e); const [tx, ty] = project(sig.phi, 0, an);
+    const x = sig.sx + (tx - sig.sx) * kk, y = sig.sy + (ty - sig.sy) * kk;
+    const i = Math.round(y / ch) * cols + Math.round(x / cw);
+    if (sig.trail[sig.trail.length - 1] !== i) sig.trail.push(i);
+  }
+  sig.trail = sig.trail.slice(-26);
+  sig.t0 = -(1.6 + 2.6 * 0.56);
+  draw(0, 1, true);
+}
+
+function tick() {
+  if (!running) return;
+  requestAnimationFrame(tick);
+  const now = performance.now();
+  if (now - last < 33) return;   // about 30 frames a second is honest for type
+  last = now;
+  const t = (now - start) / 1000;
+  const byTime = smooth(0.2, 3.4, t);
+  const byScroll = Math.min(1, scrollY / (H * 0.35));
+  draw(t, Math.max(byTime, byScroll), false);
+}
+
+function play() {
+  if (RM.matches || document.hidden || running) return;
+  running = true; requestAnimationFrame(tick);
+}
+function stop() { running = false; }
+
+let rz;
+function refresh() {
+  layout();
+  if (RM.matches) { sig.on = false; stillFrame(); }
+}
+addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(refresh, 120); });
+document.addEventListener('visibilitychange', () => document.hidden ? stop() : play());
+let sq = false;
+addEventListener('scroll', () => {
+  if (!RM.matches || sq) return; sq = true;
+  requestAnimationFrame(() => { sq = false; stillFrame(); });
+}, { passive: true });
+RM.addEventListener && RM.addEventListener('change', () => { stop(); refresh(); play(); });
+
+// a signal when the visitor reaches the middle section
+const mid = document.querySelector('.signal');
+new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting && !sig.on && running) nextSig = Math.min(nextSig, (performance.now() - start) / 1000 + 0.3);
+}), { threshold: 0.6 }).observe(mid);
+
+const fontsIn = document.fonts ? Promise.race([document.fonts.load(`400 12px 'JetBrains Mono'`), new Promise(r => setTimeout(r, 900))]) : Promise.resolve();
+layout();
+fontsIn.then(() => {
+  layout();
+  start = performance.now();
+  if (RM.matches) stillFrame(); else play();
+});
+})();
+</script>
+</body>
+</html>
