@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo. One group Ambition across every business model.</title>
+<meta name="description" content="Strapivo is the Strategic Design System for leadership teams running multiple business models. Hold one group Ambition, scope risks to the whole portfolio or one business model, and run weekly 60-minute decisions.">
+<link rel="icon" type="image/svg+xml" href="../../assets/logo/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face{
+  font-family:'Inter';
+  src:url('../../fonts/Inter-Regular.otf') format('opentype');
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Inter';
+  src:url('../../fonts/Inter-Medium.otf') format('opentype');
+  font-weight:500;
+  font-style:normal;
+  font-display:swap;
+}
+
+:root{
+  --ink:#141B24;
+  --slate:#1B2531;
+  --steel:#4E6E8E;
+  --steel-deep:#3B5672;
+  --steel-soft:#EEF3F8;
+  --n900:#050C14;
+  --n700:#2C343C;
+  --n600:#495158;
+  --n500:#5A626A;
+  --n400:#999FA6;
+  --n200:#E1E5EA;
+  --n100:#EFF2F6;
+  --paper:#F6F9FB;
+  --white:#FFFFFF;
+  --sky:#EEF6FF;
+  --sky2:#D4EBFF;
+  --p200:#A9D6FF;
+  --p400:#3FA0FA;
+  --p500:#0082E6;
+  --p600:#006FD1;
+  --p700:#005DBD;
+  --green-dot:#1A7F4B;
+  --green-bg:#E7F5EE;
+  --green-ink:#135733;
+  --amber-dot:#C9820A;
+  --amber-bg:#FEF5E2;
+  --amber-ink:#754B00;
+  --red-dot:#C83232;
+  --red-bg:#FDECEC;
+  --red-ink:#8C1B1B;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --max:1160px;
+  --radius:6px;
+  --radius-sm:4px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.58;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  font-feature-settings:"ss01","cv11";
+  overflow-x:clip;
+}
+figure{margin:0}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+:focus-visible{
+  outline:2px solid var(--p500);
+  outline-offset:3px;
+  border-radius:3px;
+}
+
+.skip-link{
+  position:absolute;
+  left:-9999px;
+  top:0;
+  background:var(--ink);
+  color:var(--white);
+  padding:12px 18px;
+  font-size:14px;
+  z-index:100;
+}
+.skip-link:focus{left:16px;top:16px}
+
+.container{
+  width:100%;
+  max-width:var(--max);
+  margin:0 auto;
+  padding:0 28px;
+}
+
+.mono{
+  font-family:var(--mono);
+  font-size:12px;
+  line-height:1.4;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  font-weight:500;
+}
+
+/* Header */
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(246,249,251,0.96);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--n200);
+}
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  min-height:66px;
+}
+.brand-link{
+  display:inline-flex;
+  align-items:center;
+  min-height:44px;
+  padding:6px 0;
+}
+.brand-logo{
+  height:24px;
+  width:auto;
+}
+.header-nav{
+  display:flex;
+  align-items:center;
+  gap:28px;
+}
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:24px;
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.nav-links a{
+  font-size:14px;
+  font-weight:500;
+  color:var(--n600);
+  padding:10px 2px;
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+  transition:color 0.18s ease;
+}
+.nav-links a:hover{color:var(--ink)}
+.btn-signin{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:0 18px;
+  font-size:14px;
+  font-weight:500;
+  color:var(--ink);
+  border:1px solid var(--n200);
+  border-radius:var(--radius-sm);
+  background:var(--white);
+  transition:border-color 0.18s ease,background-color 0.18s ease;
+}
+.btn-signin:hover{
+  border-color:var(--ink);
+  background:var(--n100);
+}
+
+/* Primary button */
+.btn-primary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:48px;
+  padding:0 24px;
+  background:var(--p600);
+  color:var(--white);
+  font-size:15px;
+  font-weight:500;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--p600);
+  transition:background-color 0.18s ease,border-color 0.18s ease,transform 0.18s ease;
+}
+.btn-primary:hover{
+  background:var(--p700);
+  border-color:var(--p700);
+}
+.btn-primary:active{transform:translateY(1px)}
+.btn-primary svg{flex-shrink:0}
+
+/* Hero */
+.hero{
+  padding:36px 0 52px;
+  background:var(--paper);
+}
+.hero-top{
+  display:grid;
+  grid-template-columns:minmax(0,1.22fr) minmax(0,0.9fr);
+  gap:40px;
+  align-items:end;
+  margin-bottom:30px;
+}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  color:var(--p700);
+  margin-bottom:12px;
+}
+.eyebrow-rule{
+  width:20px;
+  height:1px;
+  background:var(--p500);
+}
+h1{
+  margin:0;
+  font-size:42px;
+  line-height:1.1;
+  letter-spacing:-0.028em;
+  font-weight:500;
+  color:var(--ink);
+  max-width:20ch;
+}
+.hero-copy-col{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  align-items:flex-start;
+  padding-bottom:2px;
+}
+.hero-lead{
+  margin:0;
+  font-size:17px;
+  line-height:1.56;
+  color:var(--n700);
+  max-width:46ch;
+}
+.hero-actions{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:16px;
+}
+.hero-note{
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--n500);
+  letter-spacing:0.04em;
+}
+
+/* Drawing 1: Portfolio Scope Diagram */
+.portfolio-diagram{
+  background:var(--white);
+  border:1px solid var(--n200);
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:0 8px 28px rgba(20,27,36,0.05);
+}
+.ambition-bar{
+  background:var(--slate);
+  color:var(--white);
+  padding:17px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.ambition-main{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.ambition-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--p200);
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  font-weight:500;
+}
+.ambition-divider{
+  width:1px;
+  height:16px;
+  background:rgba(255,255,255,0.22);
+}
+.ambition-target{
+  font-size:18px;
+  font-weight:500;
+  letter-spacing:-0.015em;
+  color:var(--white);
+}
+.ambition-meta{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:#C4D1DE;
+}
+
+.scope-controls{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+  padding:10px 24px;
+  background:var(--paper);
+  border-bottom:1px solid var(--n200);
+}
+.scope-controls-label{
+  color:var(--n600);
+}
+.scope-filter-group{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.scope-btn{
+  min-height:36px;
+  padding:0 13px;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--n200);
+  background:var(--white);
+  font-size:13px;
+  font-weight:500;
+  color:var(--n700);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  transition:background-color 0.15s ease,border-color 0.15s ease,color 0.15s ease;
+}
+.scope-btn:hover{border-color:var(--ink)}
+.scope-btn[aria-pressed="true"]{
+  background:var(--ink);
+  border-color:var(--ink);
+  color:var(--white);
+}
+.swatch{
+  width:9px;
+  height:9px;
+  border-radius:2px;
+  flex-shrink:0;
+}
+.swatch-azure{background:var(--p500)}
+.swatch-steel{background:var(--steel)}
+
+.portfolio-canvas{
+  position:relative;
+  background:var(--white);
+}
+.bm-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  border-bottom:1px solid var(--n200);
+}
+.bm-col{
+  padding:18px 24px;
+  border-right:1px solid var(--n200);
+  transition:background-color 0.2s ease,opacity 0.2s ease;
+}
+.bm-col:last-child{border-right:0}
+.bm-index{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:6px;
+}
+.bm-code{
+  color:var(--steel-deep);
+}
+.bm-focus-count{
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--n600);
+}
+.bm-name{
+  margin:0 0 11px;
+  font-size:20px;
+  font-weight:500;
+  letter-spacing:-0.015em;
+  color:var(--ink);
+}
+.bm-lights{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  font-size:13px;
+  color:var(--n600);
+}
+.light-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:3px 8px;
+  border-radius:3px;
+  font-size:12px;
+  font-weight:500;
+  font-family:var(--mono);
+}
+.light-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+}
+.light-green{background:var(--green-bg);color:var(--green-ink)}
+.light-green .light-dot{background:var(--green-dot)}
+.light-amber{background:var(--amber-bg);color:var(--amber-ink)}
+.light-amber .light-dot{background:var(--amber-dot)}
+.light-red{background:var(--red-bg);color:var(--red-ink)}
+.light-red .light-dot{background:var(--red-dot)}
+
+.ribbon-zone{
+  position:relative;
+  background:
+    linear-gradient(to right,
+      transparent calc(33.333% - 1px),
+      var(--n200) calc(33.333% - 1px),
+      var(--n200) 33.333%,
+      transparent 33.333%,
+      transparent calc(66.666% - 1px),
+      var(--n200) calc(66.666% - 1px),
+      var(--n200) 66.666%,
+      transparent 66.666%
+    );
+  padding:16px 0 20px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.ribbon-row{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:stretch;
+  padding:0 16px;
+  gap:16px;
+}
+.risk-ribbon{
+  border-radius:var(--radius-sm);
+  padding:13px 18px;
+  color:var(--white);
+  transition:opacity 0.2s ease,box-shadow 0.2s ease;
+}
+.ribbon-portfolio{
+  grid-column:1 / 4;
+  background:var(--p600);
+  border-left:4px solid var(--slate);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.ribbon-single{
+  grid-column:2 / 3;
+  background:var(--steel);
+  border-left:4px solid var(--slate);
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+.ribbon-empty-guide{
+  border:1px dashed var(--n200);
+  border-radius:var(--radius-sm);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px;
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--n500);
+  background:rgba(246,249,251,0.65);
+}
+.ribbon-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.ribbon-id{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.06em;
+  padding:2px 7px;
+  border-radius:3px;
+  background:rgba(255,255,255,0.18);
+  color:var(--white);
+}
+.ribbon-title{
+  font-size:15px;
+  font-weight:500;
+  color:var(--white);
+}
+.ribbon-scope{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.92);
+}
+.mobile-span-bar{
+  display:none;
+}
+
+/* Interactive filter states (all visible at full contrast by default) */
+.portfolio-diagram[data-filter="portfolio"] .ribbon-single,
+.portfolio-diagram[data-filter="portfolio"] .ribbon-empty-guide{
+  opacity:0.35;
+}
+.portfolio-diagram[data-filter="portfolio"] .bm-col{
+  background:var(--sky);
+}
+.portfolio-diagram[data-filter="single"] .ribbon-portfolio{
+  opacity:0.35;
+}
+.portfolio-diagram[data-filter="single"] .bm-col[data-unit="equipment"],
+.portfolio-diagram[data-filter="single"] .bm-col[data-unit="digital"]{
+  opacity:0.45;
+}
+.portfolio-diagram[data-filter="single"] .bm-col[data-unit="service"]{
+  background:var(--steel-soft);
+}
+
+.diagram-caption{
+  padding:11px 24px;
+  border-top:1px solid var(--n200);
+  background:var(--paper);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+  font-size:13px;
+  color:var(--n600);
+}
+
+/* Section base */
+section.band{
+  padding:74px 0;
+}
+section.band-white{
+  background:var(--white);
+  border-top:1px solid var(--n200);
+  border-bottom:1px solid var(--n200);
+}
+section.band-paper{
+  background:var(--paper);
+}
+.section-header{
+  max-width:64ch;
+  margin-bottom:38px;
+}
+.section-header .mono{
+  color:var(--p700);
+  margin-bottom:10px;
+  display:block;
+}
+h2{
+  margin:0 0 12px;
+  font-size:34px;
+  line-height:1.15;
+  letter-spacing:-0.024em;
+  font-weight:500;
+  color:var(--ink);
+}
+.section-lead{
+  margin:0;
+  font-size:17px;
+  line-height:1.58;
+  color:var(--n600);
+}
+
+/* Section 1: Architectural 2-column fracture ledger */
+.fracture-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  border-top:2px solid var(--slate);
+  border-bottom:1px solid var(--n200);
+}
+.fracture-cell{
+  padding:28px 34px 30px;
+  border-right:1px solid var(--n200);
+}
+.fracture-cell:first-child{padding-left:0}
+.fracture-cell:last-child{border-right:0;padding-right:0}
+.fracture-num{
+  display:inline-block;
+  color:var(--steel-deep);
+  margin-bottom:10px;
+}
+.fracture-cell h3{
+  margin:0 0 9px;
+  font-size:21px;
+  line-height:1.25;
+  letter-spacing:-0.015em;
+  font-weight:500;
+  color:var(--ink);
+}
+.fracture-cell p{
+  margin:0;
+  font-size:16px;
+  line-height:1.6;
+  color:var(--n600);
+  max-width:52ch;
+}
+.quote-bar{
+  margin-top:24px;
+  padding:16px 22px;
+  background:var(--paper);
+  border-left:3px solid var(--p500);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.quote-text{
+  margin:0;
+  font-size:17px;
+  font-weight:500;
+  color:var(--ink);
+}
+.quote-source{
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--n500);
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+}
+
+/* Drawing 2: Governance & Escalation Strip */
+.gov-strip{
+  background:var(--white);
+  border:1px solid var(--n200);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.gov-head{
+  padding:14px 24px;
+  background:var(--slate);
+  color:var(--white);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.gov-head-title{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--p200);
+}
+.gov-head-tag{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:#C4D1DE;
+}
+.gov-steps{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+.gov-step{
+  padding:22px 22px 24px;
+  border-right:1px solid var(--n200);
+  border-top:3px solid transparent;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.gov-step:last-child{border-right:0}
+.gov-step-unit{border-top-color:var(--steel)}
+.gov-step-move{border-top-color:var(--p500)}
+.gov-step-esc{border-top-color:var(--slate)}
+.gov-step-board{border-top-color:var(--ink)}
+.gov-step-label{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.gov-step-num{
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--n500);
+}
+.gov-step-tag{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  font-weight:500;
+}
+.gov-step-unit .gov-step-tag{color:var(--steel-deep)}
+.gov-step-move .gov-step-tag{color:var(--p700)}
+.gov-step-esc .gov-step-tag{color:var(--slate)}
+.gov-step-board .gov-step-tag{color:var(--ink)}
+.gov-step h3{
+  margin:0;
+  font-size:18px;
+  line-height:1.25;
+  letter-spacing:-0.015em;
+  font-weight:500;
+  color:var(--ink);
+}
+.gov-step p{
+  margin:0;
+  font-size:15px;
+  line-height:1.54;
+  color:var(--n600);
+}
+.gov-routes{
+  border-top:1px solid var(--n200);
+  background:var(--paper);
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.gov-route{
+  padding:15px 24px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  border-right:1px solid var(--n200);
+}
+.gov-route:last-child{border-right:0}
+.route-badge{
+  flex-shrink:0;
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  padding:4px 9px;
+  border-radius:3px;
+  color:var(--white);
+}
+.route-badge-azure{background:var(--p600)}
+.route-badge-steel{background:var(--steel)}
+.route-copy{
+  font-size:14px;
+  line-height:1.45;
+  color:var(--n700);
+}
+.route-copy strong{font-weight:500;color:var(--ink)}
+
+/* Section 3: Shared Cadence + Drawing 3 Decision Record */
+.cadence-split{
+  display:grid;
+  grid-template-columns:minmax(0,1.02fr) minmax(0,0.98fr);
+  gap:44px;
+  align-items:start;
+}
+.cadence-list{
+  list-style:none;
+  margin:0 0 22px;
+  padding:0;
+  border-top:1px solid var(--n200);
+}
+.cadence-item{
+  padding:16px 0;
+  border-bottom:1px solid var(--n200);
+  display:grid;
+  grid-template-columns:132px minmax(0,1fr);
+  gap:16px;
+  align-items:baseline;
+}
+.cadence-time{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--p700);
+  font-weight:500;
+}
+.cadence-body h3{
+  margin:0 0 5px;
+  font-size:18px;
+  font-weight:500;
+  letter-spacing:-0.015em;
+  color:var(--ink);
+}
+.cadence-body p{
+  margin:0;
+  font-size:16px;
+  line-height:1.55;
+  color:var(--n600);
+}
+.options-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.option-chip{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.04em;
+  padding:6px 11px;
+  border:1px solid var(--n200);
+  border-radius:var(--radius-sm);
+  background:var(--paper);
+  color:var(--ink);
+}
+.option-chip-active{
+  border-color:var(--p600);
+  background:var(--sky);
+  color:var(--p700);
+}
+
+/* Drawing 3: Decision Record Card */
+.decision-card{
+  background:var(--paper);
+  border:1px solid var(--n200);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.decision-card-head{
+  background:var(--ink);
+  color:var(--white);
+  padding:15px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.decision-id{
+  font-family:var(--mono);
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:0.06em;
+  color:var(--white);
+}
+.decision-example{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--p200);
+}
+.decision-body{
+  padding:20px 22px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.decision-meta-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.decision-scope-badge{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  padding:4px 9px;
+  border-radius:3px;
+  background:var(--p600);
+  color:var(--white);
+}
+.decision-outcome-badge{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  padding:4px 9px;
+  border-radius:3px;
+  background:var(--white);
+  border:1px solid var(--ink);
+  color:var(--ink);
+}
+.decision-title{
+  margin:0;
+  font-size:19px;
+  line-height:1.3;
+  letter-spacing:-0.015em;
+  font-weight:500;
+  color:var(--ink);
+}
+.decision-rows{
+  display:flex;
+  flex-direction:column;
+  border-top:1px solid var(--n200);
+}
+.decision-row{
+  padding:11px 0;
+  border-bottom:1px solid var(--n200);
+  display:grid;
+  grid-template-columns:102px minmax(0,1fr);
+  gap:12px;
+  font-size:14px;
+  line-height:1.48;
+}
+.decision-row:last-child{border-bottom:0;padding-bottom:0}
+.decision-key{
+  font-family:var(--mono);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  color:var(--n500);
+}
+.decision-val{color:var(--ink)}
+.dissent-box{
+  background:var(--white);
+  border:1px solid var(--n200);
+  border-left:3px solid var(--steel);
+  border-radius:var(--radius-sm);
+  padding:12px 14px;
+  font-size:14px;
+  line-height:1.48;
+  color:var(--n700);
+}
+.dissent-label{
+  display:block;
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--steel-deep);
+  margin-bottom:4px;
+}
+
+/* Section 4: Trust and onboarding */
+.trust-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  border:1px solid var(--n200);
+  border-radius:var(--radius);
+  background:var(--white);
+  overflow:hidden;
+}
+.trust-panel{
+  padding:32px 34px;
+  border-right:1px solid var(--n200);
+}
+.trust-panel:last-child{border-right:0}
+.trust-panel .mono{
+  color:var(--steel-deep);
+  display:block;
+  margin-bottom:10px;
+}
+.trust-panel h3{
+  margin:0 0 12px;
+  font-size:23px;
+  line-height:1.2;
+  letter-spacing:-0.02em;
+  font-weight:500;
+  color:var(--ink);
+}
+.trust-panel p{
+  margin:0 0 16px;
+  font-size:16px;
+  line-height:1.58;
+  color:var(--n600);
+}
+.trust-points{
+  list-style:none;
+  margin:0;
+  padding:15px 0 0;
+  border-top:1px solid var(--n200);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.trust-points li{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  font-size:15px;
+  line-height:1.5;
+  color:var(--ink);
+}
+.trust-marker{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--p500);
+  margin-top:8px;
+  flex-shrink:0;
+}
+
+/* Section 5: Closing CTA & Footer */
+.closing-band{
+  background:var(--slate);
+  color:var(--white);
+  padding:70px 0 66px;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.closing-inner{
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(0,0.75fr);
+  gap:40px;
+  align-items:center;
+}
+.closing-band .mono{
+  color:var(--p200);
+  display:block;
+  margin-bottom:10px;
+}
+.closing-band h2{
+  color:var(--white);
+  margin-bottom:12px;
+  max-width:20ch;
+}
+.closing-band p{
+  margin:0;
+  font-size:17px;
+  line-height:1.58;
+  color:#D1DBE5;
+  max-width:46ch;
+}
+.closing-cta-col{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:12px;
+  padding-left:36px;
+  border-left:1px solid rgba(255,255,255,0.16);
+}
+.btn-closing{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:50px;
+  padding:0 26px;
+  background:var(--white);
+  color:var(--ink);
+  font-size:15px;
+  font-weight:500;
+  border-radius:var(--radius-sm);
+  transition:background-color 0.18s ease,transform 0.18s ease;
+}
+.btn-closing:hover{background:var(--sky)}
+.btn-closing:active{transform:translateY(1px)}
+.closing-email{
+  font-family:var(--mono);
+  font-size:13px;
+  color:#C4D1DE;
+  letter-spacing:0.03em;
+}
+
+.site-footer{
+  background:var(--ink);
+  color:#C4D1DE;
+  border-top:1px solid rgba(255,255,255,0.1);
+  padding:24px 0;
+}
+.footer-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.footer-left{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  flex-wrap:wrap;
+}
+.footer-logo{
+  height:20px;
+  width:auto;
+}
+.footer-copy{
+  font-size:14px;
+  color:#C4D1DE;
+}
+.footer-links{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.footer-links a{
+  font-size:14px;
+  color:#C4D1DE;
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+  transition:color 0.18s ease;
+}
+.footer-links a:hover{color:var(--white)}
+
+/* Responsive */
+@media (max-width:1024px){
+  h1{font-size:36px;max-width:22ch}
+  .hero-top{grid-template-columns:1fr;gap:18px;align-items:start}
+  .gov-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .gov-step{border-bottom:1px solid var(--n200)}
+  .gov-step:nth-child(2n){border-right:0}
+  .cadence-split{grid-template-columns:1fr;gap:28px}
+  .closing-inner{grid-template-columns:1fr;gap:24px}
+  .closing-cta-col{padding-left:0;border-left:0;padding-top:18px;border-top:1px solid rgba(255,255,255,0.16)}
+}
+
+@media (max-width:768px){
+  body{font-size:16px}
+  .container{padding:0 16px}
+  .nav-links{display:none}
+  .header-inner{min-height:60px}
+  .brand-logo{height:22px}
+
+  .hero{padding:22px 0 34px}
+  h1{font-size:30px;line-height:1.12;letter-spacing:-0.025em}
+  .hero-lead{font-size:16px}
+  .hero-top{margin-bottom:20px}
+
+  .ambition-bar{padding:14px 16px;gap:8px}
+  .ambition-target{font-size:16px}
+  .ambition-divider{display:none}
+  .scope-controls{padding:10px 14px;gap:8px}
+  .scope-btn{min-height:44px;padding:0 11px;font-size:13px}
+
+  .bm-grid{grid-template-columns:1fr}
+  .bm-col{
+    padding:12px 14px;
+    border-right:0;
+    border-bottom:1px solid var(--n200);
+  }
+  .bm-col:last-child{border-bottom:0}
+  .bm-index{margin-bottom:4px}
+  .bm-name{font-size:17px;margin-bottom:7px}
+
+  .ribbon-zone{
+    background:var(--white);
+    padding:12px 14px 14px;
+    gap:10px;
+  }
+  .ribbon-row{
+    display:block;
+    padding:0;
+  }
+  .ribbon-empty-guide{display:none}
+  .ribbon-portfolio,.ribbon-single{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:6px;
+    padding:12px 14px;
+  }
+  .mobile-span-bar{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:6px;
+    width:100%;
+    margin-top:4px;
+  }
+  .span-seg{
+    font-family:var(--mono);
+    font-size:12px;
+    text-align:center;
+    padding:4px 4px;
+    border-radius:3px;
+    background:rgba(255,255,255,0.2);
+    color:var(--white);
+  }
+  .span-seg-off{
+    background:transparent;
+    border:1px dashed rgba(255,255,255,0.45);
+    color:rgba(255,255,255,0.75);
+  }
+  .diagram-caption{padding:10px 14px;gap:6px}
+
+  section.band{padding:42px 0}
+  .section-header{margin-bottom:24px}
+  h2{font-size:25px;line-height:1.18}
+  .section-lead{font-size:16px}
+
+  .fracture-grid{grid-template-columns:1fr}
+  .fracture-cell{
+    padding:16px 0;
+    border-right:0;
+    border-bottom:1px solid var(--n200);
+  }
+  .fracture-cell:last-child{border-bottom:0}
+  .quote-bar{margin-top:18px;padding:14px 16px;gap:8px}
+
+  .gov-head{padding:12px 14px}
+  .gov-steps{grid-template-columns:1fr}
+  .gov-step{padding:15px 14px;border-right:0;gap:6px}
+  .gov-routes{grid-template-columns:1fr}
+  .gov-route{padding:12px 14px;border-right:0;border-bottom:1px solid var(--n200)}
+  .gov-route:last-child{border-bottom:0}
+
+  .cadence-item{grid-template-columns:1fr;gap:4px;padding:12px 0}
+  .decision-card-head{padding:12px 14px}
+  .decision-body{padding:14px;gap:12px}
+  .decision-row{grid-template-columns:1fr;gap:2px;padding:9px 0}
+
+  .trust-grid{grid-template-columns:1fr}
+  .trust-panel{padding:20px 16px;border-right:0;border-bottom:1px solid var(--n200)}
+  .trust-panel:last-child{border-bottom:0}
+  .trust-panel h3{font-size:20px}
+
+  .closing-band{padding:42px 0}
+  .site-footer{padding:18px 0}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none !important}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand-link" href="#" aria-label="Strapivo home">
+      <img class="brand-logo" src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="96" height="24">
+    </a>
+    <nav class="header-nav" aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="#fracture">Portfolio</a></li>
+        <li><a href="#governance">Governance</a></li>
+        <li><a href="#cadence">Cadence</a></li>
+        <li><a href="#trust">Trust</a></li>
+      </ul>
+      <a class="btn-signin" href="https://strapivo.app">Sign in</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container">
+      <div class="hero-top">
+        <div>
+          <span class="mono eyebrow"><span class="eyebrow-rule" aria-hidden="true"></span>Dynamic Strategy for multi-model groups</span>
+          <h1 id="hero-title">One group Ambition. Every business model watched on its own terms.</h1>
+        </div>
+        <div class="hero-copy-col">
+          <p class="hero-lead">Strapivo is the Strategic Design System for leadership teams running multiple business models under one group Ambition. Scope every risk to the whole portfolio or a single business model, and make weekly 60-minute decisions.</p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="mailto:strategy@strapivo.com">
+              <span>Start the conversation</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <span class="hero-note">strategy@strapivo.com</span>
+          </div>
+        </div>
+      </div>
+
+      <figure class="portfolio-diagram" id="portfolio-diagram" data-filter="all">
+        <div class="ambition-bar">
+          <div class="ambition-main">
+            <span class="ambition-tag">
+              <svg width="14" height="14" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+                <circle cx="50" cy="50" r="40" stroke="#3FA0FA" stroke-width="11"/>
+              </svg>
+              Portfolio Ambition
+            </span>
+            <span class="ambition-divider" aria-hidden="true"></span>
+            <span class="ambition-target">€420M revenue at 14% margin by 2029</span>
+          </div>
+          <span class="ambition-meta">Illustrative example · Nordkapp Group</span>
+        </div>
+
+        <div class="scope-controls">
+          <span class="mono scope-controls-label">Risk scope view</span>
+          <div class="scope-filter-group" role="group" aria-label="Filter risk scope">
+            <button type="button" class="scope-btn" data-scope="all" aria-pressed="true">All</button>
+            <button type="button" class="scope-btn" data-scope="portfolio" aria-pressed="false">
+              <span class="swatch swatch-azure" aria-hidden="true"></span>Whole portfolio
+            </button>
+            <button type="button" class="scope-btn" data-scope="single" aria-pressed="false">
+              <span class="swatch swatch-steel" aria-hidden="true"></span>Single model
+            </button>
+          </div>
+        </div>
+
+        <div class="portfolio-canvas">
+          <div class="bm-grid">
+            <div class="bm-col" data-unit="equipment">
+              <div class="bm-index">
+                <span class="mono bm-code">Business model 01</span>
+                <span class="bm-focus-count">3 focus criteria</span>
+              </div>
+              <p class="bm-name">Equipment Division</p>
+              <div class="bm-lights">
+                <span class="light-pill light-green"><span class="light-dot" aria-hidden="true"></span>2 green</span>
+                <span class="light-pill light-amber"><span class="light-dot" aria-hidden="true"></span>1 yellow</span>
+              </div>
+            </div>
+
+            <div class="bm-col" data-unit="service">
+              <div class="bm-index">
+                <span class="mono bm-code">Business model 02</span>
+                <span class="bm-focus-count">4 focus criteria</span>
+              </div>
+              <p class="bm-name">Service &amp; Retrofit</p>
+              <div class="bm-lights">
+                <span class="light-pill light-green"><span class="light-dot" aria-hidden="true"></span>2 green</span>
+                <span class="light-pill light-amber"><span class="light-dot" aria-hidden="true"></span>1 yellow</span>
+                <span class="light-pill light-red"><span class="light-dot" aria-hidden="true"></span>1 red</span>
+              </div>
+            </div>
+
+            <div class="bm-col" data-unit="digital">
+              <div class="bm-index">
+                <span class="mono bm-code">Business model 03</span>
+                <span class="bm-focus-count">2 focus criteria</span>
+              </div>
+              <p class="bm-name">Digital Fleet</p>
+              <div class="bm-lights">
+                <span class="light-pill light-green"><span class="light-dot" aria-hidden="true"></span>2 green</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ribbon-zone">
+            <div class="ribbon-row">
+              <div class="risk-ribbon ribbon-portfolio">
+                <div class="ribbon-head">
+                  <span class="ribbon-id">Risk R-01</span>
+                  <span class="ribbon-title">EU carbon tariff</span>
+                </div>
+                <span class="ribbon-scope">Scope: Whole portfolio</span>
+                <div class="mobile-span-bar" aria-hidden="true">
+                  <span class="span-seg">Equipment</span>
+                  <span class="span-seg">Service</span>
+                  <span class="span-seg">Digital</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ribbon-row">
+              <div class="ribbon-empty-guide" aria-hidden="true"></div>
+              <div class="risk-ribbon ribbon-single">
+                <div class="ribbon-head">
+                  <span class="ribbon-id">Risk R-04</span>
+                  <span class="ribbon-title">Regional parts lead time</span>
+                </div>
+                <span class="ribbon-scope">Scope: 1 business model</span>
+                <div class="mobile-span-bar" aria-hidden="true">
+                  <span class="span-seg span-seg-off">Equipment</span>
+                  <span class="span-seg">Service</span>
+                  <span class="span-seg span-seg-off">Digital</span>
+                </div>
+              </div>
+              <div class="ribbon-empty-guide" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+
+        <figcaption class="diagram-caption">
+          <span>Every risk covers the whole portfolio or named business models.</span>
+          <span class="mono">Primary source required</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="fracture" class="band band-white" aria-labelledby="fracture-title">
+    <div class="container">
+      <div class="section-header">
+        <span class="mono">01 · The fracture</span>
+        <h2 id="fracture-title">Why group strategy fractures across business models.</h2>
+        <p class="section-lead">Headquarters reviews one annual deck while business unit leaders face separate markets. Strategy stays annual while conditions shift every week.</p>
+      </div>
+
+      <div class="fracture-grid">
+        <article class="fracture-cell">
+          <span class="mono fracture-num">01 / Whole-portfolio risks</span>
+          <h3>Shared threats fall between business models</h3>
+          <p>A tariff or supply shock hits several business models at once. Teams see local symptoms, and headquarters sees the full exposure at the quarterly review.</p>
+        </article>
+        <article class="fracture-cell">
+          <span class="mono fracture-num">02 / Local signals</span>
+          <h3>Single-model shifts disappear in group updates</h3>
+          <p>News arrives disconnected from what each business model must deliver. Teams miss early warnings, and every new analysis restarts the same argument.</p>
+        </article>
+      </div>
+
+      <div class="quote-bar">
+        <p class="quote-text">"I can't show the board that strategy actually moved between meetings."</p>
+        <span class="quote-source">What leadership teams tell us</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="governance" class="band band-paper" aria-labelledby="governance-title">
+    <div class="container">
+      <div class="section-header">
+        <span class="mono">02 · Governance</span>
+        <h2 id="governance-title">Scoped signals and clear authority.</h2>
+        <p class="section-lead">Each team sets objectives, activities and up to four focus areas against the group Ambition. Radar monitors external shifts per business model, and teams escalate calls beyond local authority.</p>
+      </div>
+
+      <figure class="gov-strip">
+        <div class="gov-head">
+          <span class="gov-head-title">Portfolio governance</span>
+          <span class="gov-head-tag">Illustrative example</span>
+        </div>
+
+        <div class="gov-steps">
+          <div class="gov-step gov-step-unit">
+            <div class="gov-step-label">
+              <span class="gov-step-tag">Unit focus</span>
+              <span class="gov-step-num">01</span>
+            </div>
+            <h3>Up to 4 focus areas</h3>
+            <p>Each team picks up to four focus criteria. A reviewer marks signals relevant, watching or dismissed.</p>
+          </div>
+
+          <div class="gov-step gov-step-move">
+            <div class="gov-step-label">
+              <span class="gov-step-tag">Risk move</span>
+              <span class="gov-step-num">02</span>
+            </div>
+            <h3>Primary source before alarm</h3>
+            <p>Vivo proposes a risk move with one line of reason. Entering the danger zone requires a primary source and confirmation.</p>
+          </div>
+
+          <div class="gov-step gov-step-esc">
+            <div class="gov-step-label">
+              <span class="gov-step-tag">Escalation</span>
+              <span class="gov-step-num">03</span>
+            </div>
+            <h3>Authority boundaries</h3>
+            <p>Local calls stay with the team. Decisions exceeding local authority or changing accepted strategy go to an Owner.</p>
+          </div>
+
+          <div class="gov-step gov-step-board">
+            <div class="gov-step-label">
+              <span class="gov-step-tag">Board pack</span>
+              <span class="gov-step-num">04</span>
+            </div>
+            <h3>Group board exports</h3>
+            <p>Confirmed decisions, risk trails and escalation memos export as Markdown or CSV for the board pack.</p>
+          </div>
+        </div>
+
+        <div class="gov-routes">
+          <div class="gov-route">
+            <span class="route-badge route-badge-azure">R-01</span>
+            <div class="route-copy"><strong>Whole portfolio.</strong> EU carbon tariff crosses all three business models and escalates to a Group Owner.</div>
+          </div>
+          <div class="gov-route">
+            <span class="route-badge route-badge-steel">R-04</span>
+            <div class="route-copy"><strong>Single business model.</strong> Regional parts lead time stays inside Service &amp; Retrofit and resolves locally.</div>
+          </div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section id="cadence" class="band band-white" aria-labelledby="cadence-title">
+    <div class="container">
+      <div class="section-header">
+        <span class="mono">03 · Cadence</span>
+        <h2 id="cadence-title">One shared cadence across the group.</h2>
+        <p class="section-lead">Dynamic Strategy runs a weekly, fortnightly or monthly 60-minute session across headquarters and every business model, using one shared format.</p>
+      </div>
+
+      <div class="cadence-split">
+        <div>
+          <ol class="cadence-list">
+            <li class="cadence-item">
+              <span class="cadence-time">24 hours before</span>
+              <div class="cadence-body">
+                <h3>Agenda drafted from what changed</h3>
+                <p>Vivo drafts the agenda from confirmed signals, danger-zone risks, carried-forward items and off-track activities. The session lead edits it, and the room approves it first.</p>
+              </div>
+            </li>
+            <li class="cadence-item">
+              <span class="cadence-time">60-minute session</span>
+              <div class="cadence-body">
+                <h3>Sealed first takes before discussion</h3>
+                <p>Participants write positions before discussion starts. Strapivo reveals them together so the loudest voice cannot anchor the room.</p>
+              </div>
+            </li>
+            <li class="cadence-item">
+              <span class="cadence-time">Five options</span>
+              <div class="cadence-body">
+                <h3>Every item ends in a named decision</h3>
+                <p>The room picks one of five options. Not yet parks an item with a return trigger or lets it go with a rationale.</p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="options-row" aria-label="Five decision options">
+            <span class="option-chip">Hold</span>
+            <span class="option-chip option-chip-active">Adapt</span>
+            <span class="option-chip">Pivot</span>
+            <span class="option-chip">Take advantage</span>
+            <span class="option-chip">Not yet</span>
+          </div>
+        </div>
+
+        <figure class="decision-card">
+          <div class="decision-card-head">
+            <span class="decision-id">Record of Decisions · SDS-2026-014</span>
+            <span class="decision-example">Illustrative example</span>
+          </div>
+          <div class="decision-body">
+            <div class="decision-meta-row">
+              <span class="decision-scope-badge">Scope: Whole portfolio</span>
+              <span class="decision-outcome-badge">Decision: Adapt</span>
+            </div>
+            <p class="decision-title">Bring forward European supplier qualification across all three business models</p>
+            <div class="decision-rows">
+              <div class="decision-row">
+                <span class="decision-key">Trigger</span>
+                <span class="decision-val">EU filing confirmed Risk R-01 in the danger zone.</span>
+              </div>
+              <div class="decision-row">
+                <span class="decision-key">Action</span>
+                <span class="decision-val">Teams revise sourcing in Equipment Division and Service &amp; Retrofit, and update Digital Fleet costs.</span>
+              </div>
+              <div class="decision-row">
+                <span class="decision-key">Confirmed</span>
+                <span class="decision-val">Group CEO, Owner. Vivo read back and logged the record.</span>
+              </div>
+            </div>
+            <div class="dissent-box">
+              <span class="dissent-label">Dissent by name</span>
+              Henrik Lindholm, Equipment Managing Director. Prefers a two-quarter hold until transition credits publish.
+            </div>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="trust" class="band band-paper" aria-labelledby="trust-title">
+    <div class="container">
+      <div class="section-header">
+        <span class="mono">04 · Trust and onboarding</span>
+        <h2 id="trust-title">People confirm every change. Live in four to five hours.</h2>
+        <p class="section-lead">Any AI can answer a question. Strapivo answers from the strategic memory you approved.</p>
+      </div>
+
+      <div class="trust-grid">
+        <article class="trust-panel">
+          <span class="mono">Governance and hosting</span>
+          <h3>Vivo proposes; people decide.</h3>
+          <p>Vivo prepares agendas, risk moves and draft wording. Humans hold every status light and confirm every decision.</p>
+          <ul class="trust-points">
+            <li><span class="trust-marker" aria-hidden="true"></span><span>Every recommendation traces back to the strategic memory you approved.</span></li>
+            <li><span class="trust-marker" aria-hidden="true"></span><span>EU-only infrastructure, GDPR by design. Changes to accepted strategy wait for an Owner.</span></li>
+          </ul>
+        </article>
+
+        <article class="trust-panel">
+          <span class="mono">Onboarding</span>
+          <h3>Start with one business model.</h3>
+          <p>Start with public material or one business model, prove the cadence, and widen when ready.</p>
+          <ul class="trust-points">
+            <li><span class="trust-marker" aria-hidden="true"></span><span>We do the reading first so session one starts with a draft to correct.</span></li>
+            <li><span class="trust-marker" aria-hidden="true"></span><span>Four to five hours, and then your team runs it.</span></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing-band" aria-labelledby="closing-title">
+    <div class="container closing-inner">
+      <div>
+        <span class="mono">Strategy Room</span>
+        <h2 id="closing-title">Keep the whole portfolio honest between board meetings.</h2>
+        <p>Bring your group Ambition and one business model. We prepare a working draft before your first session.</p>
+      </div>
+      <div class="closing-cta-col">
+        <a class="btn-closing" href="mailto:strategy@strapivo.com">
+          <span>Start the conversation</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <span class="closing-email">strategy@strapivo.com</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-left">
+      <img class="footer-logo" src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="80" height="20">
+      <span class="footer-copy">&copy; 2026 Strapivo</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="/imprint">Imprint</a></li>
+      <li><a href="/privacy">Privacy</a></li>
+      <li><a href="/terms">Terms</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var diagram = document.getElementById('portfolio-diagram');
+  if(!diagram) return;
+  var buttons = diagram.querySelectorAll('.scope-btn');
+  for(var i = 0; i < buttons.length; i++){
+    buttons[i].addEventListener('click', function(){
+      var scope = this.getAttribute('data-scope');
+      diagram.setAttribute('data-filter', scope);
+      for(var j = 0; j < buttons.length; j++){
+        buttons[j].setAttribute('aria-pressed', buttons[j] === this ? 'true' : 'false');
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
