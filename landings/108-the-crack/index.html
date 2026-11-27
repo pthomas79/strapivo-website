@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo. Nothing stays dangerous and undiscussed.</title>
+<meta name="description" content="Strapivo is where a leadership team tracks the risks to its strategy and decides on them in time.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+(function(){var d=document.documentElement;d.className+=" js";if(!matchMedia("(prefers-reduced-motion: reduce)").matches)d.className+=" motion";})();
+</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#E3B9A8;color:#3A221B;-webkit-text-size-adjust:100%}
+body{font:300 18px/1.5 "Hanken Grotesk",system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit}
+a:focus-visible{outline:2px solid #3A221B;outline-offset:4px}
+.track{position:relative}
+.motion .track{height:350vh}
+.stage{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;background:#E3B9A8}
+.motion .stage{position:sticky;top:0}
+.wall,.band{position:absolute;inset:0;width:100%;height:100%}
+.band{background:linear-gradient(to top,rgba(120,60,45,.22),rgba(120,60,45,0) 22%);pointer-events:none}
+.crack{position:absolute;inset:0;width:100%;height:100%}
+.crack.m{display:none}
+.crack text{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:15px;fill:#3A221B}
+.crack .ln{fill:none;stroke-linejoin:miter;stroke-linecap:round}
+.dark{stroke:#2A1A16;stroke-width:3}
+.dark.br{stroke-width:1.6}
+.hi{stroke-width:4}
+.hi{stroke:#F6DDD0;opacity:.7}
+.logo{position:absolute;left:clamp(24px,4.5vw,64px);top:clamp(22px,4vw,48px);height:26px}
+.logo img{height:26px;display:block}
+.sign{position:absolute;left:clamp(24px,4.5vw,64px);top:clamp(58px,7vw,96px);font-size:14px;letter-spacing:.04em}
+.copy{position:absolute;left:clamp(24px,4.5vw,64px);bottom:64px;width:min(640px,calc(100% - 48px))}
+h1{font-weight:300;font-size:clamp(38px,5.6vw,84px);line-height:1;letter-spacing:-.025em;margin-bottom:22px}
+.copy p{max-width:30em;font-size:18px;margin-bottom:28px}
+.btn{display:inline-block;background:#3A221B;color:#F6DDD0;text-decoration:none;font-weight:500;font-size:16px;padding:15px 26px;border-radius:2px}
+.btn:hover{background:#2A1A16}
+.btn:focus-visible{outline-color:#3A221B;outline-offset:4px}
+.note{position:absolute;right:clamp(24px,4.5vw,64px);bottom:64px;width:min(330px,calc(100% - 48px));font-size:18px}
+.note strong{display:block;font-weight:500;margin-top:10px;font-size:20px}
+.js.motion .note,.js.motion .gauge,.js.motion .tag{opacity:0;transition:opacity .5s}
+.js.motion .on{opacity:1}
+footer{position:absolute;left:clamp(24px,4.5vw,64px);right:24px;bottom:20px;font-size:13px;display:flex;gap:18px;flex-wrap:wrap}
+footer a{text-underline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(max-width:700px){
+ .crack.d{display:none}.crack.m{display:block}
+ body{font-size:16px}
+ h1{font-size:clamp(34px,10.4vw,48px);margin-bottom:16px}
+ .copy{bottom:56px}
+ .copy p{font-size:16px;margin-bottom:20px}
+ .note{left:24px;right:24px;width:auto;bottom:auto;top:clamp(380px,50vh,430px);font-size:16px}
+ .note strong{font-size:16px;margin-top:6px}
+}
+@media(max-width:700px) and (max-height:700px){.note{display:none}}
+</style>
+</head>
+<body>
+<div class="track" id="track">
+<div class="stage" id="stage">
+<svg class="wall" aria-hidden="true" focusable="false"><filter id="g" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9 .6" numOctaves="3" seed="4"/><feColorMatrix values="0 0 0 0 .35  0 0 0 0 .18  0 0 0 0 .13  0 0 0 .5 -.12"/></filter><rect width="100%" height="100%" filter="url(#g)" opacity=".55"/></svg>
+<div class="band"></div>
+
+<svg class="crack d" id="cd" viewBox="0 0 1440 900" preserveAspectRatio="xMaxYMin slice" role="img" aria-label="A hairline crack runs from the top right corner of a plaster wall. A brass gauge is fixed across it, tagged Needs you.">
+ <path class="ln hi" id="cdh" data-w="1" d="M1440.0 -1.0L1424.2 15.3L1403.8 25.4L1386.0 39.0L1363.3 38.3L1341.0 34.0L1327.3 51.9L1315.3 71.0L1308.6 93.6L1291.0 109.0L1264.7 110.7L1241.0 99.0L1222.1 118.9L1212.4 144.9L1199.1 168.6L1181.0 189.0L1157.4 177.2L1131.0 179.0L1117.3 199.2L1101.1 217.6L1089.3 239.2L1074.2 258.4L1061.0 279.0L1035.0 278.8L1011.0 269.0L997.4 288.0L984.8 307.7L974.7 328.8L961.6 348.1L951.0 369.0L926.2 364.1L901.0 364.0L890.8 386.6L869.6 400.4L855.0 419.5L841.0 439.0L817.4 456.4L791.0 469.0" transform="translate(2 2)"/>
+ <path class="ln dark main" id="cdm" d="M1440.0 -1.0L1424.2 15.3L1403.8 25.4L1386.0 39.0L1363.3 38.3L1341.0 34.0L1327.3 51.9L1315.3 71.0L1308.6 93.6L1291.0 109.0L1264.7 110.7L1241.0 99.0L1222.1 118.9L1212.4 144.9L1199.1 168.6L1181.0 189.0L1157.4 177.2L1131.0 179.0L1117.3 199.2L1101.1 217.6L1089.3 239.2L1074.2 258.4L1061.0 279.0L1035.0 278.8L1011.0 269.0L997.4 288.0L984.8 307.7L974.7 328.8L961.6 348.1L951.0 369.0L926.2 364.1L901.0 364.0L890.8 386.6L869.6 400.4L855.0 419.5L841.0 439.0L817.4 456.4L791.0 469.0"/>
+ <path class="ln dark br" data-a=".3" data-b="0" d="M1241 99L1292 196L1268 262L1290 300"/>
+ <path class="ln dark br" data-a=".55" data-b="1" d="M1061 279L1016 352L1030 404L1004 452"/>
+ <g class="gauge on" id="gd" transform="translate(951 369) rotate(48)">
+  <rect x="-60" y="-18" width="74" height="36" rx="2" fill="#B08D3E" stroke="#6E5420"/>
+  <rect x="-14" y="-18" width="74" height="36" rx="2" fill="#CDA852" stroke="#6E5420" opacity=".96"/>
+  <path d="M-48 -18v10M-38 -18v6M-28 -18v10M-18 -18v6M-8 -18v10M2 -18v6M12 -18v10M22 -18v6M32 -18v10M42 -18v6" stroke="#4A3810" stroke-width="1.2" fill="none"/>
+  <circle cx="-50" cy="8" r="4.5" fill="#8C6D2A" stroke="#4A3810"/><circle cx="50" cy="8" r="4.5" fill="#8C6D2A" stroke="#4A3810"/>
+  <path d="M-53 8h6M47 8h6" stroke="#4A3810" stroke-width="1.2"/>
+ </g>
+ <g class="tag on" id="td"><path d="M972 392L1092 452" stroke="#3A221B" stroke-width="1" fill="none"/><rect x="1092" y="434" width="104" height="34" rx="2" fill="#3A221B"/><text x="1106" y="456" style="fill:#F6DDD0">Needs you</text></g>
+ <text id="cdt" x="806" y="500">Top right. Day 14.</text>
+</svg>
+
+<svg class="crack m" id="cm" viewBox="0 0 390 844" preserveAspectRatio="xMaxYMin slice" role="img" aria-label="A hairline crack runs from the top right corner of a plaster wall. A brass gauge is fixed across it, tagged Needs you.">
+ <path class="ln hi" id="cmh" d="M390.0 -1.0L384.9 7.4L377.2 13.6L371.0 21.0L360.8 19.8L351.0 17.0L346.4 25.1L342.7 33.6L341.4 43.3L336.3 51.2L331.0 59.0L321.4 55.0L310.9 55.7L301.0 53.0L298.2 62.6L291.2 70.1L288.4 79.7L283.1 88.1L279.9 97.4L275.1 106.1L273.1 116.0L267.0 124.0L254.2 119.7L241.0 117.0L234.6 125.0L232.2 135.0L226.6 143.4L223.0 152.8L221.5 163.1L214.1 170.7L209.9 179.8L206.0 189.0L193.2 187.2L181.0 183.0L179.2 193.0L171.4 199.9L168.3 209.2L163.3 217.6L157.5 225.6L154.7 235.0L151.0 244.0L139.0 239.0L126.0 239.0L122.6 249.2L117.2 258.7L114.3 269.1L108.8 278.5L106.0 289.0" transform="translate(1.5 1.5)"/>
+ <path class="ln dark main" id="cmm" d="M390.0 -1.0L384.9 7.4L377.2 13.6L371.0 21.0L360.8 19.8L351.0 17.0L346.4 25.1L342.7 33.6L341.4 43.3L336.3 51.2L331.0 59.0L321.4 55.0L310.9 55.7L301.0 53.0L298.2 62.6L291.2 70.1L288.4 79.7L283.1 88.1L279.9 97.4L275.1 106.1L273.1 116.0L267.0 124.0L254.2 119.7L241.0 117.0L234.6 125.0L232.2 135.0L226.6 143.4L223.0 152.8L221.5 163.1L214.1 170.7L209.9 179.8L206.0 189.0L193.2 187.2L181.0 183.0L179.2 193.0L171.4 199.9L168.3 209.2L163.3 217.6L157.5 225.6L154.7 235.0L151.0 244.0L139.0 239.0L126.0 239.0L122.6 249.2L117.2 258.7L114.3 269.1L108.8 278.5L106.0 289.0"/>
+ <path class="ln dark br" data-a=".3" data-b="0" d="M301 53L322 108L306 150L318 176"/>
+ <path class="ln dark br" data-a=".55" data-b="1" d="M267 124L230 160L238 205L218 236"/>
+ <g class="gauge on" id="gm" transform="translate(206 189) rotate(48) scale(.8)">
+  <rect x="-60" y="-18" width="74" height="36" rx="2" fill="#B08D3E" stroke="#6E5420"/>
+  <rect x="-14" y="-18" width="74" height="36" rx="2" fill="#CDA852" stroke="#6E5420" opacity=".96"/>
+  <path d="M-48 -18v10M-38 -18v6M-28 -18v10M-18 -18v6M-8 -18v10M2 -18v6M12 -18v10M22 -18v6M32 -18v10M42 -18v6" stroke="#4A3810" stroke-width="1.2" fill="none"/>
+  <circle cx="-50" cy="8" r="4.5" fill="#8C6D2A" stroke="#4A3810"/><circle cx="50" cy="8" r="4.5" fill="#8C6D2A" stroke="#4A3810"/>
+  <path d="M-53 8h6M47 8h6" stroke="#4A3810" stroke-width="1.2" fill="none"/>
+ </g>
+ <g class="tag on" id="tm"><path d="M222 214L262 250" stroke="#3A221B" stroke-width="1" fill="none"/><rect x="262" y="250" width="100" height="32" rx="2" fill="#3A221B"/><text x="275" y="271" style="fill:#F6DDD0">Needs you</text></g>
+ <text id="cmt" x="24" y="324">Top right. Day 14.</text>
+</svg>
+
+<a class="logo" href="#" aria-label="Strapivo"><img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo"></a>
+<a class="sign" href="https://strapivo.app">Sign in</a>
+
+<div class="copy">
+ <h1>Nothing stays dangerous and undiscussed.</h1>
+ <p>Strapivo is where a leadership team tracks the risks to its strategy and decides on them in time.</p>
+ <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+</div>
+
+<div class="note on" id="note">
+ Fourteen days in the danger zone with no decision. It goes on the session lead's list.
+ <strong>Then the team decides.</strong>
+</div>
+
+<footer><span>© 2026 Strapivo</span><a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+</div>
+</div>
+<script>
+(function(){
+ var root=document.documentElement;
+ if(!root.classList.contains("motion"))return;
+ var track=document.getElementById("track"),note=document.getElementById("note");
+ var mq=matchMedia("(max-width:700px)");
+ var V={d:{svg:document.getElementById("cd"),m:document.getElementById("cdm"),h:document.getElementById("cdh"),g:document.getElementById("gd"),t:document.getElementById("td"),txt:document.getElementById("cdt"),dx:16,dy:30},
+        m:{svg:document.getElementById("cm"),m:document.getElementById("cmm"),h:document.getElementById("cmh"),g:document.getElementById("gm"),t:document.getElementById("tm"),txt:document.getElementById("cmt"),dx:0,dy:0}};
+ function clamp(x,a,b){return Math.max(a,Math.min(b,x))}
+ function draw(v,p,small){
+  var L=v.m.getTotalLength();if(!L)return;
+  var f=.3+.7*p,w=1.2+2.8*p;
+  v.m.style.strokeDasharray=v.h.style.strokeDasharray=L;
+  v.m.style.strokeDashoffset=v.h.style.strokeDashoffset=L*(1-f);
+  v.m.style.strokeWidth=w;v.h.style.strokeWidth=w+1;
+  v.svg.querySelectorAll(".br").forEach(function(b){
+   var a=parseFloat(b.dataset.a),l=b.getTotalLength(),k=clamp((f-a)/.2,0,1);
+   b.style.strokeDasharray=l;b.style.strokeDashoffset=l*(1-k);b.style.strokeWidth=Math.max(.8,w*.5);
+  });
+  var pt=v.m.getPointAtLength(L*f);
+  var day=3+Math.round(p*11);
+  v.txt.textContent="Top right. Day "+day+".";
+  if(!small){v.txt.setAttribute("x",pt.x+v.dx);v.txt.setAttribute("y",pt.y+v.dy)}
+  else{v.txt.setAttribute("x",Math.min(pt.x,230)-0);v.txt.setAttribute("y",pt.y+34)}
+  var on=p>.96;
+  v.g.classList.toggle("on",on);v.t.classList.toggle("on",on);
+ }
+ function update(){
+  var r=track.getBoundingClientRect(),span=track.offsetHeight-innerHeight;
+  var p=clamp(-r.top/span,0,1);
+  var small=mq.matches;
+  draw(small?V.m:V.d,p,small);
+  note.classList.toggle("on",p>.96);
+ }
+ var q=false;
+ function req(){if(!q){q=true;requestAnimationFrame(function(){q=false;update()})}}
+ addEventListener("scroll",req,{passive:true});addEventListener("resize",req);
+ document.fonts&&document.fonts.ready.then(req);
+ update();
+})();
+</script>
+<script src="/landings/prompt.js" defer></script>
+</body>
+</html>
