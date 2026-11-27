@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo | Dissent on the record</title>
+<meta name="description" content="Strapivo is where a leadership team decides its strategy and records each decision, with who disagreed and why.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<script>
+document.documentElement.classList.add('js');
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('m');
+</script>
+<style>
+:root{
+  --t:150px; --g:4px; --u:calc(var(--t) + var(--g));
+  --oy:-54px; --half:10; --cols:20;
+  --blue:#1F4FA3; --white:#F4F2EC; --grout:#D9D6CE;
+  --ink:#121315;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--grout);color:var(--ink);font-family:Barlow,system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+a:focus-visible{outline:3px solid var(--blue);outline-offset:4px;border-radius:4px}
+
+.stage{position:relative;height:3420px;overflow:hidden;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .32 0 0 0 0 .27 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    #d4d0c7}
+
+/* the wall */
+.grid{position:absolute;top:var(--oy);left:calc(50% - var(--g) / 2 - var(--half) * var(--u));
+  display:grid;grid-template-columns:repeat(var(--cols),var(--t));grid-auto-rows:var(--t);gap:var(--g);padding:var(--g)}
+.grid i,.face{--b:#1F4FA3;--w:#F4F2EC;--gx:32%;--gy:72%;
+  background:
+    radial-gradient(circle at var(--gx) var(--gy),rgba(120,160,230,.16),rgba(120,160,230,0) 34%),
+    linear-gradient(45deg,rgba(8,20,70,0) 26%,rgba(8,20,70,.2) calc(50% - .6px),rgba(255,255,255,0) calc(50% + .6px),rgba(214,206,188,.25) 100%),
+    linear-gradient(45deg,var(--b) calc(50% - .6px),var(--w) calc(50% + .6px));
+}
+.grid i{display:block;border-radius:3px;
+  background:
+    radial-gradient(circle at 14% 12%,rgba(255,255,255,.5),rgba(255,255,255,.12) 22%,rgba(255,255,255,0) 44%),
+    radial-gradient(circle at var(--gx) var(--gy),rgba(120,160,230,.16),rgba(120,160,230,0) 34%),
+    linear-gradient(45deg,rgba(8,20,70,0) 26%,rgba(8,20,70,.2) calc(50% - .6px),rgba(255,255,255,0) calc(50% + .6px),rgba(214,206,188,.25) 100%),
+    linear-gradient(45deg,var(--b) calc(50% - .6px),var(--w) calc(50% + .6px));
+  box-shadow:
+    inset 2px 2px 0 rgba(255,255,255,.55),
+    inset -2px -2px 1px rgba(20,24,40,.16),
+    inset 0 0 12px rgba(20,30,70,.13),
+    1px 2px 2px rgba(60,50,30,.38)}
+.grid i:nth-child(3n){--b:#1C4A9C}
+.grid i:nth-child(5n+2){--b:#2455AA;--w:#F1EEE6;--gx:62%;--gy:80%}
+.grid i:nth-child(7n+4){--b:#1A4494;--gx:20%;--gy:55%}
+.grid i:nth-child(11n+1){--w:#F7F5F0;--b:#21509F}
+.grid i:nth-child(13n+6){transform:rotate(.35deg)}
+.grid i:nth-child(17n+9){transform:translate(.7px,-.5px)}
+.grid i:nth-child(19n+3){--b:#18418E;--gx:45%;--gy:88%}
+.grid i:nth-child(23n+11){transform:rotate(-.3deg) translateY(.5px)}
+
+.grain{position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:.5;z-index:3;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* light in the room */
+.shade,.warm{position:absolute;inset:0;pointer-events:none;z-index:6}
+.shade{mix-blend-mode:multiply;
+  background:
+    radial-gradient(ellipse 980px 760px at calc(50% - 40px) 400px,#fff 0%,rgba(255,255,255,.85) 35%,rgba(255,255,255,0) 100%),
+    radial-gradient(ellipse 760px 640px at calc(50% - 380px) 1260px,#fff 0%,rgba(255,255,255,.8) 30%,rgba(255,255,255,0) 100%),
+    radial-gradient(ellipse 760px 640px at calc(50% + 460px) 2180px,#fff 0%,rgba(255,255,255,.8) 30%,rgba(255,255,255,0) 100%),
+    radial-gradient(ellipse 1000px 700px at 50% 2960px,#fff 0%,rgba(255,255,255,.85) 35%,rgba(255,255,255,0) 100%),
+    linear-gradient(180deg,#b4b6bf,#a9abb6)}
+.warm{mix-blend-mode:soft-light;
+  background:
+    linear-gradient(118deg,rgba(255,226,180,0) 30%,rgba(255,226,180,.5) 42%,rgba(255,226,180,.12) 56%,rgba(255,226,180,0) 70%) 0 0/100% 900px no-repeat,
+    radial-gradient(ellipse 600px 500px at calc(50% + 380px) 340px,rgba(255,220,170,.55),rgba(255,220,170,0) 70%),
+    radial-gradient(ellipse 600px 500px at calc(50% - 300px) 1260px,rgba(255,220,170,.5),rgba(255,220,170,0) 70%),
+    radial-gradient(ellipse 600px 500px at calc(50% + 460px) 2180px,rgba(255,220,170,.5),rgba(255,220,170,0) 70%)}
+
+/* turned tiles */
+.slot{position:absolute;z-index:4;width:var(--t);height:var(--t);
+  left:calc(50% + var(--g) / 2 + var(--c) * var(--u));
+  top:calc(var(--oy) + var(--g) + var(--r) * var(--u))}
+.bed{position:absolute;inset:-1px;border-radius:2px;background:#b9b3a6;box-shadow:inset 0 0 10px rgba(50,40,20,.45)}
+.face{position:absolute;inset:0;border-radius:3px;transform:rotate(90deg);
+  box-shadow:0 0 0 rgba(10,20,40,0)}
+.gl{position:absolute;inset:0;border-radius:3px;pointer-events:none;
+  background:radial-gradient(circle at 14% 12%,rgba(255,255,255,.55),rgba(255,255,255,.12) 22%,rgba(255,255,255,0) 44%);
+  box-shadow:inset 2px 2px 0 rgba(255,255,255,.6),inset -2px -2px 1px rgba(20,24,40,.18),inset 0 0 12px rgba(20,30,70,.14),1px 2px 3px rgba(40,30,10,.45),3px 6px 10px rgba(20,25,45,.22)}
+.m .slot:not(.go) .face{transform:rotate(0)}
+.m .slot.go .face{animation:turn .6s cubic-bezier(.6,0,.3,1) both}
+.m .slot.go .gl{animation:glint .6s linear both}
+@keyframes turn{
+  0%{transform:rotate(0) scale(1);box-shadow:0 0 0 rgba(10,20,40,0)}
+  45%{transform:rotate(40deg) scale(1.08);box-shadow:0 0 26px rgba(10,20,40,.55)}
+  100%{transform:rotate(90deg) scale(1);box-shadow:0 0 0 rgba(10,20,40,0)}}
+@keyframes glint{0%{opacity:1}12%{opacity:0}85%{opacity:0}100%{opacity:1}}
+
+/* brass plates */
+.plate{position:absolute;left:50%;top:calc(100% + 18px);width:300px;transform:translateX(-50%);
+  padding:12px 34px 13px;border-radius:3px;text-align:center;color:#33240a;
+  font-family:"Barlow Condensed",sans-serif;line-height:1.2;
+  text-shadow:0 1px 0 rgba(255,238,190,.55),0 -1px 0 rgba(70,45,5,.35);
+  background:
+    radial-gradient(circle 5px at 15px 50%,#f3e2b0 0,#b68f3c 2.6px,#6d5017 4.4px,rgba(60,40,5,.5) 5px,rgba(0,0,0,0) 6px),
+    radial-gradient(circle 5px at calc(100% - 15px) 50%,#f3e2b0 0,#b68f3c 2.6px,#6d5017 4.4px,rgba(60,40,5,.5) 5px,rgba(0,0,0,0) 6px),
+    repeating-linear-gradient(90deg,rgba(255,250,225,.07) 0 1px,rgba(0,0,0,0) 1px 3px,rgba(80,55,10,.05) 3px 4px),
+    linear-gradient(170deg,#E4C676 0%,#CDA74F 38%,#C29A43 62%,#A98534 100%);
+  box-shadow:inset 0 1px 0 rgba(255,244,205,.85),inset 0 -1px 0 rgba(90,62,12,.6),inset 1px 0 0 rgba(255,240,200,.4),
+    0 0 0 1px rgba(90,64,15,.55),3px 6px 9px rgba(30,25,15,.4),1px 1px 2px rgba(30,25,15,.4)}
+.plate b{display:block;font-weight:700;font-size:15px;letter-spacing:.14em}
+.plate span{display:block;font-weight:500;font-size:17px;letter-spacing:.02em;margin-top:3px}
+.plate{transition:opacity .6s ease .5s,transform .6s ease .5s}
+.m .slot:not(.go) .plate{opacity:0;transform:translate(-50%,-5px)}
+
+/* enamel plaques */
+.plaque{position:absolute;z-index:5;border-radius:20px;padding:58px 62px;
+  background:
+    linear-gradient(125deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,0) 28%,rgba(255,255,255,0) 64%,rgba(255,255,255,.55) 72%,rgba(255,255,255,0) 82%),
+    radial-gradient(130% 110% at 25% 0%,#ffffff 0%,#f7f6f2 55%,#e9e7e1 100%);
+  box-shadow:
+    inset 0 2px 1px rgba(255,255,255,1),inset 0 -3px 4px rgba(60,60,70,.16),inset 0 0 0 1px rgba(0,0,0,.06),
+    0 0 0 1px rgba(40,40,50,.12),
+    8px 18px 26px rgba(15,25,50,.34),2px 4px 5px rgba(15,25,50,.3)}
+.plaque::before{content:"";position:absolute;inset:26px;border:2.5px solid var(--ink);border-radius:9px;pointer-events:none}
+.plaque::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:
+    radial-gradient(circle 6px at 13px 13px,#fff 0,#b9bcc0 2.8px,#6a6e74 5px,rgba(30,30,40,.45) 5.8px,rgba(0,0,0,0) 7px),
+    radial-gradient(circle 6px at calc(100% - 13px) 13px,#fff 0,#b9bcc0 2.8px,#6a6e74 5px,rgba(30,30,40,.45) 5.8px,rgba(0,0,0,0) 7px),
+    radial-gradient(circle 6px at 13px calc(100% - 13px),#fff 0,#b9bcc0 2.8px,#6a6e74 5px,rgba(30,30,40,.45) 5.8px,rgba(0,0,0,0) 7px),
+    radial-gradient(circle 6px at calc(100% - 13px) calc(100% - 13px),#fff 0,#b9bcc0 2.8px,#6a6e74 5px,rgba(30,30,40,.45) 5.8px,rgba(0,0,0,0) 7px)}
+.hero{left:calc(50% + var(--g) / 2 - 4 * var(--u) - 10px);top:calc(var(--oy) + var(--g) + var(--u) - 10px);
+  width:calc(4 * var(--u) - var(--g) + 20px);height:calc(4 * var(--u) - var(--g) + 20px);
+  display:flex;flex-direction:column;justify-content:center}
+.logo{display:block;width:max-content;margin-bottom:34px}
+.logo img{display:block;height:28px;width:auto}
+h1{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:74px;line-height:.98;letter-spacing:-.01em;margin:0 0 26px}
+.lede{font-size:20px;line-height:1.42;margin:0 0 34px;max-width:30ch;color:#24262a}
+.btn{display:inline-block;align-self:flex-start;background:var(--ink);color:#fff;text-decoration:none;
+  font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:21px;letter-spacing:.03em;
+  padding:14px 24px 15px;border-radius:5px;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 2px 0 rgba(0,0,0,.25)}
+.btn:hover{background:#1F4FA3}
+.btn:focus-visible{outline-offset:5px}
+.signin{position:absolute;z-index:5;top:22px;right:26px;font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:17px;
+  letter-spacing:.04em;text-decoration:none;background:#f7f6f2;padding:7px 14px 8px;border-radius:5px;
+  box-shadow:inset 0 0 0 1.5px var(--ink),3px 6px 10px rgba(15,25,50,.3)}
+.end{left:calc(50% + var(--g) / 2 - 2 * var(--u) - 10px);top:calc(var(--oy) + var(--g) + 18 * var(--u) - 10px);
+  width:calc(4 * var(--u) - var(--g) + 20px);min-height:calc(3 * var(--u) - var(--g) + 20px);
+  display:flex;flex-direction:column;justify-content:center}
+.end h2{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:40px;line-height:1.06;margin:0 0 16px}
+.ill{font-size:16px;margin:0 0 28px;color:#3a3c40}
+
+footer{position:relative;z-index:7;background:#F4F2EC;color:#3a3c40;font-size:13px;padding:18px 24px;text-align:center}
+footer a{margin-left:14px}
+
+.s1{--c:2;--r:2}
+.s2{--c:-3;--r:8}
+.s3{--c:3;--r:14}
+
+@media (max-width:700px){
+  :root{--t:96px;--oy:-35px;--half:3;--cols:6}
+  .stage{height:3260px}
+  .plaque{border-radius:16px;padding:46px 34px}
+  .plaque::before{inset:20px;border-width:2px;border-radius:8px}
+  .plaque::after{background:
+    radial-gradient(circle 5px at 10px 10px,#fff 0,#b9bcc0 2.4px,#6a6e74 4.2px,rgba(30,30,40,.45) 4.8px,rgba(0,0,0,0) 6px),
+    radial-gradient(circle 5px at calc(100% - 10px) 10px,#fff 0,#b9bcc0 2.4px,#6a6e74 4.2px,rgba(30,30,40,.45) 4.8px,rgba(0,0,0,0) 6px),
+    radial-gradient(circle 5px at 10px calc(100% - 10px),#fff 0,#b9bcc0 2.4px,#6a6e74 4.2px,rgba(30,30,40,.45) 4.8px,rgba(0,0,0,0) 6px),
+    radial-gradient(circle 5px at calc(100% - 10px) calc(100% - 10px),#fff 0,#b9bcc0 2.4px,#6a6e74 4.2px,rgba(30,30,40,.45) 4.8px,rgba(0,0,0,0) 6px)}
+  .hero{left:12px;right:12px;width:auto;top:66px;height:auto}
+  .logo{margin-bottom:22px}
+  .logo img{height:22px}
+  h1{font-size:43px;margin-bottom:18px}
+  .lede{font-size:17px;margin-bottom:24px}
+  .btn{font-size:19px;padding:12px 20px 13px}
+  .signin{top:14px;right:14px;font-size:15px;padding:6px 12px 7px}
+    .plate{width:246px;padding:10px 28px 11px;top:calc(100% + 14px)}
+  .plate b{font-size:14px}
+  .plate span{font-size:15px}
+  .end{left:12px;right:12px;width:auto;top:2620px;min-height:0}
+  .end h2{font-size:31px}
+  .s1{--c:0;--r:6}
+  .s2{--c:-1;--r:14}
+  .s3{--c:0;--r:21}
+  .shade{background:
+    radial-gradient(ellipse 520px 640px at 45% 380px,#fff 0%,rgba(255,255,255,.85) 40%,rgba(255,255,255,0) 100%),
+    radial-gradient(ellipse 460px 520px at 40% 1420px,#fff 0%,rgba(255,255,255,.8) 30%,rgba(255,255,255,0) 100%),
+    radial-gradient(ellipse 460px 520px at 60% 2220px,#fff 0%,rgba(255,255,255,.8) 30%,rgba(255,255,255,0) 100%),
+    radial-gradient(ellipse 560px 600px at 50% 2800px,#fff 0%,rgba(255,255,255,.85) 35%,rgba(255,255,255,0) 100%),
+    linear-gradient(180deg,#b4b6bf,#a9abb6)}
+  .warm{background:
+    linear-gradient(118deg,rgba(255,226,180,0) 30%,rgba(255,226,180,.45) 45%,rgba(255,226,180,0) 62%) 0 0/100% 844px no-repeat,
+    radial-gradient(ellipse 300px 300px at 60% 620px,rgba(255,220,170,.5),rgba(255,220,170,0) 70%),
+    radial-gradient(ellipse 300px 300px at 40% 1420px,rgba(255,220,170,.5),rgba(255,220,170,0) 70%),
+    radial-gradient(ellipse 300px 300px at 60% 2220px,rgba(255,220,170,.5),rgba(255,220,170,0) 70%)}
+}
+@media (min-width:1900px){ .s1{--c:3} .s3{--c:4} }
+@media (prefers-reduced-motion:reduce){ .plate{transition:none} }
+</style>
+</head>
+<body>
+<main class="stage">
+  <div class="grid" role="img" aria-label="A wall of blue and white tiles, all set the same way except three that are turned a quarter turn, each with a brass plate beneath it.">
+<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+
+  <a class="signin" href="https://strapivo.app">Sign in</a>
+
+  <header class="plaque hero">
+    <a class="logo" href="#"><img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="111" height="28"></a>
+    <h1>The one who disagreed stays on the record.</h1>
+    <p class="lede">Strapivo is where a leadership team decides its strategy and records each decision, with who disagreed and why.</p>
+    <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+  </header>
+
+  <div class="slot s1"><div class="bed"></div><div class="face"></div><div class="gl"></div>
+    <p class="plate"><b>SDS-2026-014</b><span>One dissent, reason recorded.</span></p></div>
+  <div class="slot s2"><div class="bed"></div><div class="face"></div><div class="gl"></div>
+    <p class="plate"><b>SDS-2026-019</b><span>Two dissents, reasons recorded.</span></p></div>
+  <div class="slot s3"><div class="bed"></div><div class="face"></div><div class="gl"></div>
+    <p class="plate"><b>SDS-2026-023</b><span>One dissent, later proved right.</span></p></div>
+
+  <section class="plaque end">
+    <h2>Before a decision gets its number, Vivo reads back each dissent with the name and the reason.</h2>
+    <p class="ill">The decision numbers on this wall are illustrative.</p>
+    <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+  </section>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="shade" aria-hidden="true"></div>
+  <div class="warm" aria-hidden="true"></div>
+</main>
+<footer>© 2026 Strapivo <a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+<script>
+(function(){
+  if (!document.documentElement.classList.contains('m')) return;
+  var slots = document.querySelectorAll('.slot');
+  var left = slots.length, ready = false;
+  function turn(s){ if (!s.classList.contains('go')) { s.classList.add('go'); left--; } }
+  function check(){
+    if (!ready || !left) return;
+    var h = innerHeight;
+    for (var i = 0; i < slots.length; i++) {
+      var r = slots[i].getBoundingClientRect(), mid = r.top + r.height / 2;
+      if (mid > h * .12 && mid < h * .88 && (i > 0 || r.top < h)) turn(slots[i]);
+    }
+  }
+  var queued = false;
+  function onScroll(){ if (!queued) { queued = true; requestAnimationFrame(function(){ queued = false; check(); }); } }
+  addEventListener('scroll', function(){ if (ready) onScroll(); }, {passive:true});
+  addEventListener('resize', onScroll);
+  addEventListener('load', onScroll);
+  setTimeout(function(){ ready = true; check(); }, 700);
+  setTimeout(check, 1600);
+})();
+</script>
+<script src="/landings/prompt.js" defer></script>
+</body>
+</html>
