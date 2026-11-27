@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Strapivo | Strategy software built from the Business Model Canvas</title>
+  <meta name="description" content="Strapivo is the Strategic Design System built on the Business Model Canvas and Dynamic Strategy. Leadership teams keep agreed strategy current and record every weekly decision.">
+  <link rel="icon" type="image/svg+xml" href="../../assets/logo/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --ivory: #FAF9F6;
+      --ivory-alt: #F3F1EC;
+      --card: #FFFFFF;
+      --paper: #F6F9FB;
+      --hairline: #CBD2DA;
+      --hairline-soft: #E1E5EA;
+      --ink: #141B24;
+      --n900: #050C14;
+      --n700: #2C343C;
+      --n600: #495158;
+      --n500: #596169;
+      --n400: #999FA6;
+      --n200: #E1E5EA;
+      --n100: #EFF2F6;
+      --sky: #EEF6FF;
+      --sky2: #D4EBFF;
+      --p200: #A9D6FF;
+      --p400: #3FA0FA;
+      --p500: #0082E6;
+      --p600: #006FD1;
+      --p700: #005DBD;
+      --green: #1E7349;
+      --amber: #9A6400;
+      --red: #B4322A;
+      --radius: 4px;
+      --max-w: 1180px;
+      --gutter: clamp(20px, 4vw, 48px);
+      --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--ivory);
+      color: var(--ink);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.62;
+      color: var(--ink);
+      background-color: var(--ivory);
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "ss01", "cv11";
+      overflow-x: clip;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--p500);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 16px;
+      top: -64px;
+      background: var(--ink);
+      color: var(--ivory);
+      padding: 10px 16px;
+      font-size: 14px;
+      text-decoration: none;
+      border-radius: var(--radius);
+      z-index: 100;
+    }
+
+    .skip-link:focus {
+      top: 16px;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--max-w);
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+
+    /* Header */
+    .site-header {
+      background-color: var(--ivory);
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 72px;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .brand-link img {
+      height: 24px;
+      width: auto;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 14px;
+      color: var(--n600);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .sign-in-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius);
+      background-color: var(--card);
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .sign-in-link:hover {
+      border-color: var(--ink);
+      background-color: var(--ivory-alt);
+    }
+
+    /* Typography helpers */
+    .eyebrow {
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 1.4;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--n600);
+      margin: 0 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .eyebrow-num {
+      color: var(--p600);
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    h1 {
+      font-size: clamp(32px, 4.1vw, 48px);
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+    }
+
+    h2 {
+      font-size: clamp(26px, 3vw, 36px);
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      font-size: 18px;
+      line-height: 1.3;
+      letter-spacing: -0.015em;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 12px 24px;
+      background-color: var(--p600);
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: var(--radius);
+      border: 1px solid var(--p600);
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--p700);
+      border-color: var(--p700);
+    }
+
+    .btn-primary svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    /* Hero */
+    .hero {
+      padding: clamp(44px, 6vw, 84px) 0 clamp(52px, 6.5vw, 88px);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: clamp(32px, 4.5vw, 64px);
+      align-items: center;
+    }
+
+    .hero-copy {
+      max-width: 560px;
+    }
+
+    .hero-lead {
+      margin-top: 22px;
+      font-size: 17px;
+      line-height: 1.62;
+      color: var(--n700);
+      max-width: 54ch;
+    }
+
+    .hero-lead + .hero-lead {
+      margin-top: 12px;
+    }
+
+    .hero-actions {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .hero-note {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--n600);
+      letter-spacing: 0.04em;
+    }
+
+    /* Drawing 1: System Specification Card */
+    .spec-card {
+      background-color: var(--card);
+      border: 1px solid var(--hairline);
+      border-top: 2px solid var(--p500);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .spec-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 22px;
+      background-color: var(--ivory-alt);
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .spec-card-title {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--n600);
+    }
+
+    .spec-card-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+    }
+
+    .spec-list {
+      margin: 0;
+      padding: 0;
+    }
+
+    .spec-row {
+      display: grid;
+      grid-template-columns: 118px minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--hairline-soft);
+      align-items: baseline;
+    }
+
+    .spec-row:last-child {
+      border-bottom: 0;
+    }
+
+    .spec-row dt {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--n600);
+    }
+
+    .spec-row dd {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.45;
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .spec-sub {
+      display: block;
+      margin-top: 4px;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--n600);
+    }
+
+    .spec-code-wrap {
+      display: block;
+      margin-top: 6px;
+    }
+
+    .spec-code {
+      display: inline-block;
+      padding: 2px 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--p600);
+      background-color: var(--sky);
+      border: 1px solid var(--sky2);
+      border-radius: 3px;
+    }
+
+    .spec-foot {
+      padding: 14px 22px;
+      background-color: var(--paper);
+      border-top: 1px solid var(--hairline);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .spec-foot-label {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--n600);
+      letter-spacing: 0.03em;
+    }
+
+    .spec-foot-tag {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--p600);
+    }
+
+    /* Sections */
+    .section {
+      border-top: 1px solid var(--hairline);
+      padding: clamp(52px, 6.5vw, 84px) 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      gap: clamp(20px, 4vw, 56px);
+      align-items: start;
+      margin-bottom: clamp(32px, 4vw, 48px);
+    }
+
+    .section-intro {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--n700);
+      max-width: 58ch;
+    }
+
+    .section-intro + .section-intro {
+      margin-top: 14px;
+    }
+
+    /* Section 1: Architectural formula ledger */
+    .formula-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius);
+      background-color: var(--card);
+      overflow: hidden;
+    }
+
+    .formula-cell {
+      padding: 24px 22px;
+      border-right: 1px solid var(--hairline);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .formula-cell:last-child {
+      border-right: 0;
+      background-color: var(--paper);
+      border-left: 2px solid var(--p500);
+    }
+
+    .formula-op {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--p600);
+    }
+
+    .formula-cell p {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--n600);
+    }
+
+    /* Section 2: Drawing 2 (Dynamic Strategy Loop) */
+    .loop-frame {
+      background-color: var(--card);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .loop-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 22px;
+      background-color: var(--ivory-alt);
+      border-bottom: 1px solid var(--hairline);
+      flex-wrap: wrap;
+    }
+
+    .loop-bar-title {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--n600);
+    }
+
+    .loop-bar-meta {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--p600);
+    }
+
+    .loop-steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .loop-step {
+      padding: 24px 22px;
+      border-right: 1px solid var(--hairline);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+    }
+
+    .loop-step:last-child {
+      border-right: 0;
+    }
+
+    .step-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .step-index {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--p600);
+    }
+
+    .step-arrow {
+      width: 16px;
+      height: 16px;
+      color: var(--n500);
+      flex-shrink: 0;
+    }
+
+    .loop-step p {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--n600);
+    }
+
+    .step-visual {
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid var(--hairline-soft);
+    }
+
+    /* Mini visuals inside Drawing 2 (all text >= 12px) */
+    .lights-list {
+      display: grid;
+      gap: 7px;
+    }
+
+    .light-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink);
+    }
+
+    .light-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .dot-green { background-color: var(--green); }
+    .dot-amber { background-color: var(--amber); }
+    .dot-red { background-color: var(--red); }
+
+    .light-state {
+      color: var(--n600);
+    }
+
+    .radar-svg {
+      width: 100%;
+      height: auto;
+      max-width: 240px;
+    }
+
+    .options-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .opt-chip {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 4px 8px;
+      border: 1px solid var(--hairline);
+      border-radius: 3px;
+      color: var(--ink);
+      background-color: var(--ivory);
+    }
+
+    .opt-chip-accent {
+      border-color: var(--p500);
+      background-color: var(--sky);
+      color: var(--p600);
+      font-weight: 500;
+    }
+
+    .record-snippet {
+      display: grid;
+      gap: 6px;
+      padding: 10px 12px;
+      background-color: var(--paper);
+      border: 1px solid var(--hairline-soft);
+      border-left: 2px solid var(--p500);
+      border-radius: 3px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .record-id {
+      color: var(--p600);
+      font-weight: 500;
+    }
+
+    .record-meta {
+      color: var(--n600);
+    }
+
+    .loop-return {
+      padding: 14px 22px;
+      background-color: var(--paper);
+      border-top: 1px solid var(--hairline);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--n600);
+    }
+
+    .loop-return svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      color: var(--p600);
+    }
+
+    /* Section 3: Founders architectural roster */
+    .roster {
+      border-top: 1px solid var(--hairline);
+      border-bottom: 1px solid var(--hairline);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .roster-row {
+      display: grid;
+      grid-template-columns: 56px minmax(200px, 0.9fr) minmax(0, 1.4fr);
+      gap: 16px 24px;
+      align-items: baseline;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--hairline-soft);
+    }
+
+    .roster-row:last-child {
+      border-bottom: 0;
+    }
+
+    .roster-num {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--p600);
+      letter-spacing: 0.06em;
+    }
+
+    .roster-name {
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .roster-role {
+      font-size: 16px;
+      color: var(--n600);
+    }
+
+    .onboarding-strip {
+      margin-top: 28px;
+      padding: 22px 24px;
+      background-color: var(--ivory-alt);
+      border: 1px solid var(--hairline);
+      border-left: 3px solid var(--p500);
+      border-radius: var(--radius);
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 12px 28px;
+      align-items: baseline;
+    }
+
+    .onboarding-label {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--p600);
+    }
+
+    .onboarding-text {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+
+    /* Section 4: Governance and trust */
+    .gov-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius);
+      background-color: var(--card);
+      overflow: hidden;
+    }
+
+    .gov-cell {
+      padding: 28px 26px;
+      border-right: 1px solid var(--hairline);
+      border-bottom: 1px solid var(--hairline);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .gov-cell:nth-child(2n) {
+      border-right: 0;
+    }
+
+    .gov-cell:nth-last-child(-n+2) {
+      border-bottom: 0;
+    }
+
+    .gov-tag {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--p600);
+    }
+
+    .gov-cell p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--n600);
+      max-width: 48ch;
+    }
+
+    /* Section 5: Closing call to action */
+    .closing {
+      background-color: var(--ink);
+      color: var(--ivory);
+      padding: clamp(56px, 7vw, 92px) 0;
+    }
+
+    .closing-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: clamp(28px, 4vw, 56px);
+      align-items: center;
+    }
+
+    .closing .eyebrow {
+      color: var(--p200);
+    }
+
+    .closing h2 {
+      color: var(--ivory);
+    }
+
+    .closing-copy {
+      margin-top: 16px;
+      font-size: 17px;
+      line-height: 1.6;
+      color: #D2D8DF;
+      max-width: 52ch;
+    }
+
+    .closing-action-box {
+      padding: 28px;
+      background-color: #1B2430;
+      border: 1px solid #2C3949;
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .closing-action-box .btn-primary {
+      width: 100%;
+    }
+
+    .closing-email {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--p200);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+
+    .closing-email:hover {
+      text-decoration: underline;
+    }
+
+    .closing-meta {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: #A7B1BC;
+    }
+
+    /* Footer */
+    .site-footer {
+      background-color: var(--ink);
+      color: #B8C1CC;
+      border-top: 1px solid #26313E;
+      padding: 28px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      height: 20px;
+      width: auto;
+    }
+
+    .footer-copy {
+      font-size: 14px;
+      color: #B8C1CC;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 14px;
+      color: #C7CFD8;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--ivory);
+      text-decoration: underline;
+    }
+
+    /* Responsive breakpoints */
+    @media (max-width: 1040px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .hero-copy {
+        max-width: 64ch;
+      }
+
+      .formula-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .formula-cell:nth-child(2n) {
+        border-right: 0;
+      }
+
+      .formula-cell:nth-child(-n+2) {
+        border-bottom: 1px solid var(--hairline);
+      }
+
+      .formula-cell:last-child {
+        border-left: 0;
+        border-top: 2px solid var(--p500);
+      }
+
+      .loop-steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .loop-step:nth-child(2n) {
+        border-right: 0;
+      }
+
+      .loop-step:nth-child(-n+2) {
+        border-bottom: 1px solid var(--hairline);
+      }
+
+      .closing-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .nav-links {
+        display: none;
+      }
+
+      .section-head {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .roster-row {
+        grid-template-columns: 40px minmax(0, 1fr);
+        gap: 4px 12px;
+      }
+
+      .roster-role {
+        grid-column: 2;
+      }
+
+      .onboarding-strip {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .gov-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gov-cell {
+        border-right: 0;
+        border-bottom: 1px solid var(--hairline);
+      }
+
+      .gov-cell:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding: 36px 0 44px;
+      }
+
+      .section {
+        padding: 44px 0;
+      }
+
+      .spec-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+        padding: 14px 18px;
+      }
+
+      .spec-card-head,
+      .spec-foot {
+        padding: 12px 18px;
+      }
+
+      .formula-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .formula-cell {
+        border-right: 0;
+        border-bottom: 1px solid var(--hairline);
+        padding: 20px 18px;
+      }
+
+      .formula-cell:last-child {
+        border-bottom: 0;
+      }
+
+      .loop-steps {
+        grid-template-columns: 1fr;
+      }
+
+      .loop-step {
+        border-right: 0;
+        border-bottom: 1px solid var(--hairline);
+        padding: 20px 18px;
+      }
+
+      .loop-step:last-child {
+        border-bottom: 0;
+      }
+
+      .step-arrow-next {
+        transform: rotate(90deg);
+      }
+
+      .loop-bar,
+      .loop-return {
+        padding: 12px 18px;
+      }
+
+      .gov-cell {
+        padding: 22px 18px;
+      }
+
+      .closing {
+        padding: 48px 0;
+      }
+
+      .closing-action-box {
+        padding: 22px 18px;
+      }
+
+      .hero-actions .btn-primary {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand-link" href="#" aria-label="Strapivo home">
+        <img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="120" height="30">
+      </a>
+      <nav class="header-nav" aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#why">Lineage</a></li>
+          <li><a href="#how-it-works">Dynamic Strategy</a></li>
+          <li><a href="#founders">Founders</a></li>
+          <li><a href="#governance">Governance</a></li>
+        </ul>
+        <a class="sign-in-link" href="https://strapivo.app">Sign in</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Strategic Design System</p>
+          <h1 id="hero-heading">Strategy software built from the Business Model Canvas, not from a chat prompt.</h1>
+          <p class="hero-lead">Strapivo is the Strategic Design System where a leadership team keeps its agreed strategy current and watches live signals against its focus areas.</p>
+          <p class="hero-lead">Vivo drafts each weekly agenda from what changed, and the people in the room make and record every decision.</p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="mailto:strategy@strapivo.com">
+              Start the conversation
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <span class="hero-note">Built for executive teams and boards</span>
+          </div>
+        </div>
+
+        <aside class="spec-card" aria-label="Strapivo system specification">
+          <div class="spec-card-head">
+            <span class="spec-card-title">System specification</span>
+            <span class="spec-card-mark">
+              <svg width="16" height="16" viewBox="0 0 100 100" aria-hidden="true">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#0082E6" stroke-width="11"/>
+              </svg>
+              STRAPIVO
+            </span>
+          </div>
+          <dl class="spec-list">
+            <div class="spec-row">
+              <dt>Backbone</dt>
+              <dd>Business Model Canvas</dd>
+            </div>
+            <div class="spec-row">
+              <dt>Rhythm</dt>
+              <dd>
+                Dynamic Strategy
+                <span class="spec-sub">Signal, then Discuss, then Decide. 60-minute sessions.</span>
+              </dd>
+            </div>
+            <div class="spec-row">
+              <dt>Principle</dt>
+              <dd>Vivo proposes; people decide</dd>
+            </div>
+            <div class="spec-row">
+              <dt>Governance</dt>
+              <dd>EU-only infrastructure &middot; GDPR by design</dd>
+            </div>
+            <div class="spec-row">
+              <dt>Record</dt>
+              <dd>
+                Permanent numbered decisions
+                <span class="spec-code-wrap"><span class="spec-code">SDS-2026-014</span></span>
+              </dd>
+            </div>
+          </dl>
+          <div class="spec-foot">
+            <span class="spec-foot-label">Approved by you. Updated as you go.</span>
+            <span class="spec-foot-tag">Human approval required</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="why" aria-labelledby="why-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-num">01</span> Why we built a home for strategy</p>
+            <h2 id="why-heading">Every other function got software. Strategy got slides.</h2>
+          </div>
+          <div>
+            <p class="section-intro">Leadership teams agree a strategy at an offsite, then leave the slides in a folder. Months pass while competitors move and risks build, until the next annual review arrives too late to correct course cheaply.</p>
+            <p class="section-intro">You can buy market monitoring and you can buy an AI chat tool. Neither holds your approved strategy, so every new report restarts the same argument.</p>
+          </div>
+        </div>
+
+        <div class="formula-grid" role="region" aria-label="The Strapivo system structure">
+          <div class="formula-cell">
+            <span class="formula-op">01 &middot; Input</span>
+            <h3>Strategic memory</h3>
+            <p>Strapivo holds your business model, ambition, success criteria, and approved decisions in one place.</p>
+          </div>
+          <div class="formula-cell">
+            <span class="formula-op">+ 02 &middot; Signals</span>
+            <h3>Market intelligence</h3>
+            <p>The Radar collects dated observations from primary and secondary sources against your active focus areas.</p>
+          </div>
+          <div class="formula-cell">
+            <span class="formula-op">+ 03 &middot; Forum</span>
+            <h3>Strategic session</h3>
+            <p>Leadership teams review what changed outside against the strategy they approved.</p>
+          </div>
+          <div class="formula-cell">
+            <span class="formula-op">= Outcome</span>
+            <h3>Lasting advantage</h3>
+            <p>Your team makes small course corrections every week and keeps a clear record for the board.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how-it-works" aria-labelledby="loop-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-num">02</span> Dynamic Strategy in practice</p>
+            <h2 id="loop-heading">Four steps that keep an agreed strategy current</h2>
+          </div>
+          <div>
+            <p class="section-intro">Most organisations review strategy once a year while markets move every week. Dynamic Strategy prevents both inertia and weekly thrash through one structured loop.</p>
+          </div>
+        </div>
+
+        <div class="loop-frame" role="region" aria-label="Dynamic Strategy four-stage loop">
+          <div class="loop-bar">
+            <span class="loop-bar-title">Dynamic Strategy operating loop</span>
+            <span class="loop-bar-meta">Weekly, fortnightly, or monthly sessions</span>
+          </div>
+
+          <div class="loop-steps">
+            <article class="loop-step">
+              <div class="step-head">
+                <span class="step-index">01 &middot; Focus areas</span>
+                <svg class="step-arrow step-arrow-next" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h3>Up to four focus areas</h3>
+              <p>Leadership teams flag up to four priorities from seven to twelve success criteria. Each criterion carries a green, yellow, or red light.</p>
+              <div class="step-visual" aria-label="Four focus criteria status lights">
+                <div class="lights-list">
+                  <div class="light-item">
+                    <span class="light-left"><span class="dot dot-green" aria-hidden="true"></span>Criterion 01</span>
+                    <span class="light-state">Green</span>
+                  </div>
+                  <div class="light-item">
+                    <span class="light-left"><span class="dot dot-green" aria-hidden="true"></span>Criterion 02</span>
+                    <span class="light-state">Green</span>
+                  </div>
+                  <div class="light-item">
+                    <span class="light-left"><span class="dot dot-amber" aria-hidden="true"></span>Criterion 03</span>
+                    <span class="light-state">Yellow</span>
+                  </div>
+                  <div class="light-item">
+                    <span class="light-left"><span class="dot dot-red" aria-hidden="true"></span>Criterion 04</span>
+                    <span class="light-state">Red</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="loop-step">
+              <div class="step-head">
+                <span class="step-index">02 &middot; Radar</span>
+                <svg class="step-arrow step-arrow-next" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h3>Primary-source radar</h3>
+              <p>Vivo proposes a risk move as a ghost marker on the radar. Entering the top right requires a primary source and human confirmation.</p>
+              <div class="step-visual">
+                <svg class="radar-svg" viewBox="0 0 220 112" role="img" aria-label="Risk radar showing a proposed ghost marker confirmed in the top right zone">
+                  <rect x="1" y="1" width="218" height="86" fill="#FAF9F6" stroke="#CBD2DA" stroke-width="1"/>
+                  <rect x="110" y="1" width="109" height="43" fill="#EEF6FF"/>
+                  <line x1="110" y1="1" x2="110" y2="87" stroke="#CBD2DA" stroke-width="1"/>
+                  <line x1="1" y1="44" x2="219" y2="44" stroke="#CBD2DA" stroke-width="1"/>
+                  <circle cx="84" cy="56" r="6" fill="none" stroke="#596169" stroke-width="1.5" stroke-dasharray="3 2"/>
+                  <line x1="92" y1="52" x2="152" y2="25" stroke="#0082E6" stroke-width="1.5"/>
+                  <polygon points="156,23 147,23 151,30" fill="#0082E6"/>
+                  <circle cx="164" cy="20" r="6" fill="#0082E6"/>
+                  <text x="4" y="105" font-family="JetBrains Mono, monospace" font-size="12" fill="#495158">Ghost</text>
+                  <text x="86" y="105" font-family="JetBrains Mono, monospace" font-size="12" fill="#006FD1">Confirmed</text>
+                </svg>
+              </div>
+            </article>
+
+            <article class="loop-step">
+              <div class="step-head">
+                <span class="step-index">03 &middot; Session</span>
+                <svg class="step-arrow step-arrow-next" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h3>60-minute session</h3>
+              <p>Each participant submits a sealed first take before discussion starts, and the room reveals them together. Every item closes on one of five options.</p>
+              <div class="step-visual" aria-label="Five decision options">
+                <div class="options-wrap">
+                  <span class="opt-chip">Hold</span>
+                  <span class="opt-chip opt-chip-accent">Adapt</span>
+                  <span class="opt-chip">Pivot</span>
+                  <span class="opt-chip">Take advantage</span>
+                  <span class="opt-chip">Not yet</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="loop-step">
+              <div class="step-head">
+                <span class="step-index">04 &middot; Record</span>
+                <svg class="step-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M13 8a5 5 0 1 1-1.5-3.5M13 3v3h-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <h3>Record of Decisions</h3>
+              <p>Each confirmed decision gets a permanent number, its rationale, and any dissent by name. Teams export board packs and escalation memos from the same record.</p>
+              <div class="step-visual">
+                <div class="record-snippet">
+                  <span class="record-id">SDS-2026-014</span>
+                  <span>Adapt</span>
+                  <span class="record-meta">Dissent logged by name</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="loop-return">
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M16 10a6 6 0 1 1-1.76-4.24M16 4v3.5h-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Confirmed decisions update strategic memory and shape the next Radar watch cycle.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="founders" aria-labelledby="founders-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-num">03</span> Founders and advisors</p>
+            <h2 id="founders-heading">The people behind Strapivo</h2>
+          </div>
+          <div>
+            <p class="section-intro">Five founders and advisors created Strapivo from the Business Model Canvas and Dynamic Strategy.</p>
+          </div>
+        </div>
+
+        <ol class="roster">
+          <li class="roster-row">
+            <span class="roster-num">01</span>
+            <span class="roster-name">Paris Thomas</span>
+            <span class="roster-role">CEO and founder</span>
+          </li>
+          <li class="roster-row">
+            <span class="roster-num">02</span>
+            <span class="roster-name">Mathias Maisberger</span>
+            <span class="roster-role">CTO and co-founder</span>
+          </li>
+          <li class="roster-row">
+            <span class="roster-num">03</span>
+            <span class="roster-name">Michael N. Wilkens</span>
+            <span class="roster-role">CCO and co-founder</span>
+          </li>
+          <li class="roster-row">
+            <span class="roster-num">04</span>
+            <span class="roster-name">Paul Cubbon</span>
+            <span class="roster-role">Co-founder and advisor</span>
+          </li>
+          <li class="roster-row">
+            <span class="roster-num">05</span>
+            <span class="roster-name">Dr. Alex Osterwalder</span>
+            <span class="roster-role">Co-founder and advisor, creator of the Business Model Canvas</span>
+          </li>
+        </ol>
+
+        <div class="onboarding-strip">
+          <span class="onboarding-label">How onboarding works</span>
+          <p class="onboarding-text">We do the reading first. You walk into session one with a draft you can correct, not a blank page. Four to five hours, and then you run it.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="governance" aria-labelledby="governance-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-num">04</span> Governance and trust</p>
+            <h2 id="governance-heading">Built for board-level scrutiny</h2>
+          </div>
+          <div>
+            <p class="section-intro">Boards do not trust software that rewrites approved strategy without permission. Strapivo separates AI preparation from human authority at every step.</p>
+          </div>
+        </div>
+
+        <div class="gov-grid">
+          <article class="gov-cell">
+            <span class="gov-tag">01 &middot; Authority</span>
+            <h3>Humans decide. Humans validate.</h3>
+            <p>Vivo drafts agendas and proposes risk moves or revised wording. Nothing changes accepted strategy until an authorised person confirms it.</p>
+          </article>
+          <article class="gov-cell">
+            <span class="gov-tag">02 &middot; Provenance</span>
+            <h3>Every recommendation traces back</h3>
+            <p>Each proposal links to the strategic memory your team approved and the dated sources behind the signal. Nothing arrives without a trail.</p>
+          </article>
+          <article class="gov-cell">
+            <span class="gov-tag">03 &middot; Residency</span>
+            <h3>EU-only infrastructure</h3>
+            <p>Strapivo runs on European Union infrastructure and follows GDPR requirements by design. Your strategic memory stays inside the European Union.</p>
+          </article>
+          <article class="gov-cell">
+            <span class="gov-tag">04 &middot; Scope</span>
+            <h3>Start with non-sensitive material</h3>
+            <p>Start with public documents and non-sensitive strategy context. Verify how Vivo works on your business model, then widen scope at your own pace.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="closing-heading">
+      <div class="wrap closing-grid">
+        <div>
+          <p class="eyebrow">Next step</p>
+          <h2 id="closing-heading">Give your strategy a home that stays current</h2>
+          <p class="closing-copy">Send us a note to arrange a conversation. We read your material first and prepare a working draft on your business model before running session one together.</p>
+        </div>
+        <div class="closing-action-box">
+          <a class="btn-primary" href="mailto:strategy@strapivo.com">
+            Start the conversation
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a class="closing-email" href="mailto:strategy@strapivo.com">strategy@strapivo.com</a>
+          <span class="closing-meta">Four to five hours to start &middot; EU-only infrastructure</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-left">
+        <img class="footer-logo" src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="100" height="25">
+        <span class="footer-copy">&copy; 2026 Strapivo</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="/imprint">Imprint</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="/terms">Terms</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
