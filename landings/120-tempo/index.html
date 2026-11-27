@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Strapivo: strategy needs a tempo</title>
+<meta name="description" content="Strapivo is where a leadership team keeps its strategy and reviews it every week, fortnight or month.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');if(matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('still')</script>
+<style>
+:root{--ground:#C9BEDD;--lacquer:#17151A;--panel:#26222D;--brass:#C9A24A;--ink:#17151A;--faint:rgba(23,21,26,.22)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ground)}
+body{background:var(--ground);color:var(--ink);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+.serif{font-family:'Playfair Display',Georgia,'Times New Roman',serif}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+.track{position:relative}
+.js:not(.still) .track{height:320vh}
+.stage{height:100vh;height:100svh;min-height:560px;display:grid;grid-template-rows:auto minmax(0,1fr) auto;padding:0 clamp(20px,4vw,64px);overflow:hidden}
+.js:not(.still) .stage{position:sticky;top:0}
+header{display:flex;justify-content:space-between;align-items:center;padding:22px 0 0}
+header img{height:22px;width:auto;display:block}
+header a.sign{font-size:14px;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+.main{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:center;min-height:0}
+.copy{max-width:640px;padding-right:2vw}
+h1{font-family:'Playfair Display',Georgia,serif;font-weight:400;font-size:clamp(46px,6.6vw,108px);line-height:.98;letter-spacing:-.025em}
+h1 em{font-style:italic}
+.lead{margin-top:clamp(18px,3vh,32px);font-size:clamp(16px,1.35vw,20px);line-height:1.5;max-width:30em}
+.note{margin-top:10px;font-size:14px;line-height:1.5;color:#3b3644;max-width:30em}
+.cta{display:inline-block;margin-top:clamp(20px,3.6vh,36px);background:var(--lacquer);color:var(--ground);text-decoration:none;font-size:16px;padding:15px 26px;border-radius:2px;letter-spacing:.01em}
+.cta:hover{background:#000}
+.cta:focus-visible{outline-color:var(--ink);outline-offset:4px}
+.viz{height:100%;min-height:0;display:flex;justify-content:flex-end;align-items:flex-end}
+.viz svg{height:100%;max-height:100%;width:auto;max-width:100%;display:block;overflow:visible}
+.lab{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:30px;fill:#17151A;opacity:.72;transition:opacity .5s}
+.lab.on{opacity:1}
+.lead-line{stroke:#17151A;stroke-width:1;opacity:.35}
+.year{padding-top:10px}
+.marks{display:grid;grid-template-columns:repeat(52,1fr);align-items:end;height:44px}
+.marks i{display:block;width:2px;height:14px;margin:0 auto;background:var(--faint);transition:height .6s,background .6s}
+.marks i.on{height:44px;background:var(--lacquer)}
+.base{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:14px 0 18px;border-top:0}
+.cap{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:clamp(24px,2.4vw,36px);line-height:1.1}
+.extra{font-size:14px;line-height:1.5;text-align:right;max-width:24em}
+footer{padding:14px clamp(20px,4vw,64px) 22px;font-size:13px;display:flex;gap:18px;flex-wrap:wrap}
+footer a{text-underline-offset:3px}
+.still footer,.js footer{}
+.still .stage{height:100vh;height:100svh}
+@media (max-width:760px){
+  .stage{min-height:600px}
+  header{padding-top:16px}
+  .main{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);align-items:start;padding-top:2vh}
+  .copy{padding-right:0}
+  h1{font-size:clamp(40px,12vw,56px)}
+  .lead{font-size:16px;margin-top:12px;line-height:1.42}
+  .note{display:none}
+  .cta{margin-top:16px;padding:13px 22px}
+  .viz{justify-content:center;margin-top:8px}
+  .marks{grid-template-columns:repeat(26,1fr);height:auto;row-gap:6px}
+  .marks i{height:12px}
+  .marks i.on{height:26px}
+  .marks i{align-self:end}
+  .base{flex-direction:column;gap:4px;padding:10px 0 14px}
+  .extra{text-align:left;max-width:none}
+}
+@media (max-height:700px) and (max-width:760px){
+  .lead{font-size:15px}
+  h1{font-size:38px}
+}
+</style>
+</head>
+<body>
+<div class="track" id="track">
+<div class="stage" id="stage">
+  <header>
+    <a href="#" aria-label="Strapivo"><img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo"></a>
+    <a class="sign" href="https://strapivo.app">Sign in</a>
+  </header>
+
+  <div class="main">
+    <div class="copy">
+      <h1>Strategy needs a <em>tempo.</em></h1>
+      <p class="lead">Strapivo is where a leadership team keeps its strategy and reviews it every week, fortnight or month.</p>
+      <p class="note">Vivo drafts each agenda from what changed.</p>
+      <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </div>
+
+    <div class="viz">
+      <svg viewBox="0 0 560 720" role="img" aria-labelledby="vt" preserveAspectRatio="xMaxYMax meet">
+        <title id="vt">A black metronome with a brass pendulum. The weight sits at the Weekly mark, the setting with the fastest beat.</title>
+        <defs>
+          <linearGradient id="bodyg" x1="0" x2="1">
+            <stop offset="0" stop-color="#0f0e12"/><stop offset=".35" stop-color="#201d26"/><stop offset=".6" stop-color="#17151A"/><stop offset="1" stop-color="#0c0b0e"/>
+          </linearGradient>
+          <linearGradient id="panelg" x1="0" x2="1">
+            <stop offset="0" stop-color="#211e27"/><stop offset=".45" stop-color="#2d2935"/><stop offset="1" stop-color="#1d1a22"/>
+          </linearGradient>
+          <linearGradient id="brassg" x1="0" x2="1">
+            <stop offset="0" stop-color="#8e6f2c"/><stop offset=".3" stop-color="#e6c877"/><stop offset=".55" stop-color="#C9A24A"/><stop offset="1" stop-color="#7c5f23"/>
+          </linearGradient>
+          <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".4" stop-color="#fff" stop-opacity="0"/>
+          </linearGradient>
+          <filter id="blur" x="-20%" y="-100%" width="140%" height="300%"><feGaussianBlur stdDeviation="14"/></filter>
+          <filter id="blur2" x="-20%" y="-100%" width="140%" height="300%"><feGaussianBlur stdDeviation="5"/></filter>
+        </defs>
+
+        <!-- floor shadow -->
+        <ellipse cx="236" cy="688" rx="190" ry="16" fill="#17151A" opacity=".38" filter="url(#blur)"/>
+        <ellipse cx="216" cy="676" rx="150" ry="6" fill="#17151A" opacity=".5" filter="url(#blur2)"/>
+
+        <!-- body -->
+        <path d="M50 670 L140 150 L260 150 L350 670 Z" fill="url(#bodyg)"/>
+        <path d="M50 670 L140 150 L260 150 L350 670 Z" fill="url(#sheen)"/>
+        <rect x="34" y="668" width="332" height="14" rx="3" fill="#0b0a0d"/>
+        <path d="M134 150 L266 150 L262 134 L138 134 Z" fill="#26222D"/>
+        <!-- front panel -->
+        <path d="M82 640 L150 206 L250 206 L318 640 Z" fill="url(#panelg)"/>
+        <path d="M82 640 L150 206 L250 206 L318 640 Z" fill="none" stroke="#C9A24A" stroke-opacity=".18"/>
+        <!-- slot -->
+        <rect x="194" y="214" width="12" height="414" rx="6" fill="#0b0a0d"/>
+        <!-- scale ticks -->
+        <g id="ticks" stroke="#C9A24A" stroke-linecap="round"></g>
+
+        <!-- leader lines + labels -->
+        <g>
+          <line class="lead-line" x1="260" y1="210" x2="300" y2="210"/>
+          <line class="lead-line" x1="290" y1="372" x2="330" y2="372"/>
+          <line class="lead-line" x1="316" y1="534" x2="356" y2="534"/>
+          <text class="lab" id="l0" x="312" y="219">Monthly</text>
+          <text class="lab" id="l1" x="342" y="381">Fortnightly</text>
+          <text class="lab on" id="l2" x="368" y="543">Weekly</text>
+        </g>
+
+        <!-- pendulum -->
+        <g id="pend" transform="rotate(15 200 590)">
+          <rect x="197.5" y="40" width="5" height="580" rx="2.5" fill="url(#brassg)"/>
+          <rect x="190" y="596" width="20" height="38" rx="4" fill="url(#brassg)"/>
+          <g id="weight" transform="translate(0 534)">
+            <rect x="178" y="-24" width="44" height="46" rx="6" fill="url(#brassg)"/>
+            <rect x="178" y="-24" width="44" height="46" rx="6" fill="none" stroke="#fff" stroke-opacity=".25"/>
+            <rect x="178" y="-4" width="44" height="3" fill="#6b5120" opacity=".7"/>
+            <rect x="196" y="-24" width="8" height="46" fill="#17151A" opacity=".35"/>
+          </g>
+        </g>
+        <circle cx="200" cy="590" r="12" fill="url(#brassg)"/>
+        <circle cx="200" cy="590" r="4" fill="#17151A"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="year">
+    <div class="marks" id="marks" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+    <div class="base">
+      <p class="cap" id="cap" aria-live="off">52 sessions a year</p>
+      <p class="extra">Sixty minutes by default. An extra session when something cannot wait.</p>
+    </div>
+  </div>
+</div>
+</div>
+<footer>
+  <span>&copy; 2026 Strapivo</span>
+  <a href="/imprint">Imprint</a>
+  <a href="/privacy">Privacy</a>
+  <a href="/terms">Terms</a>
+</footer>
+
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  // scale ticks (monthly at top, weekly at bottom)
+  var g=document.getElementById('ticks');
+  for(var y=230,k=0;y<=620;y+=10,k++){
+    var major=k%5===0, half=(y-206)/434*68+16;
+    var l=document.createElementNS(NS,'line');
+    var len=major?22:12;
+    l.setAttribute('x1',200-half+ (68+16-half>0?0:0));
+    l.setAttribute('x2',200-half+len);
+    l.setAttribute('y1',y);l.setAttribute('y2',y);
+    l.setAttribute('stroke-width',major?1.6:1);
+    l.setAttribute('opacity',major?.85:.5);
+    g.appendChild(l);
+    var r=document.createElementNS(NS,'line');
+    r.setAttribute('x1',200+half);r.setAttribute('x2',200+half-len);
+    r.setAttribute('y1',y);r.setAttribute('y2',y);
+    r.setAttribute('stroke-width',major?1.6:1);
+    r.setAttribute('opacity',major?.85:.5);
+    g.appendChild(r);
+  }
+  var root=document.documentElement;
+  var marks=[].slice.call(document.querySelectorAll('#marks i'));
+  var cap=document.getElementById('cap');
+  var labs=[0,1,2].map(function(i){return document.getElementById('l'+i)});
+  var weight=document.getElementById('weight');
+  var pend=document.getElementById('pend');
+  var track=document.getElementById('track');
+  var caps=['12 sessions a year','26 sessions a year','52 sessions a year'];
+  var Y=[210,372,534];
+  var monthly={};
+  for(var k=0;k<12;k++)monthly[Math.round(k*52/12+1)]=1;
+  function setStage(s){
+    marks.forEach(function(m,i){
+      var on=s===2||(s===1&&i%2===0)||(s===0&&monthly[i]);
+      m.classList.toggle('on',!!on);
+    });
+    cap.textContent=caps[s];
+    labs.forEach(function(l,i){l.classList.toggle('on',i===s)});
+    if(cap.dataset.s!==String(s)){cap.dataset.s=s}
+  }
+  function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
+  if(root.classList.contains('still')){setStage(2);return;}
+  var w=0,lastStage=-1;
+  function progress(){
+    var r=track.getBoundingClientRect();
+    var span=track.offsetHeight-innerHeight;
+    var p=span>0?Math.min(1,Math.max(0,-r.top/span)):0;
+    var v;
+    if(p<.12)v=0;else if(p<.4)v=ease((p-.12)/.28);else if(p<.52)v=1;else if(p<.8)v=1+ease((p-.52)/.28);else v=2;
+    return v;
+  }
+  function apply(){
+    w=progress();
+    var y=Y[0]+(Y[1]-Y[0])*Math.min(w,1)+(Y[2]-Y[1])*Math.max(0,w-1);
+    weight.setAttribute('transform','translate(0 '+y.toFixed(1)+')');
+    var s=Math.round(w);
+    if(s!==lastStage){lastStage=s;setStage(s)}
+  }
+  var phase=0,prev=null,vis=true,raf=0;
+  function frame(t){
+    if(prev===null)prev=t;
+    var dt=Math.min(.05,(t-prev)/1000);prev=t;
+    var period=3.2*Math.pow(2,-w);
+    var amp=22-7*(w/2);
+    phase+=dt*2*Math.PI/period;
+    pend.setAttribute('transform','rotate('+(amp*Math.sin(phase)).toFixed(2)+' 200 590)');
+    raf=requestAnimationFrame(frame);
+  }
+  function start(){if(!raf&&vis&&!document.hidden){prev=null;raf=requestAnimationFrame(frame)}}
+  function stop(){if(raf){cancelAnimationFrame(raf);raf=0}}
+  document.addEventListener('visibilitychange',function(){document.hidden?stop():start()});
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(e){vis=e[0].isIntersecting;vis?start():stop()}).observe(track);
+  }
+  addEventListener('scroll',apply,{passive:true});
+  addEventListener('resize',apply);
+  apply();start();
+})();
+</script>
+<script src="/landings/prompt.js" defer></script>
+</body>
+</html>
