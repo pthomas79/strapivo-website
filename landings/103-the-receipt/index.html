@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo: every decision, with a receipt</title>
+<meta name="description" content="Strapivo is where a leadership team decides on its strategy and keeps a numbered record of each decision.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+:root{--ink:#1F1B12;--must:#E9B824}
+html{background:var(--must)}
+body{background:var(--must);color:var(--ink);font-family:Archivo,"Helvetica Neue",Arial,sans-serif;overflow-x:hidden}
+a{color:inherit}
+a:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
+.band a:focus-visible{outline-color:#E9B824}
+main{position:relative;min-height:300vh}
+.top{position:absolute;z-index:6;top:28px;left:6vw;right:6vw;display:flex;justify-content:space-between;align-items:center}
+.top img{height:30px;display:block}
+.top a.si{font-size:14px;font-weight:800;text-decoration:none;border-bottom:2px solid var(--ink);padding-bottom:2px}
+.left{position:relative;z-index:2;width:min(46vw,640px);margin-left:6vw}
+.stick{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center}
+.hero{height:210vh}
+h1{font-weight:900;font-size:clamp(48px,6.6vw,104px);line-height:.94;letter-spacing:-.035em}
+.lede{font-size:clamp(17px,1.4vw,20px);line-height:1.4;margin-top:28px;max-width:30em;font-weight:800;opacity:.82}
+.btn{display:inline-block;margin-top:32px;background:var(--ink);color:#F6EFD8;font-weight:800;font-size:17px;padding:16px 28px;text-decoration:none;border-radius:2px;align-self:flex-start}
+.btn:hover{background:#000}
+.btn:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
+.close{height:90vh;display:flex;flex-direction:column;justify-content:center}
+.close p{font-size:clamp(26px,3vw,44px);line-height:1.12;font-weight:900;letter-spacing:-.02em;max-width:14em}
+.paper{position:absolute;z-index:1;top:38vh;left:calc(68vw - 170px);width:340px;height:212vh;background:linear-gradient(90deg,#f1ede0,#fffdf6 12%,#fffdf6 88%,#ece7d6);color:#2a2822;font-family:"DM Mono",ui-monospace,Menlo,Consolas,monospace;font-size:15px;line-height:1.5;padding:34px 28px;clip-path:polygon(0.000% 0px,2.941% 9px,5.882% 0px,8.824% 9px,11.765% 0px,14.706% 9px,17.647% 0px,20.588% 9px,23.529% 0px,26.471% 9px,29.412% 0px,32.353% 9px,35.294% 0px,38.235% 9px,41.176% 0px,44.118% 9px,47.059% 0px,50.000% 9px,52.941% 0px,55.882% 9px,58.824% 0px,61.765% 9px,64.706% 0px,67.647% 9px,70.588% 0px,73.529% 9px,76.471% 0px,79.412% 9px,82.353% 0px,85.294% 9px,88.235% 0px,91.176% 9px,94.118% 0px,97.059% 9px,100.000% 0px,100% 100%,0 100%);filter:drop-shadow(0 10px 18px rgba(31,27,18,.28));text-transform:uppercase}
+.wrap{position:absolute;top:38vh;left:calc(68vw - 170px);width:340px;filter:drop-shadow(0 8px 16px rgba(31,27,18,.3));z-index:1}
+.wrap .paper{position:relative;top:0;left:0;filter:none}
+.paper>*{position:absolute;left:28px;right:28px}
+.paper .hd{top:34px;font-weight:500;letter-spacing:.14em;font-size:20px}
+.paper .hd small{display:block;font-size:14px;letter-spacing:.1em;font-weight:400;margin-top:4px}
+.paper .hd i{display:block;font-style:normal;font-size:14px;margin-top:14px;border-top:2px dashed #2a2822;padding-top:8px;letter-spacing:.1em}
+.paper .e{font-size:15px}
+.paper .e b{display:block;font-weight:500;font-size:17px;letter-spacing:.04em;margin-bottom:8px;border-top:2px dashed #2a2822;padding-top:12px}
+.paper .e span{display:block;text-transform:none;opacity:.85}
+.e1{top:calc(34px + 20vh)}.e2{top:calc(34px + 65vh)}.e3{top:calc(34px + 110vh)}.e4{top:calc(34px + 155vh)}
+.paper svg{top:calc(34px + 190vh);width:250px;height:70px;fill:#2a2822;left:28px;right:auto}
+.band{position:fixed;z-index:5;left:0;right:0;bottom:0;height:12vh;min-height:64px;background:var(--ink);color:#d9d2bd;display:flex;align-items:center;padding:0 6vw;font-size:13px}
+.band:before{content:"";position:absolute;left:calc(68vw - 190px);width:380px;top:-8px;height:16px;background:linear-gradient(#000,#0c0a05);border-radius:8px 8px 2px 2px;box-shadow:0 -2px 0 #3a3426}
+.band a{margin-left:14px;color:#E9B824}
+.band span.l{white-space:nowrap}
+@media(max-width:760px){
+ main{min-height:0;padding-bottom:20vh}
+ .top{top:20px}
+ main{display:flex;flex-direction:column}
+ .left{display:contents}
+ .hero{margin:0 8vw}
+ .hero{height:auto}
+ .stick{position:static;height:auto;padding:100px 0 0}
+ h1{font-size:clamp(46px,14vw,70px)}
+ .lede{margin-top:20px}
+ .btn{margin-top:24px}
+ .wrap{position:relative;top:auto;left:auto;width:84vw;margin:11vh auto 0}
+ .paper{width:auto;height:auto;padding:0;font-size:14px}
+ .close{order:3}
+ .wrap{order:2}
+ .paper>*{position:static;margin:0 24px}
+ .paper{padding:30px 0 40px}
+ .paper .hd{margin-bottom:0}
+ .paper .e{margin-top:calc(45vh - 80px)}
+ .paper .e:first-of-type{margin-top:70px}
+ .paper svg{margin:calc(45vh - 80px) 24px 0;width:70%;height:70px}
+ .close{height:auto;padding:14vh 0 0}
+ .band{height:9vh;min-height:56px;padding:0 5vw;font-size:12.5px}
+ .band:before{left:calc(50vw - 46vw);width:92vw;left:4vw}
+}
+@media(max-width:760px){.close{margin:0 8vw}}
+</style>
+</head>
+<body>
+<main>
+<div class="top"><a href="#" aria-label="Strapivo"><img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo"></a><a class="si" href="https://strapivo.app">Sign in</a></div>
+<div class="left">
+<div class="hero"><div class="stick">
+<h1>Every decision, with a receipt.</h1>
+<p class="lede">Strapivo is where a leadership team decides on its strategy and keeps a numbered record of each decision.</p>
+<a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+</div></div>
+<div class="close">
+<p>What was decided, why, who disagreed, and what happened next.</p>
+<a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+</div>
+</div>
+<div class="wrap" role="img" aria-label="A till receipt feeding out of a printer. It lists four numbered decisions: hold, adapt, not yet, and pivot, the last with a recorded dissent. The sample is illustrative.">
+<div class="paper" aria-hidden="true">
+<div class="hd">STRAPIVO<small>Record of decisions</small><i>Illustrative</i></div>
+<div class="e e1"><b>SDS-2026-011 HOLD</b><span>Reviewed 5 March.</span></div>
+<div class="e e2"><b>SDS-2026-012 ADAPT</b><span>Two activities redrafted.</span></div>
+<div class="e e3"><b>SDS-2026-013 NOT YET</b><span>Parked. Returns in May.</span></div>
+<div class="e e4"><b>SDS-2026-014 PIVOT</b><span>Dissent: one member. Reason on file.</span><span>Confirmed by an Owner.</span></div>
+<svg viewBox="0 0 250 70" preserveAspectRatio="none"><rect x="0" width="3" height="70"/><rect x="7" width="5" height="70"/><rect x="15" width="2" height="70"/><rect x="20" width="3" height="70"/><rect x="26" width="2" height="70"/><rect x="32" width="2" height="70"/><rect x="37" width="5" height="70"/><rect x="48" width="2" height="70"/><rect x="54" width="2" height="70"/><rect x="62" width="2" height="70"/><rect x="67" width="2" height="70"/><rect x="72" width="2" height="70"/><rect x="80" width="2" height="70"/><rect x="86" width="2" height="70"/><rect x="92" width="3" height="70"/><rect x="101" width="2" height="70"/><rect x="106" width="2" height="70"/><rect x="110" width="2" height="70"/><rect x="116" width="2" height="70"/><rect x="122" width="3" height="70"/><rect x="128" width="2" height="70"/><rect x="133" width="2" height="70"/><rect x="138" width="2" height="70"/><rect x="144" width="5" height="70"/><rect x="155" width="3" height="70"/><rect x="164" width="2" height="70"/><rect x="172" width="3" height="70"/><rect x="177" width="2" height="70"/><rect x="183" width="4" height="70"/><rect x="191" width="2" height="70"/><rect x="195" width="2" height="70"/><rect x="203" width="3" height="70"/><rect x="212" width="3" height="70"/><rect x="218" width="2" height="70"/><rect x="226" width="2" height="70"/><rect x="230" width="2" height="70"/><rect x="238" width="5" height="70"/><rect x="246" width="4" height="70"/></svg>
+</div></div>
+</main>
+<footer class="band"><span class="l">&copy; 2026 Strapivo</span><a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+<script src="/landings/prompt.js" defer></script>
+</body>
+</html>
