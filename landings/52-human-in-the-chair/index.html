@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Strapivo | The human stays in the chair</title>
+  <meta name="description" content="Strapivo is the Strategic Design System for Dynamic Strategy. Vivo prepares drafts and signals; your leadership team confirms every change.">
+  <link rel="icon" type="image/svg+xml" href="../../assets/logo/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --ink: #141B24;
+      --n900: #050C14;
+      --n700: #2C343C;
+      --n600: #495158;
+      --n500: #6C727A;
+      --n400: #999FA6;
+      --n200: #E1E5EA;
+      --n100: #EFF2F6;
+      --paper: #F6F9FB;
+      --white: #FFFFFF;
+      --sky: #EEF6FF;
+      --sky2: #D4EBFF;
+      --p200: #A9D6FF;
+      --p400: #3FA0FA;
+      --p500: #0082E6;
+      --p600: #006FD1;
+      --p700: #005DBD;
+
+      --slate: #222B36;
+      --slate-line: rgba(34, 43, 54, 0.22);
+      --sage: #2A6F58;
+      --sage-bg: #ECF4F1;
+      --sage-border: rgba(42, 111, 88, 0.38);
+
+      --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+      --container: 1200px;
+      --gutter: 24px;
+      --radius-sm: 2px;
+      --radius: 4px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--ink);
+      background-color: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "ss01", "cv11";
+      overflow-x: clip;
+    }
+
+    h1, h2, h3, h4, strong, b, th {
+      font-weight: 500;
+    }
+
+    h1, h2, h3, p, ul, ol, figure {
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--p500);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+
+    .nowrap {
+      white-space: nowrap;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      padding: 12px 16px;
+      background: var(--ink);
+      color: var(--white);
+      font-size: 14px;
+      z-index: 1000;
+    }
+
+    .skip-link:focus {
+      left: 16px;
+      top: 16px;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding-left: var(--gutter);
+      padding-right: var(--gutter);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 1.3;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--n600);
+      margin-bottom: 14px;
+    }
+
+    .eyebrow-rule {
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: var(--slate);
+      flex-shrink: 0;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 12px 24px;
+      background: var(--p600);
+      color: var(--white);
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 1.2;
+      border: 1px solid var(--p600);
+      border-radius: var(--radius);
+      transition: background-color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--p700);
+      border-color: var(--p700);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      border: 1px solid var(--slate-line);
+      border-radius: var(--radius);
+      background: transparent;
+      transition: border-color 0.18s ease, background-color 0.18s ease;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--slate);
+      background: var(--white);
+    }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: var(--paper);
+      border-bottom: 1px solid var(--slate-line);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 64px;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 6px 0;
+    }
+
+    .brand-logo {
+      display: block;
+      height: 24px;
+      width: auto;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 14px;
+      color: var(--n600);
+      transition: color 0.16s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--ink);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 52px 0 60px;
+      border-bottom: 1px solid var(--slate);
+      background: var(--paper);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      max-width: 510px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 3.6vw, 46px);
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 18px;
+    }
+
+    .hero h1 .accent {
+      color: var(--p600);
+    }
+
+    .hero-lead {
+      font-size: 17px;
+      line-height: 1.62;
+      color: var(--n700);
+      margin-bottom: 26px;
+      max-width: 50ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px 20px;
+    }
+
+    .hero-meta-line {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--n600);
+    }
+
+    /* Drawing 1: Architectural Approval Gate */
+    .gate-frame {
+      background: var(--white);
+      border: 1px solid var(--slate-line);
+      border-top: 2px solid var(--slate);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .gate-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: center;
+      gap: 10px;
+      padding: 14px 20px;
+      background: var(--n100);
+      border-bottom: 1px solid var(--slate-line);
+    }
+
+    .gate-col-label {
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .gate-col-label--left {
+      color: var(--p600);
+    }
+
+    .gate-col-label--right {
+      color: var(--sage);
+      text-align: right;
+    }
+
+    .gate-centre-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--sage);
+      background: var(--sage-bg);
+      border: 1px solid var(--sage-border);
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+    }
+
+    .gate-rows {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gate-rows::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: var(--slate);
+      transform: translateX(-0.5px);
+      pointer-events: none;
+    }
+
+    .gate-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr);
+      align-items: center;
+      border-bottom: 1px solid var(--n200);
+      transition: background-color 0.16s ease;
+    }
+
+    .gate-row:last-child {
+      border-bottom: 0;
+    }
+
+    .gate-row:hover {
+      background: #FAFCFE;
+    }
+
+    .gate-cell {
+      padding: 18px 20px;
+    }
+
+    .gate-cell--left {
+      padding-right: 12px;
+    }
+
+    .gate-cell--right {
+      padding-left: 12px;
+    }
+
+    .gate-text {
+      display: block;
+      font-size: 15px;
+      line-height: 1.38;
+    }
+
+    .gate-cell--left .gate-text {
+      color: var(--n700);
+    }
+
+    .gate-cell--right .gate-text {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .gate-node {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .gate-node-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: var(--white);
+      border: 1px solid var(--sage);
+      border-radius: 50%;
+      color: var(--sage);
+    }
+
+    .gate-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 20px;
+      background: var(--paper);
+      border-top: 1px solid var(--slate-line);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--n600);
+    }
+
+    .stamp-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--sage);
+      background: var(--sage-bg);
+      border: 1px solid var(--sage-border);
+      border-radius: var(--radius-sm);
+    }
+
+    /* Sections */
+    .section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--slate-line);
+    }
+
+    .section--white {
+      background: var(--white);
+    }
+
+    .section--paper {
+      background: var(--paper);
+    }
+
+    .section-head {
+      max-width: 660px;
+      margin-bottom: 36px;
+    }
+
+    .section h2 {
+      font-size: clamp(26px, 2.7vw, 35px);
+      line-height: 1.16;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .section-lead {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--n700);
+      max-width: 58ch;
+    }
+
+    /* Section 1: Boundary and two hard rules */
+    .boundary-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+      gap: 48px;
+      align-items: start;
+    }
+
+    .prose-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 52ch;
+    }
+
+    .prose-stack p {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--n700);
+    }
+
+    .rules-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .rule-card {
+      background: var(--paper);
+      border: 1px solid var(--slate-line);
+      border-top: 2px solid var(--slate);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+    }
+
+    .rule-card-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .rule-num {
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--p600);
+    }
+
+    .rule-card h3 {
+      font-size: 18px;
+      line-height: 1.3;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .rule-card p {
+      font-size: 15px;
+      line-height: 1.58;
+      color: var(--n700);
+    }
+
+    /* Drawing 2: Four gates in one weekly cycle */
+    .cycle-bar {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border: 1px solid var(--slate-line);
+      border-top: 2px solid var(--slate);
+      border-radius: var(--radius);
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .cycle-step {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--slate-line);
+    }
+
+    .cycle-step:last-child {
+      border-right: 0;
+    }
+
+    .cycle-top {
+      padding: 16px 20px 14px;
+      border-bottom: 1px solid var(--n200);
+      background: var(--n100);
+    }
+
+    .cycle-step-num {
+      display: block;
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--p600);
+      margin-bottom: 4px;
+    }
+
+    .cycle-top h3 {
+      font-size: 18px;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .cycle-ai {
+      padding: 16px 20px;
+      background: var(--paper);
+      min-height: 118px;
+      flex: 0 0 auto;
+    }
+
+    .cycle-role-tag {
+      display: block;
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--n500);
+      margin-bottom: 6px;
+    }
+
+    .cycle-ai p,
+    .cycle-human p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--n700);
+    }
+
+    .cycle-gate-divider {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background: var(--white);
+      border-top: 1px solid var(--slate);
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .cycle-human {
+      padding: 16px 20px 20px;
+      background: var(--white);
+      flex: 1 1 auto;
+    }
+
+    .cycle-human .cycle-role-tag {
+      color: var(--sage);
+    }
+
+    .cycle-human p {
+      color: var(--ink);
+    }
+
+    .options-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .option-chip {
+      display: inline-block;
+      padding: 3px 7px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid var(--slate-line);
+      border-radius: var(--radius-sm);
+    }
+
+    /* Section 3: Authority and roles (Drawing 3) */
+    .roles-table {
+      border: 1px solid var(--slate-line);
+      border-top: 2px solid var(--slate);
+      border-radius: var(--radius);
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .roles-head {
+      display: grid;
+      grid-template-columns: 150px 200px minmax(0, 1fr) 190px;
+      gap: 20px;
+      padding: 12px 24px;
+      background: var(--n100);
+      border-bottom: 1px solid var(--slate-line);
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--n600);
+    }
+
+    .role-row {
+      display: grid;
+      grid-template-columns: 150px 200px minmax(0, 1fr) 190px;
+      gap: 20px;
+      align-items: center;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .role-row:last-child {
+      border-bottom: 0;
+    }
+
+    .role-name {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .role-scope {
+      font-size: 14px;
+      color: var(--n600);
+    }
+
+    .role-desc {
+      font-size: 15px;
+      line-height: 1.54;
+      color: var(--n700);
+    }
+
+    .role-stamp-cell {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .role-stamp-muted {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--n600);
+      background: var(--n100);
+      border: 1px solid var(--slate-line);
+      border-radius: var(--radius-sm);
+    }
+
+    .escalation-note {
+      margin-top: 18px;
+      padding: 14px 18px;
+      background: var(--paper);
+      border-left: 2px solid var(--p500);
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--n700);
+    }
+
+    /* Section 4: Governance and onboarding */
+    .gov-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border: 1px solid var(--slate-line);
+      border-top: 2px solid var(--slate);
+      border-radius: var(--radius);
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .gov-col {
+      padding: 28px 32px;
+    }
+
+    .gov-col + .gov-col {
+      border-left: 1px solid var(--slate-line);
+    }
+
+    .gov-col-tag {
+      display: block;
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--p600);
+      margin-bottom: 8px;
+    }
+
+    .gov-col h3 {
+      font-size: 21px;
+      line-height: 1.24;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .gov-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .gov-list li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 15px;
+      line-height: 1.58;
+      color: var(--n700);
+    }
+
+    .gov-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 8px;
+      height: 1px;
+      background: var(--sage);
+    }
+
+    /* Section 5: Closing CTA */
+    .closing {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 68px 0;
+      border-bottom: 1px solid rgba(246, 249, 251, 0.14);
+    }
+
+    .closing-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+      gap: 48px;
+      align-items: center;
+    }
+
+    .closing .eyebrow {
+      color: var(--p200);
+    }
+
+    .closing .eyebrow-rule {
+      background: var(--p400);
+    }
+
+    .closing h2 {
+      font-size: clamp(30px, 3.4vw, 44px);
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+
+    .closing-lead {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--n200);
+      max-width: 50ch;
+      margin-bottom: 24px;
+    }
+
+    .closing-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px 22px;
+    }
+
+    .closing-email {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: var(--p200);
+      border-bottom: 1px solid rgba(169, 214, 255, 0.4);
+    }
+
+    .closing-email:hover {
+      color: var(--white);
+      border-bottom-color: var(--white);
+    }
+
+    .closing-panel {
+      border: 1px solid rgba(246, 249, 251, 0.18);
+      border-top: 2px solid var(--p400);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .closing-panel-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 11px 0;
+      border-bottom: 1px solid rgba(246, 249, 251, 0.12);
+    }
+
+    .closing-panel-row:first-child {
+      padding-top: 0;
+    }
+
+    .closing-panel-row:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .closing-panel-k {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--n400);
+      flex-shrink: 0;
+    }
+
+    .closing-panel-v {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--white);
+      text-align: right;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: var(--n900);
+      color: var(--n400);
+      padding: 28px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px 28px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .footer-logo {
+      display: block;
+      height: 20px;
+      width: auto;
+    }
+
+    .footer-copy {
+      font-size: 14px;
+      color: var(--n400);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 20px;
+    }
+
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 14px;
+      color: var(--n200);
+      transition: color 0.16s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--white);
+    }
+
+    /* Responsive breakpoints */
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .boundary-grid,
+      .closing-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .hero-copy {
+        max-width: none;
+      }
+
+      .cycle-bar {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .cycle-ai {
+        min-height: auto;
+      }
+
+      .cycle-step:nth-child(2) {
+        border-right: 0;
+      }
+
+      .cycle-step:nth-child(1),
+      .cycle-step:nth-child(2) {
+        border-bottom: 1px solid var(--slate-line);
+      }
+
+      .roles-head {
+        display: none;
+      }
+
+      .role-row {
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+          "name stamp"
+          "scope scope"
+          "desc desc";
+        gap: 6px 12px;
+        padding: 16px 18px;
+      }
+
+      .role-name { grid-area: name; }
+      .role-stamp-cell { grid-area: stamp; justify-content: flex-end; }
+      .role-scope { grid-area: scope; }
+      .role-desc { grid-area: desc; margin-top: 2px; }
+    }
+
+    @media (max-width: 720px) {
+      :root {
+        --gutter: 18px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 28px 0 36px;
+      }
+
+      .hero h1 {
+        font-size: 29px;
+        line-height: 1.14;
+        margin-bottom: 14px;
+      }
+
+      .hero-lead {
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+
+      .gate-header {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 8px;
+        padding: 10px 14px;
+      }
+
+      .gate-centre-pill {
+        grid-column: 1 / -1;
+        order: -1;
+        justify-content: center;
+      }
+
+      .gate-row {
+        grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr);
+      }
+
+      .gate-cell {
+        padding: 12px 10px;
+      }
+
+      .gate-text {
+        font-size: 13.5px;
+        line-height: 1.32;
+      }
+
+      .gate-node-badge {
+        width: 20px;
+        height: 20px;
+      }
+
+      .gate-footer {
+        flex-wrap: wrap;
+        padding: 10px 14px;
+      }
+
+      .section {
+        padding: 40px 0;
+      }
+
+      .section-head {
+        margin-bottom: 24px;
+      }
+
+      .section h2 {
+        font-size: 25px;
+      }
+
+      .section-lead {
+        font-size: 16px;
+      }
+
+      .rule-card {
+        padding: 16px;
+      }
+
+      .rule-card p {
+        font-size: 16px;
+      }
+
+      .cycle-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .cycle-step {
+        border-right: 0;
+        border-bottom: 1px solid var(--slate);
+      }
+
+      .cycle-step:last-child {
+        border-bottom: 0;
+      }
+
+      .cycle-top {
+        padding: 12px 16px;
+      }
+
+      .cycle-ai,
+      .cycle-human {
+        padding: 12px 16px;
+      }
+
+      .cycle-gate-divider {
+        padding: 8px 16px;
+      }
+
+      .cycle-ai p,
+      .cycle-human p,
+      .role-desc,
+      .escalation-note,
+      .gov-list li {
+        font-size: 16px;
+      }
+
+      .gov-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gov-col {
+        padding: 20px 18px;
+      }
+
+      .gov-col + .gov-col {
+        border-left: 0;
+        border-top: 1px solid var(--slate-line);
+      }
+
+      .closing {
+        padding: 44px 0;
+      }
+
+      .closing-lead {
+        font-size: 16px;
+      }
+
+      .closing-panel {
+        padding: 16px 18px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand-link" href="#" aria-label="Strapivo home">
+        <img class="brand-logo" src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="95" height="24">
+      </a>
+      <nav class="header-nav" aria-label="Primary navigation">
+        <div class="nav-links">
+          <a class="nav-link" href="#rules">Rules</a>
+          <a class="nav-link" href="#cycle">Weekly cycle</a>
+          <a class="nav-link" href="#authority">Authority</a>
+        </div>
+        <a class="btn-ghost" href="https://strapivo.app">Sign in</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">
+            <span class="eyebrow-rule" aria-hidden="true"></span>
+            <span>Strategic Design System · Dynamic Strategy</span>
+          </div>
+          <h1 id="hero-heading">Vivo prepares the ground. <span class="accent">Your leadership team makes every call.</span></h1>
+          <p class="hero-lead">Strapivo is the Strategic Design System that keeps a company's agreed strategy current through Dynamic Strategy. Its AI, Vivo, tracks external signals and drafts proposals. Named people confirm every change before it takes effect.</p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+            <span class="hero-meta-line">EU-only · Human-confirmed</span>
+          </div>
+        </div>
+
+        <figure class="gate-frame" aria-label="Approval gate dividing Vivo proposals on the left from human decisions on the right">
+          <div class="gate-header">
+            <span class="gate-col-label gate-col-label--left">Vivo proposes</span>
+            <span class="gate-centre-pill">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M4 6.1L5.4 7.5L8.2 4.6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Human confirmation
+            </span>
+            <span class="gate-col-label gate-col-label--right">People decide</span>
+          </div>
+
+          <div class="gate-rows">
+            <div class="gate-row">
+              <div class="gate-cell gate-cell--left">
+                <span class="gate-text">Ghost risk move</span>
+              </div>
+              <div class="gate-node" aria-hidden="true">
+                <span class="gate-node-badge">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M3 6.2L5 8.2L9 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="gate-cell gate-cell--right">
+                <span class="gate-text">Member confirms or rejects</span>
+              </div>
+            </div>
+
+            <div class="gate-row">
+              <div class="gate-cell gate-cell--left">
+                <span class="gate-text">Drafts 24-hour agenda</span>
+              </div>
+              <div class="gate-node" aria-hidden="true">
+                <span class="gate-node-badge">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M3 6.2L5 8.2L9 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="gate-cell gate-cell--right">
+                <span class="gate-text">Room approves step one</span>
+              </div>
+            </div>
+
+            <div class="gate-row">
+              <div class="gate-cell gate-cell--left">
+                <span class="gate-text">Asks "Light still green?"</span>
+              </div>
+              <div class="gate-node" aria-hidden="true">
+                <span class="gate-node-badge">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M3 6.2L5 8.2L9 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="gate-cell gate-cell--right">
+                <span class="gate-text">Owner sets the light</span>
+              </div>
+            </div>
+
+            <div class="gate-row">
+              <div class="gate-cell gate-cell--left">
+                <span class="gate-text">Drafts Pivot wording</span>
+              </div>
+              <div class="gate-node" aria-hidden="true">
+                <span class="gate-node-badge">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M3 6.2L5 8.2L9 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="gate-cell gate-cell--right">
+                <span class="gate-text">Authority confirms change</span>
+              </div>
+            </div>
+
+            <div class="gate-row">
+              <div class="gate-cell gate-cell--left">
+                <span class="gate-text">Reads back <span class="nowrap">SDS-2026-014</span></span>
+              </div>
+              <div class="gate-node" aria-hidden="true">
+                <span class="gate-node-badge">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M3 6.2L5 8.2L9 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="gate-cell gate-cell--right">
+                <span class="gate-text">Lead records decision and dissent</span>
+              </div>
+            </div>
+          </div>
+
+          <figcaption class="gate-footer">
+            <span>Every change needs human approval</span>
+            <span class="stamp-inline">No silent edits</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="rules" class="section section--white" aria-labelledby="rules-heading">
+      <div class="wrap boundary-grid">
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-rule" aria-hidden="true"></span>
+            <span>01 · The governance boundary</span>
+          </div>
+          <h2 id="rules-heading">Help, not a co-author with the pen</h2>
+          <div class="prose-stack">
+            <p>Most agreed strategies go into a drawer until the next annual review. Leadership teams still reject autonomous AI that rewrites direction without approval.</p>
+            <p>Strapivo separates preparation from authority. Vivo brings evidence and challenge into the Strategy Room. Named people hold every approval over accepted truth.</p>
+          </div>
+        </div>
+
+        <div class="rules-stack">
+          <article class="rule-card">
+            <div class="rule-card-top">
+              <span class="rule-num">Rule 01</span>
+              <span class="stamp-inline">Owner confirmed</span>
+            </div>
+            <h3>Vivo never changes a status light</h3>
+            <p>When two or more focus activities are off track, or a risk enters the top right, Vivo asks "Light still green?" and shows the evidence. Only an Owner changes the light.</p>
+          </article>
+
+          <article class="rule-card">
+            <div class="rule-card-top">
+              <span class="rule-num">Rule 02</span>
+              <span class="stamp-inline">Primary source and person</span>
+            </div>
+            <h3>No single blog post raises an alarm</h3>
+            <p>Vivo proposes a risk move as a ghost on the radar with a one-line reason. Entering the top-right danger zone requires at least one primary source and human confirmation.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cycle" class="section section--paper" aria-labelledby="cycle-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">
+            <span class="eyebrow-rule" aria-hidden="true"></span>
+            <span>02 · Weekly Dynamic Strategy</span>
+          </div>
+          <h2 id="cycle-heading">Four gates in one weekly cycle</h2>
+          <p class="section-lead">Dynamic Strategy keeps an agreed strategy current through 60-minute sessions and small course corrections. Every step requires human confirmation.</p>
+        </div>
+
+        <div class="cycle-bar" role="list" aria-label="Four human approval gates in one weekly cycle">
+          <article class="cycle-step" role="listitem">
+            <div class="cycle-top">
+              <span class="cycle-step-num">Gate 01</span>
+              <h3>Triage</h3>
+            </div>
+            <div class="cycle-ai">
+              <span class="cycle-role-tag">Vivo proposes</span>
+              <p>The Radar tracks outside signals for your focus areas and adds a one-line reason.</p>
+            </div>
+            <div class="cycle-gate-divider">
+              <span class="stamp-inline">Person triages</span>
+            </div>
+            <div class="cycle-human">
+              <span class="cycle-role-tag">People decide</span>
+              <p>A delegated person marks each signal relevant, irrelevant or unsure. Dismissed signals show Vivo what counts as noise.</p>
+            </div>
+          </article>
+
+          <article class="cycle-step" role="listitem">
+            <div class="cycle-top">
+              <span class="cycle-step-num">Gate 02</span>
+              <h3>Risk move</h3>
+            </div>
+            <div class="cycle-ai">
+              <span class="cycle-role-tag">Vivo proposes</span>
+              <p>Vivo places a ghost position on the impact and likelihood radar beside the linked signal.</p>
+            </div>
+            <div class="cycle-gate-divider">
+              <span class="stamp-inline">Member confirms</span>
+            </div>
+            <div class="cycle-human">
+              <span class="cycle-role-tag">People decide</span>
+              <p>A Member confirms or rejects the move. Any move into the top right needs a primary source before it joins the trail.</p>
+            </div>
+          </article>
+
+          <article class="cycle-step" role="listitem">
+            <div class="cycle-top">
+              <span class="cycle-step-num">Gate 03</span>
+              <h3>Session decision</h3>
+            </div>
+            <div class="cycle-ai">
+              <span class="cycle-role-tag">Vivo proposes</span>
+              <p>Vivo drafts the agenda 24 hours ahead from recent changes and prompts on scenarios or delay.</p>
+            </div>
+            <div class="cycle-gate-divider">
+              <span class="stamp-inline">Room decides</span>
+            </div>
+            <div class="cycle-human">
+              <span class="cycle-role-tag">People decide</span>
+              <p>Members give sealed first takes before discussion and reveal them together. Each item ends in one of five decisions:</p>
+              <div class="options-strip" aria-label="Five decision options">
+                <span class="option-chip">Hold</span>
+                <span class="option-chip">Adapt</span>
+                <span class="option-chip">Pivot</span>
+                <span class="option-chip">Take advantage</span>
+                <span class="option-chip">Not yet</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="cycle-step" role="listitem">
+            <div class="cycle-top">
+              <span class="cycle-step-num">Gate 04</span>
+              <h3>Record read-back</h3>
+            </div>
+            <div class="cycle-ai">
+              <span class="cycle-role-tag">Vivo proposes</span>
+              <p>Vivo reads back each entry for the Record of Decisions. It includes dissent by name with its reason.</p>
+            </div>
+            <div class="cycle-gate-divider">
+              <span class="stamp-inline">Lead confirms</span>
+            </div>
+            <div class="cycle-human">
+              <span class="cycle-role-tag">People decide</span>
+              <p>The session lead confirms the wording before the entry gets a permanent number like <span class="nowrap">SDS-2026-014</span>.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="authority" class="section section--white" aria-labelledby="authority-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">
+            <span class="eyebrow-rule" aria-hidden="true"></span>
+            <span>03 · Authority and roles</span>
+          </div>
+          <h2 id="authority-heading">Accepted truth stays protected while execution reports back</h2>
+          <p class="section-lead">Four roles separate authority over accepted truth from operational reporting. Boards see who approved each change and why.</p>
+        </div>
+
+        <div class="roles-table" role="region" aria-label="Strapivo roles and approval authority">
+          <div class="roles-head" aria-hidden="true">
+            <span>Role</span>
+            <span>Scope</span>
+            <span>Responsibility</span>
+            <span style="text-align: right;">Authority</span>
+          </div>
+
+          <div class="role-row">
+            <div class="role-name">Owner</div>
+            <div class="role-scope">Accepted truth</div>
+            <div class="role-desc">An Owner approves Ambition, success criteria, Pivot wording and status lights. Accepted truth changes only when an Owner confirms.</div>
+            <div class="role-stamp-cell"><span class="stamp-inline">Final sign-off</span></div>
+          </div>
+
+          <div class="role-row">
+            <div class="role-name">Admin</div>
+            <div class="role-scope">Room setup</div>
+            <div class="role-desc">An Admin manages Strategy Room access, role assignments and session rhythm. Admins cannot alter accepted truth alone.</div>
+            <div class="role-stamp-cell"><span class="role-stamp-muted">Workspace control</span></div>
+          </div>
+
+          <div class="role-row">
+            <div class="role-name">Member</div>
+            <div class="role-scope">Leadership sessions</div>
+            <div class="role-desc">A Member triages signals, confirms or rejects risk moves, gives sealed first takes and works through agenda decisions with Vivo.</div>
+            <div class="role-stamp-cell"><span class="stamp-inline">Session gate</span></div>
+          </div>
+
+          <div class="role-row">
+            <div class="role-name">Contributor</div>
+            <div class="role-scope">Assigned activities</div>
+            <div class="role-desc">A Contributor reports activity status before each session, with one line on the result and an optional ask of leadership.</div>
+            <div class="role-stamp-cell"><span class="role-stamp-muted">Execution input</span></div>
+          </div>
+        </div>
+
+        <p class="escalation-note">Decisions beyond the team's authority go to an approver in the app, export as a Markdown memo or enter the board pack.</p>
+      </div>
+    </section>
+
+    <section id="governance" class="section section--paper" aria-labelledby="governance-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">
+            <span class="eyebrow-rule" aria-hidden="true"></span>
+            <span>04 · Governance and onboarding</span>
+          </div>
+          <h2 id="governance-heading">European governance, live in four to five hours</h2>
+        </div>
+
+        <div class="gov-grid">
+          <div class="gov-col">
+            <span class="gov-col-tag">Data and provenance</span>
+            <h3>EU-only infrastructure, GDPR by design</h3>
+            <ul class="gov-list">
+              <li>Every recommendation Vivo makes traces back to approved strategic memory, dated sources and named confirmers.</li>
+              <li>Start with public and non-sensitive material. Widen what Strapivo holds once your team has tested it.</li>
+              <li>Export the plan, escalation memos or board pack as Markdown, and the plan as CSV.</li>
+            </ul>
+          </div>
+
+          <div class="gov-col">
+            <span class="gov-col-tag">Onboarding</span>
+            <h3>We do the reading first</h3>
+            <ul class="gov-list">
+              <li>Send a workshop report, strategy document or plain notes. You walk into session one with a draft you can correct, not a blank page.</li>
+              <li>We show you what we got wrong and you set what counts as relevant. Then we run one session together.</li>
+              <li>Onboarding takes four to five hours, and then your leadership team runs it.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="closing-heading">
+      <div class="wrap closing-grid">
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-rule" aria-hidden="true"></span>
+            <span>Start with your current strategy</span>
+          </div>
+          <h2 id="closing-heading">The human stays in the chair.</h2>
+          <p class="closing-lead">Keep your agreed strategy current between offsites without handing judgement or wording to software.</p>
+          <div class="closing-actions">
+            <a class="btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+            <a class="closing-email" href="mailto:strategy@strapivo.com">strategy@strapivo.com</a>
+          </div>
+        </div>
+
+        <div class="closing-panel" aria-label="Governance summary">
+          <div class="closing-panel-row">
+            <span class="closing-panel-k">Boundary</span>
+            <span class="closing-panel-v">Vivo proposes; people decide</span>
+          </div>
+          <div class="closing-panel-row">
+            <span class="closing-panel-k">Record</span>
+            <span class="closing-panel-v">Numbered, with named dissent</span>
+          </div>
+          <div class="closing-panel-row">
+            <span class="closing-panel-k">Hosting</span>
+            <span class="closing-panel-v">EU-only · GDPR by design</span>
+          </div>
+          <div class="closing-panel-row">
+            <span class="closing-panel-k">Onboarding</span>
+            <span class="closing-panel-v">Four to five hours</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <img class="footer-logo" src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="79" height="20">
+        <span class="footer-copy">&copy; 2026 Strapivo</span>
+      </div>
+      <nav class="footer-links" aria-label="Legal">
+        <a class="footer-link" href="/imprint">Imprint</a>
+        <a class="footer-link" href="/privacy">Privacy</a>
+        <a class="footer-link" href="/terms">Terms</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
