@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo. Strategy finally has a home.</title>
+<meta name="description" content="Strapivo is the one place where a leadership team keeps its strategy current.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+  :root{
+    --azure:#0082E6; --ink:#1A1A1F; --muted:#55555E; --ground:#FFFFFF;
+    --S:min(66svh, 80vw, 720px);
+    --sans:"Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--ground);color:var(--ink)}
+  body{font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit}
+  a:focus-visible{outline:3px solid var(--azure);outline-offset:4px;border-radius:4px}
+
+  .top{position:fixed;inset:0 0 auto 0;z-index:5;display:flex;justify-content:space-between;align-items:center;
+       padding:clamp(18px,3vw,36px) clamp(20px,3.4vw,48px)}
+  .top img{display:block;height:24px;width:auto}
+  .signin{font-size:15px;text-decoration:none;color:var(--ink);padding:6px 2px;border-bottom:1px solid rgba(26,26,31,.25)}
+  .signin:hover{border-color:var(--ink)}
+
+  .scroller{position:relative;height:560vh}
+  .stage{position:sticky;top:0;height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+         gap:clamp(22px,4svh,44px);padding:64px 20px 24px}
+  .ring{position:relative;width:var(--S);height:var(--S);flex:none}
+  .ring svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .center{position:absolute;inset:0;display:grid;place-items:center;text-align:center;pointer-events:none}
+  .center > *{grid-area:1/1;pointer-events:auto}
+  h1{margin:0;font-weight:600;font-size:calc(var(--S) * .108);line-height:.98;letter-spacing:-.045em}
+
+  .btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-weight:500;font-size:17px;
+       padding:15px 26px;border-radius:999px;transition:background .2s}
+  .btn:hover{background:var(--azure)}
+  .btn.big{font-size:clamp(17px, calc(var(--S) * .036), 24px);padding:clamp(15px,calc(var(--S) * .03),22px) clamp(24px,calc(var(--S) * .05),36px)}
+
+  .captions{position:relative;width:min(640px,100%);height:150px;flex:none;display:grid;justify-items:center;align-content:start;text-align:center}
+  .captions > *{grid-area:1/1}
+  .lede{margin:0 0 22px;font-size:clamp(17px,1.5vw,20px);line-height:1.4;color:var(--muted);max-width:34ch}
+  .cap{margin:0;font-size:clamp(22px,2.4vw,34px);font-weight:500;letter-spacing:-.02em;line-height:1.15;max-width:22ch;text-wrap:balance}
+
+  .foot{padding:28px 20px 30px;text-align:center;font-size:12px;color:var(--muted)}
+  .foot a{margin-left:14px;text-decoration:none}
+  .foot a:hover{text-decoration:underline}
+
+  svg text{font-family:var(--sans)}
+  .mono{font-family:var(--mono)}
+  .t-label{font-size:27px}
+  .t-unit{font-size:34px}
+  .t-seal{font-size:38px}
+  .t-num{font-size:46px}
+  @media (max-width:600px){
+    .t-label,.t-unit{font-size:46px}
+    .t-seal{font-size:46px}
+    .t-num{font-size:52px}
+  }
+
+  /* States: JS drives opacity; these are the starting values. */
+  .js [data-w]{opacity:0;visibility:hidden}
+  .js [data-w="0"]{opacity:1;visibility:visible}
+
+  /* Without JavaScript: no pinning, the first state, then the other rings below. */
+  html:not(.js) .scroller{height:auto}
+  html:not(.js) .stage{position:relative}
+  html:not(.js) [data-w]:not([data-w="0"]){display:none}
+  .still-list{display:flex;flex-direction:column;align-items:center;gap:56px;padding:40px 20px 80px}
+  .still-list figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:28px}
+  .still-list svg{width:var(--S);height:var(--S);overflow:visible}
+
+  @media (max-width:600px){
+    .captions{height:172px}
+    .top img{height:21px}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="#" aria-label="Strapivo"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="95" height="24"></a>
+  <a class="signin" href="https://strapivo.app">Sign in</a>
+</header>
+
+<main>
+<section class="scroller" id="scroller">
+  <div class="stage">
+    <div class="ring">
+      <svg id="art" viewBox="0 0 1000 1000" role="img" aria-label="A blue ring that becomes a radar with one signal, then a sixty-minute dial, then a seal around decision number SDS-2026-014, then a plain ring again.">
+        <defs>
+          <path id="sealpath" d="M500,108 a392,392 0 1,1 -0.01,0"/>
+        </defs>
+
+        <!-- radar -->
+        <g id="radarWrap" opacity="0">
+          <g id="radarArt">
+            <g fill="none" stroke="#1A1A1F" stroke-opacity=".13" stroke-width="2">
+              <circle cx="500" cy="500" r="119"/>
+              <circle cx="500" cy="500" r="238"/>
+              <line x1="143" y1="500" x2="857" y2="500"/>
+              <line x1="500" y1="143" x2="500" y2="857"/>
+            </g>
+            <g id="sweep" transform="rotate(-30 500 500)">
+              <g id="trail" fill="none" stroke="#0082E6" stroke-width="357" stroke-opacity=".04">
+                <circle cx="500" cy="500" r="178.5" stroke-dasharray="11.2 1200" transform="rotate(-3.6 500 500)"/>
+                <circle cx="500" cy="500" r="178.5" stroke-dasharray="22.4 1200" transform="rotate(-7.2 500 500)"/>
+                <circle cx="500" cy="500" r="178.5" stroke-dasharray="37.4 1200" transform="rotate(-12 500 500)"/>
+                <circle cx="500" cy="500" r="178.5" stroke-dasharray="56 1200" transform="rotate(-18 500 500)"/>
+                <circle cx="500" cy="500" r="178.5" stroke-dasharray="78.5 1200" transform="rotate(-25.2 500 500)"/>
+                <circle cx="500" cy="500" r="178.5" stroke-dasharray="104.7 1200" transform="rotate(-33.6 500 500)"/>
+                <circle cx="500" cy="500" r="178.5" stroke-dasharray="134.6 1200" transform="rotate(-43.2 500 500)"/>
+                <circle cx="500" cy="500" r="178.5" stroke-dasharray="168.2 1200" transform="rotate(-54 500 500)"/>
+                <circle cx="500" cy="500" r="178.5" stroke-dasharray="205.6 1200" transform="rotate(-66 500 500)"/>
+                <circle cx="500" cy="500" r="178.5" stroke-dasharray="246.7 1200" transform="rotate(-79.2 500 500)"/>
+              </g>
+              <line id="beam" x1="500" y1="500" x2="857" y2="500" stroke="#0082E6" stroke-width="5" stroke-linecap="round"/>
+            </g>
+            <circle cx="500" cy="500" r="9" fill="#1A1A1F"/>
+            <circle id="ping" cx="712.8" cy="333.8" r="44" fill="none" stroke="#0082E6" stroke-width="3" opacity=".5"/>
+            <circle id="dot" cx="712.8" cy="333.8" r="14" fill="#1A1A1F"/>
+            <text id="dotlabel" x="690" y="300" text-anchor="end" fill="#1A1A1F" class="mono t-label">new signal</text>
+          </g>
+        </g>
+
+        <!-- clock -->
+        <g id="clockWrap" opacity="0">
+          <g id="clockArt">
+            <circle cx="500" cy="500" r="333" fill="none" stroke="#1A1A1F" stroke-opacity=".4" stroke-width="12"
+                    stroke-dasharray="2.6 32.27" stroke-dashoffset="1.3" transform="rotate(-90 500 500)"/>
+            <circle cx="500" cy="500" r="327" fill="none" stroke="#1A1A1F" stroke-width="24"
+                    stroke-dasharray="6 165.24" stroke-dashoffset="3" transform="rotate(-90 500 500)"/>
+            <text id="minutes" x="500" y="548" text-anchor="middle" font-size="210" font-weight="500" letter-spacing="-8" fill="#1A1A1F" style="font-variant-numeric:tabular-nums">60</text>
+            <text x="500" y="622" text-anchor="middle" fill="#55555E" class="mono t-unit">minutes</text>
+          </g>
+        </g>
+
+        <!-- the ring itself -->
+        <circle id="base" cx="500" cy="500" r="400" fill="none" stroke="#0082E6" stroke-width="86"/>
+        <circle id="arc" cx="500" cy="500" r="400" fill="none" stroke="#0082E6" stroke-width="86"
+                stroke-dasharray="0 2600" transform="rotate(-90 500 500)"/>
+
+        <!-- seal -->
+        <g id="sealWrap" opacity="0">
+          <g id="sealArt">
+            <g fill="none" stroke="#1A1A1F" stroke-width="2.5">
+              <circle cx="500" cy="500" r="372"/>
+              <circle cx="500" cy="500" r="446"/>
+            </g>
+            <g id="lettering">
+              <text fill="#1A1A1F" class="mono t-seal">
+                <textPath href="#sealpath" textLength="2440" lengthAdjust="spacing">Record of decisions · Record of decisions · Record of decisions · Record of decisions ·</textPath>
+              </text>
+            </g>
+            <line x1="440" y1="440" x2="560" y2="440" stroke="#1A1A1F" stroke-width="2.5"/>
+            <text id="sealnum" x="500" y="517" text-anchor="middle" font-weight="500" fill="#1A1A1F" class="mono t-num" letter-spacing="1">SDS-2026-014</text>
+            <line x1="440" y1="572" x2="560" y2="572" stroke="#1A1A1F" stroke-width="2.5"/>
+          </g>
+        </g>
+      </svg>
+
+      <div class="center">
+        <h1 data-w="0">Strategy<br>finally has<br>a home.</h1>
+        <a class="btn big" data-w="4" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      </div>
+    </div>
+
+    <div class="captions" aria-live="polite">
+      <div data-w="0">
+        <p class="lede">Strapivo is the one place where a leadership team keeps its strategy current.</p>
+        <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      </div>
+      <p class="cap" data-w="1">It watches the world outside.</p>
+      <p class="cap" data-w="2">It drafts the agenda for the hour.</p>
+      <p class="cap" data-w="3">You decide. It keeps the record.</p>
+      <p class="cap" data-w="4">Four to five hours of setup. Then you run it.</p>
+    </div>
+  </div>
+</section>
+
+<noscript>
+  <div class="still-list">
+    <figure>
+      <svg viewBox="0 0 1000 1000" aria-hidden="true"><use href="#radarArt"/><circle cx="500" cy="500" r="400" fill="none" stroke="#0082E6" stroke-width="86"/></svg>
+      <p class="cap">It watches the world outside.</p>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 1000 1000" aria-hidden="true"><use href="#clockArt"/><circle cx="500" cy="500" r="400" fill="none" stroke="#0082E6" stroke-width="86"/></svg>
+      <p class="cap">It drafts the agenda for the hour.</p>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 1000 1000" aria-hidden="true"><circle cx="500" cy="500" r="318" fill="none" stroke="#0082E6" stroke-width="46"/><use href="#sealArt"/></svg>
+      <p class="cap">You decide. It keeps the record.</p>
+    </figure>
+    <figure>
+      <p class="cap">Four to five hours of setup. Then you run it.</p>
+      <a class="btn big" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </figure>
+  </div>
+</noscript>
+</main>
+
+<footer class="foot">© 2026 Strapivo<a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const scroller = $('scroller');
+  const base = $('base'), arc = $('arc');
+  const radarWrap = $('radarWrap'), clockWrap = $('clockWrap'), sealWrap = $('sealWrap');
+  const sweep = $('sweep'), beam = $('beam'), trail = $('trail');
+  const ping = $('ping'), sealnum = $('sealnum');
+  const minutes = $('minutes'), lettering = $('lettering');
+  const layers = [...document.querySelectorAll('[data-w]')];
+  const mq = matchMedia('(prefers-reduced-motion: reduce)');
+  let reduced = mq.matches;
+  mq.addEventListener?.('change', e => { reduced = e.matches; render(); });
+
+  const clamp = v => Math.max(0, Math.min(1, v));
+  const smooth = t => t * t * (3 - 2 * t);
+  const ramp = (p, a, b) => reduced ? (p >= (a + b) / 2 ? 1 : 0) : smooth(clamp((p - a) / (b - a)));
+  const lin = (p, a, b) => clamp((p - a) / (b - a));
+  const mix = (a, b, t) => a + (b - a) * t;
+  const solo = v => clamp(2 * v - 1);   // no two texts on screen at once
+
+  const DOT_ANGLE = 52;                 // degrees clockwise from twelve
+  const PALE = [217, 236, 251], AZ = [0, 130, 230];
+  let progress = 0, w = [1, 0, 0, 0, 0], angle = 0, last = 0, raf = 0;
+
+  function readProgress() {
+    const r = scroller.getBoundingClientRect();
+    const span = r.height - innerHeight;
+    progress = span > 0 ? clamp(-r.top / span) : 0;
+  }
+
+  function drawRadar() {
+    const a = reduced ? 76 : angle;
+    sweep.setAttribute('transform', `rotate(${a - 90} 500 500)`);
+    const since = ((a - DOT_ANGLE) % 360 + 360) % 360;   // degrees since the beam passed the dot
+    ping.setAttribute('r', 14 + 70 * Math.min(1, since / 120));
+    ping.setAttribute('opacity', Math.max(0, 1 - since / 120) * 0.8);
+  }
+
+  function render() {
+    const p = progress;
+    const i1 = ramp(p, .10, .18), o1 = ramp(p, .36, .42);
+    const o2 = ramp(p, .62, .70), o3 = ramp(p, .84, .90);
+    w = [1 - i1, i1 * (1 - o1), o1 * (1 - o2), o2 * (1 - o3), o3];
+
+    // radar: the beam grows out from the centre
+    radarWrap.setAttribute('opacity', w[1]);
+    beam.setAttribute('x2', 500 + 357 * w[1]);
+    trail.setAttribute('stroke-opacity', 0.045 * w[1]);
+    if (w[1] > 0) drawRadar();
+
+    // clock: the ring pales and an arc fills to sixty
+    const f = reduced ? (p >= .42 ? 1 : 0) : lin(p, .43, .6);
+    const pale = o1 * (1 - o2);
+    const c = AZ.map((v, k) => Math.round(mix(v, PALE[k], pale)));
+    base.setAttribute('stroke', `rgb(${c})`);
+    clockWrap.setAttribute('opacity', solo(w[2]));
+    minutes.textContent = Math.round(f * 60);
+
+    // seal: the same stroke closes in around the number
+    const k = w[3];
+    const R = mix(400, 318, k), W = mix(86, 46, k), C = 2 * Math.PI * R;
+    for (const el of [base, arc]) { el.setAttribute('r', R); el.setAttribute('stroke-width', W); }
+    arc.setAttribute('stroke-dasharray', `${f * C} ${C + 10}`);
+    sealWrap.setAttribute('opacity', k);
+    sealnum.setAttribute('opacity', solo(k));
+    lettering.setAttribute('transform', `rotate(${reduced ? 0 : (p - .62) * 90} 500 500)`);
+
+    for (const el of layers) {
+      const v = solo(w[+el.dataset.w]);
+      el.style.opacity = v;
+      el.style.visibility = v > .02 ? 'visible' : 'hidden';
+      el.style.transform = reduced ? 'none' : `translateY(${(1 - v) * 10}px)`;
+    }
+    loop();
+  }
+
+  function frame(t) {
+    raf = 0;
+    const dt = last ? Math.min(64, t - last) : 16;
+    last = t;
+    angle += dt * 0.09;                  // one turn in four seconds
+    if (angle >= 360) angle -= 360;
+    drawRadar();
+    loop();
+  }
+  function loop() {
+    const run = w[1] > 0 && !reduced && !document.hidden;
+    if (run && !raf) raf = requestAnimationFrame(frame);
+    if (!run) { if (raf) cancelAnimationFrame(raf); raf = 0; last = 0; }
+  }
+
+  let queued = false;
+  const onScroll = () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; readProgress(); render(); });
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+  document.addEventListener('visibilitychange', loop);
+
+  readProgress(); render();
+})();
+</script>
+</body>
+</html>
