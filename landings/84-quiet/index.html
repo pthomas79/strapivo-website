@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo. Strategy finally has a home.</title>
+<meta name="description" content="Strapivo is where a leadership team keeps its strategy and returns to it every week.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F4F1EA;
+    --ink: #151412;
+    --soft: #4A4741;
+    --ring: #B0341C;
+    --x: 61.8vw;
+    --pad: 7vw;
+    --big: clamp(3.2rem, 9.4vw, 9.6rem);
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--paper); color: var(--ink); -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+    font-optical-sizing: auto;
+    font-kerning: normal;
+    font-feature-settings: "kern", "liga";
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  a:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 6px; }
+
+  main { position: relative; }
+
+  /* the plumb line */
+  .plumb {
+    position: absolute; top: 0; bottom: 0; left: var(--x);
+    width: 1px; pointer-events: none; z-index: 0;
+  }
+  .plumb .thread {
+    position: absolute; top: 0; left: 0; width: 1px;
+    bottom: 18px; background: var(--ink);
+  }
+  .bob {
+    flex: none; width: 36px; height: 36px; border-radius: 50%;
+    border: 1.5px solid var(--ring);
+    margin: 0 0 -17.25px; position: relative; z-index: 1;
+  }
+  .js-draw .plumb .thread { bottom: auto; height: 0; transition: height 1.2s cubic-bezier(.2,.7,.2,1); }
+  .js-draw .bob { opacity: 0; transform: scale(.4); transition: opacity 1s ease, transform 1s cubic-bezier(.2,.7,.2,1); }
+  .js-draw.done .bob { opacity: 1; transform: none; }
+
+  .top {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 34px var(--pad) 0;
+  }
+  .top img { display: block; height: 20px; width: auto; }
+  .caps {
+    font-size: 14px; letter-spacing: .24em; text-transform: uppercase;
+    font-weight: 500; font-variation-settings: "opsz" 6;
+  }
+  .top a.caps { text-decoration: none; }
+  .top a.caps:hover { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
+
+  section {
+    position: relative; z-index: 1;
+    min-height: 100vh; min-height: 100svh;
+    padding: 0 var(--pad);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .say {
+    margin: 0;
+    font-weight: 400;
+    font-size: var(--big);
+    line-height: .96;
+    letter-spacing: -.022em;
+    font-variation-settings: "opsz" 96;
+  }
+  .say em { font-style: italic; letter-spacing: -.01em; }
+  .say .k { letter-spacing: -.045em; }
+  br.m { display: none; }
+
+  .note {
+    margin: 2.4rem 0 0; line-height: 1.75; white-space: nowrap;
+    color: var(--soft);
+  }
+  .r { text-align: right; }
+  .note.side { margin-left: calc(var(--x) - var(--pad) + 24px); }
+
+  /* screen 1 */
+  .s1 { justify-content: flex-end; padding-bottom: 12vh; }
+  .s1 .say { font-size: clamp(3.4rem, 10.6vw, 11rem); line-height: .92; margin-left: -.04em; }
+  .lede {
+    display: flex; align-items: flex-end; gap: 3rem;
+    margin-top: 6.5vh;
+    margin-left: calc(var(--x) - var(--pad) + 24px);
+    max-width: 27rem;
+    flex-direction: column; align-items: flex-start; gap: 1.6rem;
+  }
+  .lede p {
+    margin: 0; font-size: clamp(1.1rem, 1.45vw, 1.4rem); line-height: 1.45;
+    font-variation-settings: "opsz" 14;
+  }
+  .act {
+    font-style: italic; font-size: clamp(1.2rem, 1.6vw, 1.55rem);
+    text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .28em;
+    font-variation-settings: "opsz" 24;
+  }
+  .act:hover { text-decoration-thickness: 2px; }
+
+  .s2 .say { text-align: right; }
+  .s4 .say { margin-left: 18vw; }
+  .s5 .say { margin-left: 24vw; }
+  .s5 .note.side { margin-left: calc(var(--x) - var(--pad) + 24px); }
+
+  /* end: the underline runs into the ring at the foot of the plumb line */
+  .end {
+    position: relative; z-index: 1;
+    padding: 34vh 0 0;
+    margin-left: var(--pad);
+    width: calc(var(--x) - var(--pad) + 18px);
+    display: flex; align-items: flex-end;
+  }
+  .end .act {
+    flex: none;
+    font-size: clamp(2.2rem, 4.9vw, 5.2rem);
+    line-height: 1.02; letter-spacing: -.02em;
+    text-decoration: none;
+    border-bottom: 1.5px solid var(--ink); padding-bottom: .12em;
+    font-variation-settings: "opsz" 72;
+  }
+  .end .act:hover, .end .act:focus-visible { border-bottom-color: var(--ring); }
+  .end .rule { flex: 1; height: 1.5px; background: var(--ink); }
+  footer {
+    position: relative; z-index: 1;
+    padding: 30vh var(--pad) 40px;
+    font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--soft);
+    display: flex; gap: 1.6rem; flex-wrap: wrap;
+  }
+  footer a { text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 760px) {
+    :root { --x: 80%; --pad: 6vw; --big: 14.4vw; }
+    br.d { display: none; }
+    br.m { display: inline; }
+    .top { padding-top: 24px; }
+    .top img { height: 17px; }
+    .s1 { padding-bottom: 9vh; }
+    .s1 .say { font-size: 15.4vw; }
+    .lede { margin-left: 0; margin-top: 5vh; max-width: calc(var(--x) - var(--pad) - 18px); }
+    .lede p { font-size: 1.06rem; }
+    .note.side { margin-left: 0; max-width: calc(var(--x) - var(--pad) - 18px); }
+    .s4 .say, .s5 .say { margin-left: 0; }
+    .s5 .note.side { margin-left: 0; }
+    footer { gap: .5rem .9rem; letter-spacing: .06em; }
+    .top a.caps { background: var(--paper); padding: 8px 0 8px 10px; margin-right: -2px; }
+    .end .act { font-size: 10.4vw; flex: 0 1 auto; }
+    .end .rule { min-width: 14px; }
+    .caps { letter-spacing: .18em; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="plumb" role="img" aria-label="A thin vertical line runs down the page and ends in a small red ring.">
+    <span class="thread"></span>
+  </div>
+
+  <header class="top">
+    <a href="#" aria-label="Strapivo"><img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo"></a>
+    <a class="caps" href="https://strapivo.app">Sign in</a>
+  </header>
+
+  <section class="s1">
+    <h1 class="say">Strategy <br class="m">finally<br class="d"> has <br class="m">a <em>home.</em></h1>
+    <div class="lede">
+      <p>Strapivo is where a leadership team keeps its strategy and returns to it every week.</p>
+      <a class="act" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </div>
+  </section>
+
+  <section class="s2">
+    <p class="say">Not a slide.<br> Not a <em>drawer.</em></p>
+    <p class="note caps side">Where strategy goes<br> after the offsite.</p>
+  </section>
+
+  <section class="s3">
+    <p class="say">One place, <br class="m">kept<br class="d"> current <br class="m">by the<br class="d"> people <br class="m">who <em>own</em> it.</p>
+    <p class="note caps side">Ambition, goals,<br> objectives, risks.</p>
+  </section>
+
+  <section class="s4">
+    <p class="say">A session <br class="m">when<br class="d"> something <em>changes.</em></p>
+    <p class="note caps side">Sixty minutes,<br> weekly or monthly.</p>
+  </section>
+
+  <section class="s5">
+    <p class="say">You decide.<br> It <em>remembers.</em></p>
+    <p class="note caps side">Every decision numbered.<br> Dissent kept by name.</p>
+  </section>
+
+  <div class="end">
+    <a class="act" href="mailto:strategy@strapivo.com">Start the conversation</a><span class="rule"></span><span class="bob"></span>
+  </div>
+</main>
+<footer>
+  <span>© 2026 Strapivo</span>
+  <a href="/imprint">Imprint</a>
+  <a href="/privacy">Privacy</a>
+  <a href="/terms">Terms</a>
+</footer>
+<script>
+(function () {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var root = document.documentElement;
+  root.classList.add("js-draw");
+  var main = document.querySelector("main");
+  var thread = document.querySelector(".plumb .thread");
+  var ticking = false, last = -1;
+  function draw() {
+    ticking = false;
+    var full = main.offsetHeight - 18;
+    var top = main.getBoundingClientRect().top + scrollY;
+    var reach = scrollY + innerHeight * 0.74 - top;
+    var len = Math.max(0, Math.min(full, reach));
+    if (Math.abs(len - last) < 0.5) return;
+    last = len;
+    thread.style.height = len.toFixed(1) + "px";
+    root.classList.toggle("done", len >= full - 1);
+  }
+  function ask() { if (!ticking) { ticking = true; requestAnimationFrame(draw); } }
+  addEventListener("scroll", ask, { passive: true });
+  addEventListener("resize", function () { last = -1; ask(); });
+  requestAnimationFrame(function () { requestAnimationFrame(draw); });
+})();
+</script>
+</body>
+</html>

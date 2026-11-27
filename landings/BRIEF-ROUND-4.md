@@ -64,6 +64,6 @@ Do these in order.
 
 1. **Look at the visual** at desktop and phone size, at several scroll positions. Ask whether a stranger would stop and look at it. If it reads as a default, redo it. Then look at the still version with `still.sh`.
 2. **Cut words.** Read every line and delete what the visual already says.
-3. **Run the unslop pass.** Read `/home/hiasinho/Work/strapivo-website/.claude/skills/unslop/SKILL.md` and apply every rule to all visible copy, including labels in the visual, alt text, the title and the meta description.
+3. **Run the unslop pass.** Read `/home/hiasinho/Work/prot-strapivo-dynamic-strategy/.claude/skills/unslop/SKILL.md` and apply every rule to all visible copy, including labels in the visual, alt text, the title and the meta description.
 4. **Upload.** Run `/tmp/strapivo-gen/upload.sh <your-folder>`. It checks the page, commits your folder and publishes it. If it refuses, it tells you why. Fix that and run it again. Do not run any git command yourself.
 5. **Reply** with three short lines: what you built, anything you could not do, and the one thing you would improve next. Add the live address the script printed.
