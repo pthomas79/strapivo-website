@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo: a strategy set in type, not carved in stone</title>
+<meta name="description" content="Strapivo is software where a leadership team keeps its strategy and corrects one line when the facts change.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('../../fonts/Inter-Medium.otf') format('opentype');font-weight:500;font-style:normal;font-display:swap}
+
+:root{
+  --bed:#C9CDD1; --iron:#2A2C2F; --box:#C8A26B; --brass:#C9A24A; --ink:#141517;
+  --u:min(1vw,1.55vh);
+  --bar:18px;
+  --pad:calc(1.6*var(--u));
+  --gap:calc(1.6*var(--u));
+  --w1:calc(4*var(--u)); --h1:calc(8*var(--u));
+  --w2:calc(2.4*var(--u)); --h2:calc(5*var(--u));
+  --s1:calc(2*var(--u)); --s2:calc(1.2*var(--u));
+  --cw:calc(72*var(--u));
+  --x0:calc((100vw - 100*var(--u))/2 + 4*var(--u));
+  --y0:max(84px,calc(6.4*var(--u)));
+  --ch:calc(2*var(--bar) + 2*var(--pad) + var(--h1) + var(--gap) + var(--h2));
+
+  --tx-brush:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='700'><filter id='f' x='0' y='0'><feTurbulence type='fractalNoise' baseFrequency='.0025 .9' numOctaves='2' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .08  0 0 0 0 .1  0 0 0 0 .12  .55 0 0 0 -.21'/></filter><rect width='700' height='700' filter='url(%23f)'/></svg>");
+  --tx-shine:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='700'><filter id='f' x='0' y='0'><feTurbulence type='fractalNoise' baseFrequency='.0018 .7' numOctaves='2' seed='19' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  .7 0 0 0 -.29'/></filter><rect width='700' height='700' filter='url(%23f)'/></svg>");
+  --tx-mottle:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'><filter id='f' x='0' y='0'><feTurbulence type='fractalNoise' baseFrequency='.0045' numOctaves='4' seed='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .14  0 0 0 0 .15  0 0 0 0 .16  .7 0 0 0 -.27'/></filter><rect width='900' height='900' filter='url(%23f)'/></svg>");
+  --tx-grain:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='f' x='0' y='0'><feTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='2' seed='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  .9 0 0 0 -.38'/></filter><rect width='220' height='220' filter='url(%23f)'/></svg>");
+  --tx-end:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='f' x='0' y='0'><feTurbulence type='fractalNoise' baseFrequency='.42 .85' numOctaves='3' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .3  0 0 0 0 .17  0 0 0 0 .05  1.7 0 0 0 -.72'/></filter><rect width='160' height='160' filter='url(%23f)'/></svg>");
+  --tx-long:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='300'><filter id='f' x='0' y='0'><feTurbulence type='fractalNoise' baseFrequency='.006 .38' numOctaves='3' seed='5' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .26  0 0 0 0 .15  0 0 0 0 .05  1.9 0 0 0 -.74'/></filter><rect width='600' height='300' filter='url(%23f)'/></svg>");
+  --tx-wear:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='f' x='0' y='0'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' seed='23' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .42  0 0 0 0 .41  0 0 0 0 .39  2.4 0 0 0 -1.6'/></filter><rect width='120' height='120' filter='url(%23f)'/></svg>");
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;overflow-x:clip}
+html{scroll-behavior:auto;background:var(--bed)}
+body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:#1d2024;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11"}
+a{color:inherit}
+:focus-visible{outline:3px solid #8a6516;outline-offset:3px}
+
+/* ---------- the bed: ground steel ---------- */
+.steel{
+  background:
+    radial-gradient(120% 90% at 30% 18%, rgba(255,255,255,.30), rgba(255,255,255,0) 55%),
+    repeating-radial-gradient(circle at -30% -160%, rgba(255,255,255,.05) 0 1px, rgba(255,255,255,0) 1.5px 9px),
+    repeating-radial-gradient(circle at 140% 260%, rgba(0,0,0,.035) 0 1px, rgba(0,0,0,0) 1.5px 11px),
+    radial-gradient(45% 50% at 88% 60%, rgba(30,36,42,.12), rgba(30,36,42,0) 70%),
+    radial-gradient(50% 40% at 8% 70%, rgba(255,255,255,.10), rgba(255,255,255,0) 70%),
+    var(--tx-shine), var(--tx-brush), var(--tx-grain),
+    linear-gradient(180deg,#c6cacf,#c6cacf);
+  background-color:var(--bed);
+}
+
+.press{position:relative}
+.stage{position:relative;min-height:100vh;overflow:hidden;padding-bottom:8vh}
+.stage::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:30;
+  background:linear-gradient(90deg, rgba(20,24,28,.24), rgba(20,24,28,0) 22%, rgba(20,24,28,0) 72%, rgba(20,24,28,.28)),linear-gradient(180deg, rgba(20,24,28,.14), rgba(20,24,28,0) 28%)}
+.end::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg, rgba(20,24,28,.24), rgba(20,24,28,0) 22%, rgba(20,24,28,0) 72%, rgba(20,24,28,.28)),linear-gradient(0deg, rgba(20,24,28,.18), rgba(20,24,28,0) 40%)}
+
+/* ---------- header ---------- */
+.top{position:relative;z-index:40;display:flex;align-items:center;justify-content:space-between;height:var(--y0);margin-left:var(--x0);width:var(--cw)}
+.top img{display:block;height:24px;width:auto}
+.top a.signin{font-size:15px;text-decoration:none;color:#23272b;padding:6px 2px;border-bottom:1px solid rgba(35,39,43,.45)}
+.top a.signin:hover{border-color:#23272b}
+
+/* ---------- the forme ---------- */
+.visual{position:relative}
+.forme{position:relative;margin-left:var(--x0);width:var(--cw)}
+.iron{position:relative;padding:var(--bar);border-radius:3px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,.25)),
+    var(--tx-grain),
+    linear-gradient(180deg,#34373b,#26282b);
+  box-shadow:
+    inset 1px 1px 0 rgba(255,255,255,.16), inset -1px -1px 0 rgba(0,0,0,.7),
+    0 1px 1px rgba(0,0,0,.45), 3px 5px 6px rgba(15,18,22,.38), 18px 34px 56px rgba(15,18,22,.34)}
+.iron::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:3px;
+  background:
+    linear-gradient(to top right, transparent calc(50% - 1px), rgba(0,0,0,.75) 50%, rgba(255,255,255,.1) calc(50% + 1px), transparent calc(50% + 2px)) 0 0/var(--bar) var(--bar) no-repeat,
+    linear-gradient(to top left, transparent calc(50% - 1px), rgba(0,0,0,.75) 50%, rgba(255,255,255,.1) calc(50% + 1px), transparent calc(50% + 2px)) 100% 0/var(--bar) var(--bar) no-repeat,
+    linear-gradient(to bottom right, transparent calc(50% - 1px), rgba(0,0,0,.75) 50%, rgba(255,255,255,.1) calc(50% + 1px), transparent calc(50% + 2px)) 0 100%/var(--bar) var(--bar) no-repeat,
+    linear-gradient(to bottom left, transparent calc(50% - 1px), rgba(0,0,0,.75) 50%, rgba(255,255,255,.1) calc(50% + 1px), transparent calc(50% + 2px)) 100% 100%/var(--bar) var(--bar) no-repeat}
+.inner{position:relative;padding:var(--pad);
+  background:var(--tx-long), linear-gradient(180deg,#a27c4c,#8d6a3f);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.55), inset 4px 5px 7px rgba(0,0,0,.55), inset -1px -1px 0 rgba(255,230,190,.12)}
+.row{position:relative;display:flex;height:var(--h1);
+  background:linear-gradient(180deg,#2a2d31,#3b3f44);box-shadow:inset 0 3px 6px rgba(0,0,0,.7)}
+.r2{height:var(--h2);margin-top:var(--gap)}
+.w{display:flex}
+.fill,.w::after{
+  background:var(--tx-long), linear-gradient(180deg,#a8814f,#946f42);
+  box-shadow:inset 0 1px 0 rgba(255,230,190,.25), inset 0 -1px 0 rgba(0,0,0,.4), inset 1px 0 0 rgba(0,0,0,.35)}
+.fill{flex:1}
+.w::after{content:none}
+
+/* type blocks */
+.b{position:relative;display:block;font-style:normal;flex:none;width:var(--w);height:var(--h);
+  --w:var(--w1);--h:var(--h1);--t:0;--l:0;--ink:1;
+  border-radius:1.5px;transform-origin:50% 50%;
+  background:
+    var(--st,linear-gradient(transparent,transparent)),
+    linear-gradient(180deg, rgba(255,243,214,.55), rgba(255,243,214,0) 8%),
+    linear-gradient(90deg, rgba(255,238,205,.22), rgba(255,238,205,0) 14%, rgba(70,40,12,0) 82%, rgba(70,40,12,.22)),
+    linear-gradient(0deg, rgba(70,40,12,.28), rgba(70,40,12,0) 10%),
+    var(--tx-end),
+    radial-gradient(130% 90% at 30% 15%, hsl(37 52% calc(66% + var(--t)*5%)), hsl(33 44% calc(53% + var(--t)*5%)));
+  box-shadow:
+    inset 0 2px 0 rgba(255,246,224,.6), inset 0 -2px 1px rgba(70,40,12,.5),
+    inset 1px 0 0 rgba(255,240,210,.35), inset -1px 0 1px rgba(70,40,12,.4),
+    calc(1.5px + var(--l)*18px) calc(2.5px + var(--l)*30px) calc(3px + var(--l)*34px) rgba(18,14,8,calc(.55 - var(--l)*.22)),
+    0 0 calc(1px + var(--l)*4px) rgba(18,14,8,.35)}
+.r2 .b,.pile .b{--w:var(--w2);--h:var(--h2)}
+.b:nth-child(3n+1){--t:.5;background-position:0 0,0 0,0 0,0 0,37px 61px,0 0}.b:nth-child(4n+2){--t:-.6;background-position:0 0,0 0,0 0,0 0,91px 13px,0 0}.b:nth-child(5n+3){--t:.9}.b:nth-child(7n){--t:-1}
+.b:nth-child(4n+1){--st:radial-gradient(40% 30% at 78% 82%, rgba(40,25,10,.22), rgba(40,25,10,0))}
+.b:nth-child(5n+2){--st:radial-gradient(35% 25% at 20% 12%, rgba(40,25,10,.2), rgba(40,25,10,0))}
+.b:nth-child(6n+4){--st:linear-gradient(100deg, rgba(40,25,10,0) 60%, rgba(40,25,10,.16) 61%, rgba(40,25,10,0) 64%)}
+.b::before,.b::after{content:attr(data-l);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Anton',Impact,'Arial Narrow',sans-serif;font-weight:400;font-size:calc(var(--h)*.86);line-height:1;padding-top:calc(var(--h)*.03);color:transparent}
+.b::before{-webkit-text-stroke:calc(var(--h)*.012 + .6px) rgba(22,20,18,calc(1 - var(--ink)));
+  text-shadow:calc(var(--h)*.008 + .5px) calc(var(--h)*.012 + .5px) calc(var(--h)*.012) rgba(70,40,10,calc(var(--ink)*.5)),0 0 calc(var(--h)*.05) rgba(40,26,10,calc(var(--ink)*.4))}
+.b::after{opacity:var(--ink);
+  background:var(--tx-wear), linear-gradient(165deg,#3a3b3d 0%,#121314 38%,#202123 58%,#0a0a0b 100%);
+  -webkit-background-clip:text;background-clip:text}
+.b[data-l="W"]::before,.b[data-l="W"]::after{transform:scaleX(.8)}
+.b[data-l="I"]::before,.b[data-l="I"]::after{font-size:calc(var(--h)*.86)}
+
+/* brass spacers, lower than type high */
+.sp{display:block;flex:none;width:var(--s1);height:100%;
+  background:var(--tx-grain), linear-gradient(90deg,#6f541d,#a8822f 22%,#d3b05a 48%,#b8913c 70%,#6c511b);
+  box-shadow:inset 4px 0 6px rgba(0,0,0,.55), inset -2px 0 3px rgba(0,0,0,.35), inset 0 3px 4px rgba(0,0,0,.4)}
+.r2 .sp,.pile .sp{width:var(--s2);height:var(--h2)}
+
+/* steel quoins locking the forme */
+.q{position:absolute;bottom:calc(var(--pad)*.2);height:calc(var(--pad)*.6);width:calc(6.5*var(--u));border-radius:2px;
+  background:repeating-linear-gradient(90deg,rgba(0,0,0,.18) 0 1px,rgba(0,0,0,0) 1px 4px) 0 0/42% 100% no-repeat,
+    linear-gradient(180deg,#e8eaec,#a6abb0 50%,#7a7f84);
+  box-shadow:0 1px 2px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.7)}
+.q::after{content:"";position:absolute;left:64%;top:22%;width:calc(var(--pad)*.3);height:56%;background:#2b2e31;border-radius:1px;box-shadow:inset 1px 1px 1px #000}
+.q1{right:calc(6*var(--u))}.q2{right:calc(17*var(--u))}
+
+/* paper slip tucked under the chase */
+.slip{position:absolute;left:calc(3*var(--u));bottom:calc(-2.4*var(--u) - 14px);padding:calc(1.3*var(--u) + 10px) 18px 9px;
+  transform:rotate(-2.2deg);transform-origin:0 0;
+  font:500 14px/1 'Inter',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#3a3830;
+  background:var(--tx-grain),linear-gradient(180deg,#e7e1d2,#f2eee3);
+  box-shadow:0 1px 1px rgba(0,0,0,.25),2px 4px 8px rgba(20,20,20,.18)}
+
+/* removed blocks lying on the bed */
+.pile{position:absolute;z-index:3;left:calc(var(--x0) + 74.5*var(--u));top:calc(var(--y0) + 1.2*var(--u));width:calc(19*var(--u));
+  display:flex;flex-wrap:wrap;align-items:flex-start;gap:calc(1.3*var(--u)) calc(.55*var(--u))}
+.pile .br{flex-basis:100%;height:0}
+.pile .b,.pile .sp{transform:translateY(calc(var(--o,0)*var(--h2))) rotate(var(--r,0deg))}
+.pile .sp{margin-left:calc(.3*var(--u))}
+
+/* hovering replacement and the tag only exist when animated */
+.soft,.tag{display:none}
+
+/* ---------- words ---------- */
+.below{display:flex;align-items:flex-start;margin:calc(4.6*var(--u) + 14px) 0 0 var(--x0);width:var(--cw)}
+.intro{position:relative;z-index:40;flex:0 0 calc(40*var(--u))}
+h1{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:clamp(34px,3.35*var(--u),62px);line-height:1.04;letter-spacing:.003em;margin:0;color:#15171a;max-width:13em}
+.lede{font-size:18px;line-height:1.5;margin:22px 0 28px;max-width:27em;color:#2a2e33}
+.cta{display:inline-block;padding:16px 24px;border-radius:3px;text-decoration:none;font:500 16px/1 'Inter',sans-serif;color:#f4efe4;
+  background:linear-gradient(180deg,#26292d,#15171a);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 1px 1px rgba(0,0,0,.4),3px 6px 14px rgba(15,18,22,.25)}
+.cta:hover{background:linear-gradient(180deg,#1b1d20,#0c0d0e)}
+.caps{flex:0 0 calc(25*var(--u));margin-left:auto;position:relative;z-index:40}
+.cap{margin:0 0 26px;font-size:17px;line-height:1.5;color:#2a2e33}
+.cap b{display:block;font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:30px;line-height:1.1;margin-bottom:6px;color:#15171a;letter-spacing:.01em}
+
+/* ---------- end ---------- */
+.end{position:relative;padding:18vh 0 0;min-height:86vh;display:flex;flex-direction:column}
+.end .in{margin-left:var(--x0);width:var(--cw)}
+.end .big{font-family:'Anton',Impact,sans-serif;font-size:clamp(38px,5.2*var(--u),92px);line-height:1;margin:0;color:#15171a}
+.end .sub{font-size:19px;line-height:1.5;margin:18px 0 34px;color:#2a2e33}
+footer{margin:auto 0 0 var(--x0);width:var(--cw);padding:14vh 0 28px;font-size:13px;color:#33373c}
+footer a{text-decoration:none;border-bottom:1px solid rgba(51,55,60,.4)}
+
+/* ---------- animated version ---------- */
+.anim .press{height:380vh}
+.anim .stage{position:sticky;top:0;height:100vh;min-height:0}
+.anim .pile .b,.anim .pile .sp{transform:none}
+.anim .b{will-change:transform}
+.anim .soft{display:block;position:absolute;left:0;top:0;width:0;height:0}
+.anim .soft .b{position:absolute;left:0;top:0;opacity:0}
+.anim .tag{display:block;position:absolute;left:0;top:0;opacity:0;z-index:25}
+.anim .caps .cap{position:absolute;left:0;top:0;margin:0;opacity:0;transition:none}
+.tag{padding:9px 14px 9px 30px;border-radius:3px;font:500 14px/1 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#3b2a08;
+  background:var(--tx-grain),linear-gradient(180deg,#e6c66f,#c9a24a 55%,#a9842f);
+  text-shadow:0 1px 0 rgba(255,236,180,.55);
+  box-shadow:inset 0 1px 0 rgba(255,245,210,.7),inset 0 -1px 0 rgba(90,60,10,.5),2px 4px 3px rgba(20,16,8,.35),8px 14px 22px rgba(20,16,8,.25)}
+.tag::before{content:"";position:absolute;left:11px;top:50%;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;background:#3d4146;box-shadow:inset 1px 1px 2px #000,0 1px 0 rgba(255,240,200,.6)}
+
+/* ---------- phone ---------- */
+@media (max-width:760px){
+  :root{
+    --u:1vw; --bar:10px; --pad:calc(1.6*var(--u)); --gap:calc(1.8*var(--u));
+    --w1:calc(10*var(--u)); --h1:calc(17*var(--u));
+    --w2:calc(6*var(--u)); --h2:calc(10.5*var(--u));
+    --lead:calc(1*var(--u));
+    --cw:calc(92*var(--u)); --x0:calc(4*var(--u)); --y0:62px;
+    --ch:calc(2*var(--bar) + 2*var(--pad) + 3*var(--h1) + 2*var(--lead) + var(--gap) + 3*var(--h2) + 2*var(--lead));
+  }
+  .top img{height:21px}
+  .row{flex-direction:column;height:auto;background:none;box-shadow:none}
+  .r2{height:calc(3*var(--h2) + 2*var(--lead))}
+  .w{height:var(--h1);background:linear-gradient(180deg,#2a2d31,#3b3f44);box-shadow:inset 0 3px 6px rgba(0,0,0,.7)}
+  .r2 .w{height:var(--h2)}
+  .w::after{content:"";flex:1;margin-left:var(--fx,0px)}
+  .r1 .fill{display:none}
+  .row .sp{width:100%;height:var(--lead);
+    background:var(--tx-grain),linear-gradient(180deg,#6f541d,#b8913c 30%,#d6b45e 50%,#a8822f 75%,#6c511b);
+    box-shadow:inset 0 2px 3px rgba(0,0,0,.55)}
+  .q{display:none}
+  .slip{left:calc(5*var(--u));bottom:calc(-1.6*var(--u) - 22px);padding-top:calc(var(--u) + 12px)}
+  .below{display:block;margin:calc(7*var(--u) + 12px) var(--x0) 0;width:auto}
+  h1{font-size:calc(8.4*var(--u));max-width:none}
+  .lede{font-size:16px;margin:14px 0 20px}
+  .cta{padding:15px 20px}
+  .pile{position:relative;left:auto;top:auto;width:auto;margin:11vh 0 0;gap:calc(2*var(--u)) calc(1.5*var(--u))}
+  .pile .br{display:none}
+  .pile .b:nth-child(6){margin-right:calc(2.5*var(--u))}
+  #b4{--r:1.4deg !important;--o:.35 !important}
+  .pile .sp{order:9;width:calc(92*var(--u) - 2*var(--bar) - 2*var(--pad));height:var(--lead);margin:0;
+    background:var(--tx-grain),linear-gradient(180deg,#8a6a26,#d3b05a 45%,#7a5c1e)}
+  .caps{margin-top:28px}
+  .cap{font-size:16px}
+  .cap b{font-size:24px}
+  .anim .stage{padding-bottom:0}
+  .anim .pile{position:absolute;left:var(--x0);top:calc(var(--y0) + var(--ch) + 12*var(--u));margin:0;width:var(--cw)}
+  .anim .caps{position:absolute;left:var(--x0);right:var(--x0);top:calc(var(--y0) + var(--ch) + 37*var(--u));margin:0}
+  .anim .caps .cap{right:0}
+  .end{padding-top:12vh;min-height:80vh}
+  .end .sub{font-size:17px}
+  footer{padding-top:12vh}
+}
+@media (max-width:760px) and (max-height:700px){ :root{--h1:calc(15*var(--u));--h2:calc(9.5*var(--u))} }
+</style>
+</head>
+<body>
+<main>
+<section class="press" aria-labelledby="h">
+  <div class="stage steel">
+    <header class="top">
+      <a href="#" class="logo"><img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="95" height="24"></a>
+      <a class="signin" href="https://strapivo.app">Sign in</a>
+    </header>
+
+    <div class="visual" role="img" aria-label="Illustrative example. A printer's forme holds two lines of wooden type. The top line reads Lead in service. The second line read Through direct sales. Those blocks now lie to one side, and Partners stands in their place.">
+      <div class="forme">
+        <span class="slip">Illustrative</span>
+        <div class="iron"><div class="inner">
+          <div class="row r1">
+            <span class="w"><i class="b" data-l="L"></i><i class="b" data-l="E"></i><i class="b" data-l="A"></i><i class="b" data-l="D"></i></span>
+            <i class="sp"></i>
+            <span class="w"><i class="b" data-l="I"></i><i class="b" data-l="N"></i></span>
+            <i class="sp"></i>
+            <span class="w" id="wSvc"><i class="b" data-l="S"></i><i class="b" data-l="E"></i><i class="b" data-l="R"></i><i class="b" data-l="V"></i><i class="b" data-l="I"></i><i class="b" data-l="C"></i><i class="b" data-l="E"></i></span>
+            <i class="fill" id="f1"></i>
+          </div>
+          <div class="row r2">
+            <span class="w"><i class="b" data-l="T"></i><i class="b" data-l="H"></i><i class="b" data-l="R"></i><i class="b" data-l="O"></i><i class="b" data-l="U"></i><i class="b" data-l="G"></i><i class="b" data-l="H"></i></span>
+            <i class="sp" id="b3"></i>
+            <span class="w" id="wPar"><i class="b" data-l="P"></i><i class="b" data-l="A"></i><i class="b" data-l="R"></i><i class="b" data-l="T"></i><i class="b" data-l="N"></i><i class="b" data-l="E"></i><i class="b" data-l="R"></i><i class="b" data-l="S"></i></span>
+            <i class="fill" id="f2"></i>
+          </div>
+        </div></div>
+        <div class="soft" id="soft"><i class="b" data-l="S"></i><i class="b" data-l="O"></i><i class="b" data-l="F"></i><i class="b" data-l="T"></i><i class="b" data-l="W"></i><i class="b" data-l="A"></i><i class="b" data-l="R"></i><i class="b" data-l="E"></i></div>
+        <span class="tag" id="tag">Confirmed</span>
+      </div>
+    </div>
+
+    <div class="below">
+      <div class="intro">
+        <h1 id="h">A strategy is set in type, not carved in stone.</h1>
+        <p class="lede">Strapivo is software where a leadership team keeps its strategy and corrects one line when the facts change.</p>
+        <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      </div>
+      <div class="pile" id="pile" aria-hidden="true">
+        <i class="b d" data-l="D" style="--r:-5deg;--o:.06"></i><i class="b d" data-l="I" style="--r:3deg;--o:-.04"></i><i class="b d" data-l="R" style="--r:-1.5deg;--o:.1"></i><i class="b d" data-l="E" style="--r:6deg;--o:0"></i><i class="b d" data-l="C" style="--r:-3deg;--o:.14"></i><i class="b d" data-l="T" style="--r:2deg;--o:.02"></i>
+        <i class="br"></i>
+        <i class="b s5" data-l="S" style="--r:4deg;--o:.08"></i><i class="b s5" data-l="A" style="--r:-2.5deg;--o:-.02"></i><i class="b s5" data-l="L" style="--r:7deg;--o:.12"></i><i class="b s5" data-l="E" style="--r:-4deg;--o:.03"></i><i class="b s5" data-l="S" style="--r:1.5deg;--o:.09"></i>
+        <i class="sp" id="b4" style="--r:9deg;--o:.05"></i>
+      </div>
+      <div class="caps" id="caps">
+        <p class="cap" id="cap1"><b>Adapt.</b> The success criterion holds. The team resets the objective under it.</p>
+        <p class="cap" id="cap2"><b>Pivot.</b> The criterion itself changes once someone with authority confirms it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="end steel" aria-label="Start">
+  <div class="in">
+    <p class="big">We do the reading first.</p>
+    <p class="sub">Four to five hours of setup, then your team runs it.</p>
+    <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+  </div>
+  <footer>© 2026 Strapivo · <a href="/imprint">Imprint</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</section>
+</main>
+
+<script>
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const root = document.documentElement;
+  root.classList.add('anim');
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const stage = $('.stage'), press = $('.press'), iron = $('.iron');
+  const DIR = $$('#pile .d'), SAL = $$('#pile .s5'), B4 = $('#b4'), B3 = $('#b3');
+  const PAR = $$('#wPar .b'), SVC = $$('#wSvc .b'), SOFT = $$('#soft .b');
+  const tag = $('#tag'), f1 = $('#f1'), f2 = $('#f2'), wPar = $('#wPar'), wSvc = $('#wSvc');
+  const cap1 = $('#cap1'), cap2 = $('#cap2'), intro = $('.intro');
+  const cl = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const seg = (p, a, b) => cl((p - a) / (b - a));
+  const ez = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const lerp = (a, b, t) => a + (b - a) * t;
+  let G = null;
+
+  function rel(el) {
+    const r = el.getBoundingClientRect(), s = stage.getBoundingClientRect();
+    return { x: r.left - s.left, y: r.top - s.top, w: r.width, h: r.height };
+  }
+  function measure() {
+    [...DIR, ...SAL, B4, ...PAR, ...SVC, ...SOFT, tag].forEach(e => { e.style.transform = 'none'; });
+    f1.style.marginLeft = f2.style.marginLeft = '';
+    wPar.style.removeProperty('--fx'); wSvc.style.removeProperty('--fx');
+    const phone = matchMedia('(max-width:760px)').matches;
+    const P1 = rel(PAR[0]), S1 = rel(SVC[0]);
+    const w2 = P1.w, h2 = P1.h, w1 = S1.w, h1 = S1.h;
+    const b4 = rel(B4), b3 = rel(B3), ir = rel(iron);
+    const item = (el, home) => {
+      const f = rel(el), cs = getComputedStyle(el);
+      return { el, f, home, rot: parseFloat(cs.getPropertyValue('--r')) || 0, oy: (parseFloat(cs.getPropertyValue('--o')) || 0) * h2 };
+    };
+    const mv = [];
+    DIR.forEach((e, i) => mv.push(item(e, { x: P1.x + i * w2, y: P1.y })));
+    mv.push(item(B4, phone ? { x: b3.x, y: P1.y + h2 } : { x: P1.x + 6 * w2, y: P1.y }));
+    SAL.forEach((e, i) => mv.push(item(e, phone ? { x: P1.x + i * w2, y: P1.y + h2 + b4.h } : { x: P1.x + 6 * w2 + b4.w + i * w2, y: P1.y })));
+    const t = rel(tag);
+    G = {
+      phone, mv, w1, w2, h1, h2, vw: stage.clientWidth,
+      par: PAR.map(e => ({ el: e, f: rel(e) })),
+      svc: SVC.map(e => ({ el: e, f: rel(e) })),
+      soft: SOFT.map((e, i) => ({ el: e, f: rel(e), home: { x: S1.x + i * w1, y: S1.y }, hr: [-1.6, 1.1, -.7, 1.8, -1.2, .9, -1.9, 1.3][i] })),
+      tag: { el: tag, f: t, home: phone ? { x: S1.x + 8 * w1 - t.w, y: S1.y - t.h - h1 * .12 } : { x: S1.x + 8 * w1 - t.w * .28, y: ir.y - t.h * .62 } },
+      fA: phone ? -2 * w2 : (11 * w2 + b4.w) - 8 * w2,
+      fC: w1
+    };
+  }
+  function put(o, x, y, rot, sc, l, op) {
+    const s = o.el.style;
+    s.transform = `translate3d(${(x - o.f.x).toFixed(2)}px,${(y - o.f.y).toFixed(2)}px,0) rotate(${rot.toFixed(2)}deg) scale(${sc.toFixed(4)})`;
+    s.setProperty('--l', l.toFixed(3));
+    s.opacity = op;
+    s.zIndex = l > .005 ? 20 : 2;
+  }
+  function render(p) {
+    if (!G) return;
+    const { mv, h1, h2, w1, phone } = G;
+    // Step 1, adapt: direct sales lifts out and lies to one side
+    mv.forEach((o, k) => {
+      const a = .07 + k * .0055;
+      const lift = ez(seg(p, a, a + .05)), down = ez(seg(p, a + .16, a + .21));
+      const mx = ez(seg(p, a + .045, phone ? .17 + a : a + .13)), my = ez(seg(p, phone ? a + .045 : a + .085, a + .17));
+      const l = lift * (1 - down);
+      put(o, lerp(o.home.x, o.f.x, mx), lerp(o.home.y, o.f.y + o.oy, my), o.rot * Math.max(mx, my), 1 + .06 * l, l, 1);
+    });
+    // the furniture closes or opens the measure
+    const fv = G.fA < 0 ? lerp(G.fA, 0, ez(seg(p, .25, .3))) : lerp(G.fA, 0, ez(seg(p, .45, .49)));
+    if (phone) wPar.style.setProperty('--fx', fv.toFixed(2) + 'px'); else f2.style.marginLeft = fv.toFixed(2) + 'px';
+    // partners drops into the gap
+    G.par.forEach((o, i) => {
+      const a = .3 + i * .01;
+      const app = seg(p, a, a + .03), d = ez(seg(p, a + .025, a + .085));
+      const l = 1 - d;
+      put(o, o.f.x, o.f.y - l * h2 * .35, 0, 1 + .06 * l + .05 * (1 - app), l, app.toFixed(3));
+    });
+    // Step 2, pivot: service lifts away
+    G.svc.forEach((o, i) => {
+      const a = .55 + i * .007;
+      const lift = ez(seg(p, a, a + .045)), ex = ez(seg(p, a + .04, a + .15));
+      put(o, o.f.x + ex * (G.vw * .07 + i * w1 * .35), o.f.y - ex * (o.f.y + o.f.h * 1.9), ex * (i - 3) * 2.4, 1 + .06 * lift + .04 * ex, lift, 1);
+    });
+    const fc = lerp(0, G.fC, ez(seg(p, .64, .68)));
+    if (phone) wSvc.style.setProperty('--fx', fc.toFixed(2) + 'px'); else f1.style.marginLeft = fc.toFixed(2) + 'px';
+    // software hovers, uninked, until confirmed
+    G.soft.forEach((o, i) => {
+      const a = .68 + i * .006, d0 = .85 + i * .006;
+      const app = seg(p, a, a + .04), d = ez(seg(p, d0, d0 + .045)), ink = ez(seg(p, d0 + .03, d0 + .075));
+      const l = 1 - d;
+      put(o, o.home.x, o.home.y - l * h1 * .07, o.hr * l, 1 + .06 * l + .05 * (1 - app), l, app.toFixed(3));
+      o.el.style.setProperty('--ink', ink.toFixed(3));
+    });
+    const tt = ez(seg(p, .77, .81));
+    tag.style.transform = `translate3d(${(G.tag.home.x - G.tag.f.x).toFixed(2)}px,${(G.tag.home.y - G.tag.f.y).toFixed(2)}px,0) rotate(-4deg) scale(${(1.25 - .25 * tt).toFixed(3)})`;
+    tag.style.opacity = tt.toFixed(3);
+    // words
+    const c1 = seg(p, .1, .15) * (1 - seg(p, .5, .54)), c2 = seg(p, .54, .59);
+    cap1.style.opacity = c1.toFixed(3); cap1.style.transform = `translateY(${((1 - c1) * 8).toFixed(1)}px)`;
+    cap2.style.opacity = c2.toFixed(3); cap2.style.transform = `translateY(${((1 - c2) * 8).toFixed(1)}px)`;
+    cap1.style.visibility = c1 > 0 ? 'visible' : 'hidden';
+    cap2.style.visibility = c2 > 0 ? 'visible' : 'hidden';
+    if (phone) {
+      const io = 1 - seg(p, .03, .09);
+      intro.style.opacity = io.toFixed(3);
+      intro.style.visibility = io > 0 ? 'visible' : 'hidden';
+    } else { intro.style.opacity = ''; intro.style.visibility = ''; }
+  }
+  let raf = 0;
+  const tick = () => {
+    raf = 0;
+    const r = press.getBoundingClientRect(), tot = press.offsetHeight - innerHeight;
+    render(tot > 0 ? cl(-r.top / tot) : 0);
+  };
+  const req = () => { if (!raf) raf = requestAnimationFrame(tick); };
+  addEventListener('scroll', req, { passive: true });
+  addEventListener('resize', () => { measure(); tick(); });
+  if (document.fonts) document.fonts.ready.then(() => { measure(); tick(); });
+  measure(); tick();
+})();
+</script>
+<script src="/landings/prompt.js" defer></script>
+</body>
+</html>
