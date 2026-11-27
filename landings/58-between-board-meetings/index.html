@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Show the board how strategy moved between meetings | Strapivo</title>
+  <meta name="description" content="Strapivo is the Strategic Design System for leadership teams and boards. Track market shifts weekly, record every decision with named dissent and export a Markdown board pack.">
+  <link rel="icon" type="image/svg+xml" href="../../assets/logo/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --ink: #141B24;
+      --slate: #1C2632;
+      --slate-line: #2E3B4B;
+      --forest: #2B6B52;
+      --forest-bg: #EBF4F0;
+      --amber: #945A08;
+      --amber-bg: #FDF5E6;
+      --crimson: #A82420;
+      --crimson-bg: #FDEEEC;
+      --n900: #050C14;
+      --n700: #2C343C;
+      --n600: #495158;
+      --n500: #6C727A;
+      --n400: #999FA6;
+      --n200: #E1E5EA;
+      --n100: #EFF2F6;
+      --paper: #F6F9FB;
+      --white: #FFFFFF;
+      --sky: #EEF6FF;
+      --sky2: #D4EBFF;
+      --p200: #A9D6FF;
+      --p400: #3FA0FA;
+      --p500: #0082E6;
+      --p600: #006FD1;
+      --p700: #005DBD;
+
+      --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+      --max-w: 1180px;
+      --gutter: clamp(18px, 4vw, 48px);
+      --r-sm: 3px;
+      --r-md: 5px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "ss01", "cv11";
+      overflow-x: clip;
+    }
+
+    h1, h2, h3, h4, strong, b {
+      font-weight: 500;
+    }
+
+    h1, h2, h3, p, ul, ol, figure, blockquote {
+      margin: 0;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--p500);
+      outline-offset: 2px;
+      border-radius: var(--r-sm);
+    }
+
+    .nowrap {
+      white-space: nowrap;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 8px;
+      z-index: 100;
+      padding: 10px 16px;
+      background: var(--slate);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.875rem;
+    }
+
+    .skip-link:focus {
+      left: 12px;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: calc(var(--max-w) + var(--gutter) * 2);
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-weight: 400;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--p600);
+      margin-bottom: 12px;
+    }
+
+    .eyebrow--light {
+      color: var(--p200);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 11px 22px;
+      border-radius: var(--r-sm);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 0.9375rem;
+      line-height: 1.2;
+      text-decoration: none;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+    }
+
+    .btn--primary {
+      background: var(--p600);
+      color: var(--white);
+      border-color: var(--p600);
+    }
+
+    .btn--primary:hover {
+      background: var(--p700);
+      border-color: var(--p700);
+    }
+
+    .btn--paper {
+      background: var(--white);
+      color: var(--ink);
+      border-color: var(--white);
+    }
+
+    .btn--paper:hover {
+      background: var(--sky);
+      border-color: var(--sky2);
+    }
+
+    /* Header */
+    .site-header {
+      background: var(--paper);
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 68px;
+      gap: 16px;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding-block: 6px;
+      text-decoration: none;
+    }
+
+    .brand-link img {
+      height: 25px;
+      width: auto;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-signin {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 8px 12px;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--n700);
+      text-decoration: none;
+      border-radius: var(--r-sm);
+      transition: color 160ms ease, background-color 160ms ease;
+    }
+
+    .nav-signin:hover {
+      color: var(--ink);
+      background: var(--n100);
+    }
+
+    .header-cta {
+      min-height: 44px;
+      padding: 9px 16px;
+      font-size: 0.875rem;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 36px 0 54px;
+      background: var(--paper);
+    }
+
+    .hero-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 24px 48px;
+      align-items: end;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.125rem, 3.6vw, 3.25rem);
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      max-width: 18ch;
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .hero-lead {
+      font-size: 1.0625rem;
+      line-height: 1.55;
+      color: var(--n700);
+      max-width: 50ch;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 18px;
+    }
+
+    .hero-audience {
+      font-size: 0.875rem;
+      color: var(--n600);
+    }
+
+    /* Drawing 1: 90-Day Quarterly Arc */
+    .arc-frame {
+      background: var(--white);
+      border: 1px solid var(--n200);
+      border-top: 3px solid var(--slate);
+      border-radius: var(--r-md);
+      overflow: hidden;
+    }
+
+    .arc-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 16px;
+      padding: 12px 22px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .arc-head-left {
+      color: var(--n600);
+    }
+
+    .arc-head-right {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--n700);
+    }
+
+    .dot-forest {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--forest);
+      flex-shrink: 0;
+    }
+
+    .arc-body {
+      padding: 24px 24px 20px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 0;
+      column-gap: 0;
+    }
+
+    .arc-cards {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .arc-card {
+      position: relative;
+      padding: 15px 16px;
+      border: 1px solid var(--n200);
+      border-left: 3px solid var(--forest);
+      border-radius: var(--r-sm);
+      background: var(--white);
+      text-align: left;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .arc-card--escalation {
+      border-left-color: var(--slate);
+      background: var(--sky);
+      border-color: var(--sky2);
+    }
+
+    .arc-card.is-active {
+      border-color: var(--p500);
+      box-shadow: 0 2px 10px rgba(20, 27, 36, 0.06);
+    }
+
+    .arc-card-btn {
+      all: unset;
+      display: block;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .arc-card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .arc-week {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--n600);
+    }
+
+    .arc-badge {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 2px;
+      background: var(--forest-bg);
+      color: var(--forest);
+    }
+
+    .arc-badge--slate {
+      background: var(--slate);
+      color: var(--white);
+    }
+
+    .arc-card-title {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      line-height: 1.35;
+      color: var(--ink);
+      margin-bottom: 5px;
+    }
+
+    .arc-card-sub {
+      font-size: 0.875rem;
+      line-height: 1.45;
+      color: var(--n600);
+    }
+
+    /* Architectural SVG arc band */
+    .arc-svg-wrap {
+      grid-column: 1 / -1;
+      width: 100%;
+      margin-top: -1px;
+    }
+
+    .arc-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Exact alignment with SVG ticks at x=133..1067 in 1200 viewBox (7.54% padding each side) */
+    .arc-ticks-wrap {
+      grid-column: 1 / -1;
+      padding: 6px 7.54% 0;
+    }
+
+    .arc-ticks-bar {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      text-align: center;
+    }
+
+    .arc-tick-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--n500);
+      line-height: 1.35;
+    }
+
+    .arc-tick-label--forest {
+      color: var(--forest);
+      font-weight: 500;
+    }
+
+    .arc-tick-label--azure {
+      color: var(--p600);
+      font-weight: 500;
+    }
+
+    .arc-ticks-caption {
+      display: none;
+    }
+
+    .milestone {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--n200);
+    }
+
+    .milestone--start {
+      grid-column: 1;
+      justify-self: stretch;
+    }
+
+    .milestone--end {
+      grid-column: 2;
+      justify-content: flex-end;
+      text-align: right;
+      flex-direction: row-reverse;
+    }
+
+    .milestone-pier {
+      width: 10px;
+      height: 28px;
+      border-radius: 2px;
+      background: var(--slate);
+      flex-shrink: 0;
+    }
+
+    .milestone-pier--azure {
+      background: var(--p500);
+    }
+
+    .milestone-title {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.8125rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--slate);
+    }
+
+    .milestone-sub {
+      font-size: 0.8125rem;
+      color: var(--n600);
+    }
+
+    /* Section base */
+    .section {
+      padding: clamp(52px, 6.5vw, 84px) 0;
+    }
+
+    .section--white {
+      background: var(--white);
+      border-top: 1px solid var(--n200);
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .section--paper {
+      background: var(--paper);
+    }
+
+    .section--slate {
+      background: var(--slate);
+      color: var(--white);
+    }
+
+    .section-head {
+      max-width: 62ch;
+      margin-bottom: 32px;
+    }
+
+    .section h2 {
+      font-size: clamp(1.5625rem, 2.6vw, 2.2rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .section--slate h2 {
+      color: var(--white);
+    }
+
+    .section-lead {
+      font-size: 1.0625rem;
+      line-height: 1.56;
+      color: var(--n700);
+      max-width: 60ch;
+    }
+
+    .section--slate .section-lead {
+      color: var(--sky2);
+    }
+
+    /* Section 1: Blind spot */
+    .blindspot-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 28px 64px;
+      align-items: start;
+    }
+
+    .exec-quote {
+      margin-top: 20px;
+      padding: 16px 18px;
+      background: var(--paper);
+      border: 1px solid var(--n200);
+      border-left: 3px solid var(--slate);
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    }
+
+    .exec-quote p {
+      font-size: 1.03125rem;
+      line-height: 1.48;
+      color: var(--ink);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .exec-quote cite {
+      font-style: normal;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--n600);
+    }
+
+    .prose-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .prose-stack p {
+      font-size: 1.03125rem;
+      line-height: 1.6;
+      color: var(--n700);
+      max-width: 58ch;
+    }
+
+    .prose-stack p:last-child {
+      padding-top: 16px;
+      border-top: 1px solid var(--n200);
+      color: var(--ink);
+    }
+
+    /* Section 2: Four scannable rows */
+    .accum-list {
+      border-top: 1px solid var(--n200);
+    }
+
+    .accum-row {
+      display: grid;
+      grid-template-columns: 185px minmax(0, 0.85fr) minmax(0, 1.35fr);
+      gap: 10px 32px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--n200);
+      align-items: baseline;
+    }
+
+    .accum-tag {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--p600);
+    }
+
+    .accum-row h3 {
+      font-size: 1.125rem;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .accum-row p {
+      font-size: 1rem;
+      line-height: 1.56;
+      color: var(--n700);
+      max-width: 58ch;
+    }
+
+    /* Section 3: Drawing 2 - Inside one board pack */
+    .pack-preview {
+      background: var(--white);
+      color: var(--ink);
+      border: 1px solid var(--slate-line);
+      border-radius: var(--r-md);
+      overflow: hidden;
+    }
+
+    .pack-topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 16px;
+      padding: 12px 22px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .pack-filename {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.8125rem;
+      color: var(--slate);
+    }
+
+    .pack-example-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--n600);
+    }
+
+    .pack-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pack-cell {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .pack-cell:nth-child(odd) {
+      border-right: 1px solid var(--n200);
+    }
+
+    .pack-cell:nth-child(3),
+    .pack-cell:nth-child(4) {
+      border-bottom: 0;
+    }
+
+    .pack-cell-head {
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--n100);
+    }
+
+    .pack-cell-title {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--slate);
+    }
+
+    .pack-ambition {
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      background: var(--paper);
+      border: 1px solid var(--n200);
+      border-radius: var(--r-sm);
+    }
+
+    .pack-ambition-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--n600);
+      margin-bottom: 2px;
+    }
+
+    .pack-ambition-text {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .light-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .light-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.875rem;
+      color: var(--n700);
+    }
+
+    .light-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .light-pill--green {
+      background: var(--forest-bg);
+      color: var(--forest);
+    }
+
+    .light-pill--yellow {
+      background: var(--amber-bg);
+      color: var(--amber);
+    }
+
+    .light-pill--red {
+      background: var(--crimson-bg);
+      color: var(--crimson);
+    }
+
+    .light-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .pack-note {
+      margin-top: 12px;
+      font-size: 0.8125rem;
+      color: var(--n600);
+    }
+
+    .pack-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pack-item {
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--n100);
+    }
+
+    .pack-item:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .pack-item-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px 10px;
+      margin-bottom: 4px;
+    }
+
+    .pack-item-name {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .pack-item-meta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--n600);
+    }
+
+    .pack-item-meta--warn {
+      color: var(--crimson);
+      font-weight: 500;
+    }
+
+    .pack-item-meta--confirmed {
+      color: var(--forest);
+      font-weight: 500;
+    }
+
+    .pack-item-desc {
+      font-size: 0.875rem;
+      line-height: 1.45;
+      color: var(--n600);
+    }
+
+    .pack-escalation {
+      padding: 14px 15px;
+      background: var(--sky);
+      border: 1px solid var(--sky2);
+      border-left: 3px solid var(--p500);
+      border-radius: var(--r-sm);
+    }
+
+    .pack-escalation-code {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.75rem;
+      color: var(--p700);
+      margin-bottom: 6px;
+    }
+
+    .pack-escalation-title {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .pack-escalation-desc {
+      font-size: 0.875rem;
+      line-height: 1.48;
+      color: var(--n700);
+    }
+
+    .pack-foot {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 16px;
+      padding: 12px 22px;
+      background: var(--paper);
+      border-top: 1px solid var(--n200);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--n600);
+    }
+
+    /* Section 4: Governance & Trust */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px 36px;
+    }
+
+    .trust-col {
+      padding-top: 18px;
+      border-top: 2px solid var(--slate);
+    }
+
+    .trust-col--forest {
+      border-top-color: var(--forest);
+    }
+
+    .trust-col--azure {
+      border-top-color: var(--p500);
+    }
+
+    .trust-label {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--n600);
+      margin-bottom: 8px;
+    }
+
+    .trust-col h3 {
+      font-size: 1.125rem;
+      line-height: 1.3;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .trust-col p {
+      font-size: 1rem;
+      line-height: 1.56;
+      color: var(--n700);
+    }
+
+    /* Section 5: Getting started + Closing CTA */
+    .start-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: 28px 60px;
+      align-items: start;
+      margin-bottom: 48px;
+    }
+
+    .step-list {
+      list-style: none;
+      padding: 0;
+      border-top: 1px solid var(--n200);
+    }
+
+    .step-item {
+      display: grid;
+      grid-template-columns: 40px minmax(0, 1fr);
+      gap: 12px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--n200);
+      align-items: baseline;
+    }
+
+    .step-num {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 0.8125rem;
+      color: var(--p600);
+    }
+
+    .step-item h3 {
+      font-size: 1.03125rem;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .step-item p {
+      font-size: 0.96875rem;
+      line-height: 1.54;
+      color: var(--n700);
+    }
+
+    /* Closing CTA panel */
+    .closing-panel {
+      background: var(--slate);
+      color: var(--white);
+      border-top: 3px solid var(--p500);
+      border-radius: var(--r-md);
+      padding: clamp(26px, 4vw, 42px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) auto;
+      gap: 22px 40px;
+      align-items: center;
+    }
+
+    .closing-panel h2 {
+      color: var(--white);
+      font-size: clamp(1.45rem, 2.3vw, 1.95rem);
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      max-width: 28ch;
+    }
+
+    .closing-panel p {
+      color: var(--sky2);
+      font-size: 1rem;
+      max-width: 52ch;
+    }
+
+    .closing-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .closing-email {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      color: var(--p200);
+    }
+
+    /* Footer */
+    .site-footer {
+      background: var(--paper);
+      border-top: 1px solid var(--n200);
+      padding: 20px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px 24px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-brand img {
+      height: 20px;
+      width: auto;
+    }
+
+    .footer-copy {
+      font-size: 0.875rem;
+      color: var(--n600);
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 8px 12px;
+      font-size: 0.875rem;
+      color: var(--n600);
+      text-decoration: none;
+      border-radius: var(--r-sm);
+    }
+
+    .footer-links a:hover {
+      color: var(--ink);
+      background: var(--n100);
+    }
+
+    /* Responsive: tablet and mobile */
+    @media (max-width: 960px) {
+      .hero-top,
+      .blindspot-grid,
+      .start-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .hero h1 {
+        max-width: 22ch;
+      }
+
+      .accum-row {
+        grid-template-columns: 1fr;
+        gap: 5px;
+        padding: 18px 0;
+      }
+
+      .pack-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pack-cell:nth-child(odd) {
+        border-right: 0;
+      }
+
+      .pack-cell:nth-child(3) {
+        border-bottom: 1px solid var(--n200);
+      }
+
+      .trust-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .closing-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .closing-actions {
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .header-cta {
+        display: none;
+      }
+
+      .hero {
+        padding: 24px 0 36px;
+      }
+
+      .hero-top {
+        margin-bottom: 22px;
+      }
+
+      .section {
+        padding: 40px 0;
+      }
+
+      .section-head {
+        margin-bottom: 24px;
+      }
+
+      .start-grid {
+        margin-bottom: 34px;
+      }
+
+      .arc-head {
+        padding: 11px 16px;
+      }
+
+      .arc-body {
+        padding: 16px;
+        grid-template-columns: 1fr;
+        row-gap: 14px;
+      }
+
+      .milestone {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+      }
+
+      .milestone--start {
+        grid-column: 1;
+        order: 1;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--n100);
+      }
+
+      .arc-cards {
+        order: 2;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding-left: 14px;
+        border-left: 2px solid var(--n200);
+      }
+
+      .arc-card {
+        padding: 13px 14px;
+      }
+
+      .arc-svg-wrap {
+        display: none;
+      }
+
+      .arc-ticks-wrap {
+        order: 3;
+        padding: 10px 0 2px;
+        border-top: 1px solid var(--n100);
+      }
+
+      .arc-ticks-caption {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--n600);
+        margin-bottom: 6px;
+      }
+
+      .milestone--end {
+        grid-column: 1;
+        order: 4;
+        justify-content: flex-start;
+        flex-direction: row;
+        text-align: left;
+        padding-top: 12px;
+        border-top: 1px solid var(--n100);
+      }
+
+      .pack-topbar,
+      .pack-foot {
+        padding: 11px 16px;
+      }
+
+      .pack-cell {
+        padding: 16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand-link" href="#" aria-label="Strapivo home">
+        <img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="100" height="25">
+      </a>
+      <nav class="header-actions" aria-label="Primary">
+        <a class="nav-signin" href="https://strapivo.app">Sign in</a>
+        <a class="btn btn--primary header-cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="wrap">
+        <div class="hero-top">
+          <div>
+            <p class="eyebrow">Dynamic Strategy · Board governance</p>
+            <h1 id="hero-heading">Show the board how strategy moved between meetings.</h1>
+          </div>
+          <div class="hero-copy">
+            <p class="hero-lead">Strapivo is the Strategic Design System for leadership teams. Watch the market against your agreed plan in weekly <span class="nowrap">60-minute</span> sessions and export a complete record for the board.</p>
+            <div class="hero-cta-row">
+              <a class="btn btn--primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+              <span class="hero-audience">For CEOs and non-executive chairs</span>
+            </div>
+          </div>
+        </div>
+
+        <figure class="arc-frame" aria-label="Illustrative example of a 90-day quarterly arc from Q1 Board to Q2 Board Pack">
+          <div class="arc-head">
+            <span class="mono arc-head-left">Illustrative example · Q1 to Q2</span>
+            <span class="mono arc-head-right"><span class="dot-forest" aria-hidden="true"></span>12 weekly sessions · 90 days</span>
+          </div>
+
+          <div class="arc-body">
+            <div class="arc-cards" role="list" aria-label="Three decisions logged across the quarter">
+              <article class="arc-card" role="listitem" data-week="3">
+                <button type="button" class="arc-card-btn" aria-pressed="false">
+                  <div class="arc-card-meta">
+                    <span class="arc-week">Week 3</span>
+                    <span class="arc-badge">Confirmed</span>
+                  </div>
+                  <p class="arc-card-title">SDS-2026-011 · Adapt · Supplier risk confirmed</p>
+                  <p class="arc-card-sub">The team verified a primary filing and added backup tooling.</p>
+                </button>
+              </article>
+
+              <article class="arc-card" role="listitem" data-week="7">
+                <button type="button" class="arc-card-btn" aria-pressed="false">
+                  <div class="arc-card-meta">
+                    <span class="arc-week">Week 7</span>
+                    <span class="arc-badge">Confirmed</span>
+                  </div>
+                  <p class="arc-card-title">SDS-2026-014 · Hold · Reviewed with named dissent</p>
+                  <p class="arc-card-sub">Pricing stayed green. The finance director logged dissent on margin.</p>
+                </button>
+              </article>
+
+              <article class="arc-card arc-card--escalation" role="listitem" data-week="10">
+                <button type="button" class="arc-card-btn" aria-pressed="false">
+                  <div class="arc-card-meta">
+                    <span class="arc-week">Week 10</span>
+                    <span class="arc-badge arc-badge--slate">Board item</span>
+                  </div>
+                  <p class="arc-card-title">SDS-2026-017 · Escalated for board approval</p>
+                  <p class="arc-card-sub">Expansion exceeds management authority. Strapivo attached a board memo.</p>
+                </button>
+              </article>
+            </div>
+
+            <div class="arc-svg-wrap" aria-hidden="true">
+              <svg class="arc-svg" viewBox="0 0 1200 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="48" y1="92" x2="1152" y2="92" stroke="#E1E5EA" stroke-width="1"/>
+                <path d="M 48 92 Q 600 22 1152 92" stroke="#1C2632" stroke-width="2" fill="none"/>
+
+                <line class="arc-stem" data-week="3" x1="303" y1="0" x2="303" y2="67" stroke="#2B6B52" stroke-width="1.5" stroke-dasharray="3 3"/>
+                <line class="arc-stem" data-week="7" x1="642" y1="0" x2="642" y2="57" stroke="#2B6B52" stroke-width="1.5" stroke-dasharray="3 3"/>
+                <line class="arc-stem" data-week="10" x1="897" y1="0" x2="897" y2="67" stroke="#0082E6" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+                <g stroke="#999FA6" stroke-width="1.25">
+                  <line x1="133" y1="86" x2="133" y2="98"/>
+                  <line x1="218" y1="86" x2="218" y2="98"/>
+                  <line x1="303" y1="84" x2="303" y2="100" stroke="#2B6B52" stroke-width="2"/>
+                  <line x1="388" y1="86" x2="388" y2="98"/>
+                  <line x1="473" y1="86" x2="473" y2="98"/>
+                  <line x1="558" y1="86" x2="558" y2="98"/>
+                  <line x1="642" y1="84" x2="642" y2="100" stroke="#2B6B52" stroke-width="2"/>
+                  <line x1="727" y1="86" x2="727" y2="98"/>
+                  <line x1="812" y1="86" x2="812" y2="98"/>
+                  <line x1="897" y1="84" x2="897" y2="100" stroke="#0082E6" stroke-width="2"/>
+                  <line x1="982" y1="86" x2="982" y2="98"/>
+                  <line x1="1067" y1="86" x2="1067" y2="98"/>
+                </g>
+
+                <circle cx="48" cy="92" r="5" fill="#1C2632"/>
+                <circle cx="1152" cy="92" r="5" fill="#0082E6"/>
+
+                <circle class="arc-node" data-week="3" cx="303" cy="67" r="6" fill="#2B6B52" stroke="#FFFFFF" stroke-width="2"/>
+                <circle class="arc-node" data-week="7" cx="642" cy="57" r="6" fill="#2B6B52" stroke="#FFFFFF" stroke-width="2"/>
+                <circle class="arc-node" data-week="10" cx="897" cy="67" r="6" fill="#0082E6" stroke="#FFFFFF" stroke-width="2"/>
+              </svg>
+            </div>
+
+            <div class="arc-ticks-wrap">
+              <span class="arc-ticks-caption">Weekly sessions</span>
+              <div class="arc-ticks-bar" aria-label="Weeks 1 to 12">
+                <span class="arc-tick-label">1</span>
+                <span class="arc-tick-label">2</span>
+                <span class="arc-tick-label arc-tick-label--forest">3</span>
+                <span class="arc-tick-label">4</span>
+                <span class="arc-tick-label">5</span>
+                <span class="arc-tick-label">6</span>
+                <span class="arc-tick-label arc-tick-label--forest">7</span>
+                <span class="arc-tick-label">8</span>
+                <span class="arc-tick-label">9</span>
+                <span class="arc-tick-label arc-tick-label--azure">10</span>
+                <span class="arc-tick-label">11</span>
+                <span class="arc-tick-label">12</span>
+              </div>
+            </div>
+
+            <div class="milestone milestone--start">
+              <span class="milestone-pier" aria-hidden="true"></span>
+              <div>
+                <p class="milestone-title">Q1 Board</p>
+                <p class="milestone-sub">Agreed plan · Day 1</p>
+              </div>
+            </div>
+
+            <div class="milestone milestone--end">
+              <span class="milestone-pier milestone-pier--azure" aria-hidden="true"></span>
+              <div>
+                <p class="milestone-title">Q2 Board Pack</p>
+                <p class="milestone-sub">Markdown export · Day 90</p>
+              </div>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section section--white" aria-labelledby="blindspot-heading">
+      <div class="wrap blindspot-grid">
+        <div>
+          <p class="eyebrow">01 · The 90-day blind spot</p>
+          <h2 id="blindspot-heading">Leadership agrees a strategy. Then it sits untouched until the board pack is due.</h2>
+          <blockquote class="exec-quote">
+            <p>"I can't show the board that strategy actually moved between meetings."</p>
+            <cite>What leadership teams tell us</cite>
+          </blockquote>
+        </div>
+
+        <div class="prose-stack">
+          <p>After an offsite, the slides go into a folder. Market signals arrive as noise and small adjustments happen in side conversations nobody records.</p>
+          <p>Two nights before the board meeting, someone reconstructs the quarter from emails. Directors read a summary instead of the calls your team made.</p>
+          <p>Dynamic Strategy replaces that scramble with a <span class="nowrap">60-minute</span> weekly review against your Ambition and success criteria.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--paper" aria-labelledby="accumulates-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">02 · Between meetings</p>
+          <h2 id="accumulates-heading">Four records that build across the quarter.</h2>
+          <p class="section-lead">Each weekly session updates one record, so every answer for the chair is dated and ready.</p>
+        </div>
+
+        <div class="accum-list">
+          <article class="accum-row">
+            <p class="accum-tag">01 · Risk radar</p>
+            <h3>Confirmed risk movements</h3>
+            <p>Each signal carries a date and source. Moving a risk into the top-right danger zone requires a primary source and human confirmation.</p>
+          </article>
+
+          <article class="accum-row">
+            <p class="accum-tag">02 · Record of Decisions</p>
+            <h3>Weekly calls with named dissent</h3>
+            <p>Leaders submit sealed first takes before discussion so the loudest voice cannot anchor the room. You log each call as Hold, Adapt, Pivot, Take advantage or Not yet, with named dissent.</p>
+          </article>
+
+          <article class="accum-row">
+            <p class="accum-tag">03 · Escalation</p>
+            <h3>Memos beyond management authority</h3>
+            <p>When a call exceeds management authority, Strapivo routes it to an approver or prepares an escalation memo for the board.</p>
+          </article>
+
+          <article class="accum-row">
+            <p class="accum-tag">04 · Board export</p>
+            <h3>A Markdown board pack ready to share</h3>
+            <p>Export status lights, risk shifts, numbered decisions and open escalations as Markdown, ready for your board papers.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--slate" aria-labelledby="pack-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow eyebrow--light">03 · Inside one board pack</p>
+          <h2 id="pack-heading">Four sections exported from the Strategy Room.</h2>
+          <p class="section-lead">Every line traces to a confirmed session. Directors see what moved and what needs board approval.</p>
+        </div>
+
+        <figure class="pack-preview" aria-label="Illustrative preview of four sections inside an exported Strapivo Markdown board pack">
+          <div class="pack-topbar">
+            <span class="pack-filename">Q2-2026-board-pack.md</span>
+            <span class="pack-example-tag">Illustrative example · Industrial portfolio</span>
+          </div>
+
+          <div class="pack-grid">
+            <section class="pack-cell" aria-label="Ambition and criterion lights">
+              <div class="pack-cell-head">
+                <span class="pack-cell-title">01 · Ambition and criterion lights</span>
+              </div>
+              <div class="pack-ambition">
+                <span class="pack-ambition-label">Ambition</span>
+                <p class="pack-ambition-text">Reach EUR 120 million European turnover by 2028</p>
+              </div>
+              <ul class="light-list">
+                <li class="light-row">
+                  <span>Core European margins</span>
+                  <span class="light-pill light-pill--green"><span class="light-dot" aria-hidden="true"></span>Green</span>
+                </li>
+                <li class="light-row">
+                  <span>Supply resilience</span>
+                  <span class="light-pill light-pill--yellow"><span class="light-dot" aria-hidden="true"></span>Yellow</span>
+                </li>
+                <li class="light-row">
+                  <span>Central Europe readiness</span>
+                  <span class="light-pill light-pill--red"><span class="light-dot" aria-hidden="true"></span>Red</span>
+                </li>
+              </ul>
+              <p class="pack-note">Vivo asks "Light still green?" when activities slip. People set every light.</p>
+            </section>
+
+            <section class="pack-cell" aria-label="Risk movements since Q1">
+              <div class="pack-cell-head">
+                <span class="pack-cell-title">02 · Risk movements since Q1</span>
+              </div>
+              <div class="pack-items">
+                <div class="pack-item">
+                  <div class="pack-item-top">
+                    <span class="pack-item-name">Tier-1 tooling concentration</span>
+                    <span class="pack-item-meta pack-item-meta--warn">Worsening · Top right · 18 days</span>
+                  </div>
+                  <p class="pack-item-desc">The operations lead confirmed this in Week 3 from a primary filing.</p>
+                </div>
+                <div class="pack-item">
+                  <div class="pack-item-top">
+                    <span class="pack-item-name">Cross-border tariff revision</span>
+                    <span class="pack-item-meta">Stable · Reviewed Week 8</span>
+                  </div>
+                  <p class="pack-item-desc">The team tracks this against Core European margins.</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="pack-cell" aria-label="Numbered decisions with dissent">
+              <div class="pack-cell-head">
+                <span class="pack-cell-title">03 · Numbered decisions with dissent</span>
+              </div>
+              <div class="pack-items">
+                <div class="pack-item">
+                  <div class="pack-item-top">
+                    <span class="pack-item-name">SDS-2026-011 · Adapt</span>
+                    <span class="pack-item-meta pack-item-meta--confirmed">Confirmed · Week 3</span>
+                  </div>
+                  <p class="pack-item-desc">The team funded a backup tooling supplier.</p>
+                </div>
+                <div class="pack-item">
+                  <div class="pack-item-top">
+                    <span class="pack-item-name">SDS-2026-014 · Hold</span>
+                    <span class="pack-item-meta pack-item-meta--confirmed">Confirmed · Week 7</span>
+                  </div>
+                  <p class="pack-item-desc">The team held pricing. The finance director dissented on rebates.</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="pack-cell" aria-label="Items requiring board approval">
+              <div class="pack-cell-head">
+                <span class="pack-cell-title">04 · Items requiring board approval</span>
+              </div>
+              <div class="pack-escalation">
+                <p class="pack-escalation-code">SDS-2026-017 · Escalated Week 10</p>
+                <p class="pack-escalation-title">Approve direct-sales entry into Central Europe</p>
+                <p class="pack-escalation-desc">This capital request exceeds management authority. The escalation memo and parked alternatives sit in this pack.</p>
+              </div>
+            </section>
+          </div>
+
+          <div class="pack-foot">
+            <span>Markdown board pack · CSV plan · Escalation memo</span>
+            <span>Owner confirmed · Q2 close</span>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section section--white" aria-labelledby="trust-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">04 · Authority and trust</p>
+          <h2 id="trust-heading">Vivo proposes. People decide.</h2>
+          <p class="section-lead">Boards hold officers accountable. Strapivo separates AI preparation from human approval.</p>
+        </div>
+
+        <div class="trust-grid">
+          <article class="trust-col">
+            <p class="trust-label">Human authority</p>
+            <h3>Owners confirm accepted truth</h3>
+            <p>Vivo drafts the agenda and proposes risk moves. Accepted truth changes only when an Owner confirms it.</p>
+          </article>
+
+          <article class="trust-col trust-col--forest">
+            <p class="trust-label">Strategic memory</p>
+            <h3>Grounded in your approved plan</h3>
+            <p>Any AI can answer a question. Only Strapivo answers it as you. Every reply uses the business model and criteria your team approved.</p>
+          </article>
+
+          <article class="trust-col trust-col--azure">
+            <p class="trust-label">European hosting</p>
+            <h3>EU-only, GDPR by design</h3>
+            <p>Strapivo runs on European infrastructure. Start with public and non-sensitive material, then widen access over time.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--paper" aria-labelledby="start-heading">
+      <div class="wrap">
+        <div class="start-grid">
+          <div>
+            <p class="eyebrow">05 · Getting started</p>
+            <h2 id="start-heading">Four to five hours, and then you run it.</h2>
+            <p class="section-lead">Bring your existing board pack or strategy deck. We do the reading first so session one starts with a draft you can correct.</p>
+          </div>
+
+          <ol class="step-list">
+            <li class="step-item">
+              <span class="step-num">01</span>
+              <div>
+                <h3>Send your existing board material</h3>
+                <p>We map your Ambition, criteria, objectives and risks into a working draft.</p>
+              </div>
+            </li>
+            <li class="step-item">
+              <span class="step-num">02</span>
+              <div>
+                <h3>Correct what we got wrong</h3>
+                <p>Your team corrects the draft, picks focus areas and teaches Vivo what matters.</p>
+              </div>
+            </li>
+            <li class="step-item">
+              <span class="step-num">03</span>
+              <div>
+                <h3>Run one session together</h3>
+                <p>We guide one <span class="nowrap">60-minute</span> session with your team. After that, you run the Strategy Room.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="closing-panel">
+          <div>
+            <p class="eyebrow eyebrow--light">Next quarter</p>
+            <h2>Bring the full <span class="nowrap">90-day</span> record to your next board meeting.</h2>
+            <p>Write to us to discuss how weekly Dynamic Strategy fits your board cycle.</p>
+          </div>
+          <div class="closing-actions">
+            <a class="btn btn--paper" href="mailto:strategy@strapivo.com">Start the conversation</a>
+            <span class="closing-email">strategy@strapivo.com</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="80" height="20">
+        <span class="footer-copy">© 2026 Strapivo</span>
+      </div>
+      <nav class="footer-links" aria-label="Legal">
+        <a href="/imprint">Imprint</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var cards = document.querySelectorAll('.arc-card[data-week]');
+      var stems = document.querySelectorAll('.arc-stem[data-week]');
+      var nodes = document.querySelectorAll('.arc-node[data-week]');
+
+      function setHighlight(week) {
+        cards.forEach(function (card) {
+          var active = card.getAttribute('data-week') === week;
+          card.classList.toggle('is-active', active);
+          var btn = card.querySelector('.arc-card-btn');
+          if (btn) btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        stems.forEach(function (stem) {
+          var active = stem.getAttribute('data-week') === week;
+          stem.setAttribute('stroke-width', active ? '2.5' : '1.5');
+          stem.setAttribute('stroke-dasharray', active ? 'none' : '3 3');
+        });
+        nodes.forEach(function (node) {
+          var active = node.getAttribute('data-week') === week;
+          node.setAttribute('r', active ? '8' : '6');
+        });
+      }
+
+      var lockedWeek = null;
+      cards.forEach(function (card) {
+        var week = card.getAttribute('data-week');
+        var btn = card.querySelector('.arc-card-btn');
+        card.addEventListener('mouseenter', function () {
+          if (!lockedWeek) setHighlight(week);
+        });
+        card.addEventListener('mouseleave', function () {
+          if (!lockedWeek) setHighlight(null);
+        });
+        if (btn) {
+          btn.addEventListener('click', function () {
+            lockedWeek = lockedWeek === week ? null : week;
+            setHighlight(lockedWeek);
+          });
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
