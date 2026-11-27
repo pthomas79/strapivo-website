@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo drafts the agenda from what changed</title>
+<meta name="description" content="Strapivo is where a leadership team keeps its strategy. Before every session, Strapivo drafts the agenda from what changed.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#DDE5DF; --ink:#1E2932; --ink2:#43525E;
+  --slate:#4B5A68; --rust:#B5532F; --ochre:#D7A441; --chalk:#F1EADB;
+  --jh:min(78vh, 980px); --jw:calc(var(--jh) * .56);
+  --sans:"IBM Plex Sans", system-ui, sans-serif; --mono:"IBM Plex Mono", ui-monospace, monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0; overflow-x:clip}
+body{
+  background:
+    radial-gradient(120% 90% at 18% 8%, #EAF0EB 0%, #DFE7E1 42%, #D5DED8 100%) fixed,
+    var(--ground);
+  color:var(--ink); font-family:var(--sans); font-weight:400;
+  overflow-x:clip; -webkit-font-smoothing:antialiased;
+}
+body::after{ /* paper grain */
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:50; opacity:.33; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .4 0 0 0 0 .38 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--rust); outline-offset:4px; border-radius:2px}
+
+/* ---------- first screen copy ---------- */
+.intro{position:relative; z-index:5; height:100vh; padding:0 7vw; display:flex; flex-direction:column; justify-content:center; pointer-events:none}
+.intro > *{pointer-events:auto}
+.bar{position:absolute; top:34px; left:7vw; right:7vw; display:flex; justify-content:space-between; align-items:center}
+.logo img{display:block; height:24px; width:auto}
+.signin{font-size:14px; color:var(--ink2); text-decoration:none; letter-spacing:.01em}
+.signin:hover{color:var(--ink); text-decoration:underline; text-underline-offset:4px}
+.copy{max-width:min(34vw, 520px); margin-top:-6vh}
+h1{font-weight:300; font-size:clamp(38px, 4.3vw, 66px); line-height:1.04; letter-spacing:-.025em; margin:0 0 30px; color:var(--ink)}
+.lede{font-size:17px; line-height:1.55; color:var(--ink2); margin:0 0 34px; max-width:30em}
+.cta{
+  display:inline-block; font:500 15px/1 var(--sans); letter-spacing:.01em; color:#F4F1EA; background:var(--ink);
+  padding:17px 26px 18px; border-radius:2px; text-decoration:none;
+  box-shadow:0 1px 0 rgba(255,255,255,.4) inset, 0 10px 24px -14px rgba(20,35,40,.7);
+  transition:background .2s;
+}
+.cta:hover{background:#33424F}
+
+/* ---------- stage ---------- */
+.stage{position:relative; margin-top:-100vh; height:100vh}
+.anim .stage{height:340vh}
+.pin{position:sticky; top:0; height:100vh; overflow:clip}
+.jar{
+  position:absolute; left:59vw; top:calc(50vh - var(--jh) / 2 + 3vh);
+  width:var(--jw); height:var(--jh); z-index:0;
+}
+.jar svg,.jar canvas{position:absolute; inset:0; width:100%; height:100%; overflow:visible; display:block}
+.bench{
+  position:absolute; z-index:-1; top:90.5%; left:-120vw; right:-120vw; height:15vh;
+  background:linear-gradient(180deg, rgba(255,255,255,.55) 0, rgba(255,255,255,0) 1px, #CDD7D0 2px, #C8D2CB 40%, rgba(200,210,203,0) 100%);
+}
+.caption{
+  position:absolute; left:0; right:0; bottom:calc(100% + 18px); text-align:center;
+  font:400 14px/1.3 var(--mono); color:var(--ink2); letter-spacing:.02em; height:1.3em;
+}
+.caption span{position:absolute; left:0; right:0}
+.caption .after{opacity:1}
+.caption .before{opacity:0}
+
+/* labels: desktop leaders */
+.key{list-style:none; margin:0; padding:0}
+.key li{
+  position:absolute; right:86%; top:var(--y); transform:translateY(-50%);
+  display:flex; align-items:center; gap:14px; white-space:nowrap;
+  font:400 15px/1.2 var(--sans); color:var(--ink);
+}
+.key li::after{
+  content:""; width:calc(var(--jw) * .14 + 4.5vw); height:1px; background:rgba(30,41,50,.55);
+}
+.key li::before{
+  content:""; position:absolute; right:-3px; width:5px; height:5px; border-radius:50%; background:var(--ink);
+  box-shadow:0 0 0 3px rgba(241,234,219,.55);
+}
+.key li i{display:none}
+
+/* ---------- closing ---------- */
+.close{position:relative; z-index:3; padding:22vh 7vw 0; min-height:86vh; display:flex; flex-direction:column}
+.close p{font-weight:300; font-size:clamp(30px, 3.4vw, 52px); line-height:1.12; letter-spacing:-.02em; margin:0 0 44px; max-width:19em}
+.close p span{display:block}
+.foot{margin-top:auto; padding:80px 0 30px; font-size:12px; color:var(--ink2); display:flex; gap:22px; flex-wrap:wrap}
+.foot a{text-decoration:none}
+.foot a:hover{text-decoration:underline}
+
+/* ---------- phone ---------- */
+@media (max-width:760px){
+  :root{--jw:62vw; --jh:calc(var(--jw) / .56)}
+  .intro{height:auto; padding:96px 22px 40px; justify-content:flex-start}
+  .bar{top:26px; left:22px; right:22px}
+  .logo img{height:21px}
+  .copy{max-width:none; margin:0}
+  h1{font-size:clamp(34px, 9.6vw, 42px); margin-bottom:22px}
+  .lede{font-size:16px; margin-bottom:28px}
+  .stage{margin-top:0; height:auto}
+  .anim .stage{height:300vh}
+  .pin{height:auto; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:56px 0 190px}
+  .anim .pin{height:100svh; padding:40px 0 150px}
+  .caption{left:-19vw; right:-19vw}
+  .jar{position:relative; left:auto; top:auto; flex:none}
+  .bench{top:90.5%; height:34vh}
+  .key{position:absolute; top:calc(100% + 30px); left:50%; transform:translateX(-50%); display:grid; gap:9px; width:max-content}
+  .key li{position:static; transform:none; gap:12px; font-size:15px}
+  .key li::after,.key li::before{display:none}
+  .key li i{display:block; width:11px; height:11px; flex:none; box-shadow:0 0 0 1px rgba(30,41,50,.25) inset}
+  .close{padding:16vh 22px 0; min-height:80svh}
+  .close p{font-size:30px}
+}
+</style>
+</head>
+<body>
+
+<header class="intro">
+  <div class="bar">
+    <a class="logo" href="#"><img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="95" height="24"></a>
+    <a class="signin" href="https://strapivo.app">Sign in</a>
+  </div>
+  <div class="copy">
+    <h1>By the time you sit down, the week has settled.</h1>
+    <p class="lede">Strapivo is where a leadership team keeps its strategy. Before every session, Strapivo drafts the agenda from what changed.</p>
+    <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+  </div>
+</header>
+
+<section class="stage" aria-label="Illustration">
+  <div class="pin">
+    <div class="jar" role="img" aria-label="A tall glass jar of water. Coloured grains that hung through the water have sunk into four layers. From the bottom: slate for items carried forward, rust for parked questions that return, ochre for risks that moved, chalk for new signals.">
+      <div class="bench"></div>
+      <div class="caption"><span class="before">This week, unsorted.</span><span class="after">The agenda, 24 hours before the session.</span></div>
+
+      <!-- back of the glass, shadow, water, still fallback -->
+      <svg class="back" viewBox="0 0 560 1000" aria-hidden="true">
+        <defs>
+          <filter id="b6" x="-60%" y="-200%" width="220%" height="500%"><feGaussianBlur stdDeviation="7"/></filter>
+          <filter id="b14" x="-60%" y="-300%" width="220%" height="700%"><feGaussianBlur stdDeviation="16"/></filter>
+          <filter id="b3" x="-30%" y="-100%" width="160%" height="300%"><feGaussianBlur stdDeviation="2.5"/></filter>
+          <radialGradient id="caus" cx=".5" cy=".5" r=".5">
+            <stop offset="0" stop-color="#FFF6DC" stop-opacity=".95"/>
+            <stop offset=".45" stop-color="#F2D9A0" stop-opacity=".55"/>
+            <stop offset="1" stop-color="#E9C98A" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="waterG" x1="0" x2="1">
+            <stop offset="0" stop-color="#8FA7B0" stop-opacity=".34"/>
+            <stop offset=".18" stop-color="#B4C7CD" stop-opacity=".2"/>
+            <stop offset=".6" stop-color="#C2D2D6" stop-opacity=".14"/>
+            <stop offset="1" stop-color="#7F98A2" stop-opacity=".36"/>
+          </linearGradient>
+          <linearGradient id="waterV" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFFFFF" stop-opacity=".1"/>
+            <stop offset="1" stop-color="#6F8A94" stop-opacity=".12"/>
+          </linearGradient>
+          <clipPath id="inner"><path d="M30 128 L30 902 C30 938 98 953 280 953 C462 953 530 938 530 902 L530 128 A250 35 0 0 0 30 128 Z"/></clipPath>
+          <pattern id="pS" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#4B5A68"/><rect x="1" y="2" width="2" height="2" fill="#5F6E7C"/><rect x="5" y="6" width="2" height="2" fill="#3B4855"/><rect x="6" y="1" width="1.5" height="1.5" fill="#6B7A87"/></pattern>
+          <pattern id="pR" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#B5532F"/><rect x="2" y="1" width="2" height="2" fill="#C86A44"/><rect x="6" y="5" width="2" height="2" fill="#94401F"/><rect x="1" y="6" width="1.5" height="1.5" fill="#CF7A55"/></pattern>
+          <pattern id="pO" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#D7A441"/><rect x="1" y="1" width="2" height="2" fill="#E5B95C"/><rect x="5" y="5" width="2" height="2" fill="#B98A30"/><rect x="6" y="2" width="1.5" height="1.5" fill="#EAC775"/></pattern>
+          <pattern id="pC" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#EFE7D6"/><rect x="2" y="2" width="2" height="2" fill="#FBF6EA"/><rect x="6" y="6" width="2" height="2" fill="#DCD2BE"/><rect x="5" y="1" width="1.5" height="1.5" fill="#E2D9C6"/></pattern>
+        </defs>
+        <!-- cast shadow and caustic on the bench -->
+        <ellipse cx="520" cy="952" rx="360" ry="30" fill="#33473F" opacity=".22" filter="url(#b14)"/>
+        <ellipse cx="420" cy="960" rx="300" ry="26" fill="#2E423A" opacity=".22" filter="url(#b6)"/>
+        <ellipse class="caustic" cx="640" cy="952" rx="120" ry="11" fill="url(#caus)" filter="url(#b6)"/>
+        <ellipse cx="280" cy="972" rx="262" ry="30" fill="#24352F" opacity=".38" filter="url(#b6)"/>
+        <!-- back rim and back wall -->
+        <path d="M18 46 A262 37 0 0 1 542 46" fill="none" stroke="#FFFFFF" stroke-opacity=".55" stroke-width="1.4"/>
+        <path d="M30 46 A250 33 0 0 1 530 46" fill="none" stroke="#5B7370" stroke-opacity=".3" stroke-width="1"/>
+        <!-- water body -->
+        <path d="M30 128 L30 902 C30 938 98 953 280 953 C462 953 530 938 530 902 L530 128 A250 35 0 0 0 30 128 Z" fill="url(#waterG)"/>
+        <path d="M30 128 L30 902 C30 938 98 953 280 953 C462 953 530 938 530 902 L530 128 A250 35 0 0 0 30 128 Z" fill="url(#waterV)"/>
+        <!-- still fallback: the settled bands -->
+        <g class="fallback" clip-path="url(#inner)">
+          <rect x="30" y="800" width="500" height="118" fill="url(#pS)"/><ellipse cx="280" cy="918" rx="250" ry="35" fill="url(#pS)"/>
+          <rect x="30" y="681" width="500" height="119" fill="url(#pR)"/><ellipse cx="280" cy="800" rx="250" ry="35" fill="url(#pR)"/>
+          <rect x="30" y="563" width="500" height="118" fill="url(#pO)"/><ellipse cx="280" cy="681" rx="250" ry="35" fill="url(#pO)"/>
+          <rect x="30" y="444" width="500" height="119" fill="url(#pC)"/><ellipse cx="280" cy="563" rx="250" ry="35" fill="url(#pC)"/>
+          <ellipse cx="280" cy="444" rx="250" ry="35" fill="url(#pC)"/><ellipse cx="280" cy="444" rx="250" ry="35" fill="#fff" opacity=".18"/>
+        </g>
+      </svg>
+
+      <canvas aria-hidden="true"></canvas>
+
+      <!-- front of the glass -->
+      <svg class="front" viewBox="0 0 560 1000" aria-hidden="true">
+        <defs>
+          <linearGradient id="sheen" x1="0" x2="1">
+            <stop offset="0" stop-color="#3D5552" stop-opacity=".42"/>
+            <stop offset=".022" stop-color="#6E8784" stop-opacity=".22"/>
+            <stop offset=".045" stop-color="#FFFFFF" stop-opacity=".05"/>
+            <stop offset=".3" stop-color="#FFFFFF" stop-opacity="0"/>
+            <stop offset=".82" stop-color="#FFFFFF" stop-opacity="0"/>
+            <stop offset=".9" stop-color="#FFFFFF" stop-opacity=".16"/>
+            <stop offset=".955" stop-color="#FFFFFF" stop-opacity=".04"/>
+            <stop offset=".978" stop-color="#55706C" stop-opacity=".26"/>
+            <stop offset="1" stop-color="#2F4542" stop-opacity=".5"/>
+          </linearGradient>
+          <linearGradient id="hiV" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+            <stop offset=".08" stop-color="#fff" stop-opacity=".9"/>
+            <stop offset=".7" stop-color="#fff" stop-opacity=".75"/>
+            <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="baseG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#E8F1EC" stop-opacity=".55"/>
+            <stop offset=".5" stop-color="#9DB6AE" stop-opacity=".45"/>
+            <stop offset="1" stop-color="#6E8D84" stop-opacity=".55"/>
+          </linearGradient>
+          <filter id="soft" x="-200%" y="-10%" width="500%" height="120%"><feGaussianBlur stdDeviation="2.2"/></filter>
+          <filter id="soft6" x="-200%" y="-10%" width="500%" height="120%"><feGaussianBlur stdDeviation="6"/></filter>
+          <clipPath id="outer"><path d="M18 46 L18 934 C18 975 92 995 280 995 C468 995 542 975 542 934 L542 46 A262 37 0 0 0 18 46 Z"/></clipPath>
+        </defs>
+        <!-- glass base: the thick bottom -->
+        <path d="M30 902 C30 938 98 953 280 953 C462 953 530 938 530 902 L542 934 C542 975 468 995 280 995 C92 995 18 975 18 934 Z" fill="url(#baseG)"/>
+        <path d="M30 902 C30 938 98 953 280 953 C462 953 530 938 530 902" fill="none" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="1.6"/>
+        <path d="M26 940 C40 972 110 986 280 987 C450 986 520 972 534 940" fill="none" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="1.2"/>
+        <!-- body sheen and walls -->
+        <rect x="18" y="0" width="524" height="1000" fill="url(#sheen)" clip-path="url(#outer)"/>
+        <rect x="44" y="92" width="22" height="830" rx="11" fill="url(#hiV)" opacity=".6" filter="url(#soft6)"/>
+        <rect x="51" y="100" width="7" height="800" rx="3.5" fill="url(#hiV)" opacity=".95" filter="url(#soft)"/>
+        <rect x="38" y="140" width="1.4" height="740" fill="url(#hiV)" opacity=".7"/>
+        <rect x="496" y="120" width="10" height="760" rx="5" fill="url(#hiV)" opacity=".38" filter="url(#soft)"/>
+        <rect x="474" y="200" width="3" height="420" fill="url(#hiV)" opacity=".22" filter="url(#soft)"/>
+        <path d="M18.6 46 L18.6 934 C18.6 975 92 995 280 995 C468 995 541.4 975 541.4 934 L541.4 46" fill="none" stroke="#3E5653" stroke-opacity=".5" stroke-width="1.3"/>
+        <line x1="30" y1="50" x2="30" y2="902" stroke="#FFFFFF" stroke-opacity=".4" stroke-width="1"/>
+        <line x1="530" y1="50" x2="530" y2="902" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="1"/>
+        <!-- water surface and meniscus -->
+        <ellipse cx="280" cy="128" rx="250" ry="35" fill="#FFFFFF" fill-opacity=".07" stroke="#FFFFFF" stroke-opacity=".38" stroke-width="1"/>
+        <path d="M30 128 A250 35 0 0 0 530 128" fill="none" stroke="#FFFFFF" stroke-opacity=".85" stroke-width="2"/>
+        <path d="M31 133 A249 35 0 0 0 529 133" fill="none" stroke="#45605B" stroke-opacity=".16" stroke-width="3"/>
+        <!-- rim -->
+        <path d="M18 46 A262 37 0 0 0 542 46 L530 46 A250 33 0 0 1 30 46 Z" fill="#FFFFFF" fill-opacity=".35"/>
+        <path d="M18 46 A262 37 0 0 0 542 46" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-opacity=".95"/>
+        <path d="M30 46 A250 33 0 0 0 530 46" fill="none" stroke="#486260" stroke-opacity=".35" stroke-width="1"/>
+        <path d="M60 64 A262 37 0 0 0 200 82" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" filter="url(#soft)"/>
+      </svg>
+
+      <ol class="key">
+        <li data-c="3" style="--y:53.9%"><i style="background:var(--chalk)"></i>New signals</li>
+        <li data-c="2" style="--y:65.7%"><i style="background:var(--ochre)"></i>Risks that moved</li>
+        <li data-c="1" style="--y:77.5%"><i style="background:var(--rust)"></i>Parked questions, returning</li>
+        <li data-c="0" style="--y:89.2%"><i style="background:var(--slate)"></i>Carried forward</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="close">
+  <p><span>Old business comes first.</span> <span>The session lead edits the draft, and the room approves it.</span></p>
+  <div><a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a></div>
+  <footer class="foot">
+    <span>© 2026 Strapivo</span>
+    <a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a>
+  </footer>
+</section>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  root.classList.add('js');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) root.classList.add('anim');
+
+  const jar = document.querySelector('.jar');
+  const stage = document.querySelector('.stage');
+  const cv = jar.querySelector('canvas');
+  const ctx = cv.getContext('2d');
+  const fallback = jar.querySelector('.fallback');
+  const labels = [...jar.querySelectorAll('.key li')];
+  const capA = jar.querySelector('.caption .before'), capB = jar.querySelector('.caption .after');
+  let lastP = -1;
+
+  // geometry in viewBox units (560 x 1000)
+  const CX = 280, R = 250, RY = 35, WATER = 128, BOT = 918, BH = 118.5;
+  const COLS = ['#4B5A68', '#B5532F', '#D7A441', '#F1EADB'];
+  const WATERC = [178, 196, 200];
+  const S0 = [0.03, 0.17, 0.31, 0.45], D = 0.3, L = 0.17; // band timelines over scroll progress
+
+  const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+  const mix = (a, b, t) => a.map((v, i) => Math.round(v + (b[i] - v) * t));
+  const rgb = c => `rgb(${c[0]},${c[1]},${c[2]})`;
+  const clamp = v => v < 0 ? 0 : v > 1 ? 1 : v;
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+  // seeded random so every visit looks the same
+  let seed = 117;
+  const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+
+  // shaded colour buckets: 4 colours x 3 depths x 2 tones
+  const buckets = [];
+  COLS.forEach((h, c) => {
+    const base = hex(h);
+    for (let d = 0; d < 3; d++) for (let k = 0; k < 2; k++) {
+      let col = mix(base, k ? [255, 255, 255] : [20, 28, 34], k ? .12 : .14);
+      col = mix(col, WATERC, [0.42, 0.2, 0.04][d]);
+      buckets.push({ style: rgb(col), c, list: [] });
+    }
+  });
+
+  let grains = [];
+  function makeGrains(n) {
+    seed = 117; grains = [];
+    const per = Math.floor(n / 4);
+    for (let c = 0; c < 4; c++) {
+      for (let k = 0; k < per; k++) {
+        const rho = Math.sqrt(rnd()) * 0.97, th = rnd() * Math.PI * 2;
+        const x = rho * Math.cos(th), z = rho * Math.sin(th);
+        const frac = k / per;
+        const d = z > 0.33 ? 2 : z > -0.33 ? 1 : 0;
+        grains.push({
+          c, x, z,
+          y0: BOT - 12 - Math.pow(rnd(), 0.8) * (BOT - WATER - 50),
+          ty: BOT - c * BH - frac * BH + (rnd() - .5) * 4,
+          start: S0[c] + frac * (D - L) + (rnd() - .5) * 0.02,
+          sz: 1.3 + rnd() * 1.7,
+          ph: rnd() * 6.28, f: 0.6 + rnd() * 0.8, ph2: rnd() * 6.28,
+          b: c * 6 + d * 2 + (rnd() < .5 ? 0 : 1)
+        });
+      }
+    }
+  }
+
+  // sediment textures
+  let pats = [];
+  function makePatterns(dpr) {
+    pats = COLS.map((h, c) => {
+      const s = 120, oc = document.createElement('canvas');
+      oc.width = oc.height = Math.round(s * dpr);
+      const o = oc.getContext('2d'); o.scale(dpr, dpr);
+      const base = hex(h);
+      o.fillStyle = rgb(mix(base, WATERC, .04)); o.fillRect(0, 0, s, s);
+      let ls = 9000 + c;
+      const r2 = () => { ls = (ls * 16807) % 2147483647; return (ls - 1) / 2147483646; };
+      for (let i = 0; i < 1500; i++) {
+        const t = r2();
+        let col = t < .5 ? mix(base, [255, 250, 240], r2() * .22) : mix(base, [15, 20, 25], r2() * .28);
+        if (r2() < .025) col = hex(COLS[(c + 1 + Math.floor(r2() * 3)) % 4]);
+        o.fillStyle = rgb(col);
+        const z = .7 + r2() * 1.6;
+        o.fillRect(r2() * s, r2() * s, z, z);
+      }
+      const p = ctx.createPattern(oc, 'repeat');
+      p.setTransform(new DOMMatrix().scale(1 / dpr));
+      return p;
+    });
+  }
+
+  let W = 0, H = 0, sc = 1, dpr = 1;
+  function resize() {
+    const r = jar.getBoundingClientRect();
+    W = r.width; H = r.height; sc = W / 560;
+    dpr = Math.min(2, devicePixelRatio || 1);
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    makePatterns(dpr);
+    makeGrains(W < 330 ? 4400 : 8000);
+  }
+
+  function innerPath() {
+    ctx.beginPath();
+    ctx.moveTo(30, 128); ctx.lineTo(30, 902);
+    ctx.bezierCurveTo(30, 938, 98, 953, 280, 953);
+    ctx.bezierCurveTo(462, 953, 530, 938, 530, 902);
+    ctx.lineTo(530, 128);
+    ctx.ellipse(CX, WATER, R, RY, 0, 0, Math.PI, true);
+    ctx.closePath();
+  }
+
+  function draw(p, t) {
+    ctx.setTransform(dpr * sc, 0, 0, dpr * sc, 0, 0);
+    ctx.clearRect(0, 0, 560, 1000);
+    ctx.save();
+    innerPath(); ctx.clip();
+
+    // stirred haze, clears as the grains sink
+    const murk = clamp(1 - p / 0.6);
+    if (murk > 0) {
+      const g = ctx.createLinearGradient(0, WATER, 0, BOT);
+      g.addColorStop(0, `rgba(170,150,120,${0.10 * murk})`);
+      g.addColorStop(1, `rgba(120,110,100,${0.2 * murk})`);
+      ctx.fillStyle = g; ctx.fillRect(0, 0, 560, 1000);
+    }
+
+    // settled bodies, bottom up
+    let topY = null;
+    for (let c = 0; c < 4; c++) {
+      const lv = clamp((p - S0[c] - L) / (D - L));
+      if (lv <= 0) break;
+      const yb = BOT - c * BH, yt = yb - BH * lv;
+      ctx.beginPath();
+      ctx.rect(30, yt, 500, yb - yt);
+      ctx.ellipse(CX, yb, R, RY, 0, 0, Math.PI * 2);
+      ctx.moveTo(CX + R, yt);
+      ctx.ellipse(CX, yt, R, RY, 0, 0, Math.PI * 2);
+      ctx.fillStyle = pats[c]; ctx.fill();
+      if (c > 0) { // compaction line where the layers meet
+        ctx.beginPath(); ctx.ellipse(CX, yb, R, RY, 0, 0, Math.PI);
+        ctx.strokeStyle = 'rgba(25,30,35,.22)'; ctx.lineWidth = 1.6; ctx.stroke();
+      }
+      topY = yt;
+    }
+    if (topY !== null) {
+      // light on the top surface, round shading on the sides
+      ctx.beginPath(); ctx.ellipse(CX, topY, R, RY, 0, 0, Math.PI * 2);
+      const tg = ctx.createLinearGradient(0, topY - RY, 0, topY + RY);
+      tg.addColorStop(0, 'rgba(255,255,255,.04)'); tg.addColorStop(1, 'rgba(255,255,255,.2)');
+      ctx.fillStyle = tg; ctx.fill();
+      ctx.beginPath(); ctx.ellipse(CX, topY, R, RY, 0, 0, Math.PI);
+      ctx.strokeStyle = 'rgba(30,40,45,.18)'; ctx.lineWidth = 1.2; ctx.stroke();
+      const sg = ctx.createLinearGradient(30, 0, 530, 0);
+      sg.addColorStop(0, 'rgba(20,32,36,.42)'); sg.addColorStop(.1, 'rgba(20,32,36,.08)');
+      sg.addColorStop(.22, 'rgba(255,255,255,.07)'); sg.addColorStop(.6, 'rgba(20,32,36,0)');
+      sg.addColorStop(.9, 'rgba(20,32,36,.14)'); sg.addColorStop(1, 'rgba(20,32,36,.5)');
+      ctx.beginPath();
+      ctx.rect(30, topY, 500, BOT - topY); ctx.ellipse(CX, BOT, R, RY, 0, 0, Math.PI * 2);
+      ctx.fillStyle = sg; ctx.fill();
+    }
+
+    // grains
+    for (const b of buckets) b.list.length = 0;
+    const tt = t * 0.001;
+    let top = BOT;
+    for (let c = 0; c < 4; c++) top -= BH * clamp((p - S0[c] - L) / (D - L));
+    const squeeze = (top - 40 - WATER) / (BOT - 12 - WATER);
+    for (const g of grains) {
+      const q = ease(clamp((p - g.start) / L));
+      if (q >= 1 && g.z < 0.5) continue; // inside the sediment
+      const free = 1 - q;
+      const dy = Math.sin(tt * 0.35 * g.f + g.ph) * 10 + Math.sin(tt * 0.13 + g.ph2) * 6;
+      const dx = Math.sin(tt * 0.22 * g.f + g.ph2) * 0.03;
+      const ys = WATER + 20 + (g.y0 - WATER) * squeeze + dy;
+      const y = ys * free + g.ty * q;
+      const x = CX + (g.x + dx * free) * R;
+      const sy = y + g.z * RY;
+      buckets[g.b].list.push(x, sy, g.sz / sc * (W < 330 ? 1.15 : 1));
+    }
+    for (const b of buckets) {
+      if (!b.list.length) continue;
+      ctx.fillStyle = b.style; ctx.beginPath();
+      const l = b.list;
+      for (let i = 0; i < l.length; i += 3) ctx.rect(l[i], l[i + 1], l[i + 2], l[i + 2]);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // labels and caption
+    if (p !== lastP) {
+      lastP = p;
+      labels.forEach(li => {
+        const o = clamp((p - S0[+li.dataset.c] - D + 0.03) / 0.05);
+        li.style.opacity = o;
+        li.style.translate = `${(o - 1) * 10}px 0`;
+      });
+      const k = clamp((p - 0.77) / 0.05);
+      capA.style.opacity = 1 - k; capB.style.opacity = k;
+    }
+  }
+
+  function progress() {
+    if (reduce) return 1;
+    const r = stage.getBoundingClientRect();
+    const span = stage.offsetHeight - innerHeight;
+    return span > 0 ? clamp(-r.top / span) : 1;
+  }
+
+  resize();
+  fallback.style.display = 'none';
+  let visible = true, raf = 0;
+  const loop = t => {
+    raf = 0;
+    draw(progress(), t);
+    if (!reduce && visible && !document.hidden) raf = requestAnimationFrame(loop);
+  };
+  const kick = () => { if (!raf) raf = requestAnimationFrame(loop); };
+  if (reduce) {
+    draw(1, 0);
+    addEventListener('resize', () => { resize(); draw(1, 0); });
+  } else {
+    new IntersectionObserver(e => { visible = e[0].isIntersecting; if (visible) kick(); }).observe(jar);
+    document.addEventListener('visibilitychange', kick);
+    addEventListener('scroll', kick, { passive: true });
+    addEventListener('resize', () => { resize(); kick(); });
+    kick();
+  }
+})();
+</script>
+<script src="/landings/prompt.js" defer></script>
+</body>
+</html>
