@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo. Keep your strategy open</title>
+<meta name="description" content="Strapivo is where a leadership team keeps its strategy open and returns to it every week.">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:"Inter";src:url("../../fonts/Inter-Regular.otf") format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"Inter";src:url("../../fonts/Inter-Medium.otf") format("opentype");font-weight:500;font-display:swap}
+:root{
+  --ground:#E4E0D8;
+  --paper:#FAF8F2;
+  --paper-back:#F0ECE3;
+  --ink:#1A1A1F;
+  --muted:#5E5A52;
+  --azure:#0082E6;
+  --azure-text:#0067B5;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .32  0 0 0 0 .27  0 0 0 0 .2  0 0 0 .11 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+*{box-sizing:border-box}
+html{background:var(--ground);color:var(--ink);-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--sans);font-size:16px;line-height:1.5;overflow-x:hidden;
+  background:radial-gradient(120% 80% at 50% 40%,#EDEAE4 0%,var(--ground) 60%,#DAD5CC 100%)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--azure);outline-offset:3px;border-radius:2px}
+
+/* header */
+.top{position:absolute;z-index:5;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;padding:28px clamp(20px,4.5vw,64px)}
+.logo{display:block;line-height:0}
+.logo img{height:24px;width:auto}
+.signin{font-size:15px;font-weight:500;text-decoration:none;color:var(--ink);padding:6px 2px;border-bottom:1px solid rgba(26,26,31,.3)}
+.signin:hover{border-bottom-color:var(--ink)}
+
+/* intro */
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(36px,3.7vw,58px);line-height:1.06;letter-spacing:-.015em;margin:0 0 26px;font-variation-settings:"opsz" 72}
+.lede{font-size:17px;line-height:1.5;color:#3E3B35;margin:0 0 32px;max-width:30ch}
+.cta{display:inline-block;background:var(--ink);color:#F4F2ED;text-decoration:none;font-weight:500;font-size:15px;letter-spacing:.01em;padding:15px 24px;border-radius:2px;transition:background .2s}
+.cta:hover{background:#000}
+.cta:focus-visible{outline-offset:4px}
+
+/* the sheet, flat (no script, reduced motion) */
+.sheet-flat{position:relative;width:100%;aspect-ratio:1.414/1;background:var(--paper) var(--grain);
+  box-shadow:0 1px 1px rgba(60,48,30,.08),0 18px 40px -18px rgba(60,48,30,.38),0 50px 90px -40px rgba(60,48,30,.35)}
+.sheet-flat .dia{position:absolute;inset:0;z-index:1}
+.dia svg{display:block;width:100%;height:100%}
+.dia svg.dia-port{display:none}
+.tint{position:absolute;top:0;bottom:0;pointer-events:none}
+.cr-port{display:none}
+.t0{background:linear-gradient(90deg,rgba(70,55,35,0) 45%,rgba(70,55,35,.04))}.t1{background:linear-gradient(90deg,rgba(255,255,255,.2),rgba(70,55,35,.03))}.t2{background:linear-gradient(90deg,rgba(255,255,255,.22),rgba(255,255,255,.04))}.t3{background:linear-gradient(90deg,rgba(70,55,35,.05),rgba(70,55,35,.012))}.tr{background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0) 50%)}
+.crease{position:absolute;pointer-events:none}
+.crease.v{top:0;bottom:0;width:18px;margin-left:-9px}
+.crease.h{left:0;right:0;height:18px;margin-top:-9px}
+.crease.valley.v{background:linear-gradient(90deg,rgba(70,55,35,0) 0,rgba(70,55,35,.07) 44%,rgba(70,55,35,.2) 50%,rgba(255,255,255,.85) 53%,rgba(255,255,255,0) 100%)}
+.crease.mount.v{background:linear-gradient(90deg,rgba(255,255,255,0) 0,rgba(255,255,255,.8) 47%,rgba(70,55,35,.18) 50%,rgba(70,55,35,.06) 58%,rgba(70,55,35,0) 100%)}
+.crease.h{background:linear-gradient(180deg,rgba(255,255,255,0) 0,rgba(255,255,255,.75) 46%,rgba(70,55,35,.2) 50%,rgba(70,55,35,.07) 58%,rgba(70,55,35,0) 100%)}
+
+/* static layout */
+.stage{position:relative}
+.pin{position:relative;min-height:100vh;display:grid;grid-template-columns:minmax(300px,32vw) 1fr;align-items:center;gap:4vw;padding:110px clamp(20px,4.5vw,64px) 80px}
+.scene{margin:0;display:flex;justify-content:center;align-items:center}
+.scene .flatwrap{width:min(100%,calc(72vh * 1.414))}
+.sheet3d,.shadow3d{display:none}
+
+/* close */
+.close{text-align:center;padding:14vh 24px 0;min-height:62vh;display:flex;flex-direction:column;align-items:center}
+.closing{font-family:var(--serif);font-size:clamp(30px,3.4vw,50px);line-height:1.12;letter-spacing:-.01em;margin:0 0 34px;max-width:18ch;font-variation-settings:"opsz" 72}
+footer{font-size:12.5px;color:var(--muted);text-align:center;padding:12vh 24px 36px}
+footer a{color:var(--muted);text-decoration:none;margin-left:14px}
+footer a:hover{color:var(--ink);text-decoration:underline}
+
+/* animated layout */
+.anim .stage{height:480vh}
+.anim .pin{position:sticky;top:0;height:100vh;height:100svh;min-height:0;display:block;padding:0;overflow:hidden;overflow:clip}
+.anim .intro{position:absolute;z-index:4;left:clamp(20px,6vw,96px);top:50%;transform:translateY(-50%);width:min(30vw,460px)}
+.anim .scene{position:absolute;inset:0;display:block;perspective:2400px}
+.anim .flatwrap{position:absolute;left:0;top:0;opacity:0;visibility:hidden}
+.settled .sheet3d,.settled .shadow3d{visibility:hidden}
+.settled .flatwrap{opacity:1;visibility:visible}
+.anim .sheet3d,.anim .shadow3d{display:block}
+.shadow3d{position:absolute;left:0;top:0;transform-origin:50% 50%;will-change:transform}
+.shadow3d::before{content:"";position:absolute;inset:2px;border-radius:1px;
+  box-shadow:0 2px 3px rgba(60,48,30,.14),0 22px 44px -16px rgba(60,48,30,.42),0 60px 100px -40px rgba(60,48,30,.32)}
+.sheet3d{position:absolute;left:0;top:0;transform-style:preserve-3d;transform-origin:50% 50%;will-change:transform}
+.pn{position:absolute;left:0;top:0;transform-style:preserve-3d}
+.face{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.face.front{background:var(--paper) var(--grain)}
+.face.back{background:var(--paper-back) var(--grain)}
+.face .dia{position:absolute;left:0;top:0}
+.ghost{position:absolute;inset:0;opacity:.045;filter:blur(.4px)}
+.shade,.edge{position:absolute;inset:0;pointer-events:none}
+.note{position:absolute;left:0;right:0;bottom:22%;text-align:center;font-family:var(--serif);font-style:italic;font-size:22px;color:#2A2925}
+.note span{display:block;width:44%;margin:10px auto 0;border-top:1px solid rgba(26,26,31,.35)}
+
+@media (max-width:719px){
+  .dia svg.dia-land{display:none}
+  .dia svg.dia-port{display:block}
+  .cr-land{display:none}
+  .cr-port{display:block}
+  .top{padding:20px 20px}
+  .logo img{height:21px}
+  .pin{grid-template-columns:1fr;gap:44px;padding:96px 20px 40px;align-items:start}
+  .sheet-flat{aspect-ratio:.707/1}
+  .scene .flatwrap{width:100%}
+  h1{font-size:clamp(31px,8.6vw,38px);margin-bottom:18px}
+  .lede{font-size:16px;margin-bottom:24px}
+  .anim .stage{height:400vh}
+  .anim .intro{left:20px;right:20px;top:92px;transform:none;width:auto}
+  .closing{font-size:30px}
+  .close{padding-top:10vh;min-height:56vh}
+  footer a{margin-left:10px}
+}
+@media (max-width:370px){h1{font-size:29px}}
+</style>
+</head>
+<body>
+<main>
+  <section class="stage" id="stage">
+    <div class="pin">
+      <header class="top">
+        <a class="logo" href="#"><img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="96" height="24"></a>
+        <a class="signin" href="https://strapivo.app">Sign in</a>
+      </header>
+
+      <div class="intro" id="intro">
+        <h1>Your strategy was folded away the day it was finished.</h1>
+        <p class="lede">Strapivo is where a leadership team keeps its strategy open and returns to it every week.</p>
+        <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+      </div>
+
+      <figure class="scene" id="scene" role="img" aria-label="Illustrative example. A sheet of heavy paper, unfolded, with its creases showing. On it, the ambition sits at the top with four focus areas under it. A thin blue line runs from one focus area to a small ring marked this week.">
+        <div class="shadow3d" id="shadow"></div>
+        <div class="sheet3d" id="sheet"></div>
+        <div class="flatwrap">
+          <div class="sheet-flat" id="flat" aria-hidden="true">
+            <div class="dia" id="dia">
+              <svg class="dia-land" viewBox="0 0 1414 1000" font-family="Newsreader, Georgia, serif" fill="#1A1A1F">
+                <text x="64" y="94" font-family="Inter, sans-serif" font-weight="500" font-size="26" letter-spacing="1.5" fill="#5E5A52">Illustrative</text>
+                <text x="1350" y="94" text-anchor="end" font-style="italic" font-size="32">Opened today.</text>
+                <text x="707" y="216" text-anchor="middle" font-family="Inter, sans-serif" font-weight="500" font-size="26" letter-spacing="3" fill="#5E5A52">Ambition</text>
+                <text x="707" y="300" text-anchor="middle" font-size="68" letter-spacing="-1">Double recurring revenue by 2030.</text>
+                <g stroke="#1A1A1F" stroke-width="2" fill="none" opacity=".75">
+                  <path d="M707 346V430M176.75 430H1237.25M176.75 430V570M530.25 430V570M883.75 430V570M1237.25 430V570"/>
+                </g>
+                <g fill="#1A1A1F"><circle cx="707" cy="430" r="5"/><circle cx="176.75" cy="570" r="5"/><circle cx="530.25" cy="570" r="5"/><circle cx="883.75" cy="570" r="5"/><circle cx="1237.25" cy="570" r="5"/></g>
+                <g font-size="42" text-anchor="middle">
+                  <text x="176.75" y="636">Service</text><text x="176.75" y="684">contracts</text>
+                  <text x="530.25" y="636">Southern</text><text x="530.25" y="684">markets</text>
+                  <text x="883.75" y="636">Delivery</text><text x="883.75" y="684">time</text>
+                  <text x="1237.25" y="636">Key</text><text x="1237.25" y="684">people</text>
+                </g>
+                <path d="M883.75 712C883.75 810 960 866 1092 866" stroke="#0082E6" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+                <circle cx="1116" cy="866" r="22" stroke="#0082E6" stroke-width="3.5" fill="none"/>
+                <circle cx="1116" cy="866" r="6" fill="#0082E6"/>
+                <text x="1154" y="876" font-family="Inter, sans-serif" font-weight="500" font-size="29" fill="#0067B5">This week</text>
+              </svg>
+              <svg class="dia-port" viewBox="0 0 707 1000" font-family="Newsreader, Georgia, serif" fill="#1A1A1F">
+                <text x="44" y="76" font-family="Inter, sans-serif" font-weight="500" font-size="30" fill="#5E5A52">Illustrative</text>
+                <text x="663" y="76" text-anchor="end" font-style="italic" font-size="34">Opened today.</text>
+                <text x="353.5" y="178" text-anchor="middle" font-family="Inter, sans-serif" font-weight="500" font-size="30" letter-spacing="2" fill="#5E5A52">Ambition</text>
+                <text x="353.5" y="246" text-anchor="middle" font-size="56" letter-spacing="-.5">Double recurring</text>
+                <text x="353.5" y="306" text-anchor="middle" font-size="56" letter-spacing="-.5">revenue by 2030.</text>
+                <g stroke="#1A1A1F" stroke-width="2.5" fill="none" opacity=".75"><path d="M353.5 340V372H90V722"/></g>
+                <g fill="#1A1A1F"><circle cx="90" cy="434" r="6"/><circle cx="90" cy="530" r="6"/><circle cx="90" cy="626" r="6"/><circle cx="90" cy="722" r="6"/></g>
+                <g font-size="44">
+                  <text x="124" y="448">Service contracts</text>
+                  <text x="124" y="544">Southern markets</text>
+                  <text x="124" y="640">Delivery time</text>
+                  <text x="124" y="736">Key people</text>
+                </g>
+                <path d="M384 628C480 628 548 680 548 790" stroke="#0082E6" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <circle cx="548" cy="818" r="26" stroke="#0082E6" stroke-width="4" fill="none"/>
+                <circle cx="548" cy="818" r="7" fill="#0082E6"/>
+                <text x="548" y="896" text-anchor="middle" font-family="Inter, sans-serif" font-weight="500" font-size="32" fill="#0067B5">This week</text>
+              </svg>
+            </div>
+            <div class="cr-land"><div class="tint t0" style="left:0;width:25%"></div><div class="tint t1" style="left:25%;width:25%"></div><div class="tint t2" style="left:50%;width:25%"></div><div class="tint t3" style="left:75%;width:25%"></div><div class="crease v valley" style="left:25%"></div><div class="crease v valley" style="left:50%"></div><div class="crease v mount" style="left:75%"></div></div><div class="cr-port"><div class="tint t0" style="left:0;width:50%"></div><div class="tint t2" style="left:50%;width:50%"></div><div class="crease v valley" style="left:50%"></div></div><div class="tint tr" style="left:0;right:0;top:50%"></div><div class="crease h" style="top:50%"></div>
+          </div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="close">
+    <p class="closing">Open it every week. Correct it while the corrections are small.</p>
+    <a class="cta" href="mailto:strategy@strapivo.com">Start the conversation</a>
+  </section>
+</main>
+<footer>© 2026 Strapivo <a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+
+<script>
+(function(){
+  var doc = document.documentElement;
+  var phoneMQ = matchMedia('(max-width: 719px)');
+  var reduceMQ = matchMedia('(prefers-reduced-motion: reduce)');
+  var stage = document.getElementById('stage');
+  var intro = document.getElementById('intro');
+  var sheet = document.getElementById('sheet');
+  var shadow = document.getElementById('shadow');
+  var flatwrap = document.querySelector('.flatwrap');
+  var scene = document.getElementById('scene');
+  var dia = document.getElementById('dia');
+
+  /* ---------- the 3D sheet ---------- */
+  var L = (function(){ var x=-.35,y=-.5,z=.79,m=Math.hypot(x,y,z); return [x/m,y/m,z/m]; })();
+  var parts = [], W, H, pw, ph, cols, phone, built = false, lastW = 0, lastH = 0;
+  var EPS = .7;
+
+  function makePanel(col, row, backKind, note){
+    var pn = document.createElement('div'); pn.className = 'pn';
+    pn.style.width = pw + 'px'; pn.style.height = ph + 'px';
+    var f = document.createElement('div'); f.className = 'face front';
+    var d = dia.cloneNode(true); d.removeAttribute('id');
+    d.style.width = W + 'px'; d.style.height = H + 'px';
+    d.style.left = (-col * pw) + 'px'; d.style.top = (-row * ph) + 'px';
+    f.appendChild(d);
+    var tl = document.createElement('div'); tl.className = 'shade t' + (phone && col === 1 ? 2 : col); f.appendChild(tl);
+    if (row === 1){ var tr = document.createElement('div'); tr.className = 'shade tr'; f.appendChild(tr); }
+    var edge = document.createElement('div'); edge.className = 'edge';
+    edge.style.backgroundImage = edges(col, row);
+    f.appendChild(edge);
+    var fs = document.createElement('div'); fs.className = 'shade'; f.appendChild(fs);
+    var b = document.createElement('div'); b.className = 'face back';
+    b.style.transform = backKind === 'x' ? 'rotateX(180deg)' : 'rotateY(180deg)';
+    var g = document.createElement('div'); g.className = 'ghost';
+    g.style.transform = backKind === 'x' ? 'scaleY(-1)' : 'scaleX(-1)';
+    if (!note){ var gd = d.cloneNode(true); g.appendChild(gd); b.appendChild(g); }
+    if (note){
+      var n = document.createElement('div'); n.className = 'note';
+      n.innerHTML = 'Agreed in March.<span></span>'; b.appendChild(n);
+    }
+    var bs = document.createElement('div'); bs.className = 'shade'; b.appendChild(bs);
+    pn.appendChild(f); pn.appendChild(b);
+    return {el: pn, fs: fs, bs: bs};
+  }
+
+  function edges(col, row){
+    var g = [];
+    var dark = 'rgba(70,55,35,', lite = 'rgba(255,255,255,';
+    if (col > 0) g.push('linear-gradient(90deg,' + dark + '.16) 0,' + dark + '.05) 1.5px,' + lite + '.0) 12px)');
+    if (col < cols - 1) g.push('linear-gradient(270deg,' + lite + '.8) 0,' + lite + '.25) 2px,' + lite + '0) 10px)');
+    if (row > 0) g.push('linear-gradient(180deg,' + dark + '.15) 0,' + dark + '.04) 1.5px,' + dark + '0) 10px)');
+    else g.push('linear-gradient(0deg,' + lite + '.75) 0,' + lite + '.2) 2px,' + lite + '0) 10px)');
+    return g.join(',');
+  }
+
+  function build(){
+    phone = phoneMQ.matches;
+    var vw = window.innerWidth, vh = window.innerHeight;
+    lastW = vw; lastH = vh;
+    cols = phone ? 2 : 4;
+    if (phone){ W = Math.min(vw - 28, vh * .84 * .707); H = W / .707; }
+    else { H = Math.min(vh * .8, vw * .9 / 1.414); W = H * 1.414; }
+    W = Math.round(W); H = Math.round(H);
+    pw = W / cols; ph = H / 2;
+    sheet.innerHTML = ''; parts = {};
+    var T1 = makePanel(0, 0, 'y'); sheet.appendChild(T1.el);
+    var B1 = makePanel(0, 1, 'x', true); B1.el.style.top = ph + 'px'; B1.el.style.transformOrigin = '50% 0';
+    T1.el.appendChild(B1.el);
+    parts.T1 = T1; parts.B1 = B1;
+    ['T','B'].forEach(function(r){
+      var row = r === 'T' ? 0 : 1, parent = parts[r + '1'];
+      for (var c = 1; c < cols; c++){
+        var p = makePanel(c, row, 'y');
+        p.el.style.left = pw + 'px'; p.el.style.transformOrigin = '0 50%';
+        parent.el.appendChild(p.el);
+        parts[r + (c + 1)] = p; parent = p;
+      }
+    });
+    built = true;
+    update();
+  }
+
+  function clamp(v){ return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function ease(t){ t = clamp(t); return t * t * t * (t * (t * 6 - 15) + 10); }
+  function seg(p, a, b){ return ease((p - a) / (b - a)); }
+  function dot(n){ return n[0]*L[0] + n[1]*L[1] + n[2]*L[2]; }
+  var BASE = L[2];
+  function shadeFor(n){
+    var d = dot(n) - BASE, a = Math.min(.26, .7 * Math.pow(Math.abs(d), .6));
+    return d < 0 ? 'rgba(48,38,24,' + a.toFixed(3) + ')' : 'rgba(255,255,255,' + (a * .7).toFixed(3) + ')';
+  }
+  function setShade(part, n){
+    part.fs.style.background = shadeFor(n);
+    part.bs.style.background = shadeFor([-n[0], -n[1], -n[2]]);
+  }
+  function rad(d){ return d * Math.PI / 180; }
+  function normal(ax, ay){ // rotX(ax) * rotY(ay) * (0,0,1)
+    var sx = Math.sin(rad(ax)), cx = Math.cos(rad(ax)), sy = Math.sin(rad(ay)), cy = Math.cos(rad(ay));
+    return [sy, -cy * sx, cy * cx];
+  }
+
+  var ticking = false;
+  function onScroll(){ if (!ticking){ ticking = true; requestAnimationFrame(function(){ ticking = false; update(); }); } }
+
+  function update(){
+    if (!built) return;
+    var vw = window.innerWidth, vh = window.innerHeight;
+    var r = stage.getBoundingClientRect();
+    var span = r.height - vh;
+    var p = span > 0 ? clamp(-r.top / span) : 1;
+    var e1, e2, e3, fade;
+    if (phone){
+      fade = seg(p, 0, .07);
+      e1 = seg(p, .07, .42); e2 = seg(p, .5, .88); e3 = 1;
+    } else {
+      fade = seg(p, 0, .06);
+      e1 = seg(p, .05, .3); e2 = seg(p, .37, .61); e3 = seg(p, .68, .92);
+    }
+    intro.style.opacity = (1 - fade).toFixed(3);
+    intro.style.visibility = fade >= .999 ? 'hidden' : 'visible';
+    intro.style.transform = phone ? 'translateY(' + (-30 * fade) + 'px)' : 'translateY(calc(-50% - ' + (30 * fade) + 'px))';
+
+    var a3 = 180 - 179 * e1;            // bottom half over top
+    var a2 = -180 + 179 * e2;           // second fold
+    var a1 = phone ? -1 : -180 + 179 * e3; // first fold
+    var z = function(d){ return ' translateZ(' + d + 'px)'; };
+    parts.B1.el.style.transform = 'rotateX(' + a3 + 'deg)' + z(-7 * EPS);
+    ['T','B'].forEach(function(rw){
+      parts[rw + '2'].el.style.transform = 'rotateY(' + a2 + 'deg)' + z(-3 * EPS);
+      if (!phone){
+        parts[rw + '3'].el.style.transform = 'rotateY(' + a1 + 'deg)' + z(-EPS);
+        parts[rw + '4'].el.style.transform = 'rotateY(' + (-a2) + 'deg)' + z(EPS);
+      }
+    });
+    // shading from each panel's world normal
+    setShade(parts.T1, [0,0,1]);
+    setShade(parts.T2, normal(0, a2));
+    setShade(parts.B1, normal(a3, 0));
+    setShade(parts.B2, normal(a3, a2));
+    if (!phone){
+      setShade(parts.T3, normal(0, a2 + a1));
+      setShade(parts.T4, normal(0, a1));
+      setShade(parts.B3, normal(a3, a2 + a1));
+      setShade(parts.B4, normal(a3, a1));
+    }
+
+    // footprint and position
+    var fc = phone ? 1 + e2 : 1 + e2 + 2 * e3;
+    var fw = pw * fc, fh = ph * (1 + e1);
+    var ax, ay;
+    if (phone){
+      var ib = intro.getBoundingClientRect();
+      ay = Math.min(ib.top + intro.offsetHeight + 40 + ph / 2, vh - ph / 2 - 24);
+      ax = vw / 2;
+    } else { ax = vw * .66; ay = vh * .53; }
+    var m = phone ? ease(clamp(p / .3)) : ease(clamp(p / .26));
+    var cx = ax + (vw / 2 - ax) * m, cy = ay + (vh / 2 + (phone ? 0 : 6) - ay) * m;
+    var rot = -6 * (1 - e1) + 1.2 * (1 - e2) * e1 - 0.6 * (1 - e3) * e2 * (phone ? 0 : 1);
+    var lift = Math.sin(Math.PI * e1) + Math.sin(Math.PI * e2) + Math.sin(Math.PI * e3) * (phone ? 0 : 1);
+    var tf = 'translate(' + (cx - fw / 2).toFixed(1) + 'px,' + (cy - fh / 2).toFixed(1) + 'px) rotateZ(' + rot.toFixed(2) + 'deg)';
+    sheet.style.width = fw + 'px'; sheet.style.height = fh + 'px';
+    sheet.style.transform = tf;
+    var c = function(a){ return Math.max(0, Math.cos(rad(a))); };
+    var sw = pw * (phone ? 1 + c(a2) : (e2 < 1 ? 1 + c(a2) : 2 + 2 * c(a1)));
+    var sh = ph * (1 + c(a3));
+    shadow.style.width = sw + 'px'; shadow.style.height = sh + 'px';
+    var done = phone ? e2 >= 1 : e3 >= 1;
+    doc.classList.toggle('settled', done);
+    if (done){
+      flatwrap.style.width = W + 'px';
+      flatwrap.style.transform = 'translate(' + (cx - W / 2).toFixed(1) + 'px,' + (cy - H / 2).toFixed(1) + 'px)';
+    }
+    shadow.style.transformOrigin = (fw / 2) + 'px ' + (fh / 2) + 'px';
+    shadow.style.transform = 'translate(' + (cx - fw / 2 + 6 * lift).toFixed(1) + 'px,' + (cy - fh / 2 + 10 * lift).toFixed(1) + 'px) rotateZ(' + rot.toFixed(2) + 'deg)';
+  }
+
+  function start(){
+    if (reduceMQ.matches){
+      doc.classList.remove('anim','settled'); flatwrap.style.width = ''; flatwrap.style.transform = '';
+      window.removeEventListener('scroll', onScroll);
+      sheet.innerHTML = ''; built = false;
+      return;
+    }
+    doc.classList.add('anim');
+    build();
+    window.addEventListener('scroll', onScroll, {passive: true});
+  }
+  var rt;
+  window.addEventListener('resize', function(){
+    if (!built) return;
+    clearTimeout(rt);
+    rt = setTimeout(function(){
+      var w = window.innerWidth, h = window.innerHeight;
+      if (w !== lastW || Math.abs(h - lastH) > 140) build(); else update();
+    }, 150);
+  });
+  reduceMQ.addEventListener && reduceMQ.addEventListener('change', start);
+  phoneMQ.addEventListener && phoneMQ.addEventListener('change', function(){ if (built) build(); });
+  start();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ if (built) update(); });
+})();
+</script>
+</body>
+</html>
