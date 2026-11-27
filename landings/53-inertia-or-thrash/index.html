@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Strapivo | Hold the strategy steady. Revise the tactics early.</title>
+  <meta name="description" content="Strapivo is the Strategic Design System for leadership teams. Hold your approved strategy steady and revise tactics early between offsites, without annual inertia or weekly thrash.">
+  <link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --ink: #141B24;
+      --n900: #050C14;
+      --n700: #2C343C;
+      --n600: #495158;
+      --n500: #5E656D;
+      --n400: #999FA6;
+      --n200: #E1E5EA;
+      --n100: #EFF2F6;
+      --paper: #F6F9FB;
+      --white: #FFFFFF;
+      --sky: #EEF6FF;
+      --sky2: #D4EBFF;
+      --p200: #A9D6FF;
+      --p400: #3FA0FA;
+      --p500: #0082E6;
+      --p600: #006FD1;
+      --p700: #005DBD;
+      --rust: #B84735;
+      --rust-dark: #8E3224;
+      --rust-tint: #FAF1EF;
+      --rust-border: #E8CBC5;
+      --stone: #E7E4DC;
+      --stone-tint: #F2F0EA;
+      --stone-line: #5E594F;
+      --stone-border: #D2CEC3;
+      --max-w: 1180px;
+      --gutter: 40px;
+      --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "ss01", "cv11";
+      overflow-x: hidden;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--p500);
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 16px;
+      top: -60px;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 10px 16px;
+      font-size: 14px;
+      border-radius: 4px;
+      z-index: 100;
+    }
+
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--max-w);
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+
+    .mono {
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .kicker {
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--p600);
+      margin: 0 0 12px;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    p, figure {
+      margin: 0;
+    }
+
+    /* Header */
+    .site-header {
+      border-bottom: 1px solid var(--n200);
+      background: var(--paper);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 68px;
+      gap: 20px;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 6px 0;
+    }
+
+    .brand-link img {
+      height: 24px;
+      width: auto;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 14px;
+      color: var(--n600);
+      transition: color 140ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .signin-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      border: 1px solid var(--n200);
+      border-radius: 4px;
+      background: var(--white);
+      transition: border-color 140ms ease, background-color 140ms ease;
+    }
+
+    .signin-link:hover {
+      border-color: var(--ink);
+      background: var(--n100);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 22px;
+      background: var(--p600);
+      color: var(--white);
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: -0.005em;
+      border-radius: 4px;
+      border: 1px solid var(--p600);
+      transition: background-color 140ms ease, border-color 140ms ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      background: var(--p700);
+      border-color: var(--p700);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 40px 0 48px;
+    }
+
+    .hero-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+      gap: 44px;
+      align-items: end;
+      margin-bottom: 32px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.15rem, 3.7vw, 3.25rem);
+      line-height: 1.07;
+      letter-spacing: -0.028em;
+      max-width: 14ch;
+    }
+
+    .hero-copy-col {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding-bottom: 4px;
+    }
+
+    .hero-lead {
+      font-size: 17px;
+      line-height: 1.52;
+      color: var(--n700);
+      max-width: 48ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .cta-note {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--n500);
+      letter-spacing: 0.02em;
+    }
+
+    /* Drawing 1: 12-month trajectory chart */
+    .chart-card {
+      background: var(--white);
+      border-top: 2px solid var(--ink);
+      border-left: 1px solid var(--n200);
+      border-right: 1px solid var(--n200);
+      border-bottom: 1px solid var(--n200);
+      border-radius: 0 0 4px 4px;
+    }
+
+    .chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .chart-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .chart-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--n500);
+    }
+
+    .chart-axis-row {
+      display: grid;
+      grid-template-columns: 224px minmax(0, 1fr);
+      border-bottom: 1px solid var(--n200);
+      background: var(--paper);
+    }
+
+    .axis-corner {
+      padding: 8px 20px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--n500);
+      border-right: 1px solid var(--n200);
+    }
+
+    .month-axis {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      padding: 8px 16px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--n500);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .month-axis span {
+      text-align: left;
+    }
+
+    .band-row {
+      display: grid;
+      grid-template-columns: 224px minmax(0, 1fr);
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .band-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .band-meta {
+      padding: 16px 20px;
+      border-right: 1px solid var(--n200);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .band-name {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.25;
+    }
+
+    .swatch {
+      width: 16px;
+      height: 3px;
+      border-radius: 1px;
+      flex-shrink: 0;
+    }
+
+    .band-sub {
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--n600);
+    }
+
+    .band-plot {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .band-plot svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Band colour treatments */
+    .band-thrash .band-meta {
+      background: #FCF6F5;
+      border-left: 3px solid var(--rust);
+    }
+    .band-thrash .band-name {
+      color: var(--rust-dark);
+    }
+    .band-thrash .swatch {
+      background: var(--rust);
+    }
+    .band-thrash .band-plot {
+      background: var(--rust-tint);
+      height: 92px;
+    }
+
+    .band-dynamic .band-meta {
+      background: #F4F9FF;
+      border-left: 3px solid var(--p500);
+    }
+    .band-dynamic .band-name {
+      color: var(--p700);
+    }
+    .band-dynamic .swatch {
+      background: var(--p500);
+    }
+    .band-dynamic .band-plot {
+      background: var(--sky);
+      height: 128px;
+    }
+
+    .band-inertia .band-meta {
+      background: var(--stone-tint);
+      border-left: 3px solid var(--stone-line);
+    }
+    .band-inertia .band-name {
+      color: var(--ink);
+    }
+    .band-inertia .swatch {
+      background: var(--stone-line);
+    }
+    .band-inertia .band-plot {
+      background: var(--stone);
+      height: 92px;
+    }
+
+    .plot-tag {
+      position: absolute;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 2px;
+      line-height: 1.3;
+      pointer-events: none;
+    }
+
+    .plot-tag-rust {
+      right: 14px;
+      top: 10px;
+      color: var(--rust-dark);
+      background: rgba(250, 241, 239, 0.92);
+      border: 1px solid var(--rust-border);
+    }
+
+    .plot-tag-ambition {
+      left: 12px;
+      bottom: 8px;
+      color: var(--p700);
+      background: rgba(238, 246, 255, 0.94);
+      border: 1px solid var(--sky2);
+      padding: 2px 6px;
+    }
+
+    .plot-tag-review {
+      right: 14%;
+      bottom: 10px;
+      color: var(--ink);
+      background: rgba(231, 228, 220, 0.95);
+      border: 1px solid #C2BDB0;
+    }
+
+    /* Interactive decision pins inside Dynamic Strategy band */
+    .decision-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 44px;
+      min-height: 44px;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .pin-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2.5px solid var(--p500);
+      transition: transform 140ms ease, background-color 140ms ease;
+    }
+
+    .decision-pin:hover .pin-dot,
+    .decision-pin[aria-pressed="true"] .pin-dot {
+      background: var(--p500);
+      transform: scale(1.22);
+    }
+
+    .pin-label {
+      position: absolute;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: var(--p700);
+      background: var(--white);
+      border: 1px solid var(--sky2);
+      padding: 2px 6px;
+      border-radius: 3px;
+      white-space: nowrap;
+      line-height: 1.25;
+      transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease;
+    }
+
+    .decision-pin[data-pos="above"] .pin-label {
+      bottom: calc(50% + 10px);
+    }
+
+    .decision-pin[data-pos="below"] .pin-label {
+      top: calc(50% + 10px);
+    }
+
+    .decision-pin[aria-pressed="true"] .pin-label,
+    .decision-pin:hover .pin-label {
+      background: var(--p600);
+      color: var(--white);
+      border-color: var(--p600);
+    }
+
+    .inertia-drop-dot {
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--stone-line);
+      border: 2px solid var(--stone);
+      left: 87.5%;
+      top: 32%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .chart-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 13px 20px;
+      border-top: 1px solid var(--n200);
+      background: var(--paper);
+      font-size: 14px;
+      color: var(--n700);
+    }
+
+    .decision-readout {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .readout-id {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--p700);
+      background: var(--sky);
+      border: 1px solid var(--sky2);
+      padding: 2px 7px;
+      border-radius: 3px;
+    }
+
+    .readout-option {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+    }
+
+    .chart-hint {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--n500);
+      white-space: nowrap;
+    }
+
+    /* Section shared framing */
+    .section {
+      padding: 68px 0;
+      border-top: 1px solid var(--n200);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 36px;
+      align-items: end;
+      margin-bottom: 36px;
+    }
+
+    .section h2 {
+      font-size: clamp(1.65rem, 2.7vw, 2.25rem);
+      line-height: 1.15;
+      letter-spacing: -0.022em;
+      max-width: 22ch;
+    }
+
+    .section-intro {
+      font-size: 16px;
+      line-height: 1.58;
+      color: var(--n700);
+      max-width: 54ch;
+    }
+
+    /* Section 1: Two expensive habits */
+    .habits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--n200);
+      border-radius: 4px;
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .habit-col {
+      padding: 28px 30px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .habit-col + .habit-col {
+      border-left: 1px solid var(--n200);
+    }
+
+    .habit-inertia {
+      border-top: 3px solid var(--stone-line);
+      background: linear-gradient(180deg, var(--stone-tint) 0%, var(--white) 92px);
+    }
+
+    .habit-thrash {
+      border-top: 3px solid var(--rust);
+      background: linear-gradient(180deg, var(--rust-tint) 0%, var(--white) 92px);
+    }
+
+    .habit-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .habit-col h3 {
+      font-size: 21px;
+      letter-spacing: -0.015em;
+    }
+
+    .habit-badge {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    .habit-inertia .habit-badge {
+      color: var(--ink);
+      background: var(--stone);
+    }
+
+    .habit-thrash .habit-badge {
+      color: var(--rust-dark);
+      background: #F4DCD7;
+    }
+
+    .habit-quote {
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+
+    .habit-col p {
+      color: var(--n700);
+      line-height: 1.58;
+      max-width: 48ch;
+    }
+
+    .corridor-note {
+      margin-top: 20px;
+      padding: 18px 22px;
+      background: var(--sky);
+      border: 1px solid var(--sky2);
+      border-left: 3px solid var(--p500);
+      border-radius: 0 4px 4px 0;
+      font-size: 16px;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    /* Section 2: Drawing 2, stability filter */
+    .filter-diagram {
+      background: var(--white);
+      border-top: 2px solid var(--ink);
+      border-left: 1px solid var(--n200);
+      border-right: 1px solid var(--n200);
+      border-bottom: 1px solid var(--n200);
+      border-radius: 0 0 4px 4px;
+    }
+
+    .filter-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--n200);
+      background: var(--paper);
+    }
+
+    .filter-stages {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .stage {
+      padding: 24px 24px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+    }
+
+    .stage + .stage {
+      border-left: 1px solid var(--n200);
+    }
+
+    .stage-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .stage-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--p600);
+    }
+
+    .stage-rule {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--n500);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .stage h3 {
+      font-size: 18px;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+    }
+
+    .stage-graphic {
+      background: var(--paper);
+      border: 1px solid var(--n200);
+      border-radius: 4px;
+      padding: 12px;
+    }
+
+    .stage-graphic svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .stage p {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--n700);
+    }
+
+    /* Section 3: Drawing 3, five options ledger */
+    .options-table {
+      background: var(--white);
+      border: 1px solid var(--n200);
+      border-top: 2px solid var(--ink);
+      border-radius: 0 0 4px 4px;
+      overflow: hidden;
+    }
+
+    .option-row {
+      display: grid;
+      grid-template-columns: 196px 250px minmax(0, 1fr);
+      gap: 24px;
+      align-items: center;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .option-row:last-child {
+      border-bottom: none;
+    }
+
+    .option-row-key {
+      background: #F8FBFF;
+      border-left: 3px solid var(--p500);
+      padding-left: 21px;
+    }
+
+    .option-head {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .option-name {
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .option-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--p700);
+    }
+
+    .option-tag-neutral {
+      color: var(--n500);
+    }
+
+    .scope-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .scope-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--n600);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .scope-track {
+      width: 84px;
+      height: 6px;
+      border-radius: 2px;
+      background: var(--n100);
+      border: 1px solid var(--n200);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .scope-fill-steady {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: var(--n200);
+    }
+
+    .scope-fill-move {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: var(--p500);
+    }
+
+    .scope-fill-auth {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: var(--ink);
+    }
+
+    .option-desc {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--n700);
+    }
+
+    .record-note {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .record-box {
+      padding: 18px 20px;
+      background: var(--white);
+      border: 1px solid var(--n200);
+      border-radius: 4px;
+    }
+
+    .record-box-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .record-box p {
+      font-size: 15px;
+      line-height: 1.52;
+      color: var(--n700);
+    }
+
+    /* Section 4: Governance & Onboarding specification list */
+    .spec-list {
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--n200);
+      background: var(--white);
+    }
+
+    .spec-row {
+      display: grid;
+      grid-template-columns: 300px minmax(0, 1fr);
+      gap: 32px;
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--n200);
+      align-items: baseline;
+    }
+
+    .spec-row:last-child {
+      border-bottom: none;
+    }
+
+    .spec-label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .spec-label h3 {
+      font-size: 17px;
+      letter-spacing: -0.01em;
+    }
+
+    .spec-meta {
+      font-family: var(--mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--p600);
+    }
+
+    .spec-body {
+      font-size: 16px;
+      line-height: 1.58;
+      color: var(--n700);
+      max-width: 60ch;
+    }
+
+    /* Section 5: Closing CTA & Footer */
+    .closing-band {
+      background: var(--ink);
+      color: var(--paper);
+      border-top: 3px solid var(--p500);
+    }
+
+    .closing-inner {
+      padding: 72px 0 64px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 44px;
+      align-items: end;
+    }
+
+    .closing-kicker {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--p400);
+      margin-bottom: 14px;
+    }
+
+    .closing-band h2 {
+      color: var(--paper);
+      font-size: clamp(1.9rem, 3.2vw, 2.75rem);
+      line-height: 1.1;
+      letter-spacing: -0.024em;
+      max-width: 17ch;
+    }
+
+    .closing-right {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .closing-right p {
+      font-size: 16px;
+      line-height: 1.58;
+      color: #D2DAE3;
+      max-width: 46ch;
+    }
+
+    .closing-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-closing {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 24px;
+      background: var(--p600);
+      color: var(--white);
+      font-weight: 500;
+      font-size: 15px;
+      border-radius: 4px;
+      border: 1px solid var(--p600);
+      transition: background-color 140ms ease, border-color 140ms ease;
+    }
+
+    .btn-closing:hover {
+      background: var(--p500);
+      border-color: var(--p500);
+    }
+
+    .closing-email {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: #B6C2CF;
+      letter-spacing: 0.02em;
+    }
+
+    .site-footer {
+      border-top: 1px solid rgba(246, 249, 251, 0.14);
+      padding: 24px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand img {
+      height: 20px;
+      width: auto;
+    }
+
+    .footer-copy {
+      font-size: 14px;
+      color: #AEB8C4;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 10px;
+      font-size: 14px;
+      color: #C7D1DC;
+      transition: color 140ms ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    /* Responsive: Tablet */
+    @media (max-width: 980px) {
+      :root {
+        --gutter: 24px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero-top,
+      .section-head,
+      .closing-inner {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        align-items: start;
+      }
+
+      .hero h1 {
+        max-width: 18ch;
+      }
+
+      .chart-axis-row,
+      .band-row {
+        grid-template-columns: 184px minmax(0, 1fr);
+      }
+
+      .filter-stages {
+        grid-template-columns: 1fr;
+      }
+
+      .stage + .stage {
+        border-left: none;
+        border-top: 1px solid var(--n200);
+      }
+
+      .option-row {
+        grid-template-columns: 160px minmax(0, 1fr);
+        gap: 12px 20px;
+      }
+
+      .option-desc {
+        grid-column: 1 / -1;
+      }
+
+      .spec-row {
+        grid-template-columns: 220px minmax(0, 1fr);
+        gap: 20px;
+      }
+    }
+
+    /* Responsive: Mobile */
+    @media (max-width: 700px) {
+      :root {
+        --gutter: 18px;
+      }
+
+      .hero {
+        padding: 26px 0 36px;
+      }
+
+      .hero-top {
+        margin-bottom: 24px;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero-lead {
+        font-size: 16px;
+      }
+
+      .chart-header {
+        padding: 12px 14px;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .chart-axis-row {
+        grid-template-columns: 1fr;
+      }
+
+      .axis-corner {
+        display: none;
+      }
+
+      .month-axis {
+        grid-template-columns: repeat(6, 1fr);
+        padding: 7px 12px;
+      }
+
+      .month-axis .m-even {
+        display: none;
+      }
+
+      .band-row {
+        grid-template-columns: 1fr;
+      }
+
+      .band-meta {
+        border-right: none;
+        border-bottom: 1px solid var(--n200);
+        padding: 10px 14px;
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 4px 12px;
+      }
+
+      .band-thrash .band-plot,
+      .band-inertia .band-plot {
+        height: 82px;
+      }
+
+      .band-dynamic .band-plot {
+        height: 112px;
+      }
+
+      .pin-label {
+        font-size: 11px;
+        padding: 1px 5px;
+      }
+
+      .chart-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px 14px;
+        gap: 8px;
+      }
+
+      .chart-hint {
+        white-space: normal;
+      }
+
+      .section {
+        padding: 38px 0;
+      }
+
+      .section-head {
+        margin-bottom: 20px;
+      }
+
+      .habits-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .habit-col {
+        padding: 18px 16px;
+      }
+
+      .habit-col + .habit-col {
+        border-left: none;
+        border-top: 1px solid var(--n200);
+      }
+
+      .filter-header {
+        padding: 12px 14px;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .stage {
+        padding: 18px 16px;
+        gap: 11px;
+      }
+
+      .option-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 14px 16px;
+      }
+
+      .option-row-key {
+        padding-left: 13px;
+      }
+
+      .record-note {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .spec-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 15px 16px;
+      }
+
+      .closing-inner {
+        padding: 44px 0 38px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .footer-links {
+        margin-left: -10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand-link" href="#" aria-label="Strapivo home">
+        <img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="120" height="30">
+      </a>
+      <nav class="header-nav" aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#habits">Two habits</a></li>
+          <li><a href="#stability">Stability</a></li>
+          <li><a href="#sessions">Sessions</a></li>
+          <li><a href="#governance">Control</a></li>
+        </ul>
+        <a class="signin-link" href="https://strapivo.app">Sign in</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="wrap">
+        <div class="hero-top">
+          <div>
+            <p class="kicker">Dynamic Strategy</p>
+            <h1 id="hero-heading">Hold the strategy steady. Revise the tactics early.</h1>
+          </div>
+          <div class="hero-copy-col">
+            <p class="hero-lead">Strapivo is the Strategic Design System for leadership teams. It holds your approved strategy and matches live market signals against it, so your team avoids both annual inertia and weekly thrash.</p>
+            <div class="hero-actions">
+              <a class="btn-primary" href="mailto:strategy@strapivo.com">Start the conversation</a>
+              <span class="cta-note">strategy@strapivo.com</span>
+            </div>
+          </div>
+        </div>
+
+        <figure class="chart-card" aria-labelledby="trajectory-title">
+          <div class="chart-header">
+            <span class="chart-title" id="trajectory-title">Twelve-month strategic trajectory across three operating modes</span>
+            <span class="chart-tag">Illustrative example</span>
+          </div>
+
+          <div class="chart-axis-row" aria-hidden="true">
+            <div class="axis-corner">Operating mode</div>
+            <div class="month-axis">
+              <span>Jan</span>
+              <span class="m-even">Feb</span>
+              <span>Mar</span>
+              <span class="m-even">Apr</span>
+              <span>May</span>
+              <span class="m-even">Jun</span>
+              <span>Jul</span>
+              <span class="m-even">Aug</span>
+              <span>Sep</span>
+              <span class="m-even">Oct</span>
+              <span>Nov</span>
+              <span class="m-even">Dec</span>
+            </div>
+          </div>
+
+          <div class="band-row band-thrash">
+            <div class="band-meta">
+              <div class="band-name"><span class="swatch" aria-hidden="true"></span>Thrash</div>
+              <div class="band-sub">Reacts to every news spike</div>
+            </div>
+            <div class="band-plot">
+              <svg viewBox="0 0 1000 100" preserveAspectRatio="none" role="img" aria-label="Erratic jagged line swinging up and down in reaction to headlines across twelve months">
+                <g stroke="rgba(184,71,53,0.14)" stroke-width="1" vector-effect="non-scaling-stroke">
+                  <line x1="83" y1="0" x2="83" y2="100"/>
+                  <line x1="166" y1="0" x2="166" y2="100"/>
+                  <line x1="250" y1="0" x2="250" y2="100"/>
+                  <line x1="333" y1="0" x2="333" y2="100"/>
+                  <line x1="416" y1="0" x2="416" y2="100"/>
+                  <line x1="500" y1="0" x2="500" y2="100"/>
+                  <line x1="583" y1="0" x2="583" y2="100"/>
+                  <line x1="666" y1="0" x2="666" y2="100"/>
+                  <line x1="750" y1="0" x2="750" y2="100"/>
+                  <line x1="833" y1="0" x2="833" y2="100"/>
+                  <line x1="916" y1="0" x2="916" y2="100"/>
+                </g>
+                <line x1="0" y1="50" x2="1000" y2="50" stroke="#D9BDB7" stroke-width="1" stroke-dasharray="4 4" vector-effect="non-scaling-stroke"/>
+                <g stroke="#B84735" stroke-width="1.2" opacity="0.45" vector-effect="non-scaling-stroke">
+                  <line x1="92" y1="0" x2="92" y2="14"/>
+                  <line x1="205" y1="0" x2="205" y2="14"/>
+                  <line x1="340" y1="0" x2="340" y2="14"/>
+                  <line x1="468" y1="0" x2="468" y2="14"/>
+                  <line x1="612" y1="0" x2="612" y2="14"/>
+                  <line x1="762" y1="0" x2="762" y2="14"/>
+                  <line x1="905" y1="0" x2="905" y2="14"/>
+                </g>
+                <polyline fill="none" stroke="#B84735" stroke-width="2.2" stroke-linejoin="miter" vector-effect="non-scaling-stroke" points="0,50 56,48 92,16 146,80 205,22 268,84 340,26 402,78 468,14 542,76 612,24 684,86 756,24 824,80 888,52 948,80 1000,64"/>
+              </svg>
+              <span class="plot-tag plot-tag-rust">Unrecorded swings</span>
+            </div>
+          </div>
+
+          <div class="band-row band-dynamic">
+            <div class="band-meta">
+              <div class="band-name"><span class="swatch" aria-hidden="true"></span>Dynamic Strategy</div>
+              <div class="band-sub">Steady Ambition, four early tactical bends</div>
+            </div>
+            <div class="band-plot">
+              <svg viewBox="0 0 1000 100" preserveAspectRatio="none" role="img" aria-label="Steady Ambition corridor with four small calm tactical bends marked with decision numbers SDS-2026-004, 009, 014 and 019">
+                <g stroke="rgba(0,130,230,0.12)" stroke-width="1" vector-effect="non-scaling-stroke">
+                  <line x1="83" y1="0" x2="83" y2="100"/>
+                  <line x1="166" y1="0" x2="166" y2="100"/>
+                  <line x1="250" y1="0" x2="250" y2="100"/>
+                  <line x1="333" y1="0" x2="333" y2="100"/>
+                  <line x1="416" y1="0" x2="416" y2="100"/>
+                  <line x1="500" y1="0" x2="500" y2="100"/>
+                  <line x1="583" y1="0" x2="583" y2="100"/>
+                  <line x1="666" y1="0" x2="666" y2="100"/>
+                  <line x1="750" y1="0" x2="750" y2="100"/>
+                  <line x1="833" y1="0" x2="833" y2="100"/>
+                  <line x1="916" y1="0" x2="916" y2="100"/>
+                </g>
+                <rect x="0" y="34" width="1000" height="32" fill="rgba(0,130,230,0.06)"/>
+                <line x1="0" y1="50" x2="1000" y2="50" stroke="#75B5F0" stroke-width="1.2" stroke-dasharray="5 5" vector-effect="non-scaling-stroke"/>
+                <polyline fill="none" stroke="#0082E6" stroke-width="2.6" stroke-linejoin="round" vector-effect="non-scaling-stroke" points="0,50 180,50 230,40 420,40 465,58 655,58 700,42 845,42 885,50 1000,50"/>
+              </svg>
+              <span class="plot-tag plot-tag-ambition">Ambition line</span>
+              <button type="button" class="decision-pin" data-pos="above" data-id="SDS-2026-004" data-option="Adapt" data-note="The team shifted partner onboarding activities after a primary regulatory update. The Ambition stayed fixed." aria-pressed="false" style="left: 20.5%; top: 45%;">
+                <span class="pin-dot" aria-hidden="true"></span>
+                <span class="pin-label">SDS-2026-004</span>
+              </button>
+              <button type="button" class="decision-pin" data-pos="below" data-id="SDS-2026-009" data-option="Hold" data-note="The team reviewed a supplier pricing signal and held the margin criterion after sealed first takes." aria-pressed="false" style="left: 44.2%; top: 49%;">
+                <span class="pin-dot" aria-hidden="true"></span>
+                <span class="pin-label">009</span>
+              </button>
+              <button type="button" class="decision-pin" data-pos="above" data-id="SDS-2026-014" data-option="Adapt" data-note="The team revised two channel activities after a primary competitor filing entered the danger zone. The Ambition stayed fixed." aria-pressed="true" style="left: 67.7%; top: 50%;">
+                <span class="pin-dot" aria-hidden="true"></span>
+                <span class="pin-label">014</span>
+              </button>
+              <button type="button" class="decision-pin" data-pos="below" data-id="SDS-2026-019" data-option="Take advantage" data-note="The team added a regional tender activity without changing the success criterion." aria-pressed="false" style="left: 86.5%; top: 46%;">
+                <span class="pin-dot" aria-hidden="true"></span>
+                <span class="pin-label">019</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="band-row band-inertia">
+            <div class="band-meta">
+              <div class="band-name"><span class="swatch" aria-hidden="true"></span>Inertia</div>
+              <div class="band-sub">Flat until one sharp annual drop</div>
+            </div>
+            <div class="band-plot">
+              <svg viewBox="0 0 1000 100" preserveAspectRatio="none" role="img" aria-label="Flat line from January to November followed by one sharp drop at the annual review">
+                <g stroke="rgba(20,27,36,0.07)" stroke-width="1" vector-effect="non-scaling-stroke">
+                  <line x1="83" y1="0" x2="83" y2="100"/>
+                  <line x1="166" y1="0" x2="166" y2="100"/>
+                  <line x1="250" y1="0" x2="250" y2="100"/>
+                  <line x1="333" y1="0" x2="333" y2="100"/>
+                  <line x1="416" y1="0" x2="416" y2="100"/>
+                  <line x1="500" y1="0" x2="500" y2="100"/>
+                  <line x1="583" y1="0" x2="583" y2="100"/>
+                  <line x1="666" y1="0" x2="666" y2="100"/>
+                  <line x1="750" y1="0" x2="750" y2="100"/>
+                  <line x1="833" y1="0" x2="833" y2="100"/>
+                  <line x1="916" y1="0" x2="916" y2="100"/>
+                </g>
+                <line x1="875" y1="0" x2="875" y2="100" stroke="#7A756A" stroke-width="1.2" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/>
+                <polyline fill="none" stroke="#5E594F" stroke-width="2.2" stroke-linejoin="miter" vector-effect="non-scaling-stroke" points="0,32 875,32 908,84 1000,84"/>
+              </svg>
+              <span class="inertia-drop-dot" aria-hidden="true"></span>
+              <span class="plot-tag plot-tag-review">Annual review</span>
+            </div>
+          </div>
+
+          <figcaption class="chart-footer">
+            <div class="decision-readout" aria-live="polite">
+              <span class="readout-id" id="readout-id">SDS-2026-014</span>
+              <span class="readout-option" id="readout-option">Adapt</span>
+              <span id="readout-text">The team revised two channel activities after a primary competitor filing entered the danger zone. The Ambition stayed fixed.</span>
+            </div>
+            <span class="chart-hint">Select a decision number to inspect</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="habits" aria-labelledby="habits-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Two expensive habits</p>
+            <h2 id="habits-heading">Annual reviews move too late. Headline meetings move too often.</h2>
+          </div>
+          <p class="section-intro">Leadership teams know an annual review is too slow. Many resist continuous review because they expect weekly disruption.</p>
+        </div>
+
+        <div class="habits-grid">
+          <article class="habit-col habit-inertia">
+            <div class="habit-top">
+              <h3>Inertia</h3>
+              <span class="habit-badge">Annual cycle</span>
+            </div>
+            <p class="habit-quote">"Between offsites, nothing moves."</p>
+            <p>The team agrees a strategy in a workshop and files the slides away. Market changes go unconnected to the approved strategy. By the next annual review, small shifts require a costly reset.</p>
+          </article>
+
+          <article class="habit-col habit-thrash">
+            <div class="habit-top">
+              <h3>Thrash</h3>
+              <span class="habit-badge">Headline cycle</span>
+            </div>
+            <p class="habit-quote">Every headline starts an unrecorded debate.</p>
+            <p>Each new report restarts the same argument. The loudest voice sets the room's view. Tactics swing week to week, and nobody can find what the team decided three months later.</p>
+          </article>
+        </div>
+
+        <div class="corridor-note">
+          "We are not changing strategy every week, but we are revising our tactics." Strapivo holds leadership teams between inertia and thrash.
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="stability" aria-labelledby="stability-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Protecting stability</p>
+            <h2 id="stability-heading">How Strapivo filters noise before it reaches the room</h2>
+          </div>
+          <p class="section-intro">Strapivo blocks overreaction with three rules between market noise and any change to your strategy.</p>
+        </div>
+
+        <div class="filter-diagram" role="region" aria-labelledby="filter-diagram-title">
+          <div class="filter-header">
+            <span class="chart-title" id="filter-diagram-title">Stability filter</span>
+            <span class="chart-tag">Three rules against thrash</span>
+          </div>
+
+          <div class="filter-stages">
+            <div class="stage">
+              <div class="stage-meta">
+                <span class="stage-num">Filter 01</span>
+                <span class="stage-rule">Scope</span>
+              </div>
+              <h3>Focus limit of up to 4 success criteria</h3>
+              <div class="stage-graphic">
+                <svg viewBox="0 0 260 120" role="img" aria-label="Twelve success criteria bars with four active focus bars in azure above a focus limit line and eight muted bars below">
+                  <rect x="8" y="10" width="152" height="10" rx="2" fill="#0082E6"/>
+                  <rect x="8" y="25" width="136" height="10" rx="2" fill="#0082E6"/>
+                  <rect x="8" y="40" width="164" height="10" rx="2" fill="#0082E6"/>
+                  <rect x="8" y="55" width="124" height="10" rx="2" fill="#0082E6"/>
+                  <text x="180" y="40" font-family="JetBrains Mono, monospace" font-size="11" font-weight="500" fill="#005DBD">4 FOCUS</text>
+                  <line x1="8" y1="74" x2="252" y2="74" stroke="#0082E6" stroke-width="1" stroke-dasharray="3 3"/>
+                  <rect x="8" y="83" width="110" height="6" rx="1.5" fill="#D5DBE2"/>
+                  <rect x="8" y="94" width="96" height="6" rx="1.5" fill="#D5DBE2"/>
+                  <rect x="8" y="105" width="118" height="6" rx="1.5" fill="#D5DBE2"/>
+                  <text x="140" y="101" font-family="JetBrains Mono, monospace" font-size="11" fill="#5E656D">HELD STEADY</text>
+                </svg>
+              </div>
+              <p>A team flags up to four success criteria as focus areas. If someone adds a fifth, Strapivo warns that extra focus creates noise.</p>
+            </div>
+
+            <div class="stage">
+              <div class="stage-meta">
+                <span class="stage-num">Filter 02</span>
+                <span class="stage-rule">Evidence</span>
+              </div>
+              <h3>Primary source required for danger-zone moves</h3>
+              <div class="stage-graphic">
+                <svg viewBox="0 0 260 120" role="img" aria-label="Risk radar diagram showing a secondary blog post blocked outside the danger zone while a primary source moves into the top right quadrant">
+                  <rect x="10" y="8" width="240" height="104" rx="2" fill="#FFFFFF" stroke="#D5DBE2" stroke-width="1"/>
+                  <rect x="128" y="8" width="122" height="56" fill="#FAF1EF"/>
+                  <line x1="128" y1="8" x2="128" y2="112" stroke="#D5DBE2" stroke-width="1"/>
+                  <line x1="10" y1="64" x2="250" y2="64" stroke="#D5DBE2" stroke-width="1"/>
+                  <rect x="128" y="8" width="122" height="56" fill="none" stroke="#B84735" stroke-width="1" stroke-dasharray="3 3"/>
+                  <text x="136" y="23" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="500" fill="#8E3224">DANGER ZONE</text>
+                  <circle cx="84" cy="39" r="4.5" fill="#D4EBFF" stroke="#0082E6" stroke-width="1.4"/>
+                  <line x1="89" y1="39" x2="180" y2="39" stroke="#0082E6" stroke-width="1.8"/>
+                  <circle cx="186" cy="39" r="5.5" fill="#0082E6"/>
+                  <text x="136" y="57" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="500" fill="#005DBD">PRIMARY SOURCE</text>
+                  <circle cx="62" cy="84" r="5" fill="#FFFFFF" stroke="#8E3224" stroke-width="1.6"/>
+                  <line x1="68" y1="81" x2="118" y2="68" stroke="#B84735" stroke-width="1.4" stroke-dasharray="2 2"/>
+                  <line x1="118" y1="60" x2="118" y2="75" stroke="#B84735" stroke-width="2"/>
+                  <text x="18" y="104" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#5E656D">BLOG BLOCKED</text>
+                </svg>
+              </div>
+              <p>Vivo proposes a new risk position on the radar. A person confirms or rejects it. Moving a risk into the top right danger zone requires at least one primary source.</p>
+            </div>
+
+            <div class="stage">
+              <div class="stage-meta">
+                <span class="stage-num">Filter 03</span>
+                <span class="stage-rule">Room</span>
+              </div>
+              <h3>Sealed first takes before open discussion</h3>
+              <div class="stage-graphic">
+                <svg viewBox="0 0 260 120" role="img" aria-label="Five sealed executive positions on the left revealed together on the right before group discussion">
+                  <text x="12" y="21" font-family="JetBrains Mono, monospace" font-size="10.5" fill="#5E656D">SEALED</text>
+                  <rect x="12" y="31" width="84" height="10" rx="2" fill="#E1E5EA"/>
+                  <rect x="12" y="48" width="84" height="10" rx="2" fill="#E1E5EA"/>
+                  <rect x="12" y="65" width="84" height="10" rx="2" fill="#E1E5EA"/>
+                  <rect x="12" y="82" width="84" height="10" rx="2" fill="#E1E5EA"/>
+                  <rect x="12" y="99" width="84" height="10" rx="2" fill="#E1E5EA"/>
+                  <line x1="120" y1="12" x2="120" y2="110" stroke="#0082E6" stroke-width="1.4" stroke-dasharray="3 3"/>
+                  <text x="138" y="21" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="500" fill="#005DBD">REVEALED TOGETHER</text>
+                  <rect x="138" y="31" width="68" height="10" rx="2" fill="#0082E6"/>
+                  <rect x="138" y="48" width="96" height="10" rx="2" fill="#0082E6"/>
+                  <rect x="138" y="65" width="46" height="10" rx="2" fill="#5E594F"/>
+                  <rect x="138" y="82" width="78" height="10" rx="2" fill="#0082E6"/>
+                  <rect x="138" y="99" width="56" height="10" rx="2" fill="#B84735"/>
+                </svg>
+              </div>
+              <p>Before debate begins, each executive submits an independent position. All takes appear together so the loudest voice cannot set the room's view.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sessions" aria-labelledby="sessions-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Preventing drift</p>
+            <h2 id="sessions-heading">One 60-minute session. Five disciplined options.</h2>
+          </div>
+          <p class="section-intro">The Radar collects market signals for your focus areas. Vivo drafts an agenda 24 hours before each weekly, fortnightly or monthly session. Every item carries a one-line reason and ends in one of five options.</p>
+        </div>
+
+        <div class="options-table" role="region" aria-label="Five strategic decision options">
+          <div class="option-row option-row-key">
+            <div class="option-head">
+              <span class="option-name">Hold</span>
+              <span class="option-tag">Recorded stability</span>
+            </div>
+            <div class="scope-bars" aria-label="Strategy fixed, tactics fixed">
+              <div class="scope-line"><span class="scope-track"><span class="scope-fill-steady"></span></span>Strategy fixed</div>
+              <div class="scope-line"><span class="scope-track"><span class="scope-fill-steady"></span></span>Tactics fixed</div>
+            </div>
+            <p class="option-desc">Strapivo marks the success criterion reviewed on that date. The team logs stability as an active decision, so the board sees review rather than neglect.</p>
+          </div>
+
+          <div class="option-row option-row-key">
+            <div class="option-head">
+              <span class="option-name">Adapt</span>
+              <span class="option-tag">Tactical revision</span>
+            </div>
+            <div class="scope-bars" aria-label="Strategy fixed, tactics revised">
+              <div class="scope-line"><span class="scope-track"><span class="scope-fill-steady"></span></span>Strategy fixed</div>
+              <div class="scope-line"><span class="scope-track"><span class="scope-fill-move"></span></span>Tactics revised</div>
+            </div>
+            <p class="option-desc">Vivo drafts updates to objectives and activities. Tactics adjust early while the Ambition and success criterion stay fixed.</p>
+          </div>
+
+          <div class="option-row">
+            <div class="option-head">
+              <span class="option-name">Pivot</span>
+              <span class="option-tag option-tag-neutral">Authority required</span>
+            </div>
+            <div class="scope-bars" aria-label="Strategy wording revised after authority confirmation">
+              <div class="scope-line"><span class="scope-track"><span class="scope-fill-auth"></span></span>Wording revised</div>
+              <div class="scope-line"><span class="scope-track"><span class="scope-fill-move"></span></span>Tactics aligned</div>
+            </div>
+            <p class="option-desc">Vivo drafts revised wording for the success criterion. The change takes effect only after a leader with authority confirms it.</p>
+          </div>
+
+          <div class="option-row">
+            <div class="option-head">
+              <span class="option-name">Take advantage</span>
+              <span class="option-tag option-tag-neutral">Bounded opening</span>
+            </div>
+            <div class="scope-bars" aria-label="Strategy fixed, detour activities added">
+              <div class="scope-line"><span class="scope-track"><span class="scope-fill-steady"></span></span>Strategy fixed</div>
+              <div class="scope-line"><span class="scope-track"><span class="scope-fill-move"></span></span>Detour added</div>
+            </div>
+            <p class="option-desc">The team adds targeted activities for an opening without changing the success criterion.</p>
+          </div>
+
+          <div class="option-row">
+            <div class="option-head">
+              <span class="option-name">Not yet</span>
+              <span class="option-tag option-tag-neutral">Parked with trigger</span>
+            </div>
+            <div class="scope-bars" aria-label="Strategy fixed, return trigger set">
+              <div class="scope-line"><span class="scope-track"><span class="scope-fill-steady"></span></span>Strategy fixed</div>
+              <div class="scope-line"><span class="scope-track"><span class="scope-fill-steady"></span></span>Trigger set</div>
+            </div>
+            <p class="option-desc">The team parks the question with a return trigger such as evidence, a date or the next session, or lets it go with a written rationale.</p>
+          </div>
+        </div>
+
+        <div class="record-note">
+          <div class="record-box">
+            <div class="record-box-title">Permanent Record of Decisions</div>
+            <p>Each confirmed decision gets a permanent number such as SDS-2026-014. Named dissent and its reason stay on the record.</p>
+          </div>
+          <div class="record-box">
+            <div class="record-box-title">Fourteen-day danger-zone nudge</div>
+            <p>Any risk that stays in the top right for 14 days without a decision lands in the session lead's Needs you list.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="governance" aria-labelledby="governance-heading">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Human control, trust and onboarding</p>
+            <h2 id="governance-heading">Vivo proposes. People decide.</h2>
+          </div>
+          <p class="section-intro">Vivo does not rewrite accepted strategy on its own. People validate every move and approve every change.</p>
+        </div>
+
+        <div class="spec-list">
+          <div class="spec-row">
+            <div class="spec-label">
+              <h3>Human authority</h3>
+              <span class="spec-meta">Approval boundary</span>
+            </div>
+            <p class="spec-body">Vivo drafts agendas and proposes risk moves. People confirm each move, change traffic lights and approve edits to accepted strategy.</p>
+          </div>
+
+          <div class="spec-row">
+            <div class="spec-label">
+              <h3>Connected to your strategy</h3>
+              <span class="spec-meta">Strategic memory</span>
+            </div>
+            <p class="spec-body">Strapivo links signals and sessions to your business model, Ambition, success criteria and risks. Every recommendation traces back to the strategic memory you approved.</p>
+          </div>
+
+          <div class="spec-row">
+            <div class="spec-label">
+              <h3>European infrastructure</h3>
+              <span class="spec-meta">Data governance</span>
+            </div>
+            <p class="spec-body">Strapivo runs on EU-only infrastructure and follows GDPR by design. Teams can start with public and non-sensitive material and widen scope later.</p>
+          </div>
+
+          <div class="spec-row">
+            <div class="spec-label">
+              <h3>Four to five hours to start</h3>
+              <span class="spec-meta">Onboarding</span>
+            </div>
+            <p class="spec-body">We read your material first so you enter session one with a draft to correct. After four to five hours together, your team runs the cadence.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="closing-band">
+    <section class="wrap closing-inner" aria-labelledby="closing-heading">
+      <div>
+        <p class="closing-kicker">Start the conversation</p>
+        <h2 id="closing-heading">Hold your strategy intact. Revise tactics while changes cost less.</h2>
+      </div>
+      <div class="closing-right">
+        <p>If annual reviews happen too late and weekly headlines disrupt your plans, write to us. We will review your strategy cadence and show how Dynamic Strategy works.</p>
+        <div class="closing-actions">
+          <a class="btn-closing" href="mailto:strategy@strapivo.com">Start the conversation</a>
+          <span class="closing-email">strategy@strapivo.com</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <div class="footer-brand">
+          <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="100" height="25">
+          <span class="footer-copy">© 2026 Strapivo</span>
+        </div>
+        <ul class="footer-links">
+          <li><a href="/imprint">Imprint</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/terms">Terms</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var pins = document.querySelectorAll('.decision-pin');
+      var idEl = document.getElementById('readout-id');
+      var optEl = document.getElementById('readout-option');
+      var textEl = document.getElementById('readout-text');
+      if (!pins.length || !idEl || !optEl || !textEl) return;
+
+      function selectPin(target) {
+        for (var i = 0; i < pins.length; i++) {
+          pins[i].setAttribute('aria-pressed', pins[i] === target ? 'true' : 'false');
+        }
+        idEl.textContent = target.getAttribute('data-id');
+        optEl.textContent = target.getAttribute('data-option');
+        textEl.textContent = target.getAttribute('data-note');
+      }
+
+      for (var i = 0; i < pins.length; i++) {
+        pins[i].addEventListener('click', function () {
+          selectPin(this);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
