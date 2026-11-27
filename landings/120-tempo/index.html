@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Strapivo. Strategy needs a tempo</title>
+<meta name="description" content="Strapivo is where a leadership team keeps its strategy and reviews it every week, fortnight or month.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..600&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:"InterL";src:url("../../fonts/Inter-Regular.otf") format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"InterL";src:url("../../fonts/Inter-Medium.otf") format("opentype");font-weight:500;font-display:swap}
+:root{
+  --lilac:#C9BEDD;--ink:#17151A;--brass:#C9A24A;--mute:#4E4658;
+  --serif:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --sans:"InterL",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --u:min(.058vh,.042vw);
+}
+*{box-sizing:border-box}
+html{background:var(--lilac);color:var(--ink);-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--sans);overflow-x:hidden;
+  background:
+    radial-gradient(120vw 90vh at 58% 30%,rgba(255,255,255,.22),rgba(255,255,255,0) 60%),
+    radial-gradient(140vw 120vh at 50% 120%,rgba(60,40,90,.10),rgba(60,40,90,0) 60%),
+    var(--lilac);}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.22;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .42 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");}
+a{color:inherit}
+a:focus-visible,.btn:focus-visible{outline:2px solid var(--ink);outline-offset:4px;border-radius:2px}
+
+.top{position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;padding:30px 5vw;z-index:5}
+.logo img{display:block;height:24px;width:auto}
+.signin{font-size:15px;text-decoration:none;border-bottom:1px solid rgba(23,21,26,.35);padding-bottom:2px}
+.signin:hover{border-color:var(--ink)}
+
+.stage{position:relative}
+html.live .stage{height:calc(100vh + 220vh)}
+.pin{position:relative;height:100vh;min-height:620px;overflow:hidden}
+html.live .pin{position:sticky;top:0}
+
+.intro{position:absolute;left:7vw;top:47%;transform:translateY(-50%);width:min(40vw,600px);z-index:3}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(48px,5.3vw,92px);line-height:.98;letter-spacing:-.022em;margin:0 0 .5em;font-variation-settings:"opsz" 96}
+h1 em{font-style:italic;font-weight:400}
+.lede{font-size:clamp(17px,1.32vw,20px);line-height:1.5;max-width:28em;margin:0 0 34px;color:#221F27}
+.btn{display:inline-flex;align-items:center;gap:14px;background:var(--ink);color:#EFE9F6;text-decoration:none;font-weight:500;font-size:16px;padding:17px 26px 17px 28px;border-radius:999px;
+  box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 14px 30px -14px rgba(23,21,26,.6);transition:transform .2s ease,box-shadow .2s ease}
+.btn:hover{transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 18px 34px -14px rgba(23,21,26,.7)}
+.btn i{display:block;width:7px;height:7px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#F6E2A6,#C9A24A 55%,#7A5A1E)}
+
+.metro{position:absolute;width:calc(1040 * var(--u));height:calc(1300 * var(--u));left:calc(64vw - 520 * var(--u));top:calc(80vh - 1200 * var(--u));overflow:visible;z-index:2}
+.lbl{font-family:var(--serif);font-style:italic;font-size:44px;fill:var(--mute)}
+.lbl.on{fill:var(--ink)}
+.lead{stroke:var(--mute);stroke-width:1.6}
+.lead.on{stroke:var(--ink)}
+.dot{fill:var(--ink);opacity:0}
+.dot.on{opacity:1}
+
+.year{position:absolute;left:0;right:0;top:88vh;z-index:2}
+.marks{position:relative;display:flex;justify-content:space-between;align-items:flex-end;height:30px;margin:0 5vw;}
+.marks::after{content:"";position:absolute;left:-5vw;right:-5vw;bottom:0;height:1px;background:rgba(23,21,26,.55)}
+.marks span{display:block;width:2px;height:9px;background:rgba(23,21,26,.3)}
+.marks span.on{height:26px;background:var(--ink)}
+.cap{position:relative;height:28px;margin:14px 5vw 0;font-family:var(--serif);font-style:italic;font-size:21px}
+.cap span{position:absolute;left:0;top:0;opacity:0;transform:translateY(6px)}
+.cap span.on{opacity:1;transform:none}
+
+.end{min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16vh 7vw 8vh;position:relative}
+.end h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(40px,5vw,84px);line-height:1.02;letter-spacing:-.02em;margin:0 0 .45em}
+.end p{font-size:18px;line-height:1.55;margin:0 0 10px;max-width:36em;color:#221F27}
+.end .btn{margin-top:34px}
+footer{font-size:12px;color:#2E2A35;text-align:center;padding:0 5vw 30px}
+footer a{margin-left:14px;color:#2E2A35}
+
+@media (max-width:760px){
+  :root{--u:calc((100vw - 16px) / 1040)}
+  .top{position:relative;padding:22px 22px 0}
+  .logo img{height:21px}
+  .pin{height:auto;min-height:0;display:flex;flex-direction:column}
+  .intro{position:relative;left:auto;top:auto;transform:none;width:auto;padding:34px 22px 0}
+  h1{font-size:clamp(40px,11.4vw,48px);margin-bottom:.42em}
+  .lede{font-size:16px;margin-bottom:24px}
+  .btn{font-size:16px;padding:15px 22px 15px 24px}
+  .metro{position:relative;left:auto;top:auto;margin:6px auto 0;display:block}
+  .year{position:relative;top:auto;padding:4px 0 26px}
+  .marks{flex-wrap:wrap;height:auto;row-gap:22px;margin:0 22px}
+  .marks::after{display:none}
+  .marks span{flex:0 0 2px;margin-right:calc((100% - 52px) / 25);position:relative}
+  .marks span:nth-child(26n){margin-right:0}
+  .marks span{align-self:flex-end}
+  .marks{background:linear-gradient(rgba(23,21,26,.55),rgba(23,21,26,.55)) 0 26px/100% 1px no-repeat,linear-gradient(rgba(23,21,26,.55),rgba(23,21,26,.55)) 0 100%/100% 1px no-repeat}
+  .marks .row{display:contents}
+  .cap{margin:14px 22px 0;font-size:20px}
+  .end{min-height:80vh;padding:14vh 22px 8vh}
+  .end p{font-size:16px}
+  footer a{margin-left:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
+</style>
+</head>
+<body>
+<main>
+<section class="stage" id="stage">
+  <div class="pin" id="pin">
+    <header class="top">
+      <a class="logo" href="#"><img src="../../assets/logo/strategy-mono-ink.svg" alt="Strapivo" width="96" height="24"></a>
+      <a class="signin" href="https://strapivo.app">Sign in</a>
+    </header>
+
+    <div class="intro">
+      <h1>Strategy needs a <em>tempo</em>.</h1>
+      <p class="lede">Strapivo is where a leadership team keeps its strategy and reviews it every week, fortnight or month.</p>
+      <a class="btn" href="mailto:strategy@strapivo.com"><i></i>Start the conversation</a>
+    </div>
+
+    <svg class="metro" id="metro" viewBox="-520 -200 1040 1300" role="img" aria-label="A black metronome with a brass pendulum. Its sliding weight sets reviews to monthly, fortnightly or weekly, and a line of 52 weeks below marks each session.">
+      <defs>
+        <linearGradient id="lac" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" stop-color="#060508"/>
+          <stop offset=".045" stop-color="#3A3442"/>
+          <stop offset=".11" stop-color="#16141A"/>
+          <stop offset=".46" stop-color="#1D1A21"/>
+          <stop offset=".8" stop-color="#121014"/>
+          <stop offset=".93" stop-color="#262229"/>
+          <stop offset="1" stop-color="#050406"/>
+        </linearGradient>
+        <linearGradient id="lacV" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#D9CFEB" stop-opacity=".16"/>
+          <stop offset=".18" stop-color="#D9CFEB" stop-opacity="0"/>
+          <stop offset=".82" stop-color="#000" stop-opacity="0"/>
+          <stop offset=".97" stop-color="#B9ABD0" stop-opacity=".12"/>
+          <stop offset="1" stop-color="#B9ABD0" stop-opacity=".05"/>
+        </linearGradient>
+        <linearGradient id="panel" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#2A2630"/>
+          <stop offset=".55" stop-color="#232027"/>
+          <stop offset="1" stop-color="#1A171D"/>
+        </linearGradient>
+        <linearGradient id="panelH" x1="0" x2="1">
+          <stop offset="0" stop-color="#fff" stop-opacity=".05"/>
+          <stop offset=".3" stop-color="#fff" stop-opacity="0"/>
+          <stop offset=".75" stop-color="#000" stop-opacity="0"/>
+          <stop offset="1" stop-color="#000" stop-opacity=".25"/>
+        </linearGradient>
+        <linearGradient id="spec" x1="0" x2="1">
+          <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+          <stop offset=".5" stop-color="#F4EEFF" stop-opacity=".2"/>
+          <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="brassH" x1="0" x2="1">
+          <stop offset="0" stop-color="#5E4314"/>
+          <stop offset=".22" stop-color="#B48B37"/>
+          <stop offset=".42" stop-color="#F5E1A2"/>
+          <stop offset=".6" stop-color="#C9A24A"/>
+          <stop offset="1" stop-color="#6A4C18"/>
+        </linearGradient>
+        <linearGradient id="brassV" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#E9CF86"/>
+          <stop offset=".08" stop-color="#C9A24A"/>
+          <stop offset=".5" stop-color="#B08734"/>
+          <stop offset=".92" stop-color="#8E6A26"/>
+          <stop offset="1" stop-color="#5E4314"/>
+        </linearGradient>
+        <linearGradient id="scaleG" x1="0" x2="1">
+          <stop offset="0" stop-color="#8A6724"/>
+          <stop offset=".12" stop-color="#D9B868"/>
+          <stop offset=".5" stop-color="#C9A24A"/>
+          <stop offset=".86" stop-color="#B08634"/>
+          <stop offset="1" stop-color="#6A4C18"/>
+        </linearGradient>
+        <linearGradient id="weightG" x1="0" x2="1">
+          <stop offset="0" stop-color="#4F380F"/>
+          <stop offset=".14" stop-color="#9C7629"/>
+          <stop offset=".36" stop-color="#FBEAB4"/>
+          <stop offset=".5" stop-color="#DDB963"/>
+          <stop offset=".78" stop-color="#A57D2E"/>
+          <stop offset="1" stop-color="#553D12"/>
+        </linearGradient>
+        <linearGradient id="weightV" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stop-color="#fff" stop-opacity=".35"/>
+          <stop offset=".22" stop-color="#fff" stop-opacity="0"/>
+          <stop offset=".7" stop-color="#000" stop-opacity="0"/>
+          <stop offset="1" stop-color="#000" stop-opacity=".35"/>
+        </linearGradient>
+        <radialGradient id="boss" cx=".38" cy=".34" r=".7">
+          <stop offset="0" stop-color="#FFF1C4"/>
+          <stop offset=".35" stop-color="#D7B260"/>
+          <stop offset=".8" stop-color="#8A6724"/>
+          <stop offset="1" stop-color="#4F380F"/>
+        </radialGradient>
+        <radialGradient id="floor" cx=".5" cy=".5" r=".5">
+          <stop offset="0" stop-color="#2A2035" stop-opacity=".5"/>
+          <stop offset=".55" stop-color="#2A2035" stop-opacity=".2"/>
+          <stop offset="1" stop-color="#2A2035" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="blur3" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3"/></filter>
+        <filter id="blur8" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
+        <filter id="blur20" x="-30%" y="-200%" width="160%" height="500%"><feGaussianBlur stdDeviation="16"/></filter>
+        <filter id="grain" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="2" seed="4" result="n"/>
+          <feColorMatrix in="n" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .09 0"/>
+        </filter>
+        <clipPath id="bodyClip"><path d="M-114 0 H114 L280 1000 H-280 Z"/></clipPath>
+        <clipPath id="panelClip"><path id="panelPath" d="M-74 96 H74 L218 872 H-218 Z"/></clipPath>
+        <g id="pend">
+          <rect x="-5.5" y="-175" width="11" height="1020" rx="5.5"/>
+          <g class="w">
+            <path d="M-50 0 H50 Q57 0 58 8 L70 96 Q71 106 61 106 H-61 Q-71 106 -70 96 L-58 8 Q-57 0 -50 0 Z"/>
+          </g>
+        </g>
+      </defs>
+
+      <!-- floor shadow -->
+      <ellipse cx="40" cy="1052" rx="470" ry="44" fill="url(#floor)" filter="url(#blur20)"/>
+      <ellipse cx="0" cy="1046" rx="330" ry="9" fill="#1C1524" opacity=".55" filter="url(#blur3)"/>
+
+      <!-- plinth -->
+      <path d="M-300 996 H300 Q312 996 313 1008 L316 1038 Q317 1046 307 1046 H-307 Q-317 1046 -316 1038 L-313 1008 Q-312 996 -300 996 Z" fill="url(#lac)"/>
+      <path d="M-300 996 H300 Q312 996 313 1008 L316 1038 Q317 1046 307 1046 H-307 Q-317 1046 -316 1038 L-313 1008 Q-312 996 -300 996 Z" fill="url(#lacV)"/>
+      <path d="M-298 999.5 H298" stroke="#E6DDF4" stroke-opacity=".38" stroke-width="2"/>
+      <path d="M-305 1043 H305" stroke="#000" stroke-opacity=".6" stroke-width="3"/>
+
+      <!-- body -->
+      <path d="M-114 0 H114 L280 1000 H-280 Z" fill="url(#lac)"/>
+      <path d="M-114 0 H114 L280 1000 H-280 Z" fill="url(#lacV)"/>
+      <g clip-path="url(#bodyClip)">
+        <rect x="-300" y="0" width="600" height="1000" filter="url(#grain)" opacity=".9"/>
+        <!-- left chamfer catching the light -->
+        <path d="M-114 0 L-98 0 L-258 1000 L-280 1000 Z" fill="#4A4253" opacity=".55"/>
+        <path d="M-112 4 L-277 996" stroke="#EFE7FB" stroke-opacity=".42" stroke-width="2.2"/>
+        <!-- right chamfer in shade -->
+        <path d="M114 0 L98 0 L258 1000 L280 1000 Z" fill="#000" opacity=".45"/>
+        <path d="M110 6 L274 996" stroke="#9E92B2" stroke-opacity=".22" stroke-width="1.4"/>
+        <!-- long specular streak -->
+        <path d="M-84 0 L-60 0 L-176 1000 L-214 1000 Z" fill="url(#spec)" filter="url(#blur3)"/>
+        <path d="M-70 0 L-66 0 L-190 1000 L-196 1000 Z" fill="#fff" opacity=".06"/>
+        <path d="M58 0 L80 0 L196 1000 L150 1000 Z" fill="url(#spec)" opacity=".45" filter="url(#blur8)"/>
+      </g>
+
+      <!-- top cap -->
+      <path d="M-128 -2 H128 Q134 -2 134 4 V10 Q134 14 128 14 H-128 Q-134 14 -134 10 V4 Q-134 -2 -128 -2 Z" fill="url(#lac)"/>
+      <path d="M-124 -26 H124 Q132 -26 132 -18 V-4 H-132 V-18 Q-132 -26 -124 -26 Z" fill="url(#lac)"/>
+      <path d="M-122 -24.5 H122" stroke="#F1EAFC" stroke-opacity=".55" stroke-width="2"/>
+      <path d="M-130 12.5 H130" stroke="#000" stroke-opacity=".7" stroke-width="2"/>
+
+      <!-- recessed front panel -->
+      <use href="#panelPath" fill="url(#panel)"/>
+      <use href="#panelPath" fill="url(#panelH)"/>
+      <g clip-path="url(#panelClip)">
+        <rect x="-240" y="96" width="480" height="780" filter="url(#grain)" opacity=".7"/>
+        <!-- inner shadow along top and left of the recess -->
+        <path d="M-74 96 H74 L84 150 H-84 Z" fill="#000" opacity=".55" filter="url(#blur8)"/>
+        <path d="M-74 96 L-218 872 L-190 872 L-60 96 Z" fill="#000" opacity=".5" filter="url(#blur8)"/>
+      </g>
+      <path d="M74 96 L218 872 H-218" fill="none" stroke="#C9BEDD" stroke-opacity=".2" stroke-width="2"/>
+      <path d="M-218 872 L-74 96 H74" fill="none" stroke="#000" stroke-opacity=".8" stroke-width="3"/>
+
+      <!-- brass scale -->
+      <rect x="-20" y="158" width="48" height="620" rx="3" fill="#000" opacity=".6" filter="url(#blur3)"/>
+      <g id="scale">
+        <rect x="-24" y="150" width="48" height="620" rx="3" fill="url(#scaleG)"/>
+        <rect x="-24" y="150" width="48" height="620" rx="3" fill="url(#lacV)" opacity=".4"/>
+        <path id="ticks" fill="none" stroke="#3E2C0C" stroke-width="1.6"/>
+        <path id="ticksL" fill="none" stroke="#FBE9B0" stroke-opacity=".55" stroke-width="1"/>
+        <rect x="-24" y="150" width="48" height="620" rx="3" fill="none" stroke="#3A290A" stroke-opacity=".5" stroke-width="1.5"/>
+        <circle cx="0" cy="164" r="6" fill="url(#boss)"/>
+        <circle cx="0" cy="756" r="6" fill="url(#boss)"/>
+      </g>
+
+      <!-- labels on the scale -->
+      <g id="labels">
+        <path class="lead" data-i="0" d="M40 200 H128 M168 200 H196"/>
+        <path class="lead" data-i="1" d="M40 400 H156 M200 400 H230"/>
+        <path class="lead on" data-i="2" d="M40 600 H182 M232 600 H262"/>
+        <circle class="dot" data-i="0" cx="196" cy="200" r="5"/>
+        <circle class="dot" data-i="1" cx="230" cy="400" r="5"/>
+        <circle class="dot on" data-i="2" cx="262" cy="600" r="5"/>
+        <path d="M40 200 H128 M40 400 H156 M40 600 H182" stroke="#D9B868" stroke-opacity=".55" stroke-width="1.6"/>
+        <text class="lbl" data-i="0" x="214" y="214">Monthly</text>
+        <text class="lbl" data-i="1" x="248" y="414">Fortnightly</text>
+        <text class="lbl on" data-i="2" x="280" y="614">Weekly</text>
+      </g>
+
+      <!-- pendulum shadow on the panel -->
+      <g clip-path="url(#panelClip)">
+        <g transform="translate(18 12)" opacity=".75" filter="url(#blur3)">
+          <g class="swing" transform="rotate(15 0 830)"><use href="#pend" fill="#000"/></g>
+        </g>
+      </g>
+
+      <!-- pendulum -->
+      <g class="swing" id="swing" transform="rotate(15 0 830)">
+        <rect x="-5.5" y="-175" width="11" height="1020" rx="5.5" fill="url(#brassH)"/>
+        <rect x="-1.6" y="-170" width="1.8" height="1000" fill="#FFF3CC" opacity=".55"/>
+        <g class="w" transform="translate(0 600)">
+          <path d="M-50 0 H50 Q57 0 58 8 L70 96 Q71 106 61 106 H-61 Q-71 106 -70 96 L-58 8 Q-57 0 -50 0 Z" fill="url(#weightG)"/>
+          <path d="M-50 0 H50 Q57 0 58 8 L70 96 Q71 106 61 106 H-61 Q-71 106 -70 96 L-58 8 Q-57 0 -50 0 Z" fill="url(#weightV)"/>
+          <path d="M-51 1.5 H51" stroke="#FFF6D8" stroke-opacity=".9" stroke-width="2.4"/>
+          <path d="M-58 8 L-70 96" stroke="#FFF1C4" stroke-opacity=".45" stroke-width="2"/>
+          <path d="M58 8 L70 96" stroke="#2E2008" stroke-opacity=".5" stroke-width="2"/>
+          <path d="M-64 104 H64" stroke="#2E2008" stroke-opacity=".6" stroke-width="2.5"/>
+          <rect x="-7" y="-2" width="14" height="110" fill="#3B2A0B" opacity=".22"/>
+          <circle cx="0" cy="54" r="11" fill="url(#boss)"/>
+          <circle cx="0" cy="54" r="11" fill="none" stroke="#3A290A" stroke-opacity=".5"/>
+          <path d="M-6 54 H6" stroke="#4F380F" stroke-width="2.4"/>
+        </g>
+      </g>
+
+      <!-- pivot -->
+      <circle cx="0" cy="830" r="38" fill="#0B0A0D" opacity=".7" filter="url(#blur3)"/>
+      <circle cx="0" cy="830" r="27" fill="url(#boss)"/>
+      <circle cx="0" cy="830" r="27" fill="none" stroke="#3A290A" stroke-opacity=".6" stroke-width="1.5"/>
+      <path d="M-14 822 L14 838" stroke="#4F380F" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M-13 820 L13 835" stroke="#FFF1C4" stroke-opacity=".5" stroke-width="1" stroke-linecap="round"/>
+    </svg>
+
+    <div class="year" aria-hidden="false">
+      <div class="marks" id="marks"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div>
+      <p class="cap" id="cap"><span data-i="0">12 sessions a year</span><span data-i="1">26 sessions a year</span><span data-i="2" class="on">52 sessions a year</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="end">
+  <h2>Sixty minutes a session.</h2>
+  <p>Add one when something cannot wait.</p>
+  <p>Strapivo drafts each agenda from what changed. Your team decides.</p>
+  <a class="btn" href="mailto:strategy@strapivo.com"><i></i>Start the conversation</a>
+</section>
+</main>
+<footer>© 2026 Strapivo <a href="/imprint">Imprint</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></footer>
+
+<script>
+(function(){
+  var NS = "http://www.w3.org/2000/svg";
+  // engraved ticks on the scale
+  var d = "", dl = "";
+  for (var y = 180, k = 0; y <= 740; y += 14, k++) {
+    var long = k % 4 === 0, w = long ? 16 : 9;
+    d += "M-22 " + y + " h" + w + " M22 " + y + " h-" + w + " ";
+    dl += "M-22 " + (y + 1.4) + " h" + w + " M22 " + (y + 1.4) + " h-" + w + " ";
+  }
+  document.getElementById("ticks").setAttribute("d", d);
+  document.getElementById("ticksL").setAttribute("d", dl);
+
+  // 52 weeks
+  var marks = Array.prototype.slice.call(document.querySelectorAll("#marks span"));
+
+  var COUNTS = [12, 26, 52], YS = [200, 400, 600];
+  function sessions(n){ var a = []; for (var k = 0; k < n; k++) a.push(Math.round(k * 52 / n)); return a; }
+  var SETS = COUNTS.map(sessions);
+
+  var swings = document.querySelectorAll(".swing"), weights = document.querySelectorAll(".w");
+  var lbls = document.querySelectorAll("#labels [data-i]"), caps = document.querySelectorAll("#cap span");
+  var state = -1;
+  function setState(s){
+    if (s === state) return; state = s;
+    var set = SETS[s], on = {};
+    set.forEach(function(x){ on[x] = 1; });
+    marks.forEach(function(m, j){ m.classList.toggle("on", !!on[j]); });
+    lbls.forEach(function(el){ el.classList.toggle("on", +el.getAttribute("data-i") === s); });
+    caps.forEach(function(el){ el.classList.toggle("on", +el.getAttribute("data-i") === s); });
+  }
+  function draw(angle, wy){
+    var r = "rotate(" + angle.toFixed(3) + " 0 830)";
+    for (var j = 0; j < swings.length; j++) swings[j].setAttribute("transform", r);
+    for (var j2 = 0; j2 < weights.length; j2++) weights[j2].setAttribute("transform", "translate(0 " + wy.toFixed(2) + ")");
+  }
+
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (reduce.matches) { setState(2); return; }
+
+  var root = document.documentElement, stage = document.getElementById("stage"), pin = document.getElementById("pin");
+  root.classList.add("live");
+  var mobile = window.matchMedia("(max-width: 760px)");
+  var stickyTop = 0;
+  function layout(){
+    stickyTop = mobile.matches ? Math.min(0, window.innerHeight - pin.offsetHeight) : 0;
+    pin.style.top = stickyTop + "px";
+    stage.style.height = mobile.matches ? (pin.offsetHeight + window.innerHeight * 2.2) + "px" : "";
+  }
+  layout();
+  window.addEventListener("resize", layout);
+
+  function smooth(t){ t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); }
+  function target(){
+    var r = stage.getBoundingClientRect();
+    var travel = stage.offsetHeight - pin.offsetHeight;
+    var p = travel > 0 ? (stickyTop - r.top) / travel : 0;
+    p = Math.max(0, Math.min(1, p));
+    return smooth((p - .1) / .3) + smooth((p - .56) / .3);
+  }
+
+  var w = target(), phase = 0, last = 0, running = false, visible = true, cursor = 0, prevCycle = 0;
+  setState(Math.round(w));
+  var mv = marks.map(function(m){ return m.classList.contains("on") ? 1 : 0; });
+  var hv = marks.map(function(){ return 0; });
+  var cv = [0, 0, 0]; cv[state] = 1;
+  function hit(){
+    var set = SETS[state]; cursor = (cursor + 1) % set.length;
+    hv[set[cursor]] = 1;
+  }
+  function paint(raw){
+    var k = 1 - Math.exp(-Math.min(1, raw) * 9), kh = Math.exp(-Math.min(1, raw) * 7);
+    for (var j = 0; j < 52; j++) {
+      var m = marks[j], tv = m.classList.contains("on") ? 1 : 0;
+      var v = mv[j] + (tv - mv[j]) * k, h = hv[j] * kh;
+      if (Math.abs(v - mv[j]) < .0005 && hv[j] < .002 && m.style.height) { continue; }
+      mv[j] = v; hv[j] = h < .002 ? 0 : h;
+      var a = .3 + .7 * v, r = 23 + (169 - 23) * h, g = 21 + (128 - 21) * h, bl = 26 + (42 - 26) * h;
+      m.style.height = (9 + 17 * v + 4 * h).toFixed(2) + "px";
+      m.style.backgroundColor = "rgba(" + (r|0) + "," + (g|0) + "," + (bl|0) + "," + Math.max(a, h).toFixed(3) + ")";
+    }
+    for (var c = 0; c < 3; c++) {
+      cv[c] += ((c === state ? 1 : 0) - cv[c]) * k;
+      caps[c].style.opacity = cv[c].toFixed(3);
+      caps[c].style.transform = "translateY(" + ((1 - cv[c]) * 6).toFixed(2) + "px)";
+    }
+  }
+  function frame(t){
+    if (!running) return;
+    var raw = last ? (t - last) / 1000 : 0; last = t;
+    var dt = Math.min(.05, raw);
+    var tw = target();
+    w += (tw - w) * (1 - Math.exp(-Math.min(1, raw) * 4));
+    var period = 3.2 / Math.pow(2, w);
+    phase += dt * 2 * Math.PI / period;
+    var cyc = Math.floor((phase + Math.PI / 2) / Math.PI);
+    if (cyc !== prevCycle) { prevCycle = cyc; hit(); }
+    draw(22 * Math.sin(phase), wy(w));
+    var s = w < .5 ? 0 : (w < 1.5 ? 1 : 2);
+    if (s !== state) { setState(s); cursor = 0; }
+    paint(raw);
+    requestAnimationFrame(frame);
+  }
+  function wy(v){ return v <= 1 ? YS[0] + (YS[1] - YS[0]) * v : YS[1] + (YS[2] - YS[1]) * (v - 1); }
+  function jump(){
+    var tw = target();
+    if (Math.abs(tw - w) < .25) return;
+    w = tw; setState(w < .5 ? 0 : (w < 1.5 ? 1 : 2)); cursor = 0;
+    paint(10); draw(22 * Math.sin(phase), wy(w));
+  }
+  window.addEventListener("scroll", jump, { passive: true });
+  function update(){
+    var should = visible && !document.hidden;
+    if (should && !running) { running = true; last = 0; requestAnimationFrame(frame); }
+    else if (!should) running = false;
+  }
+  new IntersectionObserver(function(es){ visible = es[0].isIntersecting; update(); }).observe(pin);
+  document.addEventListener("visibilitychange", update);
+  setState(Math.round(w));
+  draw(0, YS[0]);
+  update();
+})();
+</script>
+<script src="/landings/prompt.js" defer></script>
+</body>
+</html>
