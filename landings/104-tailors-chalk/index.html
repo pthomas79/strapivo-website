@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strapivo: Vivo marks the cloth, you make the cut</title>
+<meta name="description" content="Strapivo is where a leadership team keeps its strategy. Vivo, its AI, proposes changes. People decide which ones to make.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Reenie+Beanie&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cloth:#2E4468;--chalk:#F4F1EA;--cut:#141C2B;
+  --tile:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cdefs%3E%3Cpattern id='t' width='4' height='4' patternUnits='userSpaceOnUse'%3E%3Cpath d='M-1 1L1-1M0 4L4 0M3 5L5 3' stroke='%23c9d6ee' stroke-opacity='.13' stroke-width='1.5'/%3E%3Cpath d='M-1 3L3-1M1 5L5 1' stroke='%23050a16' stroke-opacity='.22' stroke-width='.9'/%3E%3C/pattern%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 .8 0 0 0 0 .86 0 0 0 0 1 .8 0 0 0 -.36'/%3E%3C/filter%3E%3Cfilter id='d' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7 .09' numOctaves='2' stitchTiles='stitch' seed='8'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 .02 0 0 0 0 .06 0 1.4 0 0 -.62'/%3E%3C/filter%3E%3Cfilter id='h' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.03' numOctaves='2' stitchTiles='stitch' seed='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .5 0 0 0 0 .75 0 0 .5 0 -.2'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='200' height='200' fill='%232E4468'/%3E%3Crect width='200' height='200' filter='url(%23h)'/%3E%3Crect width='200' height='200' fill='url(%23t)'/%3E%3Crect width='200' height='200' filter='url(%23d)'/%3E%3Crect width='200' height='200' filter='url(%23f)'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#1f2f4c;color:var(--chalk)}
+body{font-family:'Cormorant Garamond',Georgia,serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--chalk);outline-offset:4px;border-radius:2px}
+
+.wrap{position:relative;height:250vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;
+  background:var(--tile) 0 0/200px 200px,var(--cloth);
+  --pw:min(45vh,33vw);--bx:51vw;--by:calc(50vh - var(--pw)*.8 + 3vh)}
+
+/* cloth light: folds, raking light from the top left, vignette */
+.light{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;mix-blend-mode:overlay;opacity:.85}
+.shade{position:absolute;inset:0;pointer-events:none;
+  background:
+   radial-gradient(120% 90% at 22% 12%,rgba(255,236,214,.13),transparent 55%),
+   radial-gradient(140% 110% at 55% 45%,transparent 42%,rgba(4,8,18,.55) 100%)}
+
+.piece,.reject{position:absolute;width:var(--pw);height:calc(var(--pw)*1.6)}
+.piece{left:var(--bx);top:var(--by)}
+.reject{left:calc(var(--bx) + var(--pw) + 6vw);top:calc(var(--by) + 3vh);transform:rotate(-7deg)}
+.piece svg,.reject svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.cloth-cut{position:absolute;inset:0;clip-path:url(#clipA);
+  background:var(--tile) calc(-1 * var(--bx)) calc(-1 * var(--by))/200px 200px,var(--cloth);
+  transform:translate(4%,2.5%)}
+
+.copy{position:absolute;z-index:3;left:7vw;top:50%;transform:translateY(-46%);width:min(40vw,600px)}
+h1{font-weight:500;font-size:clamp(40px,4.7vw,86px);line-height:1;letter-spacing:-.02em;margin:0 0 .45em;text-wrap:balance}
+h1 span{display:block}
+h1 span+span{color:#fff;opacity:.98}
+.lede{font-size:clamp(19px,1.5vw,23px);line-height:1.38;margin:0 0 2em;max-width:27em;color:#E6E3DA}
+.btn{display:inline-block;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:16px;font-weight:500;letter-spacing:.01em;
+  text-decoration:none;color:#141C2B;background:var(--chalk);padding:15px 24px;border-radius:2px;
+  box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 6px 18px -8px rgba(0,0,0,.6);transition:background .2s}
+.btn:hover{background:#fff}
+
+header{position:absolute;z-index:4;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:30px 7vw}
+header img{display:block;height:24px;width:auto}
+.signin{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:15px;text-decoration:none;color:#DCD9D0;padding:6px 2px;border-bottom:1px solid rgba(244,241,234,.35)}
+.signin:hover{color:#fff;border-color:#fff}
+
+.end{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:16vh 7vw 0;
+  background:radial-gradient(120% 100% at 50% 40%,transparent 40%,rgba(4,8,18,.6) 100%),var(--tile) 0 0/200px 200px,var(--cloth)}
+.end>*:not(.light){position:relative;z-index:2}
+.end h2{font-weight:500;font-size:clamp(38px,5.4vw,96px);line-height:1;letter-spacing:-.02em;margin:0 0 .5em;max-width:12em}
+.end h2 span{display:block}
+.end h2 em{font-style:normal;font-family:'Reenie Beanie',cursive;font-weight:400;font-size:1.08em;letter-spacing:0;color:#fff;display:block;margin-top:.15em;
+  filter:url(#chalk)}
+.end p{font-size:clamp(19px,1.5vw,23px);line-height:1.38;margin:0 0 2em;color:#E6E3DA;max-width:26em}
+footer{margin-top:auto;align-self:stretch;padding:18vh 0 28px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:13px;color:#B9BFCB;display:flex;gap:20px;flex-wrap:wrap}
+footer a{text-decoration:none;border-bottom:1px solid rgba(185,191,203,.35)}
+footer a:hover{color:#fff}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@media (max-width:760px){
+  .stage{--pw:min(68vw,calc((100svh - 400px)*.625));--bx:12vw;--by:calc(100svh - var(--pw)*1.6 - 26px)}
+  header{padding:22px 24px}
+  header img{height:21px}
+  .copy{left:24px;right:24px;width:auto;top:78px;transform:none}
+  h1{font-size:clamp(34px,10.4vw,44px);margin-bottom:.4em}
+  .lede{font-size:18px;margin-bottom:1.3em;max-width:22em}
+  .btn{padding:13px 20px;font-size:15px}
+  .reject{left:calc(var(--bx) + var(--pw) + 7vw)}
+  .end{padding:14vh 24px 0}
+}
+@media (max-width:380px){
+  .copy{top:70px}
+  h1{font-size:33px}
+  .lede{font-size:17px}
+}
+html.m .rv{animation:drawA 1.5s cubic-bezier(.5,0,.3,1) .2s both}
+@keyframes drawA{from{stroke-dashoffset:1.02}to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){
+  .wrap{height:auto}
+  .stage{position:relative}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <path id="outline" d="M120 22 L298 60 C280 122 288 192 372 230 L354 604 Q236 630 78 614 C44 580 30 536 30 478 L30 214 C34 130 70 64 120 22 Z"/>
+    <clipPath id="clipA" clipPathUnits="objectBoundingBox">
+      <path transform="scale(.0025 .0015625)" d="M120 22 L298 60 C280 122 288 192 372 230 L354 604 Q236 630 78 614 C44 580 30 536 30 478 L30 214 C34 130 70 64 120 22 Z"/>
+    </clipPath>
+    <clipPath id="insideA"><use href="#outline"/></clipPath>
+    <mask id="outsideA" maskUnits="userSpaceOnUse" x="-100" y="-100" width="600" height="840">
+      <rect x="-100" y="-100" width="600" height="840" fill="#fff"/>
+      <use href="#outline" fill="#000"/>
+    </mask>
+    <mask id="revealA" maskUnits="userSpaceOnUse" x="-100" y="-100" width="600" height="840">
+      <path class="rv" d="M120 22 L298 60 C280 122 288 192 372 230 L354 604 Q236 630 78 614 C44 580 30 536 30 478 L30 214 C34 130 70 64 120 22 Z" fill="none" stroke="#fff" stroke-width="40" stroke-linecap="round" pathLength="1" stroke-dasharray="1.02 1.02" stroke-dashoffset="0"/>
+    </mask>
+    <mask id="revealB" maskUnits="userSpaceOnUse" x="-100" y="-100" width="600" height="840">
+      <path class="rv" d="M120 22 L298 60 C280 122 288 192 372 230 L354 604 Q236 630 78 614 C44 580 30 536 30 478 L30 214 C34 130 70 64 120 22 Z" fill="none" stroke="#fff" stroke-width="40" stroke-linecap="round" pathLength="1" stroke-dasharray="1.02 1.02" stroke-dashoffset="0"/>
+    </mask>
+
+    <!-- chalk: wobble, broken grain, soft dust halo -->
+    <filter id="chalk" filterUnits="userSpaceOnUse" x="-100" y="-100" width="2000" height="1200" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="4" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="4.5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.05" numOctaves="2" seed="9" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3.2 0 0 0 -1.05" result="m"/>
+      <feComposite in="d" in2="m" operator="in" result="g"/>
+      <feGaussianBlur in="d" stdDeviation="2.4" result="h"/>
+      <feComponentTransfer in="h" result="h2"><feFuncA type="linear" slope=".3"/></feComponentTransfer>
+      <feMerge><feMergeNode in="h2"/><feMergeNode in="g"/></feMerge>
+    </filter>
+    <!-- brushed-off chalk -->
+    <filter id="smudge" filterUnits="userSpaceOnUse" x="-150" y="-150" width="700" height="940" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".02 .05" numOctaves="3" seed="12" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="22" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feGaussianBlur in="d" stdDeviation="3.2" result="b"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="5" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.4 0 0 0 -.7" result="m"/>
+      <feComposite in="b" in2="m" operator="in"/>
+    </filter>
+    <!-- cut wool edge: loose fibres -->
+    <filter id="fuzz" filterUnits="userSpaceOnUse" x="-100" y="-100" width="600" height="840">
+      <feTurbulence type="turbulence" baseFrequency=".6" numOctaves="2" seed="21" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="3.2" xChannelSelector="R" yChannelSelector="B"/>
+    </filter>
+    <filter id="soft" filterUnits="userSpaceOnUse" x="-150" y="-150" width="700" height="940"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="contact" filterUnits="userSpaceOnUse" x="-150" y="-150" width="700" height="940"><feGaussianBlur stdDeviation="1.6"/></filter>
+    <filter id="grain" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3" seed="7" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 .45  0 0 0 0 .42  0 0 0 0 .36  0 0 0 .9 -.3" result="s"/>
+      <feComposite in="s" in2="SourceGraphic" operator="in" result="sp"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="sp"/></feMerge>
+    </filter>
+    <pattern id="weave" width="3" height="3" patternUnits="userSpaceOnUse">
+      <rect width="3" height="3" fill="#EFE8D8"/>
+      <rect width="3" height="1" fill="#E2DAC7"/>
+      <rect x="1" width=".8" height="3" fill="#F6F0E2" opacity=".7"/>
+    </pattern>
+    <linearGradient id="cake" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F7F4EC"/><stop offset=".6" stop-color="#E9E4D8"/><stop offset="1" stop-color="#D6D0C2"/>
+    </linearGradient>
+    <linearGradient id="gapfill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7a5f43"/><stop offset=".5" stop-color="#5e4731"/><stop offset="1" stop-color="#3d2e20"/>
+    </linearGradient>
+    <filter id="kraft" filterUnits="userSpaceOnUse" x="-100" y="-100" width="600" height="840" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".9 .06" numOctaves="3" seed="31" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 .1  0 0 0 0 .07  0 0 0 0 .04  0 0 1.2 0 -.45" result="f"/>
+      <feComposite in="f" in2="SourceGraphic" operator="in" result="fi"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="fi"/></feMerge>
+    </filter>
+  </defs>
+</svg>
+
+<div class="wrap" id="wrap">
+  <section class="stage" id="stage" aria-labelledby="h">
+    <header>
+      <a href="#" aria-label="Strapivo"><img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="95" height="24"></a>
+      <a class="signin" href="https://strapivo.app">Sign in</a>
+    </header>
+
+    <div class="visual" role="img" aria-label="Indigo wool on a cutting table. A jacket front marked in chalk as proposed has been cut out by hand and carries a sewn label: confirmed by a person. Beside it, a second outline marked rejected is half brushed away.">
+
+      <!-- outline B: rejected, brushed off -->
+      <div class="reject" aria-hidden="true">
+        <svg viewBox="0 0 400 640" preserveAspectRatio="none">
+          <g opacity=".45" filter="url(#smudge)" fill="none" stroke="#F4F1EA" stroke-width="5" stroke-linecap="round">
+            <use href="#outline" stroke-dasharray="14 10"/>
+            <path d="M200 170 L200 470"/>
+          </g>
+          <path d="M-40 320 C80 280 220 300 470 180" stroke="#F4F1EA" stroke-width="70" stroke-linecap="round" fill="none" opacity=".06" filter="url(#soft)"/>
+          <text x="56" y="150" transform="rotate(-4 56 150)" font-family="'Reenie Beanie',cursive" font-size="52" fill="#F4F1EA" opacity=".42" filter="url(#chalk)">Rejected</text>
+        </svg>
+      </div>
+
+      <!-- outline A: proposed, then cut -->
+      <div class="piece" aria-hidden="true">
+        <svg viewBox="0 0 400 640" preserveAspectRatio="none" class="lower">
+          <g id="gap">
+            <use href="#outline" fill="url(#gapfill)" filter="url(#kraft)"/>
+            <g clip-path="url(#insideA)"><use href="#outline" fill="none" stroke="#120d08" stroke-width="18" opacity=".85" filter="url(#contact)" transform="translate(4 5)"/></g>
+          </g>
+          <g id="shadow" transform="translate(28 34)" opacity=".85">
+            <use href="#outline" fill="#01030a" filter="url(#soft)"/>
+            <use href="#outline" fill="#01030a" filter="url(#soft)" transform="translate(-6 -8)"/>
+          </g>
+          <g id="contactSh" transform="translate(19 21)" opacity=".9">
+            <use href="#outline" fill="#03050b" filter="url(#contact)"/>
+          </g>
+          <g mask="url(#outsideA)">
+            <g mask="url(#revealA)" filter="url(#chalk)" fill="none" stroke="#F4F1EA" stroke-width="5.4" stroke-linecap="round">
+              <use href="#outline" stroke-dasharray="15 9"/>
+            </g>
+          </g>
+          <use id="wasteEdge" href="#outline" fill="none" stroke="#8fa3c8" stroke-opacity=".35" stroke-width="1.2" filter="url(#fuzz)"/>
+        </svg>
+
+        <div class="cloth-cut" id="clothCut"></div>
+
+        <svg viewBox="0 0 400 640" preserveAspectRatio="none" class="upper">
+          <g id="cutLine" opacity="0">
+            <path class="cl" d="M120 22 L298 60 C280 122 288 192 372 230 L354 604 Q236 630 78 614 C44 580 30 536 30 478 L30 214 C34 130 70 64 120 22 Z" fill="none" stroke="#b8c7e4" stroke-opacity=".35" stroke-width="6" pathLength="1" stroke-dasharray="1 1.02" stroke-dashoffset="0" filter="url(#fuzz)"/>
+            <path class="cl" d="M120 22 L298 60 C280 122 288 192 372 230 L354 604 Q236 630 78 614 C44 580 30 536 30 478 L30 214 C34 130 70 64 120 22 Z" fill="none" stroke="#0b101b" stroke-width="3" pathLength="1" stroke-dasharray="1 1.02" stroke-dashoffset="0" filter="url(#fuzz)"/>
+          </g>
+          <g id="moving" transform="translate(16 16)">
+            <use id="pieceEdge" href="#outline" fill="none" stroke="#9fb2d6" stroke-opacity=".4" stroke-width="1.6" filter="url(#fuzz)"/>
+            <g clip-path="url(#insideA)">
+              <use href="#outline" fill="none" stroke="#c4d2ee" stroke-opacity=".10" stroke-width="16" filter="url(#contact)"/>
+              <g mask="url(#revealB)" filter="url(#chalk)" fill="none" stroke="#F4F1EA" stroke-width="5.4" stroke-linecap="round">
+                <use href="#outline" stroke-dasharray="15 9"/>
+              </g>
+            </g>
+            <g id="marks" filter="url(#chalk)" fill="none" stroke="#F4F1EA" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M112 14 L128 30 M128 14 L112 30"/>
+              <path d="M290 52 L306 68 M306 52 L290 68"/>
+              <path d="M364 222 L380 238 M380 222 L364 238"/>
+              <path d="M346 596 L362 612 M362 596 L346 612"/>
+              <path d="M70 606 L86 622 M86 606 L70 622"/>
+              <path d="M22 206 L38 222 M38 206 L22 222"/>
+              <path d="M200 182 L200 452 M189 198 L200 182 L211 198 M189 436 L200 452 L211 436" stroke-width="3"/>
+              <path d="M316 598 L327 400 L338 598" stroke-width="3"/>
+              <path d="M54 372 L90 372 M54 364 L54 380 M90 364 L90 380 M54 440 L90 440 M54 432 L54 448 M90 432 L90 448" stroke-width="3"/>
+              <path d="M318 168 L338 160 M346 412 L366 412" stroke-width="3"/>
+              <text x="84" y="138" transform="rotate(-5 84 138)" font-family="'Reenie Beanie',cursive" font-size="54" fill="#F4F1EA" stroke="none">Proposed</text>
+            </g>
+            <g id="label" transform="rotate(-3 186 528)">
+              <rect x="68" y="500" width="232" height="60" rx="1.5" fill="#000" opacity=".45" filter="url(#contact)" transform="translate(2 3)"/>
+              <rect x="68" y="500" width="232" height="60" rx="1.5" fill="url(#weave)" filter="url(#grain)"/>
+              <rect x="68" y="500" width="232" height="60" rx="1.5" fill="none" stroke="#C9BFA8" stroke-width="1"/>
+              <rect id="stitch" x="73.5" y="505.5" width="221" height="49" fill="none" stroke="#A8322E" stroke-width="2" stroke-dasharray="5 3.4" stroke-linecap="round"/>
+              <text x="184" y="537" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-weight="500" font-size="22.5" fill="#1B2232" letter-spacing=".3">Confirmed by a person</text>
+              <path d="M70 503 l-6 -7 M298 557 l7 6" stroke="#A8322E" stroke-width="1.4" stroke-linecap="round"/>
+            </g>
+          </g>
+
+          <!-- a cake of tailor's chalk resting on the cloth -->
+          <g id="cake" transform="translate(414 548) rotate(-14)">
+            <path d="M10 70 Q0 72 5 63 L37 8 Q42 0 47 8 L79 63 Q84 72 74 70 Z" fill="#000" opacity=".6" filter="url(#contact)" transform="translate(4 6)"/>
+            <path d="M10 70 Q0 72 5 63 L37 8 Q42 0 47 8 L79 63 Q84 72 74 70 Z" fill="#CFC8B8" filter="url(#grain)"/>
+            <path d="M10 70 Q0 72 5 63 L37 8 Q42 0 47 8 L79 63 Q84 72 74 70 Z" fill="url(#cake)" filter="url(#grain)" opacity=".85"/>
+            <path d="M5 63 L37 8 Q42 0 47 8" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.4"/>
+                        <path d="M74 70 L10 70" stroke="#A39B8A" stroke-width="2" opacity=".7"/>
+          </g>
+          <path d="M392 600 q30 -6 70 -26" stroke="#F4F1EA" stroke-width="10" stroke-linecap="round" fill="none" opacity=".06" filter="url(#soft)"/>
+        </svg>
+      </div>
+
+      <svg class="light" aria-hidden="true" focusable="false">
+        <filter id="folds" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency=".0022 .0038" numOctaves="2" seed="17"/>
+          <feDiffuseLighting surfaceScale="44" diffuseConstant="1" lighting-color="#fff"><feDistantLight azimuth="225" elevation="56"/></feDiffuseLighting>
+          <feColorMatrix type="matrix" values=".75 0 0 0 -.14  .75 0 0 0 -.14  .75 0 0 0 -.14  0 0 0 0 1"/>
+        </filter>
+        <rect width="100%" height="100%" filter="url(#folds)"/>
+      </svg>
+      <div class="shade"></div>
+    </div>
+
+    <div class="copy">
+      <h1 id="h"><span>Vivo marks the cloth.</span> <span>You make the cut.</span></h1>
+      <p class="lede">Strapivo is where a leadership team keeps its strategy. Vivo, its AI, proposes changes. People decide.</p>
+      <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+    </div>
+  </section>
+</div>
+
+<section class="end" aria-labelledby="h2">
+  <svg class="light" aria-hidden="true" focusable="false"><rect width="100%" height="100%" filter="url(#folds)"/></svg>
+  <h2 id="h2"><span>Chalk brushes off.</span> <span>A cut does not.</span> <em>So the cut is yours.</em></h2>
+  <p>Vivo proposes. Nothing changes until a person confirms it.</p>
+  <a class="btn" href="mailto:strategy@strapivo.com">Start the conversation</a>
+  <footer>
+    <span>© 2026 Strapivo</span>
+    <a href="/imprint">Imprint</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+  </footer>
+</section>
+
+<script>
+(function(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var $ = function(id){ return document.getElementById(id); };
+  var wrap=$('wrap'), cut=$('cutLine'), cls=[].slice.call(document.querySelectorAll('.cl')), moving=$('moving'), cloth=$('clothCut'),
+      gap=$('gap'), shadow=$('shadow'), contact=$('contactSh'), label=$('label'), stitch=$('stitch'), wasteEdge=$('wasteEdge'), pieceEdge=$('pieceEdge');
+  var clamp=function(v){ return v<0?0:v>1?1:v; };
+  var ease=function(t){ return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2; };
+  var seg=function(p,a,b){ return clamp((p-a)/(b-a)); };
+  var ticking=false;
+  document.documentElement.classList.add('m');
+
+  function render(){
+    ticking=false;
+    var r=wrap.getBoundingClientRect(), span=wrap.offsetHeight-innerHeight;
+    var p=span>0?clamp(-r.top/span):1;
+    var c=ease(seg(p,.04,.46)), s=ease(seg(p,.5,.7)), l=ease(seg(p,.74,.92));
+    cls.forEach(function(e){ e.setAttribute('stroke-dashoffset',(1-c).toFixed(4)); });
+    cut.setAttribute('opacity', s>0 ? 0 : (c>0?1:0));
+    var on=s>0;
+    cloth.style.visibility=on?'visible':'hidden';
+    gap.style.opacity=on?1:0;
+    wasteEdge.style.opacity=pieceEdge.style.opacity=on?1:0;
+    cloth.style.transform='translate('+(4*s)+'%,'+(2.5*s)+'%)';
+    moving.setAttribute('transform','translate('+(16*s)+' '+(16*s)+')');
+    shadow.setAttribute('transform','translate('+(28*s)+' '+(34*s)+')');
+    shadow.setAttribute('opacity',(.85*s).toFixed(3));
+    contact.setAttribute('transform','translate('+(19*s)+' '+(21*s)+')');
+    contact.setAttribute('opacity',(.9*s).toFixed(3));
+    label.style.opacity=l;
+    label.setAttribute('transform','translate(0 '+(-10*(1-l)).toFixed(2)+') rotate('+(-3-5*(1-l)).toFixed(2)+' 186 528)');
+    stitch.style.opacity=clamp((l-.5)*2);
+  }
+  function req(){ if(!ticking){ ticking=true; requestAnimationFrame(render); } }
+  render();
+  addEventListener('scroll',req,{passive:true});
+  addEventListener('resize',req);
+})();
+</script>
+<script src="/landings/prompt.js" defer></script>
+</body>
+</html>
