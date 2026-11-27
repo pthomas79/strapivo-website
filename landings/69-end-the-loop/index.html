@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Stop restarting the same strategic argument. Strapivo</title>
+  <meta name="description" content="Strapivo is the Strategic Design System for leadership teams. It holds your approved strategy, checks live market signals against it and records every weekly decision.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Inter';
+      src: url('../../fonts/Inter-Medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --white: #FFFFFF;
+      --paper: #F6F9FB;
+      --ink: #141B24;
+      --n900: #050C14;
+      --n700: #2C343C;
+      --n600: #495158;
+      --charcoal: #525A63;
+      --n500: #6C727A;
+      --n400: #999FA6;
+      --n200: #E1E5EA;
+      --n100: #EFF2F6;
+      --sky: #EEF6FF;
+      --sky2: #D4EBFF;
+      --p200: #A9D6FF;
+      --p400: #3FA0FA;
+      --p500: #0082E6;
+      --p600: #006FD1;
+      --p700: #005DBD;
+      --radius: 2px;
+      --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --max-w: 1200px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      background: var(--white);
+      color: var(--n900);
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "ss01", "cv11";
+      overflow-x: clip;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    figure {
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--p500);
+      outline-offset: 3px;
+      border-radius: var(--radius);
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: var(--n900);
+      color: var(--white);
+      padding: 12px 18px;
+      font-size: 14px;
+      text-decoration: none;
+      z-index: 100;
+    }
+    .skip-link:focus {
+      left: 16px;
+      top: 16px;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 1.4;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* Header */
+    .site-header {
+      background: var(--white);
+      border-bottom: 1px solid var(--n200);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 68px;
+      gap: 16px;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 6px 0;
+      text-decoration: none;
+    }
+
+    .brand-link img {
+      height: 24px;
+      width: auto;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .signin-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 14px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--n900);
+      text-decoration: none;
+      border: 1px solid var(--n200);
+      border-radius: var(--radius);
+      transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease;
+    }
+
+    .signin-link:hover {
+      border-color: var(--n900);
+      background: var(--paper);
+    }
+
+    /* Primary Button */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 12px 24px;
+      background: var(--p600);
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid var(--p600);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background-color 160ms ease, border-color 160ms ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--p700);
+      border-color: var(--p700);
+    }
+
+    .btn-primary svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    /* Hero */
+    .hero {
+      background: var(--white);
+      padding: 40px 0 56px;
+      border-bottom: 2px solid var(--n900);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 36px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--p600);
+      margin-bottom: 18px;
+    }
+
+    .eyebrow-bar {
+      width: 18px;
+      height: 2px;
+      background: var(--p500);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    h1 {
+      margin: 0 0 20px;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--n900);
+      max-width: 18ch;
+    }
+
+    .hero-lead {
+      margin: 0 0 28px;
+      font-size: 18px;
+      line-height: 1.55;
+      color: var(--n700);
+      max-width: 54ch;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px 20px;
+    }
+
+    .hero-meta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--charcoal);
+      letter-spacing: 0.04em;
+    }
+
+    /* Drawing 1: Loop vs Stepped Path */
+    .loop-frame {
+      background: var(--white);
+      border: 1px solid var(--n900);
+      border-top: 3px solid var(--n900);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .loop-panel {
+      padding: 14px 12px 12px;
+    }
+
+    .loop-panel--closed {
+      background: var(--paper);
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .loop-panel--open {
+      background: var(--white);
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+      padding: 0 4px;
+    }
+
+    .panel-tag-charcoal {
+      color: var(--charcoal);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+    }
+
+    .panel-tag-azure {
+      color: var(--p600);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+    }
+
+    .panel-status {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      white-space: nowrap;
+    }
+
+    .panel-status--azure {
+      color: var(--p600);
+    }
+
+    .loop-seam {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 18px;
+      background: var(--n900);
+      color: var(--white);
+    }
+
+    .loop-seam-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.24);
+    }
+
+    .loop-seam-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--p200);
+    }
+
+    .loop-svg {
+      width: 100%;
+      height: auto;
+    }
+
+    /* Shared Section Layout */
+    .section {
+      padding: 52px 0;
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .section--paper {
+      background: var(--paper);
+    }
+
+    .section--white {
+      background: var(--white);
+    }
+
+    .section-head {
+      margin-bottom: 32px;
+    }
+
+    .section-num {
+      color: var(--p600);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(26px, 3.4vw, 38px);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--n900);
+      max-width: 24ch;
+    }
+
+    .section-lead {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--n700);
+      max-width: 62ch;
+    }
+
+    /* Section 1: Why smart teams argue in circles */
+    .circles-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .prose-block p {
+      margin: 0 0 18px;
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--n700);
+      max-width: 58ch;
+    }
+
+    .prose-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .quotes-stack {
+      border-top: 2px solid var(--n900);
+      padding-top: 20px;
+    }
+
+    .quotes-kicker {
+      color: var(--charcoal);
+      margin: 0 0 18px;
+    }
+
+    .exec-quote {
+      margin: 0 0 20px;
+      padding: 4px 0 4px 18px;
+      border-left: 3px solid var(--charcoal);
+    }
+
+    .exec-quote:last-of-type {
+      margin-bottom: 0;
+      border-left-color: var(--p500);
+    }
+
+    .exec-quote p {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 500;
+      line-height: 1.38;
+      letter-spacing: -0.015em;
+      color: var(--n900);
+    }
+
+    .failure-note {
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid var(--n200);
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--charcoal);
+    }
+
+    /* Section 2: Drawing 2 - Cumulative Decision Chain */
+    .example-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px 16px;
+      padding: 10px 16px;
+      background: var(--n900);
+      color: var(--white);
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    .example-bar-left {
+      color: var(--p200);
+    }
+
+    .example-bar-right {
+      color: var(--n200);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    .chain-shell {
+      background: var(--white);
+      border: 1px solid var(--n200);
+      border-top: none;
+      border-radius: 0 0 var(--radius) var(--radius);
+      padding: 20px;
+    }
+
+    .chain-rail {
+      display: none;
+    }
+
+    .chain-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .decision-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: var(--white);
+      border: 1px solid var(--n200);
+      border-top: 3px solid var(--charcoal);
+      border-radius: var(--radius);
+      padding: 18px;
+      text-align: left;
+      width: 100%;
+      font-family: inherit;
+      color: inherit;
+      cursor: pointer;
+      transition: border-color 160ms ease, background-color 160ms ease;
+    }
+
+    .decision-card:hover {
+      border-color: var(--p500);
+    }
+
+    .decision-card--azure {
+      border-top-color: var(--p500);
+    }
+
+    .decision-card--ink {
+      border-top-color: var(--n900);
+    }
+
+    .decision-card.is-selected {
+      border-color: var(--p500);
+      background: var(--sky);
+    }
+
+    .decision-card.is-ancestor {
+      border-color: var(--p400);
+    }
+
+    .decision-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .decision-id {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--n900);
+      letter-spacing: 0.02em;
+    }
+
+    .decision-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: var(--radius);
+      border: 1px solid var(--charcoal);
+      color: var(--charcoal);
+      background: var(--paper);
+    }
+
+    .decision-badge--adapt {
+      border-color: var(--p600);
+      background: var(--p600);
+      color: var(--white);
+    }
+
+    .decision-badge--hold {
+      border-color: var(--n900);
+      background: var(--n900);
+      color: var(--white);
+    }
+
+    .decision-cite {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--p600);
+      margin-bottom: 10px;
+      letter-spacing: 0.03em;
+    }
+
+    .decision-cite--origin {
+      color: var(--charcoal);
+    }
+
+    .decision-title {
+      margin: 0 0 8px;
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.35;
+      color: var(--n900);
+    }
+
+    .decision-body {
+      margin: 0 0 14px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--n700);
+    }
+
+    .decision-foot {
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--n200);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--charcoal);
+    }
+
+    .chain-connector-mobile {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 0 0 18px;
+      color: var(--p600);
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .chain-footnote {
+      margin: 16px 0 0;
+      font-size: 14px;
+      color: var(--charcoal);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px 16px;
+    }
+
+    /* Section 3: Weekly Discipline */
+    .discipline-list {
+      list-style: none;
+      margin: 0 0 40px;
+      padding: 0;
+      border-top: 2px solid var(--n900);
+    }
+
+    .discipline-item {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 8px 16px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--n200);
+      align-items: baseline;
+    }
+
+    .discipline-num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--p600);
+      letter-spacing: 0.06em;
+    }
+
+    .discipline-content h3 {
+      margin: 0 0 6px;
+      font-size: 19px;
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: -0.015em;
+      color: var(--n900);
+    }
+
+    .discipline-content p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.58;
+      color: var(--n700);
+      max-width: 64ch;
+    }
+
+    /* Drawing 3: Five Decisions Strip */
+    .options-box {
+      border: 1px solid var(--n900);
+      border-radius: var(--radius);
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .options-head {
+      padding: 12px 18px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--n200);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .option-cell {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .option-cell:last-child {
+      border-bottom: none;
+    }
+
+    .option-head {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .option-idx {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--p600);
+    }
+
+    .option-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--n900);
+    }
+
+    .option-desc {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--n700);
+    }
+
+    /* Section 4: Governance, EU, Onboarding */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 28px;
+      border-top: 2px solid var(--n900);
+      padding-top: 28px;
+    }
+
+    .pillar {
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--n200);
+    }
+
+    .pillar:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .pillar-label {
+      color: var(--p600);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .pillar h3 {
+      margin: 0 0 10px;
+      font-size: 21px;
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      color: var(--n900);
+    }
+
+    .pillar p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--n700);
+    }
+
+    /* Section 5: High-contrast Ink Closing CTA */
+    .cta-band {
+      background: var(--n900);
+      color: var(--white);
+      padding: 72px 0;
+      position: relative;
+    }
+
+    .cta-accent-bar {
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--p500) 0%, var(--p500) 72%, var(--p400) 100%);
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 28px;
+      align-items: end;
+    }
+
+    .cta-eyebrow {
+      color: var(--p400);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .cta-band h2 {
+      color: var(--white);
+      font-size: clamp(30px, 4.4vw, 46px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      max-width: 18ch;
+      margin: 0 0 16px;
+    }
+
+    .cta-copy {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.55;
+      color: var(--n200);
+      max-width: 50ch;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .cta-band .btn-primary {
+      background: var(--p500);
+      border-color: var(--p500);
+      color: var(--white);
+    }
+
+    .cta-band .btn-primary:hover {
+      background: var(--p600);
+      border-color: var(--p600);
+    }
+
+    .cta-email-note {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--n400);
+      letter-spacing: 0.04em;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: var(--n900);
+      color: var(--n400);
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 28px 0 36px;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .footer-brand img {
+      height: 20px;
+      width: auto;
+    }
+
+    .footer-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 20px;
+      font-size: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 16px;
+    }
+
+    .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      color: var(--n200);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 160ms ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    /* Responsive Desktop Breakpoints */
+    @media (min-width: 768px) {
+      .wrap {
+        padding: 0 32px;
+      }
+
+      .section {
+        padding: 84px 0;
+      }
+
+      .options-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+
+      .option-cell {
+        border-bottom: none;
+        border-right: 1px solid var(--n200);
+      }
+
+      .option-cell:last-child {
+        border-right: none;
+      }
+
+      .footer-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    @media (min-width: 960px) {
+      .wrap {
+        padding: 0 40px;
+      }
+
+      .hero {
+        padding: 64px 0 76px;
+      }
+
+      .hero-grid {
+        grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+        gap: 52px;
+      }
+
+      .circles-grid {
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+        gap: 64px;
+      }
+
+      .chain-rail {
+        display: block;
+        margin-bottom: 18px;
+      }
+
+      .chain-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .chain-connector-mobile {
+        display: none;
+      }
+
+      .discipline-item {
+        grid-template-columns: 64px minmax(0, 260px) minmax(0, 1fr);
+        gap: 24px;
+        padding: 26px 0;
+      }
+
+      .discipline-content {
+        display: contents;
+      }
+
+      .discipline-content h3 {
+        margin: 0;
+      }
+
+      .pillars-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0;
+        padding-top: 0;
+      }
+
+      .pillar {
+        padding: 28px 28px 20px 0;
+        border-bottom: none;
+        border-right: 1px solid var(--n200);
+      }
+
+      .pillar:nth-child(2) {
+        padding: 28px;
+      }
+
+      .pillar:last-child {
+        padding: 28px 0 20px 28px;
+        border-right: none;
+      }
+
+      .cta-band {
+        padding: 96px 0;
+      }
+
+      .cta-grid {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        gap: 48px;
+      }
+
+      .cta-actions {
+        align-items: flex-end;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand-link" href="#" aria-label="Strapivo home">
+        <img src="../../assets/logo/strategy-primary-azure.svg" alt="Strapivo" width="119" height="30">
+      </a>
+      <nav class="header-actions" aria-label="Account">
+        <a class="signin-link" href="https://strapivo.app">Sign in</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow mono">
+            <span class="eyebrow-bar" aria-hidden="true"></span>
+            <span>Dynamic Strategy</span>
+          </div>
+          <h1 id="hero-heading">Stop restarting the same argument every time a new report lands.</h1>
+          <p class="hero-lead">Strapivo is the Strategic Design System for leadership teams running strategy between offsites. It holds your approved strategy, monitors market signals against it and records each weekly decision so your team works from the last call instead of repeating last quarter's debate.</p>
+          <div class="hero-cta-row">
+            <a class="btn-primary" href="mailto:strategy@strapivo.com">
+              <span>Start the conversation</span>
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/>
+              </svg>
+            </a>
+            <span class="hero-meta">For senior leadership teams.</span>
+          </div>
+        </div>
+
+        <figure class="loop-frame" aria-label="Diagram comparing a closed charcoal debate loop with a stepped Azure decision record">
+          <div class="loop-panel loop-panel--closed">
+            <div class="panel-head">
+              <span class="mono panel-tag-charcoal">Without memory</span>
+              <span class="panel-status">Closed loop</span>
+            </div>
+            <svg class="loop-svg" viewBox="0 0 430 184" role="img" aria-label="Closed circular loop showing New analysis, Same debate, Slides filed, and Forgotten returning to New analysis.">
+              <defs>
+                <marker id="arrow-charcoal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M1 1.5L8.5 5L1 8.5" fill="none" stroke="#525A63" stroke-width="1.8" stroke-linecap="square"/>
+                </marker>
+              </defs>
+              <path d="M 290 29 Q 358 29 358 68" fill="none" stroke="#525A63" stroke-width="2.2" marker-end="url(#arrow-charcoal)"/>
+              <path d="M 358 111 Q 358 155 290 155" fill="none" stroke="#525A63" stroke-width="2.2" marker-end="url(#arrow-charcoal)"/>
+              <path d="M 145 155 Q 70 155 70 116" fill="none" stroke="#525A63" stroke-width="2.2" marker-end="url(#arrow-charcoal)"/>
+              <path d="M 70 73 Q 70 29 135 29" fill="none" stroke="#525A63" stroke-width="2.2" stroke-dasharray="5 4" marker-end="url(#arrow-charcoal)"/>
+
+              <text x="215" y="96" text-anchor="middle" fill="#525A63" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="500" letter-spacing="1.1">RESETS TO ZERO</text>
+
+              <rect x="140" y="10" width="150" height="38" rx="2" fill="#FFFFFF" stroke="#525A63" stroke-width="1.6"/>
+              <text x="215" y="34" text-anchor="middle" fill="#141B24" font-family="Inter, sans-serif" font-size="15.5" font-weight="500">New analysis</text>
+
+              <rect x="292" y="73" width="132" height="38" rx="2" fill="#FFFFFF" stroke="#525A63" stroke-width="1.6"/>
+              <text x="358" y="97" text-anchor="middle" fill="#141B24" font-family="Inter, sans-serif" font-size="15.5" font-weight="500">Same debate</text>
+
+              <rect x="145" y="136" width="140" height="38" rx="2" fill="#FFFFFF" stroke="#525A63" stroke-width="1.6"/>
+              <text x="215" y="160" text-anchor="middle" fill="#141B24" font-family="Inter, sans-serif" font-size="15.5" font-weight="500">Slides filed</text>
+
+              <rect x="6" y="73" width="128" height="38" rx="2" fill="#FFFFFF" stroke="#525A63" stroke-width="1.6"/>
+              <text x="70" y="97" text-anchor="middle" fill="#141B24" font-family="Inter, sans-serif" font-size="15.5" font-weight="500">Forgotten</text>
+            </svg>
+          </div>
+
+          <div class="loop-seam" aria-hidden="true">
+            <span class="loop-seam-line"></span>
+            <span class="loop-seam-label">Loop broken</span>
+            <span class="loop-seam-line"></span>
+          </div>
+
+          <div class="loop-panel loop-panel--open">
+            <div class="panel-head">
+              <span class="mono panel-tag-azure">With Strapivo</span>
+              <span class="panel-status panel-status--azure">Stepped record</span>
+            </div>
+            <svg class="loop-svg" viewBox="0 0 430 218" role="img" aria-label="Forward stepped path in Azure showing Signal confirmed, 60-minute session, SDS-2026-014 recorded, and Next call starts here.">
+              <defs>
+                <marker id="arrow-azure" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+                  <path d="M1 1.5L8.5 5L1 8.5" fill="none" stroke="#0082E6" stroke-width="2" stroke-linecap="square"/>
+                </marker>
+              </defs>
+
+              <line x1="8" y1="184" x2="424" y2="184" stroke="#EFF2F6" stroke-width="1"/>
+              <line x1="8" y1="132" x2="424" y2="132" stroke="#EFF2F6" stroke-width="1"/>
+              <line x1="8" y1="80" x2="424" y2="80" stroke="#EFF2F6" stroke-width="1"/>
+              <line x1="8" y1="28" x2="424" y2="28" stroke="#EFF2F6" stroke-width="1"/>
+
+              <path d="M 8 184 L 22 184 L 22 132 L 92 132 L 92 80 L 162 80 L 162 28 L 212 28" fill="none" stroke="#0082E6" stroke-width="3" stroke-linejoin="miter"/>
+              <line x1="406" y1="28" x2="424" y2="28" stroke="#0082E6" stroke-width="3" marker-end="url(#arrow-azure)"/>
+
+              <circle cx="22" cy="184" r="5" fill="#0082E6"/>
+              <circle cx="92" cy="132" r="5" fill="#0082E6"/>
+              <circle cx="162" cy="80" r="5" fill="#0082E6"/>
+              <circle cx="212" cy="28" r="5.5" fill="#FFFFFF" stroke="#0082E6" stroke-width="3"/>
+
+              <rect x="38" y="165" width="164" height="38" rx="2" fill="#FFFFFF" stroke="#0082E6" stroke-width="1.6"/>
+              <text x="120" y="189" text-anchor="middle" fill="#050C14" font-family="Inter, sans-serif" font-size="15" font-weight="500">Signal confirmed</text>
+
+              <rect x="108" y="113" width="176" height="38" rx="2" fill="#FFFFFF" stroke="#0082E6" stroke-width="1.6"/>
+              <text x="196" y="137" text-anchor="middle" fill="#050C14" font-family="Inter, sans-serif" font-size="15" font-weight="500">60-minute session</text>
+
+              <rect x="178" y="61" width="218" height="38" rx="2" fill="#EEF6FF" stroke="#0082E6" stroke-width="1.8"/>
+              <text x="287" y="85" text-anchor="middle" fill="#050C14" font-family="Inter, sans-serif" font-size="15" font-weight="500">SDS-2026-014 recorded</text>
+
+              <rect x="228" y="9" width="178" height="38" rx="2" fill="#006FD1" stroke="#006FD1" stroke-width="1.6"/>
+              <text x="317" y="33" text-anchor="middle" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="15" font-weight="500">Next call starts here</text>
+
+              <text x="422" y="198" text-anchor="end" fill="#006FD1" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="500" letter-spacing="0.8">NO RESET</text>
+            </svg>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section section--white" aria-labelledby="section-circles">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="mono section-num">01 / The loop</span>
+          <h2 id="section-circles">Why smart teams argue in circles</h2>
+        </div>
+
+        <div class="circles-grid">
+          <div class="prose-block">
+            <p>Most leadership teams finish a strategy workshop, circulate the slides and return to daily work. Decisions sit in decks and meeting notes that nobody reopens.</p>
+            <p>Six months later, a fresh market analysis arrives. Nobody remembers what the team chose, what assumption supported it, who disagreed or why the team parked another option. The room debates the same question from scratch.</p>
+            <p>Without shared strategic memory, leadership alternates between inertia and thrash. Teams either do nothing until the next annual offsite or react to whichever report landed last.</p>
+          </div>
+
+          <div class="quotes-stack">
+            <p class="mono quotes-kicker">What leadership teams tell us</p>
+            <blockquote class="exec-quote">
+              <p>"We restart the same argument every time a new analysis lands."</p>
+            </blockquote>
+            <blockquote class="exec-quote">
+              <p>"We finish the strategy, and then we forget it."</p>
+            </blockquote>
+            <p class="failure-note">You keep the strategy intact and revise tactics against an approved record.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--paper" aria-labelledby="section-memory">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="mono section-num">02 / Cumulative memory</span>
+          <h2 id="section-memory">Every decision cites the one before it</h2>
+          <p class="section-lead">Strapivo assigns every decision a permanent number in the Record of Decisions. When new evidence arrives, your team starts from the prior entry instead of starting over.</p>
+        </div>
+
+        <div class="example-bar">
+          <span class="mono example-bar-left">Illustrative example</span>
+          <span class="example-bar-right">Nordmark Industrial · DACH channel margin</span>
+        </div>
+
+        <div class="chain-shell" role="region" aria-label="Illustrative three-step Record of Decisions chain">
+          <div class="chain-rail" aria-hidden="true">
+            <svg viewBox="0 0 1120 44" style="width:100%;height:auto">
+              <defs>
+                <marker id="rail-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M1 1.5L8.5 5L1 8.5" fill="none" stroke="#0082E6" stroke-width="2" stroke-linecap="square"/>
+                </marker>
+              </defs>
+              <line x1="18" y1="22" x2="364" y2="22" stroke="#525A63" stroke-width="2"/>
+              <line x1="382" y1="22" x2="736" y2="22" stroke="#0082E6" stroke-width="2.5" marker-end="url(#rail-arrow)"/>
+              <line x1="756" y1="22" x2="1102" y2="22" stroke="#0082E6" stroke-width="2.5" marker-end="url(#rail-arrow)"/>
+              <circle cx="18" cy="22" r="6" fill="#525A63"/>
+              <circle cx="382" cy="22" r="6" fill="#0082E6"/>
+              <circle cx="756" cy="22" r="6" fill="#050C14"/>
+              <text x="34" y="13" fill="#525A63" font-family="JetBrains Mono, monospace" font-size="12" font-weight="500">12 FEBRUARY</text>
+              <text x="398" y="13" fill="#006FD1" font-family="JetBrains Mono, monospace" font-size="12" font-weight="500">23 APRIL · CITES 008</text>
+              <text x="772" y="13" fill="#050C14" font-family="JetBrains Mono, monospace" font-size="12" font-weight="500">18 JUNE · CITES 014</text>
+            </svg>
+          </div>
+
+          <div class="chain-grid">
+            <button type="button" class="decision-card" data-step="1" aria-pressed="false">
+              <div class="decision-top">
+                <span class="decision-id">SDS-2026-008</span>
+                <span class="decision-badge">Parked</span>
+              </div>
+              <span class="decision-cite decision-cite--origin">Origin entry · 12 February 2026</span>
+              <h3 class="decision-title">Waiting for Q2 audit</h3>
+              <p class="decision-body">The Radar flagged distributor consolidation across core regions. The team chose Not yet rather than cutting margin targets early.</p>
+              <div class="decision-foot">Returns when the Q2 pricing audit arrives.</div>
+            </button>
+
+            <div class="chain-connector-mobile" aria-hidden="true">
+              <span>SDS-2026-014 cites SDS-2026-008</span>
+            </div>
+
+            <button type="button" class="decision-card decision-card--azure is-selected" data-step="2" aria-pressed="true">
+              <div class="decision-top">
+                <span class="decision-id">SDS-2026-014</span>
+                <span class="decision-badge decision-badge--adapt">Adapt</span>
+              </div>
+              <span class="decision-cite">Cites SDS-2026-008 · 23 April 2026</span>
+              <h3 class="decision-title">Audit landed, two activities revised</h3>
+              <p class="decision-body">The Q2 audit confirmed distributor fee pressure. The team revised two channel activities with named owners and timeframes.</p>
+              <div class="decision-foot">Named dissent from the finance lead, who favoured a direct exit.</div>
+            </button>
+
+            <div class="chain-connector-mobile" aria-hidden="true">
+              <span>SDS-2026-019 cites SDS-2026-014</span>
+            </div>
+
+            <button type="button" class="decision-card decision-card--ink" data-step="3" aria-pressed="false">
+              <div class="decision-top">
+                <span class="decision-id">SDS-2026-019</span>
+                <span class="decision-badge decision-badge--hold">Hold</span>
+              </div>
+              <span class="decision-cite">Cites SDS-2026-014 · 18 June 2026</span>
+              <h3 class="decision-title">Reviewed on date, risk easing</h3>
+              <p class="decision-body">The team reviewed the criterion against updated activity results. The risk moved from worsening to easing, so the current plan holds.</p>
+              <div class="decision-foot">Marked reviewed on 18 June 2026 with the full trail intact.</div>
+            </button>
+          </div>
+
+          <p class="chain-footnote">
+            <span id="chain-readout">SDS-2026-014 cites SDS-2026-008 and leads into SDS-2026-019.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--white" aria-labelledby="section-discipline">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="mono section-num">03 / The weekly discipline</span>
+          <h2 id="section-discipline">How a 60-minute session prevents repeat debates</h2>
+          <p class="section-lead">Sessions run weekly, fortnightly or monthly. Vivo, Strapivo's AI, prepares the evidence. People make every decision.</p>
+        </div>
+
+        <ol class="discipline-list">
+          <li class="discipline-item">
+            <span class="discipline-num">01</span>
+            <div class="discipline-content">
+              <h3>Radar on up to four focus areas</h3>
+              <p>The Radar monitors outside developments tied to your focus areas, objectives and risks. Limiting focus to at most four criteria keeps noise out of the room.</p>
+            </div>
+          </li>
+          <li class="discipline-item">
+            <span class="discipline-num">02</span>
+            <div class="discipline-content">
+              <h3>Agenda drafted 24 hours ahead</h3>
+              <p>Vivo drafts the agenda from recent changes: confirmed signals, risks entering the danger zone, returning parked items and off-track activities. Old business comes first so open threads close before new debates begin.</p>
+            </div>
+          </li>
+          <li class="discipline-item">
+            <span class="discipline-num">03</span>
+            <div class="discipline-content">
+              <h3>Sealed first takes</h3>
+              <p>Before discussion begins, each leader writes an independent position. Strapivo reveals all positions together so the loudest voice cannot anchor the room.</p>
+            </div>
+          </li>
+          <li class="discipline-item">
+            <span class="discipline-num">04</span>
+            <div class="discipline-content">
+              <h3>Five clear decisions</h3>
+              <p>Every agenda item ends with Hold, Adapt, Pivot, Take advantage or Not yet. Parked questions require a return trigger.</p>
+            </div>
+          </li>
+          <li class="discipline-item">
+            <span class="discipline-num">05</span>
+            <div class="discipline-content">
+              <h3>Read-back with dissent by name</h3>
+              <p>Vivo reads back each decision entry and records any dissent by name with its reason. Once the session lead confirms the entry, it joins your permanent record.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="options-box" role="region" aria-label="Five decision options in Strapivo">
+          <div class="options-head">
+            <span class="mono" style="color:var(--n900)">Five options per agenda item</span>
+            <span class="mono" style="color:var(--p600)">Defined outcomes</span>
+          </div>
+          <div class="options-grid">
+            <div class="option-cell">
+              <div class="option-head">
+                <span class="option-idx">01</span>
+                <span class="option-name">Hold</span>
+              </div>
+              <p class="option-desc">The criterion stays intact and receives a review date.</p>
+            </div>
+            <div class="option-cell">
+              <div class="option-head">
+                <span class="option-idx">02</span>
+                <span class="option-name">Adapt</span>
+              </div>
+              <p class="option-desc">Vivo drafts revisions to objectives and activities for human approval.</p>
+            </div>
+            <div class="option-cell">
+              <div class="option-head">
+                <span class="option-idx">03</span>
+                <span class="option-name">Pivot</span>
+              </div>
+              <p class="option-desc">Revised wording for the criterion takes effect once an owner confirms it.</p>
+            </div>
+            <div class="option-cell">
+              <div class="option-head">
+                <span class="option-idx">04</span>
+                <span class="option-name">Take advantage</span>
+              </div>
+              <p class="option-desc">The team adds detour activities without altering the criterion.</p>
+            </div>
+            <div class="option-cell">
+              <div class="option-head">
+                <span class="option-idx">05</span>
+                <span class="option-name">Not yet</span>
+              </div>
+              <p class="option-desc">The team parks the question with a return trigger, or lets it go with a written reason.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--paper" aria-labelledby="section-governance">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="mono section-num">04 / Control and setup</span>
+          <h2 id="section-governance">The human stays in the chair</h2>
+        </div>
+
+        <div class="pillars-grid">
+          <div class="pillar">
+            <span class="mono pillar-label">Human authority</span>
+            <h3>Vivo proposes. People decide.</h3>
+            <p>Vivo never changes your approved strategy, moves a risk into the danger zone or flips a status light alone. Every change waits for a named person with authority.</p>
+          </div>
+
+          <div class="pillar">
+            <span class="mono pillar-label">European infrastructure</span>
+            <h3>EU-only infrastructure, GDPR by design</h3>
+            <p>Your strategic memory stays in the EU. Start with public and non-sensitive material and widen from there.</p>
+          </div>
+
+          <div class="pillar">
+            <span class="mono pillar-label">Onboarding</span>
+            <h3>Four to five hours, then you run it</h3>
+            <p>We do the reading first. Send your workshop report, strategy document or plain notes. You walk into session one with a draft you can correct, not a blank page.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band" aria-labelledby="section-cta">
+      <div class="cta-accent-bar" aria-hidden="true"></div>
+      <div class="wrap cta-grid">
+        <div>
+          <span class="mono cta-eyebrow">End the loop</span>
+          <h2 id="section-cta">Start your next session where the last one ended.</h2>
+          <p class="cta-copy">Send your strategy document. We prepare the first draft, run one session together and hand over the system.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn-primary" href="mailto:strategy@strapivo.com">
+            <span>Start the conversation</span>
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/>
+            </svg>
+          </a>
+          <span class="cta-email-note">strategy@strapivo.com</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <img src="../../assets/logo/strategy-mono-paper.svg" alt="Strapivo" width="100" height="25">
+      </div>
+      <div class="footer-meta">
+        <span>&copy; 2026 Strapivo</span>
+        <nav class="footer-links" aria-label="Legal">
+          <a href="/imprint">Imprint</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var cards = document.querySelectorAll('.decision-card');
+      var readout = document.getElementById('chain-readout');
+      if (!cards.length || !readout) return;
+
+      var messages = {
+        '1': 'SDS-2026-008 is the origin entry cited by SDS-2026-014.',
+        '2': 'SDS-2026-014 cites SDS-2026-008 and leads into SDS-2026-019.',
+        '3': 'SDS-2026-019 closes the thread started in SDS-2026-008 and SDS-2026-014.'
+      };
+
+      cards.forEach(function (card) {
+        card.addEventListener('click', function () {
+          var step = Number(card.getAttribute('data-step'));
+          cards.forEach(function (c) {
+            var cStep = Number(c.getAttribute('data-step'));
+            var isSelected = cStep === step;
+            c.classList.toggle('is-selected', isSelected);
+            c.classList.toggle('is-ancestor', cStep < step);
+            c.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+          });
+          readout.textContent = messages[String(step)] || '';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
